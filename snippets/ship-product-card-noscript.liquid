@@ -1,0 +1,141 @@
+{% comment %}
+    Renders a "noscript" product card.
+
+    Accepts:
+    - card_section {Object} Shopify section object (required)
+    - card_product {Object} Shopify product object
+    - gallery: {Boolean} Show a single product image or a full product image gallery. Defaults to false.
+    - gallery_mode: {Boolean} If thumbnail gallery is enabled, show animated preview of the next slide on first load. Defaults to false.
+    - align: {String} alignment of content under the image. One of: 'left', 'center', 'right'. Defaults to 'left'.
+    - block_order {String} Comma separated list denoting which order blocks are printed and in which order.
+    - aspect_ratio: {Int} Optional. Normalise all images to a set aspect ratio
+    - position: {String} Optional. If the image is cropped via aspect ratio. See case switch below.
+    - disable_quick_view: {Boolean} Optional. Set to true to disable quick view.
+    - classes: {String} Additional classes for the element.
+
+    Usage:
+    {% render 'ship-product-card' with card_product: product %}
+{% endcomment %}
+
+{% liquid
+  if align == blank
+    assign align = 'left'
+  endif
+
+  if block_order == blank
+    assign block_order = 'image,title,price'
+  endif
+
+  case position
+    when 'center'
+      assign pclass = 'object-center'
+    when 'left'
+      assign pclass = 'object-left'
+    when 'left-top'
+      assign pclass = 'object-left-top'
+    when 'left-bottom'
+      assign pclass = 'object-left-bottom'
+    when 'right'
+      assign pclass = 'object-right'
+    when 'right-top'
+      assign pclass = 'object-right-top'
+    when 'right-bottom'
+      assign pclass = 'object-right-bottom'
+    when 'top'
+      assign pclass = 'object-top'
+    when 'bottom'
+      assign pclass = 'object-bottom'
+    else
+      assign pclass = 'object-center'
+  endcase
+
+  if gallery == 'show_second_image' and card_product.media.size > 1
+    assign hide_main_img = 'group-hover:hidden '
+  endif
+
+  if aspect_ratio == blank or aspect_ratio == 'natural'
+    assign imgclasses = 'relative ' | append: hide_main_img
+    assign second_img_classes = 'relative hidden group-hover:block'
+  else
+    assign imgclasses = 'absolute w-full h-full z-0 object-cover ' | append: hide_main_img | append: pclass
+    assign second_img_classes = 'hidden absolute w-full h-full z-0 object-cover group-hover:block ' | append: pclass
+  endif
+
+  if gallery == 'show_slider'
+    assign block_order = block_order | replace: 'image', 'gallery'
+  endif
+
+%}
+
+<div
+  class="max-w-full product-card-noscript{% if classes %} {{ classes }}{% endif %}"
+  data-aid="product-card-noscript"
+>
+  {% for block in card_section.blocks %}
+    {% case block.type %}
+      {% when 'image' %}
+
+        <div
+          class="pb-2 last:pb-0 relative"
+        >
+          <a href="{{ card_product.url }}" title="{{ card_product.title }}" class="block">
+            <div class="{% if aspect_ratio %}aspect-{{ aspect_ratio }}{% endif %} relative group">
+              {% render 'armament-image' with image: card_product.featured_media.preview_image, classes: imgclasses %}
+              {% if gallery == 'show_second_image' and card_product.media.size > 1 %}
+                {% render 'armament-image' with image: card_product.media[1].preview_image, classes: second_img_classes %}
+              {% endif %}
+            </div>
+          </a>
+          {% if settings.enable_quick_view and disable_quick_view != true %}
+            {% render 'ship-quick-view' with quick_view_product: card_product, classes: 'bottom-2' %}
+          {% endif %}
+        </div>
+
+      {% when 'title' %}
+
+        <div
+          class="text-{{ align }} text-body px-2 md:px-3"
+        >
+          <a href="{{ card_product.url }}" title="{{ card_product.title }}">
+            {% render 'armament-heading' with tag: 'h5', heading_content: card_product.title, data_aid: 'product-card-product-heading' %}
+          </a>
+        </div>
+
+      {% when 'price' %}
+
+          <div
+            class="text-{{ align }} text-body px-2 md:px-3 pb-2"
+          >
+            {% render 'armament-price', price_product: card_product, price_only: true, align: align, discount_type: settings.show_discount_savings %}
+          </div>
+
+        {% when 'gallery' %}
+
+          <div
+            class="relative"
+          >
+            {% render 'armament-product-thumbnail-slider' with product_id: card_product.id, media: card_product.media, aspect_ratio: aspect_ratio, position: position, arrows: true, mode: gallery_mode %}
+            {% if settings.enable_quick_view and disable_quick_view != true %}
+              {% render 'ship-quick-view' with quick_view_product: card_product %}
+            {% endif %}
+          </div>
+
+        {% when 'swatch' %}
+
+          <div
+            class="text-{{ align }} px-2 md:px-3"
+          >
+            {% render 'armament-color-swatch' with swatch_product: card_product, identifiers: 'color,colour,couleur,colore,farbe,색,色,färg,farve' %}
+          </div>
+
+        {% when 'quick-add' %}
+
+          <div
+            class="text-{{ align }} px-2 md:px-3"
+          >
+            {% render 'ship-quick-add' with quick_product: card_product %}
+          </div>
+
+    {% endcase %}
+  {% endfor %}
+</div>

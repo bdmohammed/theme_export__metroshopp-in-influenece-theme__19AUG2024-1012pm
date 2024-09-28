@@ -1,0 +1,119 @@
+{%- liquid
+  assign duration = section.settings.duration | times: 1000
+  assign test_mode_success = false
+  assign test_mode_error = false
+  if section.settings.enable_test_mode
+    case section.settings.test_mode_type
+      when 'success'
+        assign test_mode_success = true
+      when 'error'
+        assign test_mode_error = true
+    endcase
+  endif
+-%}
+<armada-toast
+  data-test-mode-success="{{ test_mode_success }}"
+  data-test-mode-error="{{ test_mode_error }}"
+  data-item-added-message="{{ 'general.cart.item_added' | t }}"
+  data-items-added-message="{{ 'general.cart.items_added' | t }}"
+  data-email-error-message="{{ 'newsletter.invalid_email' | t }}"
+  data-email-error-header="{{ 'newsletter.newsletter_label' | t }}"
+  class="fixed bottom-0 md:bottom-auto right-0 pt-3 md:pb-3 md:top-3 md:px-3 md:pt-0 md:pb-[32px] w-full md:w-auto max-h-[100vh] z-[9999] overflow-hidden"
+  data-color-scheme="{{ section.settings.section_color_scheme }}"
+>
+  <template>
+    {% render 'ship-toast-item' with type: 'form-submit', icon: 'tick', duration: duration %}
+    {% render 'ship-toast-item' with type: 'error', icon: 'exclamation', duration: duration, color: section.settings.error_color %}
+    {% render 'ship-toast-item' with type: 'email', icon: 'warning', duration: duration, color: section.settings.error_color %}
+    {% render 'ship-toast-item' with type: 'atc', icon: 'tick', duration: duration %}
+    {% render 'ship-toast-item' with type: 'html', duration: duration %}
+  </template>
+</armada-toast>
+
+<safe-load-scripts>
+  <script src="{{ 'component-toast.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="component-toast"></script>
+  <script src="{{ 'component-toast-item.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="component-toast-item"></script>
+  <script src="{{ 'component-form-success.min.js' | asset_url }}" defer="defer" type="module"></script>
+  <script src="{{ 'component-form-errors.min.js' | asset_url }}" defer="defer" type="module"></script>
+</safe-load-scripts>
+
+{% schema %}
+{
+  "name": "Store notifications",
+  "settings": [
+    {
+      "type": "range",
+      "id": "duration",
+      "label": "Notification timing",
+      "unit": "sec",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "section_color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    },
+    {
+      "type": "color",
+      "id": "error_color",
+      "label": "Error notification accent color",
+      "default": "#FF0000"
+    },
+    {
+      "type": "header",
+      "content": "Test mode"
+    },
+    {
+      "type": "paragraph",
+      "content": "Shows an example store notification in the theme editor only."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_test_mode",
+      "label": "Enable test mode"
+    },
+    {
+      "type": "radio",
+      "id": "test_mode_type",
+      "label": "Test mode",
+      "options": [
+        {
+          "value": "success",
+          "label": "Success notification"
+        },
+        {
+          "value": "error",
+          "label": "Error notification"
+        }
+      ],
+      "default": "success"
+    }
+  ]
+}
+{% endschema %}

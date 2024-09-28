@@ -1,0 +1,48 @@
+{% comment %}
+    Renders a logo image or a heading if no image is present.
+
+    Accepts:
+    - logo_image: {Object} image object
+    - width_mobile: {String} the width of the logo in px (mobile) - (required)
+    - width_desktop: {String} the width of the logo in px (desktop) - (required)
+    - tag: {String} specify the HTML tag of the text logo if no image is present
+    - text_classes: {String} specify any classes for the text logo if no image is present
+    - image_classes: {String} specify any classes for the logo image
+    - link_classes: {String} specify any classes for the link
+    - attributes: {String} any attributes to add to the logo armament
+    - section_id: {Object} section.id (required)
+
+    Usage:
+    {% render 'armament-logo' with logo_image: block.settings.footer_logo, width_desktop: block.settings.logo_width_desktop, width_mobile: block.settings.logo_width_mobile, tag: 'h2', text_classes: 'text-h4 leading-none' %}
+{% endcomment %}
+{% liquid 
+  if tag != blank 
+    assign heading_tag = tag 
+  else 
+    assign heading_tag = 'h2'
+  endif
+%}
+
+<a href="{{ routes.root_url }}"{% if attributes %} {{ attributes }}{% endif %}{% if link_classes %} class="{{ link_classes }}"{% endif %} id="{{ section_id }}">
+  {%- if logo_image != blank %}
+    {% render 'armament-image' with image: logo_image, alt: shop.name, classes: image_classes, sizes: '(min-width: 1200px) calc(100vw / 3), (min-width: 1000px) calc(100vw / 2), (min-width: 750px) calc(100vw / 1.5), 100vw' %}
+  {% else %}
+    {% render 'armament-heading' with tag: heading_tag, heading_content: shop.name, section_subheading: true, classes: text_classes, data_aid: 'text-logo-heading' %}
+  {% endif -%}
+</a>
+
+<style>
+  {% if logo_image != blank %}
+    @media (max-width:768px) {
+      #{{ section_id }} .logo {
+        width: {{ width_mobile }}px;
+      }
+    }
+
+    @media(min-width:769px) {
+      #{{ section.id }} .logo {
+        width: {{ width_desktop }}px;
+      }
+    }
+  {% endif %}
+</style>

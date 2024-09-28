@@ -1,0 +1,118 @@
+
+{%liquid
+  assign show_divider = false
+  if section.settings.summary_color_scheme == 'general'
+    assign show_divider = true
+  endif
+%}
+
+<div
+  data-armada-selector="cart-main-section"
+  class="h-full bg-page relative"
+>
+  <script src="{{ 'component-cart-line-items.min.js' | asset_url }}" defer="defer" type="module"></script>
+
+  <div data-armada-selector="cart-main-inner" class="h-full">
+    {% if cart.items.size > 0 and section.settings.sticky_summary %}
+      <div class="hidden md:px-6 bg-page text-body" data-cart-summary-placeholder id="sticky-summary-placeholder" data-color-scheme={{ section.settings.summary_color_scheme }} data-aid="cart-summary-top">
+        {% render 'ship-cart-summary-static-top' with show_divider: show_divider %}
+      </div>
+    {% endif %}
+
+    <section
+      data-armada-selector="cart-empty-section"
+      {% if cart.items.size < 1 %}class="h-full"{% endif %}
+    >
+      <div class="h-full py-4 px-4 md:py-5 md:px-6 text-body bg-page{% if cart.items.size < 1 %} flex flex-col place-content-center{% endif %}">
+        <div class="max-w-[1280px] mx-auto{% if cart.items.size < 1 %} flex flex-col place-items-center{% endif %}">
+          {% if cart.items.size < 1 %}
+            {% assign htext = 'sections.cart.empty' | t %}
+            {% render 'armament-heading' with tag: 'h1', heading_content: htext, heading_type: 'heading-3', classes: 'mb-4 md:mb-5', data_aid: 'cart-main-heading' %}
+            {% assign continue_shopping_string = 'sections.cart.continue_shopping' | t %}
+            {% render 'armament-button' with url: routes.collections_url, content: continue_shopping_string %}
+          {% else %}
+            {% assign heading_text = 'general.cart.your_cart' | t %}
+            {% render 'armament-heading' with tag: 'h1', heading_content: heading_text, heading_type: 'heading-3', classes: 'mb-4 md:mb-5', data_aid: 'cart-main-heading' %}
+          {% endif %}
+          <cart-line-items data-section-id="{{ section.id }}">
+            <form action="{{ routes.cart_url }}" method="post" id="cart" data-armada-selector="cart-line-items-wrapper">
+              <ul>
+                {% for item in cart.items %}
+                  {% render 'ship-cart-line-item' with item: item, data_line_index: forloop.index %}
+                {% endfor %}
+              </ul>
+            </form>
+          </cart-line-items>
+        </div>
+      </div>
+    </section>
+    {% if cart.items.size > 0 %}
+      <div data-cart-summary-wrapper data-color-scheme="{{ section.settings.summary_color_scheme }}" class="w-full bg-page">
+        <div class="max-w-[1280px] mx-auto">
+          {% render 'ship-cart-summary' with
+          show_tax_shipping: section.settings.show_tax_shipping,
+          show_note: section.settings.enable_notes,
+          show_sticky_summary: section.settings.sticky_summary,
+          show_divider: show_divider
+           %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart page",
+  "class": "cart-main relative",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "sticky_summary",
+      "label": "Enable sticky summary",
+      "default": true,
+      "info": "Sticky checkout bar will appear at the top of the cart if there is a large number of items."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_notes",
+      "label": "Enable cart notes",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tax_shipping",
+      "label": "Show tax included / shipping policy",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "summary_color_scheme",
+      "label": "Summary color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "accent-1"
+    }
+  ]
+}
+{% endschema %}

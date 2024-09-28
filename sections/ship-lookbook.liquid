@@ -1,0 +1,356 @@
+{%- liquid
+  assign border = false
+  if section.settings.bg_color_scheme == section.settings.color_scheme
+    assign border = true
+  endif
+-%}
+
+{% if settings.enable_animations %}
+<zoomout-animation>
+{% endif %}
+
+<section data-color-scheme="{{ section.settings.bg_color_scheme }}" class="bg-page w-full px-4 md:px-6 py-5 md:py-6" data-aid="lookbook-wrapper">
+    <div class="max-w-screen-xl m-auto group relative">
+
+        <slider-engine
+        mode="horizontal"
+        blocks="true"
+        mobile-indicator="true"
+        class="block relative"
+        data-aid="lookbook"
+        data-name="scrollbar-target"
+        arrows="true"
+        visible-slides="1"
+        tabindex="0"
+        >
+
+            <div data-name="slider-wrap" class="relative overflow-hidden">
+
+                {% if section.blocks.size > 0 %}
+                    <ul
+                    data-name="slider"
+                    class="flex"
+                    data-aid="lookbook-slider"
+                    >
+
+                        {% for block in section.blocks %}
+
+                          {%- liquid
+                            if block.settings.image_position == 'left'
+                              assign image_position = 'md:h-full w-full md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'
+                              assign text_position = 'md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2'
+                            else
+                              assign image_position = 'md:h-full w-full md:row-start-1 md:row-end-2 md:col-start-2 md:col-end-3'
+                              assign text_position = 'md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'
+                            endif
+                          -%}
+
+                          <li
+                            data-name="slide"
+                            data-color-scheme="{{ section.settings.color_scheme }}"
+                            class="relative flex flex-col md:grid md:gap-x-1 md:grid-y-4 md:grid-cols-2 md:grid-rows-1 min-w-full"
+                            data-aid="lookbook-slide" {{ block.shopify_attributes }}
+                            data-block-id="{{ block.id }}"
+                          >
+
+                              <div
+                                class="lalala {{ image_position }} {% if block.settings.image == blank %}bg-white{% endif %}{% if border %} border-x border-t md:border-b{% endif %} overflow-hidden flex text-body"
+                                data-aid="lookbook-image"
+                              >
+
+                                  {%- liquid
+                                  if section.settings.image_aspect_ratio == 'square'
+                                      assign img_classes = 'aspect-[1/1] object-cover block w-full'
+                                      assign placeholder_classes = 'aspect-[1/1] object-cover block w-full fill-body'
+                                  else
+                                      assign img_classes = 'aspect-[4/5] object-cover block w-full'
+                                      assign placeholder_classes = 'aspect-[4/5] object-cover block w-full fill-body'
+                                  endif
+                                  -%}
+
+                                      {% if block.settings.image != blank %}
+                                      <div>
+                                          {% render 'armament-image' with image: block.settings.image, classes: img_classes, zoomout_animation: true %}
+                                      </div>
+                                      {% else %}
+                                          {% render 'armament-placeholder' with name: 'collection-1', classes: placeholder_classes %}
+                                      {% endif %}
+                              </div>
+
+                              <div
+                                class="{{ text_position }} bg-page text-body flex flex-col grow justify-center items-center border-body{% if border %} border{% endif %}"
+                                data-aid="lookbook-text"
+                              >
+
+                                  <div {% if settings.enable_animations %}data-fadeup-animation {% endif %}class="{{ block.settings.text_alignment }} p-4 mx-4">
+                                      {% liquid
+                                          if block.settings.subheading != blank
+                                              render 'armament-heading' with tag: 'h4', heading_content: block.settings.subheading, heading_type: 'heading-4', classes: 'pb-2 md:pb-3', data_aid: 'lookbook-subheading'
+                                          endif
+
+                                          if block.settings.heading != blank
+                                              render 'armament-heading' with tag: 'h3', heading_content: block.settings.heading, heading_type: 'heading-3', classes: 'pb-3 md:pb-4', data_aid: 'lookbook-heading'
+                                          endif
+
+                                          if block.settings.button_link != blank and block.settings.button_text != blank
+                                              render 'armament-button' with url: block.settings.button_link, content: block.settings.button_text, style: block.settings.button_style, classes: "leading-none", data_aid: "lookbook-button"
+                                          endif
+                                      %}
+                                  </div>
+
+                              </div>
+                          </li>
+
+                        {% endfor %}
+                    </ul>
+
+                {% else %}
+
+                    <p
+                      class="p-3 md:py-4 text-center"
+                      data-aid="lookbook-onboarding-text"
+                    >{{ 'general.onboarding.no_content' | t }}</p>
+
+                {% endif %}
+
+            </div>
+
+            {% comment %} Slider-specific elements {% endcomment %}
+            <template>
+                <div data-name="counter" class="sr-only">
+                    <div class="">
+                    <span data-name="counter-current"></span>
+                    <span class="sr-only">Slide</span>
+                    </div>
+                    <div class="px-2">
+                    <span aria-hidden="true">|</span>
+                    <span class="sr-only">of</span>
+                    </div>
+                    <div class="">
+                    <span data-name="counter-total"></span>
+                    </div>
+                </div>
+                {% capture svg_colors %}data-color-scheme="{{ section.settings.bg_color_scheme }}"{% endcapture %}
+                {% render 'armament-slider-arrows' with hide_on_mobile: true, border: border, attributes: svg_colors %}
+                <div data-name="mobile-indicator" class="mt-4 md:mt-5">
+                    {% render 'armament-scroll-bar' with item_count: section.blocks.size, parent: 'slider-engine', target: 'slider', indicator: 'progress' %}
+                </div>
+            </template>
+        </slider-engine>
+
+    </div>
+</section>
+
+{% if settings.enable_animations %}
+</zoomout-animation>
+{% endif %}
+
+<safe-load-scripts>
+    <script src="{{ 'engine-slider.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="slider-engine"></script>
+    {% if settings.enable_animations %}
+        <script src="{{ 'engine-zoomout-animation.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="zoomout-animation"></script>
+    {% endif %}
+</safe-load-scripts>
+
+{% schema %}
+{
+  "class": "w-full",
+  "name": "Lookbook",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image aspect ratio",
+      "default": "portrait",
+      "options": [
+        {
+          "label": "Square (1:1)",
+          "value": "square"
+        },
+        {
+          "label": "Portrait (2:3)",
+          "value": "portrait"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "bg_color_scheme",
+      "label": "Background color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Card color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "look",
+      "name": "Look",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1400 x 1400px recommended"
+        },
+        {
+          "type": "radio",
+          "id": "image_position",
+          "label": "Image position (desktop)",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "options": [
+            {
+              "value": "text-left mr-auto",
+              "label": "Left"
+            },
+            {
+              "value": "text-center",
+              "label": "Center"
+            },
+            {
+              "value": "text-right ml-auto",
+              "label": "Right"
+            }
+          ],
+          "default": "text-center"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Inspire customers"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Lookbook"
+        },
+        {
+          "type": "header",
+          "content": "Buttons"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link",
+          "default": "/collections/all"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button label",
+          "default": "Shop the look"
+        },
+        {
+          "type": "radio",
+          "id": "button_style",
+          "label": "Button style",
+          "options": [
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "fill",
+              "label": "Fill"
+            }
+          ],
+          "default": "fill"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lookbook",
+      "settings": {
+      },
+      "blocks": [
+        {
+          "type": "look"
+        },
+        {
+          "type": "look",
+          "settings": {
+            "subheading": "Encourage cross sells"
+          }
+        },
+        {
+          "type": "look",
+          "settings": {
+            "subheading": "Boost average order value"
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer",
+      "custom.overlay"
+    ]
+  }
+}
+{% endschema %}

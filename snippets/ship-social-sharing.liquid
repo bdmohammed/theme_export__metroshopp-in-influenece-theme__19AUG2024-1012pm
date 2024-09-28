@@ -1,0 +1,75 @@
+{% comment %}
+    Renders social media icons.
+
+    Accepts:
+    - share_object: {String} eg. product or article
+    - show_facebook: {Boolean} show the facebook icon
+    - show_twitter: {Boolean} show the twitter icon
+    - show_pinterest: {Boolean} show the pinterest icon
+    - alignment: {String} alignment - 'left' or 'right'
+    - shopify_attributes: {Object} required if used as a block.
+
+    Usage:
+    {% render 'ship-social-sharing' with share_object: article %}
+{% endcomment %}
+
+{% if show_facebook or show_twitter or show_pinterest %}
+
+  {% if share_object == 'product' %}
+    {% capture permalinkURL %}{{ shop.url }}{{ product.url }}{% endcapture %}
+    {% capture shareTitle %}{{ product.title }}{% endcapture %}
+    {% capture shareImage %}{{ product.featured_image | image_url: width: 2000, height: 2000 }}{% endcapture %}
+  {% endif %}
+
+  {% if share_object == 'article' %}
+    {% capture permalinkURL %}{{ shop.url }}{{ article.url }}{% endcapture %}
+    {% capture shareTitle %}{{ article.title }}{% endcapture %}
+    {% assign article_img = article.image | default: page_image %}
+    {% capture shareImage %}{{ article_img | image_url: width: 2000, height: 2000 }}{% endcapture %}
+  {% endif %}
+
+  {%- liquid
+    case alignment
+      when 'left'
+        assign container_alignment_class = '-translate-x-3'
+      when 'right'
+        assign container_alignment_class = 'translate-x-3'
+    endcase
+  -%}
+
+  <div id="sharing" class="flex flex-col pb-3 md:pb-4{% if alignment == 'right' %} text-right{% endif %}" data-permalink="{{ permalinkURL }}" {% if shopify_attributes %}{{ shopify_attributes }}{% endif %}>
+    {% assign share_heading = 'blogs.article.share' | t %}
+    {% render 'armament-heading' with heading_content: share_heading, classes: 'mb-2', heading_type: 'heading-5', data_aid: 'social-share-heading' %}
+
+    <div class="flex flex-row {{ container_alignment_class }}">
+      {% if show_facebook %}
+      <!-- https://developers.facebook.com/docs/plugins/share-button/ -->
+      <a target="_blank" rel="nopener noreferrer" href="//www.facebook.com/sharer.php?u={{ permalinkURL }}" class="group p-3">
+        {% render 'armament-icon' with icon: 'facebook' %}
+        <span class="sr-only">Share on Facebook</span>
+      </a>
+      {% endif %}
+
+      {% if show_twitter %}
+      <!-- https://dev.twitter.com/docs/intents -->
+      <a target="_blank" rel="nopener noreferrer" href="//twitter.com/share?url={{ permalinkURL }}&amp;text={{ shareTitle | escape }}" class="group p-3">
+        {% render 'armament-icon' with icon: 'twitter' %}
+        <span class="sr-only">Tweet</span>
+      </a>
+      {% endif %}
+
+      {% if show_pinterest %}
+      <!--
+      https://developers.pinterest.com/pin_it/
+      Pinterest get data from the same Open Graph meta tags Facebook uses
+      -->
+
+      <a target="_blank" rel="nopener noreferrer" href="//pinterest.com/pin/create/button/?url={{ permalinkURL }}&amp;media={{ shareImage }}&amp;description={{ shareTitle | escape }}" class="group p-3">
+        {% render 'armament-icon' with icon: 'pinterest' %}
+        <span class="sr-only">Pin it</span>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+
+{% endif %}

@@ -1,0 +1,38 @@
+{% comment %}
+    Renders the theme navigation
+
+    Accepts:
+    - section_blocks: {Object} The navigation section blocks.
+    - icon: {String} One of 'plus', 'chevron', 'none'.
+
+    Usage:
+    {% render 'ship-main-navigation' with section_blocks: section.blocks %}
+{% endcomment %}
+
+<div data-armada-selector="main-navigation" id="main-navigation" class="invisible lg:visible lg:h-full flex flex-col items-start lg:items-center absolute bottom-0 left-0 right-0 translate-y-full opacity-0 lg:opacity-100 z-[101] pb-4 lg:pb-0 lg:static lg:transform-none bg-page main-navigation">
+  <ul role="navigation" class="lg:h-full inline-flex flex-col lg:flex-row flex-wrap w-full px-4 lg:px-0" data-aid="navigation-items">
+    {% assign menu_index = 1 %}
+    {% for block in section_blocks %}
+      {% case block.type %}
+        {% when 'standard_menu' %}
+          {% for link in block.settings.default_navigation.links %}
+            {% render 'armament-navigation-list-item' with heading: link.title, heading_link: link.url, navigation: link.links, block_attributes: block.shopify_attributes, active: link.active, icon: icon, menu_index: menu_index %}
+            {% assign menu_index = menu_index | plus: 1 %}
+          {% endfor %}
+
+        {% when 'mega_menu' %}
+          {% render 'armament-navigation-list-item' with heading: block.settings.heading, heading_link: block.settings.heading_link, navigation: block.settings.menu.links, block_attributes: block.shopify_attributes, menu_index: menu_index, image_1: block.settings.image_1, image_heading_1: block.settings.image_heading_1, image_link_1: block.settings.image_link_1, image_2: block.settings.image_2, image_heading_2: block.settings.image_heading_2, image_link_2: block.settings.image_link_2, image_3: block.settings.image_3, image_heading_3: block.settings.image_heading_3, image_link_3: block.settings.image_link_3, overlay_color: block.settings.overlay_color_scheme, overlay_opacity: block.settings.overlay_opacity, icon: icon, aspect: block.settings.image_aspect, text_color: block.settings.text_color_scheme %}
+          {% assign menu_index = menu_index | plus: 1 %}
+
+        {% when 'menu_link' %}
+          {% render 'armament-navigation-list-item' with heading: block.settings.heading, heading_link: block.settings.heading_link, block_attributes: block.shopify_attributes, icon: icon, menu_index: menu_index %}
+          {% assign menu_index = menu_index | plus: 1 %}
+
+        {% when 'gallery_nav' %}
+          {% render 'armament-navigation-list-item' with heading: block.settings.heading, heading_link: block.settings.heading_link, visual: true, block_attributes: block.shopify_attributes, menu_index: menu_index, image_1: block.settings.image_1, image_heading_1: block.settings.image_heading_1, image_link_1: block.settings.image_link_1, image_2: block.settings.image_2, image_heading_2: block.settings.image_heading_2, image_link_2: block.settings.image_link_2, image_3: block.settings.image_3, image_heading_3: block.settings.image_heading_3, image_link_3: block.settings.image_link_3, image_4: block.settings.image_4, image_heading_4: block.settings.image_heading_4, image_link_4: block.settings.image_link_4, overlay_color: block.settings.overlay_color_scheme, overlay_opacity: block.settings.overlay_opacity, aspect: block.settings.image_aspect, icon: icon, text_color: block.settings.text_color_scheme %}
+          {% assign menu_index = menu_index | plus: 1 %}
+
+      {% endcase %}
+    {% endfor %}
+  </ul>
+</div>

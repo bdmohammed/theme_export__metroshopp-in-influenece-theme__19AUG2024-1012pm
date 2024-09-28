@@ -1,0 +1,632 @@
+{% liquid
+  if section.settings.section_width == 'full-with-padding'
+    assign desktop_padding = 'md:p-6'
+    assign mobile_padding = 'py-5 px-4'
+    assign mobile_image_classes = 'object-cover h-full w-full md:object-contain md:hidden block'
+  else
+    assign desktop_padding = 'px-0'
+    assign mobile_padding = 'px-0'
+    assign mobile_image_classes = 'object-cover md:hidden block h-full w-full'
+  endif
+
+  case section.settings.text_position
+    when 'top_left' or 'top_center' or 'top_right'
+      assign vertical_align = 'justify-start'
+    when 'left' or 'center' or 'right'
+      assign vertical_align = 'justify-center'
+    when 'bottom_left' or 'bottom_center' or 'bottom_right'
+      assign vertical_align = 'justify-end'
+    when 'top_left' or 'left' or 'bottom_left'
+      assign horizontal_align = 'items-start text-left'
+    when 'top_center' or 'center' or 'bottom_center'
+      assign horizontal_align = 'items-center text-center'
+    when 'top_right' or 'right' or 'bottom_right'
+      assign horizontal_align = 'items-end text-right'
+  endcase
+
+  case section.settings.overlay_color_scheme
+  when 'light'
+    assign overlay_bg = 'bg-white'
+  when 'dark'
+    assign overlay_bg = 'bg-black'
+  endcase
+
+  case section.settings.desktop_height
+  when 's'
+    assign desktop_height = 'md:h-[400px]'
+  when 'm'
+    assign desktop_height = 'md:h-[550px]'
+  when 'l'
+    assign desktop_height = 'md:h-[750px]'
+  when 'xl'
+    assign desktop_height = 'md:h-screen'
+  endcase
+
+  case section.settings.mobile_height
+  when 's'
+    assign mobile_height = 'h-[350px] '
+  when 'm'
+    assign mobile_height = 'h-[400px] '
+  when 'l'
+    assign mobile_height = 'h-[500px] '
+  when 'xl'
+    assign mobile_height = 'h-screen '
+  endcase
+
+  assign desktop_sizes = '110vw'
+  assign section_heights = mobile_height | append: desktop_height
+  assign opacity_value = section.settings.overlay_opacity | divided_by: 100.0
+  assign bg_opacity = 'style="opacity:' | append: opacity_value | append: ';"'
+%}
+
+{% if settings.enable_animations %}
+<zoomout-animation>
+{% endif %}
+
+<section class='{{ desktop_padding }} {{ mobile_padding }} bg-page w-full grid grid-cols-1 auto-rows-auto overflow-hidden {{ section_heights }}' data-color-scheme='{{ section.settings.background_color_scheme }}' data-aid="image-with-text-overlay">
+    <div class="col-start-1 col-end-2 row-start-1 row-end-4 z-5 overflow-hidden">
+      {% liquid
+        if section.settings.desktop_image != blank and section.settings.mobile_image != blank
+          render 'armament-image' with image: section.settings.desktop_image, classes: 'hidden md:block md:object-cover h-full w-full', zoomout_animation: true, sizes: desktop_sizes
+          render 'armament-image' with image: section.settings.mobile_image, classes: mobile_image_classes, zoomout_animation: true
+
+        elsif section.settings.desktop_image != blank and section.settings.mobile_image == blank
+          render 'armament-image' with image: section.settings.desktop_image, classes: 'object-cover h-full w-full', zoomout_animation: true, sizes: desktop_sizes
+
+        elsif section.settings.desktop_image == blank and section.settings.mobile_image != blank
+          render 'armament-placeholder' with name: 'lifestyle-2', classes: 'hidden md:block h-full w-full'
+          render 'armament-image' with image: section.settings.mobile_image, classes: mobile_image_classes, zoomout_animation: true
+
+        elsif section.settings.desktop_image == blank and section.settings.mobile_image == blank
+          render 'armament-placeholder' with name: 'lifestyle-2', classes: 'hidden md:block w-full h-full'
+          render 'armament-placeholder' with name: 'collection-1', classes: mobile_image_classes
+        endif
+      %}
+    </div>
+
+    <div class="{{ overlay_bg }} col-start-1 col-end-2 row-start-1 row-end-4 z-10" {{ bg_opacity }} data-aid="image-overlay"></div>
+
+    <div {% if settings.enable_animations %}data-fadeup-animation{% endif %} class="z-20 col-start-1 col-end-2 row-start-1 row-end-4 text-body md:text-left p-4 md:p-6 flex flex-col {{ vertical_align }} {{ horizontal_align }}" data-aid="caption-container">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'overlay_content' %}
+
+            <div class="flex flex-col {{ vertical_align }} {{ horizontal_align }}" data-color-scheme='{{ block.settings.text_color_scheme }}'>
+              {% if block.settings.section_subheading != blank %}
+                {% render 'armament-heading' with tag: 'h3', heading_content: block.settings.section_subheading, heading_type: 'heading-5', classes: 'text-body', data_aid: 'img-w-text-overlay-subheading' %}
+              {% endif %}
+
+              {% if block.settings.title != blank %}
+                {% render 'armament-heading' with tag: 'h2', heading_content: block.settings.title, heading_type: 'heading-3', classes: 'text-body mt-3 md:mt-3', data_aid: 'img-w-text-overlay-heading' %}
+              {% endif %}
+
+              <div class="button_container flex flex-col md:flex-row">
+                {% if block.settings.button_1_text != blank and block.settings.button_1_link != blank %}
+                  {% render 'armament-button' with url: block.settings.button_1_link, content: block.settings.button_1_text, style: block.settings.button_1_style, type: 'button', classes: 'mt-3 md:mt-4 last:mr-0 md:mr-4', data_aid: "img-w-text-overlay-button-1" %}
+                {% endif %}
+
+                {% if block.settings.button_2_text != blank and block.settings.button_2_link != blank %}
+                  {% render 'armament-button' with url: block.settings.button_2_link, content: block.settings.button_2_text, style: block.settings.button_2_style, type: 'button', classes: 'mt-3 md:mt-4', data_aid: "img-w-text-overlay-button-2" %}
+                {% endif %}
+              </div>
+            </div>
+
+          {% when 'social_cta' %}
+
+            {% unless block.settings.social_icon == 'none' and block.settings.social_link_text == blank %}
+              {%- liquid
+                if block.settings.transparent_bg
+                  if section.settings.horizontal_alignment == 'left'
+                    assign icon_size_int = block.settings.icon_size | times: 1
+                    if icon_size_int < 25 and block.settings.social_icon != 'none' and block.settings.social_icon_shape == 'floating'
+                      assign horizontal_class = ' -ml-3'
+                    else
+                      assign horizontal_class = ' -ml-2'
+                    endif
+                  elsif section.settings.horizontal_alignment == 'right'
+                    assign horizontal_class = ' -mr-2'
+                  endif
+
+                  assign social_cta_classes = 'first:-mt-3 last:md:mt-2 last:-mb-3' | append: horizontal_class
+                else
+                  assign social_cta_classes = 'first:-mt-2 first:mb-2 last:mt-3 last:-mb-2'
+                endif
+              -%}
+              <div class="flex flex-col {{ vertical_align }} {{ horizontal_align }} {{ social_cta_classes }}">
+                {% render 'ship-social-callout' with
+                  link: block.settings.social_link,
+                  text: block.settings.social_link_text,
+                  color_scheme:  block.settings.social_color_scheme,
+                  transparent: block.settings.transparent_bg,
+                  social_icon: block.settings.social_icon,
+                  icon_shape: block.settings.social_icon_shape,
+                  icon_size:  block.settings.icon_size,
+                  animate: false,
+                %}
+              </div>
+            {% endunless %}
+        {% endcase %}
+      {% endfor %}
+    </div>
+    {% if section.settings.image_link != blank %}
+      <a class="col-start-1 col-end-2 row-start-1 row-end-4 z-30" href="{{ section.settings.image_link }}"></a>
+    {% endif %}
+</section>
+
+{% if settings.enable_animations %}
+  </zoomout-animation>
+
+  <safe-load-scripts>
+    <script src="{{ 'engine-zoomout-animation.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="zoomout-animation"></script>
+  </safe-load-scripts>
+{% endif %}
+
+{% schema %}
+  {
+    "class": "w-full",
+    "name": "Image with text overlay",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Image settings"
+      },
+      {
+        "type": "image_picker",
+        "id": "desktop_image",
+        "label": "Desktop image",
+        "info": "2000x900 Recommended"
+      },
+      {
+        "type": "select",
+        "id": "desktop_height",
+        "label": "Desktop height",
+        "options": [
+          {
+            "value": "s",
+            "label": "Small"
+          },
+          {
+            "value": "m",
+            "label": "Medium"
+          },
+          {
+            "value": "l",
+            "label": "Large"
+          },
+          {
+            "value": "xl",
+            "label": "Crop to fit screen"
+          }
+        ],
+        "default": "xl"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_image",
+        "label": "Mobile image",
+        "info": "1400x1400 Recommended"
+      },
+      {
+        "type": "select",
+        "id": "mobile_height",
+        "label": "Mobile height",
+        "options": [
+          {
+            "value": "s",
+            "label": "Small"
+          },
+          {
+            "value": "m",
+            "label": "Medium"
+          },
+          {
+            "value": "l",
+            "label": "Large"
+          },
+          {
+            "value": "xl",
+            "label": "Crop to fit screen"
+          }
+        ],
+        "default": "m"
+      },
+      {
+        "type": "url",
+        "id": "image_link",
+        "label": "Image link"
+      },
+      {
+        "type": "select",
+        "id": "section_width",
+        "label": "Section width",
+        "info": "These changes may only be visible on larger screens",
+        "options": [
+          {
+            "value": "full",
+            "label": "Full width"
+          },
+          {
+            "value": "full-with-padding",
+            "label": "Full width with padding"
+          }
+        ],
+        "default": "full"
+      },
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "select",
+        "id": "text_position",
+        "label": "Text position",
+        "options": [
+          {
+            "value": "top_left",
+            "label": "Top left"
+          },
+          {
+            "value": "top_center",
+            "label": "Top center"
+          },
+          {
+            "value": "top_right",
+            "label": "Top right"
+          },
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          },
+          {
+            "value": "bottom_left",
+            "label": "Bottom left"
+          },
+          {
+            "value": "bottom_center",
+            "label": "Bottom center"
+          },
+          {
+            "value": "bottom_right",
+            "label": "Bottom right"
+          }
+        ],
+        "default": "bottom_left"
+      },
+      {
+        "type": "header",
+        "content": "Color scheme"
+      },
+      {
+        "type": "select",
+        "id": "background_color_scheme",
+        "label": "Background color scheme",
+        "info": "This will apply if the section width is 'full width with padding'",
+        "options": [
+          {
+            "value": "general",
+            "label": "General"
+          },
+          {
+            "value": "accent-1",
+            "label": "Accent 1"
+          },
+          {
+            "value": "accent-2",
+            "label": "Accent 2"
+          },
+          {
+            "value": "accent-3",
+            "label": "Accent 3"
+          }
+        ],
+        "default": "general"
+      },
+      {
+        "type": "select",
+        "id": "overlay_color_scheme",
+        "label": "Overlay color scheme",
+        "options": [
+          {
+            "value": "light",
+            "label": "Light"
+          },
+          {
+            "value": "dark",
+            "label": "Dark"
+          }
+        ],
+        "default": "light"
+      },
+      {
+        "type": "range",
+        "id": "overlay_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 10,
+        "unit": "%",
+        "label": "Overlay opacity",
+        "default": 50
+      }
+    ],
+    "blocks": [
+      {
+        "type": "overlay_content",
+        "name": "Overlay content",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Text settings"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Big, beautiful imagery"
+          },
+          {
+            "type": "text",
+            "id": "section_subheading",
+            "label": "Subheading",
+            "default": "Make an impact"
+          },
+          {
+            "type": "header",
+            "content": "Buttons"
+          },
+          {
+            "type": "url",
+            "id": "button_1_link",
+            "label": "First button link",
+            "default": "/collections/all"
+          },
+          {
+            "type": "text",
+            "id": "button_1_text",
+            "label": "First button label",
+            "default": "Shop now"
+          },
+          {
+            "type": "radio",
+            "id": "button_1_style",
+            "label": "First button style",
+            "options": [
+              {
+                "value": "outline",
+                "label": "Outline"
+              },
+              {
+                "value": "fill",
+                "label": "Fill"
+              }
+            ],
+            "default": "fill"
+          },
+          {
+            "type": "url",
+            "id": "button_2_link",
+            "label": "Second button link"
+          },
+          {
+            "type": "text",
+            "id": "button_2_text",
+            "label": "Second button label"
+          },
+          {
+            "type": "radio",
+            "id": "button_2_style",
+            "label": "Second button style",
+            "options": [
+              {
+                "value": "outline",
+                "label": "Outline"
+              },
+              {
+                "value": "fill",
+                "label": "Fill"
+              }
+            ],
+            "default": "outline"
+          },
+          {
+            "type": "header",
+            "content": "Color scheme"
+          },
+          {
+            "type": "select",
+            "id": "text_color_scheme",
+            "label": "Color scheme",
+            "options": [
+              {
+                "value": "general",
+                "label": "General"
+              },
+              {
+                "value": "accent-1",
+                "label": "Accent 1"
+              },
+              {
+                "value": "accent-2",
+                "label": "Accent 2"
+              },
+              {
+                "value": "accent-3",
+                "label": "Accent 3"
+              }
+            ],
+            "default": "general"
+          }
+        ],
+        "limit": 1
+      },
+      {
+        "type": "social_cta",
+        "name": "Callout",
+        "settings": [
+          {
+            "type": "select",
+            "id": "social_icon",
+            "label": "Social Icon",
+            "options": [
+              {
+                "value": "none",
+                "label": "None"
+              },
+              {
+                "value": "facebook",
+                "label": "Facebook"
+              },
+              {
+                "value": "instagram",
+                "label": "Instagram"
+              },
+              {
+                "value": "pinterest",
+                "label": "Pinterest"
+              },
+              {
+                "value": "snapchat",
+                "label": "Snapchat"
+              },
+              {
+                "value": "tiktok",
+                "label": "TikTok"
+              },
+              {
+                "value": "twitch",
+                "label": "Twitch"
+              },
+              {
+                "value": "twitter",
+                "label": "Twitter"
+              },
+              {
+                "value": "youtube",
+                "label": "YouTube"
+              }
+            ],
+            "default": "none"
+          },
+          {
+            "type": "select",
+            "id": "social_icon_shape",
+            "label": "Social icon shape",
+            "options": [
+              {
+                "value": "circle",
+                "label": "Circle"
+              },
+              {
+                "value": "square",
+                "label": "Square (1:1)"
+              },
+              {
+                "value": "floating",
+                "label": "Floating"
+              }
+            ],
+            "default": "floating"
+          },
+          {
+            "type": "select",
+            "id": "icon_size",
+            "label": "Icon size",
+            "options": [
+              {
+                "value": "16",
+                "label": "small"
+              },
+              {
+                "value": "24",
+                "label": "Medium"
+              },
+              {
+                "value": "32",
+                "label": "Large"
+              },
+              {
+                "value": "44",
+                "label": "Extra Large"
+              }
+            ],
+            "default": "24"
+          },
+          {
+            "type": "text",
+            "id": "social_link_text",
+            "label": "Text",
+            "default": "follow us"
+          },
+          {
+            "type": "url",
+            "id": "social_link",
+            "label": "Link",
+            "default": "/"
+          },
+          {
+            "type": "header",
+            "content": "Color"
+          },
+          {
+            "type": "select",
+            "id": "social_color_scheme",
+            "label": "Color scheme",
+            "options": [
+              {
+                "value": "general",
+                "label": "General"
+              },
+              {
+                "value": "accent-1",
+                "label": "Accent 1"
+              },
+              {
+                "value": "accent-2",
+                "label": "Accent 2"
+              },
+              {
+                "value": "accent-3",
+                "label": "Accent 3"
+              }
+            ],
+            "default": "general"
+          },
+          {
+            "type": "checkbox",
+            "id": "transparent_bg",
+            "label": "Transparent background",
+            "default": true
+          }
+        ],
+        "limit": 1
+      }
+    ],
+    "presets": [
+     {
+       "name": "Image with text overlay",
+       "settings": {
+
+        },
+       "blocks": [
+          {
+            "type": "overlay_content"
+          }
+       ]
+     }
+   ],
+   "disabled_on": {
+    "groups": [
+      "header",
+      "footer",
+      "custom.overlay"
+    ]
+  }
+  }
+{% endschema %}

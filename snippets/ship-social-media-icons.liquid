@@ -1,0 +1,189 @@
+{% comment %}
+    Renders social media icons.
+
+    Accepts:
+    - show_icons: {Boolean} when true, displays social media icons
+    - show_labels: {Boolean} when true, displays social media labels next to the icons
+    - icons_shape: {String} accepts 'square', 'circle' or 'floating'
+    - icons_color: {String} color scheme selected for the icons
+    - original_icons: {Boolean} when true, it renders the original icons with their brand colors
+    - social_media_wrapper: {String} additional classes for the icons <a> wrapper
+
+    Usage:
+    {% render 'ship-social-media' with show_icons: true, show_labels: true %}
+{% endcomment %}
+
+{%- liquid
+  assign icons_direction = 'flex-row flex-wrap'
+	if show_labels
+		assign icons_direction = 'flex-col'
+	endif
+
+	assign icons_classes = 'text-page bg-body'
+	if icons_shape == 'floating'
+		assign icons_classes = 'text-page text-body'
+	endif
+
+  if show_icons == blank
+		assign show_icons = true
+	endif
+
+	assign social_media_wrapper = social_media_wrapper | append: ' group'
+-%}
+
+<ul class="flex {{ icons_direction }} {% unless show_icons == false or icons_shape == 'floating' %}gap-3 md:gap-4{% endunless %}{% if icons_shape == 'floating' %} -ml-3{% endif %}" role="list" data-aid="footer-social-media-icons" data-color-scheme="{{ icons_color }}">
+
+	{% if settings.social_facebook_link != blank %}
+		<a href="{{ settings.social_facebook_link }}" class="{{ social_media_wrapper }}" target="_blank" {% if show_labels %}aria-labelledby="facebook_label"{% else %}aria-label="Facebook"{% endif %}>
+      <li class="flex items-center min-h-[44px]" data-aid="social-media-facebook">
+        {% if show_icons %}
+          {% render 'armament-social-icons' with
+            social_icon: 'facebook',
+            icons_color: icons_color,
+            show_labels: show_labels,
+            icons_shape: icons_shape,
+            icons_classes: icons_classes,
+            original_icons: original_icons %}
+        {% endif %}
+        {% if show_labels %}
+          <p class="text-body{% if show_icons %} ml-2{% endif %}" id="facebook_label">Facebook</p>
+        {% endif %}
+      </li>
+    </a>
+	{% endif %}
+
+	{% if settings.social_instagram_link != blank %}
+		<a href="{{ settings.social_instagram_link }}" class="{{ social_media_wrapper }}" target="_blank" {% if show_labels %}aria-labelledby="instagram_label"{% else %}aria-label="Instagram"{% endif %}>
+      <li class="flex items-center min-h-[44px]" data-aid="social-media-instagram">
+        {% if show_icons %}
+          {% render 'armament-social-icons' with
+            social_icon: 'instagram',
+            icons_color: icons_color,
+            show_labels: show_labels,
+            icons_shape: icons_shape,
+            icons_classes: icons_classes,
+            original_icons: original_icons %}
+        {% endif %}
+        {% if show_labels %}
+          <p class="text-body{% if show_icons %} ml-2{% endif %}" id="instagram_label">Instagram</p>
+        {% endif %}
+      </li>
+    </a>
+	{% endif %}
+
+	{% if settings.social_pinterest_link != blank %}
+		<a href="{{ settings.social_pinterest_link }}" class="{{ social_media_wrapper }}" target="_blank" {% if show_labels %}aria-labelledby="pinterest_label"{% else %}aria-label="Pinterest"{% endif %}>
+				<li class="flex items-center min-h-[44px]" data-aid="social-media-pinterest">
+					{% if show_icons %}
+						{% render 'armament-social-icons' with
+							social_icon: 'pinterest',
+							icons_color: icons_color,
+							show_labels: show_labels,
+							icons_shape: icons_shape,
+							icons_classes: icons_classes,
+							original_icons: original_icons %}
+					{% endif %}
+					{% if show_labels %}
+						<p class="text-body{% if show_icons %} ml-2{% endif %}" id="pinterest_label">Pinterest</p>
+					{% endif %}
+				</li>
+        </a>
+	{% endif %}
+
+	{% if settings.social_snapchat_link != blank %}
+		<a href="{{ settings.social_snapchat_link }}" class="{{ social_media_wrapper }}" target="_blank" {% if show_labels %}aria-labelledby="snapchat_label"{% else %}aria-label="Snapchat"{% endif %}>
+				<li class="flex items-center min-h-[44px]" data-aid="social-media-snapchat">
+					{% if show_icons %}
+						{% render 'armament-social-icons' with
+							social_icon: 'snapchat',
+							icons_color: icons_color,
+							show_labels: show_labels,
+							icons_shape: icons_shape,
+							icons_classes: icons_classes,
+							original_icons: original_icons %}
+					{% endif %}
+					{% if show_labels %}
+						<p class="text-body{% if show_icons %} ml-2{% endif %}" id="snapchat_label">Snapchat</p>
+					{% endif %}
+				</li>
+        </a>
+	{% endif %}
+
+	{% if settings.social_tiktok_link != blank %}
+		<a href="{{ settings.social_tiktok_link }}" class="{{ social_media_wrapper }}" target="_blank" {% if show_labels %}aria-labelledby="tiktok_label"{% else %}aria-label="TikTok"{% endif %}>
+				<li class="flex items-center min-h-[44px]" data-aid="social-media-tiktok">
+					{% if show_icons %}
+						{% render 'armament-social-icons' with
+							social_icon: 'tiktok',
+							icons_color: icons_color,
+							show_labels: show_labels,
+							icons_shape: icons_shape,
+							icons_classes: icons_classes,
+							original_icons: original_icons %}
+					{% endif %}
+					{% if show_labels %}
+						<p class="text-body{% if show_icons %} ml-2{% endif %}" id="tiktok_label">TikTok</p>
+					{% endif %}
+				</li>
+        </a>
+	{% endif %}
+
+	{% if settings.social_twitch_link != blank %}
+		<a href="{{ settings.social_twitch_link }}" class="{{ social_media_wrapper }}" target="_blank" {% if show_labels %}aria-labelledby="twitch_label"{% else %}aria-label="Twitch"{% endif %}>
+				<li class="flex items-center min-h-[44px]" data-aid="social-media-twitch">
+					{% if show_icons %}
+						{% render 'armament-social-icons' with
+							social_icon: 'twitch',
+							icons_color: icons_color,
+							show_labels: show_labels,
+							icons_shape: icons_shape,
+							icons_classes: icons_classes,
+							original_icons: original_icons %}
+					{% endif %}
+					{% if show_labels %}
+						<p class="text-body{% if show_icons %} ml-2{% endif %}" id="twitch_label">Twitch</p>
+					{% endif %}
+				</li>
+		</a>
+	{% endif %}
+
+	{% if settings.social_twitter_link != blank %}
+		<a href="{{ settings.social_twitter_link }}" class="{{ social_media_wrapper }}" target="_blank" {% if show_labels %}aria-labelledby="twitter_label"{% else %}aria-label="Twitter"{% endif %}>
+				<li class="flex items-center min-h-[44px]" data-aid="social-media-twitter">
+					{% if show_icons %}
+						{% render 'armament-social-icons' with
+							social_icon: 'twitter',
+							icons_color: icons_color,
+							show_labels: show_labels,
+							icons_shape: icons_shape,
+							icons_classes: icons_classes,
+							original_icons: original_icons %}
+					{% endif %}
+					{% if show_labels %}
+						<p class="text-body{% if show_icons %} ml-2{% endif %}" id="twitter_label">Twitter</p>
+					{% endif %}
+				</li>
+		</a>
+	{% endif %}
+
+	{% if settings.social_youtube_link != blank %}
+		<a href="{{ settings.social_youtube_link }}" class="{{ social_media_wrapper }}" target="_blank" {% if show_labels %}aria-labelledby="youtube_label"{% else %}aria-label="YouTube"{% endif %}>
+				<li class="flex items-center min-h-[44px]" data-aid="social-media-youtube">
+					{% if show_icons %}
+						{% render 'armament-social-icons' with
+							social_icon: 'youtube',
+							icons_color: icons_color,
+							show_labels: show_labels,
+							icons_shape: icons_shape,
+							icons_classes: icons_classes,
+							original_icons: original_icons %}
+					{% endif %}
+					{% if show_labels %}
+						<p class="text-body{% if show_icons %} ml-2{% endif %}" id="youtube_label">YouTube</p>
+					{% endif %}
+				</li>
+        </a>
+	{% endif %}
+
+</ul>
+

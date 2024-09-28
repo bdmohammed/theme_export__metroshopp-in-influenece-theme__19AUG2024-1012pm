@@ -1,0 +1,58 @@
+{% comment %}
+    Renders a basic product form:
+    - HTML form tag
+    - Single <select> element for variant selection (hidden when JS is available)
+    - Payment buttons
+
+    Accepts:
+    - form_product: {Object} Shopify product object.
+    - current_variant: {Object} Shopify variants object.
+    - classes: {String} Additional classes for the wrapper element.
+    - show_buttons: {Boolean} Show a button or not.
+    - dynamic_buttons: {Boolean} If showing buttons, should the dynamic payment button/s be included too? Defaults to false.
+    - button_wrapper_classes {String} Additional classes for the button wrapper div.
+    - hide_select: {Boolean} Hide the <select> by default or not.
+
+    Usage:
+    {% render 'armament-basic-product-form' with form_product: form_product, current_variant: current_variant, show_buttons: true %}
+
+{% endcomment %}
+
+
+{%- liquid
+  if dynamic_buttons == blank
+    assign dynamic_buttons = false
+  endif
+
+  if hide_select == blank
+    assign hide_select = false
+  endif
+
+  if show_buttons == blank
+    assign show_buttons = true
+  endif
+
+-%}
+
+<div
+  {% if classes %}class="{{ classes }}"{% endif %}
+  data-name="basic-product-form"
+  data-aid="basic-product-form"
+>
+  {% form 'product', form_product, id: 'add-to-cart-form', novalidate: 'novalidate' %}
+    {% assign basic_id = 'basic-product-select-' | append: section.id | append: '-' | append: form_product.id %}
+    {% assign armada_selector = 'data-armada-selector="' | append: basic_id | append: '"' %}
+    {% assign attrs = armada_selector | append: ' data-aid="basic-variant-selector"' %}
+    {% assign chooseLabel = 'products.product.choose' | t %}
+
+    {% render 'armament-heading' with heading_content: form_product.title, classes: 'no-js-show pb-3 md:pb-4', heading_type: 'heading-3', data_aid: 'basic-product-form-title' %}
+
+    {% render 'armament-dropdown' with name: 'id', id: basic_id, object: form_product.variants, object_property: 'title', attributes: attrs, label_text: chooseLabel, label_as_option: true, disable_unavailable_variants: true, wrapper_classes: 'no-js-show' %}
+
+    {% render 'armament-quantity-selector' with id: 'no-js-quantity', product_name: form_product.title, name: 'quantity', value: '1', min: '1', label: 'Quantity', classes: 'no-js-show pt-3 md:pt-4' %}
+
+    {% if show_buttons %}
+      {% render 'armament-payment-buttons' with form_product: form_product, product_title: form_product.title, dynamic_buttons: dynamic_buttons, wrapper_classes: button_wrapper_classes, button_style: 'outline', available: form_product.available %}
+    {% endif %}
+  {% endform %}
+</div>

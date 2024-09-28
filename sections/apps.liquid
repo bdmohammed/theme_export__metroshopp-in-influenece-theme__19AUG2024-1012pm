@@ -1,0 +1,39 @@
+<div class="{% if section.settings.include_mobile_margins %}m-4{% endif %}{% if section.settings.include_desktop_margins %} md:m-6{% endif %}">
+  {%- for block in section.blocks -%}
+  {% comment %}theme-check-disable{% endcomment %}
+  {% render block %}
+  {% comment %}theme-check-enable{% endcomment %}
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Apps",
+  "tag": "section",
+  "class": "w-full",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "include_desktop_margins",
+      "default": true,
+      "label": "Add margin on desktop"
+    },
+    {
+      "type": "checkbox",
+      "id": "include_mobile_margins",
+      "default": false,
+      "label": "Add margin on mobile"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Apps"
+    }
+  ]
+}
+{% endschema %}

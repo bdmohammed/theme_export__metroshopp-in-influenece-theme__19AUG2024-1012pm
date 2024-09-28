@@ -1,0 +1,38 @@
+{% assign search_type = search.types | join: '' %}
+  {% if search_type == 'page' %}
+    {% if search.results.size > 0 %}
+      {% if settings.enable_animations %}
+      <loadin-animation>
+      {% endif %}
+      <section class="grid grid-cols-1 md:grid-cols-4 gap-x-10 gap-y-3 md:gap-y-10 grid-flow-row text-body pb-4 md:pb-5 px-4 md:px-6 relative">
+        {% for result in search.results %}
+          <div class="p-3 md:p-4 border border-body-opacity-20" loadin-animation-elm loadin-animation-delay>
+            {% assign text = result.content | strip_html | truncate: 150 %}
+            {% render 'armament-heading' with tag: 'h3', heading_type: 'heading-4', classes: 'mb-2', heading_content: result.title, data_aid: 'page-result-heading' %}
+            <div class="mb-3 md:mb-4 prose">{{ text }}</div>
+            <div class="text-h6 font-heading heading-case">
+              <a href="{{ result.url }}" class="flex items-center group" aria-label="{{ 'blogs.article.read_more_title' | t: title: result.title | escape }}">
+                <span>{{ 'blogs.article.read_more' | t }}</span>
+                {% render 'armament-icon' with icon: 'arrow-right', width: 16, height: 16, classes: 'pl-2' %}
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      </section>
+      {% if settings.enable_animations %}
+      </loadin-animation>
+      <safe-load-scripts>
+        <script src="{{ 'engine-loadin-animation.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="loadin-animation"></script>
+      </safe-load-scripts>
+      {% endif %}
+    {% else %}
+      {% render 'ship-search-no-results' with type: 'page' %}
+    {% endif %}
+  {% endif %}
+
+{% schema %}
+{
+  "name": "Page results",
+  "class": "bg-page w-full"
+}
+{% endschema %}

@@ -1,0 +1,47 @@
+{% comment %}
+    Renders a responsive image.
+
+    Accepts:
+    - url {String} URL to the image file.
+    - alt {String} Alt text for the image.
+    - width {Int} width of the output image.
+    - height {Int} height of the output image (optional).
+    - position {String} One of top, center, bottom, left, right (defaults to center).
+    - class {String} Additional CSS class/es.
+
+    Usage:
+    {% render 'armament-thumbnail' with url: '', alt: 'Icon', width: 100, height: 100, position: 'top' %}
+{% endcomment %}
+
+{% liquid
+  if width == blank
+    if url.width > 300
+      assign default_width = 200
+    else
+      assign default_width = url.width
+    endif
+    assign image_width = default_width
+  else
+   assign image_width = width
+  endif
+
+  assign crop_size = image_width | times: 2
+
+  if height == blank
+    assign image_height = image_width | divided_by: url.aspect_ratio | ceil
+  else
+    assign image_height = height
+  endif 
+
+  assign image_position = position | default: 'center' 
+%}
+
+<img
+  loading="lazy"
+  {% if class != blank %}class="{{ class }}"{% endif %}
+  alt="{{ alt | escape }}"
+  width="{{ image_width }}"
+  height="{{ image_height }}"
+  src="{{ url | image_url: width: crop_size, crop: image_position }}"
+  data-aid="thumbnail-image"
+/>

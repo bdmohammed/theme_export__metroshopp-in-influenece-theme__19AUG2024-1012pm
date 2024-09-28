@@ -1,0 +1,128 @@
+{% comment %}
+    Renders the localization selectors and header search, cart & account CTA's
+
+    Does not require any input
+
+    Usage:
+    {% render 'ship-header-cta' %}
+{% endcomment %}
+
+{% liquid
+  assign aria_search = 'general.search.search_button_label' | t
+  assign aria_account = 'customer.account.title' | t
+  assign aria_cart = 'templates.cart.cart' | t
+%}
+
+{%- capture cart_count -%}
+  <cart-count
+    class="absolute top-0 right-0 -mr-[2px] pointer-events-none{% if cart.item_count == 0 %} hidden{% endif %}"
+    count="{{ cart.item_count }}"
+  >
+    <div
+      data-armada-selector="cart-count"
+      class="inline-flex place-items-center place-content-center min-w-[25px] min-h-[25px] border-2 border-page rounded-full text-xs font-semibold leading-[0.9rem] bg-body text-page"
+    >
+      {{ cart.item_count }}
+    </div>
+  </cart-count>
+
+  <safe-load-scripts>
+    <script src="{{ 'component-cart-count.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="component-cart-count"></script>
+  </safe-load-scripts>
+{%- endcapture -%}
+
+  <noscript>
+    {% if section.settings.enable_search %}
+      {% render 'armament-icon' with icon: 'search', classes: 'cursor-pointer', has_link: true, link_href: routes.search_url, link_label: aria_search, link_classes: 'header-mobile-search flex lg:hidden w-44 h-44 items-center lg:justify-center' %}
+    {% endif %}
+  </noscript>
+  <div {% if section.settings.enable_search %}onclick="loadSearchScripts();loadQuickSearch()"{% endif %} class="header-mobile-search flex lg:hidden w-44 h-44 items-center lg:justify-center group cursor-pointer{% if template.name == 'search' %} pointer-events-none{% endif %}" data-armada-selector="search_toggle"{% if template.name == 'search' %} aria-hidden="true"{% else %} tabindex="0"{% endif %}>
+    {% if section.settings.enable_search %}
+      {% render 'armament-icon' with icon: 'search', has_link: false %}
+    {% endif %}
+  </div>
+
+<div class="flex items-center lg:justify-end" style="grid-area:cta;" data-armada-selector="header-cta-container">
+  <div data-armada-selector="header-locale-selectors" class="hidden w-full items-end gap-3 lg:mr-3 lg:w-auto justify-end lg:flex pt-3 px-4 lg:p-0 {% unless settings.enable_animations %} disable-animation{% endunless %}">
+    {% render 'armament-localization-selector' with show_country: section.settings.show_country, show_languages: section.settings.show_languages, classes: 'font-heading', country_attributes: 'style="grid-area:cta;"' %}
+  </div>
+
+  {% if section.settings.enable_search and section.settings.show_icons %}
+    <noscript>
+      <div class="header-search hidden lg:flex w-44 h-44 items-center lg:justify-center group cursor-pointer{% if template.name == 'search' %} pointer-events-none{% endif %}" data-armada-selector="search_toggle"{% if template.name == 'search' %} aria-hidden="true"{% else %} tabindex="0"{% endif %} aria-label="{{ aria_search }}">
+        <a href="{{ routes.search_url }}">{% render 'armament-icon' with icon: 'search', has_link: false %}</a>
+      </div>
+    </noscript>
+    <div {% if section.settings.enable_search %}onclick="loadSearchScripts();loadQuickSearch()"{% endif %} class="header-search hidden lg:flex w-44 h-44 items-center lg:justify-center no-js-hidden group cursor-pointer{% if template.name == 'search' %} pointer-events-none{% endif %}" data-armada-selector="search_toggle"{% if template.name == 'search' %} aria-hidden="true"{% else %} tabindex="0"{% endif %} aria-label="{{ aria_search }}">
+      {% if section.settings.enable_search %}
+        {% render 'armament-icon' with icon: 'search', has_link: false %}
+      {% endif %}
+    </div>
+  {% elsif section.settings.enable_search and section.settings.show_icons == false %}
+    <span {% if section.settings.enable_search %}onclick="loadSearchScripts();loadQuickSearch()"{% endif %} data-armada-selector="search_toggle" class="mr-3 hidden lg:inline-block font-heading hover:opacity-50 transition-opacity duration-150 cursor-pointer" tabindex="0" aria-label="{{ aria_search }}">{{ aria_search }}</span>
+    <noscript>
+      <a class="mr-3 hidden lg:inline-block font-heading hover:opacity-50 transition-opacity duration-150" href="{{ routes.search_url }}" aria-label="{{ aria_search }}">{{ aria_search }}</a>
+    </noscript>
+  {% endif %}
+
+  {% unless section.settings.show_icons %}
+    <a
+      class="mr-3 hidden lg:inline-block font-heading hover:opacity-50 transition-opacity duration-150"
+      href="{{ routes.account_url }}"
+      aria-label="{{ aria_account }}"
+    >
+      {{ aria_account }}
+    </a>
+    <a
+      class="relative mr-3 hidden lg:inline-block font-heading"
+      href="{{ routes.cart_url }}"
+      aria-label="{{ aria_cart }}"
+    >
+      <span class="hover:opacity-50 transition-opacity duration-150">{{ aria_cart }}</span>
+      <div class="translate-x-[20px] -translate-y-[35px]">
+        {{ cart_count }}
+      </div>
+    </a>
+  {% endunless %}
+
+  {% comment %} Classes for mobile, where icon is always shown. {% endcomment %}
+  {% assign account_classes = 'header-account flex lg:hidden w-44 h-44 items-center justify-center group' %}
+  {% assign bag_classes = 'header-cart flex lg:hidden w-44 h-44 items-center justify-center group' %}
+  {% assign count_classes = 'block lg:hidden' %}
+
+  {% comment %} Classes for desktop, dependent on setting. {% endcomment %}
+  {% if section.settings.show_icons %}
+    {% assign account_classes = 'header-account flex w-44 h-44 items-center justify-center group' %}
+    {% assign bag_classes = 'header-cart flex w-44 h-44 items-center justify-center group' %}
+    {% assign count_classes = 'block' %}
+  {% endif %}
+
+  <div>
+    {% render 'armament-icon' with icon: 'account', classes: 'cursor-pointer', has_link: true, link_href: routes.account_url, link_label: aria_account, link_classes: account_classes %}
+  </div>
+
+  {% comment %} TODO: this should be a web component? {% endcomment %}
+  <div class="relative">
+    {% render 'armament-icon' with icon: 'bag', classes: 'cursor-pointer', has_link: true, link_href: routes.cart_url, link_label: aria_cart, link_classes: bag_classes %}
+    <div class="{{ count_classes }}">
+      {{ cart_count }}
+    </div>
+  </div>
+</div>
+
+<script defer="defer">
+  function loadSearchScripts() {
+    import("{{ 'component-product-card.min.js' | asset_url }}");
+    import("{{ 'component-search-bar.min.js' | asset_url }}");
+    import("{{ 'engine-slider.min.js' | asset_url }}");
+    import("{{ 'component-armament-scroll-bar.min.js' | asset_url }}");
+  }
+</script>
+
+{% if settings.enable_predictive_search %}
+  <script defer="defer">
+    function loadQuickSearch() {
+      import("{{ 'engine-quick-search.min.js' | asset_url }}");
+    }
+  </script>
+{% endif %}

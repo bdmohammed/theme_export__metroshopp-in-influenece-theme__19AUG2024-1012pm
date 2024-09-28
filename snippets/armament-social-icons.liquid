@@ -1,0 +1,124 @@
+{% comment %}
+    Renders an SVG social media icon with optional animated wrapper presentations (square, circle).
+
+    Accepts:
+    - social_icon {String} name of the social media icon you'd like to render.
+    - icons_shape {String} accepts 'square', 'circle' or 'floating'.
+    - icons_size {Number} width/height of the svg icon in pixels.
+    - icons_classes {String} classes for icons.
+	  - original_icons {Boolean} when true, it renders the original icons with their brand colors. Default to false.
+    - no_animation: {Boolean} set to true to disable hover animations
+
+    Usage:
+    {% render 'armament-social-icons' with social_icon: 'facebook', icons_shape: 'square', icons_classes: 'text-page bg-body' %}
+
+{% endcomment %}
+
+{% liquid
+    unless no_animation
+        assign icon_hover_classes = ' icon-hover-classes'
+    endunless
+
+    assign icons_classes = icons_classes | append: icon_hover_classes
+
+    if icons_shape == 'circle'
+        assign shape = 'rounded-full overflow-hidden '
+    endif
+
+    if icons_size == blank
+        assign icons_size = 16
+    endif
+    assign bg_classes = 'w-[44px] h-[44px] flex justify-center items-center ' | append: shape
+
+    assign original_icons = original_icons | default: false
+
+    assign fill = 'currentColor'
+%}
+
+{% case social_icon %}
+    {% when 'facebook' %}
+        <div class="{{ bg_classes }}{{ icons_classes }}" {% if original_icons and icons_shape == 'floating' %}style="background-color: transparent;"{% elsif original_icons and icons_shape != 'floating' %}style="background-color: #3B5998;"{% endif %}>
+          {%- liquid
+            if original_icons and icons_shape == 'floating'
+              assign fill = '#3B5998'
+            elsif original_icons and icons_shape != 'floating'
+              assign fill = 'white'
+            endif
+          -%}
+          {% render 'armament-icon' with icon: 'facebook', fill: fill %}
+        </div>
+
+    {% when 'instagram' %}
+        <div class="{{ bg_classes }}{{ icons_classes }}" {% if original_icons and icons_shape == 'floating' %}style="background-color: transparent;"{% elsif original_icons and icons_shape != 'floating' %}style="background-color: white;"{% endif %}>
+          {%- liquid
+            if original_icons
+              assign fill = 'black'
+            endif
+          -%}
+          {% render 'armament-icon' with icon: 'instagram', fill: fill %}
+        </div>
+
+    {% when 'pinterest' %}
+        <div class="{{ bg_classes }}{{ icons_classes }}" {% if original_icons and icons_shape == 'floating' %}style="background-color: transparent;"{% elsif original_icons and icons_shape != 'floating' %}style="background-color: #E60019;"{% endif %}>
+          {%- liquid
+            if original_icons and icons_shape == 'floating'
+              assign fill = '#E60019'
+            elsif original_icons and icons_shape != 'floating'
+              assign fill = 'white'
+            endif
+          -%}
+          {% render 'armament-icon' with icon: 'pinterest', fill: fill %}
+        </div>
+
+    {% when 'snapchat' %}
+        <div class="{{ bg_classes }}{{ icons_classes }}" {% if original_icons and icons_shape == 'floating' %}style="background-color: transparent;"{% elsif original_icons and icons_shape != 'floating' %}style="background-color: #FFE400;"{% endif %}>
+          {%- liquid
+            if original_icons
+              assign fill = 'black'
+            endif
+          -%}
+          {% render 'armament-icon' with icon: 'snapchat', fill: fill %}
+        </div>
+
+    {% when 'tiktok' %}
+        <div class="{{ bg_classes }}{{ icons_classes }}" {% if original_icons and icons_shape != 'floating' %}style="background-color: white;"{% endif %}>
+          {% if original_icons %}
+            {% render 'armament-icon' with icon: 'tiktok-original' %}
+          {% else %}
+            {% render 'armament-icon' with icon: 'tiktok' %}
+          {% endif %}
+        </div>
+
+    {% when 'twitch' %}
+        <div class="{{ bg_classes }}{{ icons_classes }}" {% if original_icons and icons_shape == 'floating' %}style="background-color: transparent;"{% elsif original_icons and icons_shape != 'floating' %}style="background-color: #F1F1F1;"{% endif %}>
+          {%- liquid
+            if original_icons
+              assign fill = '#6441A5'
+            endif
+          -%}
+          {% render 'armament-icon' with icon: 'twitch', fill: fill %}
+        </div>
+
+    {% when 'twitter' %}
+        <div class="{{ bg_classes }}{{ icons_classes }}" {% if original_icons and icons_shape == 'floating' %}style="background-color: transparent;"{% elsif original_icons and icons_shape != 'floating' %}style="background-color: #55ACEE;"{% endif %}>
+          {%- liquid
+            if original_icons and icons_shape != 'floating'
+              assign fill = 'white'
+            elsif original_icons
+              assign fill = '#55ACEE'
+            endif
+          -%}
+          {% render 'armament-icon' with icon: 'twitter', fill: fill %}
+        </div>
+
+    {% when 'youtube' %}
+        <div class="{{ bg_classes }}{{ icons_classes }}" {% if original_icons and icons_shape == 'floating' %}style="background-color: transparent;"{% elsif original_icons and icons_shape != 'floating' %}style="background-color: white;"{% endif %}>
+          {%- liquid
+            if original_icons
+              assign fill = '#FF0000'
+            endif
+          -%}
+          {% render 'armament-icon' with icon: 'youtube', fill: fill %}
+        </div>
+
+{% endcase %}

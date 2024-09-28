@@ -1,0 +1,48 @@
+{% comment %}
+    Renders a trust content block, of up to four trust content items (icon, heading and link).
+    Accepts:
+    - block {Object} Shopify block object, with settings for four headings, icons and links, in the format heading_1, icon_1, link_1, etc
+
+    Usage:
+    {% render 'ship-trust-content' with block: block %}
+{% endcomment %}
+
+{%- liquid
+  assign border_class_1 = 'border-t border-b md:border-0'
+  assign border_class_2 = 'border-b md:border-l md:border-b-0'
+  assign border_class_3 = 'border-b md:border-t md:border-b-0'
+  assign border_class_4 = 'border-b md:border-l md:border-t md:border-b-0'
+-%}
+
+<ul class="flex flex-col md:flex-row flex-wrap pb-3 lg:pb-4 text-body bg-page border-body-opacity-10 trust-content">
+  {% for i in (1..4) %}
+    {%- liquid
+      assign icon_image = 'icon_' | append: i
+      assign heading = 'heading_' | append: i
+      assign link = 'link_' | append: i
+    -%}
+    {% if block.settings[icon_image] or block.settings[heading] != blank %}
+      <li class="flex md:flex-col md:items-center justify-center py-3 md:py-4 md:px-4 text-center md:w-1/2 grow border-body-opacity-10 {% cycle border_class_1, border_class_2, border_class_3, border_class_4 %}">
+
+        {% if block.settings[link] %}
+          <a href="{{ block.settings[link] }}" class="flex md:flex-col md:items-center md:justify-center">
+        {% endif %}
+
+          {% if block.settings[icon_image] %}
+            <div class="flex-shrink-0">
+              {% render 'armament-thumbnail' with url: block.settings[icon_image], class: 'inline-block md:mb-2 mr-2 md:mr-0 max-h-[250px] max-w-[250px] object-contain' %}
+            </div>
+          {% endif %}
+
+          {% if block.settings[heading] != blank %}
+            {% render 'armament-heading' with tag: 'h3', heading_type: 'heading-5', heading_content: block.settings[heading], data_aid: 'trust-content-heading' %}
+          {% endif %}
+
+        {% if block.settings[link] %}
+          </a>
+        {% endif %}
+
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>

@@ -1,0 +1,61 @@
+<div class="w-full bg-page lg:pt-5">
+  {% if product.media.size == 0 %}
+    {% render 'armament-placeholder' with name: 'product-1' %}
+  {% elsif product.media.size == 1 %}
+    <div class="relative">
+      {% render 'armament-product-media' with media: product.media[0], enable_zoom: section.settings.enable_zoom, title: product.title, product_id: product.id %}
+      {% if settings.custom_badges %}
+        <div class="absolute top-0 left-0 z-50 pointer-events-none">
+          {% render 'engine-badges' with badges_product: product %}
+        </div>
+      {% endif %}
+    </div>
+  {% elsif section.settings.gallery_style == 'thumbnails' %}
+    {% render 'ship-product-thumbnail-gallery' with gallery_product: product, zoom_enabled: section.settings.enable_zoom, loop_enabled: section.settings.enable_video_looping %}
+  {% elsif section.settings.gallery_style == 'two_per_row' %}
+    {% render 'ship-product-collage-gallery' with product_id: product.id, media: product.media, zoom_enabled: section.settings.enable_zoom, loop_enabled: section.settings.enable_video_looping %}
+  {% else %}
+    {% render 'ship-product-slider-gallery' with slider_product: product, zoom_enabled: section.settings.enable_zoom, loop_enabled: section.settings.enable_video_looping %}
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "class": "product-main-gallery grow max-w-full",
+  "name": "Product gallery",
+  "settings": [
+    {
+      "type": "select",
+      "id": "gallery_style",
+      "label": "Gallery style",
+      "options": [
+        {
+          "value": "thumbnails",
+          "label": "Thumbnails"
+        },
+        {
+          "value": "two_per_row",
+          "label": "Collage"
+        },
+        {
+          "value": "slider",
+          "label": "Slideshow"
+        }
+      ],
+      "default": "thumbnails"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_zoom",
+      "label": "Enable image zoom",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "label": "Enable video looping",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

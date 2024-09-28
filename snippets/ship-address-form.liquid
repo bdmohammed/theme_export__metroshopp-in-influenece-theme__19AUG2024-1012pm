@@ -1,0 +1,203 @@
+
+{%- comment -%}
+    Renders address form (either 'new address' or 'edit address')
+
+    Accepts:
+    - parameter: {String} Set to 'new' to print out a 'new address' form.
+    - address: {Obj} Current address obj. Use this param to print out an 'edit address' form
+    - changes_default_only: {Boolean} set to true if the sole purpose of the form is to update the default address
+
+
+    Usage:
+    {% render 'ship-address-form' with parameter: 'new' %}
+    {% render 'ship-address-form' with address: address %}
+
+
+    form 'customer_address', address // edit address
+    form 'customer_address', customer.new_address // new address
+{%- endcomment -%}
+
+{%- liquid
+  if parameter == 'new' 
+    assign parameter = customer.new_address
+    assign address_id = 'address_default_address_new'
+  endif
+
+  if address 
+    assign parameter = address
+    assign address_id = 'address_default_address_' | append: address.id
+  endif
+
+  if changes_default_only 
+    assign inputType = 'hidden'
+    assign labelClass = 'hidden'
+    assign telClasses = 'w-full hidden'
+    assign inputRequired = false
+    assign formClasses = 'p-0'
+    assign inputClasses = 'hidden'
+    assign armamentClasses = 'hidden'
+  else
+    assign telClasses = 'w-full'
+    assign inputRequired = true
+    assign formClasses = 'p-3 md:p-4 pt-0 md:pt-0'
+    assign inputClasses = 'md:flex md:gap-4 mb-3 md:mb-4'
+    assign armamentClasses = 'text-body mb-3 md:mb-4'
+  endif
+-%}
+
+
+
+{%- form 'customer_address', parameter, class: formClasses -%}
+
+  <div class="{{ inputClasses }}">
+    {% assign firstNameString = 'customer.addresses.first_name' | t %}
+    {% render 'armament-input' with 
+    type: inputType,
+    has_label: true, 
+    label_class: labelClass,
+    animate_label: true, 
+    container_classes: "mb-3 md:mb-0 md:w-1/2 text-body",
+    classes: "w-full"
+    label_text: firstNameString, 
+    id: "address--first-name", 
+    placeholder: "first name", 
+    value: form.first_name, 
+    name: "address[first_name]", 
+    required: inputRequired %}
+
+    {% assign lastNameString = 'customer.addresses.last_name' | t %}
+    {% render 'armament-input' with 
+    type: inputType,
+    has_label: true, 
+    label_class: labelClass,
+    animate_label: true,
+    container_classes: "md:w-1/2 text-body",
+    classes: "w-full"
+    label_text: lastNameString, 
+    id: "address--last-name", 
+    placeholder: "last name", 
+    value: form.last_name, 
+    name: "address[last_name]", 
+    required: inputRequired %}
+  </div>
+
+  {% assign addressOneString = 'customer.addresses.address1' | t %}
+  {% render 'armament-input' with 
+  type: inputType,
+  has_label: true, 
+  label_class: labelClass,
+  animate_label: true, 
+  container_classes: armamentClasses,
+  classes: "w-full"
+  label_text: addressOneString, 
+  id: "address--address1", 
+  placeholder: "address line 1", 
+  value: form.address1, 
+  name: "address[address1]", 
+  required: inputRequired %}
+
+  {% assign addresstwoString = 'customer.addresses.address2' | t %}
+  {% render 'armament-input' with 
+  type: inputType,
+  has_label: true, 
+  label_class: labelClass,
+  animate_label: true, 
+  container_classes: armamentClasses,
+  classes: "w-full"
+  label_text: addresstwoString, 
+  id: "address--address2", 
+  placeholder: "address line 2", 
+  value: form.address2, 
+  name: "address[address2]", 
+  required: inputRequired %}
+
+  <div class="{{ inputClasses }}">
+    {% assign addressCityString = 'customer.addresses.city' | t %}
+    {% render 'armament-input' with 
+    type: inputType,
+    has_label: true, 
+    label_class: labelClass,
+    animate_label: true,
+    container_classes: "mb-3 md:mb-0 md:w-1/2 text-body"
+    classes: "w-full"
+    label_text: addressCityString, 
+    id: "address--city", 
+    placeholder: "city", 
+    value: form.city, 
+    name: "address[city]", 
+    required: inputRequired %}
+
+    <div class="relative flex md:w-1/2 text-body{% if changes_default_only %} hidden{% endif %}">
+      <select
+        id="AddressCountryNew"
+        name="address[country]"
+        data-default="{{ form.country }}"
+        autocomplete="country"
+        class="bg-page border-body w-full"
+        animate-label
+        data-aid="address-country-select"
+      >
+        {% if changes_default_only %}
+        <option value="{{ form.country }}" selected="selected"></option>
+        {% else %}
+        {{ all_country_option_tags }}
+        {% endif %}
+      </select>
+      <label for="AddressCountryNew" animate-label class="font-heading heading-case">{{ customer.addresses.country | t }}</label>
+    </div>
+  </div>
+
+  <div class="{{ inputClasses }}">
+    {% assign addressZipString = 'customer.addresses.zip' | t %}
+    {% render 'armament-input' with 
+    type: inputType,
+    has_label: true, 
+    label_class: labelClass,
+    animate_label: true, 
+    container_classes: "mb-3 md:mb-0 md:w-1/2 text-body",
+    classes: "w-full",
+    label_text: addressZipString, 
+    id: "address--zip", 
+    placeholder: "address postal / zip code", 
+    value: form.zip, 
+    name: "address[zip]", 
+    required: inputRequired %}
+
+    {% assign addressPhoneString = 'customer.addresses.phone' | t %}
+    {% render 'armament-input' with 
+    has_label: true, 
+    label_class: labelClass,
+    animate_label: true,
+    type: "tel", 
+    container_classes: "md:w-1/2 text-body",
+    classes: telClasses,
+    label_text: addressPhoneString, 
+    id: "address--phone", 
+    placeholder: "phone", 
+    value: form.phone, 
+    name: "address[phone]", 
+    required: inputRequired %}
+  </div>
+
+<div class="flex {% unless changes_default_only == true %}mb-3 md:mb-4 justify-end{% else %}m-0 justify-start{% endunless %} ">
+  {%- liquid
+    assign defaultString = 'customer.addresses.set_default' | t
+    if address == customer.default_address
+      assign checkbox_attr = 'checked'
+    endif
+  -%}
+  
+  {% render 'armament-checkbox' with id: address_id, name: 'address[default]', label_text: defaultString, data_aid: 'default-address-checkbox', attributes: checkbox_attr %}
+</div>
+
+{% unless changes_default_only == true %}
+<div class="flex justify-end">
+  {% assign addressCancelString = 'customer.addresses.cancel' | t %}
+  {% render 'armament-button' with type: 'reset', content: addressCancelString, style: 'outline', classes: 'w-full md:w-auto mr-3 md:mr-4', attributes: 'data-armada-modal-close' %}
+
+  {% assign addressSaveString = 'customer.addresses.save' | t %}
+  {% render 'armament-button' with content: addressSaveString, style: 'filled', classes: 'w-full md:w-auto' %}
+</div>
+{% endunless %}
+
+{%- endform -%}

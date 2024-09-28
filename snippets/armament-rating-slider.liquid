@@ -1,0 +1,40 @@
+{% comment %}
+    Renders a read only rating slider.
+    Accepts:
+    - min: {Number} minimum rating value (optional)
+    - max: {Number} maximum rating value
+    - rating: {Number} rating value
+    - rating_name: {String} name of the rating (accessibility)
+    - label_left, label_center, label_right: {String} text content captioning the minimum, middle and maximum values respectively
+    - classes: {String} custom classes to be added to the container div
+    
+    Usage:
+    {% render 'armament-rating-slider' with min: block.settings.rating_min, max: block.settings.rating_max, rating: block.settings.rating, rating_name: block.settings.rating_name, label_left: block.settings.label_left, label_center: block.settings.label_center, label_right: block.settings.label_right %}
+{% endcomment %}
+
+{%- liquid 
+  if min
+    assign max = max | minus: min
+    assign rating = rating | minus: min
+  endif
+-%}
+
+<div 
+  role="img" 
+  aria-label="{{ rating_name }} rating - {{ rating }} out of {{ max }}"
+  {% if classes %}class="{{ classes }}"{% endif %}
+  data-aid="rating-slider"
+>
+  <div class="relative py-2" aria-hidden="true">
+    <span class="block h-1 bg-body opacity-20"></span>
+    <span 
+      class="block absolute inset-y-1/2 -translate-y-1/2 h-3 w-3 bg-body"
+      style="left:calc(({{ rating }}/{{ max }}) * 100%);"
+    ></span>
+  </div>
+  <div class="flex justify-between gap-2 text-body" aria-hidden="true">
+    <span class="flex-1 text-left">{{ label_left }}</span>
+    <span class="flex-1 text-center">{{ label_center }}</span>
+    <span class="flex-1 text-right">{{ label_right }}</span>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+{% if page.content != blank %}
+    <section class="bg-page text-body flex">
+        <div class="px-4 md:px-6 2xl:px-0 max-w-screen-xl mx-auto pt-4 md:pt-6">
+            <div class="prose py-4 md:py-5 first:pt-0">
+                {{ page.content }}
+            </div>
+        </div>
+    </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Page content",
+  "settings": [
+  ]
+}
+{% endschema %}

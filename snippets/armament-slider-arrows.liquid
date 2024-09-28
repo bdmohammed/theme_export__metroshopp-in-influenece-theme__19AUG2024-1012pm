@@ -1,0 +1,68 @@
+{% comment %}
+    Renders slider navigation arrows.
+    Accepts:
+    - hide_on_mobile: {Boolean} Set to true to hide arrows on mobile (defaults to false)
+    - border: {Boolen} Set to true to add a border to the arrows (defaults to false)
+    - vertical_position_classes: {String} Optional classes for custom vertical position relative to slider eg. 'top-2 translate-y-1/2'
+    - left_position_classes: {String} Optional classes for custom position of previous arrow relative to slider eg. '-left-2'
+    - right_position_classes: {String} Optional classes for custom position of next arrow relative to slider eg. '-right-2'  
+    - classes: {String} Custom classes to be applied to the arrows
+    - attributes: {String} Attributes to be applied to the arrows
+
+    Usage:
+    {% render 'armament-slider-arrows' with hide_on_mobile: true, border: true, classes: arrow_classes %}
+{% endcomment %}
+
+{%- liquid
+  assign arrow_classes = 'absolute bg-page text-body w-44 h-44 overflow-hidden flex items-center z-10 transition-opacity ease-out duration-500 cursor-pointer animate-slide '
+  
+  if hide_on_mobile
+    assign arrow_classes = arrow_classes | append: 'hidden md:flex '
+  endif
+
+  if border
+    assign arrow_classes = arrow_classes | append: 'border '
+  endif
+
+  if vertical_position_classes
+    assign arrow_classes = arrow_classes | append: vertical_position_classes | append: ' '
+  else
+    assign arrow_classes = arrow_classes | append: 'top-1/2 -translate-y-1/2 '
+  endif
+
+  if classes
+    assign arrow_classes = arrow_classes | append: classes
+  endif
+
+  assign prev_classes = left_position_classes | default: 'left-0 -translate-x-1/2'
+  assign next_classes = right_position_classes | default: 'right-0 translate-x-1/2'
+-%}
+
+<div
+  data-icon-type="prev"
+  data-name="icon-prev"
+  class="justify-end {{ prev_classes }} {{ arrow_classes }}"
+  aria-label="Go to previous slide"
+  {% if attributes %}{{ attributes }}{% endif %}
+>
+  <div class="w-44 h-44 flex items-center justify-center shrink-0">
+    {% render 'armament-icon' with icon: 'arrow-left', no_animation: true %}
+  </div>
+  <div class="w-44 h-44 flex items-center justify-center shrink-0 animate-slide-left">
+    {% render 'armament-icon' with icon: 'arrow-left', no_animation: true %}
+  </div>
+</div>
+<div
+  data-icon-type="next"
+  data-name="icon-next"
+  class="justify-start {{ next_classes }} {{ arrow_classes }}"
+  aria-label="Go to next slide"
+  {% if attributes %}{{ attributes }}{% endif %}
+>
+  <div class="w-44 h-44 flex items-center justify-center shrink-0 animate-slide-right">
+    {% render 'armament-icon' with icon: 'arrow-right', no_animation: true %}
+  </div>
+  <div class="w-44 h-44 flex items-center justify-center shrink-0">
+    {% render 'armament-icon' with icon: 'arrow-right', no_animation: true %}
+  </div>
+</div>

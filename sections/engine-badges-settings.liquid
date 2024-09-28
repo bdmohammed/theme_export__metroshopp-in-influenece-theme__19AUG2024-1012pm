@@ -1,0 +1,186 @@
+
+{% if settings.custom_badges or settings.product_card_badges %}
+  {%- capture blockOrder -%}
+      {
+          "block_order": [{% for block in section.blocks %}
+              {
+                  "type": "{{ block.type }}",
+                  "text": "{% if block.type == 'badge_sold_out' %}{{ 'products.product.sold_out_badge' | t: badge_text: block.settings.badge_text }}{% elsif block.type == 'badge_sale' %}{{ 'products.product.sale_badge' | t: badge_text: block.settings.badge_text }}{% else %}{{ block.settings.badge_text }}{% endif %}",
+                  "colors": "{{ block.settings.badge_color_scheme }}"
+              }{% if forloop.last != true %},{% endif %}{% endfor %}
+          ]
+      }
+  {%- endcapture -%}
+
+  {% if request.design_mode %}
+    <div>
+      {% for block in section.blocks %}
+        {% render 'ship-badge-preview-single' with badge_block: block %}
+      {% endfor %}
+    
+      {% render 'ship-badge-preview-multiple' with badge_section: section %}
+    </div>
+  {% endif %}
+
+  <safe-load-scripts>
+    <script src="{{ 'engine-modal.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="modal"></script>
+    <script src="{{ 'engine-modal-open.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="modal-open"></script>
+  </safe-load-scripts>
+
+  <script id="global-block-order" type="application/javascript">
+      // adds the badge order to the window.eight
+      const badgeOrder = {{ blockOrder }};
+      const badgeLimit = {{ section.settings.num_badges }};
+      if(!window.eight) {
+          window.eight = {}
+      }
+      window.eight = Object.assign({}, window.eight, {
+        badgeEngine: {
+          order: badgeOrder.block_order,
+          limit: badgeLimit
+        }
+      })
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Product badges",
+  "settings": [
+    {
+      "type": "number",
+      "id": "num_badges",
+      "label": "Maximum badges",
+      "default": 1,
+      "info": "Badges will be displayed, if valid, in block order upto this limit."
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Sold out badge",
+      "type": "badge_sold_out",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Text",
+          "default": "Sold out"
+        },
+        {
+          "type": "select",
+          "id": "badge_color_scheme",
+          "label": "Color scheme",
+          "options": [
+            {
+              "value": "general",
+              "label": "General"
+            },
+            {
+              "value": "accent-1",
+              "label": "Accent 1"
+            },
+            {
+              "value": "accent-2",
+              "label": "Accent 2"
+            },
+            {
+              "value": "accent-3",
+              "label": "Accent 3"
+            }
+          ],
+          "default": "accent-2"
+        }
+      ]
+    },
+    {
+      "name": "Sale badge",
+      "type": "badge_sale",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Text",
+          "default": "Sale"
+        },
+        {
+          "type": "select",
+          "id": "badge_color_scheme",
+          "label": "Color scheme",
+          "options": [
+            {
+              "value": "general",
+              "label": "General"
+            },
+            {
+              "value": "accent-1",
+              "label": "Accent 1"
+            },
+            {
+              "value": "accent-2",
+              "label": "Accent 2"
+            },
+            {
+              "value": "accent-3",
+              "label": "Accent 3"
+            }
+          ],
+          "default": "accent-1"
+        }
+      ]
+    },
+    {
+      "name": "Custom badge",
+      "type": "badge_custom",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Requires a single line text metafield",
+          "info": "Use 'badges' as namespace, followed by a unique key. E.g: 'badges.myCustomBadge'. Learn more about metafields parts [here](https://help.shopify.com/en/manual/metafields/metafield-definitions/metafield-definition-parts)."
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Metafield key",
+          "default": "myCustomBadge"
+        },
+        {
+          "type": "select",
+          "id": "badge_color_scheme",
+          "label": "Color scheme",
+          "options": [
+            {
+              "value": "general",
+              "label": "General"
+            },
+            {
+              "value": "accent-1",
+              "label": "Accent 1"
+            },
+            {
+              "value": "accent-2",
+              "label": "Accent 2"
+            },
+            {
+              "value": "accent-3",
+              "label": "Accent 3"
+            }
+          ],
+          "default": "accent-3"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "badge_sold_out"
+      },
+      {
+        "type": "badge_sale"
+      }
+    ]
+  }
+}
+{% endschema %}

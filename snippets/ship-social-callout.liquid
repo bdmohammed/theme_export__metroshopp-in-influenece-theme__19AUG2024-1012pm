@@ -1,0 +1,72 @@
+{% comment %}
+    Renders social media icons.
+
+    Accepts:
+    - link: {string} url
+    - text: {string} accespts new lines as BR
+    - tag: {string} heading tag
+    - color_scheme: color scheme datya attribute value
+    - social_icon:
+      -  "value": "none",
+      -  "value": "facebook",
+      -  "value": "instagram",
+      - "value": "pinterest",
+      - "value": "snapchat",
+      - "value": "tiktok",
+      - "value": "twitch",
+      - "value": "twitter",
+      - "value": "youtube",
+    - icon_size: "16", "24", "32", "44"
+    - icon_shape: {string} circle, square, floating
+    - wrapperClasses: sting optional additional classes
+    - iconClasses: {sting} optional atdditional classes
+    - transparent: {boolean}
+    - animate:
+    - internal_link
+    - shopify_attributes: {Object} required for the theme preview inspector when used as a block
+
+    Usage:
+    {% render 'ship-social-callout' with link: '', text: '', color_scheme: '', social_icon: '', icon_shape: 'floating', animate: true  %}
+{% endcomment %}
+
+
+{% if link %}
+  <a
+    href="{{ link }}"
+    data-color-scheme="{{ color_scheme }}"
+    data-armada-selector="social-callout"
+    {% if animate %} data-animate="true" {% endif %}
+    {% if internal_link == blank %} target="_blank" {% endif %}
+    {% if shopify_attributes %}{{ shopify_attributes }}{% endif %}
+    class="flex flex-row justify-center items-center w-full max-w-[486px] upto-md:max-w-[486px] md:max-w-[486px] p-2 p-l-4 p-r-4 mt-2 mb-2 bg-page {% if transparent %}bg-transparent{% else %} bg-page {% endif %} {{ wrapperClasses }}"
+  >
+{% else %}
+  <div
+    data-color-scheme="{{ color_scheme }}"
+    data-armada-selector="social-callout"
+    {% if animate %} data-animate="true" {% endif %}
+    class="flex flex-row justify-center items-center w-full max-w-[486px] upto-md:max-w-[486px] md:max-w-[486px] p-2 p-l-4 p-r-4 mt-2 mb-2 bg-page {% if transparent %}bg-transparent{% else %} bg-page {% endif %} {{ wrapperClasses }}"
+  >
+{% endif %}
+  {% if social_icon != 'none' %}
+
+    {% assign social_icon_classes = 'text-page bg-body mr-2' %}
+    {% if icon_shape == 'floating' %}
+      {% assign social_icon_classes = 'text-page text-body mr-2' %}
+    {% endif %}
+
+    {% render 'armament-social-icons' with
+      social_icon: social_icon,
+      icons_shape: icon_shape,
+      icons_classes: social_icon_classes | append: ' ' | append: iconClasses,
+      original_icons: false,
+      icons_size: icon_size
+    %}
+  {% endif %}
+
+  {% render 'armament-heading' with tag: 'h5', classes: 'mt-0', heading_type: 'heading-5', heading_content: text  %}
+{% if link %}
+  </a>
+{% else %}
+  </div>
+{% endif %}

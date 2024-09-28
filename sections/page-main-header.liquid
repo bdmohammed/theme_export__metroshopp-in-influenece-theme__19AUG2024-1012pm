@@ -1,0 +1,40 @@
+<section class="max-w-full flex items-center justify-center flex-col bg-page text-body" data-color-scheme={{ section.settings.section_color_scheme }}>
+
+    <div class="flex flex-col items-center justify-center px-4 md:px-6 pt-4 md:pt-6 max-w-screen-xl mx-auto {% if forloop.first %} mt-4 md:mt-6{% endif %}">
+        {% render 'armament-heading' with tag: 'h1', heading_content: page.title, heading_type: 'heading-2', data_aid: 'page-main-title' %}
+    </div>
+
+</section>
+  
+  
+{% schema %}
+{
+  "name": "Page header",
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    }
+  ]
+}
+{% endschema %}

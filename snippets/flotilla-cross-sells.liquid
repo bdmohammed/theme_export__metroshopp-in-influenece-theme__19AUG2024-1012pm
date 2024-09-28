@@ -1,0 +1,41 @@
+<div data-aid="cross-sells" data-color-scheme="{{ block_settings.cross_sells_color_scheme }}" class="cross-sells bg-page text-body px-3 py-4 md:px-4 -mx-3 md:mx-0">
+  {% if block_settings.title != blank %}
+    {% render 'armament-heading' with tag: 'h3', heading_content: block_settings.title, heading_type: 'heading-5', classes: "pb-2", data_aid: 'cross-sells-heading' %}
+  {% endif %}
+
+  <div class="gap-3 flex flex-col md:flex-row">
+    <div class="w-full md:w-1/2">
+      {% if block_settings.cross_sells_product_1 == blank %}
+        <div class="bg-body">
+          {% render 'armament-placeholder' with name: 'product-5' %}
+        </div>
+      {% else %}
+        {% render 'ship-product-card' with
+          card_product: all_products[block_settings.cross_sells_product_1],
+          block_order: 'image,title,price,quick-add',
+          gallery: false,
+          align: settings.product_info_position,
+          aspect_ratio: settings.product_cards_aspect_ratio,
+          disable_quick_view: true
+        %}
+      {% endif %}
+    </div>
+
+    <div class="w-full md:w-1/2">
+      {% if block_settings.cross_sells_product_2 == blank %}
+        <div class="bg-body">
+          {% render 'armament-placeholder' with name: 'product-3' %}
+        </div>
+      {% else %}
+        {% render 'ship-product-card' with
+          card_product: all_products[block_settings.cross_sells_product_2],
+          block_order: 'image,title,price,quick-add',
+          gallery: false,
+          align: settings.product_info_position,
+          aspect_ratio: settings.product_cards_aspect_ratio,
+          disable_quick_view: true
+        %}
+      {% endif %}
+    </div>
+  </div>
+</div>

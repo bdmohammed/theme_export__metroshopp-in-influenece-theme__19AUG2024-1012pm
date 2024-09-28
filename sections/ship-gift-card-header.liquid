@@ -1,0 +1,51 @@
+<header class="flex relative py-3 px-4 lg:px-5 xl:px-6 lg:py-4 justify-center {% if section.settings.logo_alignment == 'left' %} lg:justify-start{% endif %}">
+  {% render 'armament-logo' with section_id: section.id, logo_image: section.settings.header_logo, width_desktop: section.settings.logo_width_desktop, width_mobile: section.settings.logo_width_mobile, tag: 'h1', text_classes: 'text-h5', image_classes: 'logo min-w-[50px] lg:min-w-[80px]' %}
+</header>
+{% schema %}
+{
+  "name": "Gift card header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "header_logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width_desktop",
+      "min": 80,
+      "max": 270,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop width",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "logo_width_mobile",
+      "min": 50,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile width",
+      "default": 80
+    },
+    {
+      "type": "radio",
+      "id": "logo_alignment",
+      "label": "Logo alignment (desktop)",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "centered",
+          "label": "Centered"
+        }
+      ],
+      "default": "left"
+    }
+  ]
+}
+{% endschema %}

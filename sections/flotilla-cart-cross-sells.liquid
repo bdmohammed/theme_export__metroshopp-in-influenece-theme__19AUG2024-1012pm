@@ -1,0 +1,296 @@
+{% comment %}
+    Renders a cart upsells section.
+
+    Self-contained as this is only used on the cart page. Doesn't need any params.
+
+    Accepts:
+    - none
+
+    Usage:
+    {% render 'flotilla-cart-cross-sells' %}
+{% endcomment %}
+
+
+{%- capture get_blocks -%}
+  {%- for block in section.blocks -%}
+    {{ block.type | lstrip }}{%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- liquid
+  assign block_order = get_blocks | join: ',' | lstrip | strip
+  assign desktop_width_float = section.settings.products_per_row | times: 1.0
+  assign mobile_width_float = section.settings.products_per_row_mobile | times: 1.0
+  assign fallback_card_width_desktop = 100 | divided_by: desktop_width_float | append: '%'
+  assign fallback_card_width_mobile = 100 | divided_by: mobile_width_float | append: '%'
+
+  for block in section.blocks
+    case block.type
+      when 'image'
+        assign img_block_attr = block.shopify_attributes
+      when 'title'
+        assign title_block_attr = block.shopify_attributes
+      when 'price'
+        assign price_block_attr = block.shopify_attributes
+      when 'swatch'
+        assign swatch_block_attr = block.shopify_attributes
+      when 'quick-add'
+        assign quick_add_block_attr = block.shopify_attributes
+    endcase
+  endfor
+-%}
+
+<cart-cross-sells
+  class="hidden flex-col w-full xl:h-screen bg-page px-3 lg:px-6 py-4 lg:py-5"
+  data-section-id="{{ section.id }}"
+  data-num-products="{{ section.settings.products_total }}"
+  data-visible="{{ section.settings.products_per_row }}"
+  data-color-scheme="{{ section.settings.section_color_scheme }}"
+>
+  <div>
+    {% if section.settings.heading != blank %}
+      {% render 'armament-heading' with tag: 'h3', heading_type: 'heading-3', heading_content: section.settings.heading, classes: 'text-body mb-3 lg:mb-5 invisible', data_aid: 'cart-cross-sells-heading', attributes: 'data-armada-selector="cart-cross-sells-heading"' %}
+    {% endif %}
+
+    <div
+      data-armada-selector="cart-cross-sell-recommendations"
+    >
+      {%- assign product_card_classes = 'block pb-3 pr-2 last:pr-0' -%}
+      <slider-engine
+        load="false"
+        mode="horizontal"
+        visible-slides='{ "sm": {{ section.settings.products_per_row_mobile }}, "md": {{ section.settings.products_per_row }} }'
+        mobile-indicator="true"
+        arrows="true"
+        class="block relative"
+        data-aid="cart-cross-sells-grid"
+        data-name="scrollbar-target"
+        tabindex="0"
+      >
+        <div
+          data-name="slider-wrap"
+          class="relative overflow-hidden mb-2"
+        >
+          <ul
+            data-name="slider"
+            data-aid="cart-cross-sells-grid"
+            class="relative flex"
+            role="list"
+          >
+            {% if recommendations.performed and recommendations.products_count > 0 %}
+
+              {% comment %} Recommendations based on most expensive cart item. {% endcomment %}
+              {% for recommendation in recommendations.products %}
+                <li
+                  data-name="slide"
+                  slide-num="{{ forloop.index }}"
+                  class="block relative place-content-center cart-cross-sell-slide"
+                  data-aid="product-recommendations-item"
+                >
+                  {% render 'ship-product-card' with
+                    card_product: recommendation,
+                    block_order: block_order,
+                    gallery: false,
+                    align: settings.product_info_position,
+                    aspect_ratio: settings.product_cards_aspect_ratio,
+                    classes: product_card_classes,
+                    disable_quick_view: true,
+                    block_attr_image: img_block_attr,
+                    block_attr_title: title_block_attr,
+                    block_attr_price: price_block_attr,
+                    block_attr_swatch: swatch_block_attr,
+                    block_attr_quick_add: quick_add_block_attr,
+                  %}
+                </li>
+              {% endfor %}
+
+            {% elsif section.settings.fallback_collection != blank %}
+
+              {% comment %} Recommendations using a fallback collection specified by the merchant. {% endcomment %}
+              {% for fallback_product in section.settings.fallback_collection.products limit: section.settings.products_total %}
+                <li
+                  data-name="slide"
+                  slide-num="{{ forloop.index }}"
+                  class="block relative cart-cross-sell-fallback-slide js-invisible"
+                  data-aid="product-recommendations-fallback-item"
+                >
+                  {% render 'ship-product-card' with
+                    card_product: fallback_product,
+                    block_order: block_order,
+                    gallery: false,
+                    align: settings.product_info_position,
+                    aspect_ratio: settings.product_cards_aspect_ratio,
+                    classes: product_card_classes,
+                    disable_quick_view: true
+                  %}
+                </li>
+              {% endfor %}
+
+            {% else %}
+
+              {% comment %} 'Random' products. {% endcomment %}
+              {% for random_product in collections.all.products limit: section.settings.products_total %}
+                <li
+                  data-name="slide"
+                  slide-num="{{ forloop.index }}"
+                  class="block relative cart-cross-sell-fallback-slide js-invisible"
+                  data-aid="product-recommendations-fallback-item"
+                >
+                  {% render 'ship-product-card' with
+                    card_product: random_product,
+                    block_order: block_order,
+                    gallery: false,
+                    align: settings.product_info_position,
+                    aspect_ratio: settings.product_cards_aspect_ratio,
+                    classes: product_card_classes,
+                    disable_quick_view: true
+                  %}
+                </li>
+              {% endfor %}
+
+            {% endif %}
+          </ul>
+        </div>
+
+        <template>
+          {% assign item_count = section.settings.products_total %}
+
+          {% if section.settings.products_per_row_mobile == '2' %}
+            {% assign item_count = section.settings.products_total | minus: 1 %}
+          {% endif %}
+
+          {% render 'armament-slider-arrows' with hide_on_mobile: true %}
+          <div data-name="mobile-indicator" class="block md:hidden bg-white">
+            {% render 'armament-scroll-bar' with item_count: item_count, parent: 'slider-engine', target: 'slider-wrap', indicator: 'progress' %}
+          </div>
+        </template>
+      </slider-engine>
+    </div>
+  </div>
+</cart-cross-sells>
+
+<safe-load-scripts>
+  <script src="{{ 'engine-cart-cross-sells.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="engine-cart-cross-sells"></script>
+  <script src="{{ 'engine-slider.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="engine-slider"></script>
+</safe-load-scripts>
+
+{% style %}
+  :root {
+    --fallback-slide-min-width: {{ fallback_card_width_desktop }};
+    --fallback-slide-min-width-mobile: {{ fallback_card_width_mobile }};
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Cart cross sells",
+  "class": "cart-cross-sells flex-col hidden",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Cart cross sell products are based on the most expensive item in the cart."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Don't forget these..."
+    },
+    {
+      "type": "range",
+      "id": "products_total",
+      "min": 4,
+      "max": 12,
+      "step": 2,
+      "label": "Products to recommend",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Products per row (desktop)",
+      "default": 3
+    },
+    {
+      "type": "radio",
+      "id": "products_per_row_mobile",
+      "label": "Products per row (mobile)",
+      "options": [
+        {
+          "value": "1",
+          "label": "One per slide"
+        },
+        {
+          "value": "2",
+          "label": "Two per slide"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "collection",
+      "id": "fallback_collection",
+      "label": "Fallback collection",
+      "info": "If cart is empty, use this collection for recommendations."
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "section_color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "accent-3"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 1
+    },
+    {
+      "type": "title",
+      "name": "Product title",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "Product price",
+      "limit": 1
+    },
+    {
+      "type": "swatch",
+      "name": "Product swatches",
+      "limit": 1
+    },
+    {
+      "type": "quick-add",
+      "name": "Quick add button",
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}

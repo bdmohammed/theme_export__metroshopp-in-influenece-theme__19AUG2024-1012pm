@@ -1,0 +1,58 @@
+{% comment %}
+    Renders an animated progress bar.
+
+    Example use-case: Slider
+    - Used per-slide to display the time left for the current slide.
+    - Used globally on the slider with 'steps' to show both current slider position and how long is left for the current slide.
+
+    Accepts:
+    - interval: {Integer} time taken for the progress bar to complete in milliseconds (eg. slide rotation interval)
+    - steps: {Integer} Optional. Split the bar into X steps
+    - track {Boolean} Optional. Display a track behind the bar
+    - classes: {String} custom classes to be added to the progress bar
+    - track_color: {String} Optional. Custom color for the track. Defaults to body text.
+    - bar_color: {String} Optional. Custom color for the bar. Defaults to body text.
+
+    Usage:
+    {% render 'armament-progress-bar' with interval: 3000 %}
+    {% render 'armament-progress-bar' with interval: 3000, steps: 5, track: true %}
+
+    To trigger animation:
+    1) Set the data-progress-play attribute to "true"
+    2) (if using steps) Set the data-current-step attribute to an integer between 1 and {{ steps }}
+{% endcomment %}
+{% liquid
+
+  if track_color == blank
+    assign track_color = 'bg-body opacity-25'
+  endif
+
+  if bar_color == blank
+    assign bar_color = 'bg-body opacity-100'
+  endif
+%}
+
+<safe-load-scripts>
+  <script src="{{ 'component-progress-bar.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="progress-bar"></script>
+</safe-load-scripts>
+
+<progress-bar
+  class="block relative h-1 w-full{% if classes %} {{ classes }}{% endif %}"
+  data-progress-interval="{{ interval }}"
+  data-progress-play="{{ play | default: true }}"
+  {% if steps %}data-steps="{{ steps }}"{% endif %}
+  data-current-step="1"
+  aria-hidden="true"
+  data-aid="progress-bar"
+>
+  {% if track %}
+  <div
+    class="{{ track_color }} h-1 w-full absolute inset-0"
+    data-name="track"
+  ></div>
+  {% endif %}
+  <div
+    data-name="bar"
+    class="{{ bar_color }} h-1 w-0 z-10 absolute inset-0"
+  ></div>
+</progress-bar>

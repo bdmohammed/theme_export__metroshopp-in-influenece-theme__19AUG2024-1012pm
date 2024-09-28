@@ -1,0 +1,182 @@
+{%- liquid
+  for block in section.blocks
+    if block.type == 'article_image'
+      assign has_image_block = true
+    elsif block.type == 'article_title' or block.type == 'article_subtitle'
+      assign has_heading_block = true
+    endif
+  endfor
+  if has_image_block and has_heading_block and article.image != blank and section.settings.overlap_heading
+    assign overlap_heading = true
+  endif
+-%}
+
+<section class="flex items-center justify-center flex-col bg-page text-body{% if overlap_heading %} md:relative{% endif %}" data-color-scheme={{ section.settings.section_color_scheme }}>
+  {% for block in section.blocks %}
+    {% if block.type == 'article_image' %}
+      {% liquid
+          if block.settings.article_image_aspect_ratio == 'natural'
+              assign classes = 'relative mx-auto'
+          else
+              assign classes = 'absolute w-full h-full z-0 object-cover'
+          endif
+      %}
+
+      {% if article.image != blank %}
+        <div class="aspect-{{ block.settings.article_image_aspect_ratio }} relative w-full" {{ block.shopify_attributes }}>
+          {% render 'armament-image' with image: article.image, alt: article.image.alt, classes: classes, sizes: '100vw' %}
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% assign header_classes = 'text-center bg-page max-w-[1140px] p-4 md:px-6 md:py-6' %}
+  {% if overlap_heading %}
+    <article-header class="{{ header_classes }} md:w-full md:absolute md:bottom-0 md:translate-y-1/2">
+  {% elsif has_heading_block %}
+    <div class="{{ header_classes }}">
+  {% endif %}
+      <div class="max-w-[980px] mx-auto">
+        {% for block in section.blocks %}
+          {% if block.type == 'article_subtitle' %}
+            <div class="flex flex-col items-center justify-center first:mb-2 first:md:mb-3" {{ block.shopify_attributes }}>
+              {% render 'armament-heading' with tag: 'h4', heading_content: blog.title, heading_type: 'heading-4', data_aid: 'article-blog-title' %}
+            </div>
+          {% endif %}
+          {% if block.type == 'article_title' %}
+            <div class="flex flex-col items-center justify-center first:mb-2 first:md:mb-3" {{ block.shopify_attributes }}>
+              {% render 'armament-heading' with tag: 'h2', heading_content: article.title, heading_type: 'heading-2', data_aid: 'article-title' %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+  {% if overlap_heading %}
+    </article-header>
+    <safe-load-scripts>
+      <script src="{{ 'component-article-header.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="article-header"></script>
+    </safe-load-scripts>
+  {% else %}
+    </div>
+  {% endif %}
+</section>
+
+
+{% schema %}
+{
+  "name": "Article header",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "overlap_heading",
+      "label": "Overlap heading on image (desktop)",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "section_color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "article_image",
+      "name": "Image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Featured image",
+          "info": "You can add or change individually articles featured image on the [article settings](/admin/articles) page."
+        },
+        {
+          "type": "select",
+          "id": "article_image_aspect_ratio",
+          "label": "Image aspect ratio",
+          "default": "wide",
+          "options": [
+            {
+              "value": "natural",
+              "label": {
+                "en": "Natural",
+                "fr": "Naturel",
+                "de": "Natürlich",
+                "es": "Natural",
+                "pt-PT": "Natural"
+              }
+            },
+            {
+              "value": "square",
+              "label": {
+                "en": "Square (1:1)",
+                "fr": "Carré (1: 1)",
+                "de": "Quadrat (1:1)",
+                "es": "Cuadrado (1:1)",
+                "pt-PT": "Quadrado (1:1)"
+              }
+            },
+            {
+              "value": "tall",
+              "label": {
+                "en": "Tall (2:3)",
+                "fr": "Grand (2: 3)",
+                "de": "Groß (2:3)",
+                "es": "Vertical (2:3)",
+                "pt-PT": "Estreito (2:3)"
+              }
+            },
+            {
+              "value": "wide",
+              "label": {
+                "en": "Wide (4:3)",
+                "fr": "Large (4: 3)",
+                "de": "Weit (4:3)",
+                "es": "Ancho (4:3)",
+                "pt-PT": "Largo (4:3)"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "article_title",
+      "name": "Article title",
+      "limit": 1,
+      "settings": [
+
+      ]
+    },
+    {
+      "type": "article_subtitle",
+      "name": "Blog title",
+      "limit": 1,
+      "settings": [
+
+      ]
+    }
+  ]
+}
+{% endschema %}

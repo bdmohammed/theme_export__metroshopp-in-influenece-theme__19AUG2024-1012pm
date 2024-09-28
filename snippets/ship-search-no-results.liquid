@@ -1,0 +1,4 @@
+{% assign noResultsString = 'general.search.no_results_html' | t: terms: search.terms, type: type %}
+<div class="h-[70vh] flex justify-center p-4 lg:p-5 text-body">
+  {% render 'armament-heading' with tag: 'p', heading_content: noResultsString, heading_type: 'heading-5' %}
+</div>

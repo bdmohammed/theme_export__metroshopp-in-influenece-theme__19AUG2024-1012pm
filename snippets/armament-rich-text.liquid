@@ -1,0 +1,21 @@
+{% comment %}
+    Renders a user-input html string wrapped in Tailwind RTE classes.
+
+    Accepts:
+    - content: {String} HTML string of content.
+    - align: {String} Alignment of content. One of: left, center, right, justify
+
+    Usage:
+    {% render 'armament-rich-text' with content: article.content %}
+
+{% endcomment %}
+
+{% liquid
+  if align == blank
+    assign align = 'left'
+  endif
+%}
+
+<div class="rte prose prose-strong:text-body prose-blockquote:text-body prose-figcaption:text-body max-w-none text-{{ align }}" data-aid="rich-text">
+  {{ content }}
+</div>

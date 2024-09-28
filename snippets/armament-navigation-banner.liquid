@@ -1,0 +1,29 @@
+{% comment %}
+    Renders a tabbed navigation
+
+    Accepts:
+    - nav_item: {Object} The navigation to be displayed
+    - container_classes: {String} Classes to add to the outer container
+    - classes: {String} any custom classes to pass into the navigation armament
+    - main_attributes: {Sting} attributes to pass to the navigation-banner element
+
+    Usage:
+    {% render 'armament-navigation-banner' with nav_item: linklists.main-menu.links %}
+{% endcomment %}
+
+<navigation-banner class="flex{% if container_classes %} {{ container_classes }}{% endif %}" data-aid="armament-navigation-banner"{% if main_attributes %} {{ main_attributes }}{% endif %}>
+  {% for item in nav_item %}
+
+    {% liquid
+      if request.path == item.url
+        assign class = 'active' | append: ' nav-item opacity-100 cursor-pointer relative after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-1 after:bg-body ' | append: classes
+      else
+        assign class = 'nav-item opacity-30 cursor-pointer hover:opacity-100 transition-opacity duration-300 ' | append: classes
+      endif
+    %}
+
+    <a href="{{ item.url }}" aria-label="{{ item.title }}" class="pr-3 pb-2 lg:pr-5 last:pr-0">
+      {% render 'armament-heading' with tag: 'h5', heading_content: item.title, heading_type: "section-subheading", classes: class, data_aid: 'nav-banner-heading' %}
+    </a>
+  {% endfor %}
+</navigation-banner>

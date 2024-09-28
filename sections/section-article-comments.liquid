@@ -1,0 +1,101 @@
+{% liquid 
+  assign prev_article = 'blogs.article.previous_post' | t 
+	assign next_article = 'blogs.article.next_post' | t  
+%}
+
+<div data-armada-selector="comment_wrapper">
+  {% paginate article.comments by 3 %}
+    <article-comments class="block" data-section-id="{{ section.id }}" data-armada-selector="article_comments">
+      {% if article.comments_count > 0 %}
+        <ul class="py-4" data-armada-selector="comment_list">
+          {% if comment and comment.created_at %}
+            <li class="border flex flex-col p-3 md:p-4 my-3 md:my-4 first:mt-0 last:mb-0" id={{ comment.id }}>
+              <div>
+                <div class="comment-author mb-2 uppercase">
+                  {% capture author %}<strong>{{ comment.author }}</strong>{% endcapture %}
+                  {{ 'blogs.article.pending_comment_meta_html' | t: author: author }}
+                </div>
+                <div class="comment-content">
+                  {{ comment.content }}																
+                </div>
+              </div>
+            </li>
+          {% endif %}
+            
+          {% for post in article.comments %}
+            {% if post.id == comment.id %}
+              {% continue %} 
+            {% else %}
+              <li class="border flex flex-col p-3 md:p-4 my-3 md:my-4 first:mt-0 last:mb-0" id={{ post.id }}>
+                <div>
+                  <div class="flex flex-col">
+                    {% render 'armament-heading' with tag: 'h5', heading_content: post.author, classes: 'text-h5 mb-2', data_aid: 'comment-author' %}
+                    <span class="mb-2 uppercase">{{ article.published_at | time_tag: '%b %d, %Y' }}</span>
+                  </div>
+                  <div class="comment-content">
+                    {{ post.content }}
+                  </div>
+                </div>
+              </li>
+            {% endif %}
+          {% endfor %}
+            
+        </ul>
+      {% endif %}
+
+
+      {% if paginate.pages > 1 %}
+        <div class="no-js-hide" data-armada-selector="comment_pagination">
+          <ul class="grid grid-cols-[minmax(0,auto),1fr,minmax(0,auto)] items-center justify-center">
+            <li class="col-start-1 col-end-2">
+              {% if paginate.previous.is_link %}
+                <div class="cursor-pointer group" data-armada-selector="previous_comment" data-prev-url="{{ paginate.previous.url }}" tabindex="0">
+                  {% render 'armament-icon' with icon: 'arrow-left', classes: 'mr-3 cursor-pointer' %}<span class="sr-only">{{ prev_article }}</span>	
+                </div>
+              {% endif %}
+            </li>
+
+            <li class="col-start-2 col-end-3">
+              <div class="text-center" aria-current="page">{{ 'general.pagination.current_page' | t: current: paginate.current_page, total: paginate.pages }}</div>
+            </li>
+
+            <li class="col-start-3 col-end-4">
+              {% if paginate.next.is_link %}
+                <div class="cursor-pointer group" data-armada-selector="next_comment" data-next-url="{{ paginate.next.url }}" tabindex="0">
+                  {% render 'armament-icon' with icon: 'arrow-right', classes: 'ml-3 cursor-pointer' %}<span class="sr-only">{{ next_article }}</span>
+                </div>
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+        <noscript>
+          <ul class="grid grid-cols-[minmax(0,auto),1fr,minmax(0,auto)] items-center justify-center">
+            <li class="col-start-1 col-end-2">
+                {% if paginate.previous.is_link %}
+                  <a href="{{ paginate.previous.url }}">
+                {% endif %}
+                  {% render 'armament-icon' with icon: 'arrow-left', classes: 'mr-3' %}<span class="sr-only">{{ prev_article }}</span>
+                {% if paginate.previous.is_link %}
+                  </a>
+                {% endif %}
+            </li>
+
+            <li class="col-start-2 col-end-3">
+              <div class="text-center" aria-current="page">{{ 'general.pagination.current_page' | t: current: paginate.current_page, total: paginate.pages }}</div>
+            </li>
+
+            <li class="col-start-3 col-end-4">
+              {% if paginate.next.is_link %}
+                <a href="{{ paginate.next.url }}">
+              {% endif %}
+                {% render 'armament-icon' with icon: 'arrow-right', classes: 'ml-3' %}<span class="sr-only">{{ next_article }}</span>
+              {% if paginate.next.is_link %}
+                </a>
+              {% endif %}
+            </li>
+          </ul>
+        </noscript>
+      {% endif %}
+    </article-comments>
+  {% endpaginate %}
+</div>

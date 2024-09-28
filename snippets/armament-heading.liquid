@@ -1,0 +1,58 @@
+{% comment %}
+    Renders a heading type.
+
+    Accepts:
+    - tag: {String} HTML tag name
+    - attributes: {String} any custom attributes to add to the heading
+    - data_aid: {String} data aid for cypress (required)
+    - classes: {String} any custom classes you'd like to pass in for the heading
+    - heading_content: {String} the heading text to be displayed
+    - heading_type: {String} Specifies the heading type/size. Accepts the following:
+      - 'callout-heading'
+      - 'section-heading'
+      - 'section-subheading'
+      - 'heading-1'
+      - 'heading-2'
+      - 'heading-3'
+      - 'heading-4'
+      - 'heading-5'
+      - 'heading-6'
+
+    Usage:
+    // SECTION HEADING
+    {% render 'armament-heading' with tag: 'h2', classes: 'custom-class', heading_content: section.settings.title, heading_type: 'section-heading' %}
+
+    // SECTION SUBHEADING
+    {% render 'armament-heading' with tag: 'h4', heading_content: section.settings.subheading_title, heading_type: 'section-subheading' %}
+
+    // CALLOUT (OVERSIZED) HEADING
+    {% render 'armament-heading' with tag: 'h2', heading_content: section.settings.title, heading_type: 'callout-heading' %}
+
+    // PRODUCT TITLE/ARTICLE HEADING/OTHER
+    {% render 'armament-heading' with tag: 'h5', classes: 'mt-4', heading_type: 'heading-3', heading_content: product.title %}
+{% endcomment %}
+
+{%- liquid
+  unless tag
+    assign tag = "h3"
+  endunless
+
+  assign default_classes = "font-heading heading-case text-headings break-anywhere"
+
+  case heading_type
+    when 'heading-1' or 'callout-heading'
+      assign type_classes = "text-h1 leading-heading"
+    when 'heading-2' or 'section-heading'
+      assign type_classes = "text-h2 leading-heading"
+    when 'heading-3'
+      assign type_classes = "text-h3 leading-heading"
+    when 'heading-4' or 'section-subheading'
+      assign type_classes = "text-h4 leading-none"
+    when 'heading-5'
+      assign type_classes = "text-h5 leading-none"
+    when 'heading-6'
+      assign type_classes = "text-h6 leading-none"
+  endcase
+-%}
+
+<{{ tag }} class="{{ default_classes }} {{ type_classes }}{% if classes %} {{ classes }}{% endif %}" {% if attributes %} {{ attributes }}{% endif %}{% if data_aid %} data-aid="{{ data_aid }}"{% endif %}>{{ heading_content }}</{{ tag }}>

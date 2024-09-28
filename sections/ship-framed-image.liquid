@@ -1,0 +1,641 @@
+{% liquid
+  case section.settings.overlay_opacity
+    when 0
+      assign overlay_opacity_class = 'bg-opacity-0'
+    when 10
+      assign overlay_opacity_class = 'bg-opacity-10'
+    when 20
+      assign overlay_opacity_class = 'bg-opacity-20'
+    when 30
+      assign overlay_opacity_class = 'bg-opacity-30'
+    when 40
+      assign overlay_opacity_class = 'bg-opacity-40'
+    when 50
+      assign overlay_opacity_class = 'bg-opacity-50'
+    when 60
+      assign overlay_opacity_class = 'bg-opacity-60'
+    when 70
+      assign overlay_opacity_class = 'bg-opacity-70'
+    when 80
+      assign overlay_opacity_class = 'bg-opacity-80'
+    when 90
+      assign overlay_opacity_class = 'bg-opacity-90'
+    when 100
+      assign overlay_opacity_class = 'bg-opacity-100'
+  endcase
+
+  case section.settings.overlay_color_scheme
+    when 'light'
+      assign overlay_bg = 'bg-white'
+    when 'dark'
+      assign overlay_bg = 'bg-black'
+    endcase
+
+  assign defaultFrameClasses = 'border-0'
+  assign activeFrameClasses = 'border-[80px] upto-md:border-[24px] upto-md:border-b-0 lg:border-[80px]'
+  assign mobileActiveFrameClasses= 'ml-4 upto-md:ml-4 lg:ml-6 mr-4 upto-md:mr-4 lg:mr-6'
+  assign mobileDefaultFrameClasses= 'ml-0 mr-0'
+
+  case section.settings.frame_sides
+  when 'all'
+    case section.settings.frame_type
+      when 'framed'
+        assign defaultFrameClasses = 'border-[80px] upto-md:border-[24px] upto-md:border-b-0 lg:border-[80px]'
+        assign activeFrameClasses = 'border-0'
+        assign mobileActiveFrameClasses= 'ml-0 mr-0'
+        assign mobileDefaultFrameClasses= 'ml-4 upto-md:ml-4 lg:ml-6 mr-4 upto-md:mr-4 lg:mr-6'
+      endcase
+  when 'left_right'
+    assign activeFrameClasses = 'border-l-[80px] upto-md:border-l-[24px] lg:border-l-[80px] border-r-[80px] upto-md:border-r-[24px] lg:border-r-[80px]'
+    case section.settings.frame_type
+      when 'framed'
+        assign defaultFrameClasses = 'border-l-[80px] upto-md:border-l-[24px] lg:border-l-[80px] border-r-[80px] upto-md:border-r-[24px] lg:border-r-[80px]'
+        assign activeFrameClasses = 'border-0'
+        assign mobileActiveFrameClasses= 'ml-0 mr-0'
+        assign mobileDefaultFrameClasses= 'ml-4 upto-md:ml-4 lg:ml-6 mr-4 upto-md:mr-4 lg:mr-6'
+      endcase
+  endcase
+
+  assign blocksVerticalClasses = 'justify-end'
+  assign blocksHorizontalClasses = 'items-center md:items-center'
+
+  case section.settings.desktop_height
+    when 's'
+      assign desktop_height = 'md:h-[400px]'
+    when 'm'
+      assign desktop_height = 'md:h-[550px]'
+    when 'l'
+      assign desktop_height = 'md:h-[750px]'
+    when 'xl'
+      assign desktop_height = 'md:h-screen'
+  endcase
+
+  case section.settings.mobile_height
+    when 's'
+      assign mobile_height = 'h-[350px] '
+    when 'm'
+      assign mobile_height = 'h-[400px] '
+    when 'l'
+      assign mobile_height = 'h-[500px] '
+    when 'xl'
+      assign mobile_height = 'h-screen '
+  endcase
+
+  assign section_heights = mobile_height | append: desktop_height
+%}
+
+
+
+
+<framed-image
+  data-armada-selector="{{ section.id }}"
+  data-color-scheme="{{ section.settings.section_color_scheme }}"
+  data-frame-sides="{{ section.settings.frame_sides }}"
+  data-frame-type="{{ section.settings.frame_type }}"
+  data-default-frame-classes="{{ defaultFrameClasses }}"
+  data-active-frame-classes="{{ activeFrameClasses }}"
+  data-mobile-active-frame-classes="{{ mobileActiveFrameClasses }}"
+  data-mobile-default-frame-classes="{{ mobileDefaultFrameClasses }}"
+  class="relative w-full flex flex-col  "
+>
+  <div class="relative w-full overflow-hidden flex flex-col {{ section_heights }}">
+  {% liquid
+    if section.settings.desktop_image != blank and section.settings.mobile_image != blank
+      render 'armament-image' with image: section.settings.desktop_image, classes: 'hidden lg:block w-full h-full object-cover'
+      render 'armament-image' with image: section.settings.mobile_image, classes: 'lg:hidden w-full h-full object-cover'
+    elsif section.settings.desktop_image and section.settings.mobile_image == blank
+      render 'armament-image' with image: section.settings.desktop_image, classes: 'object-cover h-full w-full object-cover'
+    elsif section.settings.desktop_image == blank and section.settings.mobile_image != blank
+      render 'armament-image' with image: section.settings.mobile_image, classes: 'w-full h-full object-cover'
+    elsif section.settings.desktop_image == blank and section.settings.mobile_image == blank
+      render 'armament-placeholder' with name: 'lifestyle-2', classes: 'block w-full h-full object-cover'
+    endif
+  %}
+
+  <div
+    data-armada-selector="framed-content-container"
+    class="absolute w-full h-full top-0 left-0 ease-linear duration-500 z-2 {{ defaultFrameClasses }} border-page {{ overlay_bg }} {{ overlay_opacity_class }} flex flex-col {{ blocksVerticalClasses }} {{ blocksHorizontalClasses }} p-4 lg:p-6"
+  >
+    {% comment %} Shadow on mobile {% endcomment %}
+    <div class="absolute top-0 left-0 w-full h-full shadow-md md:hidden"></div>
+
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'overlay_content' %}
+          <div
+            data-armada-selector="desktop-overlay-{{ section.id }}"
+            class="hidden md:flex flex-col z-3"
+            data-load-in="overlay-content"
+            {{ block.shopify_attributes }}
+          ></div>
+
+          {% when 'social_cta' %}
+            {% comment %} SOCIAL CALL OUT {% endcomment %}
+            {% render 'ship-social-callout' with
+              link: block.settings.social_link,
+              text: block.settings.social_link_text,
+              color_scheme: block.settings.social_color_scheme,
+              transparent: block.settings.transparent_bg,
+              social_icon: block.settings.social_icon,
+              icon_shape: block.settings.social_icon_shape,
+              icon_size: block.settings.icon_size,
+              animate: true,
+              shopify_attributes: block.shopify_attributes
+            %}
+        {% endcase %}
+    {% endfor %}
+
+  </div>
+</div>
+  {% comment %} Mobile First render {% endcomment %}
+  <div
+    data-armada-selector="mobile-overlay-content-{{ section.id }}"
+    class="flex flex-col bg-page md:hidden ease-linear duration-500"
+    data-load-in="overlay-content"
+  >
+    {%- for block in section.blocks -%}
+      {% case block.type %}
+        {% when 'overlay_content' %}
+
+          {% liquid
+
+            if block.settings.button_2_link != blank and block.settings.button_2_text != blank
+              assign button_spacing = 'mr-3 md:mr-4'
+            else
+              assign button_spacing = 'mr-0'
+            endif
+
+            assign buttons_enabled = false
+
+            if block.settings.button_1_link != blank and block.settings.button_1_text != blank
+              assign buttons_enabled = true
+            endif
+
+            if block.settings.button_2_link != blank and block.settings.button_2_text != blank
+              assign buttons_enabled = true
+            endif
+
+          %}
+
+          <div
+            data-armada-selector="overlay-content"
+            data-color-scheme="{{ block.settings.caption_color_scheme }}"
+            data-load-in="overlay-content"
+            class="flex-col p-4 justify-center bg-page border-t-4 border-body shadow-md"
+            {{ block.shopify_attributes }}
+           >
+
+            {% if block.settings.heading != blank %}
+              {% render 'armament-heading' with heading_content: block.settings.heading, tag: 'h3', heading_type: 'heading-3', data_aid: 'dynamic-image-heading', classes: 'text-center mb-3 last:mb-0 upto-sm:max-w-[250px] upto-sm:mx-auto upto-sm:leading-tight' %}
+            {% endif %}
+
+            {% if buttons_enabled %}
+              <div class="flex flex-row {% if section.settings.heading != blank %} mt-3 md:mt-4{% endif %} justify-center">
+                {% if block.settings.button_1_link != blank and block.settings.button_1_text != blank %}
+                  {% render 'armament-button' with url: block.settings.button_1_link, content: block.settings.button_1_text, style: block.settings.button_1_style, classes: button_spacing, data_aid: "dynamic-img-button-1" %}
+                {% endif %}
+
+                {% if block.settings.button_2_link != blank and block.settings.button_2_text != blank %}
+                  {% render 'armament-button' with url: block.settings.button_2_link, content: block.settings.button_2_text, style: block.settings.button_2_style, data_aid: "dynamic-img-button-2" %}
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+      {% endcase %}
+    {%- endfor -%}
+  </div>
+
+</framed-image>
+
+
+<safe-load-scripts>
+  <script src="{{ 'component-framed-image.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="framed-image"></script>
+</safe-load-scripts>
+
+{% schema %}
+{
+  "name": "Framed image",
+  "max_blocks": 2,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image",
+      "info": "3000x1350px recommended"
+    },
+    {
+      "type": "select",
+      "id": "desktop_height",
+      "label": "Desktop height",
+      "options": [
+        {
+          "value": "s",
+          "label": "Small"
+        },
+        {
+          "value": "m",
+          "label": "Medium"
+        },
+        {
+          "value": "l",
+          "label": "Large"
+        },
+        {
+          "value": "xl",
+          "label": "Crop to fit screen"
+        }
+      ],
+      "default": "l"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image",
+      "info": "1400x1400px recommended"
+    },
+    {
+      "type": "select",
+      "id": "mobile_height",
+      "label": "Mobile height",
+      "options": [
+        {
+          "value": "s",
+          "label": "Small"
+        },
+        {
+          "value": "m",
+          "label": "Medium"
+        },
+        {
+          "value": "l",
+          "label": "Large"
+        },
+        {
+          "value": "xl",
+          "label": "Crop to fit screen"
+        }
+      ],
+      "default": "m"
+    },
+    {
+      "type": "header",
+      "content": "Frame settings"
+    },
+    {
+      "type": "select",
+      "id": "frame_type",
+      "label": "Focused image width",
+      "info": "This is the frame width when the entire section is on the screen.",
+      "options": [
+        {
+          "value": "full-width",
+          "label": "Full width"
+        },
+        {
+          "value": "framed",
+          "label": "Narrow"
+        }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "select",
+      "id": "frame_sides",
+      "label": "Frame style",
+      "options": [
+        {
+          "value": "all",
+          "label": "All sides"
+        },
+        {
+          "value": "left_right",
+          "label": "Left and right sides"
+        }
+      ],
+      "default": "left_right"
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "section_color_scheme",
+      "label": "Background color scheme",
+      "info": "You can edit the content color scheme in the block settings.",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "overlay_color_scheme",
+      "label": "Overlay color scheme",
+      "options": [
+        {
+          "value": "light",
+          "label": "Light"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        }
+      ],
+      "default": "light"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "overlay_content",
+      "name": "Overlay content",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Bring your page to life"
+        },
+        {
+          "type": "header",
+          "content": "Buttons"
+        },
+        {
+          "type": "url",
+          "id": "button_1_link",
+          "label": "First button link",
+          "default": "/collections/all"
+        },
+        {
+          "type": "text",
+          "id": "button_1_text",
+          "label": "First button label",
+          "default": "Shop now"
+        },
+        {
+          "type": "radio",
+          "id": "button_1_style",
+          "label": "First button style",
+          "options": [
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "fill",
+              "label": "Fill"
+            }
+          ],
+          "default": "fill"
+        },
+        {
+          "type": "url",
+          "id": "button_2_link",
+          "label": "Second button link",
+          "default": "/"
+        },
+        {
+          "type": "text",
+          "id": "button_2_text",
+          "label": "Second button label",
+          "default": "Learn more"
+        },
+        {
+          "type": "radio",
+          "id": "button_2_style",
+          "label": "Second button style",
+          "options": [
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "fill",
+              "label": "Fill"
+            }
+          ],
+          "default": "outline"
+        },
+        {
+          "type": "header",
+          "content": "Color scheme"
+        },
+        {
+          "type": "select",
+          "id": "caption_color_scheme",
+          "label": "Color scheme",
+          "options": [
+            {
+              "value": "general",
+              "label": "General"
+            },
+            {
+              "value": "accent-1",
+              "label": "Accent 1"
+            },
+            {
+              "value": "accent-2",
+              "label": "Accent 2"
+            },
+            {
+              "value": "accent-3",
+              "label": "Accent 3"
+            }
+          ],
+          "default": "general"
+        }
+      ],
+      "limit": 1
+    },
+    {
+      "type": "social_cta",
+      "name": "Social link",
+      "settings": [
+        {
+          "type": "select",
+          "id": "social_icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "facebook",
+              "label": "Facebook"
+            },
+            {
+              "value": "instagram",
+              "label": "Instagram"
+            },
+            {
+              "value": "pinterest",
+              "label": "Pinterest"
+            },
+            {
+              "value": "snapchat",
+              "label": "Snapchat"
+            },
+            {
+              "value": "tiktok",
+              "label": "TikTok"
+            },
+            {
+              "value": "twitch",
+              "label": "Twitch"
+            },
+            {
+              "value": "twitter",
+              "label": "Twitter"
+            },
+            {
+              "value": "youtube",
+              "label": "YouTube"
+            }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "select",
+          "id": "social_icon_shape",
+          "label": "Icon style",
+          "options": [
+            {
+              "value": "circle",
+              "label": "Circle"
+            },
+            {
+              "value": "square",
+              "label": "Square (1:1)"
+            },
+            {
+              "value": "floating",
+              "label": "Floating"
+            }
+          ],
+          "default": "floating"
+        },
+        {
+          "type": "select",
+          "id": "icon_size",
+          "label": "Icon size",
+          "options": [
+            {
+              "value": "16",
+              "label": "small"
+            },
+            {
+              "value": "24",
+              "label": "Medium"
+            },
+            {
+              "value": "32",
+              "label": "Large"
+            },
+            {
+              "value": "44",
+              "label": "Extra Large"
+            }
+          ],
+          "default": "24"
+        },
+        {
+          "type": "header",
+          "content": "Link"
+        },
+        {
+          "type": "text",
+          "id": "social_link_text",
+          "label": "Link label",
+          "default": "follow us"
+        },
+        {
+          "type": "url",
+          "id": "social_link",
+          "label": "Link",
+          "default": "/"
+        },
+        {
+          "type": "header",
+          "content": "Color scheme"
+        },
+        {
+          "type": "select",
+          "id": "social_color_scheme",
+          "label": "Color scheme",
+          "options": [
+            {
+              "value": "general",
+              "label": "General"
+            },
+            {
+              "value": "accent-1",
+              "label": "Accent 1"
+            },
+            {
+              "value": "accent-2",
+              "label": "Accent 2"
+            },
+            {
+              "value": "accent-3",
+              "label": "Accent 3"
+            }
+          ],
+          "default": "general"
+        },
+        {
+          "type": "checkbox",
+          "id": "transparent_bg",
+          "label": "Transparent background",
+          "default": true
+        }
+      ],
+      "limit": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "Framed image",
+      "settings": {
+      },
+      "blocks": [
+        {
+          "type": "overlay_content"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer",
+      "custom.overlay"
+    ]
+  }
+}
+{% endschema %}

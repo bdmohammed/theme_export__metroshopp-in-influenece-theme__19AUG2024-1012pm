@@ -1,0 +1,190 @@
+{% liquid 
+
+  if section.settings.show_collection_image == true
+    assign show_img = true
+  else 
+    assign show_img = false
+  endif
+
+  if section.settings.show_collection_title == true
+    assign show_title = true
+  else 
+    assign show_title = false
+  endif
+
+  if section.settings.overlay_color_scheme == 'bg-white'
+    assign overlay_color_value = '#FFFFFF'
+  else
+    assign overlay_color_value = '#000000'
+  endif
+
+  if show_img == true and collection.image != blank
+    if section.settings.image_aspect_ratio == 'wide'
+      assign img_container_height = 'max-h-[120px] lg:max-h-[370px] overflow-hidden'
+      assign img_height = 'h-[120px] lg:h-[370px] object-cover object-center w-full'
+    elsif section.settings.image_aspect_ratio == 'tall'
+      assign img_container_height = 'max-h-full relative pb-[75%]'
+      assign img_height = 'absolute h-full object-cover object-center w-full'
+    elsif section.settings.image_aspect_ratio == 'original'
+      assign img_container_height = 'max-h-full relative'
+      assign img_height = 'h-full w-full'
+    endif
+  endif
+
+  if section.settings.content_overlays_image == true and show_img == true and collection.image != blank
+    assign content_over_image = true
+    assign content_start_end = 'row-start-1 row-end-2 col-start-1 col-end-2'
+
+    if section.settings.show_collection_title 
+      assign overlay_color = overlay_color_value
+      assign overlay_opacity = section.settings.overlay_opacity | divided_by: 100.0
+      assign color_with_opacity = overlay_color | color_modify: 'alpha', overlay_opacity
+      assign overlay_bg = 'style="background-color:' | append: color_with_opacity | append: ';"'
+    endif
+  else 
+    assign content_over_image = false
+    assign content_start_end = 'row-start-2 row-end-3 col-start-1 col-end-2'
+  endif
+  
+%}
+
+<section {% unless show_img %}data-color-scheme="{{ section.settings.section_color_scheme }}"{% endunless %} class="grid grid-cols-1 text-center {% unless show_img %}bg-page text-body{% endunless %} {% if content_over_image %}grid-rows-1{% else %}grid-rows-[repeat(2,minmax(0,auto))]{% endif %}">
+  {% if show_img and collection.image != blank %}
+    <div class="{{ img_container_height }} col-start-1 col-end-2 {% if content_over_image %}row-start-1 row-end-3{% else %}row-start-1 row-end-2{% endif %}">
+      {% render 'armament-image' with image: collection.image, classes: img_height, alt: collection.image.alt, sizes: '100vw' %}
+    </div>
+  {% endif %}
+  {% if show_title %}
+    <div data-color-scheme="{{ section.settings.section_color_scheme }}" class="{{ content_start_end }} z-20 flex flex-col{% if section.settings.text_align == 'center' %} items-center{% elsif section.settings.text_align == 'right' %} items-end{% endif %} justify-center py-5 px-3 md:px-6 mx-auto w-full text-body{% unless content_over_image %} bg-page{% endunless %}{% if content_over_image %} my-0 max-w-full{% endif %}{% if show_title == false or collection.title == blank %} py-0{% endif %}" {{ overlay_bg }}>
+      <div class="text-{{ section.settings.text_align }}">
+        {% render 'armament-heading' with tag: 'h2', heading_type: 'heading-3', heading_content: collection.title, data_aid: 'collection-title' %}
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "class": "w-full",
+  "name": "Collection header",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_collection_title",
+      "label": "Show collection heading",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Heading alignment",
+      "default": "center",
+      "options": [
+        {
+          "label": "Center",
+          "value": "center"
+        },
+        {
+          "label": "Left",
+          "value": "left"
+        },
+        {
+          "label": "Right",
+          "value": "right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Header image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "label": "Show collection image",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "content_overlays_image",
+      "label": "Header overlays image",
+      "info": "This will place the heading over the image.",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image aspect ratio",
+      "default": "wide",
+      "options": [
+        {
+          "label": "Wide",
+          "value": "wide"
+        },
+        {
+          "label": "Tall",
+          "value": "tall"
+        },
+        {
+          "label": "Original",
+          "value": "original"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "section_color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "accent-1"
+    },
+    {
+      "type": "select",
+      "id": "overlay_color_scheme",
+      "label": "Image overlay color scheme",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "Light"
+        },
+        {
+          "value": "bg-black",
+          "label": "Dark"
+        }
+      ],
+      "default": "bg-black"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Image overlay opacity",
+      "unit": "%",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    }
+  ]
+}
+{% endschema %}

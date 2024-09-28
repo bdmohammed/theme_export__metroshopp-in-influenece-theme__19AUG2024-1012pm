@@ -1,0 +1,174 @@
+{% liquid
+  if section.blocks.size > 0
+    assign heading_classes = 'pb-4 md:pb-5'
+  endif
+%}
+
+<section data-color-scheme="{{ section.settings.section_color_scheme }}" class="bg-page text-body text-center max-w-full py-5 px-4 md:px-7 md:py-6 flex justify-around" data-aid="testimonial-section">
+  <div class="max-w-screen-lg flex-auto">
+    {% if section.settings.section_subheading != blank %}
+      {% render 'armament-heading' with heading_content: section.settings.section_subheading, tag: 'h3', heading_type: 'section-subheading', classes: 'pb-2 md:pb-3', data_aid: 'testimonial-subheading' %}
+    {% endif %}
+    {% if section.settings.section_heading != blank %}
+      {% render 'armament-heading' with heading_content: section.settings.section_heading, tag: 'h2', heading_type: 'heading-2', classes: heading_classes, data_aid: 'testimonial-heading' %}
+    {% endif %}
+
+    <fade-slider
+      data-name="scrollbar-target"
+      arrows="true"
+      mobile-indicator="true"
+      swipe="true"
+      rotate="false"
+      loop="true"
+      blocks="true"
+      rotation-interval=""
+      class="block group relative lg:px-[15px]"
+    >
+      <div
+        data-name="fade-slider"
+        class="grid overflow-hidden"
+      >
+        {% for block in section.blocks %}
+          {% liquid
+            if block.settings.testimonial_content != blank or block.settings.testimonial_author != blank
+              assign testimonial_classes = 'pb-3 md:pb-4 animate-fade-slider animate-fade-slider-delay-1'
+            else
+              assign testimonial_classes = 'pb-0 animate-fade-slider animate-fade-slider-delay-1'
+            endif
+          %}
+
+          <div
+            class="flex flex-col items-center justify-start row-start-1 col-start-1 text-center transition-opacity duration-500 delay-1000{% if forloop.first %} z-[1]{% else %} opacity-0 z-0{% endif %}"
+            data-name="fade-slide"
+            data-fade-slider-index={{ forloop.index0 }}
+            {% if forloop.first %}data-fade-slider-active{% endif %}
+            {{ block.shopify_attributes }}
+          >
+            {% render 'armament-star-rating' with count: block.settings.star_rating, classes: testimonial_classes %}
+            {% if block.settings.testimonial_content != blank %}
+              <p class="md:px-6{% if block.settings.testimonial_author != blank %} pb-3 md:pb-4{% endif %} animate-fade-slider animate-fade-slider-delay-2">{{ block.settings.testimonial_content }}</p>
+            {% endif %}
+            {% if block.settings.testimonial_author != blank %}
+              <p class="text-h5 font-heading heading-case leading-none animate-fade-slider animate-fade-slider-delay-3">{{ block.settings.testimonial_author }}</p>
+            {% endif %}
+          </div>
+
+        {% endfor %}
+      </div>
+      <template>
+        {% render 'armament-slider-arrows' with hide_on_mobile: true, border: true %}
+        <div class="pt-3 md:hidden" data-name="mobile-indicator">
+          {% render 'armament-scroll-bar' with item_count: section.blocks.size, parent: 'fade-slider', target: 'fade-slider', indicator: 'progress', loop_forward: 'true', loop_backward: 'true' %}
+        </div>
+      </template>
+    </fade-slider>
+    </div>
+</section>
+
+<script src="{{ 'engine-fade-slider.min.js' | asset_url }}" defer="defer" type="module"></script>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_subheading",
+      "label": "Subheading",
+      "default": "Build brand trust"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "Testimonials"
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "section_color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "testimonial",
+      "type": "testimonial",
+      "settings": [
+        {
+          "type": "range",
+          "id": "star_rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Star rating",
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "testimonial_content",
+          "label": "Body text",
+          "default": "“Use this section to add reviews or testimonials from your store’s happy customers”"
+        },
+        {
+          "type": "text",
+          "id": "testimonial_author",
+          "label": "Author name",
+          "default": "John Smith"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "settings": {
+      },
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer",
+      "custom.overlay"
+    ]
+  }
+}
+{% endschema %}

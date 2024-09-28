@@ -1,0 +1,30 @@
+{% comment %}
+    Renders a radio list with collection sort options
+
+    Accepts:
+    - results: {Object} The object eg. collection or search (required)
+    - filter_position: {String} sidebar or topbar (required)
+    - classes: {String} add custom classes to the container
+
+    Usage:
+    {% render 'ship-sort-options' with results: collection %}
+{% endcomment %}
+{% liquid
+  assign sort_by = results.sort_by | default: results.default_sort_by
+  assign sort_container_classes = 'sort_form block overflow-y-auto overflow-x-hidden z-[100] bg-page text-body w-[350px] max-w-full'
+%}
+
+<sort-form class="{{ sort_container_classes }}{% if classes %} {{ classes }}{% endif %}" data-armada-selector="filter_sort_form" data-aid="sort-options">
+  <form data-armada-selector="sort_by_form" class="mb-5 mx-5 flex flex-col">
+    {%- for option in results.sort_options -%}
+      {% assign option_name = option.value | escape %}
+      {% assign option_id = option.value | escape | append: '-' | append: forloop.index %}
+      {% if option.value == sort_by %}
+        {% assign attr = 'checked' %}
+      {% else %}
+        {% assign attr = '' %}
+      {% endif %}
+      {% render 'armament-radio-item' with id: option_id, name: 'sort_by', value: option_name, attributes: attr, label_text: option.name, classes: 'cursor-pointer appearance-none bg-page active:bg-none checked:bg-none active:text-body checked:text-body checked:bg-current active:bg-body', label_class: 'cursor-pointer', data_aid: option_name %}
+    {% endfor %}
+  </form>
+</sort-form>

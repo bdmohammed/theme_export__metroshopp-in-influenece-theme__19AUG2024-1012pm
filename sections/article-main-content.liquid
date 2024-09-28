@@ -1,0 +1,157 @@
+<section class="bg-page text-body px-4 md:px-6 article-main-content">
+  <div class="max-w-[980px] mx-auto pt-4 md:pt-5">
+    {% for block in section.blocks %}
+      {% case block.type %}
+
+        {% when "article_meta" %}
+          <div class="flex flex-col pb-3 md:pb-4" {{ block.shopify_attributes }}>
+            {% if block.settings.show_author_name %}<span class="mb-2 last:mb-0">{{ 'blogs.article.by_author' | t: author: article.author }}</span>{% endif %}
+            {% if block.settings.show_dates %}<span class="uppercase last:mb-0">{{ article.published_at | time_tag: '%b %d, %Y' }}</span>{% endif %}
+          </div>
+
+        {% when 'article_tags' %}
+          {% assign tags_heading = 'blogs.article.tags' | t %}
+
+          {% if article.tags.size > 0 %}
+            <div class="flex flex-col pb-3 md:pb-4" {{ block.shopify_attributes }}>
+              {% render 'armament-heading' with tag: 'h6', heading_content: tags_heading, classes: 'text-h5 mb-2', data_aid: 'article-tags' %}
+              <span class="mb-3 last:mb-0">{{ article.tags | join: ', ' }}</span>
+            </div>
+          {% endif %}
+
+        {% when "article_content" %}
+          <div class="rte prose prose-strong:text-body prose-blockquote:text-body prose-figcaption:text-body max-w-full py-4 md:py-5 first:pt-0" {{ block.shopify_attributes }}>
+            {{ article.content }}
+          </div>
+
+        {% when "article_comments" %}
+          {% liquid
+            assign number_of_comments = article.comments_count
+            assign comments_heading = 'blogs.article.comments_title' | t
+
+            if article.comments_count == 1
+              assign comments_text = 'blogs.comments.comment' | t
+            elsif article.comments_count > 1 or article.comments_count == 0
+              assign comments_text = 'blogs.article.comments_title' | t
+            endif
+          %}
+
+          <div class="pb-3 md:pb-4" {{ block.shopify_attributes }}>
+            {% render 'armament-heading' with tag: 'h6', heading_content: comments_heading, classes: 'text-h5 mb-2', data_aid: 'comment-count' %}
+            <span>{{ number_of_comments }} {{ comments_text }}</span>
+          </div>
+
+        {% when "article_social_sharing" %}
+          {% render 'ship-social-sharing' with share_object: 'article', show_facebook: settings.share_facebook, show_twitter: settings.share_twitter, show_pinterest: settings.share_pinterest, alignment: 'left', shopify_attributes: block.shopify_attributes %}
+
+        {% when "article_pagination" %}
+        {% if blog.previous_article or blog.next_article %}
+          <div data-armada-selector="pagination-parent" {{ block.shopify_attributes }}>
+            <article-pagination class="grid grid-cols-[minmax(0,auto),1fr,minmax(0,auto)] items-center justify-center pb-4 w-full bg-page text-body">
+
+              {% if blog.previous_article %}
+                {% assign prev_article = 'general.pagination.previous' | t %}
+                <div class="article-previous-article col-start-1 col-end-2">
+                  <a class="flex items-center justify-center group" href="{{ blog.previous_article }}">{% render 'armament-icon' with icon: 'arrow-left', classes: 'mr-3' %}<span class="sr-only">{{ prev_article }}</span></a>
+                </div>
+              {% endif %}
+
+              <div class="article-heading col-start-2 col-end-3 text-center">
+                {% render 'armament-heading' with type: 'h6', heading_content: article.title, classes: 'text-h5', data_aid: 'article-title' %}
+              </div>
+
+              {% if blog.next_article %}
+                {% assign next_article = 'general.pagination.next' | t %}
+                <div class="article-next-article col-start-3 col-end-4">
+                  <a class="flex items-center justify-center group" href="{{ blog.next_article }}"><span class="sr-only">{{ next_article }}</span>{% render 'armament-icon' with icon: 'arrow-right', classes: 'ml-3' %}</a>
+                </div>
+              {% endif %}
+
+            </article-pagination>
+          </div>
+        {% endif %}
+      {% endcase %}
+    {% endfor %}
+  </div>
+</section>
+
+<script src="{{ 'component-article-main-content.min.js' | asset_url }}" defer="defer" type="module"></script>
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Article content"
+  },
+  "settings": [
+  ],
+  "blocks": [
+    {
+      "type": "article_meta",
+      "name": "Metadata",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_author_name",
+          "label": {
+            "en": "Show author name"
+          },
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_dates",
+          "label": {
+            "en": "Show dates"
+          },
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "article_tags",
+      "name": "Tags",
+      "limit": 1,
+      "settings": [
+
+      ]
+    },
+    {
+      "type": "article_content",
+      "name": "Content",
+      "limit": 1,
+      "settings": [
+
+      ]
+    },
+    {
+      "type": "article_social_sharing",
+      "name": "Social media icons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "To choose which platforms display go to 'Theme settings > Social media > Products and articles'"
+        }
+      ]
+    },
+    {
+      "type": "article_pagination",
+      "name": "Pagination",
+      "limit": 1,
+      "settings": [
+
+      ]
+    },
+    {
+      "type": "article_comments",
+      "name": "Comment count",
+      "limit": 1,
+      "settings": [
+
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,60 @@
+{% comment %}
+    Renders a preview of a single badge
+
+    Accepts:
+    - badge_block: {Object} required.
+
+    Usage:
+    {% for block in section.blocks %}
+      {% render 'ship-badge-preview-single' with badge_block: block %}
+    {% endfor %}
+{% endcomment %}
+
+<armada-modal
+  data-modal-id="{{ badge_block.id }}"
+  data-content-width="true"
+  data-modal-dismissable="false"
+  data-modal-underlay-classes="bg-black opacity-60"
+  data-color-scheme="general"
+  class="invisible opacity-0"
+  data-theme-editor-only="true"
+>
+  <div class="grid grid-rows-[repeat(3,minmax(0,auto))] grid-cols-[minmax(0,auto)] p-4 bg-page text-body max-w-max">
+    <div class="row-start-1 row-end-4 col-start-1 col-end-2 w-[250px] h-[375px]">
+      {% if collections.all.products[0].featured_media.preview_image %}
+        {% render 'armament-image' with image: collections.all.products[0].featured_media.preview_image, classes: 'object-cover !h-full' %}
+      {% else %}
+        {% render 'armament-placeholder' with name: 'product-1' %}
+      {% endif %}
+    </div>
+    <badge-preview class="grid grid-cols-1 grid-rows-1 row-start-1 row-end-2 col-start-1 col-end-2 max-w-max">
+      {% if badge_block.type == 'badge_sold_out' or badge_block.type == 'badge_sale' %}
+        <div data-section-id="{{ section.id }}" data-color-scheme="{{ badge_block.settings.badge_color_scheme }}" class="bg-page text-body px-3 py-2 leading-none w-max font-heading heading-case col-start-1 col-end-2 row-start-1 row-end-2 hidden" {{ badge_block.shopify_attributes }} data-block-id="{{ badge_block.id }}">
+          <span>{{ badge_block.settings.badge_text }}</span>
+        </div>
+      {% endif %}
+      {% if badge_block.type == 'badge_custom' %}
+        {% assign badgeText = badge_block.settings.badge_text %}
+        {% assign hasExistingMetafield = false %}
+
+        {% for badgeProduct in collections.all.products %}
+          {% for badge in badgeProduct.metafields.badges %}
+            {% if badge.first == badgeText %}
+              {% assign hasExistingMetafield = true %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+
+        {% if hasExistingMetafield %}
+          <div data-section-id="{{ section.id }}" data-color-scheme="{{ badge_block.settings.badge_color_scheme }}" class="bg-page text-body px-3 py-2 leading-none w-max font-heading heading-case col-start-1 col-end-2 row-start-1 row-end-2 hidden" {{ badge_block.shopify_attributes }} data-block-id="{{ badge_block.id }}">
+            <span>{{ badge_block.settings.badge_text }}</span>
+          </div>
+        {% else %}
+          <div data-section-id="{{ section.id }}" data-color-scheme="{{ badge_block.settings.badge_color_scheme }}" class="bg-page text-body px-3 py-2 leading-none w-max font-heading heading-case col-start-1 col-end-2 row-start-1 row-end-2 hidden" {{ badge_block.shopify_attributes }} data-block-id="{{ badge_block.id }}">
+            <span>Error: Metafield not found</span>
+          </div>
+        {% endif %}
+      {% endif %}
+    </badge-preview>
+  </div>
+</armada-modal>

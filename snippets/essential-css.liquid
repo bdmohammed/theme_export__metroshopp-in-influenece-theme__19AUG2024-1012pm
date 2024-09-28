@@ -1,0 +1,29 @@
+{% style %}
+
+  {{ settings.body_font | font_face: font_display: 'swap' }}
+  {{ settings.headings_font | font_face: font_display: 'swap' }}
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
+  html {
+    box-sizing: border-box;
+    height: 100%;
+  }
+
+  body {
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: 100%;
+    min-height: 100%;
+    margin: 0;
+  }
+
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+{% endstyle %}

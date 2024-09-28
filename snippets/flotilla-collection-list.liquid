@@ -1,0 +1,114 @@
+{%- liquid
+  case mobile_rows
+    when '1'
+      assign mobile_rows_class = 'grid-cols-1'
+    else
+      assign mobile_rows_class = 'grid-cols-2'
+      assign mobile_center_align = true
+  endcase
+
+  case desktop_rows
+    when 2
+      assign desktop_rows_class = 'md:grid-cols-2'
+    when 3
+      assign desktop_rows_class = 'md:grid-cols-3'
+    when 4
+      assign desktop_rows_class = 'md:grid-cols-4'
+    when 5
+      assign desktop_rows_class = 'md:grid-cols-5'
+    else
+      assign desktop_rows_class = 'md:grid-cols-3'
+  endcase
+-%}
+
+<section {% if section_color_scheme != blank %}data-color-scheme={{ section_color_scheme }}{% endif %}>
+
+  {% if settings.enable_animations %}
+  <loadin-animation {% if loadin_animation_threshold %}data-loadin-animation-threshold="{{ loadin_animation_threshold }}"{% endif %}>
+  {% endif %}
+
+    <div class="text-body bg-page{% if container_classes %} {{ container_classes }}{% endif %}">
+      {% if subheading != blank or heading != blank %}
+        <div class="p-4 md:p-6 md:pb-5{% if headings_text_alignment == 'center' %} text-center{% elsif headings_text_alignment == 'right' %} text-right{% endif %}">
+          {% if subheading != blank %}
+            {% render 'armament-heading' with tag: 'h4', heading_content: subheading, heading_type: 'heading-4', classes: 'mb-2 md:mb-3' %}
+          {% endif %}
+          {% if heading != blank %}
+            {% render 'armament-heading' with tag: 'h2', heading_content: heading, heading_type: 'section-heading' %}
+          {% endif %}
+        </div>
+      {% endif %}
+      <ul class="grid gap-1 md:auto-rows-fr {{ mobile_rows_class }} {{ desktop_rows_class }}">
+        {% if blocks %}
+          {% for block in blocks %}
+            {% liquid 
+              case block.settings.collection_text_position
+                when 'top_left' or 'top_center' or 'top_right'
+                  assign vertical_text_alignment = 'top'
+                when 'left' or 'center' or 'right'
+                  assign vertical_text_alignment = 'center'
+                when 'bottom_left' or 'bottom_center' or 'bottom_right'
+                  assign vertical_text_alignment = 'bottom'
+                when 'top_left' or 'left' or 'bottom_left'
+                  assign horizontal_text_alignment = 'left'
+                when 'top_center' or 'center' or 'bottom_center'
+                  assign horizontal_text_alignment = 'center'
+                when 'top_right' or 'right' or 'bottom_right'
+                  assign horizontal_text_alignment = 'right'
+              endcase  
+            %}
+            <li loadin-animation-elm loadin-animation-delay {{ block.shopify_attributes }}>
+              {% assign card_text = block.settings.collection_heading | default: block.settings.collection.title %}
+              {% assign card_url =  block.settings.collection.url | default: '/' %}
+              {% render 'ship-visual-card' with
+                card_image: block.settings.collection.featured_image,
+                card_text: card_text,
+                button_label: block.settings.button_label,
+                button_style: block.settings.button_style,
+                url: card_url,
+                overlay_color_scheme: block.settings.text_overlay_color_scheme,
+                horizontal_alignment: horizontal_text_alignment,
+                mobile_center_align: mobile_center_align,
+                vertical_alignment: vertical_text_alignment,
+                overlay_style: block.settings.overlay_color_scheme,
+                overlay_opacity: block.settings.overlay_opacity,
+                placeholder: 'collection-1'
+              %}
+            </li>
+          {% endfor %}
+        {% else %}
+          {% for collection in collections %}
+            {%- liquid
+              assign card_text = headings[forloop.index0] | default: collection.title
+              assign button_text = buttons[forloop.index0] | default: button_label
+            -%}
+            <li loadin-animation-elm loadin-animation-delay>
+              {% render 'ship-visual-card' with
+                card_image: collection.featured_image,
+                card_text: card_text,
+                button_label: button_text,
+                button_style: button_style,
+                url: collection.url,
+                overlay_color_scheme: text_overlay_color_scheme,
+                horizontal_alignment: horizontal_text_alignment,
+                mobile_center_align: mobile_center_align,
+                vertical_alignment: vertical_text_alignment,
+                overlay_style: overlay_color_scheme,
+                overlay_opacity: overlay_opacity,
+                placeholder: 'collection-1'
+              %}
+            </li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+    </div>
+
+  {% if settings.enable_animations %}
+  </loadin-animation>
+
+  <safe-load-scripts>
+    <script src="{{ 'engine-loadin-animation.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="loadin-animation"></script>
+  </safe-load-scripts>
+  {% endif %}
+
+</section>

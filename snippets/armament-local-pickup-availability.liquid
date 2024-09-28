@@ -1,0 +1,23 @@
+{% assign pick_up_availabilities = pickup_product.selected_or_first_available_variant.store_availabilities | where: 'pick_up_enabled', true %}
+
+<pickup-availability
+  {% if pickup_product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %} available{% endif %}
+  class="no-js-hidden"
+  section-id="{{ section_id }}"
+  data-base-url="{{ shop.url }}{{ routes.root_url }}"
+  data-variant-id="{{ pickup_product.selected_or_first_available_variant.id }}"
+  data-has-only-default-variant="{{ pickup_product.has_only_default_variant }}"
+>
+  <template>
+    <pickup-availability-preview>
+      {% render 'armament-icon' with icon: 'exclamation' %}
+      <div>
+        <p>{{ 'products.product.pickup_availability.unavailable' | t }}</p>
+        <button data-armada-selector="pickup-refresh">{{ 'products.product.pickup_availability.refresh' | t }}</button>
+      </div>
+    </div>
+  </template>
+</pickup-availability>
+<safe-load-scripts>
+  <script src="{{ 'component-pickup-availability.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="pickup-availability"></script>
+</safe-load-scripts>

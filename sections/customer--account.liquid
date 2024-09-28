@@ -1,0 +1,89 @@
+<div class="py-4 md:p-6">
+  <div class="customer account mx-auto max-w-screen-xl text-body">
+
+    {% assign accountString = 'customer.account.title' | t %}
+    {% render 'armament-heading' with 
+    tag: 'h2', 
+    heading_content: accountString, 
+    heading_type: 'heading-2', 
+    data_aid: "account-heading", 
+    classes: 'text-center mb-4 md:mb-6' %}
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 md:gap-6">
+      <div class="col-span-1 md:col-span-3">
+          {% assign orderHistoryString = 'customer.orders.title' | t %}
+          {% render 'armament-heading' with 
+            tag: 'h4', 
+            heading_content: orderHistoryString, 
+            heading_type: 'heading-4', 
+            data_aid: "history-heading", 
+            classes: 'mb-3 md:mb-4 text-center md:text-left' %}
+
+          {% paginate customer.orders by 20 %}
+
+            {%- if customer.orders.size > 0 -%}
+
+              <table role="table" class="w-full">
+                <caption class="sr-only">{{ 'customer.orders.title' | t }}</caption>
+
+                <thead role="rowgroup" class="hidden md:table-row-group">
+                  <tr role="row" class="bg-body-opacity-10">
+                    <th class="text-left p-3 md:p-4 text-h6 font-heading heading-case" id="ColumnOrder" scope="col" role="columnheader">{{ 'customer.orders.order_number' | t }}</th>
+                    <th class="text-left p-3 md:p-4 text-h6 font-heading heading-case" id="ColumnDate" scope="col" role="columnheader">{{ 'customer.orders.date' | t }}</th>
+                    <th class="text-left p-3 md:p-4 text-h6 font-heading heading-case" id="ColumnPayment" scope="col" role="columnheader">{{ 'customer.orders.payment_status' | t }}</th>
+                    <th class="text-left p-3 md:p-4 text-h6 font-heading heading-case" id="ColumnFulfillment" scope="col" role="columnheader">{{ 'customer.orders.fulfillment_status' | t }}</th>
+                    <th class="text-left p-3 md:p-4 text-h6 font-heading heading-case" id="ColumnTotal" scope="col" role="columnheader">{{ 'customer.orders.total' | t }}</th>
+                  </tr>
+                </thead>
+
+                <tbody role="rowgroup">
+                  {% for order in customer.orders %}
+                    <tr role="row" class="flex flex-col md:table-row mb-1 md:mb-0 border-y border-y-body-opacity-10 md:border-t-0">
+                      <td class="table-header" id="RowOrder" role="cell" headers="ColumnOrder" data-label="{{ 'customer.orders.order_number' | t }}">
+                        <a href="{{ order.customer_url }}" aria-label="Order number {{ order.name }}">
+                          {{ order.name }}
+                        </a>
+                      </td>
+
+                      <td class="table-header" headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
+                        {{ order.created_at | time_tag: format: 'date' }}
+                      </td>
+
+                      <td class="table-header" headers="RowOrder ColumnPayment" role="cell" data-label="{{ 'customer.orders.payment_status' | t }}">
+                        {{ order.financial_status_label }}
+                      </td>
+
+                      <td class="table-header" headers="RowOrder ColumnFulfillment" role="cell" data-label="{{ 'customer.orders.fulfillment_status' | t }}">
+                        {{ order.fulfillment_status_label }}
+                      </td>
+
+                      <td class="table-header" headers="RowOrder ColumnTotal" role="cell" data-label="{{ 'customer.orders.total' | t }}">
+                        {{ order.total_price | money }}
+                      </td>
+                    </tr>
+                  {%- endfor -%}
+                </tbody>
+              </table>
+            {%- else -%}
+              <p>{{ 'customer.orders.none' | t }}</p>
+            {%- endif -%}
+
+            {% render 'ship-pagination', paginate: paginate %}
+          {% endpaginate %}
+      </div>
+
+      <div class="col-span-1 md:col-span-1 px-4 md:px-0">
+        {% render 'ship-address-card' with address: customer.default_address, isLi: false %}
+        {% assign logOutString = 'customer.log_out' | t %}
+        {% render 'armament-button' with 
+          url: routes.account_logout_url, 
+          content: logOutString, 
+          style: 'filled', 
+          classes: 'mt-4 md:mt-5 w-full', 
+          data_aid: 'logout-btn' %}
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,81 @@
+{% comment %}
+    Renders a set of payment buttons.
+
+    Accepts:
+    - form_product: {Object} Shopify product object.
+    - product_title: {String} Product title.
+    - button_text: {String} Text for the add to cart button. Defaults to 'Add to cart'.
+    - button_style: {String} 'filled' or 'outline'.
+    - button_classes: {String} Custom classes for the add to cart button.
+    - dynamic_buttons: {Boolean} Should dynamic buttons be rendered? Defaults to false.
+    - block_shopify_attributes: {String} If this is being rendered as a block, print the required Shopify attributes.
+    - wrapper_classes: {String} Additional classes.
+    - first_variant_id: {String} product.selected_or_first_available_variant.id
+    - is_product_form_block: {Boolean} set to true if payment buttons are a product form block
+
+    Usage:
+    {% render 'armament-payment-buttons' with product_title: product.title, button_text: 'Add to cart' %}
+
+    {% render 'armament-payment-buttons' with product_title: product.title, button_text: 'Add to cart', dynamic_buttons: true, block_shopify_attributes: block.shopify_attributes, first_variant_id: product.selected_or_first_available_variant.id %}
+
+{% endcomment %}
+
+
+{%- liquid
+  assign default_atc = 'products.product.add_to_cart' | t
+  assign unavailable_atc = 'products.product.unavailable' | t
+
+  if button_text == blank
+    assign button_text = default_atc
+  endif
+
+  if dynamic_buttons == blank
+    assign dynamic_buttons = false
+  endif
+
+  if available == false
+    assign button_text = unavailable_atc
+  endif
+-%}
+
+<div
+  data-name="payment-buttons"
+  {% if is_product_form_block %}data-product-form-block="true"{% endif %}
+  {% if wrapper_classes %}class="{{ wrapper_classes }}"{% endif %}
+  {{ block_shopify_attributes }}
+>
+  {% form 'product', form_product, id: 'add-to-cart-form', novalidate: 'novalidate' %}
+
+    {%- if product.gift_card? and enable_gift_card_recipient_form and available -%}
+      {%- render 'ship-gift-card-recipient-form' -%}
+    {%- endif -%}
+
+    <input type="hidden" name="id" value="{{ first_variant_id }}" disabled class="product-variant-id" data-armada-variant-id>
+    
+    <div
+      data-name="product-submit-wrapper"
+      {% if is_product_form_block %}data-product-form-block="true"{% endif %}
+      {% if button_classes %}class="{{ button_classes }}"{% endif %}
+    >
+      {% assign productTitle = product_title | escape %}
+      {% assign aria = 'aria-label="Add ' | append: productTitle | append: ' to cart"' %}
+
+      {% assign attrs = 'data-aid="product-form-submit-button" data-name="product-submit" ' | append: aria %}
+
+      {% if available == false %}
+        {% assign attrs = attrs | append: ' disabled' %}
+      {% endif %}
+
+      {% if is_product_form_block %}
+        {% assign attrs = attrs | append: ' data-product-form-block="true"' %}
+      {% endif %}
+
+      {% render 'armament-button' with type: 'submit', content: button_text, attributes: attrs, classes: 'w-full', style: button_style %}
+    </div>
+
+    {% if dynamic_buttons %}
+      {% capture dyn_btns_class %}mb-3{% if available == false %} hidden{% endif %}{% endcapture %}
+        {{ form | payment_button }}
+    {% endif %}
+  {% endform %}
+</div>

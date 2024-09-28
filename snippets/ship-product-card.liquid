@@ -1,0 +1,194 @@
+{% comment %}
+    Renders a product card.
+
+    Accepts:
+    - card_product {Object} Shopify product object
+    - gallery: {Boolean} Show a single product image or a full product image gallery. Defaults to false.
+    - gallery_mode: {String} Optional. Slider options as follows:
+        - preview: Show animated preview of the next slide on first load.
+        - peep: Show partial view of first slide (swipe to show full slide).
+        - vertical: Stack slides vertically.
+    - align: {String} alignment of content under the image. One of: 'left', 'center', 'right'. Defaults to 'left'.
+    - block_order {String} Comma separated list denoting which order blocks are printed and in which order.
+    - aspect_ratio: {Int} Optional. Normalise all images to a set aspect ratio
+    - position: {String} Optional. If the image is cropped via aspect ratio. See case switch below.
+    - disable_quick_view: {Boolean} Optional. Set to true to disable quick view.
+    - classes: {String} Additional classes for the element.
+    - block_attr_image: {Object} required for theme preview inspector (required)
+    - block_attr_title: {Object} required for theme preview inspector (required)
+    - block_attr_price: {Object} required for theme preview inspector (required)
+    - block_attr_swatch: {Object} required for theme preview inspector (required)
+    - block_attr_quick_add: {Object} required for theme preview inspector (required)
+
+    Usage:
+    {% render 'ship-product-card' with card_product: product %}
+{% endcomment %}
+
+{% liquid
+  if align == blank
+    assign align = 'left'
+  endif
+
+  if block_order == blank
+    assign block_order = 'image,title,price'
+  endif
+
+  if gallery == 'show_slider'
+    assign block_order = block_order | replace: 'image', 'gallery'
+  endif
+
+  assign block_names = block_order | split: ','
+
+  case position
+    when 'center'
+      assign pclass = 'object-center'
+    when 'left'
+      assign pclass = 'object-left'
+    when 'left-top'
+      assign pclass = 'object-left-top'
+    when 'left-bottom'
+      assign pclass = 'object-left-bottom'
+    when 'right'
+      assign pclass = 'object-right'
+    when 'right-top'
+      assign pclass = 'object-right-top'
+    when 'right-bottom'
+      assign pclass = 'object-right-bottom'
+    when 'top'
+      assign pclass = 'object-top'
+    when 'bottom'
+      assign pclass = 'object-bottom'
+    else
+      assign pclass = 'object-center'
+  endcase
+
+  if gallery == 'show_second_image' and card_product.media.size > 1
+    assign hide_main_img = 'group-hover:hidden '
+  endif
+
+  if aspect_ratio == blank or aspect_ratio == 'natural'
+    assign imgclasses = 'relative product-card-img ' | append: hide_main_img
+    assign headingClasses = 'relative py-5 lg:py-6'
+    assign second_img_classes = 'relative hidden group-hover:block'
+  else
+    assign imgclasses = 'absolute w-full h-full z-0 object-cover product-card-img ' | append: hide_main_img | append: pclass
+    assign second_img_classes = 'hidden absolute w-full h-full z-0 object-cover group-hover:block ' | append: pclass
+    assign headingClasses = 'absolute top-1/2'
+  endif
+%}
+
+{% capture badges %}
+<div class="absolute top-0 left-0 z-50 pointer-events-none">
+  {% render 'engine-badges' with badges_product: card_product %}
+</div>
+{% endcapture %}
+
+<product-card
+  class="max-w-full block no-js-hidden{% if classes %} {{ classes }}{% endif %}"
+  block-order="{{ block_order }}"
+  data-aid="product-card"
+>
+  {% for block_name in block_names %}
+    {% if block_name == 'image' %}
+      <div
+        data-name="image"
+        class="pb-2 last:pb-0 relative"
+        {{ block_attr_image }}
+      >
+        {%- if settings.product_card_badges -%}
+          {{ badges }}
+        {%- endif -%}
+        {% if card_product.featured_media %}
+          <a href="{{ card_product.url }}" title="{{ card_product.title | escape }}" class="block">
+            <div class="{% if aspect_ratio %}aspect-{{ aspect_ratio }}{% endif %} relative group">
+              {% render 'armament-image' with image: card_product.featured_media.preview_image, classes: imgclasses, sizes: '33vw' %}
+              {% if gallery == 'show_second_image' and card_product.media.size > 1 %}
+                {% render 'armament-image' with image: card_product.media[1].preview_image, classes: second_img_classes, , sizes: '33vw' %}
+              {% endif %}
+            </div>
+          </a>
+        {% else %}
+          <a href="{{ card_product.url }}" title="{{ card_product.title | escape }}" class="block">
+            <div class="{% if aspect_ratio %}aspect-{{ aspect_ratio }}{% endif %} relative group flex items-center justify-center bg-body-opacity-10">
+              {% render 'armament-heading' with heading_type: 'heading-5', heading_content: card_product.title, data_aid: 'product-heading-no-image', classes: headingClasses %}
+            </div>
+          </a>
+        {% endif %}
+        {% if settings.enable_quick_view and disable_quick_view != true %}
+          {% render 'ship-quick-view' with quick_view_product: card_product, button_only: quick_view_button_only, classes: 'bottom-2' %}
+        {% endif %}
+      </div>
+    {% endif %}
+    {% if block_name == 'title' %}
+      <div
+        data-name="title"
+        class="text-{{ align }} text-body px-2 md:px-3"
+        {{ block_attr_title }}
+      >
+        <a href="{{ card_product.url }}" title="{{ card_product.title | escape }}">
+          {% render 'armament-heading' with tag: 'h5', heading_content: card_product.title, data_aid: 'product-card-product-heading' %}
+        </a>
+      </div>
+    {% endif %}
+    {% if block_name == 'price' %}
+      <div
+        data-name="price"
+        class="text-{{ align }} text-body px-2 md:px-3 pb-2"
+        {{ block_attr_price }}
+      >
+        {% render 'armament-price', price_product: card_product, align: align, discount_type: settings.show_discount_savings %}
+      </div>
+    {% endif %}
+    {% if block_name == 'gallery' %}
+      <div
+        data-name="gallery"
+        class="relative"
+        {{ block_attr_image }}
+      >
+        {%- if settings.product_card_badges -%}
+          {{ badges }}
+        {%- endif -%}
+        {% render 'armament-product-thumbnail-slider' with product_id: card_product.id, media: card_product.media, aspect_ratio: aspect_ratio, position: position, arrows: true, mode: gallery_mode, url: card_product.url %}
+        {% if settings.enable_quick_view and disable_quick_view != true %}
+          {%- liquid
+            if card_product.media.size > 1
+              assign quick_view_classes = '[bottom:32px] xl:bottom-0'
+            else
+              assign quick_view_classes = 'bottom-0'
+            endif
+          -%}
+          {% render 'ship-quick-view' with quick_view_product: card_product, button_only: quick_view_button_only, classes: quick_view_classes %}
+        {% endif %}
+      </div>
+    {% endif %}
+    {% if block_name == 'swatch' %}
+      <div
+        data-name="swatch"
+        class="text-{{ align }} px-2 md:px-3"
+        {{ block_attr_swatch }}
+      >
+        {%- liquid
+          if settings.collection_hover_effect == 'show_slider'
+            assign change_on_hover = true
+          else
+            assign disable_swatches = true
+          endif
+        -%}
+        {% render 'armament-color-swatch' with swatch_product: card_product, identifiers: 'color,colour,couleur,colore,farbe,색,色,färg,farve', change_on_hover: change_on_hover, disabled: disable_swatches %}
+      </div>
+    {% endif %}
+    {% if block_name == 'quick-add' %}
+      <div
+        data-name="quick-add"
+        class="text-{{ align }} px-2 md:px-3"
+        {{ block_attr_quick_add }}
+      >
+        {% render 'ship-quick-add' with quick_product: card_product %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</product-card>
+
+<safe-load-scripts class="hidden">
+  <script src="{{ 'component-product-card.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="product-card"></script>
+</safe-load-scripts>

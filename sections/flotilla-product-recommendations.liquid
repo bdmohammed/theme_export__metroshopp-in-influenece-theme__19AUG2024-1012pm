@@ -1,0 +1,149 @@
+{%-liquid
+   assign product_row_mobile = section.settings.product_row_mobile
+   if product_row_mobile == 'two'
+     assign card_width_mobile = 'w-[calc(50%-4px)]'
+   else
+     assign card_width_mobile = 'w-full'
+   endif
+ 
+   case section.settings.product_row_desktop
+     when 2
+       assign card_max_width = 'md:max-w-[50%]'
+     when 3
+       assign card_max_width = 'md:max-w-[33.33%]'
+     when 4
+       assign card_max_width = 'md:max-w-[25%]'
+     when 5
+       assign card_max_width = 'md:max-w-[20%]'
+   endcase
+ -%}
+
+<product-recommendations class="block px-0 py-4 md:p-6 bg-page" data-aid="product-recommendations" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.product_row_desktop }}" data-color-scheme="{{ section.settings.color_scheme }}">
+  {% if recommendations.performed and recommendations.products_count > 0 %}
+    <div class="{{ section.settings.heading_alignment }} px-4 md:px-0" data-aid="product-recommendations-header">
+      {% if section.settings.product_recommendations_subheading != blank %}
+        {% render 'armament-heading' with tag: 'h3', heading_content: section.settings.product_recommendations_subheading, heading_type: 'section-subheading', classes: 'text-body mb-2 md:mb-3 z-40', data_aid: 'product-recommendations-subheading' %}
+      {% endif %}
+
+      {% if section.settings.product_recommendations_heading != blank %}
+        {% render 'armament-heading' with tag: 'h2', heading_content: section.settings.product_recommendations_heading, heading_type: 'section-heading', classes: 'text-body mb-4 md:mb-5 z-40', data_aid: 'product-recommendations-heading' %}
+      {% endif %}
+    </div>
+
+    {% if settings.enable_animations %}
+      <loadin-animation>
+      {% endif %}
+
+      <ul class="flex flex-wrap md:flex-nowrap -mr-3" data-aid="product-recommendations-grid" role="list">
+        {% for recommendation in recommendations.products %}
+          <li class="block relative pr-2 md:flex-1 {{ card_max_width }} {{ card_width_mobile }}" data-aid="product-recommendations-item">
+            <div loadin-animation-elm loadin-animation-delay>
+              {% render 'ship-product-card' with
+               card_product: recommendation,
+               gallery: settings.collection_hover_effect,
+               align: settings.product_info_position,
+               aspect_ratio: settings.product_cards_aspect_ratio,
+               quick_view_button_only: true
+             %}
+            </div>
+            {% render 'ship-quick-view' with quick_view_product: recommendation, modal_only: true %}
+          </li>
+        {% endfor %}
+      </ul>
+
+      {% if settings.enable_animations %}
+      </loadin-animation>
+
+      <safe-load-scripts class="hidden">
+        <script src="{{ 'engine-loadin-animation.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="loadin-animation"></script>
+      </safe-load-scripts>
+    {% endif %}
+
+  {% endif %}
+</product-recommendations>
+
+<script src="{{ 'component-flotilla-product-recommendations.min.js' | asset_url }}" defer="defer" type="module"></script>
+
+{% schema %}
+  {
+    "name": "Product recommendations",
+    "class": "w-full",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Dynamic recommendations use order and product information to change and improve over time. [Learn more](https:\/\/help.shopify.com\/themes\/development\/recommended-products)"
+      },
+      {
+        "type": "select",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "options": [
+          {
+            "value": "general",
+            "label": "General"
+          }, {
+            "value": "accent-1",
+            "label": "Accent 1"
+          }, {
+            "value": "accent-2",
+            "label": "Accent 2"
+          }, {
+            "value": "accent-3",
+            "label": "Accent 3"
+          }
+        ],
+        "default": "general"
+      },
+      {
+        "type": "text",
+        "id": "product_recommendations_subheading",
+        "label": "Subheading",
+        "default": "You may also like"
+      },
+      {
+        "type": "text",
+        "id": "product_recommendations_heading",
+        "label": "Heading"
+      }, {
+        "type": "select",
+        "id": "heading_alignment",
+        "label": "Heading alignment",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          }, {
+            "value": "text-center",
+            "label": "Center"
+          }, {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ],
+        "default": "text-left"
+      }, {
+        "type": "range",
+        "id": "product_row_desktop",
+        "min": 2,
+        "max": 5,
+        "step": 1,
+        "label": "Products per row (desktop)",
+        "default": 4
+      }, {
+        "type": "radio",
+        "id": "product_row_mobile",
+        "label": "Products per row (mobile)",
+        "options": [
+          {
+            "value": "one",
+            "label": "One"
+          }, {
+            "value": "two",
+            "label": "Two"
+          }
+        ],
+        "default": "two"
+      }
+    ]
+  }
+{% endschema %}

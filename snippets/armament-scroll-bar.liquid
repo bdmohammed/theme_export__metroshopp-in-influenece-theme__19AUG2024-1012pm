@@ -1,0 +1,61 @@
+{% comment %}
+    Renders a custom scroll bar that shows scroll/swipe progress.
+    Acts like a native scrollbar, but is not interactive.
+
+    Example use-case: Slider
+    Used to illustrate the current position of the slider.
+    A visual representation of 'you are on slide X of Y'.
+    Meant to be used for the entire slider.
+
+    Accepts:
+      - classes: {String} any custom classes to be applied to the custom element
+      - attributes: {String} any attributes to apply to the custom element
+      - item_count: {Number} the number of items to scroll/swipe through
+      - parent: {String} the data attr of the parent element which contains the target and controls.
+      - target: {String} the data attr of the element that will be scrolled or swiped. Defaults to '[data-name="scrollbar-target"]'
+      - left_nav: {String} the id or class of the left navigation arrow. Defaults to '[data-name="icon-prev"]'
+      - right_nav: {String} the id or class of the right navigation arrow. Defaults to '[data-name="icon-next"]'
+      - indicator: {String} Display range as a single item which moves across the track. Defaults to 'full'
+          'full': Bar is solid from the start of the track until the current point
+          'progress': Bar moves along the track to show X of Y.
+      - loop-forward: {Boolean} Set to true if the scroll bar should reset to the beginning if the last slide is swiped forward.
+      - loop-backward: {Boolean} Set to true if the scroll bar should scroll to the end if the first slide is swiped backward.
+      - paused: {Boolean} (optional) tells the scrollbar to stay still regardless of other events.
+
+    Usage:
+      {% assign media_count = product.media.size %}
+      {% render 'armament-scroll-bar' with classes: 'pb-4', item_count: media_count, target: '.target-el' %}
+{% endcomment %}
+
+{%- liquid
+  if progress_indicator == blank
+    assign progress_indicator = false
+  endif
+-%}
+
+<scroll-bar
+  class="block h-1{% if classes %} {{ classes }}{% endif %}"
+  {% if attributes %} {{ attributes }}{% endif %}
+  data-item-count="{{ item_count }}"
+  data-parent="{{ parent }}"
+  data-target="{{ target }}"
+  data-indicator="{{ indicator }}"
+  data-loop-forward="{{ loop_forward }}"
+  data-loop-backward="{{ loop_backward }}"
+  {% if left_nav %} data-nav-left="{{ left_nav }}"{% endif %}
+  {% if right_nav %} data-nav-right="{{ right_nav }}"{% endif %}
+  data-aid="scroll-bar"
+  {% if paused %} data-paused="{{ paused }}"{% endif %}
+  {% if paused_forward %} data-paused-forward="{{ paused_forward }}"{% endif %}
+>
+
+  <div class="relative h-1">
+    <div class="scroll-track z-10 absolute inset-0 h-1 bg-body opacity-25 rounded-md w-full" data-aid="scroll-bar-track"></div>
+    <div class="scroll-range z-20 absolute inset-y-0 h-1 bg-body rounded-md transition-all ease left-0" data-aid="scroll-bar-range"></div>
+  </div>
+
+</scroll-bar>
+
+<safe-load-scripts>
+  <script src="{{ 'component-armament-scroll-bar.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="scroll-bar"></script>
+</safe-load-scripts>

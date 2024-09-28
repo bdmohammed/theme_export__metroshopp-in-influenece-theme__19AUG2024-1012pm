@@ -1,0 +1,37 @@
+{% comment %}
+    Renders a "load more" pagination style.
+
+    Accepts:
+    - product_count: {Number} the products per page value
+
+    Usage:
+    {% render 'ship-pagination-load-more' with paginate: paginate, product_count: section.settings.products_per_page %}
+{% endcomment %}
+
+{% if paginate.parts.size > 0 %}
+
+  <safe-load-scripts>
+    <script src="{{ 'component-pagination-load-more.min.js' | asset_url }}" type="module" data-armada-load-key="pagination-load-more"></script>
+  </safe-load-scripts>
+
+  {% liquid
+    assign button_text = 'products.product.load_more' | t
+    assign aid = 'collection-load-more '
+    assign aria_label = 'aria-label="' | append: button_text | append: '"'
+    assign armada_selector = 'data-armada-selector="collection-load-more"'
+    assign btn_attrs = aid | append: aria_label | append: armada_selector
+  %}
+
+  <load-more-pagination
+    class="w-full flex flex-col items-center justify-center pt-5 no-js-hidden"
+    data-armada-paginate-next="{{ paginate.next.url }}"
+    data-section-id="{{ section.id }}"
+  >
+    {% if paginate.next.url %}
+    {% assign count = product_count | plus: paginate.current_offset %}
+      <span class="block mb-3">{{ 'templates.collection.load_more_info' | t: currentCount: count, totalCount: paginate.items }}</span>
+      {% render 'armament-button' with content: button_text, attributes: btn_attrs, classes: 'max-w-[200px] flex items-center justify-center', loading: true, icon_position_class: 'top-auto left-auto' %}
+    {% endif %}
+  </load-more-pagination>
+
+{% endif %}

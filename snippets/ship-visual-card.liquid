@@ -1,0 +1,121 @@
+{% comment %}
+    Renders a visual card.
+
+    Accepts:
+    - card_image: {Object} Shopify image object.
+    - card_text: {String} Card text.
+    - truncate_heading {Number} truncate the words in the card heading (optional)
+
+    - placeholder: {String} Used as the placeholder name when armament-placeholder is rendered.
+    - shopify_attributes: {Object} required if used as a block
+
+    - url: {String} Card/btn url.
+    - button_label: {String} The setting populates the card button.
+    - button_style: {String} The setting either shows a `filled` or `outline` button style.
+
+    - overlay_color_scheme: {String} 
+    - overlay_style: {String} It accepts TW classes 'bg-black' for dark overlay or 'bg-white' for light overlay
+    - overlay_opacity: {Number} The setting controls the opacity % of the overlay.
+
+    - vertical_alignment: {String} The setting displays the overlay elements at the `top`, `center` or `bottom` of the card.
+    - horizontal_alignment: {String} The setting displays the overlay elements at the `left`, `center` or `right` of the card. It also controls text alignment.
+    - full_height: {Boolean} Controls whether the card takes the full height of its container (defaults to true).
+   
+
+    Usage:
+
+    {% render 'ship-visual-card' with 
+    collection: collections[block.settings.collection],
+    url: "collections['product-media'].url",  
+    button_label: "see collection", 
+    overlay_color_scheme: "accent-3", 
+    horizontal_alignment: "center", 
+    vertical_alignment: "center", 
+    overlay_style: 'bg-white', 
+    overlay_opacity: 60 %}
+
+    {% render 'ship-visual-card' with 
+    card_image: images['image.jpg'],
+    url: "collections['product-media'].url" %}
+
+{% endcomment %}
+
+
+{%- comment -%} OVERLAY ELEMENTS ALIGMENT {%- endcomment -%}
+{%- liquid
+  case horizontal_alignment
+    when 'left'
+      assign h_alignment = "justify-self-start text-left"
+      assign desktop_text_align = "md:text-left"
+    when 'center'
+      assign h_alignment = "justify-self-center text-center"
+      assign desktop_text_align = "md:text-center"
+    when 'right'
+      assign h_alignment = "justify-self-end text-right"
+      assign desktop_text_align = "md:text-right"
+  endcase
+
+  case vertical_alignment
+    when 'top'
+      assign v_alignment = "self-start"
+    when 'center'
+      assign v_alignment = "self-center"
+    when 'bottom'
+      assign v_alignment = "self-end"
+  endcase
+
+  assign alignment = h_alignment | append: " " | append: v_alignment
+
+  assign overlay = 'style="opacity: ' | append: overlay_opacity | append: '%;"'
+
+  assign grid_cells = "row-start-1 row-end-4 col-span-full"
+-%}
+
+
+<div class="{% unless full_height == false %} h-full{% endunless %}" data-aid="visual-card" {% if shopify_attributes %}{{ shopify_attributes }}{% endif %}>
+{% if button_label == blank and url != blank %}
+  <a href="{{ url }}" class="h-full w-full" aria-label="{{ card_text }}">
+{% endif %}
+
+  <div class="h-full grid grid-rows-3">
+    
+    <div class="{{ grid_cells }}">
+      {% if card_image != blank %}
+        {% render 'armament-image' with image: card_image, classes: 'w-full h-full object-cover' %}
+      {% else %}
+        {% render 'armament-placeholder' with name: placeholder %}
+      {% endif %}
+    </div>
+ 
+    <div class="h-full w-full {{ overlay_style }} {{ grid_cells }}" {{ overlay }}></div>
+
+    <div class="relative h-full w-full {{ grid_cells }} grid p-4 md:p-5{% if button_label == blank %} pb-4{% endif %}">
+      <div data-color-scheme="{{ overlay_color_scheme }}" class="{{ alignment }} inline-block{% if mobile_center_align %} w-full md:w-auto{% endif %}">
+        {% if card_text != blank %}
+          <div class="text-body w-full{% if mobile_center_align %} text-center {{ desktop_text_align }}{% endif %}">  
+            {% if truncate_heading %}
+              {% assign card_text = card_text | truncatewords: truncate_heading, '...' %}
+            {% endif %}
+            {% render 'armament-heading' with tag: 'h4', heading_content: card_text, heading_type: 'heading-4', data_aid: 'visual-card-heading' %}
+          </div>
+        {% endif %}
+
+        {% if button_label != blank and url != blank %}
+          {% assign button_classes = "mt-2 md:mt-3" %}
+          {% if mobile_center_align %}
+            {% assign button_classes = button_classes | append: " w-full md:w-auto" %}
+          {% endif %}
+          {% assign button_aria_label = card_text | append: ' - ' | append: button_label %}
+          {% assign button_attributes = 'aria-label="' | append: button_aria_label | append: '"' %}
+          {% render 'armament-button' with url: url, content: button_label, style: button_style, classes: button_classes, attributes: button_attributes, data_aid: 'button-link' %}
+        {% endif %}
+      </div>
+    </div>
+    
+  </div>
+
+{% if button_label == blank and url != blank %}
+  </a>
+{% endif %}
+</div>
+

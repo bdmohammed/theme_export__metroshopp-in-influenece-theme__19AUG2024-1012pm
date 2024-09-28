@@ -1,0 +1,20 @@
+{% comment %}
+    Renders a read only rating slider and heading.
+    Accepts:
+    - min: {Number} minimum rating value (optional)
+    - max: {Number} maximum rating value
+    - rating: {Number} rating value
+    - rating_name: {String} name of the rating
+    - label_left, label_center, label_right: {String} text content captioning the minimum, middle and maximum values respectively
+    - classes: {String} custom classes to be added to the container div
+    
+    Usage:
+    {% render 'ship-rating-slider' with min: block.settings.rating_min, max: block.settings.rating_max, rating: block.settings.rating, rating_name: block.settings.rating_name, label_left: block.settings.label_left, label_center: block.settings.label_center, label_right: block.settings.label_right %}
+{% endcomment %}
+
+<div
+  {% if classes %}class="{{ classes }}"{% endif %}
+>
+  {% render 'armament-heading' with tag: 'h2', heading_type: 'heading-5', classes: 'mb-2', heading_content: rating_name, data_aid: 'rating-slider-heading' %}
+  {% render 'armament-rating-slider' with min: min, max: max, rating: rating, rating_name: rating_name, label_left: label_left, label_center: label_center, label_right: label_right %}
+</div>

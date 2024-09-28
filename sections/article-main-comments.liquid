@@ -1,0 +1,277 @@
+{% liquid
+	assign number_of_comments = article.comments_count
+  assign article_has_content = false
+	assign prev_article = 'blogs.article.previous_post' | t
+	assign next_article = 'blogs.article.next_post' | t
+
+  if article.content != blank
+    assign article_has_content = true
+  endif
+%}
+
+
+{% if article_has_content %}
+	<section class="bg-page text-body px-4 md:px-6" data-color-scheme={{ section.settings.section_color_scheme }}>
+		<div class="max-w-[980px] mx-auto">
+			{% if blog.comments_enabled? %}
+
+				{% for block in section.blocks %}
+					{% case block.type %}
+
+						{% when "article_comments" %}
+							{% liquid
+								if article.comments_count == 1
+								assign comments_text = 'blogs.comments.comment' | t
+								elsif article.comments_count > 1 or article.comments_count == 0
+								assign comments_text = 'blogs.article.comments_title' | t
+								endif
+
+								assign comments_heading = number_of_comments | append: ' ' | append: comments_text
+							%}
+
+							<div class="pt-5 md:pt-6 last:pb-5 md:last:pb-6" {{ block.shopify_attributes }}>
+								{% if block.settings.comments_heading %}
+										{% render 'armament-heading' with tag: 'h5', heading_content: comments_heading, classes: 'text-h5', data_aid: 'comment-count' %}
+								{% endif %}
+
+
+
+								<div>
+									{% paginate article.comments by 3 %}
+										<article-comments class="block" data-section-id="{{ section.id }}" data-armada-selector="article_comments">
+
+											{% if number_of_comments > 0 %}
+												<ul class="py-4" data-armada-selector="comment_list">
+													{% if comment and comment.created_at %}
+														<li class="border flex flex-col p-3 md:p-4 my-3 md:my-4 first:mt-0 last:mb-0" id={{ comment.id }}>
+															<div>
+																<div class="comment-author mb-2 uppercase">
+																	{% capture author %}<strong>{{ comment.author }}</strong>{% endcapture %}
+																	{{ 'blogs.article.pending_comment_meta_html' | t: author: author }}
+																</div>
+																<div class="comment-content">
+																	{{ comment.content }}
+																</div>
+															</div>
+														</li>
+													{% endif %}
+
+													{% for post in article.comments %}
+														{% if post.id == comment.id %}
+															{% continue %}
+														{% else %}
+															<li class="border flex flex-col p-3 md:p-4 my-3 md:my-4 first:mt-0 last:mb-0" id={{ post.id }}>
+																<div>
+																	<div class="flex flex-col">
+																		{% render 'armament-heading' with tag: 'h5', heading_content: post.author, classes: 'text-h5 mb-2', data_aid: 'comment-author' %}
+																		<span class="mb-2 uppercase">{{ article.published_at | time_tag: '%b %d, %Y' }}</span>
+																	</div>
+																	<div class="comment-content">
+																		{{ post.content }}
+																	</div>
+																</div>
+															</li>
+														{% endif %}
+													{% endfor %}
+
+												</ul>
+											{% endif %}
+
+
+											{% if paginate.pages > 1 %}
+												<div class="no-js-hide" data-armada-selector="comment_pagination">
+													<ul class="grid grid-cols-[minmax(0,auto),1fr,minmax(0,auto)] items-center justify-center">
+														<li class="col-start-1 col-end-2">
+															{% if paginate.previous.is_link %}
+																<div class="cursor-pointer group" data-armada-selector="previous_comment" data-prev-url="{{ paginate.previous.url }}" tabindex="0">
+																	{% render 'armament-icon' with icon: 'arrow-left', classes: 'mr-3 cursor-pointer' %}<span class="sr-only">{{ prev_article }}</span>
+																</div>
+															{% endif %}
+														</li>
+
+														<li class="col-start-2 col-end-3">
+															<div class="text-center" aria-current="page">{{ 'general.pagination.current_page' | t: current: paginate.current_page, total: paginate.pages }}</div>
+														</li>
+
+														<li class="col-start-3 col-end-4">
+															{% if paginate.next.is_link %}
+																<div class="cursor-pointer group" data-armada-selector="next_comment" data-next-url="{{ paginate.next.url }}" tabindex="0">
+																	{% render 'armament-icon' with icon: 'arrow-right', classes: 'ml-3 cursor-pointer' %}<span class="sr-only">{{ next_article }}</span>
+																</div>
+															{% endif %}
+														</li>
+													</ul>
+												</div>
+												<noscript>
+													<ul class="grid grid-cols-[minmax(0,auto),1fr,minmax(0,auto)] items-center justify-center">
+														<li class="col-start-1 col-end-2">
+																{% if paginate.previous.is_link %}
+																	<a href="{{ paginate.previous.url }}">
+																{% endif %}
+																	{% render 'armament-icon' with icon: 'arrow-left', classes: 'mr-3' %}<span class="sr-only">{{ prev_article }}</span>
+																{% if paginate.previous.is_link %}
+																	</a>
+																{% endif %}
+														</li>
+
+														<li class="col-start-2 col-end-3">
+															<div class="text-center" aria-current="page">{{ 'general.pagination.current_page' | t: current: paginate.current_page, total: paginate.pages }}</div>
+														</li>
+
+														<li class="col-start-3 col-end-4">
+															{% if paginate.next.is_link %}
+																<a href="{{ paginate.next.url }}">
+															{% endif %}
+																{% render 'armament-icon' with icon: 'arrow-right', classes: 'ml-3' %}<span class="sr-only">{{ next_article }}</span>
+															{% if paginate.next.is_link %}
+																</a>
+															{% endif %}
+														</li>
+													</ul>
+												</noscript>
+											{% endif %}
+										</article-comments>
+									{% endpaginate %}
+								</div>
+							</div>
+
+						{% when "article_form" %}
+							<div class="pt-5 md:pt-6 last:pb-5 md:last:pb-6" {{ block.shopify_attributes }}>
+								{% render 'armament-heading' with type: 'h6', heading_content: block.settings.form_heading, classes: 'text-h5 mb-3 md:mb-4', data_aid: 'article-form-title' %}
+
+								{% form 'new_comment', article %}
+									<div>
+
+										{% if form.posted_successfully? %}
+											{%- liquid
+												if blog.moderated?
+													assign success_message = 'blogs.comments.moderated' | t
+												else
+													assign success_message = 'blogs.comments.success' | t
+												endif
+											-%}
+											<form-success data-message="{{ 'blogs.comments.success_heading' | t }}" data-info="{{ success_message }}"></form-success>
+      								<script src="{{ 'component-form-success.min.js' | asset_url }}" defer="defer" type="module"></script>
+										{% endif %}
+
+										{% if form.errors %}
+											<form-errors data-form-type="comment" data-form-name="Comment" data-errors='{{ form.errors | default_errors }}'></form-errors>
+											<script src="{{ 'component-form-errors.min.js' | asset_url }}" defer="defer" type="module"></script>
+										{% endif %}
+
+										{% liquid
+											assign nameLabel = block.settings.name_field_placeholder
+											assign emailLabel = block.settings.email_field_placeholder
+											assign commentLabel = block.settings.comment_field_placeholder
+											assign commentBtnLabel = 'blogs.comments.post' | t
+										%}
+
+										<div class="grid grid-cols-2 grid-rows-[repeat(4,minmax(0,auto))] md:grid-rows-[repeat(3,minmax(0,auto))]">
+											{% render 'armament-input' with has_label: true, animate_label: true, label_text: nameLabel, id: "comment_name", placeholder: nameLabel, classes: "w-full mb-3 md:mb-4 md:mr-4", container_classes: 'col-start-1 col-end-3 md:col-end-2 row-start-1 row-end-2', value: form.author, name: "comment[author]", attributes: '', required: true, data_aid: 'comment-form-name' %}
+
+											{% render 'armament-input' with type: 'email', has_label: true, animate_label: true, label_text: emailLabel, id: "comment_email", placeholder: emailLabel, classes: "w-full mb-3 md:mb-4", container_classes: 'col-start-1 md:col-start-2 col-end-3 row-start-2 row-end-3 md:row-start-1 md:row-end-2', value: form.email, name: "comment[email]", attributes: '', required: true, data_aid: 'comment-form-email' %}
+
+											{% render 'armament-textarea' with id: 'article-comment', classes: 'py-3 w-full mb-4 md:mb-5', container_classes: 'col-start-1 col-end-3 row-start-3 row-end-4 md:row-start-2 md:row-end-3', has_label: true, label_text: commentLabel, placeholder: commentLabel, name: 'comment[body]', attributes: 'aria-label="article comments"', required: true, rows: 10, content: form.body, animate_label: true, data_aid: 'comment-form-message' %}
+
+											{% render 'armament-button' with content: commentBtnLabel, attributes: 'aria-label="Submit comment"', classes: 'max-w-max col-start-1 col-end-3 row-start-4 row-end-5 md:row-start-3 md:row-end-4' %}
+										</div>
+
+									</div>
+								{% endform %}
+							</div>
+					{% endcase %}
+				{% endfor %}
+
+			{% endif %}
+		</div>
+	</section>
+{% endif %}
+
+<script src="{{ 'component-article-main-comments.min.js' | asset_url }}" defer="defer" type="module"></script>
+
+{% schema %}
+{
+  "name": {
+    "en": "Article comments"
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "This section requires Article comments enabled",
+      "info": {
+        "en": "To change how comments are handled, edit the [Article blog settings.](/admin/blogs)"
+      }
+    },
+    {
+      "type": "select",
+      "id": "section_color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "article_comments",
+      "name": "Comments",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "comments_heading",
+          "label": "Display comments heading",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "article_form",
+      "name": "Form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "form_heading",
+          "label": "Heading",
+          "default": "Leave a comment"
+        },
+        {
+          "type": "text",
+          "id": "name_field_placeholder",
+          "label": "Name placeholder text",
+          "default": "Name"
+        },
+        {
+          "type": "text",
+          "id": "email_field_placeholder",
+          "label": "Email placeholder text",
+          "default": "Email"
+        },
+        {
+          "type": "text",
+          "id": "comment_field_placeholder",
+          "label": "Comment placeholder text",
+          "default": "Comment"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

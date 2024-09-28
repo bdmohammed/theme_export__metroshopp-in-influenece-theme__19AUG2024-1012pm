@@ -1,0 +1,53 @@
+{% comment %}
+    Renders a set of links for paginated results. Must be used within paginate tags.
+
+    Usage:
+    {% paginate results by 2 %}
+      {% render 'pagination', paginate: paginate %}
+    {% endpaginate %}
+
+    Accepts:
+    - paginate: {Object}
+{% endcomment %}
+
+{% if paginate.parts.size > 0 %}
+  {% liquid 
+    assign page_translation = 'general.pagination.page' | t: number: part.title
+    assign btn_attributes = 'aria-label="' | append: page_translation
+    assign btn_attributes_current = 'aria-label="' | append: page_translation | append: ' disabled="disabled"'
+  %}
+  <div class="flex w-full justify-center items-center col-span-full pt-4 md:pt-5">
+    <ul class="flex items-center justify-center flex-wrap" data-aid="pagination-container">
+      {% if paginate.previous %}
+      <li class="mt-3 flex items-center h-[50px] group">
+        <a href="{{ paginate.previous.url }}">
+          {% render 'armament-icon' with icon: 'arrow-left' %}
+        </a>
+      </li>
+      {% endif %}
+
+      {%- for part in paginate.parts -%}
+        <li class="px-2 mt-3 flex items-center h-[50px]">
+          {%- if part.is_link -%}
+            {% assign pagination_aid = 'pagination-button-' | append: part.title %}
+            {% render 'armament-button' with url: part.url, content: part.title, style: 'outline', attributes: btn_attributes, data_aid: pagination_aid, classes: 'px-[10px] py-[4px]' %}
+          {%- else -%}
+            {%- if part.title == paginate.current_page -%}
+              {% render 'armament-button' with content: part.title, style: 'fill', attributes: btn_attributes_current, data_aid: 'pagination-button-current', classes: 'px-[10px] py-[4px]' %}
+            {%- else -%}
+            <span>{{ part.title }}</span>
+            {%- endif -%}
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+
+      {% if paginate.next %}
+        <li class="mt-3 flex items-center h-[50px] group">
+          <a href="{{ paginate.next.url }}">
+            {% render 'armament-icon' with icon: 'arrow-right' %}
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+{% endif %}

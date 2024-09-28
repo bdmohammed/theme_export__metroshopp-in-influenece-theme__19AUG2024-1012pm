@@ -1,0 +1,83 @@
+<section class="relative">
+  {% render 'ship-search-bar' with section: section %}
+</section>
+
+{% schema %}
+{
+  "name": "Quick search",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Predictive search must be enabled to use this functionality."
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Search menu",
+      "type": "search_navigation",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Show a navigation list before the predictive search results are displayed."
+        },
+        {
+          "type": "text",
+          "id": "navigation_header",
+          "label": "Heading",
+          "default": "Trending"
+        },
+        {
+          "type": "link_list",
+          "id": "search_menu",
+          "label": "Menu",
+          "info": "Add a navigation with no more than 6 items."
+        }
+      ]
+    },
+    {
+      "name": "Featured collection",
+      "type": "search_collection",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Show a featured collection before the predictive search results are displayed."
+        },
+        {
+          "type": "header",
+          "content": "Featured collection"
+        },
+        {
+          "type": "text",
+          "id": "featured_collection_header",
+          "label": "Heading",
+          "default": "Best sellers"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "search_navigation",
+        "settings": {
+          "navigation_header": "Navigation menu",
+          "search_menu": "main-menu"
+        }
+      },
+      {
+        "type": "search_collection",
+        "settings": {
+          "featured_collection_header": "Featured collection"
+        }
+      }
+    ]
+  }
+}
+{% endschema %}

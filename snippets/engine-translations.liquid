@@ -1,0 +1,28 @@
+
+<translation-engine>
+  {% comment %} We wanted to parse the entire locale file, but you cannot access it at a storefront level currently. so we have to hardcode: {% endcomment %}
+  <template data-armada-selector="translations-engine-template">
+    <script
+      type="application/json"
+      data-armada-selector="translations-json"
+    >
+      {
+        "addToCart": "{{ 'products.product.add_to_cart' | t }}",
+        "added": "{{ 'products.product.added' | t }}",
+        "adding": "{{ 'products.product.adding' | t }}",
+        "soldOut": "{{ 'products.product.sold_out' | t }}",
+        "isSoldOut": "{{ 'products.product.is_sold_out' | t }}",
+        "unavailable": "{{ 'products.product.unavailable' | t }}",
+        "isUnavailable": "{{ 'products.product.is_unavailable' | t }}",
+        "choose": "{{ 'products.product.choose' | t }}",
+        "chooseVariant": "{{ 'products.product.choose_variant' | t }}",
+        "invalidEmail": "{{ 'newsletter.invalid_email' | t }}"
+      }
+    </script>
+  </template>
+
+</translation-engine>
+
+<safe-load-scripts>
+  <script src="{{ 'engine-translations.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="translations"></script>
+</safe-load-scripts>

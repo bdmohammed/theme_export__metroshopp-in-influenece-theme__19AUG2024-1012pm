@@ -1,0 +1,194 @@
+{% comment %}
+    Renders a list of product's price (regular, sale)
+
+    Accepts:
+    - price_product: {Object} Product Liquid object (optional)
+    - use_variant: {Boolean} Renders selected or first variant price instead of overall product pricing (optional)
+    - manual_price: {Object} Liquid price object, to be used if a product object isn't assigned, eg. line_item.final_price (optional)
+    - manual_compare_at_price: {Object} Liquid price object, to be used if a product object isn't assigned, eg. line_item.original_price (optional)
+    - cart_line_item: {Object} Liquid line_item object, to be assigned on cart line items for unit pricing purposes (optional)
+    - price_class: {String} Adds a price class to the price element (optional)
+    - regular_price_classes: {String} Adds custom classes to the regular price element (optional)
+    - price_only: {Boolean} Set to true if we only want to show the price and not the sale/unit price (optional)
+    - align: {String} One of 'left', 'right', 'center'
+    - section_id {String} Optional. Defaults to section.id if not provided.
+    - discount_type: {String} a setting value can be passed in eg. "percentage" or "value"
+    - show_tax_included: {Boolean} show "tax included" message?
+    - show_shipping_policy: {Boolean} show "shipping policy" link?
+
+    Usage:
+    {% render 'armament-price', price_product: product, use_variant: true, price_only: false %}
+{% endcomment %}
+
+{%- liquid
+  if use_variant
+    assign target = price_product.selected_or_first_available_variant
+  else
+    assign target = price_product
+  endif
+
+  if target
+    assign compare_at_price = target.compare_at_price
+  elsif manual_compare_at_price
+    assign compare_at_price = manual_compare_at_price
+  endif
+
+  if target
+    assign price = target.price | default: 1999
+  elsif manual_price
+    assign price = manual_price | default: 1999
+  endif
+
+  assign money_price = price | money
+
+  if target == price_product and price_product.price_varies
+    assign money_price = 'products.product.price.from_price_html' | t: price: money_price
+  endif
+
+  assign on_sale = false
+
+  if price_only
+    assign manual_compare_at_price = manual_price
+  endif
+
+  if price_product
+    if target.compare_at_price > target.price
+      assign on_sale = true
+    endif
+  elsif manual_price != manual_compare_at_price
+    assign on_sale = true
+  endif
+
+  if align == blank or align == 'left'
+    assign align = 'start'
+  elsif align == 'right'
+    assign align = 'end'
+  endif
+
+  if section_id == blank
+    assign section_id = section.id
+  endif
+
+  if discount_type != 'hide' and on_sale
+    if discount_type == 'value'
+      assign discountAmt = compare_at_price | minus: price
+    elsif discount_type == 'percentage'
+      assign discountAmt = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price | money_without_currency | times: 100 | remove: '.0'
+    endif
+  endif
+
+  assign unit_price_target = cart_line_item.variant | default: price_product.selected_or_first_available_variant
+  assign has_unit_price = false
+  if price_only != true and unit_price_target.unit_price_measurement != nil
+    assign has_unit_price = true
+  endif
+
+-%}
+
+<product-price
+  compare-at="{% if compare_at_price %}{{ compare_at_price }}{% else %}null{% endif %}"
+  {% if price %}price="{{ price }}"{% endif %}
+  {% if discount_type != 'hide' %}discount="{% if discountAmt %}{{ discountAmt }}{% else %}null{% endif %}"{% endif %}
+  {% if discount_type %}discount-value="{{ discount_type }}"{% endif %}
+  {% if hide %}class="hidden"{% endif %}
+  money-format="{{ shop.money_format }}"
+  section-id="{{ section_id }}"
+  {%- if has_unit_price -%}
+  unit-price="{{ unit_price_target.unit_price | strip_html | escape }}"
+  unit-price-measurement=""
+  {%- endif -%}
+>
+  <div
+    class="flex flex-row flex-wrap items-baseline justify-{{ align }}{% if price_class %} {{ price_class }}{% endif %}"
+  >
+    <div
+      class="mr-2"
+      data-armada-selector="regular-price-container"
+      id="price-field"
+    >
+      {% if on_sale %}
+        <span class="sr-only">{{ 'products.product.price.sale_price' | t }}</span>
+      {% else %}
+        <span class="sr-only">{{ 'products.product.price.regular_price' | t }}</span>
+      {% endif %}
+      <span
+        class="money{% if regular_price_classes %} {{ regular_price_classes }}{% endif %}"
+        data-aid="regular-price"
+        data-armada-selector="price-{{ section_id }}"
+      >
+        {{ money_price | strip_html }}
+      </span>
+    </div>
+
+    <div class="flex">
+      <div
+        class="line-through flex items-center{% unless on_sale %} hidden{% endunless %}"
+        data-armada-selector="compare-at-container"
+      >
+        <span
+          class="sr-only"
+        >
+          {{ 'products.product.price.regular_price' | t }}
+        </span>
+        <span
+          class="opacity-60 text-base font-body"
+          data-aid="compare-at-price"
+          data-armada-selector="compare-at-{{ section_id }}"
+        >
+          {{ compare_at_price | strip_html | money }}
+        </span>
+      </div>
+
+      <div data-armada-selector="discount-amount-container" class="flex items-center{% unless discount_type != 'hide' and on_sale == true %} hidden{% endunless %}">
+        <span class="ml-2 text-base font-body" data-armada-selector="discount-{{ section_id }}" data-aid="discount-amount">
+          -{% if discount_type == 'value' %}{{ discountAmt | strip_html | money }}{% else %}{{ discountAmt | strip_html | append: '%' }}{% endif %}
+        </span>
+      </div>
+  </div>
+  </div>
+
+  {% unless price_only %}
+    {% assign unit_price_target = cart_line_item.variant | default: price_product.selected_or_first_available_variant %}
+
+    <small
+      class="unit-price-container{% if unit_price_target.unit_price_measurement == nil %} hidden{% endif %}"
+      data-armada-selector="unit-price-container-{{ section_id }}"
+    >
+      <span class="sr-only">{{ 'products.product.price.unit_price' | t }}</span>
+      <span
+        class="price-item"
+        data-aid="unit-price"
+      >
+        <span
+          data-armada-selector="unit-price-{{ section_id }}"
+        >
+          {{- unit_price_target.unit_price | strip_html | money -}}
+        </span>
+        <span aria-hidden="true">/</span>
+        <span class="sr-only">&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
+        <span
+          data-armada-selector="unit-price-ref-{{ section_id }}"
+        >
+          {%- if unit_price_target.unit_price_measurement.reference_value != 1 -%}
+            {{- unit_price_target.unit_price_measurement.reference_value | strip_html -}}
+          {%- endif -%}
+          {{ unit_price_target.unit_price_measurement.reference_unit | strip_html }}
+        </span>
+      </span>
+    </small>
+
+    {% if cart.taxes_included or shop.shipping_policy.body != blank %}
+      <div>
+        {% if cart.taxes_included and show_tax_included %}
+          {{ 'products.product.include_taxes' | t | strip_html }}
+        {% endif %}
+        {% if shop.shipping_policy.body != blank and show_shipping_policy %}
+          {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url | strip_html }}
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endunless %}
+</product-price>
+<safe-load-scripts>
+  <script src="{{ 'component-price.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="price"></script>
+</safe-load-scripts>

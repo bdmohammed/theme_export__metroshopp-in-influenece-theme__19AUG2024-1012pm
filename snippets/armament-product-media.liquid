@@ -1,0 +1,80 @@
+{% comment %}
+    Renders a product media item (image, video, 3d model).
+
+    Accepts:
+    - media: {Object} Shopify media object
+    - enable_zoom: {Boolean} true if zoom is enabled
+    - enable_loop: {Boolean} true if video looping is enabled
+    - include_modal : {Boolean} include zoom modal in product media item. Defaults to true
+    - title: {String} Shopify product title
+    - product_id: {String} Shopify product ID
+
+    Usage:
+    {% render 'armament-product-media' with media: media, enable_zoom: section.settings.zoom_enabled, title: product.title, product_id: product.id %}
+{% endcomment %}
+
+{% liquid
+  if enable_zoom
+    assign imgClasses = 'relative object-contain m-auto hover:cursor-crosshair'
+  else
+    assign imgClasses = 'relative object-contain m-auto'
+  endif
+
+  assign animate_featured_img = animate_featured_img | default: false
+  assign has_model = false
+%}
+
+{% if media.media_type == 'image' %}
+  {% if enable_zoom %}
+  <div class="lg:flex lg:items-center lg:justify-center">
+  <armada-modal-open data-modal-id="{{ media.id }}">
+    {% render 'armament-image' with image: media, classes: imgClasses, attributes: 'data-armada-selector="modal-open"' %}
+  </armada-modal-open>
+  <safe-load-scripts>
+    <script src="{{ 'engine-modal-open.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="modal-open"></script>
+  </safe-load-scripts>
+  {% unless include_modal == false %}
+    <armada-modal
+      data-modal-id="{{ media.id }}"
+      data-modal-dismissable="true"
+      data-modal-heading=""
+      data-modal-underlay-classes="bg-black opacity-60"
+      class="invisible opacity-0"
+    >
+      {% render 'armament-image' with image: media, classes: 'relative object-contain m-auto' %}
+    </armada-modal>
+    <safe-load-scripts>
+      <script src="{{ 'engine-modal.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="modal"></script>
+    </safe-load-scripts>
+  {% endunless %}
+</div>
+{% else %}
+  {% if settings.enable_animations and animate_featured_img %}
+  <div class="overflow-hidden">
+  {% endif %}
+  {% render 'armament-image' with image: media, classes: 'relative object-contain m-auto', zoomout_animation: animate_featured_img %}
+  {% if settings.enable_animations and animate_featured_img %}
+  </div>
+  {% endif %}
+{% endif %}
+{% elsif media.media_type == 'model' %}
+  {% assign has_model = true %}
+  {% render 'armament-model' with model: media, classes: classes, title: title  %}
+{% elsif media.media_type contains 'video' %}
+  {% assign image_classes = 'absolute w-screen lg:w-auto' %}
+  {% if media.media_type == 'video' %}
+    {% render 'armament-video' with url: media.sources[1].url, poster: media, autoplay: true, loop: enable_loop, image_classes: image_classes %}
+  {% elsif media.host == 'youtube' %}
+    {% assign url = 'https://www.youtube.com/watch?v=' | append: media.external_id %}
+    {% render 'armament-video' with url: url, poster: media, autoplay: true, loop: enable_loop, image_classes: image_classes %}
+  {% elsif media.host == 'vimeo' %}
+    {% assign url = 'https://vimeo.com/' | append: media.external_id %}
+    {% render 'armament-video' with url: url, poster: media, autoplay: true, loop: enable_loop, image_classes: image_classes %}
+  {% endif %}
+{% endif %}
+
+{% if has_model %}
+  <script type="application/json" id="productModelJSON-{{ product.id }}">
+    {{ product.media | where: 'media_type', 'model' | json }}
+  </script>
+{% endif %}

@@ -1,0 +1,278 @@
+{%- liquid
+  if section.settings.text_alignment == 'center'
+    assign text_align_class = 'text-center'
+  elsif section.settings.text_alignment == 'right'
+    assign text_align_class = 'text-right'
+  endif
+
+  if section.settings.bg_color_scheme == section.settings.content_color_scheme
+    assign border = true
+  endif
+-%}
+
+{% if settings.enable_animations %}
+<zoomout-animation>
+{% endif %}
+
+<section data-color-scheme={{ section.settings.bg_color_scheme }} data-aid="story-slideshow">
+  <div class="text-body bg-page py-5 md:p-6">
+    {% if section.settings.subheading != blank or section.settings.heading != blank %}
+      <div class="pb-4 px-4 md:px-0 md:pb-5 {{ text_align_class }}">
+        {% if section.settings.subheading != blank %}
+          {% render 'armament-heading' with tag: 'h4', heading_content: section.settings.subheading, heading_type: 'heading-4', classes: 'mb-2 md:mb-3', data_aid: 'story-slideshow-subheading' %}
+        {% endif %}
+        {% if section.settings.heading != blank %}
+          {% render 'armament-heading' with tag: 'h2', heading_content: section.settings.heading, heading_type: 'section-heading', data_aid: 'story-slideshow-subheading' %}
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <slider-engine
+      mode="peep"
+      blocks="true"
+      tabindex="0"
+      arrows="true"
+      mobile-indicator="true"
+      visible-slides='{ "sm": 1, "md": 2 }'
+      class="block relative"
+      data-name="scrollbar-target"
+    >
+      <div
+        class="relative overflow-hidden mb-4{% if section.blocks.size > 2 %} md:mb-5{% else %} md:mb-0{% endif %}"
+        data-name="slider-wrap"
+      >
+        <ul
+          data-name="slider"
+          class="flex story-slideshow-slider--{{ section.id }}"
+          role="list"
+        >
+          {% for block in section.blocks %}
+            <li
+              data-name="slide"
+              class="{% if section.blocks.size > 1 %}w-1/2 md:shrink-0 {% endif %}relative flex z-20{% if border %} border-y md:border-x{% endif %}"
+              {{ block.shopify_attributes }}
+              data-block-id="{{ block.id }}"
+            >
+              <div
+                class="w-full md:w-1/2 overflow-hidden"
+                data-name="peep-image"
+                data-color-scheme={{ section.settings.content_color_scheme }}
+              >
+                {% if block.settings.image != blank %}
+                  {% render 'armament-image' with image: block.settings.image, classes: 'h-full w-full object-cover', zoomout_animation: true %}
+                {% else %}
+                  <div class="bg-page h-full">
+                    {% render 'armament-placeholder' with name: 'product-1', classes: 'h-full w-full object-cover' %}
+                  </div>
+                {% endif %}
+              </div>
+              <div
+                class="w-full md:w-1/2 h-full md:h-auto absolute md:relative left-2/3 md:left-0 transition-transform duration-500 {% if border %} md:border-l{% endif %}"
+                data-name="peep-text"
+              >
+                <div class="h-full upto-md:p-4">
+                  <div class="h-full bg-page" data-color-scheme={{ section.settings.content_color_scheme }}>
+                    {% render 'ship-text-card' with classes: 'h-full flex flex-col place-content-center bg-transparent', heading: block.settings.heading, button_link: block.settings.button_link, button_label: block.settings.button_label, text: block.settings.text %}
+                  </div>
+                </div>
+              </div>
+
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <template>
+        {% unless section.blocks.size > 2 %}
+          {% assign arrow_classes = 'md:hidden' %}
+        {% endunless %}
+        {% render 'armament-slider-arrows' with hide_on_mobile: true, vertical_position_classes: 'top-[calc(50%-40px)] translate-y-0', classes: arrow_classes, border: border %}
+        <div data-name="mobile-indicator" class="{% if section.blocks.size > 1 %}block upto-md:mx-4{% else %}hidden{% endif %}{% if section.blocks.size < 3 %} md:hidden{% endif %}">
+          {% render 'armament-scroll-bar' with item_count: section.blocks.size, parent: 'slider-engine', target: 'slider', indicator: 'progress', paused_forward: true, classes: 'md:hidden' %}
+          {% assign desktop_scrollbar_count = section.blocks.size | minus: 1 %}
+          {% render 'armament-scroll-bar' with item_count: desktop_scrollbar_count, parent: 'slider-engine', target: 'slider', indicator: 'progress', classes: 'hidden md:block' %}
+        </div>
+      </template>
+    </slider-engine>
+
+    <safe-load-scripts>
+      <script src="{{ 'engine-slider.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="slider-engine"></script>
+    </safe-load-scripts>
+
+  </div>
+</section>
+
+{% if settings.enable_animations %}
+</zoomout-animation>
+<safe-load-scripts>
+  <script src="{{ 'engine-zoomout-animation.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="zoomout-animation"></script>
+</safe-load-scripts>
+{% endif %}
+
+{% if section.blocks.size < 3 %}
+  <style>
+    @media screen and (min-width: 769px) {
+      .story-slideshow-slider--{{ section.id }} {
+        /* Disable drag on desktop */
+        transform: none !important;
+      }
+      .story-slideshow-slider--{{ section.id }} li[data-name="slide"] {
+        /* Disable slide min-width applied by slider engine for desktop */
+        min-width: 0 !important;
+      }
+    }
+  </style>
+{% endif %}
+
+
+{% schema %}
+{
+  "class": "w-full",
+  "name": "Story slideshow",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Talk about your brand"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Story slideshow"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "bg_color_scheme",
+      "label": "Background color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    },
+    {
+      "type": "select",
+      "id": "content_color_scheme",
+      "label": "Card color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "content",
+      "name": "Content",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Story heading"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Body text",
+          "default": "Use text paired with images to create a captivating brand story, explain details of your products, or highlight store promotions."
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Story slideshow",
+      "blocks": [
+        {
+          "type": "content"
+        },
+        {
+          "type": "content"
+        },
+        {
+          "type": "content"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer",
+      "custom.overlay"
+    ]
+  }
+}
+{% endschema %}

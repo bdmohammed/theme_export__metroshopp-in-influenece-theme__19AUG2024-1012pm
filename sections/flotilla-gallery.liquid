@@ -1,0 +1,415 @@
+{%-liquid
+    case section.settings.img_row_mobile
+        when "one"
+            assign visual_card_mobile_width = 'w-full'
+        when "two"
+            assign visual_card_mobile_width = 'w-[calc(50%-4px)]'
+    endcase
+
+    case section.settings.img_row_desktop
+        when 2
+            assign visual_card_width = visual_card_mobile_width | append: ' md:w-[calc(50%-4px)]'
+        when 3
+            assign visual_card_width = visual_card_mobile_width | append: ' md:w-[calc(33.333333%-4px)]'
+        when 4
+            assign visual_card_width = visual_card_mobile_width | append: ' md:w-[calc(25%-4px)]'
+        when 5
+            assign visual_card_width = visual_card_mobile_width | append: ' md:w-[calc(20%-4px)]'
+    endcase
+
+    case section.settings.img_aspect_ratio
+        when 'square'
+            assign aspect_ratio = 'overflow-hidden aspect-[1/1] '
+        when 'portrait'
+            assign aspect_ratio = 'overflow-hidden aspect-[3/4] '
+        when 'natural'
+            assign card_full_height = false
+    endcase
+-%}
+
+
+<section data-color-scheme="{{ section.settings.bg_color_scheme }}" class="bg-page{% unless section.settings.section_heading == blank and section.settings.section_subheading == blank and section.settings.section_width == 'full' %} py-5 md:py-6{% endunless %}" data-aid="flotilla-gallery">
+
+{% if settings.enable_animations %}
+<loadin-animation>
+{% endif %}
+
+    <div class="{% if section.settings.section_width != 'full' %}px-4 md:px-6{% else %}w-full{% endif %}" data-aid="gallery-width-wrapper">
+        {% if section.settings.section_width == 'narrow' %}<div class="max-w-screen-xl mx-auto" data-aid="gallery-max-width">{% endif %}
+
+            {% if section.settings.section_subheading != blank or section.settings.section_heading != blank %}
+                <div class="{{ section.settings.heading_alignment }}{% if section.settings.section_width == 'full' %} px-4 md:px-6{% endif %}" data-aid="gallery-header">
+                    {% if section.settings.section_subheading != blank %}
+                        {% render 'armament-heading' with tag: 'h3', heading_content: section.settings.section_subheading, heading_type: 'section-subheading', classes: 'text-body mb-2 md:mb-3 z-40', data_aid: 'gallery-subheading' %}
+                    {% endif %}
+
+                    {% if section.settings.section_heading != blank %}
+                        {% render 'armament-heading' with tag: 'h2', heading_content: section.settings.section_heading, heading_type: 'section-heading', classes: 'text-body mb-4 md:mb-5 z-40', data_aid: 'gallery-heading' %}
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            {% if section.blocks.size > 0 %}
+                <ul class="flex justify-center gap-1 {% unless section.settings.img_row_mobile == "one" %}-mr-[2px] -ml-[2px]{% endunless %} md:-mr-[2px] md:-ml-[2px] flex-wrap" data-aid="gallery-grid">
+
+                    {% for block in section.blocks %}
+                        {% liquid 
+                          case block.settings.text_position
+                            when 'top_left' or 'top_center' or 'top_right'
+                              assign vertical_text_alignment = 'top'
+                            when 'left' or 'center' or 'right'
+                              assign vertical_text_alignment = 'center'
+                            when 'bottom_left' or 'bottom_center' or 'bottom_right'
+                              assign vertical_text_alignment = 'bottom'
+                            when 'top_left' or 'left' or 'bottom_left'
+                              assign horizontal_text_alignment = 'left'
+                            when 'top_center' or 'center' or 'bottom_center'
+                              assign horizontal_text_alignment = 'center'
+                            when 'top_right' or 'right' or 'bottom_right'
+                              assign horizontal_text_alignment = 'right'
+                          endcase  
+                        %}
+                        <li loadin-animation-elm loadin-animation-delay class="{{ aspect_ratio }}{% if block.settings.image == blank %}bg-white {% endif %}{{ visual_card_width }}" data-aid="gallery-card" {{ block.shopify_attributes }}>
+
+                            {% render 'ship-visual-card' with
+                            card_image: block.settings.image,
+                            overlay_color_scheme: block.settings.text_color_scheme,
+                            card_text: block.settings.heading,
+                            button_label: block.settings.button_text,
+                            url: block.settings.link,
+                            vertical_alignment: vertical_text_alignment,
+                            horizontal_alignment: horizontal_text_alignment,
+                            overlay_style: block.settings.overlay_style,
+                            overlay_opacity: block.settings.overlay_opacity,
+                            button_style: block.settings.button_style,
+                            truncate_heading: 5,
+                            placeholder: 'collection-1',
+                            full_height: card_full_height %}
+
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            {% else %}
+
+                <p
+                class="p-3 md:py-4 text-center"
+                data-aid="gallery-onboarding-text"
+                >{{ 'general.onboarding.no_content' | t }}</p>
+
+            {% endif %}
+
+        {% if section.settings.section_width == 'narrow' %}</div>{% endif %}
+    </div>
+
+{% if settings.enable_animations %}
+</loadin-animation>
+
+<safe-load-scripts class="hidden">
+  <script src="{{ 'engine-loadin-animation.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="loadin-animation"></script>
+</safe-load-scripts>
+{% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Gallery",
+  "max_blocks": 16,
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_subheading",
+      "label": "Subheading",
+      "default": "Inspire your customers"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "Gallery"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "text-left",
+          "label": "Left"
+        },
+        {
+          "value": "text-center",
+          "label": "Center"
+        },
+        {
+          "value": "text-right",
+          "label": "Right"
+        }
+      ],
+      "default": "text-center"
+    },
+    {
+      "type": "range",
+      "id": "img_row_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "label": "Images per row (desktop)",
+      "default": 4
+    },
+    {
+      "type": "radio",
+      "id": "img_row_mobile",
+      "label": "Images per row (mobile)",
+      "options": [
+        {
+          "value": "one",
+          "label": "One"
+        },
+        {
+          "value": "two",
+          "label": "Two"
+        }
+      ],
+      "default": "two"
+    },
+    {
+      "type": "select",
+      "id": "img_aspect_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        {
+          "value": "natural",
+          "label": "Natural"
+        },
+        {
+          "value": "square",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait (2:3)"
+        }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "info": "These changes may only be visible on larger screens",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full width"
+        },
+        {
+          "value": "full-with-padding",
+          "label": "Full width with padding"
+        },
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "select",
+      "id": "bg_color_scheme",
+      "label": "Background color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button label (optional)"
+        },
+        {
+          "type": "radio",
+          "id": "button_style",
+          "label": "Button style",
+          "options": [
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "fill",
+              "label": "Fill"
+            }
+          ],
+          "default": "outline"
+        },
+        {
+          "type": "header",
+          "content": "Overlay"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "text_position",
+          "label": "Text position",
+          "options": [
+            {
+              "value": "top_left",
+              "label": "Top left"
+            },
+            {
+              "value": "top_center",
+              "label": "Top center"
+            },
+            {
+              "value": "top_right",
+              "label": "Top right"
+            },
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            },
+            {
+              "value": "bottom_left",
+              "label": "Bottom left"
+            },
+            {
+              "value": "bottom_center",
+              "label": "Bottom center"
+            },
+            {
+              "value": "bottom_right",
+              "label": "Bottom right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "header",
+          "content": "Color scheme"
+        },
+        {
+          "type": "select",
+          "id": "text_color_scheme",
+          "label": "Text overlay color scheme",
+          "options": [
+            {
+              "value": "general",
+              "label": "General"
+            },
+            {
+              "value": "accent-1",
+              "label": "Accent 1"
+            },
+            {
+              "value": "accent-2",
+              "label": "Accent 2"
+            },
+            {
+              "value": "accent-3",
+              "label": "Accent 3"
+            }
+          ],
+          "default": "general"
+        },
+        {
+          "type": "select",
+          "id": "overlay_style",
+          "label": "Overlay style",
+          "options": [
+            {
+              "value": "bg-white",
+              "label": "Light"
+            },
+            {
+              "value": "bg-black",
+              "label": "Dark"
+            }
+          ],
+          "default": "bg-black"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "label": "Overlay opacity",
+          "default": 20
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gallery",
+      "settings": {
+      },
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "custom.overlay"
+    ]
+  }
+}
+{% endschema %}

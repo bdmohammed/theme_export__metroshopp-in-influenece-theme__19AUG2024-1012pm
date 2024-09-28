@@ -1,0 +1,27 @@
+{% comment %}
+    Renders a checkbox input.
+    Accepts:
+    - container_class: {String} apply any custom classes to the input/label container (optional)
+    - id: {String} ID to be applied to the input
+    - classes: {String} custom classes to be applied to the input (optional)
+    - name: {String} the name attribute of the input
+    - attributes: {String} add custom element attributes (data-* or aria)
+    - label_text: {String} the text to display as the label
+    - label_class: {String} any custom classes for the label element
+    - data_aid: {String} custom data aid
+
+    Usage:
+      {% render 'armament-checkbox' with id: 'default_address', name: 'default_address', label_text: 'Set as default address', data_aid: "checkbox" %}
+{% endcomment %}
+
+<div class="flex items-center pb-2 last:pb-0 text-body{% if container_class %} {{ container_class }}{% endif %}">
+  <input
+    type="checkbox"
+    {% if name %}name="{{ name }}"{% endif %}
+    {% if id %}id="{{ id }}"{% endif %}
+    class="border-body bg-transparent checked:border-body checked:hover:border-body checked:focus:border-body checked:bg-none checked:text-transparent checked:relative checked:after:absolute checked:after:bg-body checked:after:w-[10px] checked:after:[height:10px] checked:after:top-[2px] checked:after:[left:2px]{% if classes %} {{ classes }}{% endif %}"
+    {% if attributes %}{{ attributes }}{% endif %}
+    data-aid="{{ data_aid }}"
+  >
+  <label class="pl-3 {{ label_class }}" for="{{ id }}">{{ label_text }}</label>
+</div>

@@ -1,0 +1,124 @@
+{% assign no_heading = true %}
+{% if section.settings.subheading != blank or section.settings.heading != blank %}
+  {% assign no_heading = false %}
+  <div
+    class="bg-page text-body px-4 pb-4 pt-5 md:px-6 md:pb-5 md:pt-6 md:w-full text-center"
+    data-color-scheme="{{ section.settings.bg_color_scheme }}"
+  >
+    {% if section.settings.subheading != blank %}
+      {% render 'armament-heading' with tag: 'h4', heading_content: section.settings.subheading, heading_type: 'heading-4', classes: 'mb-2 md:mb-3', data_aid: 'blog-posts-subheading' %}
+    {% endif %}
+    {% if section.settings.heading != blank %}
+      {% render 'armament-heading' with tag: 'h2', heading_content: section.settings.heading, heading_type: 'section-heading', data_aid: 'blog-posts-subheading' %}
+    {% endif %}
+  </div>
+{% endif %}
+
+<section
+  class="bg-page text-body w-full p-4 {% if no_heading %}py-5 md:p-6{% else %}pb-5 md:pb-6 md:px-6{% endif %} flex justify-around"
+  data-color-scheme="{{ section.settings.bg_color_scheme }}"
+  data-aid="accordion-section"
+>
+  <div class="max-w-screen-xl flex-auto">
+    {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+        {% if forloop.first %}
+          {% assign summary_class = "pt-0 md:pt-0" %}
+        {% else %}
+          {% assign summary_class = "" %}
+        {% endif %}
+        {% render 'armament-accordion' with details_class: 'text-body', summary_class: summary_class, summary_header: block.settings.tab_item_header, summary_content: block.settings.tab_item_content, prose: true, shopify_attributes: block.shopify_attributes, block_id: block.id %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+  {
+    "class": "w-full",
+    "name": "Accordion",
+    "settings": [
+      {
+        "type": "select",
+        "id": "bg_color_scheme",
+        "label": "Color scheme",
+        "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+        ],
+        "default": "general"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "tab_item",
+        "name": "Accordion item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "tab_item_header",
+            "label": "Heading",
+            "default": "Heading/FAQ"
+          },
+          {
+            "type": "richtext",
+            "id": "tab_item_content",
+            "label": "Body text",
+            "default": "<p>Use this text to provide detailed information like sizing, shipping, ingredients, or to answer frequently asked questions.</p>"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Accordion",
+        "settings": {
+        },
+        "blocks": [
+          {
+            "type": "tab_item"
+          },
+          {
+            "type": "tab_item"
+          },
+          {
+            "type": "tab_item"
+          },
+          {
+            "type": "tab_item"
+          }
+        ]
+      }
+    ],
+    "disabled_on": {
+    "groups": [
+      "header",
+      "custom.overlay"
+    ]
+  }
+  }
+{% endschema %}

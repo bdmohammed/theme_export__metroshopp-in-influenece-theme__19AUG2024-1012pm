@@ -1,0 +1,63 @@
+{% comment %}
+    Renders a quantity selector for a product.
+    Accepts:
+    - id: {String} value of the id attribute of the input, eg. variant id
+    - data_line_index: {Number} line index if quantity selector is part of a line item
+    - product_name: {String} name of the product
+    - hide_label_on_mobile: {String} Hides the 'quantity' label on mobile if set to true (false by default)
+    - name: {String} value of the name attribute of the input
+    - value: {String} value of the value attribute of the input
+    - classes: {String} custom classes to be added to the container div
+
+    Usage:
+    {% render 'armament-quantity-selector' with id: item.variant.id, data_line_index: data_line_index, product_name: item.product.title, hide_label_on_mobile: true, name: 'quantity', value: item.quantity, classes: 'mb-4' %}
+{% endcomment %}
+
+{%- liquid
+  assign button_classes = "flex items-center justify-center w-44 h-44 group"
+  assign id = 'quantity-' | append: id
+  assign label = 'products.product.quantity.input_label' | t: product: product_name
+  assign aria_label = 'aria-label="' | append: label | append: '"'
+-%}
+
+<div class="text-body armament-quantity-selector {{ classes }}">
+  <div class="mb-2">
+    <label
+      for="{{ id }}"
+      class="text-h6 font-heading heading-case leading-none{% if hide_label_on_mobile %} sr-only md:not-sr-only{% endif %}"
+    >
+      {{ 'products.product.quantity.label' | t }}
+    </label>
+  </div>
+  <quantity-selector class="inline-flex border"{% if data_line_index %} data-line-index={{ data_line_index }}{% endif %} data-section-id={{ section.id }}>
+    <button
+      type="button"
+      class="{{ button_classes }}"
+      name="minus"
+      aria-label="{{ 'products.product.quantity.decrease' | t: product: product_name | escape }}"
+      data-aid="quantity-minus"
+    >
+      {% render 'armament-icon' with icon: 'minus' %}
+    </button>
+      {% render 'armament-input' with
+        type: 'number',
+        classes: 'border-0 text-center text-h6 font-heading heading-case',
+        id: id,
+        name: name,
+        value: value,
+        attributes: aria_label
+      %}
+    <button
+      type="button"
+      class="{{ button_classes }}"
+      name="plus"
+      aria-label="{{ 'products.product.quantity.increase' | t: product: product_name | escape }}"
+      data-aid="quantity-plus"
+    >
+      {% render 'armament-icon' with icon: 'plus' %}
+    </button>
+  </quantity-selector>
+</div>
+<safe-load-scripts>
+  <script src="{{ 'component-quantity-selector.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="quantity-selector"></script>
+</safe-load-scripts>

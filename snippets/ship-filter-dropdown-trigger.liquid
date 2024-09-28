@@ -1,0 +1,180 @@
+{% comment %}
+    Renders a custom "drop-down" trigger for the topbar filters
+
+    Accepts:
+    - show_filter: {Boolean} show filter dropdown
+    - show_sort: {Boolean} show sort dropdown
+    - enable_filter: {Boolean} enable filter setting
+    - enable_sort: {Boolean} enable sort setting
+    - classes: {String} Add custom classes to the container
+    - filtering_position: {String} eg. topbar or sidebar (required)
+    - enable_border_bottom: {Boolean} true by default
+    - results: {Object} search or collection object (required)
+
+    Usage:
+    {% render 'ship-filter-dropdown-trigger' with heading: 'Sort' %}
+{% endcomment %}
+
+{% liquid
+  assign sortByHeading = 'products.facets.sort_by_label' | t
+  assign filterHeading = 'products.facets.filter_by_label' | t
+
+  if enable_border_bottom == nil
+    assign enable_border_bottom = true
+  endif
+
+  assign enable_border_bottom = enable_border_bottom
+
+  assign item_width = 'grid-cols-2 lg:grid-cols-[minmax(0,auto),minmax(310px,350px),minmax(310px,350px),minmax(0,auto)]'
+  assign item_1_pos = 'col-start-1 col-end-2 lg:col-start-2 lg:col-end-3'
+  assign item_2_pos = 'col-start-2 col-end-3 lg:col-start-3 lg:col-end-4'
+
+  if filtering_position == 'topbar'
+    assign item_width = 'grid-cols-2 lg:grid-rows-[minmax(84px,auto)] lg:grid-cols-[minmax(0,auto),minmax(310px,350px),minmax(310px,350px),minmax(0,auto)]'
+  endif
+
+  if enable_filtering == true and enable_sorting == true
+    if filtering_position == 'topbar'
+      assign fix_pos = 'relative lg:absolute'
+    else
+      assign fix_pos = 'relative'
+    endif
+  elsif enable_filtering == true and enable_sorting == false
+    assign item_1_pos = 'col-start-1 col-end-3 lg:col-start-3 lg:col-end-4'
+
+    if filtering_position == 'topbar'
+      assign fix_pos = 'relative lg:absolute lg:left-[-50%]'
+    else
+      assign fix_pos = 'relative'
+    endif
+  elsif enable_filtering == false and enable_sorting == true
+    assign item_2_pos = 'col-start-1 col-end-3 lg:col-start-3 lg:col-end-4'
+
+    if filtering_position == 'topbar'
+      assign fix_pos = 'relative lg:absolute lg:left-[-50%]'
+    else
+      assign fix_pos = 'relative'
+    endif
+  endif
+%}
+
+{%- capture active_filters -%}
+  {%- for filter in results.filters -%}
+    {%- if filter.type == 'price_range' -%}
+      {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+        {% assign priceFilterActive = true %}
+        {{ filter.min_value.value }},
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- for value in filter.active_values -%}
+      {%- if filter.active_values.size > 0 -%}
+      {{ value.label }},
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- assign activeFilterArray = active_filters | split: ',' -%}
+{%- assign calculatedCount = activeFilterArray.size -%}
+
+{% if enable_filtering or enable_sorting %}
+  <div class="w-full{% if filtering_position == 'sidebar' %} grid lg:flex lg:min-h-[60px]{% else %} grid lg:px-6{% endif %} gap-10 justify-items-center relative {{ item_width }}">
+    {% if show_filter and enable_filtering %}
+      <armada-modal-open
+        data-modal-id="filter-modal-trigger"
+        class="block w-full pt-4 lg:pb-4 cursor-pointer outline-offset-[-2px] z-[100] bg-page {{ fix_pos }} {{ item_1_pos }}{% if classes %} {{ classes }}{% endif %}"
+      >
+        <div
+          data-filter-position="{{ filtering_position }}"
+          data-aid="filter-topbar-trigger"
+          tabindex="0"
+          {% if filtering_position == 'topbar' %}onclick="loadFilterScript()"{% endif %}
+        >
+          <div class="grid grid-cols-[repeat(3,minmax(0,auto))] grid-rows-[repeat(3,minmax(0,auto))] w-full items-center justify-center text-body group{% if filtering_position == 'sidebar' %} lg:justify-end{% endif %}" data-armada-selector="dropdown-trigger">
+            {% render 'armament-icon' with icon: 'filter', classes: 'col-start-1 col-end-2 row-start-2 row-end-3' %}
+            {% render 'armament-heading' with tag: 'h6', heading_content: filterHeading, classes: 'text-h5 ml-2 col-start-2 col-end-3 row-start-2 row-end-3', data_aid: 'custom-dropdown' %}
+            <span class="text-h5 font-heading col-start-3 col-end-4 row-start-2 row-end-3" data-armada-selector="active-facet-count" data-armada-facet-count="{% if active_filters.size > 0 %} ({{ calculatedCount }}){% endif %}">{% if active_filters.size > 0 %} ({{ calculatedCount }}){% endif %}</span>
+          </div>
+          {% if enable_border_bottom %}
+            <hr class="mt-2" />
+          {% endif %}
+        </div>
+      </armada-modal-open>
+      <armada-modal
+        data-modal-id="filter-modal-trigger"
+        data-content-width="true"
+        data-header-classes="!p-3 !px-5 !pt-5"
+        data-modal-dismissable="true"
+        data-modal-heading="{{ filterHeading }}"
+        data-modal-underlay-classes="bg-black opacity-60"
+        class="invisible opacity-0 absolute"
+      >
+        {% if template.name contains 'collection' %}
+          {% render 'flotilla-filter-form' with results: collection, product_count: collection.products_count, enable_sorting: enable_sorting, filter_position: filtering_position, data-aid="collection_filter_form", form_id: 'filter_form', enable_filtering: enable_filtering, attributes: 'data-armada-selector="filter-topbar-form"' %}
+        {% elsif template.name contains 'search' %}
+          {% render 'flotilla-filter-form' with results: search, product_count: search.results_count, enable_sorting: enable_sorting, filter_position: filtering_position, data-aid="collection_filter_form", form_id: 'filter_form', enable_filtering: enable_filtering, attributes: 'data-armada-selector="filter-topbar-form"' %}
+        {% endif %}
+      </armada-modal>
+    {% endif %}
+
+    {% if show_sort and enable_sorting %}
+      <armada-modal-open
+        data-modal-id="sort-modal-trigger"
+        class="block w-full pt-4 lg:pb-4 cursor-pointer outline-offset-[-2px] z-[100] bg-page {{ fix_pos }} {{ item_2_pos }}{% if classes %} {{ classes }}{% endif %}"
+      >
+        <div
+          data-filter-position="{{ filtering_position }}"
+          data-aid="sort-topbar-trigger"
+          tabindex="0"
+          {% if filtering_position == 'topbar' %}onclick="loadFilterScript()"{% endif %}
+        >
+          <div class="grid grid-cols-[repeat(2,minmax(0,auto))] grid-rows-[repeat(3,minmax(0,auto))] w-full items-center justify-center group{% if filtering_position == 'sidebar' %} lg:justify-end{% endif %}" data-armada-selector="dropdown-trigger">
+            {% render 'armament-icon' with icon: 'sort', classes: 'col-start-1 col-end-2 row-start-2 row-end-3' %}
+            {% render 'armament-heading' with tag: 'h6', heading_content: sortByHeading, classes: 'text-h5 ml-2 col-start-2 col-end-3 row-start-2 row-end-3', data_aid: 'custom-dropdown' %}
+          </div>
+          {% if enable_border_bottom %}
+            <hr class="mt-2" />
+          {% endif %}
+        </div>
+      </armada-modal-open>
+
+      <armada-modal
+        data-modal-id="sort-modal-trigger"
+        data-content-width="true"
+        data-header-classes="!p-3 !px-5 !pt-5"
+        data-modal-dismissable="true"
+        data-modal-heading="{{ sortByHeading }}"
+        data-modal-underlay-classes="bg-black opacity-60"
+        class="invisible opacity-0 absolute"
+      >
+      {% if template.name contains 'collection' %}
+        {% render 'ship-sort-options' with results: collection, filter_position: filtering_position %}
+      {% elsif template.name contains 'search' %}
+        {% render 'ship-sort-options' with results: search, filter_position: filtering_position %}
+      {% endif %}
+      </armada-modal>
+
+      {% unless enable_filtering %}
+        {% if template.name contains 'collection' %}
+          {% render 'flotilla-filter-form' with results: collection, product_count: collection.products_count, enable_sorting: enable_sorting, filter_position: filtering_position, data-aid="collection_filter_form", form_id: 'filter_form', enable_filtering: enable_filtering, attributes: 'data-armada-selector="filter-topbar-form"' %}
+        {% elsif template.name contains 'search' %}
+          {% render 'flotilla-filter-form' with results: search, product_count: search.results_count, enable_sorting: enable_sorting, filter_position: filtering_position, data-aid="collection_filter_form", form_id: 'filter_form', enable_filtering: enable_filtering, attributes: 'data-armada-selector="filter-topbar-form"' %}
+        {% endif %}
+      {% endunless %}
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if enable_filtering and filtering_position == 'topbar' %}
+  <script defer="defer">
+    function loadFilterScript() {
+      import("{{ 'engine-filter-and-sort.min.js' | asset_url }}");
+    }
+  </script>
+{% endif %}
+
+<safe-load-scripts>
+  <script src="{{ 'engine-modal.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="modal"></script>
+  <script src="{{ 'engine-modal-open.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="modal-open"></script>
+</safe-load-scripts>

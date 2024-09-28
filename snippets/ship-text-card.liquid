@@ -1,0 +1,30 @@
+{% comment %}
+    Renders a text card.
+    Accepts:
+    - heading: {String} Heading content
+    - text: {String} Text content
+    - button_link: {String} Url of the button
+    - button_label: {String} Label of the button
+    - button_style: {String} Style of the 'view all' button - 'filled' or 'outline' (defaults to 'filled')
+    - classes: {String} Custom classes to be applied to the text card
+
+    Usage:
+    {% render 'ship-text-card' with heading: block.settings.heading, text: block.settings.text, button_link: block.settings.button_link, button_label: block.settings.button_label %}
+{% endcomment %}
+
+<article class="text-body bg-page p-4 md:p-5{% if classes %} {{ classes }}{% endif %}" data-aid="text-card">
+  {% if heading %}
+    {% render 'armament-heading' with tag: 'h3', heading_type: 'heading-4', classes: 'mb-2 break-words', heading_content: heading, data_aid: 'text-card-heading' %}
+  {% endif %}
+
+  {% if text %}
+    <p class="mb-3" data-aid="text-card-text">{{ text }}</p>
+  {% endif %}
+
+  {% if button_link and button_label != blank %}
+    {% if text == blank %}
+      {% assign button_classes = 'mt-2 md:mt-3' %}
+    {% endif %}
+    {% render 'armament-button' with url: button_link, content: button_label, classes: button_classes, style: button_style, data_aid: 'text-card-button' %}
+  {% endif %}
+</article>

@@ -1,0 +1,37 @@
+{% comment %}
+    Renders a sticky product form.
+
+    Accepts:
+    - sticky_product: {Object} Shopify product object.
+
+    Usage:
+    {% render 'ship-product-form-sticky' with sticky_product: product %}
+
+{% endcomment %}
+
+{% liquid
+
+  assign button_wrapper_classes = 'grow order-last w-full lg:w-auto lg:max-w-max lg:min-w-[200px] lg:justify-self-end'
+  assign basic_form_classes = 'order-3 flex justify-center w-full lg:w-auto justify-self-end'
+
+  if sticky_product.has_only_default_variant
+    assign button_wrapper_classes = 'ml-auto order-last w-full lg:w-auto lg:max-w-max lg:min-w-[200px] lg:justify-self-end col-start-4'
+    assign basic_form_classes = 'hidden'
+  endif
+
+%}
+
+<product-form-sticky
+  class="block fixed top-0 left-0 bottom-auto w-full bg-page text-body p-3 lg:px-6 lg:py-4 z-[102]{% if settings.enable_animations %} slide-animation{% endif %}"
+  product-id="{{ sticky_product.id }}"
+  data-armada-selector="sticky-product-form"
+  data-aid="product-form-sticky-container"
+  data-section-id="{{ section.id }}"
+  hidden
+>
+  {% render 'ship-product-form' with form_product: sticky_product, is_sticky: true, dynamic_buttons: false, block_order: 'title,price,payment-buttons', classes: 'flex flex-col lg:grid lg:grid-cols-[repeat(2,minmax(0,auto)),repeat(2,1fr)] gap-[10px] lg:gap-30 items-center justify-start', button_wrapper_classes: button_wrapper_classes, title_classes: 'hidden lg:flex order-1 max-w-max', price_classes: 'hidden lg:block order-2 pb-0 text-h5 font-heading heading-case', title_heading_type: 'heading-4', basic_form_classes: basic_form_classes, price_only: true, title_only: true %}
+</product-form-sticky>
+
+<safe-load-scripts>
+  <script src="{{ 'component-product-form-sticky.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="product-form-sticky"></script>
+</safe-load-scripts>

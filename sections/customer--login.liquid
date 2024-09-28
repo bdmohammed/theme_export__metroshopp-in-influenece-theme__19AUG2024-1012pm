@@ -1,0 +1,107 @@
+
+<div class="customer login flex flex-col items-center p-4 md:p-6">
+  <div class="max-w-screen-sm w-full">
+
+    {% assign emailString = 'customer.login_page.email' | t %}
+
+    <div id="recover" tabindex="-1" class="hidden peer target:block scroll-mt-[350px]">
+      {% assign resetPasswordString = 'customer.recover_password.title' | t %}
+      {% render 'armament-heading' with tag: 'h2', heading_content: resetPasswordString, heading_type: 'heading-2', data_aid: "reset-password-heading", classes: 'text-center mb-4 md:mb-6' %}
+
+      <p class="text-center text-body mb-2 md:mb-3">{{ 'customer.recover_password.subtext' | t }}</p>
+
+      {%- form 'recover_customer_password' -%}
+        {% assign recover_success = form.posted_successfully? %}
+
+        {% if form.errors %}
+          <form-errors data-form-type="recover_customer_password" data-form-name="recover password" data-errors='{{ form.errors | default_errors }}'></form-errors>
+          <safe-load-scripts>
+            <script src="{{ 'component-form-errors.min.js' | asset_url }}" defer="defer" type="module"></script>
+          </safe-load-scripts>
+        {% endif %}
+
+        {% capture recover_attr %}
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+          {% if form.errors %}
+            aria-invalid="true"
+            autofocus
+          {% endif %}
+        {% endcapture %}
+        {% render 'armament-input' with type: 'email', has_label: true, animate_label: true, label_text: emailString, id: 'RecoverEmail', placeholder: 'email', name: 'email', required: true, attributes: recover_attr, classes: 'w-full', container_classes: 'text-body' %}
+
+        {% assign submitString = 'customer.login_page.submit' | t %}
+        {% render 'armament-button' with content: submitString, style: 'filled', classes: 'my-3 md:my-4 w-full', data_aid: 'submit-btn' %}
+
+        {% assign cancelString = 'customer.login_page.cancel' | t %}
+        {% render 'armament-button' with url: '#login', content: cancelString, style: 'outline', classes: 'w-full', data_aid: 'cancel-btn' %}
+      {%- endform -%}
+    </div>
+
+
+    <div id="login" tabindex="-1" class="peer-target:hidden scroll-mt-4 md:scroll-mt-[350px]">
+      {% assign loginString = 'customer.login_page.title' | t %}
+      {% render 'armament-heading' with tag: 'h2', heading_content: loginString, heading_type: 'heading-2', data_aid: 'login-heading', classes: 'text-center mb-4 md:mb-6' %}
+
+      {%- if recover_success == true -%}
+        <p class="text-center text-body mb-2 md:mb-3" tabindex="-1" autofocus>{{ 'customer.recover_password.success' | t }}</p>
+      {%- endif -%}
+
+      {%- form 'customer_login' -%}
+
+        {% if form.errors %}
+          <form-errors data-form-type="customer_login" data-form-name="login" data-errors='{{ form.errors | default_errors }}'></form-errors>
+          <safe-load-scripts>
+            <script src="{{ 'component-form-errors.min.js' | asset_url }}" defer="defer" type="module"></script>
+          </safe-load-scripts>
+        {% endif %}
+
+        {% capture login_attr %}
+          autocomplete="email"
+          autocorrect="off"
+          autocapitalize="off"
+          {% if form.errors contains 'form' %}
+            aria-invalid="true"
+          {% endif %}
+        {% endcapture %}
+        {% render 'armament-input' with type: "email", has_label: true, animate_label: true, label_text: emailString, id: 'CustomerEmail', placeholder: 'email', name: 'customer[email]', required: true, attributes: login_attr, classes: 'w-full', container_classes: 'mb-3 md:mb-4 text-body' %}
+
+        {%- if form.password_needed -%}
+          {% capture password_attr %}
+            autocomplete="current-password"
+            {% if form.errors contains 'form' %}
+              aria-invalid="true"
+            {% endif %}
+          {% endcapture %}
+          {% assign passwordString = 'customer.login_page.password' | t %}
+          {% render 'armament-input' with type: 'password', has_label: true, animate_label: true, label_text: passwordString, id: 'CustomerPassword', placeholder: 'password', name: 'customer[password]', required: true, attributes: password_attr, classes: 'w-full', container_classes: 'text-body' %}
+
+          <div class="flex justify-end my-2 md:my-3">
+            <a class="inline-block text-right text-body font-heading heading-case opacity-40" href="#recover">{{ 'customer.login_page.forgot_password' | t }}</a>
+          </div>
+        {%- endif -%}
+
+        {% assign signInString = 'customer.login_page.sign_in' | t %}
+        {% render 'armament-button' with content: signInString, style: 'filled', classes: 'mb-3 md:mb-4 w-full', data_aid: 'sign-in-btn' %}
+
+        {% assign createAccountString = 'customer.login_page.create_account' | t %}
+        {% render 'armament-button' with url: routes.account_register_url, content: createAccountString, style: 'outline', classes: 'w-full', data_aid: 'create-acc-btn' %}
+      {%- endform -%}
+    </div>
+
+
+    {%- if shop.checkout.guest_login -%}
+      <div>
+        <hr>
+        {% assign guestString = 'customer.login_page.guest_title' | t %}
+        {% render 'armament-heading' with tag: 'h2', heading_content: guestString, heading_type: 'heading-2', data_aid: 'continue-guest-heading', classes: 'text-center my-4 md:my-6' %}
+
+        {%- form 'guest_login' -%}
+          <button>{{ 'customer.login_page.guest_continue' | t }}</button>
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>

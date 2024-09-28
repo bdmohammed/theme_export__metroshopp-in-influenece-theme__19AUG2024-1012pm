@@ -1,0 +1,192 @@
+{% liquid
+  case section.settings.section_width
+    when 'narrow'
+      assign desktop_x_padding = 'md:px-6'
+    when 'full-with-padding'
+      assign desktop_x_padding = 'md:px-7'
+  endcase
+%}
+
+<section class="text-body bg-page w-full py-5 px-4 md:py-6 {{ desktop_x_padding }}" data-color-scheme="{{ section.settings.color_scheme }}" data-aid="callout-text">
+  {% if section.settings.section_width == 'narrow' %}<div class="max-w-screen-xl m-auto">{% endif %}
+    <div class=" flex flex-col {{ section.settings.horizontal_alignment }}">
+
+      {% if section.settings.button_1_text == blank and section.settings.link_1 != blank %}
+        <a href="{{ section.settings.link_1 }}">
+      {% elsif section.settings.button_2_text == blank and section.settings.button_2_link != blank %}
+        <a href="{{ section.settings.button_2_link }}">
+      {% endif %}
+            {% render 'armament-heading' with tag: 'h2', heading_content: section.settings.text, heading_type: 'callout-heading', data_aid: 'callout-text-heading' %}
+      {% if section.settings.button_1_text == blank and section.settings.link_1 != blank %}
+        </a>
+      {% elsif section.settings.button_2_text == blank and section.settings.button_2_link != blank %}
+        </a>
+      {% endif %}
+
+      <div class="button_container flex flex-col md:flex-row">
+          {% if section.settings.button_1_text != blank and section.settings.link_1 != blank %}
+            {% render 'armament-button' with url: section.settings.link_1, content: section.settings.button_1_text, style: section.settings.button_1_style, type: 'button', classes: 'mt-3 md:mt-4 last:mr-0 md:mr-4 z-40' %}
+          {% endif %}
+
+          {% if section.settings.button_2_text != blank and section.settings.button_2_link != blank %}
+            {% render 'armament-button' with url: section.settings.button_2_link, content: section.settings.button_2_text, style: section.settings.button_2_style, type: 'button', classes: 'mt-3 md:mt-4 z-40' %}
+          {% endif %}
+      </div>
+
+    </div>
+  {% if section.settings.section_width == 'narrow' %}</div>{% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Callout text",
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "info": "These changes may only be visible on larger screens",
+      "options": [
+        {
+          "value": "full-with-padding",
+          "label": "Full width with padding"
+        },
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        }
+      ],
+      "default": "full-with-padding"
+    },
+    {
+      "type": "select",
+      "id": "horizontal_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "text-left items-start",
+          "label": "Left"
+        },
+        {
+          "value": "text-center items-center",
+          "label": "Center"
+        },
+        {
+          "value": "text-right items-end",
+          "label": "Right"
+        }
+      ],
+      "default": "text-center items-center"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Heading",
+      "default": "Make an impact with callout text"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "url",
+      "id": "link_1",
+      "label": "First button link",
+      "info": "Becomes the text link if the button label is empty."
+    },
+    {
+      "type": "text",
+      "id": "button_1_text",
+      "label": "First button label"
+    },
+    {
+      "type": "radio",
+      "id": "button_1_style",
+      "label": "First button style",
+      "options": [
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "fill",
+          "label": "Fill"
+        }
+      ],
+      "default": "fill"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Second button link",
+      "info": "Becomes the text link if the button label is empty, unless the first button only has a link."
+    },
+    {
+      "type": "text",
+      "id": "button_2_text",
+      "label": "Second button label"
+    },
+    {
+      "type": "radio",
+      "id": "button_2_style",
+      "label": "Second button style",
+      "options": [
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "fill",
+          "label": "Fill"
+        }
+      ],
+      "default": "outline"
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Callout text",
+      "settings": {
+      },
+      "blocks": [
+
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer",
+      "custom.overlay"
+    ]
+  }
+}
+{% endschema %}

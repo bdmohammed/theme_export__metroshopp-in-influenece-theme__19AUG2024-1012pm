@@ -1,0 +1,103 @@
+{% comment %}
+    Renders a gallery for product media including main media and thumbnails.
+    Accepts:
+    - gallery_product {Object} Shopify product object
+    - scope_id: {String} Optional. Limits interaction to components with a matching scope id, eg. section id.
+    - zoom_enabled: {Boolean} set to true if zoom is enabled
+    - loop_enabled {Boolean} set to true if video looping is enabled
+
+    Usage:
+    {% render 'ship-product-thumbnail-gallery' with gallery_product: product, zoom_enabled: section.settings.enable_zoom %}
+{% endcomment %}
+
+<product-thumbnail-gallery
+  class="flex flex-row relative"
+  data-product-id="{{ gallery_product.id }}"
+  {% if scope_id %}data-scope-id="{{ scope_id }}"{% endif %}
+  data-featured-image-id="{{ gallery_product.media[0].id }}"
+  data-aid="product-thumbnail-gallery"
+>
+  <slider-engine
+    mode="horizontal"
+    visible-slides="1"
+    mobile-indicator="true"
+    auto-height="true"
+    arrows="false"
+    data-name="scrollbar-target"
+    data-armada-selector="product-thumbnail-slider-container"
+    class="group relative overflow-hidden hover:overflow-visible focus-within:overflow-visible w-full lg:pr-1 lg:grow-0 lg:overflow-y-auto lg:hover:overflow-y-auto lg:focus-within:overflow-y-auto lg:hover:overflow-x-hidden lg:focus-within:overflow-x-hidden lg:w-1/4 no-scrollbar"
+    tabindex="0"
+    product-id="{{ gallery_product.id }}"
+    featured-image-id="{{ gallery_product.media[0].id }}"
+  >
+    <div
+      data-name="slider-wrap"
+      data-armada-selector="product-thumbnail-animate-target"
+      class="relative overflow-hidden lg:overflow-visible lg:max-h-0"
+    >
+      <ul
+        data-name="slider"
+        data-armada-selector="product-thumbnail-slider"
+        class="flex lg:flex-col lg:cursor-pointer product-thumbnail-slider"
+        role="list"
+      >
+        {% for media in gallery_product.media %}
+          {% assign data_variant = false %}
+          {% for variant in gallery_product.variants %}
+            {% if variant.featured_media.id == media.id %}
+              {% assign data_variant = variant | json | escape %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+          <li
+            data-name="slide"
+            data-media-id={{ media.id }}
+            media-id={{ media.id }}
+            data-variant="{{ data_variant }}"
+            {% if forloop.first %}data-thumbnail-selected="true"{% endif %}
+            slide-num="{{ forloop.index }}"
+            type="{{ media.media_type }}"
+            class="relative min-w-full flex items-baseline content-start place-content-center lg:mb-1 lg:last:mb-0 h-auto {% if forloop.first %} lg:after:absolute lg:after:h-2 lg:after:left-0 lg:after:right-0 lg:after:bottom-0 lg:after:bg-body{% endif %}"
+          >
+            <div class="w-full grid lg:hidden">
+              {% render 'armament-product-media' with media: media, enable_loop: loop_enabled, title: gallery_product.title, product_id: gallery_product.id %}
+            </div>
+            <div class="hidden lg:block pointer-events-none" tabindex="0">
+              {% render 'armament-image' with image: media, classes: 'h-full object-cover' %}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+      {% if settings.custom_badges %}
+        <div class="absolute top-0 left-0 z-50 pointer-events-none lg:hidden">
+          {% render 'engine-badges' with badges_product: gallery_product %}
+        </div>
+      {% endif %}
+    </div>
+    <template>
+      <div data-name="mobile-indicator" class="block lg:hidden pt-3 bg-page">
+        {% render 'armament-scroll-bar' with item_count: gallery_product.media.size, parent: 'slider-engine', target: 'slider', indicator: 'progress' %}
+      </div>
+    </template>
+  </slider-engine>
+  <div class="w-full hidden lg:block">
+    <div>
+      <div data-armada-selector="product-media-container" class="relative">
+        {% if settings.custom_badges %}
+          <div class="absolute top-0 left-0 z-50 pointer-events-none">
+            {% render 'engine-badges' with badges_product: gallery_product %}
+          </div>
+        {% endif %}
+        {% for media in gallery_product.media %}
+          <div{% unless forloop.first %} class="hidden"{% endunless %} data-armada-selector="product-media" data-media-id={{ media.id }}{% if forloop.first %} data-media-selected="true"{% else %} data-media-selected="false"{% endif %}>
+            {% render 'armament-product-media' with media: media, enable_zoom: zoom_enabled, enable_loop: loop_enabled, title: gallery_product.title, product_id: gallery_product.id %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</product-thumbnail-gallery>
+<safe-load-scripts>
+  <script src="{{ 'component-product-thumbnail-gallery.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="product-thumbnail-gallery"></script>
+  <script src="{{ 'engine-slider.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="slider-engine"></script>
+</safe-load-scripts>

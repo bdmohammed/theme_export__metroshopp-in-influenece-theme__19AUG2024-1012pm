@@ -1,0 +1,77 @@
+{% assign search_type = search.types | join: '' %}
+{% if search_type == 'article' %}
+  {% if search.results.size > 0 %}
+    <section class="text-body pb-4 md:pb-5 md:px-6">
+      {% paginate search.results by 6 %}
+        {% render 'flotilla-blog-grid' with
+        collage: false, paginate: paginate,
+        articles: search.results,
+        section: section,
+        loadin_animation_threshold: "0" %}
+      {% endpaginate %}
+    </section>
+  {% else %}
+    {% render 'ship-search-no-results' with type: 'blog' %}
+  {% endif %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Blog results",
+  "class": "bg-page",
+  "settings": [
+    {
+      "type": "select",
+      "id": "image_size",
+      "label": "Image aspect ratio",
+      "options": [
+        {
+          "value": "landscape",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait (2:3)"
+        },
+        {
+          "value": "square",
+          "label": "Square (1:1)"
+        }
+      ],
+      "default": "square"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

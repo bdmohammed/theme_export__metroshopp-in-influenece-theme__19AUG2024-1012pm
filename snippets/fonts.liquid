@@ -1,0 +1,11 @@
+{%- assign header_font = settings.headings_font -%}
+{%- assign base_font = settings.body_font -%}
+{%- assign base_font_bold = base_font | font_modify: 'weight', 'bold' -%}
+{%- assign header_font_bold = header_font | font_modify: 'weight', 'bold' -%}
+
+<style>
+  {{ header_font | font_face: font_display: 'swap' }}
+  {{ base_font | font_face: font_display: 'swap' }}
+  {{ base_font_bold | font_face: font_display: 'swap' }}
+  {{ header_font_bold | font_face: font_display: 'swap' }}
+</style>

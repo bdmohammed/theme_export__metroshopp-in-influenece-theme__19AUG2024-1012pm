@@ -1,0 +1,60 @@
+{% comment %}
+    Renders a preview of all badges
+
+    Accepts:
+    - badge_section: {Object} required.
+
+    Usage:
+      {% render 'ship-badge-preview-multiple' with badge_section: section %}
+{% endcomment %}
+
+<armada-modal
+  data-modal-id="{{ badge_section.id }}"
+  data-content-width="true"
+  data-modal-dismissable="false"
+  data-modal-underlay-classes="bg-black opacity-60"
+  data-color-scheme="general"
+  class="invisible opacity-0"
+  data-theme-editor-only="true"
+>
+  <div class="grid grid-rows-[repeat(3,minmax(0,auto))] grid-cols-[minmax(0,auto)] p-4 bg-page text-body max-w-max">
+    <div class="row-start-1 row-end-4 col-start-1 col-end-2 w-[250px] h-[375px]">
+      {% if collections.all.products[0].featured_media.preview_image %}
+        {% render 'armament-image' with image: collections.all.products[0].featured_media.preview_image, classes: 'object-cover !h-full' %}
+      {% else %}
+        {% render 'armament-placeholder' with name: 'product-1' %}
+      {% endif %}
+    </div>
+    <div class="flex flex-col row-start-1 row-end-2 col-start-1 col-end-2 max-w-max">
+      {% for block in badge_section.blocks limit: badge_section.settings.num_badges %}
+        {% case block.type %}
+          {% when 'badge_sold_out' or 'badge_sale' %}
+            <div data-section-id="{{ section.id }}" data-color-scheme="{{ block.settings.badge_color_scheme }}" class="bg-page text-body px-3 py-2 leading-none w-max font-heading heading-case">
+              <span>{{ block.settings.badge_text }}</span>
+            </div>
+          {% when 'badge_custom' %}
+            {% assign badgeText = block.settings.badge_text %}
+            {% assign hasExistingMetafield = false %}
+
+            {% for badgeProduct in collections.all.products %}
+              {% for badge in badgeProduct.metafields.badges %}
+                {% if badge.first == badgeText %}
+                  {% assign hasExistingMetafield = true %}
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+
+            {% if hasExistingMetafield %}
+              <div data-section-id="{{ section.id }}" data-color-scheme="{{ block.settings.badge_color_scheme }}" class="bg-page text-body px-3 py-2 leading-none w-max font-heading heading-case">
+                <span>{{ block.settings.badge_text }}</span>
+              </div>
+            {% else %}
+              <div data-section-id="{{ section.id }}" data-color-scheme="{{ block.settings.badge_color_scheme }}" class="bg-page text-body px-3 py-2 leading-none w-max font-heading heading-case">
+                <span>Error: Metafield not found</span>
+              </div>
+            {% endif %}
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</armada-modal>

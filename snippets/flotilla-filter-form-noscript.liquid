@@ -1,0 +1,141 @@
+{% comment %}
+    Renders a "noscript" filter form to be used on a collection grid.
+
+    Accepts:
+    - resutls: {Object} Shopify collection or search object (required)
+    - enable_filtering: {Boolean} set to true if filtering is enabled (required)
+    - enable_sorting: {Boolean} set to true if sorting is enabled (required)
+    - filter_position: {Object/String} the filter placement value (sidebar/topbar) (required)
+    - data-aid: {String} data aid for the facet-filter-form element (required)
+    - filter_classes: {String} custom classes will be added to the facet-filter-form element
+    - form_id: {String} the form id (required)
+
+    Usage:
+    {% render 'flotilla-filter-form' with results: collection, product_count: collection.products_count, enable_filtering: section.settings.enable_filtering, enable_sorting: section.settings.enable_sorting, filter_position: section.settings.filter_position %}
+{% endcomment %}
+
+{%- liquid
+  if filter_position == 'sidebar'
+    if enable_filtering == false 
+      assign filter_container_classes = 'filter_form overflow-hidden h-0 lg:h-max absolute top-full w-full z-30 bg-page text-body transition-height duration-200'
+    else 
+      assign filter_container_classes = 'filter_form overflow-hidden w-full z-30 bg-page text-body lg:pt-5'
+      assign container_classes = 'flex flex-col h-full items-center w-full px-3 lg:pl-6 lg:pr-0 py-4 bg-page text-body overflow-y-auto overflow-x-hidden'
+    endif
+  else
+    assign filter_container_classes = 'filter_form overflow-hidden lg:shadow-md w-full z-30 bg-page text-body'
+    assign container_classes = 'flex flex-col h-full items-center w-full px-3 py-4 pt-0 bg-page text-body overflow-y-auto overflow-x-hidden'
+  endif
+-%}
+
+<div class="{{ filter_container_classes }}" data-armada-selector="filter_form">
+  <div 
+    class="{{ container_classes }} {% if filter_classes %}{{ filter_classes }}{% endif %}"
+    section-id="{{ section.id }}"
+    filter-position="{{ filter_position }}"
+    {% if data-aid %}data-aid="{{ data-aid }}"{% endif %}
+    {% if results.terms %}data-search-page="true"{% endif %}
+  >
+    {% render 'ship-filter-active-facets' with results: results, product_count: product_count, filter_position: filter_position, classes: 'block lg:hidden', enable_sorting: enable_sorting, enable_filtering: enable_filtering %}
+    <form class="w-full{% if filter_position == 'sidebar' %} lg:w-[270px]{% endif %}" {% if form_id %}id="{{ form_id }}"{% endif %}>
+      {% if results.terms %}
+        <input type="hidden" name="q" value="{{ results.terms | escape }}">
+        <input type="hidden" name="type" value="product">
+        <input name="options[prefix]" type="hidden" value="last">
+      {% endif %}
+
+      {% if enable_sorting %}
+        {% assign sort_by = results.sort_by | default: results.default_sort_by %}
+        <input type="hidden" name="sort_by" value="{{ sort_by }}" data-armada-selector="sort_by_value" data-aid="sort_by_hidden">
+      {% endif %}
+
+      {% if enable_filtering %}
+        {% for filter in results.filters %}
+          {% assign accordion_aid = 'filter-category-' | append: filter.label | handleize %}
+
+          {% case filter.type %}
+            {% when 'boolean' or 'list' %}
+              {% capture summary_list_output %}
+                
+              <div>
+                {% for value in filter.values %}
+                  {% assign checked = false %}
+                  {% assign disabled = false %}
+                  {% assign data_aid = 'input-' | append: value.label | handleize %}
+                  {% assign input_id = value.label | append: '-' | append: forloop.index | handleize | append: '-' | append: form_id %}
+                  {% assign paramName = value.param_name %}
+                  {% assign paramValue = value.label | handleize %}
+                  {% assign attrs = 'data-armada-selector="' | append: paramName | append: '=' | append: paramValue | append: '"' %}
+
+                  {% if value.active %}{% assign checked = true %}{% endif %}
+
+                  {% if value.count == 0 and value.active == false %}{% assign disabled = true %}{% endif %}
+
+                  <div class="flex mb-3 flex-row-reverse justify-end">
+                    {% render 'armament-input' with type: 'checkbox', id: input_id, name: value.param_name, value: value.value, has_label: true, label_text: value.label, classes: 'mr-3 appearance-none active:bg-none checked:bg-none active:text-body checked:text-body checked:bg-current active:bg-body disabled:opacity-30', data_aid: data_aid, attributes: attrs, checked: checked, disabled: disabled %}
+                  </div>
+                {% endfor %}
+              </div>
+                
+              {% endcapture %}
+
+              {% capture summary_header %}
+                <span>
+                  {{ filter.label }}
+                    <span class="facets__selected">
+                      {% unless filter.active_values.size == 0 %}
+                        ({{ 'products.facets.filters_selected.one' | t: count: filter.active_values.size }})
+                      {% endunless %}
+                    </span>
+                </span>
+              {% endcapture %}
+            
+              {% assign detailAttributes = 'data-index="' | append: forloop.index | append: '"' %}
+              {% render 'armament-accordion' with summary_header: summary_header, summary_is_object: true, summary_object: summary_list_output, details_class: "js-filter", border_classes: 'opacity-20', has_top_border: true, data_aid: accordion_aid, attributes: detailAttributes %}
+          
+            {% when 'price_range' %}
+
+              
+              
+              {% assign getDataIndex = forloop.index %}
+              {% assign detailAttributes = 'data-index="' | append: getDataIndex | append: '"' %}
+
+              {% capture summary_price_output %}
+                <price-range class="grid grid-cols-2 grid-rows-1 py-30 gap-10">
+                  <div class="col-start-1 col-end-2 row-start-1 row-end-2">
+                    <label class="field__label" for="Filter-{{ filter.label | escape }}-GTE">{{ 'products.facets.min' | t }}</label>
+                    {% liquid 
+                      assign filter_id = "Filter-" | append: filter.label | escape | append: "-GTE"
+                      assign label_text = cart.currency.symbol | append: ' 0.00'
+                      assign max = filter.range_max | money_without_currency | replace: ',', ''
+                      if filter.min_value.value
+                        assign value = filter.min_value.value | money_without_currency | replace: ',', ''
+                      endif
+                    %}
+                    {% render 'armament-input' with type: 'number' has_label: true, animate_label: true, label_text: label_text, id: filter_id, placeholder: '0', min: '0', max: price_max, classes: 'w-full', value: value, name: filter.min_value.param_name, attributes: 'data-aid="filter-min-price" data-armada-selector="filter_price_from"', required: false %}
+                  </div>
+                  <div class="col-start-2 col-end-3 row-start-1 row-end-2">
+                    <label class="field__label" for="Filter-{{ filter.label | escape }}-LTE">{{ 'products.facets.max' | t }}</label>
+                    {% liquid 
+                      assign filter_id = "Filter-" | append: filter.label | escape | append: "-LTE"
+                      assign max = filter.range_max | money_without_currency | replace: ',', ''
+                      assign label_text = cart.currency.symbol | append: ' ' | append: max
+                      if filter.min_value.value
+                        assign value = filter.max_value.value | money_without_currency | replace: ',', ''
+                      endif
+                    %}
+                    {% render 'armament-input' with type: 'number' has_label: true, animate_label: true, label_text: label_text, id: filter_id, placeholder: max, min: '0', max: price_max, classes: 'w-full', value: value, name: filter.max_value.param_name, attributes: 'data-aid="filter-min-price" data-armada-selector="filter_price_to"', required: false %}
+                  </div>
+                </price-range>
+              {% endcapture %}
+
+              {% render 'armament-accordion' with summary_header: filter.label, summary_is_object: true, summary_content: filter_value.value, summary_object: summary_price_output, details_class: "js-filter", has_top_border: true, border_classes: 'opacity-20', data_aid: accordion_aid, attributes: detailAttributes %}
+          {% endcase %}
+        {% endfor %}
+      {% endif %}
+
+      {% assign btnText = 'products.facets.apply' | t %}
+      {% render 'armament-button' with content: btnText, attributes: 'aria-label="Apply"', classes: 'w-1/2 my-3' %}
+    </form>
+  </div>
+</div>

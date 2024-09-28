@@ -1,0 +1,126 @@
+{% comment %}
+    Renders a product thumbnail slider.
+
+    Accepts:
+    - product_id {Int} Optional. Shopify product ID.
+    - media {Object} Shopify product object.
+    - aspect_ratio: {Int} Optional. Normalise all images to a set aspect ratio
+    - position: {String} Optional. If the image is cropped via aspect ratio, where should it crop from.
+    - arrows: {Boolean} Optional. Display prev/next arrows.
+    - mode: {String} Optional. Slider options as follows:
+        - preview: Show animated preview of the next slide on first load.
+        - peep: Show partial view of first slide (swipe to show full slide).
+        - vertical: Stack slides vertically.
+    - url: {String}: Optional. Product URL.
+
+    Usage:
+    {% render 'armament-product-thumbnail-slider' with product_id: product.id, media: product.media %}
+{% endcomment %}
+
+{% liquid
+  if mode == blank
+    assign mode = 'horizontal'
+  endif
+
+  if aspect_ratio == blank
+    assign aspect_ratio = 'natural'
+  endif
+
+  if arrows == blank
+    assign arrows = 'false'
+  endif
+
+  case position
+    when 'center'
+      assign position = 'object-center'
+    when 'left'
+      assign position = 'object-left'
+    when 'left-top'
+      assign position = 'object-left-top'
+    when 'left-bottom'
+      assign position = 'object-left-bottom'
+    when 'right'
+      assign position = 'object-right'
+    when 'right-top'
+      assign position = 'object-right-top'
+    when 'right-bottom'
+      assign position = 'object-right-bottom'
+    when 'top'
+      assign position = 'object-top'
+    when 'bottom'
+      assign position = 'object-bottom'
+    else
+      assign position = 'object-center'
+  endcase
+
+  if aspect_ratio == 'natural'
+    assign classes = 'relative object-contain'
+  else
+    assign classes = 'absolute w-full h-full z-0 object-cover ' | append: position
+  endif
+%}
+
+<slider-engine
+  visible-slides="1"
+  aspect="{{ aspect_ratio }}"
+  arrows="{{ arrows }}"
+  mobile-indicator="true"
+  loop="true"
+  class="block group relative overflow-hidden hover:overflow-visible focus-within:overflow-visible"
+  data-aid="product-thumbnail-gallery"
+  data-name="scrollbar-target"
+  tabindex="0"
+  mode="{{ mode }}"
+  {% if product_id %}product-id="{{ product_id }}"{% endif %}
+>
+  <div
+    data-name="slider-wrap"
+    class="relative overflow-hidden mb-2"
+  >
+    <ul
+      data-name="slider"
+      class="flex"
+      role="list"
+    >
+      {% for media in media %}
+        <li
+          data-name="slide"
+          class="relative min-w-full flex {% if aspect_ratio %}aspect-{{ aspect_ratio }}{% endif %}"
+          type="{{ media.media_type }}"
+          slide-num="{{ forloop.index }}"
+          {% if media.id %}media-id="{{ media.id }}"{% endif %}
+        >
+          <div> {% comment %} You need this wrapper div so that Safari doesn't stretch the images to their attribute height :facepalm: {% endcomment %}
+            {%- if url -%}
+              <a href="{{ url }}" class="h-full">
+            {%- endif -%}
+              {% render 'armament-image' with image: media, classes: classes %}
+            {%- if url -%}
+              </a>
+            {%- endif -%}
+            {% if media.media_type == 'model' %}
+              <div data-icon-type="model" class="absolute top-3 right-3 z-10">
+                {% render 'armament-icon' with icon: '3d-model', no_animation: true %}
+              </div>
+            {% elsif media.media_type contains 'video' %}
+              <div data-icon-type="video" class="absolute top-3 right-3 z-10">
+                {% render 'armament-icon' with icon: 'play', no_animation: true %}
+              </div>
+            {% endif %}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% comment %} Slider-specific elements {% endcomment %}
+  <template>
+    {% render 'armament-slider-arrows' with hide_on_mobile: true, classes: 'opacity-0 group-hover:opacity-100 group-focus:opacity-100', left_position_classes: '-left-6 group-hover:-left-0 group-focus:-left-0', right_position_classes: '-right-6 group-hover:-right-0 group-focus:-right-0' %}
+    <div data-name="mobile-indicator" class="block xl:hidden">
+      {% render 'armament-scroll-bar' with classes: 'pb-4', item_count: media.size, parent: 'slider-engine', target: 'slider', indicator: 'progress', loop_forward: 'true' %}
+    </div>
+  </template>
+</slider-engine>
+
+<script src="{{ 'engine-slider.min.js' | asset_url }}" defer="defer" type="module"></script>
+

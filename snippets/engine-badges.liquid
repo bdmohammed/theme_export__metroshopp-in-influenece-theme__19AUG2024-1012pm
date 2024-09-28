@@ -1,0 +1,35 @@
+
+{% comment %}
+    Renders product badges.
+
+    Accepts:
+    - badges_product: {Object} Shopify product object
+
+    Usage:
+    {% render 'engine-badges' with badges_product: product %}
+{% endcomment %}
+
+{%- comment -%} LOOPS THROUGH ALL BADGES METAFIELDS {%- endcomment -%}
+{% capture customBadges %} {
+    {% for badge in badges_product.metafields.badges %}
+      "{{ badge.first }}": "{{ badge.last }}"{% if forloop.last != true %},{% endif %}
+    {% endfor %}
+  }
+{% endcapture %}
+
+{% assign onSale = false %}
+{%- comment -%} a 'sale-badge-disabled' tag can be used to avoid displaying sale badge {%- endcomment -%}
+{% unless badges_product.tags contains 'sale-badge-disabled' %}
+  {% if badges_product.compare_at_price_min > badges_product.price_min %}
+    {% assign onSale = true %}
+  {% endif %}
+{% endunless %}
+
+<product-badges
+  data-custom-badges='{{ customBadges | strip | strip_newlines | escape }}'
+  data-onsale='{{ onSale }}'
+  data-available='{{ badges_product.available }}'
+>
+</product-badges>
+
+<script src="{{ 'engine-badges.min.js' | asset_url }}" defer="defer" type="module"></script>

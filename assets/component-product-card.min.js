@@ -1,0 +1,1 @@
+(()=>{class e extends HTMLElement{constructor(){super()}}window.customElements.define("product-card",e)})();

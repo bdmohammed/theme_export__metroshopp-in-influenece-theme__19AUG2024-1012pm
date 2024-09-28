@@ -1,0 +1,122 @@
+{% comment %}
+  Renders a responsive image.
+
+  Accepts:
+  - image {Object} Shopify image object.
+  - sizes {String} Override the default sizes string.
+  - alt {String} Override the image's alt text.
+  - styles {String} add custom styles to the img element
+  - attributes {String} add custom attributes to the img element
+  - classes {String} Additional CSS classes.
+  - crop_width: {Int} Optional. Width to crop the image to.
+  - crop_height: {Int} Optional. Height to crop the image to.
+  - crop_position {String} Optional. Specify which part of the image to show.
+    One of 'top', 'bottom', 'center', 'left', 'right'.
+    ** Requires both crop_width and crop_width to be set.
+  - zoomout_animation: {Boolean} Set it to true to enable zoom-out animation. Defaults to false.
+
+  Usage:
+  {% render 'armament-image' with image: product.featured_image %}
+{% endcomment %}
+
+{%- liquid
+  if sizes == blank
+    assign sizes = '(min-width: 2000px) 1000px, (min-width: 1445px) calc(100vw / 2), (min-width: 1200px) calc(100vw / 1.75), (min-width: 1000px) calc(100vw / 1.5), (min-width: 750px) calc(100vw / 3), 100vw'
+  endif
+
+  if image.width != blank
+    assign img_width = image.width
+  elsif image.preview_image.width != blank
+    assign img_width = image.preview_image.width
+  endif
+
+  if image.height != blank
+    assign img_height = image.height
+  elsif image.preview_image.height != blank
+    assign img_height = image.preview_image.height
+  endif
+
+  if crop_width != blank
+    assign img_width = crop_width
+  endif
+
+  if crop_height != blank
+    assign img_height = crop_height
+  endif
+
+  if crop_position == blank
+    assign crop_position = 'center'
+  endif
+
+  assign zoomout_animation = zoomout_animation | default: false
+-%}
+
+{% assign focal_point = image.presentation.focal_point %}
+{% if styles or focal_point %}
+  {% capture style_attr %}
+      style="{% if styles %}{{ styles }} {% endif %}{% if focal_point %}object-fit:cover;object-position:{{ focal_point }}!important;{% endif %}"
+    {% endcapture %}
+{% endif %}
+
+{%- capture srcset -%}
+    {% if crop_width and crop_height %}
+      {% assign xs_width = img_width | divided_by: 4 %}
+      {% assign xs_height = img_height | divided_by: 4 %}
+      {% assign sm_width = img_width | divided_by: 3 %}
+      {% assign sm_height = img_height | divided_by: 3 %}
+      {% assign md_width = img_width | divided_by: 2 %}
+      {% assign md_height = img_height | divided_by: 2 %}
+      {% if img_width >= 300 %}{{ image | image_url: width: xs_width, height: xs_height, crop: crop_position }} 300w, {% endif %}
+      {% if img_width >= 550 %}{{ image | image_url: width: sm_width, height: sm_height, crop: crop_position }} 550w, {% endif %}
+      {% if img_width >= 750 %}{{ image | image_url: width: md_width, height: md_height, crop: crop_position }} 750w, {% endif %}
+      {{ image | image_url: width: crop_width, height: crop_height, crop: crop_position }} {{ img_width }}w
+    {% else %}
+      {% if img_width >= 300 %}{{ image | image_url: width: 300 }} 300w, {% endif %}
+      {% if img_width >= 550 %}{{ image | image_url: width: 550 }} 550w, {% endif %}
+      {% if img_width >= 750 %}{{ image | image_url: width: 750 }} 750w, {% endif %}
+      {% if img_width >= 1100 %}{{ image | image_url: width: 1100 }} 1100w, {% endif %}
+      {% if img_width >= 1445 %}{{ image | image_url: width: 1445 }} 1445w, {% endif %}
+      {% if img_width >= 1680 %}{{ image | image_url: width: 1680 }} 1680w, {% endif %}
+      {% if img_width >= 2048 %}{{ image | image_url: width: 2048 }} 2048w, {% endif %}
+      {% if img_width >= 2200 %}{{ image | image_url: width: 2200 }} 2200w, {% endif %}
+      {% if img_width >= 2890 %}{{ image | image_url: width: 2890 }} 2890w, {% endif %}
+      {{ image | image_url: width: img_width }} {{ img_width }}w
+    {% endif %}
+  {%- endcapture -%}
+
+{% capture src %}
+    {% if crop_width != blank and crop_height != blank %}
+      {{ srcset }}
+    {% else %}
+      {{ image | image_url: width: 1100 }}
+    {% endif %}
+{% endcapture %}
+
+<img
+  is="responsive-image"
+  src="{{ src }}"
+  srcset="{{ srcset }}"
+  class="{% if settings.enable_animations and zoomout_animation %}scale-110 ease-in-out duration-700{% endif %}{% if classes != blank %} {{ classes }}{% endif %}"
+  alt="{{ alt | default: image.alt | escape }}"
+  {% if attributes %}
+    {{- attributes -}}
+  {% endif %}
+  {{ style_attr }}
+  width="{{ img_width }}"
+  height="{{ img_height }}"
+  sizes="{{ sizes }}"
+  data-aid="image"
+  {% if image.id %}
+    data-media-id="{{ image.id }}"
+  {% endif %}
+  loading="lazy"
+>
+
+<safe-load-scripts class="hidden">
+  <script
+    src="{{ 'component-responsive-image.min.js' | asset_url }}"
+    defer="defer"
+    type="module"
+    data-armada-load-key="responsive-image"
+  ></script>
+</safe-load-scripts>

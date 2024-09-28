@@ -1,0 +1,36 @@
+<toast-item 
+  data-armada-selector="toast-{{ type }}"
+  duration={{ duration }}
+  class="block bg-page text-body w-full md:w-[370px] shadow-lg relative p-3 md:p-4 invisible -z-[1] toast-item"
+  role="dialog"
+  aria-modal="true"
+  data-aid="toast"
+>
+  <div class="flex justify-between items-center">
+    <div class="flex items-center opacity-0" data-armada-selector="toast-animate-heading">
+      {% render 'armament-icon' with icon: icon, classes: 'mr-2' %}
+      {% render 'armament-heading' with tag: 'h2', heading_type: 'heading-5', attributes: 'data-armada-selector="toast-heading"' %}
+    </div>
+    <button type="button" aria-label="Close toast" class="w-44 h-44 flex justify-center items-center absolute top-0 right-0 md:top-2 md:right-2 group{% if type == 'form-submit' %} outline-0{% endif %}" data-armada-selector="toast-close">
+      {% render 'armament-icon' with icon: 'cancel' %}
+    </button>
+  </div>
+  <div data-armada-selector="toast-animate-content" class="opacity-0">
+    <div data-armada-selector="toast-info"></div>
+    <div data-armada-selector="toast-html-container" class="pr-3"></div>
+    {% if type == 'atc' %}
+      <div class="pt-3">
+        <div data-armada-selector="toast-cart-item"></div>
+        {% assign goToCart = 'products.product.go_to_cart' | t %}
+        {% render 'armament-button' with url: routes.cart_url, content: goToCart, classes: 'w-full' %}
+      </div>
+    {% endif %}
+  </div>
+  <div class="absolute left-0 right-0 bottom-0">
+    {% if type == 'error' or type == 'email' %}
+      <div class="h-1" style="background-color:{% if color %}{{ color }}{% else %}red{% endif %}"></div>
+    {% else %}
+      {% render 'armament-progress-bar' with interval: duration, play: "false" %}
+    {% endif %}
+  </div>
+</toast-item>

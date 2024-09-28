@@ -1,0 +1,108 @@
+{% comment %}
+    Renders a video embed or native html5 video.
+
+    Accepts:
+    - video: {Video} Shopify video object.
+    - url: {String} URL of the video to be rendered.
+    - poster: {Image} Shopify image object for the poster frame.
+    - autoplay: {Boolean} Enable autoplay for the video.
+    - loop: {Boolean} Loops the video after playback finishes.
+    - is_hero: {Boolean} Set to true if the video has overlaying content.
+    - classes: {String} add custom classes to the video-element.
+    - iframe_classes: {String} add custom classes to the iframe element.
+    - button_classes: {String} add custom classes to the play icon container.
+    - image_classes: {String} add custom classes to the img element.
+    - attributes: {String} add custom attributes to the video-element.
+    - color_scheme: {Setting} - the section color scheme value
+
+    Usage:
+    {% render 'armament-video' with url: section.settings.url, content: section.settings.button_label, style: section.settings.button_style, classes: 'mb-4' %}
+{% endcomment %}
+
+{% liquid
+  if autoplay == blank
+    assign autoplay = false
+  endif
+
+  if is_hero
+    assign autoplay = true
+  endif
+
+  assign poster_width = poster.preview_image.width | times: 1.0
+  assign poster_height = poster.preview_image.height | times: 1.0
+  assign poster_aspect = poster_width | divided_by: poster_height 
+
+  if iframe_classes
+    assign video_classes = iframe_classes | append: ' block max-w-full absolute inset-0 h-full'
+  else 
+    assign video_classes = 'block max-w-full absolute inset-0 h-full'
+  endif
+
+  if video 
+    assign video_url = video.media_type
+  elsif url
+    assign video_url = url
+  endif
+%}
+
+<video-element
+  url="{{ video_url }}"
+  poster="{{ poster | json | escape }}"
+  autoplay="{{ autoplay }}"
+  class="block relative overflow-hidden{% if classes %} {{ classes }}{% endif %}"
+  {% unless is_hero %}
+    {%- if poster != blank %}
+      style="padding-top: {{ 1 | divided_by: poster_aspect | times: 100 }}%"
+    {% else %}
+      style="padding-top: {{ 1 | divided_by: 1.7777778 | times: 100 }}%"
+    {% endif -%}
+  {% endunless %}
+  {% if attributes %} {{ attributes }}{% endif %}
+  {% if is_hero %}data-is-hero="true"{% endif %}
+>
+  <button
+    type="button"
+    class="grid grid-cols-1 max-w-full absolute inset-0 h-full w-full"
+    data-action="play"
+    data-aid="video-play"
+  >
+    <div class="z-10 h-full w-full grid place-content-center text-body{% if button_classes %} {{ button_classes }}{% endif %}" style="grid-area: 1 / 1 / 2 / 2">{% render 'armament-icon' with icon: 'play' %}</div>
+    <div class="z-0 h-full w-full grid place-items-center" style="grid-area: 1 / 1 / 2 / 2">
+      {%- if poster == blank %}
+        {% render 'armament-placeholder' with name: 'lifestyle-1', classes: 'h-full object-cover' %}
+      {% else %}
+        {% render 'armament-image' with image: poster, classes: image_classes %}
+      {% endif -%}
+    </div>
+  </button>
+  <template>
+    {% if video %}
+      {{ video | video_tag: image_size: 'original', autoplay: autoplay, loop: loop, controls: true, data-aid: "video-mp4-native", data-armada-selector: "mp4-video", data-video-id: video.id, class: video_classes }}
+    {% elsif url %}
+      {%- if url.type == 'youtube' %}
+        {% assign video_id = url.id %}
+        <iframe id="player" src="https://www.youtube.com/embed/{{ video_id }}?enablejsapi=1&modestbranding=1&playsinline=1&rel=0&playlist={{ video_id }}{% unless is_hero %}{% if autoplay %}&autoplay=1{% endif %}{% if loop %}&loop=1{% endif %}{% endunless %}" loading="lazy" class="{% if iframe_classes %}{{ iframe_classes }}{% endif %} js-youtube block z-10 max-w-full absolute inset-0 h-full w-full" allow="autoplay; encrypted-media" allowfullscreen data-aid="video-youtube-iframe" {% if video_id %}data-video-id="{{ video_id }}"{% endif %} data-armada-selector="youtube-iframe"></iframe>
+      {% elsif url.type == 'vimeo' %}
+        {% assign video_id = url.id %}
+        <iframe src="https://player.vimeo.com/video/{{ video_id }}?playsinline{% unless is_hero %}{% if autoplay %}&autoplay=1{% endif %}{% if loop %}&loop=1{% endif %}{% endunless %}{% if is_hero %}&background=1{% endif %}" loading="lazy" class="{% if iframe_classes %}{{ iframe_classes }}{% endif %} js-vimeo block z-10 max-w-full absolute inset-0 h-full w-full" allow="autoplay; encrypted-media" allowfullscreen data-aid="video-vimeo-iframe" {% if video_id %}data-video-id="{{ video_id }}"{% endif %} data-armada-selector="vimeo-iframe"></iframe>
+      {% endif %}
+    {% endif %}
+
+    <div
+      data-name="video-overlay"
+      data-aid="video-overlay"
+      class="block max-w-full absolute inset-0 h-full w-full z-30"
+    ></div>
+
+  </template>
+</video-element>
+
+{% style %}
+  video[poster] { 
+    object-fit:cover; 
+  }
+{% endstyle %}
+
+<safe-load-scripts>
+  <script src="{{ 'component-video.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="component-video"></script>
+</safe-load-scripts>

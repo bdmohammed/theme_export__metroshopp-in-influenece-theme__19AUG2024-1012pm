@@ -1,0 +1,32 @@
+{% comment %}
+    Renders a marker button absolutely positioned within a container.
+    Accepts:
+    - index: {Number} specifies a unique identifier for the marker
+    - labelledBy: {String} populates the aria-labelledby attribute
+    - top: {String} value of the top css property of the marker relative to the container, eg. '25%'
+    - left: {String} value of the left css property of the marker relative to the container, eg. '25%'
+    - attributes: {String} attributes to add to the button element
+    - classes: {String} add custom classes to the button element
+    - span_attributes: {String} ass custom attributes to the span element
+    - shopify_attributes: {Object} required if the marker forms part of a section block
+    - block_id: {Object} block.id (required if marker is used in a section block)
+
+    Usage:
+    {% render 'armament-marker' with index: forloop.index, labelledBy: 'product_{{ forloop.index }}', top: block.settings.top, left: block.settings.left %}
+
+    Setting the <button> element to :hover or :focus displays the marker in an active state
+{% endcomment %}
+
+<button
+  type="button"
+  class="{% if classes %}{{ classes }}{% endif %} stlMarker absolute flex items-center justify-center rounded-full w-30 h-30 bg-page group cursor-pointer"
+  style="top:{{ top }};left:{{ left }};"
+  data-marker-index="{{ index }}"
+  aria-labelledby="{{ labelledBy }}"
+  data-aid="button-marker"
+  {% if attributes %}{{ attributes }}{% endif %}
+  {% if shopify_attributes %}{{ shopify_attributes }}{% endif %}
+  {% if block_id %}data-stl-block-id="{{ block_id }}"{% endif %}
+>
+  <span data-armada-marker-inner class="rounded-full transition-transform duration-500 bg-body w-10 h-10 group-hover:scale-150" {% if span_attributes %}{{ span_attributes }}{% endif %}></span>
+</button>

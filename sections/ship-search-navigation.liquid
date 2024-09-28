@@ -1,0 +1,53 @@
+{% if search.performed %}
+  {%- liquid
+    assign search_type = search.types | join: ''
+    if search_type != 'product' and search_type != 'article' and search_type != 'page'
+      assign search_type = 'collections'
+    endif
+
+    assign product_heading = 'templates.search.products' | t
+    assign collection_heading = 'templates.search.collections' | t
+    assign blog_heading = 'templates.search.blog' | t
+    assign page_heading = 'templates.search.pages' | t
+  -%}
+  <div>
+    <div class="flex flex-wrap justify-center text-body bg-page border-y border-y-body-opacity-10">
+      <a href="{{ routes.search_url }}?q={{ search.terms }}&options%5Bprefix%5D=last&type=product" class="cursor-pointer py-4 mr-3 lg:mr-5 last:mr-0 transition-opacity duration-300 relative after:absolute after:left-0 after:right-0 after:bottom-0 after:h-1 after:bg-body{% unless search_type == 'product' %} opacity-30 hover:opacity-100 after:scale-x-0{% endunless %}">
+        {% render 'armament-heading' with tag: 'h2', heading_content: product_heading, heading_type: 'heading-5', classes: 'pointer-events-none', data_aid: 'search-navigation-heading' %}
+      </a>
+
+      <a href="{{ routes.search_url }}?q={{ search.terms }}" class="cursor-pointer py-4 mr-3 lg:mr-5 last:mr-0 transition-opacity duration-300 relative after:absolute after:left-0 after:right-0 after:bottom-0 after:h-1 after:bg-body{% unless search_type == 'collections' %} opacity-30 hover:opacity-100 after:scale-x-0{% endunless %}">
+        {% render 'armament-heading' with tag: 'h2', heading_content: collection_heading, heading_type: 'heading-5', classes: 'pointer-events-none', data_aid: 'search-navigation-heading' %}
+      </a>
+
+      <a href="{{ routes.search_url }}?q={{ search.terms }}&options%5Bprefix%5D=last&type=article" class="cursor-pointer py-4 mr-3 lg:mr-5 last:mr-0 transition-opacity duration-300 relative after:absolute after:left-0 after:right-0 after:bottom-0 after:h-1 after:bg-body{% unless search_type == 'article' %} opacity-30 hover:opacity-100 after:scale-x-0{% endunless %}">
+        {% render 'armament-heading' with tag: 'h2', heading_content: blog_heading, heading_type: 'heading-5', classes: 'pointer-events-none min-w-[44px] text-center', data_aid: 'search-navigation-heading' %}
+      </a>
+
+      <a href="{{ routes.search_url }}?q={{ search.terms }}&options%5Bprefix%5D=last&type=page" class="cursor-pointer py-4 mr-3 lg:mr-5 last:mr-0 transition-opacity duration-300 relative after:absolute after:left-0 after:right-0 after:bottom-0 after:h-1 after:bg-body{% unless search_type == 'page' %} opacity-30 hover:opacity-100 after:scale-x-0{% endunless %}">
+        {% render 'armament-heading' with tag: 'h2', heading_content: page_heading, heading_type: 'heading-5', classes: 'pointer-events-none', data_aid: 'search-navigation-heading' %}
+      </a>
+
+    </div>
+    {%- liquid
+      assign search_heading_classes = 'text-center pt-4 lg:pt-5 text-body bg-page'
+      unless search_type == 'product' and search.results.size > 0
+        assign search_heading_classes = search_heading_classes | append: ' pb-4 lg:pb-5'
+      endunless
+    -%}
+    {% render 'armament-heading' with tag: 'h1', heading_content: search.terms, heading_type: 'heading-3', classes: search_heading_classes, data_aid: 'search-results-heading' %}
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "class": "w-full",
+  "name": "Search navigation",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Show collection results, blog results or page results in order to show search navigation."
+    }
+  ]
+}
+{% endschema %}

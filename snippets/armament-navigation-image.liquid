@@ -1,0 +1,52 @@
+{% comment %}
+    Renders a navigation image
+
+    Accepts:
+    - image: {Object} Shopify image object
+    - classes: {String} Custom classes to be applied to the container div
+    - image_container_classes: {String} Custom classes to be applied to the image container div
+    - text_color: {String} Optional override for the text color
+    - image_heading: {String} Optional - image heading
+
+    Usage:
+    {% render 'armament-navigation-image' with image: image_1 %}
+{% endcomment %}
+
+{% liquid
+
+  assign text_color_class = 'text-page'
+  if text_color != blank
+    assign text_color_class = text_color
+  endif
+
+  assign text_classes = "absolute top-0 w-full h-full flex justify-center items-center font-heading text-h5 outline-offset-[-5px] " | append: text_color_class
+  assign image_classes = 'w-full h-full object-cover'
+
+  if aspect == 'original'
+    assign image_classes = image_classes | append: ' max-h-[400px]'
+  endif
+%}
+
+<div class="row-start-1 overflow-hidden{% if classes %} {{ classes }}{% endif %}">
+  <div class="relative aspect-square overflow-hidden{% if aspect == 'original' %} lg:pb-0{% endif %}{% if image_link %} hover:scale-105 transition-transform ease-[cubic-bezier(0.165, 0.84, 0.44, 1)] duration-500{% endif %}">
+    <div class="absolute{% if aspect == 'original' %} lg:static{% endif %} w-full h-full {{ image_container_classes }}">
+      {% render 'armament-image' with image: image, classes: image_classes %}
+    </div>
+    <div class="{{ overlay_bg }} absolute top-0 w-full h-full" {{ bg_opacity }}></div>
+    {% if image_link %}
+      <a
+        class="{{ text_classes }}"
+        href="{{ image_link }}"
+        {% if image_heading == blank %}aria-label="{{ image_link | split: '/' | last | replace: '-', ' ' | capitalize }}"{% endif %}
+      >
+        {% if image_heading != blank %}
+          <span>{{ image_heading }}</span>
+        {% endif %}
+      </a>
+    {% elsif image_heading != blank %}
+      <div class="{{ text_classes }}">
+        <span>{{ image_heading }}</span>
+      </div>
+    {% endif %}
+  </div>
+</div>

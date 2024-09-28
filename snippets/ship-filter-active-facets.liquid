@@ -1,0 +1,103 @@
+{% liquid 
+  assign active_filters = false
+  assign priceFilterActive = false
+  assign sort_by = results.sort_by | default: results.default_sort_by
+
+  if results.url
+    assign results_url = results.url | append: '?sort_by=' | append: sort_by
+  else 
+    assign terms = results.terms | escape
+    assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by | append: '&type=product'
+    if product_count == 1
+      assign productCountString = 'products.facets.result_count.one' | t
+    else
+      assign productCountString = 'products.facets.result_count.other' | t
+    endif
+  endif
+
+  for filter in results.filters
+    if filter.min_value.value != nil or filter.max_value.value != nil
+      assign priceFilterActive = true
+
+      if product_count == 1
+        assign productCountString = 'products.facets.result_count.one' | t
+      else
+        assign productCountString = 'products.facets.result_count.other' | t
+      endif
+    endif
+    for value in filter.active_values
+      if product_count > 0
+        assign active_filters = true
+      endif
+
+      if product_count == 1
+        assign productCountString = 'products.facets.result_count.one' | t
+      else
+        assign productCountString = 'products.facets.result_count.other' | t
+      endif
+    endfor
+  endfor
+
+  if filter_position == 'sidebar'
+    assign container_classes = 'active-facets h-max w-full flex lg:grid lg:grid-cols-[1fr,minmax(0,auto)] items-center mt-0 lg:mb-0 flex-wrap lg:pr-6 lg:pl-0'
+    if enable_sorting
+      assign count_heading_classes = 'text-h5 mr-4 hidden lg:block mt-3 lg:mb-3 lg:mt-0 py-1'
+    else 
+      assign count_heading_classes = 'text-h5 mr-4 hidden lg:block mt-3 lg:mb-0 lg:mt-4 py-1'
+    endif
+  else
+    assign container_classes = 'active-facets h-max w-full flex items-center flex-wrap'
+    assign count_heading_classes = 'text-h5 mr-4 hidden'
+  endif
+
+  assign productCountText = '<span data-armada-selector="product-result-count">' | append: product_count | append: '</span> ' | append: productCountString
+%}
+
+<div class="{{ container_classes }}{% if classes %} {{ classes }}{% endif %}">
+  <div class="p-3 justify-center items-center mx-auto pt-0 hidden" data-armada-selector="facets-loading">
+    <span class="block animate-spin w-4 h-4 rounded-full border-2 border-l-0 mx-auto"></span>
+  </div>
+  {% if active_filters or priceFilterActive %}
+    <div class="lg:col-start-1 lg:col-end-2 flex flex-wrap{% if filter_position == 'topbar' %} items-center w-full{% else %} items-start w-full lg:w-auto{% endif %}" data-armada-selector="active_facet_container">
+      {% render 'armament-heading' with tag: 'h6', heading_content: productCountText, classes: count_heading_classes, data_aid: 'filter-result-count' %}
+      {% for filter in results.filters %}
+        {% for value in filter.active_values %}
+          <facet-remove class="grid pr-3 max-w-max mb-3 grid-cols-1 grid-rows-1{% if filter_position == 'sidebar' %}{% if enable_sorting %} lg:mb-3 lg:mt-0{% else %} lg:mb-0 lg:mt-4{% endif %}{% endif %}">
+            <div class="block bg-body opacity-10 col-start-1 col-end-2 row-start-1 row-end-2"></div>
+            <a href="{{ value.url_to_remove }}" class="block pl-[12px] pr-2 py-1 col-start-1 col-end-2 row-start-1 row-end-2 z-50 relative after:absolute after:top-0 after:left-0 after:right-0 after:bottom-0 after:pointer-events-none after:border after:opacity-0 after:transition-opacity after:duration-300 hover:after:opacity-100" data-armada-selector="active-facets-button" data-aid="active-filter-{{ value.label | handleize }}">
+              <span class="flex justify-between items-center">
+                {% if filter.type == 'boolean' %}
+                  {{ filter.label | escape }}: 
+                {% endif %}
+                <span>{% if filter.type == 'boolean' %}&nbsp;{% endif %}{{ value.label | escape }}</span>
+                {% render 'armament-icon' with icon: 'cancel', classes: 'ml-2', width: 8, height: 8 %}
+                <span class="sr-only">{{ 'products.facets.clear' | t }}</span>
+              </span>
+            </a>
+          </facet-remove>
+        {% endfor %}
+        {% if filter.type == "price_range" %}
+          {% if filter.min_value.value != nil or filter.max_value.value != nil %}
+            <facet-remove class="grid pr-3 mb-3 grid-cols-1 grid-rows-1{% if filter_position == 'sidebar' %}{% if enable_sorting %} lg:mb-3 lg:mt-0{% else %} lg:mb-0 lg:mt-4{% endif %}{% endif %}" data-price-filter-active="true">
+              <div class="block bg-body opacity-10 col-start-1 col-end-2 row-start-1 row-end-2"></div>
+              <a href="{{ filter.url_to_remove }}" class="block pl-[12px] pr-2 py-1 col-start-1 col-end-2 row-start-1 row-end-2 z-50 relative after:absolute after:top-0 after:left-0 after:right-0 after:bottom-0 after:pointer-events-none after:border after:opacity-0 after:transition-opacity after:duration-300 hover:after:opacity-100" data-armada-selector="active-facets-button" data-aid="active-filter-price">
+                <span class="flex justify-between items-center">
+                  {%- if filter.min_value.value -%}{{ filter.min_value.value | money }}{%- else -%}{{ 0 | money }}{%- endif -%}-{%- if filter.max_value.value -%}{{ filter.max_value.value | money }}{%- else -%}{{ filter.range_max | money }}{%- endif -%}
+                  {% render 'armament-icon' with icon: 'cancel', classes: 'ml-2', width: 8, height: 8 %}
+                  <span class="sr-only">{{ 'products.facets.clear' | t }}</span>
+                </span>
+              </a>
+            </facet-remove>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      <facet-remove class="active-facets__button-remove mb-3{% if filter_position == 'topbar' %} flex-[1] text-right{% else %} flex-[1] text-right lg:text-left{% endif %}{% if filter_position == 'sidebar' %}{% if enable_sorting %} lg:mb-3 lg:mt-0{% else %} lg:mb-0 lg:mt-4{% endif %}{% endif %}" data-armada-selector="filters_clear_all">
+        <a href="{{ results_url }}" class="underline hover:no-underline underline-offset-2 py-1" data-aid="clear_all" data-armada-selector="filters_clear_all">
+          <span>{{ 'products.facets.clear_all' | t }}</span>
+        </a>
+      </facet-remove>
+    </div>
+  {% elsif results.terms %}
+    {% render 'armament-heading' with tag: 'h6', heading_content: productCountText, classes: count_heading_classes, data_aid: 'filter-result-count' %}
+  {% endif %}
+</div>

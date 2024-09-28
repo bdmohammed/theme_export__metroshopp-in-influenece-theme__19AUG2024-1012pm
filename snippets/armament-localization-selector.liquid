@@ -1,0 +1,140 @@
+{% comment %}
+    Renders a country/region selector
+
+    Accepts:
+    - show_country {Boolean} Show/hide the country selector depending on the section setting
+    - noscript_country_classes,
+      country_classes,
+      noscript_lang_classes,
+      lang_classes: {String} classes that can be applied to each element
+    - noscript_country_attributes,
+      country_attributes,
+      noscript_lang_attributes,
+      lang_attributes: {String} Attr's that can be applied to each element
+
+    Usage:
+      {% render 'armament-localization-selector' with show_country: section.settings.show_country, show_languages: section.settings.show_languages %}
+{% endcomment %}
+
+
+{% if show_country and localization.available_countries.size > 1 %}
+  <noscript {% if noscript_country_classes %}class="{{ noscript_country_classes }}"{% endif %}{% if noscript_country_attributes %} {{ noscript_country_attributes }}{% endif %}>
+    {%- form 'localization', id: 'countryFormNoScript', class: 'localization-form localization-form--country--noscript flex flex-col' -%}
+      <div>
+        <h2 class="sr-only" id="CountrySelectorLabelNoScript">Country/region</h2>
+
+        <select name="country_code" data-aid="noscript-country-selector" aria-labelledby="CountrySelectorLabelNoScript">
+
+          {%- for country in localization.available_countries -%}
+            <option value="{{ country.iso_code }}" {%- if country.iso_code == localization.country.iso_code -%} selected{%- endif -%}>
+              {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+            </option>
+          {%- endfor -%}
+
+        </select>
+      </div>
+      {% render 'armament-button' with content: 'Update country/region', data_aid="noscript-country-button", classes: 'md:mt-2' %}
+    {%- endform -%}
+  </noscript>
+
+  <localization-form class="{% if country_classes %}{{ country_classes }}{% endif %}"{% if country_attributes %} {{ country_attributes }}{% endif %}>
+    {%- form 'localization', id: 'countrySelect', class: 'localization-form localization-form--country' -%}
+      <div class="no-js-hidden">
+        <div class="relative">
+          <button type="button" class="flex flex-nowrap items-center group" aria-expanded="false" aria-controls="CountryList" data-aid="country-selector-button">
+
+            <span>{{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})</span>
+            {% render 'armament-icon' with icon: 'arrow-right', classes: 'rotate-90 ml-2', attributes: 'style="width:10px;height:10px"', no_animation: true %}
+
+          </button>
+
+
+          <ul id="CountryList" role="list" class="absolute right-0 lg:right-auto bg-page text-body my-2 border border-solid border-[rgba(0,0,0,0.2)] overflow-y-auto top-full z-[102] min-w-[12rem] max-w-[250px] md:max-w-[20rem] min-h-[8rem] max-h-[18rem] w-max" hidden data-aid="country-list">
+
+            {%- for country in localization.available_countries -%}
+              <li class="hover:opacity-30 transition-opacity duration-500 ease-out cursor-pointer py-[.95rem] px-[2rem]" tabindex="-1" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>
+
+                <a
+                class="{% if country.iso_code == localization.country.iso_code %} underline opacity-50{% endif %} focus-inset"
+                href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %}
+                data-value="{{ country.iso_code }}"
+                data-aid="country-list-item">
+                  <span>{{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})</span>
+                </a>
+
+              </li>
+            {%- endfor -%}
+
+          </ul>
+        </div>
+
+        <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}" data-aid="country-input">
+
+      </div>
+    {%- endform -%}
+  </localization-form>
+  <safe-load-scripts>
+    <script src="{{ 'component-armament-localization-form.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="localization-form"></script>
+  </safe-load-scripts>
+{% endif %}
+
+
+{%- if show_languages and localization.available_languages.size > 1 -%}
+  <noscript {% if noscript_lang_classes %}class="{{ noscript_lang_classes }}"{% endif %}{% if noscript_lang_attributes %} {{ noscript_lang_attributes }}{% endif %}>
+    {%- form 'localization', id: 'LanguageFormNoScript', class: 'localization-form localization-form--lang--noscript flex flex-col' -%}
+      <div>
+        <h2 class="sr-only mt-2" id="LanguageLabelNoScript">Language</h2>
+
+        <select name="locale_code" data-aid="noscript-language-selector" aria-labelledby="LanguageLabelNoScript">
+
+          {%- for language in localization.available_languages -%}
+            <option value="{{ language.iso_code }}" lang="{{ language.iso_code }}" {%- if language.iso_code == localization.language.iso_code %} selected{% endif %}>
+              {{ language.endonym_name | capitalize }}
+            </option>
+          {%- endfor -%}
+
+        </select>
+
+      </div>
+      {% render 'armament-button' with content: 'Update language', data_aid="noscript-language-button", classes: 'md:mt-2' %}
+    {%- endform -%}
+  </noscript>
+
+  <localization-form class="{% if lang_classes %}{{ lang_classes }}{% endif %}"{% if lang_attributes %} {{ lang_attributes }}{% endif %}>
+    {%- form 'localization', id: 'languageForm', class: 'localization-form localization-form--lang' -%}
+      <div class="no-js-hidden">
+        <div class="relative">
+          <button type="button" class="flex flex-nowrap items-center group" aria-expanded="false" aria-controls="LanguageList" data-aid="language-selector-button">
+
+            <span>{{ localization.language.endonym_name | capitalize }}</span>
+            {% render 'armament-icon' with icon: 'arrow-right', classes: 'rotate-90 ml-2', attributes: 'style="width:10px;height:10px"', no_animation: true %}
+
+          </button>
+
+
+          <ul id="LanguageList" role="list" class="absolute right-0 lg:right-auto bg-page text-body my-2 border border-solid border-[rgba(0,0,0,0.2)] overflow-y-auto top-full z-[200] min-w-[12rem] max-w-[20rem] min-h-[8rem] max-h-[18rem] w-max" hidden data-aid="language-list">
+
+            {%- for language in localization.available_languages -%}
+              <li class="hover:opacity-30 transition-opacity duration-500 ease-out cursor-pointer py-[.95rem] px-[2rem]" tabindex="-1">
+
+                <a
+                class="{% if language.iso_code == localization.language.iso_code %}underline opacity-50 {% endif %} focus-inset"
+                href="#"
+                hreflang="{{ language.iso_code }}"
+                lang="{{ language.iso_code }}"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %}
+                data-value="{{ language.iso_code }}">
+                  {{ language.endonym_name | capitalize }}
+                </a>
+
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+        <input type="hidden" name="locale_code" value="{{ localization.language.iso_code }}" data-aid="language-input">
+      </div>
+    {%- endform -%}
+  </localization-form>
+  <safe-load-scripts>
+    <script src="{{ 'component-armament-localization-form.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="localization-form"></script>
+  </safe-load-scripts>
+{%- endif -%}

@@ -1,0 +1,60 @@
+{% comment %}
+    Renders a set of inputs for a gift card recipient
+
+    Usage:
+    {% form 'product', form_product, id: 'add-to-cart-form', novalidate: 'novalidate' %}
+        {%- render 'ship-gift-card-recipient-form' -%}
+    {% endform %}
+{% endcomment %}
+
+<gift-card-recipient-form
+  tabindex="0"
+  data-aid="gift-card-recipient-form"
+  class="animate-gift-card-recipient-form block mb-3 md:mb-4 border-y" 
+  animate="true"
+>
+  <div class="flex flex-row-reverse justify-end items-center py-3 md:py-4" data-checkbox-wrapper>
+      {%- assign checkbox_label = 'gift_cards.recipient.checkbox' | t -%}
+      {% render 'armament-input' with type: 'checkbox', id: 'show_gift_card_recipient_checkbox', classes: 'mr-3 appearance-none cursor-pointer active:bg-none checked:bg-none active:text-body checked:text-body checked:bg-current active:bg-body', name: 'properties[__shopify_send_gift_card_to_recipient]', has_label: true, label_text: checkbox_label, label_type_body: true, data_aid: 'show-gift-card-recipient-checkbox', label_attributes: 'data-armada-animation="menu-link"', label_class: 'cursor-pointer leading-none', checked: false %}
+  </div>
+
+  {% liquid
+      assign emailInputString = 'gift_cards.recipient.email_label' | t
+      assign emailInputPlaceholder = 'gift_cards.recipient.email' | t
+      assign emailInputName = 'properties[Recipient email]'
+      assign nameInputString = 'gift_cards.recipient.name_label' | t
+      assign nameInputPlaceholder = 'gift_cards.recipient.name' | t
+      assign nameInputName = 'properties[Recipient name]'
+      assign msgInputString = 'gift_cards.recipient.message_label' | t
+      assign msgInputPlaceholder = 'gift_cards.recipient.message' | t
+      assign msgInputName = 'properties[Recipient message]'
+  %}
+
+  <div class="gift_card_recipient_fields animate-gift-card-recipient-form-content w-full flex flex-wrap gap-y-3 md:gap-y-4 pb-3 md:pb-4 invisible opacity-0">
+      {% liquid
+          assign formId = 'form_' | append: emailInputPlaceholder | downcase | handleize
+          assign input_attr = 'aria-labelledby="' | append: formId | append: '" data-aid="email-input"'
+      %}
+      {% render 'armament-input' with type: 'email', has_label: true, animate_label: true, label_text: emailInputString, id: formId, placeholder: emailInputPlaceholder, classes: 'w-full text-body', container_classes: 'w-full', name: emailInputName, required: true, attributes: input_attr, disabled: true %}
+
+      {% liquid
+          assign formId = 'form_' | append: nameInputPlaceholder | downcase | handleize
+          assign input_attr = 'aria-labelledby="' | append: formId | append: '" data-aid="name-input"'
+      %}
+      {% render 'armament-input' with type: 'text', has_label: true, animate_label: true, label_text: nameInputString, id: formId, placeholder: nameInputPlaceholder, classes: 'w-full text-body', container_classes: 'w-full', name: nameInputName, required: false, attributes: input_attr, disabled: true %}
+
+      {% liquid
+          assign formId = 'form_' | append: msgInputPlaceholder | downcase | handleize
+          assign input_attr = 'aria-labelledby="' | append: formId | append: '" data-aid="message-input"'
+          assign max_characters = 200
+          assign max_characters_message = 'gift_cards.recipient.max_characters' | t: max: max_characters
+      %}
+      {% render 'armament-textarea' with has_label: true, animate_label: true, label_text: msgInputString, max_characters: max_characters, secondary_label: max_characters_message, id: formId, placeholder: msgInputPlaceholder, classes: 'py-3 w-full text-body', container_classes: 'w-full' name: msgInputName, required: false, attributes: input_attr, disabled: true %}
+
+      {% render 'armament-input' with type: 'hidden', value: 'if_present', name: 'properties[__shopify_send_gift_card_to_recipient]', disabled: true %}
+  </div>
+</gift-card-recipient-form>
+
+<safe-load-scripts>
+  <script src="{{ 'component-gift-card-recipient-form.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="gift-card-recipient-form"></script>
+</safe-load-scripts>

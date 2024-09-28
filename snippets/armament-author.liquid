@@ -1,0 +1,25 @@
+{% comment %}
+    Renders a date
+
+    Accepts:
+    - label {String} The
+    - author {String} The author name
+    - classes {String} Custom classes
+
+    Usage:
+    {% render 'armament-author' with name: comment.author %}
+{% endcomment %}
+
+{%- liquid
+  assign hide = false
+
+  if label == blank
+    assign label = 'Author'
+    assign hide = true
+  endif
+-%}
+
+<dl class="pb-1 inline{% if classes %} {{ classes }}{% endif %}">
+  <dt data-aid="author-label" class="inline{% if hide %} sr-only{% endif %}">{{ label }}</dt>
+  <dd data-aid="author-name" class="inline">{{ author }}</dd>
+</dl>

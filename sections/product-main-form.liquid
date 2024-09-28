@@ -1,0 +1,516 @@
+{%- capture get_blocks -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == '@app' -%}
+      {{ block.type | append: "-" | append: block.id | lstrip }}{%- unless forloop.last -%},{%- endunless -%}
+    {%- else -%}
+      {{ block.type | lstrip }}{%- unless forloop.last -%},{%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{% assign block_order = get_blocks | join: ',' | lstrip | strip %}
+
+<div class="w-full text-body bg-page py-5 px-4 lg:p-5">
+  {% unless settings.show_smart_checkout %}
+    {% assign button_wrapper_classes = 'mb-4' %}
+  {% endunless %}
+  {% render 'ship-product-form' with form_product: product, dynamic_buttons: settings.show_smart_checkout, block_order: block_order, option_classes: 'flex flex-col', select_wrapper_classes: 'w-full mb-3 md:mb-4' button_style: 'outline', button_wrapper_classes: button_wrapper_classes, price_classes: 'mb-3 md:mb-4', regular_price_classes: 'text-h4 font-heading heading-case leading-none' %}
+</div>
+
+{% if settings.product_form_sticky %}
+  <div
+    data-armada-selector="sticky-atc-form-wrapper"
+    class="max-w-full"
+  >
+    {% render 'ship-product-form-sticky' with sticky_product: product, dynamic_buttons: false, section_id: section.id %}
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "class": "product-main-form grow max-w-full",
+  "name": "Product form",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "name": "Title",
+      "type": "title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_vendor",
+          "label": "Show vendor",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_sku",
+          "label": "Show SKU",
+          "default": true
+        }
+      ]
+    },
+    {
+      "name": "Price",
+      "type": "price",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_tax_included_text",
+          "label": "Show tax included message",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_shipping_policy",
+          "label": "Show shipping policy",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Product description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "enable_accordion",
+          "label": "Enable accordion",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "description_heading",
+          "label": "Heading",
+          "default": "Details"
+        }
+      ]
+    },
+    {
+      "type": "options",
+      "name": "Product options",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "radio",
+          "id": "options_type",
+          "label": "Style",
+          "options": [
+            {
+              "value": "buttons",
+              "label": "Buttons"
+            },
+            {
+              "value": "dropdowns",
+              "label": "Dropdowns"
+            }
+          ],
+          "default": "buttons"
+        },
+        {
+          "type": "checkbox",
+          "id": "preselect_variant",
+          "label": "Preselect variant",
+          "default": true,
+          "info": "Preselect the first in-stock variant."
+        },
+        {
+          "type": "text",
+          "id": "color_swatch_identifier",
+          "label": "Color swatch",
+          "default": "color,colour,couleur,colore,farbe,색,色,färg,farve",
+          "info": "Comma separated list of option titles that will use a swatch. Requires 'Type' to be set to 'buttons'.[Learn how to set up color swatches.](https://support.eightthemes.com/hc/en-us/articles/5881662024209-How-to-Set-Up-Color-Image-Swatches)"
+        }
+      ]
+    },
+    {
+      "name": "Quantity",
+      "type": "quantity",
+      "limit": 1
+    },
+    {
+      "type": "payment-buttons",
+      "name": "Payment buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "enable_gift_card_recipient_form",
+          "label": "Show recipient information form for gift card products",
+          "default": false,
+          "info": "Gift card products can optionally be sent direct to a recipient along with a personal message."
+        }
+      ]
+    },
+    {
+      "type": "stock-level-indicator",
+      "name": "Stock level indicator",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "stock_range",
+          "min": 1,
+          "max": 50,
+          "step": 1,
+          "label": "Show low stock warning at",
+          "default": 5,
+          "info": "Product inventory must be tracked to use this functionality."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_stock_count",
+          "label": "Show stock level count",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "in_stock_message",
+          "label": "In stock message",
+          "default": "Ready to ship"
+        },
+        {
+          "type": "text",
+          "id": "low_stock_message",
+          "label": "Low stock message",
+          "default": "Selling fast"
+        },
+        {
+          "type": "text",
+          "id": "out_of_stock_message",
+          "label": "Out of stock message",
+          "default": "Back in soon"
+        }
+      ]
+    },
+    {
+      "type": "size-chart",
+      "name": "Size chart",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "enable_accordion",
+          "label": "Enable accordion",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "size_chart_heading",
+          "label": "Heading",
+          "default": "Size chart"
+        },
+        {
+          "type": "page",
+          "id": "size_chart_page",
+          "label": "Page"
+        }
+      ]
+    },
+    {
+      "type": "social-sharing",
+      "name": "Social media icons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "To choose which platforms display go to 'Theme settings > Social media > Products and articles'"
+        }
+      ]
+    },
+    {
+      "type": "image-with-offers",
+      "name": "Image with offers",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_with_offers_image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "image_with_offers_link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "rating-slider",
+      "name": "Range guide",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "rating",
+          "label": "Range guide",
+          "info": "To display a range guide (eg. sizing/fit), add a [product rating metafield](/admin/metafields/product)"
+        },
+        {
+          "type": "text",
+          "id": "rating_name",
+          "label": "Heading",
+          "default": "Sizing / fit"
+        },
+        {
+          "type": "number",
+          "id": "rating_min",
+          "label": "Minimum",
+          "default": 1,
+          "info": "Select a minimum equal to the rating metafield's [scale minimum](/admin/metafields/product)"
+        },
+        {
+          "type": "number",
+          "id": "rating_max",
+          "label": "Maximum",
+          "default": 5,
+          "info": "Select a maximum equal to the rating metafield's [scale maximum](/admin/metafields/product)"
+        },
+        {
+          "type": "text",
+          "id": "label_left",
+          "label": "Left label",
+          "default": "Small"
+        },
+        {
+          "type": "text",
+          "id": "label_center",
+          "label": "Center label",
+          "default": "True to size"
+        },
+        {
+          "type": "text",
+          "id": "label_right",
+          "label": "Right label",
+          "default": "Large"
+        }
+      ]
+    },
+    {
+      "name": "Trust content",
+      "type": "trust-content",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_1",
+          "label": "First image"
+        },
+        {
+          "type": "text",
+          "id": "heading_1",
+          "label": "First image heading",
+          "default": "Free next day delivery"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_2",
+          "label": "Second image"
+        },
+        {
+          "type": "text",
+          "id": "heading_2",
+          "label": "Second image heading",
+          "default": "Easy returns"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_3",
+          "label": "Third image"
+        },
+        {
+          "type": "text",
+          "id": "heading_3",
+          "label": "Third image heading",
+          "default": "Made in the USA"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_4",
+          "label": "Fourth image"
+        },
+        {
+          "type": "text",
+          "id": "heading_4",
+          "label": "Fourth image heading",
+          "default": "5/5 on Trustpilot"
+        }
+      ]
+    },
+    {
+      "name": "Complementary products",
+      "type": "complementary-products",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "To select complementary products, add the Search & Discovery app. [Learn more](https://help.shopify.com/en/manual/online-store/search-and-discovery/product-recommendations)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Pairs well with..."
+        },
+        {
+          "type": "range",
+          "id": "products_to_show",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "label": "Products to show",
+          "default": 5
+        },
+        {
+          "type": "header",
+          "content": "Color scheme"
+        },
+        {
+          "type": "select",
+          "id": "complementary_products_color_scheme",
+          "label": "Color scheme",
+          "options": [
+            {
+              "value": "general",
+              "label": "General"
+            },
+            {
+              "value": "accent-1",
+              "label": "Accent 1"
+            },
+            {
+              "value": "accent-2",
+              "label": "Accent 2"
+            },
+            {
+              "value": "accent-3",
+              "label": "Accent 3"
+            }
+          ],
+          "default": "accent-1"
+        }
+      ]
+    },
+    {
+      "name": "Cross sells",
+      "type": "cross-sells",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Don't forget these..."
+        },
+        {
+          "type": "product",
+          "id": "cross_sells_product_1",
+          "label": "First cross sell product"
+        },
+        {
+          "type": "product",
+          "id": "cross_sells_product_2",
+          "label": "Second cross sell product"
+        },
+        {
+          "type": "header",
+          "content": "Color scheme"
+        },
+        {
+          "type": "select",
+          "id": "cross_sells_color_scheme",
+          "label": "Color scheme",
+          "options": [
+            {
+              "value": "general",
+              "label": "General"
+            },
+            {
+              "value": "accent-1",
+              "label": "Accent 1"
+            },
+            {
+              "value": "accent-2",
+              "label": "Accent 2"
+            },
+            {
+              "value": "accent-3",
+              "label": "Accent 3"
+            }
+          ],
+          "default": "accent-1"
+        }
+      ]
+    },
+    {
+      "name": "Custom liquid",
+      "type": "custom-liquid",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "enable_accordion",
+          "label": "Enable accordion",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "custom_liquid_heading",
+          "label": "Heading",
+          "default": "Custom liquid"
+        },
+        {
+          "type": "liquid",
+          "id": "custom-liquid",
+          "label": "Custom liquid",
+          "default": "<p>Add app snippets or other Liquid code to create advanced customizations.</p>"
+        }
+      ]
+    },
+    {
+      "name": "Local pickup availability",
+      "type": "local-pickup-availability",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Show customers where they can collect the product. [Learn more](https://help.shopify.com/manual/shipping/setting-up-and-managing-your-shipping/local-methods/local-pickup#show-pickup-availability-to-your-customers)"
+        },
+        {
+          "type": "header",
+          "content": "Color scheme"
+        },
+        {
+          "type": "select",
+          "id": "pickup_color_scheme",
+          "label": "Color scheme",
+          "options": [
+            {
+              "value": "general",
+              "label": "General"
+            },
+            {
+              "value": "accent-1",
+              "label": "Accent 1"
+            },
+            {
+              "value": "accent-2",
+              "label": "Accent 2"
+            },
+            {
+              "value": "accent-3",
+              "label": "Accent 3"
+            }
+          ],
+          "default": "general"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

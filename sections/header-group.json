@@ -1,0 +1,111 @@
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "announcement-bar": {
+      "type": "section-announcement-bar",
+      "blocks": {
+        "announcement_1": {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "USE CODE: DOLL15 FOR 15% OFF MINIMUM PURCHASE OF $75",
+            "announcement_link": ""
+          }
+        },
+        "9ea8d0f3-1881-41d4-a75d-74fa49ce63e9": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "announcement_text": "Comfortable and Quality fabrics Materials",
+            "announcement_link": ""
+          }
+        }
+      },
+      "block_order": ["announcement_1", "9ea8d0f3-1881-41d4-a75d-74fa49ce63e9"],
+      "settings": {
+        "show_announcement": false,
+        "rotation_interval": 5,
+        "show_arrows": false,
+        "section_color_scheme": "accent-1"
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "header-0": {
+          "type": "standard_menu",
+          "settings": { "default_navigation": "main-menu" }
+        },
+        "header-2": {
+          "type": "menu_link",
+          "settings": {
+            "heading": "New Arrivals",
+            "heading_link": "shopify://collections"
+          }
+        },
+        "7e266268-8afd-4dfb-811b-befec0d754c0": {
+          "type": "gallery_nav",
+          "settings": {
+            "heading": "New In",
+            "heading_link": "shopify://collections/all",
+            "image_1": "shopify://shop_images/4110214d-ac20-4b3b-bf1a-01cea0733c0f.jpg",
+            "image_heading_1": "Volcanic Flame Aroma Air Humidifier",
+            "image_link_1": "shopify://collections/home-finds",
+            "image_2": "shopify://shop_images/f11e0c16-4232-4a98-943c-bfb07031fd99_200x200_40955f81-9655-45a0-8176-89288e3d970c.jpg",
+            "image_heading_2": "Kitchen Double Tier Spice Rack",
+            "image_link_2": "shopify://collections/kitchen-favourites",
+            "image_3": "shopify://shop_images/1239dcdc-e138-4b9f-a214-7533f2dcf4f5_ef64e9e7-6686-4058-8936-71ceadee01c2.jpg",
+            "image_heading_3": "Winter Warm Pet Bed Pet Supplies Cat Pet Bed",
+            "image_link_3": "shopify://collections/pet-finds",
+            "image_4": "shopify://shop_images/6554667863817_200x200_f6bc183f-afa4-46c5-955e-7204759fd70a.jpg",
+            // "image_heading_4": "Fitness Headband",
+            // "image_link_4": "shopify://collections/swim",
+            "image_aspect": "original",
+            "overlay_color_scheme": "light",
+            "overlay_opacity": 20,
+            "text_color_scheme": "light"
+          }
+        }
+      },
+      "block_order": [
+        "header-0",
+        "header-2",
+        "7e266268-8afd-4dfb-811b-befec0d754c0"
+      ],
+      "settings": {
+        "header_logo": "shopify://shop_images/metro_logo.png",
+        "logo_width_desktop": 190,
+        "logo_width_mobile": 160,
+        "logo_aligment": "left",
+        "show_country": true,
+        "show_languages": true,
+        "show_icons": true,
+        "enable_search": true,
+        "menu_icon": "plus",
+        "section_color_scheme": "accent-1"
+      }
+    },
+    "engine-quick-search": {
+      "type": "engine-quick-search",
+      "blocks": {
+        "engine-quick-search-0": {
+          "type": "search_navigation",
+          "settings": {
+            "navigation_header": "Navigation",
+            "search_menu": "main-menu"
+          }
+        },
+        "engine-quick-search-1": {
+          "type": "search_collection",
+          "settings": {
+            "featured_collection_header": "Dresses",
+            "collection": "dresses"
+          }
+        }
+      },
+      "block_order": ["engine-quick-search-0", "engine-quick-search-1"],
+      "settings": {}
+    }
+  },
+  "order": ["announcement-bar", "header", "engine-quick-search"]
+}

@@ -1,0 +1,292 @@
+{% liquid
+    if section.settings.bg_color_scheme == section.settings.content_color_scheme
+        assign border = true
+    endif
+%}
+
+{% if settings.enable_animations %}
+<zoomout-animation>
+{% endif %}
+
+<section data-color-scheme="{{ section.settings.bg_color_scheme }}" class="bg-page w-full py-5 px-4 md:p-6" data-aid="image-with-text-section">
+    <div class="max-w-screen-xl m-auto flex flex-col md:gap-1 {{ section.settings.image_position }}">
+
+        <div class="{% if section.settings.image == blank %}bg-white{% endif %} w-full md:w-1/2 overflow-hidden text-body{% if border %} border{% endif %}" data-aid="image-with-text--image-wrapper">
+          {% if section.settings.image != blank %}
+            <div class="h-full">
+              {% render 'armament-image' with image: section.settings.image, classes: "w-full h-full object-cover", zoomout_animation: true %}
+            </div>
+          {% else %}
+            {% render 'armament-placeholder' with name: 'collection-2', classes: "!border-0" %}
+          {% endif %}
+        </div>
+
+        <div
+          data-color-scheme="{{ section.settings.content_color_scheme }}"
+          class="bg-page text-body w-full md:w-1/2 py-4 md:p-5 relative{% if border %} border-x border-b md:border-t{% endif %}"
+          data-aid="image-with-text--text-wrapper"
+        >
+        {% if section.blocks.size > 0 %}
+
+            <div class="relative h-full">
+
+            <div class="flex h-full items-center{% if section.blocks.size > 1 %} pb-4 md:pb-5{% endif %}">
+                <slider-engine
+                  mode="horizontal"
+                  blocks="true"
+                  mobile-indicator="true"
+                  class="h-full block overflow-hidden"
+                  data-aid="image-with-text--text-slider"
+                  data-name="scrollbar-target"
+                  arrows="true"
+                  visible-slides="1"
+                  tabindex="0"
+                >
+                  <div
+                    data-name="slider-wrap"
+                    class="h-full overflow-hidden"
+                  >
+
+                    <ul
+                      data-name="slider"
+                      data-aid="image-with-text--text-slider"
+                      data-color-scheme="{{ section.settings.content_color_scheme }}"
+                      class="h-full flex"
+                      role="list"
+                    >
+                      {% for block in section.blocks %}
+                        <li {% if settings.enable_animations %}data-fadeup-animation {% endif %}
+                          data-name="slide"
+                          class="h-full flex flex-col justify-center min-w-full relative px-4 md:px-5"
+                          data-aid="image-with-text--text-slide" {{ block.shopify_attributes }}
+                        >
+                            {% liquid
+                              if block.settings.subheading != blank
+                                if block.settings.heading == blank and block.settings.body_text == blank 
+                                  assign subheading_classes = 'pb-0 break-words'
+                                else
+                                  assign subheading_classes = 'pb-2 break-words'
+                                endif
+
+                                render 'armament-heading' with tag: 'h4', heading_content: block.settings.subheading, heading_type: 'heading-4', classes: subheading_classes, data_aid: 'image-with-text--subheading'
+                              endif
+
+                              if block.settings.heading != blank
+                                if block.settings.body_text == blank 
+                                  assign heading_classes = 'pb-0 break-words'
+                                else
+                                  assign heading_classes = 'pb-2 md:pb-3 break-words'
+                                endif
+
+                                render 'armament-heading' with tag: 'h3', heading_content: block.settings.heading, heading_type: 'heading-3', classes: heading_classes, data_aid: 'image-with-text--heading'
+                              endif
+                            %}
+
+                            {% if block.settings.body_text != blank %}  
+                              <div class="break-words">{{ block.settings.body_text }}</div>
+                            {% endif %}
+
+                            {% liquid
+                              if block.settings.button_link != blank and block.settings.button_text != blank
+                                render 'armament-button' with url: block.settings.button_link, content: block.settings.button_text, style: block.settings.button_style, classes: "mt-2 md:mt-3 leading-none", data_aid: "image-with-text--button"
+                              endif
+                            %}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+
+                  {% capture svg_colors %}data-color-scheme="{{ section.settings.bg_color_scheme }}"{% endcapture %}
+                  <template>
+                    {% render 'armament-slider-arrows' with hide_on_mobile: true, border: border, left_position_classes: '-left-[60px]', right_position_classes: '-right-[60px]', attributes: svg_colors %}
+                    <div data-name="mobile-indicator" class="block h-1 w-full absolute bottom-0 px-4 md:px-5">
+                      {% render 'armament-scroll-bar' with classes: "bg-page", item_count: section.blocks.size, parent: 'slider-engine', target: 'slider', indicator: 'progress' %}
+                    </div>
+                  </template>
+                </slider-engine>
+            </div>
+          </div>
+
+        {% else %}
+          <div class="col-start-1 col-end-2 col-span-2 flex justify-center items-center">
+            <p class="text-center" data-aid="image-with-text--onboarding-text">{{ 'general.onboarding.no_content' | t }}</p>
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
+</section>
+
+{% if settings.enable_animations %}
+</zoomout-animation>
+{% endif %}
+
+<safe-load-scripts>
+    <script src="{{ 'engine-slider.min.js' | asset_url }}" defer="defer" type="module"></script>
+    {% if settings.enable_animations %}
+      <script src="{{ 'engine-zoomout-animation.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="zoomout-animation"></script>
+    {% endif %}
+  </safe-load-scripts>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "class": "w-full",
+  "settings": [
+    {
+      "type": "radio",
+      "id": "image_position",
+      "label": "Image position (desktop)",
+      "options": [
+        {
+          "value": "md:flex-row",
+          "label": "Left"
+        },
+        {
+          "value": "md:flex-row-reverse",
+          "label": "Right"
+        }
+      ],
+      "default": "md:flex-row"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "bg_color_scheme",
+      "label": "Background color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    },
+    {
+      "type": "select",
+      "id": "content_color_scheme",
+      "label": "Card color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "accent-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Image with text"
+        },
+        {
+          "type": "textarea",
+          "id": "body_text",
+          "label": "Body text",
+          "default": "Use text slides, paired with a large image to create a captivating brand story, explain details of your products, or even provide reviews."
+        },
+        {
+          "type": "header",
+          "content": "Buttons"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button label",
+          "default": "Shop now"
+        },
+        {
+          "type": "radio",
+          "id": "button_style",
+          "label": "Button style",
+          "options": [
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "fill",
+              "label": "Fill"
+            }
+          ],
+          "default": "outline"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with text",
+      "settings": {
+      },
+      "blocks": [
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "custom.announcement",
+      "custom.overlay"
+    ]
+  }
+}
+{% endschema %}

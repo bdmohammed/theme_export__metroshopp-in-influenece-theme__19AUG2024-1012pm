@@ -1,0 +1,103 @@
+<section
+  class="bg-page text-body relative w-screen section-collection-grid"
+>
+  {% render 'flotilla-collection-grid' with
+      collection: collection,
+      products_per_row: section.settings.products_per_row,
+      products_per_row_mobile: section.settings.products_per_row_mobile,
+      products_per_page: section.settings.products_per_page,
+      has_pagination: true,
+      pagination_type: section.settings.pagination_type,
+      loadin_animation_threshold: "0"
+  %}
+
+  <noscript>
+    {% render 'flotilla-collection-grid-noscript' with grid_section: section, collection: collection, products_per_row: section.settings.products_per_row, products_per_row_mobile: section.settings.products_per_row_mobile, products_per_page: section.settings.products_per_page, has_pagination: true, pagination_type: 'paged' %}
+  </noscript>
+</section>
+
+{% schema %}
+{
+  "class": "max-w-max collection-main-grid",
+  "name": "Collection grid",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Products per row (desktop)",
+      "default": 3
+    },
+    {
+      "type": "radio",
+      "id": "products_per_row_mobile",
+      "label": "Products per row (mobile)",
+      "options": [
+        {
+          "value": "1",
+          "label": "One"
+        },
+        {
+          "value": "2",
+          "label": "Two"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 2,
+      "max": 60,
+      "step": 1,
+      "label": "Products per page",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "pagination_type",
+      "label": "Product loading",
+      "options": [
+        {
+          "value": "paged",
+          "label": "Pagination"
+        },
+        {
+          "value": "load_more",
+          "label": "'Load more' button"
+        }
+      ],
+      "default": "load_more"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 1
+    },
+    {
+      "type": "title",
+      "name": "Product title",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "Product price",
+      "limit": 1
+    },
+    {
+      "type": "swatch",
+      "name": "Product swatches",
+      "limit": 1
+    },
+    {
+      "type": "quick-add",
+      "name": "Quick add button",
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}

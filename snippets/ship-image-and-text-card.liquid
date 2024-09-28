@@ -1,0 +1,104 @@
+{% comment %}
+    Renders a card with text content below an image (eg. article card, accordian with image card).
+    Accepts:
+    - image {Object} Shopify image object
+    - image_size: {String} Specifies the image aspect ratio ('square', 'landscape', 'portrait'). Set to square by default
+    - placeholder_image: {Boolean} Outputs a card with a placeholder image if set to true
+    - url: {String} Url of the image/button
+    - heading: {String} Heading content
+    - text: {String} Text content
+    - prose: {Boolean} Set to true if text content is rich text (to ensure .prose styles are applied)
+    - text_alignment: {String} Specifies the text alignment ('left', 'center', 'right'). Set to left by default
+    - date: {Datetime} datetime to be displayed
+    - show_date: {Boolean} Determines whether the date is displayed
+    - author: {String} author name to be displayed
+    - show_author: {Boolean} Determines whether the author is displayed
+    - read_more: {Boolean} Enables a 'read more' link
+    - button_label: {String} Text content of the button (overidden if read_more is set to true)
+    - button_style: {String} Style of the 'view all' button - 'filled' or 'outline' (defaults to 'filled')
+    - classes: {String} Optional custom classes applied to the <article> element
+    - border: {Boolean} Set to true to apply a border to the card
+
+    Usage:
+    {% render 'ship-image-and-text-card' with
+      image: article.image,
+      url: article.url,
+      date: article.published_at,
+      show_date: section.settings.show_date,
+      author: article.author,
+      show_author: section.settings.show_author,
+      heading: article.title,
+      text: text,
+      read_more: true
+    %}
+{% endcomment %}
+
+{%- liquid
+  assign aspect_ratio_class = 'aspect-square'
+  if image_size == 'portrait'
+    assign aspect_ratio_class = 'aspect-tall'
+  elsif image_size == 'landscape'
+    assign aspect_ratio_class = 'aspect-wide'
+  endif
+
+  if text_alignment == 'center'
+    assign text_align_class = 'text-center'
+    assign flex_class = 'justify-center'
+  elsif text_alignment == 'right'
+    assign text_align_class = 'text-right'
+    assign flex_class = 'justify-end'
+  endif
+-%}
+
+<article class="bg-page h-full flex flex-col text-body{% if border %} border{% endif %}{% if classes %} {{ classes }}{% endif %}" data-aid="image-and-text-card">
+  {% if image %}
+    {% if url %}
+      <a class="inline" href="{{ url }}">
+    {% endif %}
+
+    <div class="relative {{ aspect_ratio_class }}">
+      {% render 'armament-image' with image: image, classes: 'absolute w-full h-full object-cover' %}
+    </div>
+
+    {% if url %}
+      </a>
+    {% endif %}
+  {% elsif placeholder_image %}
+    <div class="relative {{ aspect_ratio_class }}">
+      {% render 'armament-placeholder' with name: 'image', classes: 'absolute w-full h-full object-cover' %}
+    </div>
+  {% else %}
+    {% assign text_container_classes = 'flex flex-col justify-center' %}
+  {% endif %}
+  <div class="text-body p-4 md:p-5 flex-grow {{ text_container_classes }} {{ text_align_class }}{% if border %} border-t{% endif %}">
+    <div class="text-h6 font-heading heading-case leading-none mb-1">
+      {% if author and show_author %}
+        {% render 'armament-author' with author: author, classes: 'inline' %}{% if date and show_date %} -{% endif %}
+      {% endif %}
+      {% if date and show_date %}
+        {% render 'armament-date' with date: date, classes: 'inline' %}
+      {% endif %}
+    </div>
+
+    {% if heading %}
+      {% render 'armament-heading' with tag: 'h3', heading_type: 'heading-4', classes: 'mb-2', heading_content: heading, data_aid: 'image-text-card-heading' %}
+    {% endif %}
+
+    {% if text %}
+      <div class="{% if read_more or button_label %}mb-3 md:mb-4{% endif %}{% if prose %} prose prose-strong:text-body prose-figcaption:text-body prose-blockquote:text-body{% endif %}">{{ text }}</div>
+    {% endif %}
+
+    {% if read_more %}
+      <div class="text-h6 font-heading heading-case">
+        <a href="{{ url }}" class="flex items-center group {{ flex_class }}" aria-label="{{ 'blogs.article.read_more_title' | t: title: heading | escape }}">
+          <span>{{ 'blogs.article.read_more' | t }}</span>
+          {% render 'armament-icon' with icon: 'arrow-right', width: 16, height: 16, classes: 'pl-2' %}
+        </a>
+      </div>
+    {% elsif button_label != blank and url %}
+      <div>
+        {% render 'armament-button' with url: url, content: button_label, style: button_style %}
+      </div>
+    {% endif %}
+  </div>
+</article>

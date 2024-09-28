@@ -1,0 +1,82 @@
+<div>
+  <section class="text-body bg-page pb-4 md:pb-5 md:px-6">
+    {% paginate blog.articles by section.settings.articles_per_page %}
+      {% render 'flotilla-blog-grid' with
+      collage: true,
+      paginate: paginate,
+      articles: blog.articles,
+      section: section,
+      loadin_animation_threshold: "0" %}
+    {% endpaginate %}
+  </section>
+</div>
+
+
+{% schema %}
+{
+  "name": "Blog grid",
+  "settings": [
+    {
+      "type": "select",
+      "id": "image_size",
+      "label": "Image aspect ratio",
+      "options": [
+        {
+          "value": "landscape",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait (2:3)"
+        },
+        {
+          "value": "square",
+          "label": "Square (1:1)"
+        }
+      ],
+      "default": "square"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "articles_per_page",
+      "label": "Articles per page",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

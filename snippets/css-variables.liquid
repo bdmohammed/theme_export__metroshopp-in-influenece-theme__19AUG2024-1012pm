@@ -1,0 +1,49 @@
+<style>
+/* This file is automatically compiled, do not edit directly. See src/setup/css-variables.js */
+:root {
+--colors-background: {{ settings.color_background_general }};
+--colors-body-text: {{ settings.color_body_general }};
+--colors-body-text-opacity-10: {% assign bg_brightness = settings.color_background_general | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_general | color_modify: "alpha", 0.70 }}{% else %}{{ settings.color_body_general | color_modify: "alpha", 0.10 }}{% endif %};
+--colors-body-text-opacity-20: {% assign bg_brightness = settings.color_background_general | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_general | color_modify: "alpha", 0.70 }}{% else %}{{ settings.color_body_general | color_modify: "alpha", 0.20 }}{% endif %};
+--colors-body-text-opacity-55: {% assign bg_brightness = settings.color_background_general | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_general | color_modify: "alpha", 0.70 }}{% else %}{{ settings.color_body_general | color_modify: "alpha", 0.55 }}{% endif %};
+--colors-border-opacity-10: {% assign bg_brightness = settings.color_background_general | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_general | color_modify: "alpha", 0.20 }}{% else %}{{ settings.color_body_general | color_modify: "alpha", 0.10 }}{% endif %};
+--colors-headings: {{ settings.color_headings_general }};
+--general-colors-background: {{ settings.color_background_general }};
+--general-colors-body: {{ settings.color_body_general }};
+--general-colors-body-opacity-10: {% assign bg_brightness = settings.color_background_general | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_general | color_modify: "alpha", 0.70 }}{% else %}{{ settings.color_body_general | color_modify: "alpha", 0.10 }}{% endif %};
+--general-colors-body-opacity-20: {% assign bg_brightness = settings.color_background_general | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_general | color_modify: "alpha", 0.70 }}{% else %}{{ settings.color_body_general | color_modify: "alpha", 0.20 }}{% endif %};
+--general-colors-body-opacity-55: {% assign bg_brightness = settings.color_background_general | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_general | color_modify: "alpha", 0.70 }}{% else %}{{ settings.color_body_general | color_modify: "alpha", 0.55 }}{% endif %};
+--general-colors-border-opacity-10: {% assign bg_brightness = settings.color_background_general | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_general | color_modify: "alpha", 0.20 }}{% else %}{{ settings.color_body_general | color_modify: "alpha", 0.10 }}{% endif %};
+--general-colors-headings: {{ settings.color_headings_general }};
+--accent-1-colors-background: {{ settings.color_background_accent_1 }};
+--accent-1-colors-body: {{ settings.color_body_accent_1 }};
+--accent-1-colors-body-opacity-10: {% assign bg_brightness = settings.color_background_accent_1 | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_accent_1 | color_modify: "alpha", 0.70 }}{% else %}{{ settings.color_body_accent_1 | color_modify: "alpha", 0.10 }}{% endif %};
+--accent-1-colors-body-opacity-20: {% assign bg_brightness = settings.color_background_accent_1 | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_accent_1 | color_modify: "alpha", 0.70 }}{% else %}{{ settings.color_body_accent_1 | color_modify: "alpha", 0.20 }}{% endif %};
+--accent-1-colors-body-opacity-55: {% assign bg_brightness = settings.color_background_accent_1 | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_accent_1 | color_modify: "alpha", 0.70 }}{% else %}{{ settings.color_body_accent_1 | color_modify: "alpha", 0.55 }}{% endif %};
+--accent-1-colors-border-opacity-10: {% assign bg_brightness = settings.color_background_accent_1 | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_accent_1 | color_modify: "alpha", 0.20 }}{% else %}{{ settings.color_body_accent_1 | color_modify: "alpha", 0.10 }}{% endif %};
+--accent-1-colors-headings: {{ settings.color_headings_accent_1 }};
+--accent-2-colors-background: {{ settings.color_background_accent_2 }};
+--accent-2-colors-body: {{ settings.color_body_accent_2 }};
+--accent-2-colors-body-opacity-10: {% assign bg_brightness = settings.color_background_accent_2 | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_accent_2 | color_modify: "alpha", 0.70 }}{% else %}{{ settings.color_body_accent_2 | color_modify: "alpha", 0.10 }}{% endif %};
+--accent-2-colors-body-opacity-20: {% assign bg_brightness = settings.color_background_accent_2 | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_accent_2 | color_modify: "alpha", 0.70 }}{% else %}{{ settings.color_body_accent_2 | color_modify: "alpha", 0.20 }}{% endif %};
+--accent-2-colors-body-opacity-55: {% assign bg_brightness = settings.color_background_accent_2 | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_accent_2 | color_modify: "alpha", 0.70 }}{% else %}{{ settings.color_body_accent_2 | color_modify: "alpha", 0.55 }}{% endif %};
+--accent-2-colors-border-opacity-10: {% assign bg_brightness = settings.color_background_accent_2 | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_accent_2 | color_modify: "alpha", 0.20 }}{% else %}{{ settings.color_body_accent_2 | color_modify: "alpha", 0.10 }}{% endif %};
+--accent-2-colors-headings: {{ settings.color_headings_accent_2 }};
+--accent-3-colors-background: {{ settings.color_background_accent_3 }};
+--accent-3-colors-body: {{ settings.color_body_accent_3 }};
+--accent-3-colors-body-opacity-10: {% assign bg_brightness = settings.color_background_accent_3 | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_accent_3 | color_modify: "alpha", 0.70 }}{% else %}{{ settings.color_body_accent_3 | color_modify: "alpha", 0.10 }}{% endif %};
+--accent-3-colors-body-opacity-20: {% assign bg_brightness = settings.color_background_accent_3 | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_accent_3 | color_modify: "alpha", 0.70 }}{% else %}{{ settings.color_body_accent_3 | color_modify: "alpha", 0.20 }}{% endif %};
+--accent-3-colors-body-opacity-55: {% assign bg_brightness = settings.color_background_accent_3 | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_accent_3 | color_modify: "alpha", 0.70 }}{% else %}{{ settings.color_body_accent_3 | color_modify: "alpha", 0.55 }}{% endif %};
+--accent-3-colors-border-opacity-10: {% assign bg_brightness = settings.color_background_accent_3 | color_brightness %}{% if bg_brightness < 128 %}{{ settings.color_body_accent_3 | color_modify: "alpha", 0.20 }}{% else %}{{ settings.color_body_accent_3 | color_modify: "alpha", 0.10 }}{% endif %};
+--accent-3-colors-headings: {{ settings.color_headings_accent_3 }};
+--invert-colors-background: {{ settings.color_body_general }};
+--invert-colors-body: {{ settings.color_background_general }};
+--font-body: {{ settings.body_font.family }}, {{ settings.body_font.fallback_families }};
+--font-headings: {{ settings.headings_font.family }}, {{ settings.headings_font.fallback_families }};
+--font-size-base: {{ settings.body_size | abs | times: 0.06 | round: 2 | append: 'rem' }};
+--font-body-weight: {{ settings.body_font.weight }};
+--font-body-style: {{ settings.body_font.style }};
+--heading-case: {{ settings.headings_case }};
+--slider-animation-duration: {{ settings.slider_animation_duration | append: 'ms' }};
+
+}</style>

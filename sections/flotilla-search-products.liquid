@@ -1,0 +1,91 @@
+{% assign search_type = search.types | join: '' %}
+
+{% if search.results.size > 0 %}
+  <section
+    data-color-scheme="{{ section.settings.section_color_scheme }}" 
+    class="bg-page text-body relative w-screen section-collection-grid"
+  >
+  {% if search_type == 'product' %}
+    {% render 'flotilla-search-products-grid' with 
+    products_per_row: section.settings.products_per_row, 
+    products_per_row_mobile: section.settings.products_per_row_mobile, 
+    products_per_page: section.settings.products_per_page, 
+    has_pagination: true,
+    loadin_animation_threshold: "0" %}
+  {% endif %}
+  </section>
+{% else %}
+  {% if search_type == 'product' %}
+    {% render 'ship-search-no-results' with type: 'product' %}
+  {% endif %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Products results",
+  "class": "bg-page max-w-max",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Products per row (desktop)",
+      "default": 3
+    },
+    {
+      "type": "radio",
+      "id": "products_per_row_mobile",
+      "label": "Products per row (mobile)",
+      "options": [
+        {
+          "value": "1",
+          "label": "One"
+        },
+        {
+          "value": "2",
+          "label": "Two"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 2,
+      "max": 60,
+      "step": 1,
+      "label": "Products per page",
+      "default": 12
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 1
+    },
+    {
+      "type": "title",
+      "name": "Product title",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "Product price",
+      "limit": 1
+    },
+    {
+      "type": "swatch",
+      "name": "Product swatches",
+      "limit": 1
+    },
+    {
+      "type": "quick-add",
+      "name": "Quick add button",
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}

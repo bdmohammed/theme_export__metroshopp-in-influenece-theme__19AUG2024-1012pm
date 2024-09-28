@@ -1,0 +1,24 @@
+{% comment %}
+    Renders a read-only star rating.
+
+    Accepts:
+    - count: {Number} The number represents the rating out of 5, eg. 3
+    - classes: {String} add custom classes to the container
+    
+    Usage:
+      {% render 'armament-star-rating' with count: 3 %}
+      // OR
+      {% render 'armament-star-rating' with count: section.settings.rating_value %} // A section setting that returns a number
+{% endcomment %}
+{% assign limit = 5 %}
+{% assign inactive = limit | minus: count %}
+
+<div class="flex{% if classes %} {{ classes }}{% endif %}" data-aid="star-rating">
+  {% for star in (1..count) %}
+    {% render 'armament-icon' with icon: 'star', attributes: 'data-aid="filled-star"' %}
+  {% endfor %}
+
+  {% for star in (1..inactive) %}
+    {% render 'armament-icon' with icon: 'star', classes: 'opacity-25', attributes: 'data-aid="empty-star"' %}
+  {% endfor %}
+</div>

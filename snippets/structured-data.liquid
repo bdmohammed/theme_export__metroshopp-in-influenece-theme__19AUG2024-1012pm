@@ -1,0 +1,43 @@
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": "{{ shop.name }}",
+    "url": "{{ shop.url }}{{ page.url }}"
+  }
+</script>
+
+{% if main_entity_microdata != blank %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      {{ main_entity_microdata }}
+    }
+  </script>
+{% endif %}
+
+{%- if template == 'index' -%}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@type": "Organization",
+      "name": "{{ shop.name }}",
+      "brand": {
+        "@type": "Brand",
+        "name": "{{ shop.name }}"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ shop.url }}/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "url": "{{ shop.url }}{{ page.url }}"
+    }
+  </script>
+{% endif %}
+<!--
+  <script>
+    console.log("schema", {{ main_entity_microdata | json }});
+    console.log("rating", {{ shop.metafields.judgeme | json }});
+  </script>
+-->

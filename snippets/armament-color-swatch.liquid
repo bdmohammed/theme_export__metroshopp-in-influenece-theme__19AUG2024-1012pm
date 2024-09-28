@@ -1,0 +1,87 @@
+{% comment %}
+    Renders a set of color swatch options.
+
+    Accepts:
+    - swatch_product {Object} Shopify product object.
+    - identifiers {String} Comma separated list to identify the color option in multiple languages.
+    - change_on_hover {Boolean} Set to true to check radio inputs on hover instead of click.
+    - disabled {Boolean} Set to true to disable radio inputs (for non interactive swatches).
+
+    Usage:
+    {% render 'armament-color-swatch' with swatch_product: product, identifiers: 'color,colour,couleur,colore,farbe,색,色,färg,farve' %}
+{% endcomment %}
+
+{% comment %} Identify the color option index in product.options {% endcomment %}
+{% liquid
+
+  if identifiers == blank
+    assign identifiers = 'color,colour,couleur,colore,farbe,색,色,färg,farve'
+  endif
+
+  assign color_langs = identifiers | split: ','
+
+  for option in swatch_product.options
+    assign downcased_option = option | downcase
+    if color_langs contains downcased_option
+      assign option_index0 = forloop.index0
+      assign option_index = forloop.index
+    break
+    endif
+  endfor
+
+  assign color_label = ''
+  assign color_droppers = ''
+  assign color_uploads = ''
+
+  for variant in swatch_product.variants
+    assign color_label = color_label | append: ',' | append: variant.options[option_index0] | downcase
+
+    if variant.metafields.swatches.color != blank
+      assign color_droppers = color_droppers | append: ',' | append: variant.metafields.swatches.color | append: '----' | append: variant.options[option_index0] | downcase
+    else
+      assign color_droppers = color_droppers | append: ',' | append: variant.options[option_index0]
+    endif
+
+    if variant.metafields.swatches.image != blank
+      assign img_url = variant.metafields.swatches.image | file_url
+      assign color_uploads = color_uploads | append: ',' | append: img_url | append: '----' | append: variant.options[option_index0] | downcase
+    else
+      assign color_uploads = color_uploads | append: ',' | append: variant.options[option_index0]
+    endif
+  endfor
+
+  assign colors = color_label | remove_first: ',' | split: ',' | uniq
+  assign droppers = color_droppers | remove_first: ',' | split: ',' | uniq
+  assign image_uploads = color_uploads | remove_first: ',' | split: ',' | uniq
+
+%}
+
+<color-swatch
+  option-index="{{ option_index0 }}"
+  data-aid="color-swatch"
+  product-variants="{{ swatch_product.variants | json | escape }}"
+  product-id="{{ swatch_product.id }}"
+  data-change-on-hover="{{ change_on_hover }}"
+>
+  {% for value in colors %}
+    {% assign dropper_value = false %}
+    {% assign image_value = false %}
+    {% assign check_colors = droppers[forloop.index0] | split: '----' %}
+    {% assign check_uploads = image_uploads[forloop.index0] | split: '----' %}
+
+    {%- if color_droppers contains value and check_colors[0] contains '#' -%}
+      {% assign dropper_value = check_colors[0] %}
+    {%- endif -%}
+
+    {%- if color_uploads contains value and check_uploads[0] contains '/' -%}
+      {% assign image_value = check_uploads[0] %}
+    {%- endif -%}
+
+    {% assign name = section.id | append: '-product-' | append: swatch_product.id | append: '-option-' | append: option_index %}
+    {% assign radio_id = name | append: '-value-' | append: forloop.index0 %}
+    {% render 'armament-swatch-option' with name: name, id: radio_id, value: value, disabled: disabled, color_dropper: dropper_value, image_upload: image_value, attributes: 'data-name="product-option-radio" data-aid="armament-radio-item-color"' %}
+  {% endfor %}
+</color-swatch>
+<safe-load-scripts>
+  <script src="{{ 'component-color-swatch.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="color-swatch"></script>
+</safe-load-scripts>

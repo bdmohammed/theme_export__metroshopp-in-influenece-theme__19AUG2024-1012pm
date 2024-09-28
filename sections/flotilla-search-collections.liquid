@@ -1,0 +1,183 @@
+{% assign search_type = search.types | join: '' %}
+{% if search_type != 'product' and search_type != 'article' and search_type != 'page' and search.performed %}
+  <div class="md:pb-5 md:px-6">
+    {%- liquid
+      for collection in collections
+        assign handle = collection.title | handleize
+        assign search_terms = search.terms | downcase
+        if handle contains search_terms
+          assign handlesString = handlesString | append: ',' | append: handle
+        endif
+      endfor
+      assign handles = handlesString | remove_first: ',' | split: ','
+    -%}
+
+    {% if handles != blank %}
+      {% render 'flotilla-collection-list' with
+        handles: handles,
+        desktop_rows: section.settings.collections_per_row_desktop,
+        mobile_rows: section.settings.collections_per_row_mobile,
+        text_overlay_color_scheme: section.settings.text_overlay_color_scheme,
+        overlay_color_scheme: section.settings.overlay_color_scheme,
+        overlay_opacity: section.settings.overlay_opacity,
+        vertical_text_alignment: section.settings.vertical_text_alignment,
+        horizontal_text_alignment: section.settings.horizontal_text_alignment,
+        button_label: section.settings.button_label,
+        button_style: section.settings.button_style,
+        loadin_animation_threshold: "0"
+      %}
+    {% else %}
+      {% render 'ship-search-no-results' with type: 'collection' %}
+    {% endif %}
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Collections results",
+  "class": "bg-page",
+  "settings": [
+    {
+      "type": "range",
+      "id": "collections_per_row_desktop",
+      "label": "Collections per row (desktop)",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "radio",
+      "id": "collections_per_row_mobile",
+      "label": "Collections per row (mobile)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "header",
+      "content": "Collection card"
+    },
+    {
+      "type": "select",
+      "id": "overlay_color_scheme",
+      "label": "Overlay color scheme",
+      "options": [
+        {
+          "value": "bg-white",
+          "label": "Light"
+        },
+        {
+          "value": "bg-black",
+          "label": "Dark"
+        }
+      ],
+      "default": "bg-black"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "unit": "%",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "text_overlay_color_scheme",
+      "label": "Text overlay color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "accent-1"
+    },
+    {
+      "type": "select",
+      "id": "vertical_text_alignment",
+      "label": "Vertical text position",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "bottom"
+    },
+    {
+      "type": "select",
+      "id": "horizontal_text_alignment",
+      "label": "Horizontal text position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop now"
+    },
+    {
+      "type": "radio",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        {
+          "value": "filled",
+          "label": "Filled"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        }
+      ],
+      "default": "filled"
+    }
+  ]
+}
+{% endschema %}

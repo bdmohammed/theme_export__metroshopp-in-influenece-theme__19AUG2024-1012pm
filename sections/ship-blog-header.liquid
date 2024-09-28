@@ -1,0 +1,47 @@
+{% assign heading = section.settings.heading | default: blog.title %}
+<div data-color-scheme={{ section.settings.section_color_scheme }}>
+  <div class="text-center py-4 md:py-6 md:pb-5 text-body bg-page">
+    {% render 'armament-heading' with tag: 'h1', heading_content: heading, heading_type: 'section-heading', data_aid: 'blog-page-heading' %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Blog header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Header"
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "section_color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    }
+  ]
+}
+{% endschema %}

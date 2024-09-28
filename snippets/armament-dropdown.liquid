@@ -1,0 +1,108 @@
+{% comment %}
+    Renders a select element.
+
+    Accepts:
+    - attributes: {String} any custom attributes for the select element eg. aria-label="select"
+    - name: {String} the select name attribute value eg. "option1"
+    - id: {String} the id to apply to the select element
+    - sort_by: {Boolean} when generating a 'sort by' dropdown, set to true
+    - sort_object: {Object} search/collection
+    - object: {Object} the object you are using eg. Collections
+    - object_property: {String} the object property you want to access eg. title or name or price, etc (if left blank it will default to just "item") - this represents the option name you will see in the drop-down
+
+    - label_text: {String} text to show as label
+    - label_as_option: {Boolean} display the label as the first option
+
+    - wrapper_classes: {String} any custom classes to pass into the select container
+    - label_classes: {String} any custom classes to pass into the label element
+    - select_classes: {String} any custom classes to pass into the select element
+    - select_icon_classes: {String} any custom classes to pass into the dropdown icon
+    - option_classes: {String} custom classes to pass to the option element
+
+    - disable_unavailable_variants: {Boolean} Add disabled attribute to unavailable / sold out variants
+
+    Usage:
+      // RENDER A LANGUAGE SELECTOR FROM THE "shop.published_locales" OBJECT
+        {% render 'armament-dropdown' with name: 'langSelect', id: 'selectId', object: shop.published_locales, object_property: 'iso-code', select_classes: 'w-2/12', has_label: true, label_text: 'Language selector', label_classes: 'heading-case' %}
+
+      // RENDER A VARIANT SELECTOR FROM THE PRODUCT OBJECT
+        {% render 'armament-dropdown' with name: 'variants', id: 'productVariants', object: product.variants, object_property: 'title', has_label: true, label_text: 'List of product variants', label_classes: 'heading-case' %}
+
+      // RENDER A CUSTOM SELECT BASED ON AN ARRAY
+        {% assign customCollection = "item1,item2,item3" | split: ',' %}
+
+        {% render 'armament-dropdown' with name: 'singleSelector', id: 'singleSelect', object: customCollection, has_label: true, label_text: 'Custom dropdown', label_classes: 'heading_case' %}
+{% endcomment %}
+
+{% if label_text != blank and label_as_option == blank %}
+  <label class="block{% if label_classes %} {{ label_classes }}{% endif %}" for="{{ id }}">{{ label_text }}</label>
+{% endif %}
+
+<div class="{% if wrapper_classes %}{{ wrapper_classes }}{% endif %}">
+  <div
+    class="select relative grid grid-cols-1 grid-rows-1 items-center"
+    data-armada-selector="select-wrap"
+  >
+    <select
+      class="heading-case bg-none bg-transparent col-start-1 col-end-2 row-start-1 row-end-2{% if select_classes %} {{ select_classes }}{% endif %}"
+      {% if name %}name="{{ name }}"{% endif %}
+      {% if id %}id="{{ id }}"{% endif %}
+      {% if attributes %}{{ attributes }}{% endif %}
+      data-aid="armament-dropdown"
+    >
+      {% if label_as_option and label_text != blank %}
+        <option
+          {% if option_classes %}class="{{ option_classes }}"{% endif %}
+          value=""
+          disabled
+          selected
+        >
+          {{ label_text }}
+        </option>
+      {% endif %}
+
+      {% for item in object %}
+        {% liquid
+          assign property = item
+          assign val = false
+
+          if item.id
+            assign val = item.id
+          endif
+
+          if object_property
+            assign property = item[object_property]
+          endif
+
+          if disable_unavailable_variants and item.available == false
+            assign disabled_variant = true
+          else
+            assign disabled_variant = false
+          endif
+
+          if sort_by
+            assign sort_by = sort_object.sort_by | default: sort_object.default_sort_by
+
+            if item.value == sort_by
+              assign attr = 'selected'
+            else
+              assign attr = ''
+            endif
+          endif
+        %}
+
+        <option
+          {% if option_classes %}class="{{ option_classes }}"{% endif %}
+          value="{% if val %}{{ val }}{% else %}{{ property }}{% endif %}"
+          {% if sort_by %} {{ attr }}{% endif %}
+          {% if disabled_variant %}disabled{% endif %}
+        >
+          {{ property }}{% if disabled_variant %} - sold out{% endif %}
+        </option>
+      {% endfor %}
+    </select>
+    <div class='{% if select_icon_classes %}{{ select_icon_classes }} {% endif %}col-start-1 col-end-2 row-start-1 row-end-2 text-body w-30 h-30 pointer-events-none justify-self-end mr-2'>
+      <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'><path stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/></svg>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+{%- liquid
+  if collage
+    assign item_count = paginate.page_size
+    unless paginate.next.is_link
+      assign item_count = paginate.items | minus: paginate.current_offset
+    endunless
+
+    assign modulo_three = item_count | modulo: 3
+    assign modulo_two = item_count | modulo: 2
+    if item_count == 5 or item_count == 7 or item_count == 10
+      assign grid_class = 'md:grid-cols-6'
+    elsif modulo_three == 0
+      assign grid_class = 'md:grid-cols-3'
+    elsif modulo_two == 0
+      assign grid_class = 'md:grid-cols-2'
+    endif
+  else
+    assign grid_class = 'md:grid-cols-3'
+  endif
+-%}
+
+{% if settings.enable_animations %}
+  <loadin-animation {% if loadin_animation_threshold %}data-loadin-animation-threshold="{{ loadin_animation_threshold }}"{% endif %}>
+{% endif %}
+
+<div class="grid gap-4 md:gap-1 {{ grid_class }}">
+  {% for article in articles %}
+    {%- liquid
+      assign text = article.excerpt_or_content | strip_html | truncate: 150
+      if grid_class == 'md:grid-cols-6'
+        capture grid_item_class
+          cycle 'md:col-span-3', 'md:col-span-3', 'md:col-span-2', 'md:col-span-2', 'md:col-span-2'
+        endcapture
+      endif
+    -%}
+    <div loadin-animation-elm loadin-animation-delay class="{% if grid_item_class %}{{ grid_item_class }} {% endif %}">
+      {% render 'ship-image-and-text-card' with
+        image: article.image,
+        image_size: section.settings.image_size,
+        url: article.url,
+        date: article.published_at,
+        show_date: section.settings.show_date,
+        author: article.author,
+        show_author: section.settings.show_author,
+        heading: article.title,
+        text: text,
+        text_alignment: section.settings.text_alignment,
+        read_more: true
+      %}
+    </div>
+  {% endfor %}
+</div>
+
+{% if settings.enable_animations %}
+</loadin-animation>
+
+<safe-load-scripts>
+  <script src="{{ 'engine-loadin-animation.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="loadin-animation"></script>
+</safe-load-scripts>
+{% endif %}
+
+{% render 'ship-pagination', paginate: paginate %}

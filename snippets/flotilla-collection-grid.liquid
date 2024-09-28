@@ -1,0 +1,175 @@
+{% comment %}
+    Renders a collection grid.
+
+    Accepts:
+    - collection: {Object} Shopify collection
+    - products_per_row: {Object} Shopify setting value (number of products per row on desktop)
+    - products_per_row_mobile: {Object} Shopify setting value (number of products per row on mobile)
+    - has_pagination (optional): {Boolean} set to true if the grid needs pagination
+    - pagination_type (optional): {Object} Shopify setting value (paged navigation/load more)
+    - show_view_all (optional): {Boolean} Set to true to show a 'view all' button
+    - products_per_page: {Object} Shopify setting value
+    - grid_container_classes: {String} add custom classes to the grid container
+
+    Usage:
+    {% render 'flotilla-collection-grid' with collection: collection, products_per_row: section.settings.products_per_row %}
+{% endcomment %}
+
+{%- capture get_blocks -%}
+  {%- for block in section.blocks -%}
+    {{ block.type | lstrip }}{%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{% liquid
+
+  case products_per_row
+    when 1
+      assign desktop_grid = ' md:grid-cols-1'
+    when 2
+      assign desktop_grid = ' md:grid-cols-2'
+    when 3
+      assign desktop_grid = ' md:grid-cols-3'
+    when 4
+      assign desktop_grid = ' md:grid-cols-4'
+    when 5
+      assign desktop_grid = ' md:grid-cols-5'
+  endcase
+
+  case products_per_row_mobile
+    when '1'
+      assign mobile_grid = 'grid-cols-1'
+    when '2'
+      assign mobile_grid = 'grid-cols-2'
+  endcase
+
+  assign grid_class = 'grid items-start justify-items-center gap-10 ' | append: mobile_grid | append: desktop_grid
+
+  assign block_order = get_blocks | join: ',' | lstrip | strip
+
+  assign view_all_btn = 'templates.collection.view_all' | t
+  assign view_all_aria = 'aria-label="' | append: view_all_btn | append: '"'
+  assign sortByHeading = 'products.facets.sort_by_label' | t
+
+  for block in section.blocks
+    case block.type
+      when 'image'
+        assign img_block_attr = block.shopify_attributes
+      when 'title'
+        assign title_block_attr = block.shopify_attributes
+      when 'price'
+        assign price_block_attr = block.shopify_attributes
+      when 'swatch'
+        assign swatch_block_attr = block.shopify_attributes
+      when 'quick-add'
+        assign quick_add_block_attr = block.shopify_attributes
+    endcase
+  endfor
+%}
+
+<script src="{{ 'component-collection-grid.min.js' | asset_url }}" defer="defer" type="module"></script>
+
+
+<collection-grid
+  class="collection-grid-main block component-collection-grid lg:pb-5 py-4 lg:px-6 no-js-hidden{% if grid_container_classes %} {{ grid_container_classes }}{% endif %}"
+  data-armada-selector="collection-grid-main"
+  data-section-id="{{ section.id }}"
+>
+  {% if settings.enable_animations %}
+    <loadin-animation {% if loadin_animation_threshold %}data-loadin-animation-threshold="{{ loadin_animation_threshold }}"{% endif %}>
+  {% endif %}
+  {% if collection.products.size == 0 %}
+    <div class="flex flex-col items-center p-5 lg:p-6">
+      <span class="text-body bg-page text-h5">{{ 'templates.collection.empty' | t }}</span>
+      <span class="text-body bg-page text-h5">{{ 'templates.collection.use_fewer_filters_html' | t: link: collection.url, class: "underline hover:no-underline" }}</span>
+    </div>
+  {% else %}
+    {% if has_pagination %}
+      {% paginate collection.products by products_per_page %}
+        <div class="{{ grid_class }}" data-armada-selector="collection-card-grid">
+          {% for product in collection.products %}
+          {%- liquid
+            if forloop.first
+              assign gallery_mode = 'preview'
+            else
+              assign gallery_mode = ''
+            endif
+          -%}
+          <div class="max-w-full block w-full">
+            <div loadin-animation-elm loadin-animation-delay data-loadin-animation-index="{{ forloop.index0 }}">
+              {% render 'ship-product-card' with
+              card_product: product,
+              block_order: block_order,
+              gallery: settings.collection_hover_effect,
+              gallery_mode: gallery_mode,
+              align: settings.product_info_position,
+              aspect_ratio: settings.product_cards_aspect_ratio,
+              quick_view_button_only: true,
+              block_attr_image: img_block_attr,
+              block_attr_title: title_block_attr,
+              block_attr_price: price_block_attr,
+              block_attr_swatch: swatch_block_attr,
+              block_attr_quick_add: quick_add_block_attr,
+              classes: 'w-full' %}
+            </div>
+            {% render 'ship-quick-view' with quick_view_product: product, modal_only: true %}
+          </div>
+          {% endfor %}
+        </div>
+
+        {% if show_view_all == true %}
+          <div class="w-full flex items-center justify-center pt-5">
+            {% render 'armament-button' with url: collection.url, content: view_all_btn, attributes: view_all_aria, classes: 'max-w-200' %}
+          </div>
+        {% endif %}
+
+        {% if has_pagination and paginate.pages > 1 %}
+          {% if pagination_type and pagination_type == 'paged' %}
+            {% render 'ship-pagination' with paginate: paginate %}
+          {% else %}
+            {% render 'ship-pagination-load-more' with paginate: paginate, product_count: products_per_page %}
+          {% endif %}
+        {% endif %}
+      {% endpaginate %}
+    {% else %}
+      <div class="{{ grid_class }}" data-armada-selector="collection-card-grid">
+        {% for product in collection.products limit: products_per_page %}
+        {%- liquid
+          if forloop.first
+            assign gallery_mode = 'preview'
+          else
+            assign gallery_mode = ''
+          endif
+        -%}
+        <div class="max-w-full block w-full">
+          <div loadin-animation-elm loadin-animation-delay class="max-w-full block w-full">
+            {% render 'ship-product-card' with
+            card_product: product,
+            block_order: block_order,
+            gallery: settings.collection_hover_effect,
+            gallery_mode: gallery_mode,
+            align: settings.product_info_position,
+            aspect_ratio: settings.product_cards_aspect_ratio,
+            quick_view_button_only: true,
+            classes: 'w-full' %}
+          </div>
+          {% render 'ship-quick-view' with quick_view_product: product, modal_only: true %}
+        </div>
+        {% endfor %}
+      </div>
+
+      {% if show_view_all == true %}
+        <div class="w-full flex items-center justify-center pt-5">
+          {% render 'armament-button' with url: collection.url, content: view_all_btn, attributes: view_all_aria, classes: 'max-w-200', data_aid: 'collection-view-all-button' %}
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+  {% if settings.enable_animations %}
+    </loadin-animation>
+
+    <safe-load-scripts>
+      <script src="{{ 'engine-loadin-animation.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="loadin-animation"></script>
+    </safe-load-scripts>
+  {% endif %}
+</collection-grid>

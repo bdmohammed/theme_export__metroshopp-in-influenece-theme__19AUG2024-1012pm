@@ -1,0 +1,126 @@
+<!doctype html>
+  <html
+    class="no-js max-w-full overflow-x-hidden !h-auto"
+    lang="{{ request.locale.iso_code }}"
+    data-headings-size="{{ settings.headings_size }}"
+    data-headings-case="{{ settings.headings_case }}"
+    data-headings-line-height="{{ settings.headings_line_height }}"
+  >
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta name="google-site-verification" content="Z1RJrKTqUHBC83WZ9JXgDYFE6LZQAacU9kWToODXiok">
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=GT-MQD3P4G"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+  
+        gtag('config', 'GT-MQD3P4G');
+      </script>
+      <!--
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self' https://cdn.shopify.com; style-src 'self' https://cdn.shopify.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; report-uri /csp-report-endpoint;"
+        >
+      -->
+  
+      <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+      <link rel="preconnect" href="https://ajax.googleapis.com" crossorigin>
+  
+      {%- unless settings.body_font.system? -%}
+        <link
+          rel="preload"
+          as="font"
+          href="{{ settings.body_font | font_url }}"
+          type="font/woff2"
+          crossorigin
+        >
+      {%- endunless -%}
+      {%- unless settings.headings_font.system? -%}
+        <link rel="preload" as="font" href="{{ settings.headings_font | font_url }}" type="font/woff2" crossorigin>
+      {%- endunless -%}
+  
+      <link rel="preload" href="{{ 'theme.css' | asset_url }}" as="style">
+  
+      <link rel="modulepreload" href="{{ 'theme.min.js' | asset_url }}">
+  
+      {%- if canonical_url != blank -%}
+        <link rel="canonical" href="{{ canonical_url }}">
+      {%- endif -%}
+  
+      {%- if settings.favicon != blank -%}
+        <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+      {%- endif -%}
+  
+      {%- liquid
+        render 'seo-title'
+        render 'social-meta'
+        render 'fonts'
+        render 'css-variables'
+        render 'essential-css'
+      -%}
+  
+      {%- if tinyscript -%}{{ content_for_header }}{%- else -%}{% render 'tiny-script-control' %}{%- endif -%}
+  
+      <script>
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "nk7m02qg1v");
+        document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+      </script>
+    </head>
+  
+    {%- liquid
+      assign disable_animation_class = ''
+      unless settings.enable_animations
+        assign disable_animation_class = ' disable-animation'
+      endunless
+    %}
+  
+    <body
+      class="template-{{ request.page_type | handle }} bg-page text-base font-body max-w-full overflow-x-hidden !h-auto{{ disable_animation_class }}"
+      {% if settings.cart_type == 'page' %}
+        data-armada-cart-type-page="true" data-cart-url="{{ routes.cart_url }}"
+      {% endif %}
+    >
+      {{ 'theme.css' | asset_url | stylesheet_tag }}
+      {{ 'custom.css' | asset_url | stylesheet_tag }}
+      {%- if settings.custom_css != blank -%}
+        <style>
+          {{ settings.custom_css }}
+        </style>
+      {%- endif -%}
+  
+      {% sections 'header-group' %}
+  
+      {%- capture extra_classes -%}
+        {%- if template.name contains 'cart' -%}
+          cart-wrap
+        {%- endif -%}
+      {%- endcapture -%}
+  
+      <main
+        class="main-content{{ extra_classes | prepend: ' ' }}"
+        role="main"
+        tabindex="-1"
+        data-template-type="{{ request.page_type | handle }}"
+      >
+        {{ content_for_layout }}
+      </main>
+  
+      {% sections 'footer-group' %}
+      {% sections 'overlay-group' %}
+  
+      {% render 'engine-translations' %}
+  
+      <script type="module" src="{{ 'theme.min.js' | asset_url }}"></script>
+  
+      {{ 'tiny-img-link-preloader.js' | asset_url | script_tag }}
+    </body>
+  </html>
+  

@@ -1,0 +1,14 @@
+{% comment %}
+    Renders a placeholder image.
+
+    Accepts:
+    - name: {String} placeholder image name, eg. 'product-1'
+    - classes: {String} custom classes to be added to the <svg> element
+
+    Usage:
+    {% render 'armament-placeholder' with name: 'product-1' %}
+{% endcomment %}
+
+{% assign classes = 'w-full h-full max-w-full max-h-full armament-placeholder ' | append: classes %}
+
+{{ name | placeholder_svg_tag: classes }}

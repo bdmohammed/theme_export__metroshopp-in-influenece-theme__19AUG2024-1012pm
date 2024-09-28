@@ -1,0 +1,202 @@
+{% comment %}
+    Renders a navigation list item (dropdown or standalone link)
+
+    Accepts:
+    - heading: {String} The navigation heading
+    - heading_link: {String} Url if the heading is a link
+    - navigation: {Array} Shopify array of link objects, if the navigation is a dropdown
+    - visual: {Boolean} Is this a visual nav?
+    - active: {Boolean} Is the current link active? E.g. are we on that page
+    - icon: {String} One of 'plus', 'chevron', 'none'. Defaults to 'plus'.
+    - image_1, image_2, image_3, image_4: {Object} Shopify image object
+    - block_attributes: {Object} shopify block attributes
+
+    Usage:
+    {% render 'armament-navigation-list-item' with heading: block.settings.heading, heading_link: block.settings.heading_link, navigation: block.settings.menu.links, image_1: block.settings.image_1, image_2: block.settings.image_2, image_3: block.settings.image_3, image_4: block.settings.image_4 %}
+{% endcomment %}
+
+{%- liquid
+  case overlay_color
+  when 'light'
+    assign overlay_bg = 'bg-white'
+  when 'dark'
+    assign overlay_bg = 'bg-black'
+  endcase
+
+  assign image_text_color = 'text-page'
+  case text_color
+  when 'light'
+    assign image_text_color = 'text-white'
+  when 'dark'
+    assign image_text_color = 'text-black'
+  endcase
+
+  if icon == blank
+    assign icon = 'plus'
+  endif
+
+  assign opacity_value = overlay_opacity | divided_by: 100.0
+  assign bg_opacity = 'style="opacity:' | append: opacity_value | append: ';"'
+  assign underline_classes = 'lg:after:absolute lg:after:bottom-0 lg:after:left-2 lg:after:right-2 lg:after:h-1 lg:after:bg-body lg:after:scale-x-0 lg:after:transition-transform lg:after:duration-300 lg:after:ease-linear'
+-%}
+
+<safe-load-scripts>
+  <script src="{{ 'component-navigation-item.min.js' | asset_url }}" defer="defer" type="module"></script>
+  <script src="{{ 'component-nav-link.min.js' | asset_url }}" defer="defer" type="module"></script>
+</safe-load-scripts>
+
+<li class="lg:flex lg:items-center lg:mr-2" data-aid="navigation-list-item">
+  {% if navigation != blank or visual == true %}
+    <navigation-item class="block lg:h-full" {{ block_attributes }}>
+      <details data-armada-selector="navigation-item-details" class="lg:h-full navigation-item-details">
+        <summary data-armada-selector="navigation-item-summary" data-name="{{ heading }}" class="list-none lg:h-full lg:flex lg:items-center border-b border-b-border-opacity-10 md:border-b-0 lg:relative{% if menu_index < 11 %} animate-menu-right animate-menu-right-delay-{{ menu_index }} {% endif %} {{ underline_classes }}{% if active %} lg:after:scale-x-100{% endif %} lg:hover:after:scale-x-100">
+          <div class="flex items-center h-full w-full">
+            <span class="flex justify-between flex-row-reverse lg:flex-row items-baseline py-3 lg:p-2 cursor-pointer font-heading text-h5 w-full">
+              {%- liquid
+                assign icon_class = 'lg:mr-2'
+                if icon == 'arrow-right'
+                  assign icon_class = icon_class | append: ' lg:rotate-90'
+                endif
+              -%}
+              {% render 'armament-icon' with icon: icon, width: 14, height: 14, classes: icon_class, no_animation: true %}
+              {% if heading_link %}
+                <a class="hidden lg:inline" href="{{ heading_link }}">{% render 'armament-heading' with heading_content: heading, tag: 'h5', heading_type: 'heading-5' %}</a>
+                <span class="lg:hidden">{% render 'armament-heading' with heading_content: heading, tag: 'h5', heading_type: 'heading-5' %}</span>
+              {% else %}
+                <span>{% render 'armament-heading' with heading_content: heading, tag: 'h5', heading_type: 'heading-5' %}</span>
+              {% endif %}
+            </span>
+          </div>
+        </summary>
+        <div data-armada-selector="navigation-item-dropdown" class="hidden lg:block absolute bg-page shadow-lg left-0 right-0 bottom-0 translate-y-full translate-x-0 opacity-0 navigation-item-content{% unless visual %} pb-5{% endunless %}">
+          {% if visual %}
+            <div data-armada-selector="navigation-item-visual" class="flex flex-wrap justify-center lg:overflow-hidden">
+              {% assign no_images = true %}
+              {% if image_1 or image_2 or image_3 or image_4 %}
+                {% assign no_images = false %}
+              {% endif %}
+              {% if image_1 %}
+                <div class="w-1/2 lg:w-1/4 grow lg:grow-0">
+                  {% render 'armament-navigation-image' with image: image_1, image_heading: image_heading_1, image_link: image_link_1, overlay_bg: overlay_bg, bg_opacity: bg_opacity, aspect: aspect, text_color: image_text_color, image_container_classes: 'animate-menu-image animate-menu-image-delay-1' %}
+                </div>
+              {% endif %}
+              {% if image_2 %}
+                <div class="w-1/2 lg:w-1/4 grow lg:grow-0">
+                  {% render 'armament-navigation-image' with image: image_2, image_heading: image_heading_2, image_link: image_link_2, overlay_bg: overlay_bg, bg_opacity: bg_opacity, aspect: aspect, text_color: image_text_color, image_container_classes: 'animate-menu-image animate-menu-image-delay-2' %}
+                </div>
+              {% endif %}
+              {% if image_3 %}
+                <div class="w-1/2 lg:w-1/4 grow lg:grow-0">
+                  {% render 'armament-navigation-image' with image: image_3, image_heading: image_heading_3, image_link: image_link_3, overlay_bg: overlay_bg, bg_opacity: bg_opacity, aspect: aspect, text_color: image_text_color, image_container_classes: 'animate-menu-image animate-menu-image-delay-3' %}
+                </div>
+              {% endif %}
+              {% if image_4 %}
+                <div class="w-1/2 lg:w-1/4 grow lg:grow-0">
+                  {% render 'armament-navigation-image' with image: image_4, image_heading: image_heading_4, image_link: image_link_4, overlay_bg: overlay_bg, bg_opacity: bg_opacity, aspect: aspect, text_color: image_text_color, image_container_classes: 'animate-menu-image animate-menu-image-delay-4' %}
+                </div>
+              {% endif %}
+              {% if no_images %}
+                {% for i in (1..4) %}
+                  <div class="w-1/2 lg:w-1/4 grow lg:grow-0 overflow-hidden">
+                    <div class='animate-menu-image animate-menu-image-delay-{{ forloop.index }}'>
+                      {% render 'armament-placeholder' with name: 'image' %}
+                    </div>
+                  </div>
+                {% endfor %}
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="grid grid-cols-5">
+              {% for link in navigation %}
+                <div data-armada-selector="navigation-item-link" class="lg:pt-5 lg:px-5{% if navigation.size < 11 %} animate-menu-up animate-menu-up-delay-{{ forloop.index }}{% endif %}" data-has-child-links="{% if link.links != blank %}true{% else %}false{% endif %}">
+                  <a data-armada-selector="navigation-item-parent" data-name="{{ link.title }}" class="flex items-baseline justify-between lg:inline-block w-full py-[12px] lg:py-0 lg:font-heading lg:text-h5 navigation-item-parent lg:hover:opacity-50 lg:transition-opacity lg:duration-150" href="{{ link.url | escape }}">
+                    {% render 'armament-heading' with heading_content: link.title, tag: 'h5', heading_type: 'heading-5' %}
+                    {% if link.links != blank %}
+                      {%- liquid
+                        assign icon_class = 'lg:hidden'
+                        if icon == 'arrow-right'
+                          assign icon_class = icon_class | append: ' lg:rotate-90'
+                        endif
+                      -%}
+                      {% render 'armament-icon' with icon: icon, width: 14, height: 14, classes: icon_class, no_animation: true %}
+                    {% endif %}
+                  </a>
+                  {% if link.links != blank %}
+                    <ul data-armada-selector="navigation-item-children" class="navigation-item-children--top-level">
+                      {% for child_link in link.links %}
+                        <li data-armada-selector="navigation-item-child-link" data-has-child-links="{% if child_link.links != blank %}true{% else %}false{% endif %}">
+                          <a data-armada-selector="navigation-item-parent" data-name="{{ child_link.title }}" class="flex items-baseline justify-between lg:inline-block w-full py-[12px] lg:py-2 lg:hover:opacity-50 lg:transition-opacity lg:duration-150{% if child_link.links != blank %} lg:font-heading lg:text-h6{% endif %} navigation-item-parent" href="{{ child_link.url | escape }}">
+                            <span>{{ child_link.title }}</span>
+                            {% if child_link.links != blank %}
+                              {%- liquid
+                                assign icon_class = 'lg:hidden'
+                                if icon == 'arrow-right'
+                                  assign icon_class = icon_class | append: ' lg:rotate-90'
+                                endif
+                              -%}
+                              {% render 'armament-icon' with icon: icon, width: 14, height: 14, no_animation: true, classes: 'lg:hidden' | append: icon_class %}
+                            {% endif %}
+                          </a>
+                          {% if child_link.links != blank %}
+                            <ul data-armada-selector="navigation-item-children" class="pl-3">
+                              {% for grandchild_link in child_link.links %}
+                                <li>
+                                  <a class="inline-block w-full py-[12px] lg:py-2 lg:hover:opacity-50 lg:transition-opacity lg:duration-150" href="{{ grandchild_link.url | escape }}">{{ grandchild_link.title }}</a>
+                                </li>
+                              {% endfor %}
+                            </ul>
+                          {% endif %}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                </div>
+              {% endfor %}
+              {% if image_1 %}
+                {%- liquid
+                  if image_2 and image_3
+                    assign grid_class = 'row-end-4 col-end-4'
+                  elsif image_2 or image_3
+                    assign grid_class = 'row-end-4 col-end-5'
+                  else
+                    assign grid_class = 'row-end-4 col-end-6'
+                  endif
+                -%}
+                {% render 'armament-navigation-image' with image: image_1, image_heading: image_heading_1, image_link: image_link_1, classes: grid_class, overlay_bg: overlay_bg, bg_opacity: bg_opacity, aspect: aspect, text_color: image_text_color %}
+              {% endif %}
+              {% if image_2 %}
+                {%- liquid
+                  if image_3
+                    assign grid_class = 'row-end-4 col-end-5'
+                  else
+                    assign grid_class = 'row-end-4 col-end-6'
+                  endif
+                -%}
+                {% render 'armament-navigation-image' with image: image_2, image_heading: image_heading_2, image_link: image_link_2, classes: grid_class, overlay_bg: overlay_bg, bg_opacity: bg_opacity, aspect: aspect, text_color: image_text_color %}
+              {% endif %}
+              {% if image_3 %}
+                {% render 'armament-navigation-image' with image: image_3, image_heading: image_heading_3, image_link: image_link_3, classes: 'row-end-4 col-end-6', overlay_bg: overlay_bg, bg_opacity: bg_opacity, aspect: aspect, text_color: image_text_color %}
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </details>
+      <template>
+        <div data-armada-selector="navigation-item-drawer" class="absolute top-0 left-0 right-0 h-full translate-x-full invisible bg-page z-[1] lg:hidden navigation-item-drawer{% unless visual %} px-4{% endunless %}">
+          <div class="relative group{% if visual %} px-4{% endif %}">
+            <button data-armada-selector="navigation-item-close" type="button" aria-label="Back to previous navigation" class="w-full py-3 font-heading text-h5 text-center"></button>
+            {% render 'armament-icon' with icon: 'arrow-left', classes: 'absolute top-1/2 -translate-y-1/2 pointer-events-none' %}
+          </div>
+        </div>
+      </template>
+    </navigation-item>
+  {% else %}
+    <div class="navigation-item-link-only border-b border-b-border-opacity-10 md:border-b-0 lg:h-full{% if menu_index < 11 %} animate-menu-right animate-menu-right-delay-{{ menu_index }}{% endif %}">
+      <div class="relative lg:h-full lg:flex lg:items-center {{ underline_classes }} lg:hover:after:scale-x-100">
+        <nav-link class="list-none flex items-baseline lg:p-2 font-heading text-h5">
+          <a class="w-full py-3 lg:p-0" href="{{ heading_link }}">{% render 'armament-heading' with heading_content: heading, tag: 'h5', heading_type: 'heading-5' %}</a>
+        </nav-link>
+      </div>
+    </div>
+  {% endif %}
+</li>

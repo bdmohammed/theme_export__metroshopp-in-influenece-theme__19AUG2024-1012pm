@@ -1,0 +1,26 @@
+{% comment %}
+    Renders a date
+
+    Accepts:
+    - date: {Datetime} The datetime for display
+    - classes: {String} Additional classes
+
+    Usage:
+    {% render 'armament-date' with date: article.published_at %}
+{% endcomment %}
+
+{%- liquid
+  if format == blank
+    assign format = '%b %d, %Y'
+  endif
+-%}
+
+<time
+  class="{{ classes }}"
+  datetime="{{ date | date: '%Y-%m-%d' }}"
+  data-aid="date"
+>
+  {{ date | date: format }}
+</time>
+
+

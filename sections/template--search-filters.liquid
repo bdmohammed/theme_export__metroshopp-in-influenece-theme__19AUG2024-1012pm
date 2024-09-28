@@ -1,0 +1,121 @@
+{% liquid 
+  if section.settings.filtering_position == 'sidebar'
+    assign filter_classes = 'sidebar-form'
+    if section.settings.enable_filtering
+      assign filter_classes = 'px-3 pt-4 lg:pt-0 lg:pl-6 sidebar-form'
+      assign active_facet_classes = 'hidden lg:block'
+    endif
+  endif
+
+  if section.settings.filtering_position == 'topbar'
+    assign active_facet_classes = 'hidden lg:block lg:px-6 lg:mb-0'
+    assign filter_classes = 'lg:pt-4'
+  endif
+
+  assign search_type = search.types | join: ''
+%}
+
+{% if search.results.size > 0 %}
+  <div class="invisible w-screen h-screen fixed top-0 bg-black opacity-0 transition-opacity duration-300" data-armada-selector="filter_underlay"></div>
+
+  <section
+    data-color-scheme="{{ section.settings.section_color_scheme }}" 
+    class="bg-page text-body relative h-full w-screen{% if section.settings.filtering_position == 'topbar' or section.settings.enable_filtering == false %} lg:w-screen{% else %} lg:w-full{% endif %}"
+    data-armada-selector="section-search-filters"
+    data-section-id="{{ section.id }}"
+  >
+    {% if search_type == 'product' %}
+      <div class="filter-topbar-container flex lg:hidden justify-center w-full order-2 lg:order-none{% if section.settings.filtering_position == 'topbar' %} lg:flex-wrap{% endif %}" {% if section.settings.filtering_position == 'topbar' %}style="display:flex;"{% endif %}>
+        {% render 'ship-filter-dropdown-trigger' with show_filter: true, enable_filtering: section.settings.enable_filtering, show_sort: true, enable_sorting: section.settings.enable_sorting, results: search, filtering_position: section.settings.filtering_position %}
+      </div>
+
+      {% if section.settings.filtering_position == 'sidebar' %}
+        <div data-armada-selector="filter-sidebar-container">
+          {% render 'flotilla-filter-form' with results: search, product_count: search.results_count, enable_sorting: section.settings.enable_sorting, filter_position: section.settings.filtering_position, data-aid="collection_sidebar_filter_form", filter_classes: filter_classes, form_id: 'filter_form', enable_filtering: section.settings.enable_filtering, attributes: 'data-armada-selector="filter-sidebar-form"' %}
+        </div>
+      {% endif %}
+    {% endif %}
+  </section>
+
+  {% if section.settings.filtering_position == 'sidebar' %}
+    <section
+      class="hidden relative grid-cols-[minmax(350px,350px),1fr,minmax(0,auto)] grid-rows-1 items-baseline bg-page text-body no-js-hidden lg:min-h-[24px]{% if section.settings.enable_sorting == false %} lg:mb-3{% endif %}"
+      data-armada-selector="search-top-bar-facets"
+    >
+      {% if search_type == 'product' %}
+        <div class="{% if section.settings.enable_filtering %}col-start-2{% else %}col-start-1{% endif %} col-end-2 row-start-1 row-end-2">
+          {% render 'ship-filter-active-facets' with results: search, product_count: search.results_count, filter_position: section.settings.filtering_position, enable_sorting: section.settings.enable_sorting, classes: active_facet_classes %}
+        </div>
+
+        <div class="col-start-2 col-end-3 row-start-1 row-end-2 justify-self-end lg:max-w-[330px]">
+          {% render 'ship-filter-dropdown-trigger' with show_filter: false, enable_filtering: section.settings.enable_filtering, show_sort: true, enable_sorting: section.settings.enable_sorting, results: search, filtering_position: section.settings.filtering_position, enable_border_bottom: false, classes: 'sidebar-sort-dropdown' %}
+        </div>
+      {% endif %}
+    </section>
+  {% endif %}
+
+  <style>
+    {% if section.settings.filtering_position == 'sidebar' and section.settings.enable_filtering %}
+      @media (min-width: 1024px) {
+        .section-collection-grid {
+          width: calc(100vw - 365px);
+          max-width: calc(100vw - 365px);
+        }
+      }
+      .section-collection-grid {
+        height: 100%;
+      } 
+    {% endif %}
+    {% if section.settings.filtering_position == 'topbar' %}
+      .component-collection-grid {
+        width: 100vw;
+      }
+    {% else %} 
+      @media (min-width: 1024px) {
+        .component-collection-grid {
+          padding-top: 0px;
+        }
+      }
+      .component-collection-grid {
+        width: 100%;
+      }
+    {% endif %}
+  </style>
+{% endif %}
+
+{% schema %}
+{
+  "class": "max-w-max",
+  "name": "Search product filters",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "label": "Enable filter",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "label": "Enable sort",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "filtering_position",
+      "label": "Filter position (desktop)",
+      "options": [
+        {
+          "value": "sidebar",
+          "label": "Sidebar"
+        },
+        {
+          "value": "topbar",
+          "label": "Topbar"
+        }
+      ],
+      "default": "topbar"
+    }
+  ]
+}
+{% endschema %}

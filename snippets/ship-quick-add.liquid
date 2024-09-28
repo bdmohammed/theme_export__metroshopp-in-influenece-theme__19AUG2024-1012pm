@@ -1,0 +1,44 @@
+{% comment %}
+    Renders a given product as a basic form with dropdown options.
+
+    Accepts:
+    - quick_product: {Object} Shopify product object.
+
+    Usage:
+    {% render 'ship-quick-add' with quick_product: product %}
+{% endcomment %}
+
+<quick-add
+  product="{{ quick_product | json | escape }}"
+  section-id="{{ section.id | default: '1' }}"
+>
+  {% render 'armament-basic-product-form' with form_product: quick_product, current_variant: current_variant, show_buttons: true, dynamic_buttons: false, hide_select: true %}
+
+  <template
+    id="quick-add-{{ section.id | default: '1' }}-{{ quick_product.id }}"
+  >
+    {% comment %} Content that is not useful unless JS is available. {% endcomment %}
+    {% unless quick_product.has_only_default_variant %}
+      <div
+        data-name="quick-add-options"
+        class="block"
+      >
+        {% for option in quick_product.options_with_values %}
+          {% assign id = section.id | append: '-product-' | append: quick_product.id | append: '-option-' | append: option.position %}
+          {% render 'armament-dropdown' with id: id, object: option.values, label_as_option: true, label_text: option.name, label_classes: 'heading-case', select_classes: 'w-full', wrapper_classes: 'mb-2 w-full' %}
+        {% endfor %}
+      </div>
+    {% endunless %}
+
+    {% assign addingString = 'products.product.adding_only' | t %}
+    {% render 'armament-button' with content: addingString, loading: true, attributes: 'data-button-loading disabled', classes: 'min-w-full', data_aid: 'button-adding', type: 'button' %}
+
+    {% comment %} Keep a button for a record of the classes. Used in quick-add on the cart cross sells. {% endcomment %}
+    {% render 'armament-button' with type: 'submit', content: 'clone', attributes: 'data-aid="product-form-submit-button" data-name="product-submit"', classes: 'w-full', style: 'outline' %}
+  </template>
+
+</quick-add>
+
+<safe-load-scripts>
+  <script src="{{ 'component-quick-add.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key='quick-add'></script>
+</safe-load-scripts>

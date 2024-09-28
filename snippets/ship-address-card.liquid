@@ -1,0 +1,104 @@
+{% comment %}
+    Renders an address card
+
+    Accepts:
+    - address: {Obj} The customer address to render on the card
+    - isLi: {Boolean} Whether the card is rendered as a <li> within a <ul> (true), or as a single card as a <div> (false)
+
+
+    Usage:
+    <ul role="list">
+        {%- for address in customer.addresses -%}
+            {% render 'ship-address-card' with address: address, isLi: true %}
+        {% endfor %}
+    </ul>
+
+{% endcomment %}
+
+{%- liquid
+    if isLi == true
+        assign tag = "li"
+        assign classes = "p-4 md:p-5 flex flex-col justify-end relative before:content-[''] before:-z-[1] before:absolute before:top-0 before:right-0 before:bottom-0 before:left-0 before:bg-body before:opacity-5 col-span-6 sm:col-span-3 lg:col-span-2"
+    else
+        assign tag = "div"
+        assign classes = ""
+    endif
+-%}
+
+<{{ tag }} data-aid="address-card" class="{{ classes }}" >
+
+    {%- if address == customer.default_address -%}
+        {% assign defaultAddressString = 'customer.addresses.default' | t %}
+        {% render 'armament-heading' with
+        tag: 'h4',
+        heading_content: defaultAddressString,
+        heading_type: 'heading-4',
+        data_aid: "address-default-heading",
+        classes: 'mb-2' %}
+    {%- endif -%}
+
+    <div class="my-2" data-aid="address">
+        {{ address | format_address }}
+    </div>
+
+    {% if isLi %}
+        {% assign address_id = address.id %}
+        <address-card-form class="inline-block my-2" address-id="{{ address_id }}">
+            {% render 'ship-address-form' with address: address, changes_default_only: true %}
+        </address-card-form>
+
+        <div class="flex flex-row gap-3 mt-2">
+            <armada-modal-open
+            data-modal-id="address-form-{{ address.id }}--edit"
+            class="flex justify-center md:justify-end" data-aid="edit-address-btn-container"
+            >
+                {% assign editAddressString = 'customer.addresses.edit_address' | t %}
+                {% render 'armament-button' with
+                content: editAddressString,
+                data_aid: 'edit-address-btn',
+                style: 'filled',
+                attributes: 'data-armada-selector="modal-open"' %}
+            </armada-modal-open>
+            {% assign editAddress = 'customer.addresses.edit_address' | t %}
+            <armada-modal
+            data-modal-id="address-form-{{ address.id }}--edit"
+            data-modal-dismissable="true"
+            data-modal-heading="{{ editAddress }}"
+            data-modal-underlay-classes="bg-black opacity-60"
+            class="invisible opacity-0"
+            >
+            {% render 'ship-address-form' with address: address %}
+            </armada-modal>
+            <safe-load-scripts>
+                <script src="{{ 'engine-modal-open.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="modal-open"></script>
+                <script src="{{ 'engine-modal.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="modal"></script>
+            </safe-load-scripts>
+
+            <delete-address>
+                <form
+                    action=""
+                    method="delete"
+                    data-delete-address
+                    data-target="{{ address.url }}"
+                    data-confirm-message="{{ 'customer.addresses.delete_confirm' | t }}"
+                >
+                    {% assign deleteAddressString = 'customer.addresses.delete' | t %}
+                    {% render 'armament-button' with
+                    classes: 'flex items-center justify-center'
+                    content: deleteAddressString,
+                    data_aid: 'delete_address_btn',
+                    style: 'outline',
+                    icon_position_class: 'top-auto left-auto'
+                    loading: true %}
+                </form>
+            </delete-address>
+
+            <safe-load-scripts>
+                <script src="{{ 'component-address-card-form.min.js' | asset_url }}" defer="defer" type="module"></script>
+            </safe-load-scripts>
+        </div>
+    {% else %}
+        <a class="inline-block text-right font-heading heading-case underline hover:no-underline" href="{{ routes.account_addresses_url }}">{{ 'customer.addresses.manage_addresses' | t }} ({{ customer.addresses_count }})</a>
+    {% endif %}
+
+</{{ tag }}>

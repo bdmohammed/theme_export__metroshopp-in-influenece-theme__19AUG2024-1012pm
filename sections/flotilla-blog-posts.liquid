@@ -1,0 +1,343 @@
+{%- liquid
+  case section.settings.posts_to_show
+    when '3'
+      assign grid_class = 'md:grid-cols-3'
+    when '4'
+      assign grid_class = 'md:grid-cols-4'
+  endcase
+
+  if section.settings.bg_color_scheme == section.settings.content_color_scheme
+    assign border = true
+  endif
+-%}
+
+{% capture placeholder_post %}
+  <div loadin-animation-elm loadin-animation-delay data-color-scheme={{ section.settings.content_color_scheme }}>
+    {% render 'ship-image-and-text-card' with
+      placeholder_image: true,
+      image_size: section.settings.image_size,
+      date: "today",
+      show_date: section.settings.show_date,
+      author: "Author",
+      show_author: section.settings.show_author,
+      text_alignment: section.settings.text_alignment,
+      read_more: true,
+      heading: "Blog post title",
+      text: "Use this space to show excerpts from your articles. Change excerpts by editing your blog posts.",
+      border: border
+    %}
+  </div>
+{% endcapture %}
+
+<section data-color-scheme={{ section.settings.bg_color_scheme }} class="text-body bg-page py-5 px-4 md:p-6">
+
+  {% if settings.enable_animations %}
+  <loadin-animation>
+  {% endif %}
+
+    {% if section.settings.subheading != blank or section.settings.heading != blank %}
+      <div class="pb-4 px-4 md:px-6 md:pb-5 text-center">
+        {% if section.settings.subheading != blank %}
+          {% render 'armament-heading' with tag: 'h4', heading_content: section.settings.subheading, heading_type: 'heading-4', classes: 'mb-2 md:mb-3', data_aid: 'blog-posts-subheading' %}
+        {% endif %}
+        {% if section.settings.heading != blank %}
+          {% render 'armament-heading' with tag: 'h2', heading_content: section.settings.heading, heading_type: 'section-heading', data_aid: 'blog-posts-subheading' %}
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size == 0 %}
+      <div class="grid gap-4 md:gap-1 {{ grid_class }}">
+        {% for i in (1..section.settings.posts_to_show) %}
+          {{ placeholder_post }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'blog' %}
+          {%- liquid
+            if blogs[block.settings.blog].articles_count == 1
+              assign grid_class = 'md:grid-cols-1'
+            elsif blogs[block.settings.blog].articles_count == 2
+              assign grid_class = 'md:grid-cols-2'
+            endif
+          -%}
+          <div class="grid gap-4 md:gap-1 {{ grid_class }}" {{ block.shopify_attributes }}>
+            {% if block.settings.blog != blank %}
+              {% for article in blogs[block.settings.blog].articles limit: section.settings.posts_to_show %}
+                {% assign text = article.excerpt_or_content | strip_html | truncate: 150 %}
+                <div loadin-animation-elm loadin-animation-delay data-color-scheme={{ section.settings.content_color_scheme }}>
+                  {% render 'ship-image-and-text-card' with
+                    image: article.image,
+                    image_size: section.settings.image_size,
+                    url: article.url,
+                    date: article.published_at,
+                    show_date: section.settings.show_date,
+                    author: article.author,
+                    show_author: section.settings.show_author,
+                    heading: article.title,
+                    text: text,
+                    text_alignment: section.settings.text_alignment,
+                    read_more: true,
+                    border: border
+                  %}
+                </div>
+              {% endfor %}
+            {% else %}
+              {% for i in (1..section.settings.posts_to_show) %}
+                {{ placeholder_post }}
+              {% endfor %}
+            {% endif %}
+          </div>
+
+        {% when 'blog_posts' %}
+          <div class="grid gap-4 md:gap-1 {{ grid_class }}" {{ block.shopify_attributes }}>
+            {% for i in (1..section.settings.posts_to_show) %}
+
+              {% assign current_post = articles[block.settings[blog_post]] %}
+              {% if current_post != blank %}
+                {% assign text = current_post.excerpt_or_content | strip_html | truncate: 150 %}
+                <div loadin-animation-elm loadin-animation-delay data-color-scheme={{ section.settings.content_color_scheme }}>
+                  {% render 'ship-image-and-text-card' with
+                    image: current_post.image,
+                    image_size: section.settings.image_size,
+                    url: current_post.url,
+                    date: current_post.published_at,
+                    show_date: section.settings.show_date,
+                    author: current_post.author,
+                    show_author: section.settings.show_author,
+                    heading: current_post.title,
+                    text: text,
+                    text_alignment: section.settings.text_alignment,
+                    read_more: true,
+                    border: border
+                  %}
+                </div>
+              {% else %}
+                {{ placeholder_post }}
+              {% endif %}
+            {% endfor %}
+          </div>
+      {% endcase %}
+    {% endfor %}
+
+    {% if settings.enable_animations %}
+    </loadin-animation>
+
+    <safe-load-scripts class="hidden">
+      <script src="{{ 'engine-loadin-animation.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="loadin-animation"></script>
+    </safe-load-scripts>
+    {% endif %}
+
+</section>
+
+
+{% schema %}
+{
+  "name": "Blog posts",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "All the latest"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Featured blog posts"
+    },
+    {
+      "type": "radio",
+      "id": "posts_to_show",
+      "label": "Posts to show",
+      "options": [
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "image_size",
+      "label": "Image aspect ratio",
+      "options": [
+        {
+          "value": "landscape",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait (2:3)"
+        },
+        {
+          "value": "square",
+          "label": "Square (1:1)"
+        }
+      ],
+      "default": "square"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "bg_color_scheme",
+      "label": "Background color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    },
+    {
+      "type": "select",
+      "id": "content_color_scheme",
+      "label": "Card color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "blog",
+      "name": "Selected blog",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Choose the blog you want to feature"
+        },
+        {
+          "type": "blog",
+          "id": "blog",
+          "label": "Blog"
+        }
+      ]
+    },
+    {
+      "type": "blog_posts",
+      "name": "Selected blog posts",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Choose the blog posts you want to feature"
+        },
+        {
+          "type": "article",
+          "id": "article_1",
+          "label": "First blog post"
+        },
+        {
+          "type": "article",
+          "id": "article_2",
+          "label": "Second blog post"
+        },
+        {
+          "type": "article",
+          "id": "article_3",
+          "label": "Third blog post"
+        },
+        {
+          "type": "article",
+          "id": "article_4",
+          "label": "Fourth blog post"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 1,
+  "presets": [
+    {
+      "name": "Blog posts",
+      "blocks": [
+        {
+          "type": "blog",
+          "settings": {
+            "blog": "News"
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer",
+      "custom.overlay"
+    ]
+  }
+}
+{% endschema %}

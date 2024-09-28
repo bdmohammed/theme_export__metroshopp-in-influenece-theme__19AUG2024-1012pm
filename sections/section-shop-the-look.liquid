@@ -1,0 +1,383 @@
+{% liquid
+  case section.settings.text_alignment
+    when 'left'
+      assign text_align = 'items-start'
+    when 'center'
+      assign text_align = 'items-center text-center'
+    when 'right'
+      assign text_align = 'items-end'
+  endcase
+
+  case section.settings.image_position
+    when 'left'
+      assign img_col_pos = 'md:col-start-1 md:col-end-2'
+      assign content_col_pos = 'md:col-start-2 md:col-end-3'
+    when 'right'
+      assign img_col_pos = 'md:col-start-2 md:col-end-3'
+      assign content_col_pos = 'md:col-start-1 md:col-end-2'
+  endcase
+
+  case section.settings.overlay_color_scheme
+  when 'light'
+    assign overlay_bg = 'bg-white'
+  when 'dark'
+    assign overlay_bg = 'bg-black'
+  endcase
+
+  if section.settings.bg_color_scheme == section.settings.content_color_scheme
+    assign border = true
+  endif
+
+  assign opacity_value = section.settings.overlay_opacity | divided_by: 100.0
+  assign bg_opacity = 'style="opacity:' | append: opacity_value | append: ';"'
+  assign CTABtnText = 'sections.shop_the_look.shop_now' | t
+  assign closeIconAttr = 'data-color-scheme="' | append: section.settings.content_color_scheme | append: '"'
+  assign markerAttr = 'data-color-scheme="' | append: section.settings.content_color_scheme | append: '" data-armada-marker '
+%}
+
+{% if settings.enable_animations %}
+<zoomout-animation>
+{% endif %}
+
+<section data-color-scheme="{{ section.settings.bg_color_scheme }}" class="py-5 px-4 md:px-6 md:py-6 bg-page">
+  <div class="max-w-screen-xl m-auto">
+    <shop-the-look class="grid grid-cols-1 grid-rows-[repeat(2,minmax(0px,auto))] md:grid-cols-2 md:grid-rows-[minmax(0,auto)] h-auto overflow-hidden md:gap-1">
+      <div data-color-scheme="{{ section.settings.content_color_scheme }}" class="bg-page text-body col-start-1 col-end-2 row-start-1 row-end-2 md:row-start-1 md:row-end-2 {{ img_col_pos }} relative overflow-hidden grid grid-cols-1 grid-rows-1{% if border %} border{% endif %}">
+        {% if section.settings.main_image != blank %}
+          {% render 'armament-image' with image: section.settings.main_image, classes: 'h-full w-full object-cover col-start-1 col-end-2 row-start-1 row-end-2 max-h-screen', zoomout_animation: true %}
+        {% else %}
+          {% render 'armament-placeholder' with name: 'collection-1', classes: 'col-start-1 col-end-2 row-start-1 row-end-2' %}
+        {% endif %}
+        <div class="bg-page text-body col-start-1 col-end-2 row-start-1 row-end-2 w-full h-full {{ overlay_bg }}" {{ bg_opacity }} data-armada-image-overlay></div>
+        {% for block in section.blocks %}
+          {% liquid
+            assign stl_product = block.settings.product
+            assign money_price = block.settings.product.price | money
+            assign marker_top = block.settings.marker_vertical | append: '%'
+            assign marker_left = block.settings.marker_horizontal | append: '%'
+            assign label = 'product_' | append: forloop.index
+            if stl_product.price_varies
+            assign item_price = 'products.product.price.from_price_html' | t: price: money_price
+            else
+              assign item_price = money_price
+            endif
+            assign stl_product_title = stl_product.title | escape
+            assign product_title = 'data-armada-product-title="' | append: stl_product_title | append: '" '
+            assign product_price = 'data-armada-product-price="' | append: item_price | append: '" '
+            assign product_url = 'data-armada-product-link="' | append: stl_product.url | append: '" '
+            if block.settings.product.media.size > 0
+              assign image_id = 'data-armada-image-id="' | append: block.settings.product.featured_media.id | append: "_" | append: forloop.index | append: '" '
+            else
+              assign image_id = 'data-armada-image-id="' | append: forloop.index | append: '" '
+            endif
+            assign stl_product_img_alt = stl_product.featured_media.alt | escape
+            assign image_alt = 'data-armada-image-alt="' | append: stl_product_img_alt | append: '"'
+            assign attributes = product_title | append: product_price | append: product_url | append: image_alt | append: markerAttr | append: image_id
+          %}
+          {% render 'armament-marker' with index: forloop.index, labelledBy: label, top: marker_top, left: marker_left, attributes: attributes, classes: 'before:block before:absolute before:h-44 before:w-44', span_attributes: closeIconAttr, shopify_attributes: block.shopify_attributes, block_id: block.id %}
+        {% endfor %}
+      </div>
+      <div data-armada-stl-cta data-color-scheme="{{ section.settings.content_color_scheme }}" class="bg-page text-body col-start-1 col-end-2 row-start-2 row-end-3 transition-opacity delay-100 duration-300 {{ content_col_pos }} md:row-start-1 md:row-end-2 flex {{ text_align }} justify-center flex-col text-body py-4 px-3 md:px-4 z-20{% if border %} border-x border-b md:border-t{% endif %}">
+        {% if settings.enable_animations %}
+        <div data-fadeup-animation>
+        {% endif %}
+        {% liquid
+          if section.settings.subheading != blank
+            render 'armament-heading' with heading_content: section.settings.subheading, tag: 'h3', heading_type: 'heading-4', classes: 'mb-3', data_aid: 'stl-subheading'
+          endif
+          if section.settings.heading != blank
+            render 'armament-heading' with heading_content: section.settings.heading, tag: 'h3', heading_type: 'heading-3', classes: 'mb-4', data_aid: 'stl-heading'
+          endif
+          if section.settings.button_text != blank and section.settings.button_link != blank
+            render 'armament-button' with content: section.settings.button_text, url: section.settings.button_link, data_aid: 'stl-shop-now', style: section.settings.button_style
+          endif
+        %}
+        {% if settings.enable_animations %}
+        </div>
+        {% endif %}
+      </div>
+      <div data-armada-desktop-layout data-color-scheme="{{ section.settings.content_color_scheme }}" class="col-start-1 col-end-2 row-start-1 row-end-2 {{ content_col_pos }} invisible h-0 grid-cols-1 grid-rows-3 bg-page{% if border %} border{% endif %}">
+        <div class="col-start-1 col-end-2 row-start-1 row-end-4 overflow-hidden items-center justify-center bg-page grid grid-cols-1 grid-rows-1">
+          {% for block in section.blocks %}
+            {% if block.settings.product.media.size > 0 %}
+              {% assign img_id = 'data-img-id="' | append: block.settings.product.featured_media.id | append: "_" | append: forloop.index | append: '"' %}
+              {% assign img_attrs = 'data-armada-product-img ' | append: img_id %}
+              {% render 'armament-image' with image: block.settings.product.featured_media.preview_image, classes: 'object-cover object-center w-full h-full col-start-1 col-end-2 row-start-1 row-end-2 opacity-0 z-0 transition-opacity delay-100 duration-300', attributes: img_attrs %}
+            {% else %}
+              {% assign img_id = forloop.index %}
+              <div data-img-id="{{ img_id }}" class="w-full h-full col-start-1 col-end-2 row-start-1 row-end-2 opacity-0 z-0 transition-opacity delay-100 duration-300" data-armada-product-img>
+                {% render 'armament-placeholder' with name: 'product-1' %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <button class="col-start-1 col-end-2 row-start-1 row-end-2 flex items-center justify-center bg-page w-44 h-44 text-body justify-self-end z-30 group" data-armada-close-btn data-aid="stl-close-button">
+          {% render 'armament-icon' with icon: 'cancel', classes: 'cursor-pointer' %}
+        </button>
+        <div data-armada-stl-action data-color-scheme="{{ section.settings.content_color_scheme }}" class="hidden col-start-1 col-end-2 row-start-3 row-end-4 max-w-max h-[fit-content] justify-self-end self-end md:block cursor-pointer bg-page z-30{% if border %} outline outline-1{% endif %}" data-aid="stl-product-info">
+          <a data-color-scheme="{{ section.settings.content_color_scheme }}" class="md:grid grid-cols-[repeat(2,minmax(0,auto))] grid-rows-2 py-[15px] pl-[15px] pr-[10px] text-body group" href="/">
+            <h4 class="text-h6 leading-none col-start-1 col-end-2 row-start-1 row-end-2 heading-case font-semibold"></h4>
+            <h5 data-armada-item-price class="col-start-1 col-end-2 row-start-2 row-end-3"></h5>
+            {% render 'armament-icon' with icon: 'arrow-right', classes: 'col-start-2 col-end-3 row-start-1 row-end-3' %}
+          </a>
+        </div>
+      </div>
+      <div data-armada-mobile-layout data-color-scheme="{{ section.settings.content_color_scheme }}" class="invisible h-0 col-start-1 col-end-2 row-start-2 row-end-3 bg-page {{ text_align }} justify-center flex-col py-4 lg:py-0 px-3 md:px-4{% if border %} border-x border-b{% endif %}">
+        <h4 class="text-h4 leading-none mb-1 heading-case font-semibold text-body" {{ closeIconAttr }}></h4>
+        <h5 class="text-h4 leading-none mb-4 text-body" {{ closeIconAttr }} data-armada-item-price></h5>
+        {% render 'armament-button' with content: CTABtnText, url: section.settings.button_link, attributes: closeIconAttr, style: section.settings.button_style %}
+      </div>
+    </shop-the-look>
+  </div>
+</section>
+
+{% if settings.enable_animations %}
+</zoomout-animation>
+{% endif %}
+
+<safe-load-scripts>
+  <script src="{{ 'component-shop-the-look.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="shop-the-look"></script>
+  {% if settings.enable_animations %}
+    <script src="{{ 'engine-zoomout-animation.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="zoomout-animation"></script>
+  {% endif %}
+</safe-load-scripts>
+
+{% schema %}
+{
+  "name": "Shop the look",
+  "class": "w-full",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Image",
+      "info": "Recommended size: 1000x1000px"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position (Desktop)",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Inspire customers"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop the look"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button label",
+      "default": "Shop the look"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "radio",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        {
+          "value": "filled",
+          "label": "Filled"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        }
+      ],
+      "default": "filled"
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "bg_color_scheme",
+      "label": "Background color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    },
+    {
+      "type": "select",
+      "id": "content_color_scheme",
+      "label": "Card color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "accent-2"
+    },
+    {
+      "type": "select",
+      "id": "overlay_color_scheme",
+      "label": "Overlay color scheme",
+      "options": [
+        {
+          "value": "light",
+          "label": "Light"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        }
+      ],
+      "default": "light"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Product",
+      "type": "product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "range",
+          "id": "marker_horizontal",
+          "min": 0,
+          "max": 95,
+          "step": 5,
+          "unit": "%",
+          "label": "Marker position (horizontal)",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "marker_vertical",
+          "min": 0,
+          "max": 95,
+          "step": 5,
+          "unit": "%",
+          "label": "Marker position (vertical)",
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop the look",
+      "settings": {
+      },
+      "blocks": [
+        {
+          "type": "product",
+          "settings": {
+            "marker_vertical": 35,
+            "marker_horizontal": 20
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "marker_vertical": 40,
+            "marker_horizontal": 65
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "marker_vertical": 50,
+            "marker_horizontal": 40
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer",
+      "custom.overlay"
+    ]
+  }
+}
+{% endschema %}

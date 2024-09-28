@@ -1,0 +1,47 @@
+{% comment %}
+    Renders a video embed or native html5 video.
+
+    Accepts:
+    - model: {Object} Shopify model object
+      https://shopify.dev/api/liquid/objects/model
+
+    Usage:
+    {% for media in product.media %}
+      {%- if media.media_type == 'model' -%}
+        {% render 'armament-model' with model: media %}
+      {% endif %}
+    {% endfor %}
+{% endcomment %}
+
+<model-3d
+  class="block relative overflow-hidden"
+  style="padding-top: {{ 1 | divided_by: model.preview_image.aspect_ratio | times: 100 }}%"
+  data-media-id="{{ model.id }}"
+>
+  <button
+    type="button"
+    class="grid grid-cols-1 max-w-full absolute inset-0 h-full w-full"
+    data-action="play"
+    data-aid="model-3d-play"
+  >
+    <div class="z-10 h-full w-full grid place-content-center text-body" style="grid-area: 1 / 1 / 2 / 2">{% render 'armament-icon' with icon: '3d-model' %}</div>
+    <div class="z-0 h-full w-full grid place-items-center" style="grid-area: 1 / 1 / 2 / 2">
+      {% render 'armament-image' with image: model.preview_image %}
+    </div>
+  </button>
+  <template>
+    {% assign bg = settings.color_background_general %}
+    {{ model | model_viewer_tag: image_size: '2048x', toggleable: true, background-color: bg }}
+  </template>
+</model-3d>
+
+{% liquid
+  assign textLabel = 'products.product.xr_button' | t
+  assign ariaLabel = 'products.product.xr_button_label' | t
+  assign titleEscaped = product.title | escape
+  assign attrs = 'aria-label="' | append: ariaLabel | append: '" data-shopify-xr data-shopify-title="' | append: titleEscaped | append: '" data-shopify-model3d-id="' | append: model.id | append: '" data-shopify-xr-hidden data-aid="3d-model-button-view-in-space"'
+%}
+
+{% render 'armament-button' with content: textLabel, attributes: attrs, classes: 'w-full' %}
+
+<script src="{{ 'component-model-3d.min.js' | asset_url }}" defer="defer" type="module"></script>

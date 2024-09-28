@@ -1,0 +1,157 @@
+{% liquid
+  assign rotation_timimg = section.settings.rotation_interval | times: 1000
+  assign icon_size = settings.body_size
+  assign btn_top_val = 'style="top:calc(50% - ' | append: icon_size | append: 'px);"'
+%}
+
+{% if section.settings.show_announcement %}
+  <section data-armada-selector="announcement-bar" data-color-scheme="{{ section.settings.section_color_scheme }}" class="bg-page text-body max-w-full flex items-center justify-center py-10 px-2 md:px-3 lg:px-6">
+    <fade-slider
+    data-name="fade-slider-wrap"
+    arrows="true"
+    mobile-indicator="false"
+    swipe="true"
+    blocks="true"
+    rotate="true"
+    rotation-interval="{{ rotation_timimg }}"
+    class="block relative max-w-[80%] lg:max-w-max"
+    >
+      <ul
+        data-name="fade-slider"
+        class="grid"
+      >
+        {% for block in section.blocks %}
+          {% liquid
+            assign hasLink = false
+            if block.settings.announcement_link != blank
+              assign hasLink = true
+            endif
+          %}
+          {% if block.settings.announcement_text != blank %}
+            <li
+              class="font-bold min-w-[232px] min-h-[24px] flex items-center justify-center row-start-1 col-start-1 text-center transition-opacity duration-500 {% if forloop.first %} z-[1]{% else %} opacity-0 z-0{% endif %}"
+              data-name="fade-slide"
+              data-fade-slider-index={{ forloop.index | minus: 1 }}{% if forloop.first %}
+              data-fade-slider-active{% endif %}
+              {{ block.shopify_attributes }}
+            >
+              {% if hasLink %}
+                <a class="row-start-1 col-start-1 z-20" href="{{ block.settings.announcement_link }}" {% if forloop.first %} tabindex="0"{% else %} tabindex="-1"{% endif %}>
+              {% endif %}
+                {{ block.settings.announcement_text }}
+              {% if hasLink %}
+                </a>
+              {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      <template>
+        <button type="button" data-icon-type="prev" data-name="icon-prev" class="absolute cursor-pointer bg-page px-3 py-2 left-0 -translate-x-full z-40 transition-opacity duration-500 before:block before:absolute before:h-44 before:w-44 before:bottom-[-25%] before:left-0 group{% unless section.settings.show_arrows %} hidden{% endunless %}" aria-label="Go to previous slide" {{ btn_top_val }}>
+          {% render 'armament-icon' with icon: 'arrow-left', width: icon_size, height: icon_size %}
+        </button>
+        <button type="button" data-icon-type="next" data-name="icon-next" class="absolute cursor-pointer bg-page px-3 py-2 right-0 translate-x-full z-40 transition-opacity duration-500 before:block before:absolute before:h-44 before:w-44 before:bottom-[-25%] before:left-0 group{% unless section.settings.show_arrows %} hidden{% endunless %}" aria-label="Go to next slide" {{ btn_top_val }}>
+          {% render 'armament-icon' with icon: 'arrow-right', width: icon_size, height: icon_size %}
+        </button>
+        <div data-name="mobile-indicator">
+          {% render 'armament-scroll-bar' with classes: 'pb-4', item_count: 3, parent: 'fade-slider-wrap', target: 'fade-slider', indicator: 'progress' %}
+        </div>
+      </template>
+    </fade-slider>
+  </section>
+
+  <script defer="defer" src="{{ 'engine-fade-slider.min.js' | asset_url }}" type="module"></script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement bar",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "rotation_interval",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "unit": "sec",
+      "label": "Announcement time",
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show arrows",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "section_color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "accent-1"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Announcement",
+      "type": "announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "announcement_text",
+          "label": "Heading"
+        },
+        {
+          "type": "url",
+          "id": "announcement_link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "announcement",
+        "settings": {
+          "announcement_text": "PROMOTE DISCOUNT SAVINGS"
+        }
+      },
+      {
+        "type": "announcement",
+        "settings": {
+          "announcement_text": "PROMOTE FREE SHIPPING"
+        }
+      }
+    ]
+  }
+}
+{% endschema %}

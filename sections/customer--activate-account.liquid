@@ -1,0 +1,77 @@
+
+<div class="customer activate flex flex-col items-center p-4 md:p-6">
+  <div class="max-w-screen-sm w-full scroll-mt-[350px]">
+
+    {% assign activateAccountString = 'customer.activate_account.title' | t %}
+    {% render 'armament-heading' with
+    tag: 'h2',
+    heading_content: activateAccountString,
+    heading_type: 'heading-2',
+    data_aid: "activate-acc-heading",
+    classes: 'text-center mb-4 md:mb-6' %}
+
+    {%- form 'activate_customer_password' -%}
+      {%- if form.errors -%}
+        <form-errors data-form-type="activate_customer_password" data-form-name="activate account" data-errors='{{ form.errors | default_errors }}'></form-errors>
+        <safe-load-scripts>
+          <script src="{{ 'component-form-errors.min.js' | asset_url }}" defer="defer" type="module"></script>
+        </safe-load-scripts>
+      {%- endif -%}
+
+      {% capture password_attr %}
+        autocomplete="new-password"
+        {% if form.errors contains 'password' %}
+          aria-invalid="true"
+        {% endif %}
+      {% endcapture %}
+      {% render 'armament-input' with
+      type: "password",
+      has_label: true,
+      animate_label: true,
+      label_text: "Password",
+      id: "password",
+      placeholder: "Password",
+      name: "customer[password]",
+      required: true,
+      attributes: password_attr,
+      container_classes: 'mb-3 md:mb-4 text-body',
+      classes: 'w-full' %}
+
+      {% capture confirm_password_attr %}
+        autocomplete="new-password"
+        {% if form.errors contains 'password' %}
+          aria-invalid="true"
+        {% endif %}
+      {% endcapture %}
+      {% render 'armament-input' with
+      type: "password",
+      has_label: true,
+      animate_label: true,
+      label_text: "Confirm password",
+      id: "password_confirmation",
+      placeholder: "Confirm password",
+      name: "customer[password_confirmation]",
+      required: true,
+      attributes: confirm_password_attr,
+      container_classes: 'mb-3 md:mb-4 text-body',
+      classes: 'w-full' %}
+
+      {% assign submitString = 'customer.login_page.submit' | t %}
+      {% render 'armament-button' with
+      content: submitString,
+      style: 'filled',
+      classes: 'mb-3 md:mb-4 w-full',
+      data_aid: 'submit-btn' %}
+
+      {% assign cancelString = 'customer.register.cancel' | t %}
+      {% render 'armament-button' with
+      url: routes.account_register_url,
+      content: cancelString,
+      style: 'outline',
+      classes: 'w-full',
+      data_aid: 'cancel-btn' %}
+
+    {%- endform -%}
+
+  </div>
+</div>

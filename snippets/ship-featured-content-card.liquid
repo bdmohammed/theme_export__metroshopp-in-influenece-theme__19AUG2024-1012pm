@@ -1,0 +1,35 @@
+{% comment %}
+    Renders a featured content card.
+    Accepts:
+    - image: {Object} Shopify image object
+    - heading: {String} Heading content
+    - text: {String} Text content
+    - button_link: {String} Url of the button
+    - button_label: {String} Label of the button
+
+    Usage:
+    {% render 'ship-featured-content-card' with image: block.settings.image, heading: block.settings.heading, text: block.settings.text, button_link: block.settings.button_link, button_label: block.settings.button_label %}
+{% endcomment %}
+
+<article class="md:flex md:w-1/2" data-aid="featured-content-card">
+  <div class="md:w-1/2">
+    {% if image %}
+      {% render 'armament-image' with image: image, classes: 'h-full object-cover' %}
+    {% else %}
+      {% render 'armament-placeholder' with name: 'collection-1' %}
+    {% endif %}
+  </div>
+  <div class="text-body bg-page md:w-1/2 p-4 md:p-5">
+    {% if heading %}
+      {% render 'armament-heading' with tag: 'h3', heading_type: 'heading-4', classes: 'mb-2', heading_content: heading, data_aid: 'featured-content-card-heading' %}
+    {% endif %}
+
+    {% if text %}
+      <p class="mb-3" data-aid="featured-content-text">{{ text }}</p>
+    {% endif %}
+
+    {% if button_link and button_label %}
+      {% render 'armament-button' with url: button_link, content: button_label, data_aid: 'featured-content-button' %}
+    {% endif %}
+  </div>
+</article>

@@ -1,0 +1,30 @@
+{% comment %}
+
+    Renders a 'image with offer' banner
+
+    Accepts:
+    - image_offer: {Object} Shopify image object
+    - link (optional): {URL} Image link
+
+    Usage:
+    {% render 'ship-image-with-offer' with image_offer: image_offer, link: link %}
+
+{% endcomment %}
+
+
+<div data-aid="image-with-offer" class="pb-3 md:pb-4">
+    {% if link != blank %}
+        <a href="{{ link }}">
+    {% endif %}
+
+        {% if image_offer != blank %}
+            {% render 'armament-image' with image: image_offer %}
+        {% else %}
+            {% render 'armament-placeholder' with name: 'lifestyle-2' %}
+        {% endif %}
+        
+    {% if link != blank %}
+        </a>
+    {% endif %}
+</div>
+

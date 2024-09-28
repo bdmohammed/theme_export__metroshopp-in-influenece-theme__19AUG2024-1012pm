@@ -1,0 +1,512 @@
+{% comment %}
+    Renders a basic product form.
+
+    Accepts:
+    - form_product: {Object} Shopify product object.
+    - option_type: {String} One of 'swatches' or 'dropdowns'. Defaults to 'dropdowns' if not provided.
+    - option_labels: {Boolean} Print the name of the option above the options. Defaults to TRUE.
+    - scope_id: {String} Optional. Limits interaction to components with a matching scope id, eg. section id.
+    - dynamic_buttons: {Boolean} Should dynamic buttons be displayed?
+    - block_order {String} Comma separated list denoting which order blocks are printed and in which order.
+    - force_variant_selection {Boolean} If enabled, the first available variant will not be pre-selected
+    - button_style: {String} Optional. 'filled' or 'outline' defaults to 'filled'.
+    - is_sticky: {Boolean} Is this form being used in the sticky product form? Defaults to false.
+    - is_quick_view: {Boolean} Is this form being used in the quick view modal? Defaults to false.
+
+    - classes: {String} Optional. A string of class names to be added to the <product-form> element.
+    - basic_form_classes: {String} Optional. Class names added to the basic form.
+    - option_classes: {String} Optional additional classes for the options wrapper.
+    - select_wrapper_classes: {String} Optional additional classes for each option.
+    - title_classes: {String} Optional. A string of class names to be added to the title wrapper div.
+    - price_classes: {String} Optional. Classes for the price wrapper element.
+    - regular_price_classes: {String} Optional. Classes for the regular price.
+    - price_only: {Boolean} Only shows the product price and not unit pricing/tax/shipping text if set to true.
+    - title_only: {Boolean} Set to true to only display the product title and not the vendor/sku.
+    - button_wrapper_classes: {String} Optional. A string of class names to be added to the buttons wrapper div.
+
+    - title_heading_type: {String} 'heading-X' where X is 1-6. 'heading-3' default.
+
+    Usage:
+    {% render 'ship-product-form' with form_product: product %}
+
+    {% render 'ship-product-form' with form_product: product, dynamic_buttons: settings.show_smart_checkout, block_order: block_order %}
+
+{% endcomment %}
+
+{% liquid
+  assign current_variant = form_product.selected_or_first_available_variant
+
+  if current_variant.available
+  endif
+
+  if option_type == blank
+    assign option_type = 'dropdowns'
+  endif
+
+  unless heading_type
+    assign heading_type = 'heading-3'
+  endunless
+
+  if block_order == blank
+    assign block_order = 'title,price,options,quantity,payment-buttons'
+  endif
+
+  if force_variant_selection == blank
+    assign force_variant_selection = false
+  endif
+
+  assign options_block = section.blocks | where: 'type', 'options' | first
+  if options_block != blank
+    assign option_type = options_block.settings.options_type
+    if options_block.settings.preselect_variant == false and form_product.has_only_default_variant == false
+      assign force_variant_selection = true
+    else
+      assign force_variant_selection = false
+    endif
+  endif
+
+  assign payment_buttons_block = section.blocks | where: 'type', 'payment-buttons' | first
+  unless is_sticky
+    if payment_buttons_block != blank
+      assign enable_gift_card_recipient_form = payment_buttons_block.settings.enable_gift_card_recipient_form
+    else
+      assign enable_gift_card_recipient_form = false
+    endif
+  else
+    assign enable_gift_card_recipient_form = false
+  endunless
+
+  if section_id == blank
+    assign section_id = section.id
+  endif
+
+  assign hide_select = true
+  if is_sticky
+    assign section_id = section_id | prepend: 'sticky-'
+    assign hide_select = false
+  endif
+
+  if title_heading_type == blank
+    assign title_heading_type = 'heading-3'
+  endif
+
+%}
+
+<product-form
+  product="{{ form_product | json | escape }}"
+  section-id="{{ section_id }}"
+  {% if scope_id %}scope-id="{{ scope_id }}"{% endif %}
+  {% if quick_add %}quick-add="{{ quick_add }}"{% endif %}
+  {% if block_order %}block-order="{{ block_order }}"{% endif %}
+  {% unless quick_add %}option-type="{{ option_type }}"{% endunless %}
+  force-selection="{{ force_variant_selection }}"
+  data-aid="main-product-form"
+  data-name="main-product-form"
+  {% if classes %}class="{{ classes }}"{% endif %}
+  {% if is_sticky %}data-armada-sticky-form="true"{% endif %}
+>
+  {% assign show_buttons = false %}
+  {% unless is_quick_view %}
+    {% if quick_add or section.blocks == blank %}
+      {% assign show_buttons = true %}
+    {% endif %}
+  {% endunless %}
+
+  <div {% unless is_sticky %}class="no-js-show"{% endunless %}>
+    {% assign basic_button_wrapper_classes = button_wrapper_classes | append: ' no-js-show' %}
+    {% render 'armament-basic-product-form' with form_product: form_product, current_variant: current_variant, show_buttons: show_buttons, classes: basic_form_classes, button_wrapper_classes: basic_button_wrapper_classes, hide_select: hide_select, dynamic_buttons: dynamic_buttons %}
+  </div>
+
+{% if is_sticky %}<template id="product-form-{{ section_id }}-{{ form_product.id }}">{% endif %}
+  {% if section.blocks.size > 0 %}
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when '@app' %}
+          <div
+            data-name="@app-{{ block.id }}"
+            class="mb-3 md:mb-4"
+            {{ block.shopify_attributes }}
+          >
+
+            {%- comment -%} Shopify Product Reviews App {%- endcomment -%}
+            {% unless form_product.metafields.reviews.rating_count.value %}
+              <style>
+                .spr-summary-starrating {
+                  height: 0;
+                  overflow: hidden;
+                  margin-bottom: -16px;
+                }
+                @media screen and (min-width: 769px) {
+                  .spr-summary-starrating {
+                    margin-bottom: -24px;
+                  }
+                }
+              </style>
+            {% endunless %}
+
+            {% render block %}
+          </div>
+
+        {% when 'title' %}
+          <div
+            data-name="title"
+            {% if title_classes %}class="{{ title_classes }}"{% endif %}
+            {{ block.shopify_attributes }}
+          >
+            {% unless is_sticky %}
+              {% assign heading_classes = 'mb-2' %}
+            {% endunless %}
+            {% render 'armament-heading' with heading_content: form_product.title, heading_type: title_heading_type, classes: heading_classes, data_aid: 'main-form-product-title' %}
+
+            {% unless title_only == true %}
+              {% if block.settings.show_vendor or block.settings.show_sku %}
+                <div class="flex justify-between items-center mb-3 md:mb-4">
+                  {% if block.settings.show_vendor and form_product.vendor != blank %}<span>{{ form_product.vendor }}</span>{% endif %}
+                  {% if force_variant_selection == false %}
+                    {% assign sku_variant = current_variant %}
+                  {% endif %}
+                  {% if block.settings.show_sku %}<span data-armada-selector="product-form-sku">{{ sku_variant.sku }}</span>{% endif %}
+                </div>
+              {% endif %}
+            {% endunless %}
+          </div>
+
+        {% when 'price' %}
+          <div
+            data-name="price"
+            {% if price_classes %}class="{{ price_classes }}"{% endif %}
+            {{ block.shopify_attributes }}
+          >
+            {%- liquid
+              assign installments_classes = 'mt-3 md:mt-4'
+              if force_variant_selection
+                assign hide_price = true
+                assign show_summary_price = true
+                assign installments_classes = installments_classes | append: ' hidden'
+              endif
+            -%}
+            {% if show_summary_price %}
+              <div data-armada-selector="product-form-summary-price">
+                {% render 'armament-price' with price_product: form_product, use_variant: false, price_only: true, discount_type: 'hide', regular_price_classes: regular_price_classes %}
+              </div>
+            {% endif %}
+            {% render 'armament-price' with price_product: form_product, use_variant: true, discount_type: settings.show_discount_savings, show_tax_included: block.settings.show_tax_included_text, show_shipping_policy: block.settings.show_shipping_policy, price_only: price_only, hide: hide_price, regular_price_classes: regular_price_classes %}
+            {% unless is_sticky %}
+              {% form 'product', form_product, id: 'product-form-installment', class: installments_classes %}
+                {% render 'armament-dropdown' with name: 'id', object: form_product.variants, object_property: 'title', attributes: 'data-armada-selector="installments-select"', wrapper_classes: 'hidden' %}
+                <input type="hidden" name="id" value="{{ form_product.selected_or_first_available_variant.id }}">
+                {{ form | payment_terms }}
+              {% endform %}
+            {% endunless %}
+          </div>
+
+        {% when 'options' %}
+          {% if form_product.has_only_default_variant != true %}
+            <div class="no-js-hide">
+              <div
+                data-name="options"
+                data-aid="full-product-options"
+                class="{{ option_classes }}"
+                {{ block.shopify_attributes }}
+              >
+                {% for option in form_product.options_with_values %}
+                  {% assign id = section.id | append: '-product-' | append: form_product.id | append: '-option-' | append: option.position %}
+
+                  {% if option_type == 'dropdowns' %}
+                    <div class="text-h6 heading-case font-heading pb-2 leading-none">{{ option.name }}</div>
+
+                    {% if force_variant_selection == true %}
+                      {% assign label_text = 'products.product.select' | t %}
+                    {% endif %}
+
+                    {% render 'armament-dropdown' with id: id, object: option.values, label_as_option: true, label_text: label_text, label_classes: 'heading-case', wrapper_classes: select_wrapper_classes, select_classes: 'border-inherit bg-inherit w-full', attributes: 'data-name="product-option-select"' %}
+
+                  {% elsif option_type == 'buttons' %}
+                    <div class="mb-3 md:mb-4">
+                      <div class="text-h6 heading-case font-heading leading-none mb-2">{{ option.name }}</div>
+
+                      {% assign is_color = false %}
+                      {% assign opt_name = option.name | downcase | strip %}
+
+                      {% if block.settings.color_swatch_identifier contains opt_name %}
+                      {% assign is_color = true %}
+                      {% endif %}
+                      <div class="{% if is_color %}-mb-1{% else %}-mb-3{% endif %}">
+                        {% if is_color %}
+                          {% render 'armament-color-swatch' with swatch_product: form_product, identifiers: block.settings.color_swatch_identifier %}
+                        {% else %}
+                          {% for option in option.values %}
+                            {% assign val = option | escape %}
+                            {% assign radio_id = id | append: '-value-' | append: forloop.index0 %}
+                            {% render 'armament-text-option' with name: id, id: radio_id, value: val, attributes: 'data-name="product-option-radio" data-aid="armament-radio-item"' %}
+                          {% endfor %}
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+
+        {% when 'description' %}
+          <div data-name="description"
+            class="{% unless block.settings.enable_accordion %}mb-3 md:mb-4{% else %}mb-3 md:mb-4 product-form-accordion{% endunless %} rte prose prose-strong:text-body prose-figcaption:text-body prose-blockquote:text-body block !max-w-full"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.enable_accordion %}
+              {% render 'armament-accordion' with summary_header: block.settings.description_heading, summary_content: form_product.description, details_class: 'border-y', border_classes: 'hidden', data_aid: 'product-description-accordion' %}
+            {% else %}
+              {% render 'armament-heading' with tag: 'h5', heading_content: block.settings.description_heading, classes: 'text-h5', data_aid: 'product-description-heading-accordion-disabled' %}
+              {{ form_product.description }}
+            {% endif %}
+          </div>
+
+        {% when 'quantity' %}
+          <div
+            data-name="quantity"
+            class="mb-3 md:mb-4"
+            {{ block.shopify_attributes }}
+          >
+            {% render 'armament-quantity-selector' with id: form_product.id, product_name: form_product.title, name: 'quantity', value: '1', min: '1', label: 'Quantity' %}
+          </div>
+
+        {% when 'payment-buttons' %}
+          {% unless is_sticky %}
+            {% assign payment_button_classes = 'mb-2 md:mb-3' %}
+          {% endunless %}
+          {% render 'armament-payment-buttons' with form_product: form_product, product_title: form_product.title, dynamic_buttons: dynamic_buttons, block_shopify_attributes: block.shopify_attributes, wrapper_classes: button_wrapper_classes, button_style: button_style, available: form_product.available, first_variant_id: form_product.selected_or_first_available_variant.id, button_classes: payment_button_classes, is_product_form_block: true, enable_gift_card_recipient_form: enable_gift_card_recipient_form %}
+
+        {% when 'rating-slider' %}
+          <div
+            data-name="rating-slider"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.rating != blank %}
+              {% render 'ship-rating-slider' with min: block.settings.rating_min, max: block.settings.rating_max, rating: block.settings.rating, rating_name: block.settings.rating_name, label_left: block.settings.label_left, label_center: block.settings.label_center, label_right: block.settings.label_right, classes: 'mb-3 md:mb-4' %}
+            {% elsif request.design_mode %}
+              <p class="text-center">To display a range guide, add a product rating metafield.</p>
+            {% endif %}
+          </div>
+
+        {% when 'social-sharing' %}
+          <div
+            data-name="social-sharing"
+            class="flex justify-end"
+            {{ block.shopify_attributes }}
+          >
+            {% render 'ship-social-sharing' with share_object: 'product', show_facebook: settings.share_facebook, show_twitter: settings.share_twitter, show_pinterest: settings.share_pinterest, alignment: 'right' %}
+          </div>
+
+        {% when 'image-with-offers' %}
+          <div
+            data-name="image-with-offers"
+            {{ block.shopify_attributes }}
+          >
+            {% render 'ship-image-with-offer' with image_offer: block.settings.image_with_offers_image, link: block.settings.image_with_offers_link %}
+          </div>
+
+        {% when 'complementary-products' %}
+          <div
+            data-name="complementary-products"
+            data-product-form-block="true"
+            class="invisible h-0"
+            {{ block.shopify_attributes }}
+          >
+            {% render 'flotilla-complementary-products-block' with block_settings: block.settings, color_scheme: block.settings.complementary_products_color_scheme %}
+          </div> 
+
+        {% when 'cross-sells' %}
+          <div
+            data-name="cross-sells"
+            class="mb-3 lg:mb-4"
+            {{ block.shopify_attributes }}
+          >
+            {% render 'flotilla-cross-sells' with block_settings: block.settings %}
+          </div>
+
+        {% when 'trust-content' %}
+          <div
+            data-name="trust-content"
+            {{ block.shopify_attributes }}
+          >
+            {% render 'ship-trust-content' with block: block %}
+          </div>
+
+        {% when 'custom-liquid' %}
+          <div
+            data-name="custom-liquid"
+            class="{% unless block.settings.enable_accordion %}mb-3 md:mb-4 rte prose prose-strong:text-body prose-blockquote:text-body prose-figcaption:text-body{% else %}mb-3 md:mb-4 product-form-accordion{% endunless %} block"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.enable_accordion %}
+              {% render 'armament-accordion' with
+                summary_header: block.settings.custom_liquid_heading,
+                summary_content: block.settings.custom-liquid,
+                details_class: 'border-y',
+                border_classes: 'hidden',
+                data_aid: 'custom-liquid-accordion',
+                shopify_attributes: block.shopify_attributes,
+                block_id: block.id
+              %}
+            {% else %}
+              {% if block.settings.custom_liquid_heading != blank %}
+                {% render 'armament-heading' with tag: 'h6', heading_content: block.settings.custom_liquid_heading, classes: 'text-h5 mb-1', data_aid: 'custom-liquid-heading-no-accordion' %}
+              {% endif %}
+              {{ block.settings.custom-liquid }}
+            {% endif %}
+          </div>
+
+        {% when 'size-chart' %}
+          <div
+            data-name="size-chart"
+            {{ block.shopify_attributes }}
+            class="{% unless block.settings.enable_accordion %}mb-3 md:mb-4 rte prose prose-strong:text-body prose-blockquote:text-body prose-figcaption:text-body{% else %}mb-3 md:mb-4 product-form-accordion{% endunless %} block"
+          >
+            {% if block.settings.enable_accordion and block.settings.size_chart_heading != blank and block.settings.size_chart_page != blank %}
+              {% render 'armament-accordion' with summary_header: block.settings.size_chart_heading, summary_content: block.settings.size_chart_page.content, details_class: 'border-y rte prose prose-strong:text-body prose-figcaption:text-body prose-blockquote:text-body', border_classes: 'hidden', data_aid: 'size-chart-accordion' %}
+            {% else %}
+            {% if block.settings.size_chart_heading != blank and block.settings.size_chart_page != blank %}
+              <div>
+                <armada-modal-open data-modal-id="product-size-chart">
+                  {% render 'armament-heading' with heading_content: block.settings.size_chart_heading, heading_type: 'heading-5', classes: 'mb-3 cursor-pointer text-center md:text-left', data_aid: 'size-chart-title', attributes: 'data-armada-selector="modal-open"' %}
+                </armada-modal-open>
+                <armada-modal
+                  data-modal-id="product-size-chart"
+                  data-modal-dismissable="true"
+                  data-modal-heading=""
+                  data-modal-underlay-classes="bg-black opacity-60"
+                  data-color-scheme="general"
+                  class="invisible opacity-0"
+                >
+                  <div class="p-3 lg:p-5 w-full rte prose prose-strong:text-body prose-blockquote:text-body prose-figcaption:text-body max-w-none">
+                    {{ block.settings.size_chart_page.content }}
+                  </div>
+                </armada-modal>
+                <safe-load-scripts>
+                  <script src="{{ 'engine-modal-open.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="modal-open"></script>
+                  <script src="{{ 'engine-modal.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="modal"></script>
+                </safe-load-scripts>
+              </div>
+            {% endif %}
+            {% endif %}
+          </div>
+
+        {% when 'stock-level-indicator' %}
+          <div
+            data-name="stock-level-indicator"
+            {{ block.shopify_attributes }}
+          >
+            {% if force_variant_selection == false %}
+              {% assign stock_variant = current_variant %}
+            {% endif %}
+            {% render 'armament-stock-indicator' with
+              form_product: form_product,
+              current_variant: stock_variant,
+              inventory_stock_amt: block.settings.stock_range,
+              show_stock_count: block.settings.show_stock_count,
+              in_stock_message: block.settings.in_stock_message,
+              low_stock_message: block.settings.low_stock_message,
+              out_of_stock_message: block.settings.out_of_stock_message,
+              section_id: section.id
+            %}
+          </div>
+
+        {% when 'local-pickup-availability' %}
+          <div
+            data-name="local-pickup-availability"
+            data-color-scheme="{{ block.settings.pickup_color_scheme }}"
+            {{ block.shopify_attributes }}
+          >
+            {% if force_variant_selection == false %}
+              {% assign pickup_product = form_product %}
+            {% endif %}
+            <div class="bg-page text-body{% if block.settings.pickup_color_scheme != 'general' %}p-2 md:p-3{% endif %}">
+              {% render 'armament-local-pickup-availability' with pickup_product: pickup_product, section_id: section.id, color_scheme: block.settings.pickup_color_scheme %}
+            </div>
+          </div>
+
+      {% endcase %}
+    {% endfor %}
+  {% else %}
+    {% comment %} If this ship is used outside of a 'blocks' context, we can still make use of most fields. {% endcomment %}
+
+    {% if block_order contains 'title' %}
+      <div
+        data-name="title"
+      >
+        {% render 'armament-heading' with heading_content: form_product.title, heading_type: 'heading-3', classes: 'mb-2', data_aid: 'main-form-product-title' %}
+      </div>
+    {% endif %}
+
+    {% if block_order contains 'price' %}
+      <div
+        data-name="price"
+      >
+        {% render 'armament-price' with price_product: form_product, use_variant: true, discount_type: settings.show_discount_savings, price_class: 'pb-3', regular_price_classes: 'text-h4 font-heading heading-case leading-none', section_id: section_id %}
+      </div>
+    {% endif %}
+
+    {% if block_order contains 'description' %}
+      <div data-name="description" class="mb-3 md:mb-4 rte prose prose-strong:text-body prose-blockquote:text-body prose-figcaption:text-body">
+        {{ form_product.description }}
+      </div>
+    {% endif %}
+
+    {% if block_order contains 'options' and form_product.has_only_default_variant != true %}
+      <div class="no-js-hide">
+        <div
+          data-name="options"
+          data-aid="full-product-options"
+          class="{{ option_classes }}"
+        >
+          {% for option in form_product.options_with_values %}
+            {% assign id = section.id | append: '-product-' | append: form_product.id | append: '-option-' | append: option.position %}
+
+            {% if option_type == 'dropdowns' %}
+              {% assign label_text = option.name | default: '' %}
+              {% render 'armament-dropdown' with id: id, object: option.values, label_as_option: true, label_text: label_text, label_classes: 'heading-case', wrapper_classes: select_wrapper_classes, select_classes: 'border-inherit bg-inherit w-full', attributes: 'data-name="product-option-select"' %}
+
+            {% elsif option_type == 'buttons' %}
+              <div class="text-h6 heading-case font-heading leading-none pb-2">{{ option.name }}</div>
+
+              <div class="pb-3">
+                {% comment %} Can't show a color swatch without pulling in identifiers from settings. {% endcomment %}
+                {% for option in option.values %}
+                  {% assign val = option | escape %}
+                  {% assign radio_id = id | append: '-value-' | append: forloop.index0 %}
+                  {% render 'armament-text-option' with name: id, id: radio_id, value: val, attributes: 'data-name="product-option-radio" data-aid="armament-radio-item"' %}
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if block_order contains 'quantity' %}
+      <div
+        data-name="quantity"
+      >
+        {% render 'armament-quantity-selector' with id: form_product.id, product_name: form_product.title, name: 'quantity', value: '1', min: '1', classes: 'mb-3 md:mb-4', label: 'Quantity' %}
+      </div>
+    {% endif %}
+
+    {% if block_order contains 'payment-buttons' %}
+      {% assign payment_button_classes = 'mb-2 md:mb-3' %}
+      {% render 'armament-payment-buttons' with form_product: form_product, product_title: form_product.title, dynamic_buttons: dynamic_buttons, block_shopify_attributes: block.shopify_attributes, wrapper_classes: button_wrapper_classes, button_style: button_style, available: form_product.available, button_classes: payment_button_classes, is_product_form_block: true %}
+    {% endif %}
+
+    {% comment %} Rating slider not useful here as it takes in settings from a block. {% endcomment %}
+    {% comment %} Cross-sells not useful here as it takes in settings from a block. {% endcomment %}
+
+  {% endif %}
+
+  {% unless is_sticky %}<template id="product-form-{{ section_id }}-{{ form_product.id }}">{% endunless %}
+    {% assign addingString = 'products.product.adding_only' | t %}
+    {% render 'armament-button' with content: addingString, loading: true, attributes: 'data-button-loading disabled aria-label="Adding to cart..."', classes: 'min-w-full', data_aid: 'button-adding', type: 'button' %}
+  </template>
+</product-form>
+<safe-load-scripts>
+  <script src="{{ 'component-product-form.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="product-form"></script>
+</safe-load-scripts>

@@ -1,0 +1,70 @@
+{% comment %}
+    Renders a product variant 'swatch' option that displays a color or image
+    Accepts:
+    - name: {String} value of the name attribute of the input
+    - id: {String} value of the id attribute of the input
+    - value: {String} value of the value attribute of the input
+    - checked: {Boolean} adds a checked attribute to the input
+    - attributes: {String} custom attributes of the element, eg. data attribute or aria-label
+    - disabled {Boolean} Set to true to disable radio inputs (for non interactive swatches)
+    - color_dropper: {String} Hex code from a color dropper metafield selection
+    - image_upload: {String} URL to an image
+
+    Usage:
+    {% for value in option.values %}
+      {%- liquid
+        assign id = section.id | append: '-' | append: option.name | append: '-' | append: forloop.index0
+        assign checked = false
+        if forloop.index0 == 0
+          assign checked = true
+        endif
+      -%}
+      {% render 'armament-swatch-option' with name: option.name, id: id, value: value, checked: checked %}
+    {% endfor %}
+
+    Note:
+    Requires image file names to take the handle format, eg. canyon-pink.png for 'Canyon pink' option name
+{% endcomment %}
+
+{% liquid
+  if checked == blank
+    assign checked = false
+  endif
+%}
+
+<style>
+  .armament-swatch-option--{{ id }} label:after {
+    {%- if color_dropper -%}
+      background-color: {{ color_dropper }};
+    {%- elsif image_upload -%}
+      background-color: {{ value | split: ' ' | last | handle }};
+      background-image: url({{ image_upload }});
+    {%- else -%}
+      background-color: {{ value | split: ' ' | last | handle }};
+      background-image: url({{ value | handle | append: '.png' | file_url }});
+    {%- endif -%}
+  }
+</style>
+
+<div
+  class="inline-block armament-swatch-option armament-swatch-option--{{ id }}"
+  data-name="swatch-option"
+>
+  <input
+    type="radio"
+    id="{{ id }}"
+    name="{{ name }}"
+    value="{{ value | escape }}"
+    class="sr-only"
+    {% if attributes %}{{ attributes }}{% endif %}
+    {% if checked %}checked{% endif %}
+    {% if disabled %}disabled role="presentation"{% endif %}
+  >
+  <label
+    for="{{ id }}"
+    class="block relative -my-1 -ml-1 mr-1 text-h6 font-heading heading-case text-body{% unless disabled %} cursor-pointer{% endunless %} w-44 h-44 before:absolute before:inset-1 before:border before:border-body before:opacity-20 before:transition-opacity before:duration-300 after:absolute after:inset-2 after:bg-center after:bg-cover after:bg-no-repeat"
+    data-aid="swatch-option"
+  >
+    <span class="sr-only">{{ value }}</span>
+  </label>
+</div>

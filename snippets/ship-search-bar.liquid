@@ -1,0 +1,193 @@
+{% comment %}
+    Renders a search bar
+
+    Accepts:
+    - section: {Object} the section where the ship is rendered
+
+    Usage:
+    {% render 'ship-search-bar' with section: section %}
+{% endcomment %}
+
+{% liquid
+  assign search_label = 'general.search.search_box_text' | t
+  assign search_close = 'general.search.close' | t
+  assign search_clear = 'general.search.clear_search' | t
+  assign search_value = search.terms | escape
+  assign placeholder_text = 'general.search.search_placeholder' | t
+  assign clear_icon_attrs =  'tabindex="0" data-armada-selector="clear-search" aria-label="' | append: search_clear | append: '"'
+  assign close_icon_attrs = 'tabindex="0" data-armada-selector="close-results" aria-label="' | append: search_close | append: '"'
+  assign search_classes = 'absolute grid lg:grid-cols-1 lg:grid-rows-[repeat(2,minmax(0,auto))] top-full z-[1000] w-full h-0 overflow-hidden transition-opacity duration-200 ease-in opacity-0 invisible bg-page text-body'
+%}
+
+{% if template.name == 'search' %}
+  <div class="relative w-full">
+    <search-bar>
+      <form action="{{ routes.search_url }}" method="get" role="search" class="grid grid-cols-[minmax(0,auto),1fr,minmax(0,auto),minmax(0,auto)] items-center px-4 lg:px-5 xl:px-6 py-3 lg:py-4 bg-page text-body">
+        {% render 'armament-input' with type: 'hidden', name: 'type', value: 'product' %}
+        {% render 'armament-input' with type: 'hidden', name: 'options[prefix]', value: 'last' %}
+        {% render 'armament-input' with type: 'search', name: 'q', value: search_value, has_label: true, label_text: search_label, label_class: 'hidden lg:block mr-3 grid-col-start-1 grid-col-end-2', classes: 'w-full col-start-2 col-end-5 row-start-1 row-end-2 py-10', placeholder: placeholder_text, data_aid: 'search-bar-header', attributes: 'autocorrect="off" autocomplete="off"' %}
+        <div {{ close_icon_attrs }} class="close-icon cursor-pointer col-start-3 col-end-4 row-start-1 row-end-2 justify-self-end flex items-center justify-center h-44 w-44 group">
+          {% render 'armament-icon' with icon: 'cancel', has_link: false %}
+        </div>
+        <button type="submit" class="group flex w-44 h-full items-center justify-center col-start-4 col-end-5 row-start-1 row-end-2 justify-self-end group cursor-pointer relative before:block before:absolute before:left-0 before:right-0 before:scale-x-0 before:h-full before:w-full before:bg-body hover:before:scale-x-100 before:transition-transform before:duration-300 before:ease-out" data-aid="header-search-submit-button">
+          {% render 'armament-icon' with icon: 'search', classes: 'search-icon z-20 hover:text-page group-hover:text-page', has_link: false %}
+        </button>
+      </form>
+    </search-bar>
+    <script src="{{ 'component-search-bar.min.js' | asset_url }}" defer="defer" type="module"></script>
+  </div>
+{% else %}
+  <search-bar class="{{ search_classes }}">
+    {% if settings.enable_predictive_search %}
+      <predictive-search data-routes-url="{{ routes.predictive_search_url }}">
+    {% endif %}
+        <form action="{{ routes.search_url }}" method="get" role="search" class="grid grid-cols-[minmax(0,auto),1fr,minmax(0,auto),minmax(0,auto)] items-center px-4 lg:px-5 xl:px-6 py-3 lg:py-4 bg-page text-body lg:row-start-1 lg:row-end-2 animate-menu-up animate-menu-up-delay-1">
+          {% render 'armament-input' with type: 'hidden', name: 'type', value: 'product' %}
+          {% render 'armament-input' with type: 'hidden', name: 'options[prefix]', value: 'last' %}
+          {% render 'armament-input' with type: 'search', name: 'q', value: search_value, has_label: true, label_text: search_label, label_class: 'hidden lg:block mr-3 grid-col-start-1 grid-col-end-2', classes: 'w-full col-start-2 col-end-5 row-start-1 row-end-2 py-10', placeholder: placeholder_text, data_aid: 'search-bar-header', attributes: 'autocorrect="off" autocomplete="off"' %}
+          <div {{ clear_icon_attrs }} class="close-icon cursor-pointer col-start-3 col-end-4 row-start-1 row-end-2 justify-self-end flex items-center justify-center h-44 w-44 group">
+            {% render 'armament-icon' with icon: 'cancel', has_link: false %}
+          </div>
+          <button type="submit" class="group flex w-44 h-full items-center justify-center col-start-4 col-end-5 row-start-1 row-end-2 justify-self-end relative group cursor-pointer before:block before:absolute before:left-0 before:right-0 before:scale-x-0 before:h-full before:w-full before:bg-body hover:before:scale-x-100 before:transition-transform before:duration-300 before:ease-out" data-aid="header-search-submit-button">
+            {% render 'armament-icon' with icon: 'search', classes: 'search-icon z-20 group hover:text-page group-hover:text-page', has_link: false %}
+          </button>
+        </form>
+
+        {% if settings.enable_predictive_search %}
+          {% if section.blocks.size > 0 %}
+            <div class="grid px-4 lg:px-5 xl:px-6 grid-cols-1 grid-rows-[repeat(2,minmax(0,auto))] lg:grid-cols-[minmax(0,auto),1fr] lg:grid-rows-1 lg:row-start-2 lg:row-end-3" data-armada-selector="predictive-search-blocks">
+              <div class="col-start-1 col-end-2 lg:col-start-2 lg:col-end-3 row-start-1 row-end-2 justify-self-end py-4 z-20 flex justify-center lg:justify-end items-center mt-[12px] w-44 h-44 close-icon-blocks cursor-pointer group animate-menu-up animate-menu-up-delay-3" {{ close_icon_attrs }}>
+                {% render 'armament-icon' with icon: 'cancel', has_link: false %}
+              </div>
+
+              {% for block in section.blocks %}
+                {% case block.type %}
+                  {% when 'search_navigation' %}
+                    <div class="flex flex-col py-4 row-start-2 row-end-3 lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-2 min-w-[200px] animate-menu-up animate-menu-up-delay-2">
+                      {% if block.settings.navigation_header != blank %}
+                        {% render 'armament-heading' with heading_content: block.settings.navigation_header, data_aid: 'search_navigation_heading', classes: 'pb-4 text-h5' %}
+                      {% endif %}
+
+                      {% if block.settings.search_menu == blank %}
+                        <ul class="flex flex-col" role="navigation">
+                          <a href="/" class="pb-[12px]"><li>Product 1</li></a>
+                          <a href="/" class="pb-[12px]"><li>Product 2</li></a>
+                          <a href="/" class="pb-[12px]"><li>Product 3</li></a>
+                          <a href="/" class="pb-[12px]"><li>Product 4</li></a>
+                          <a href="/" class="pb-[12px]"><li>Product 5</li></a>
+                          <a href="/" class="pb-[12px]"><li>Product 6</li></a>
+                        </ul>
+                      {% else %}
+                        <ul class="flex flex-col" role="navigation">
+                          {% for link in block.settings.search_menu.links %}
+                            <a href="{{ link.url }}" class="lg:pb-[12px]"><li>{{ link.title }}</li></a>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                    </div>
+                  {% when 'search_collection' %}
+                    <div class="flex flex-col py-4 row-start-1 row-end-2 col-start-1 col-end-2 lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2 animate-menu-up animate-menu-up-delay-3">
+                      <div class="grid grid-cols-2 pb-4">
+                        {% if block.settings.featured_collection_header != blank %}
+                          {% render 'armament-heading' with heading_content: block.settings.featured_collection_header, classes: 'text-h5 col-start-1 col-end-2', data_aid: 'search_navigation_heading' %}
+                        {% endif %}
+                      </div>
+
+                      {% if block.settings.collection == blank %}
+                        <div class="hidden lg:grid grid-cols-6 gap-1">
+                          {% for item in collections['all'].products limit: 6 %}
+                            {% render 'ship-product-card' with card_product: item, aspect_ratio: 'square', block_order: 'image,title', position: 'top', disable_quick_view: true %}
+                          {% endfor %}
+                        </div>
+                        <slider-engine
+                          mode="horizontal"
+                          arrows="false"
+                          mobile-indicator="true"
+                          visible-slides='{ "sm": 2 }'
+                          class="block lg:hidden group relative overflow-hidden hover:overflow-visible focus-within:overflow-visible"
+                          tabindex="0"
+                          data-name="scrollbar-target"
+                        >
+                          <div class="block overflow-hidden mb-3" data-name="slider-wrap">
+                            <ul
+                              data-name="slider"
+                              class="flex"
+                              role="list"
+                            >
+                              {% for item in collections['all'].products limit: 6 %}
+                                <li {% unless forloop.last %}class="pr-2"{% endunless %} data-name="slide">{% render 'ship-product-card' with card_product: item, aspect_ratio: 'square', block_order: 'image,title', position: 'top' %}</li>
+                              {% endfor %}
+                            </ul>
+                          </div>
+
+                          <template>
+                            <div data-name="mobile-indicator" class="block">
+                              {% render 'armament-scroll-bar' with classes: 'pb-4', item_count: 6, parent: 'slider-engine', target: 'slider', indicator: 'progress' %}
+                            </div>
+                          </template>
+                        </slider-engine>
+                      {% else %}
+                      <div class="hidden lg:grid grid-cols-6 gap-1">
+                        {% for item in block.settings.collection.products limit: 6 %}
+                          {% render 'ship-product-card' with card_product: item, aspect_ratio: 'square', block_order: 'image,title', position: 'top', disable_quick_view: true %}
+                        {% endfor %}
+                      </div>
+                      <slider-engine
+                          mode="horizontal"
+                          arrows="false"
+                          mobile-indicator="true"
+                          visible-slides='{ "sm": 2 }'
+                          class="block lg:hidden group relative overflow-hidden hover:overflow-visible focus-within:overflow-visible"
+                          tabindex="0"
+                          data-name="scrollbar-target"
+                        >
+                          <div class="block overflow-hidden mb-3" data-name="slider-wrap">
+                            <ul
+                              data-name="slider"
+                              class="flex"
+                              role="list"
+                            >
+                              {% for item in block.settings.collection.products limit: 6 %}
+                                <li {% unless forloop.last %}class="pr-2"{% endunless %} data-name="slide">{% render 'ship-product-card' with card_product: item, aspect_ratio: 'square', block_order: 'image,title', position: 'top' %}</li>
+                              {% endfor %}
+                            </ul>
+                          </div>
+
+                          <template>
+                            <div data-name="mobile-indicator" class="block">
+                              {% render 'armament-scroll-bar' with classes: 'pb-4', item_count: 6, parent: 'slider-engine', target: 'slider', indicator: 'progress' %}
+                            </div>
+                          </template>
+                        </slider-engine>
+                      {% endif %}
+                    </div>
+                {% endcase %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <div class="grid-cols-2 grid-rows-[repeat(2,minmax(0,auto))] mx-3 lg:mx-5 xl:mx-6 lg:grid-cols-[minmax(0,auto),minmax(0,auto),1fr] lg:grid-rows-1 lg:row-start-2 lg:row-end-3 hidden" data-armada-selector="predictive-search-results">
+            <div class="col-start-1 col-end-3 row-start-1 row-end-3 lg:col-end-4 px-4 lg:px-6 py-4 lg:py-6 justify-center items-center min-h-[300px]" data-armada-selector="results-loading">
+              <span class="block animate-spin w-4 h-4 rounded-full border-2 border-l-0 mx-auto"></span>
+            </div>
+          </div>
+        {% endif %}
+    {% if settings.enable_predictive_search %}
+      </predictive-search>
+    {% endif %}
+  </search-bar>
+{% endif %}
+
+{% unless template.name == 'search' %}
+  <noscript>
+    <search-bar class="relative z-50 w-full">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="grid grid-cols-[minmax(0,auto),1fr,minmax(0,auto),minmax(0,auto)] items-center px-4 lg:px-5 xl:px-6 py-3 lg:py-4 bg-page text-body">
+        {% render 'armament-input' with type: 'search', name: 'q', value: search_value, has_label: true, label_text: search_label, label_class: 'hidden lg:block mr-3 grid-col-start-1 grid-col-end-2', classes: 'w-full col-start-2 col-end-5 row-start-1 row-end-2 py-10', placeholder: placeholder_text, data_aid: 'search-bar-header', attributes: 'autocorrect="off" autocomplete="off"' %}
+        {% render 'armament-icon' with icon: 'cancel', attributes: close_icon_attrs, classes: 'close-icon mr-2 cursor-pointer col-start-3 col-end-4 row-start-1 row-end-2 justify-self-end hidden', has_link: false %}
+        <button type="submit" class="group flex w-44 h-full items-center justify-center col-start-4 col-end-5 row-start-1 row-end-2 justify-self-end group cursor-pointer relative before:block before:absolute before:left-0 before:right-0 before:scale-x-0 before:h-full before:w-full before:bg-body hover:before:scale-x-100 before:transition-transform before:duration-300 before:ease-out" data-aid="header-search-submit-button">
+          {% render 'armament-icon' with icon: 'search', classes: 'search-icon z-20 hover:text-page group-hover:text-page', has_link: false %}
+        </button>
+      </form>
+    </search-bar>
+  </noscript>
+{% endunless %}

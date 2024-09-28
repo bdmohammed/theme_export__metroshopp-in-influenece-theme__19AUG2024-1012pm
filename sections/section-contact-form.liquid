@@ -1,0 +1,331 @@
+{% liquid
+  assign submit_btn_text = 'templates.contact.form.send' | t
+  assign submit_btn_attrs = 'aria-label="' | append: submit_btn_text | append: '"'
+%}
+
+<section data-color-scheme="{{ section.settings.section_color_scheme }}" class="bg-page text-body px-4 md:px-6 py-5 md:py-6 flex justify-around">
+  <div class="max-w-screen-xl flex-auto">
+    {% if section.settings.form_title != blank %}
+      {% render 'armament-heading' with heading_content: section.settings.form_title, heading_type: 'heading-5', classes: 'mb-3 md:mb-4', data_aid: 'contact-form-heading' %}
+    {% endif %}
+
+    {% form 'contact', id: 'ContactForm', class: 'w-full flex flex-wrap md:gap-x-4 gap-y-3 md:gap-y-4' %}
+      {% if form.errors %}
+        <form-errors data-form-type="contact" data-form-name="Contact" data-errors='{{ form.errors | default_errors }}'></form-errors>
+        <script src="{{ 'component-form-errors.min.js' | asset_url }}" defer="defer" type="module"></script>
+      {% endif %}
+      {% if form.posted_successfully? %}
+        <form-success data-message="{{ 'templates.contact.form.post_success_heading' | t }}" data-info="{{ 'templates.contact.form.post_success_text' | t }}" class="hidden"></form-success>
+        <script src="{{ 'component-form-success.min.js' | asset_url }}" defer="defer" type="module"></script>
+      {% endif %}
+      {% for block in section.blocks %}
+        {% liquid
+          case block.settings.input_width
+            when 'partial'
+              assign input_width = 'w-full md:w-[calc(50%-12px)]'
+            when 'full'
+              assign input_width = 'w-full'
+          endcase
+
+          assign nameInputString = 'templates.contact.form.name' | t
+          assign formName = 'contact[' | append: nameInputString | append: ']'
+          assign emailInputString = 'templates.contact.form.email' | t
+          assign formEmailName = 'contact[' | append: emailInputString | downcase | append: ']'
+          assign telInputString = 'templates.contact.form.phone' | t
+          assign formTelName = 'contact[' | append: telInputString | append: ']'
+          assign msgInputString = 'templates.contact.form.message' | t
+          assign formMsgName = 'contact[' | append: msgInputString | append: ']'
+
+          if form.name
+            assign nameInputVal = form.name
+          elsif customer
+            assign nameInputVal = customer.name
+          endif
+
+          if form.email
+            assign emailInputVal = form.email
+          elsif customer
+            assign emailInputVal = customer.email
+          endif
+
+          if form.phone
+            assign phoneInputVal = form.phone
+          elsif customer
+            assign phoneInputVal = customer.phone
+          endif
+        %}
+        {% case block.type %}
+          {% when 'name_input' %}
+            {% liquid
+              assign formId = 'form_' | append: nameInputString | downcase | handleize
+              assign input_attr = 'aria-labelledby="' | append: formId | append: '" data-aid="name-input"'
+            %}
+            {% render 'armament-input' with type: 'text', has_label: true, animate_label: true, label_text: nameInputString, id: formId, placeholder: nameInputString, classes: 'w-full text-body', container_classes: input_width, value: nameInputVal, name: formName, required: block.settings.required, attributes: input_attr %}
+          {% when 'email_input' %}
+            {% liquid
+              assign formId = 'form_' | append: emailInputString | downcase | handleize
+              assign input_attr = 'aria-labelledby="' | append: formId | append: '" data-aid="email-input"'
+            %}
+            {% render 'armament-input' with type: 'email', has_label: true, animate_label: true, label_text: emailInputString, id: formId, placeholder: emailInputString, classes: 'w-full text-body', container_classes: input_width, value: emailInputVal, name: formEmailName, required: block.settings.required, attributes: input_attr %}
+          {% when 'tel_input' %}
+            {% liquid
+              assign formId = 'form_' | append: telInputString | downcase | handleize
+              assign input_attr = 'aria-labelledby="' | append: formId | append: '" data-aid="tel-input"'
+            %}
+            {% render 'armament-input' with type: 'tel', has_label: true, animate_label: true, label_text: telInputString, id: formId, placeholder: telInputString, classes: 'w-full text-body', container_classes: input_width, value: phoneInputVal, name: formTelName, required: block.settings.required, attributes: input_attr %}
+          {% when 'message_input' %}
+            {% liquid
+              assign formId = 'form_' | append: msgInputString | downcase | handleize
+              assign input_attr = 'aria-labelledby="' | append: formId | append: '" data-aid="message-input"'
+            %}
+            {% render 'armament-textarea' with id: formId, classes: 'py-3 w-full text-body', placeholder: msgInputString, name: formMsgName, has_label: true, animate_label: true, label_text: msgInputString, attributes: input_attr, required: block.settings.required, content: form.body, container_classes: input_width %}
+          {% when 'custom_input' %}
+            {% liquid
+              assign formId = 'form_' | append: block.settings.placeholder | downcase | handleize
+              assign inputName = 'contact[' | append: block.settings.placeholder | append: ']'
+              assign input_attr = 'aria-labelledby="' | append: formId | append: '" data-aid="' | append: formId | append: '"'
+            %}
+            {% render 'armament-input' with type: 'text', has_label: true, animate_label: true, label_text: block.settings.placeholder, id: formId, placeholder: block.settings.placeholder, classes: 'w-full text-body', container_classes: input_width, value: form.body, name: inputName, required: block.settings.required, attributes: input_attr %}
+        {% endcase %}
+      {% endfor %}
+      {% if section.blocks.size > 0 %}
+        <div class="w-full">
+          {% render 'armament-button' with type: 'submit', content: submit_btn_text, attributes: submit_btn_attrs, classes: 'max-w-max mt-2 md:mt-3', data_aid: 'data-aid="contact-form-submit-button"' %}
+        </div>
+      {% endif %}
+    {% endform %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Heading",
+      "default": "Send a message"
+    },
+    {
+      "type": "select",
+      "id": "section_color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Name field",
+      "type": "name_input",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "input_width",
+          "label": "Input width",
+          "options": [
+            {
+              "value": "partial",
+              "label": "Partial"
+            },
+            {
+              "value": "full",
+              "label": "Full"
+            }
+          ],
+          "default": "full"
+        }
+      ]
+    },
+    {
+      "name": "Email field",
+      "type": "email_input",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "input_width",
+          "label": "Input width",
+          "options": [
+            {
+              "value": "partial",
+              "label": "Partial"
+            },
+            {
+              "value": "full",
+              "label": "Full"
+            }
+          ],
+          "default": "full"
+        }
+      ]
+    },
+    {
+      "name": "Telephone field",
+      "type": "tel_input",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "input_width",
+          "label": "Input width",
+          "options": [
+            {
+              "value": "partial",
+              "label": "Partial"
+            },
+            {
+              "value": "full",
+              "label": "Full"
+            }
+          ],
+          "default": "full"
+        }
+      ]
+    },
+    {
+      "name": "Message field",
+      "type": "message_input",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "input_width",
+          "label": "Input width",
+          "options": [
+            {
+              "value": "partial",
+              "label": "Partial"
+            },
+            {
+              "value": "full",
+              "label": "Full"
+            }
+          ],
+          "default": "full"
+        }
+      ]
+    },
+    {
+      "name": "Custom field",
+      "type": "custom_input",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Input name",
+          "default": "Order number"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "input_width",
+          "label": "Input width",
+          "options": [
+            {
+              "value": "partial",
+              "label": "Partial"
+            },
+            {
+              "value": "full",
+              "label": "Full"
+            }
+          ],
+          "default": "full"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact form",
+      "settings": {
+      },
+      "blocks": [
+        {
+          "type": "name_input",
+          "settings": {
+            "required": true,
+            "input_width": "partial"
+          }
+        },
+        {
+          "type": "email_input",
+          "settings": {
+            "required": true,
+            "input_width": "partial"
+          }
+        },
+        {
+          "type": "tel_input",
+          "settings": {
+            "required": true,
+            "input_width": "full"
+          }
+        },
+        {
+          "type": "message_input",
+          "settings": {
+            "required": true,
+            "input_width": "full"
+          }
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "page"
+    ]
+  }
+}
+{% endschema %}

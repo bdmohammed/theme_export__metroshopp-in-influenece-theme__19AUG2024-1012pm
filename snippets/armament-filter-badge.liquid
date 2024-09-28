@@ -1,0 +1,21 @@
+{% comment %}
+    Renders a filter badge (link).
+    Accepts:
+    - label: {String} text content of the badge
+    - url: {String} url of the badge, eg. filter.url_to_remove
+
+    Usage:
+    {% render 'armament-filter-badge' with label: value.label, url: value.url_to_remove %}
+{% endcomment %}
+
+<a
+  href="{{ url }}"
+  class="relative inline-block text-body py-1 px-2 mr-2 mb-2 after:absolute after:inset-0 after:opacity-10 after:bg-body"
+  data-aid="filter-badge"
+>
+  <span class="flex items-center">
+    {{ label | escape }}
+    {% render 'armament-icon' with icon: 'cancel', width: 10, height: 10, margin: '0 0 0 10px' %}
+  </span>
+  <span class="sr-only">{{ 'products.facets.clear_filter' | t }}</span>
+</a>

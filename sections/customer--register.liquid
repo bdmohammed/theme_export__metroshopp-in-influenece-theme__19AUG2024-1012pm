@@ -1,0 +1,115 @@
+
+<div class="customer register flex flex-col items-center p-4 md:p-6">
+  <div class="max-w-screen-sm w-full">
+
+    {% assign createAccountString = 'customer.register.title' | t %}
+    {% render 'armament-heading' with
+    tag: 'h2',
+    heading_content: createAccountString,
+    heading_type: 'heading-2',
+    data_aid: "create-acc-heading",
+    classes: 'text-center mb-4 md:mb-6' %}
+
+    {%- form 'create_customer', novalidate: 'novalidate' -%}
+      {%- if form.errors -%}
+        <form-errors data-form-type="create_customer" data-form-name="create account" data-errors='{{ form.errors | default_errors }}'></form-errors>
+        <safe-load-scripts>
+            <script src="{{ 'component-form-errors.min.js' | asset_url }}" defer="defer" type="module"></script>
+        </safe-load-scripts>
+      {%- endif -%}
+
+      {% capture name_attr %}
+        autocomplete="given-name"
+        {% if form.first_name %}
+          value="{{ form.first_name }}"
+        {% endif %}
+      {% endcapture %}
+      {% assign firstNameString = 'customer.register.first_name' | t %}
+      {% render 'armament-input' with
+      type: "text",
+      has_label: true,
+      animate_label: true,
+      label_text: firstNameString,
+      id: "RegisterForm-FirstName",
+      placeholder: "First name",
+      name: "customer[first_name]",
+      required: true,
+      attributes: name_attr,
+      container_classes: 'mb-3 md:mb-4 text-body',
+      classes: 'w-full' %}
+
+      {% capture surname_attr %}
+        autocomplete="family-name"
+        {% if form.last_name %}
+          value="{{ form.last_name }}"
+        {% endif %}
+      {% endcapture %}
+      {% assign lastNameString = 'customer.register.last_name' | t %}
+      {% render 'armament-input' with
+      type: "text",
+      has_label: true,
+      animate_label: true,
+      label_text: lastNameString,
+      id: "RegisterForm-LastName",
+      placeholder: "Last name",
+      name: "customer[last_name]",
+      required: true,
+      attributes: surname_attr,
+      container_classes: 'mb-3 md:mb-4 text-body',
+      classes: 'w-full' %}
+
+      {% capture email_attr %}
+        spellcheck="false"
+        autocapitalize="off"
+        autocomplete="email"
+        {% if form.email %}
+          value="{{ form.email }}"
+        {% endif %}
+        {% if form.errors contains 'email' %}
+          aria-invalid="true"
+        {% endif %}
+      {% endcapture %}
+      {% assign emailString = 'customer.register.email' | t %}
+      {% render 'armament-input' with
+      type: "email",
+      has_label: true,
+      animate_label: true,
+      label_text: emailString,
+      id: "RegisterForm-email",
+      placeholder: "Email",
+      name: "customer[email]",
+      required: true,
+      attributes: email_attr,
+      container_classes: 'mb-3 md:mb-4 text-body',
+      classes: 'w-full' %}
+
+      {% capture password_attr %}
+        {% if form.errors contains 'password' %}
+          aria-invalid="true"
+      {% endif %}
+      {% endcapture %}
+      {% assign passwordString = 'customer.register.password' | t %}
+      {% render 'armament-input' with
+      type: "password",
+      has_label: true,
+      animate_label: true,
+      label_text: passwordString,
+      id: "RegisterForm-password",
+      placeholder: "Password",
+      name: "customer[password]",
+      required: true,
+      attributes: password_attr,
+      container_classes: 'mb-3 md:mb-4 text-body',
+      classes: 'w-full' %}
+
+      {% assign submitString = 'customer.register.submit' | t %}
+      {% render 'armament-button' with
+      content: submitString,
+      style: 'filled',
+      classes: 'mb-3 md:mb-4 w-full',
+      data_aid: 'create-acc-btn' %}
+
+    {%- endform -%}
+
+  </div>
+</div>

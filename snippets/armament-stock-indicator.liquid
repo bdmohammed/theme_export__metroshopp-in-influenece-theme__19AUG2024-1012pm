@@ -1,0 +1,58 @@
+{% comment %}
+    Renders a stock level indicator or low stock level warning
+
+    Accepts:
+    - inventory_variant: {Object} Product Liquid variant object
+    - inventory_stock_amt: {Number} the number at which to display a low stock warning
+    - show_stock_count: {Boolean} Display stock count or not
+    - in_stock_message: {String} Custom message displayed after 'In stock'
+    - low_stock_message: {String} Custom message displayed after 'Low stock'
+    - out_of_stock_message: {String} Custom message displayed after 'Out of stock'
+    - section_id: {Object} the section id
+
+    Usage:
+    {% render 'armament-stock-indicator' with inventory_variant: current_variant, inventory_stock_amt: block.settings.stock_range, section_id: section.id %}
+{% endcomment %}
+
+<stock-level-indicator
+  section-id="{{ section_id }}"
+  variant-id="{{ current_variant.id }}"
+>
+  {% for inventory_variant in form_product.variants %}
+    {% if inventory_variant.inventory_management != blank and inventory_variant.inventory_policy != 'continue' %}
+      <div
+        data-armada-selector="stock-level-indicator--{{ inventory_variant.id }}"
+        {% unless inventory_variant == current_variant %}class="hidden"{% endunless %}
+      >
+        {% if inventory_variant.inventory_quantity > inventory_stock_amt %}
+          <span class="flex items-center mb-3 md:mb-4">{% render 'armament-icon' with icon: 'tick', classes: 'mr-2' %} {{ 'products.product.in_stock' | t }}
+            {% if show_stock_count %}
+              <span class="mx-2">-</span> <span class="mr-1" data-armada-selector="variant_stock_count">{{ inventory_variant.inventory_quantity }}</span> {{ 'products.product.stock_left' | t }}
+            {% endif %}
+            {% if in_stock_message != blank %}
+              <span class="mx-2">-</span> {{ in_stock_message }}
+            {% endif %}
+          </span>
+        {% elsif inventory_variant.available == false %}
+          <span class="flex items-center mb-3 md:mb-4">{% render 'armament-icon' with icon: 'exclamation', classes: 'mr-1' %} {{ 'products.product.out_of_stock' | t }}
+            {% if in_stock_message != blank %}
+              <span class="mx-2">-</span> {{ out_of_stock_message }}
+            {% endif %}
+          </span>
+        {% else %}
+          <span class="flex items-center mb-3 md:mb-4">{% render 'armament-icon' with icon: 'exclamation', classes: 'mr-1' %} {{ 'products.product.low_stock' | t }}
+            {% if show_stock_count %}
+              <span class="mx-2">-</span> <span class="mr-1" data-armada-selector="variant_stock_count">{{ inventory_variant.inventory_quantity }}</span> {{ 'products.product.stock_left' | t }}
+            {% endif %}
+            {% if in_stock_message != blank %}
+              <span class="mx-2">-</span> {{ low_stock_message }}
+            {% endif %}
+          </span>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</stock-level-indicator>
+<safe-load-scripts>
+  <script src="{{ 'component-stock-level-indicator.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="stock-level-indicator"></script>
+</safe-load-scripts>

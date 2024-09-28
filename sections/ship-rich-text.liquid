@@ -1,0 +1,263 @@
+{% liquid
+  case section.settings.section_width
+    when 'narrow'
+      assign desktop_x_padding = 'md:py-6 md:px-6'
+    when 'full-with-padding'
+      assign desktop_x_padding = 'md:py-6 md:px-7'
+  endcase
+%}
+
+<section class="text-body bg-page w-full py-5 px-4 {{ desktop_x_padding }}" data-color-scheme="{{ section.settings.section_color_scheme }}" data-aid="rich-text-ship">
+  <div class="{% if section.settings.section_width == 'narrow' %}max-w-screen-xl m-auto {% endif %}{{ section.settings.horizontal_alignment }}">
+
+    {% for block in section.blocks %}
+      {% case block.type %}
+
+        {% when "subheading" %}
+          {% unless block.settings.subheading == blank %}
+            <div class="rich-text-item-subheading my-2 md:my-3 first:mt-0 last:mb-0" {{ block.shopify_attributes }}>
+              {% render 'armament-heading' with tag: 'h4', heading_type: 'section-subheading', heading_content: block.settings.subheading, data-aid: 'rich-text-subheading' %}
+            </div>
+          {% endunless %}
+
+        {% when "heading" %}
+          {% unless block.settings.heading == blank %}
+            <div class="rich-text-item-heading my-2 md:my-3 first:mt-0 last:mb-0" {{ block.shopify_attributes }}>
+              {% render 'armament-heading' with tag: 'h2', heading_type: 'section-heading', heading_content: block.settings.heading, data-aid: 'rich-text-heading' %}
+            </div>
+          {% endunless %}
+
+        {% when "text" %}
+          {% unless block.settings.text == blank %}
+            {%- liquid
+              case section.settings.horizontal_alignment
+                when 'text-left justify-start'
+                  assign align = 'left'
+                when 'text-center justify-center'
+                  assign align = 'center'
+                when 'text-right justify-end'
+                  assign align = 'right'
+              endcase
+            -%}
+            <div class="rich-text-item my-3 md:my-4 first:mt-0 last:mb-0" {{ block.shopify_attributes }}>
+            {% render 'armament-rich-text' with content: block.settings.text, align: align %}
+            </div>
+          {% endunless %}
+
+        {% when "buttons" %}
+        <div class="block rich-text-item my-3 md:my-4 first:mt-0 last:mb-0" {{ block.shopify_attributes }}>
+          <div class="my-0 md:my-0 flex flex-col {{ section.settings.horizontal_alignment }} md:flex-row space-y-3 space-x-0 md:space-x-4 md:space-y-0">
+            {% if block.settings.button_1_text != blank %}
+              {% render 'armament-button' with url: block.settings.button_1_link, content: block.settings.button_1_text, style: block.settings.button_1_style, classes: 'w-full md:w-auto', type: 'button', data_aid: 'rich-text-button-1' %}
+            {% endif %}
+
+            {% if block.settings.button_2_text != blank %}
+              {% render 'armament-button' with url: block.settings.button_2_link, content: block.settings.button_2_text, style: block.settings.button_2_style, classes: 'w-full md:w-auto', type: 'button', data_aid: 'rich-text-button-2' %}
+            {% endif %}
+          </div>
+        </div>
+
+      {% endcase %}
+    {% endfor %}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Rich text",
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "info": "These changes may only be visible on larger screens",
+      "options": [
+        {
+          "value": "full-with-padding",
+          "label": "Full width with padding"
+        },
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        }
+      ],
+      "default": "full-with-padding"
+    },
+    {
+      "type": "select",
+      "id": "horizontal_alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "text-left justify-start",
+          "label": "Left"
+        },
+        {
+          "value": "text-center justify-center",
+          "label": "Center"
+        },
+        {
+          "value": "text-right justify-end",
+          "label": "Right"
+        }
+      ],
+      "default": "text-center justify-center"
+    },
+    {
+      "type": "header",
+      "content": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "section_color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent-3",
+          "label": "Accent 3"
+        }
+      ],
+      "default": "general"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "subheading",
+      "name": "Subheading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Captivate customers with"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Rich text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Body text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Body text",
+          "default": "<p>Use this text to share information about your brand. Describe a product, show store announcements, or welcome customers to your store.</p>"
+        }
+      ]
+    },
+    {
+      "type": "buttons",
+      "name": "Buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "url",
+          "id": "button_1_link",
+          "label": "First button link"
+        },
+        {
+          "type": "text",
+          "id": "button_1_text",
+          "label": "First button label",
+          "default": "Shop now"
+        },
+        {
+          "type": "radio",
+          "id": "button_1_style",
+          "label": "First button style",
+          "options": [
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "fill",
+              "label": "Fill"
+            }
+          ],
+          "default": "outline"
+        },
+        {
+          "type": "url",
+          "id": "button_2_link",
+          "label": "Second button link"
+        },
+        {
+          "type": "text",
+          "id": "button_2_text",
+          "label": "Second button label",
+          "default": "Learn more"
+        },
+        {
+          "type": "radio",
+          "id": "button_2_style",
+          "label": "Second button style",
+          "options": [
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "fill",
+              "label": "Fill"
+            }
+          ],
+          "default": "fill"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rich text",
+      "settings": {
+      },
+      "blocks": [
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "custom.overlay"
+    ]
+  }
+}
+{% endschema %}
