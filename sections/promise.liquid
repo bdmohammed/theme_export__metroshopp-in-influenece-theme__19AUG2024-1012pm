@@ -1,0 +1,126 @@
+{{ 'promise-section.css' | asset_url | stylesheet_tag }}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<div class="promise-section">
+  <div class="cards {{ block.shopify_attributes }}">
+    {% for block in section.blocks %}
+      {% case block.type %}
+
+        {% when 'cards' %}
+
+          <div class="card">
+            <div id="incards" class="subcard {{ block.settings.class_name }}">
+              <span class="icon"></span>
+              <div class="store-text">{{ block.settings.title_first }}<br> {{ block.settings.title_second }}
+              </div>
+              <div class="hover-content">
+                <div class="hover-inner">
+                  <div class="hover-title">{{ block.settings.description_title }}</div>
+                  <div class="hover-para">
+                    {{ block.settings.description_text }}
+                    <div class="prcs-d" data-p="certifications,hpw">
+                      Read More
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+      {% endcase %}
+    {% endfor %}
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function()
+    {
+      console.log("ready");
+      $('.subcard').hover(
+        function(){ 
+          console.log("hover");
+          $(this).children(".hover-content").addClass("active"); //Add an active class to the anchor
+        },
+        function() {
+          $(this).children(".hover-content").removeClass("active"); //Remove an active class to the anchor
+        }
+     )
+   });
+</script>
+
+{% schema %}
+  {
+    "name": "Promise",
+    "settings": [],
+    "presets": [
+      {
+        "name": "Promise Section",
+        "category": "Promise"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "cards",
+        "name": "Cards",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Code Configurations"
+          },
+          {
+            "type": "text",
+            "id": "class_name",
+            "label": "Class Name"
+          },
+          {
+            "type": "header",
+            "content": "Cards Details"
+          },
+          {
+            "type": "text",
+            "id": "title_first",
+            "label": "Title First Line",
+            "info": "e.g; 100% Certified"
+          },
+          {
+            "type": "text",
+            "id": "title_second",
+            "label": "Title Second Line",
+            "info": "e.g; Jewellery"
+          },
+          {
+            "type": "header",
+            "content": "Description"
+          },
+          {
+            "type": "text",
+            "id": "description_title",
+            "label": "Description Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_text",
+            "label": "Description"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Select Readmore Link",
+            "default": "/"
+          },
+          {
+            "type": "text",
+            "id": "readmore_link_text",
+            "label": "Enter Readmore Link Text",
+            "default": "Read more"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+{% stylesheet %}
+{% endstylesheet %}
+{% javascript %}
+{% endjavascript %}

@@ -1,1 +1,124 @@
-{"wrapper":"div.product-template-wrapper","sections":{"gallery":{"type":"product-main-gallery","settings":{"gallery_style":"thumbnails","enable_zoom":true,"enable_video_looping":true}},"main":{"type":"product-main-form","blocks":{"title":{"type":"title","settings":{"show_vendor":false,"show_sku":false}},"price":{"type":"price","settings":{"show_tax_included_text":false,"show_shipping_policy":false}},"options":{"type":"options","settings":{"options_type":"dropdowns","preselect_variant":true,"color_swatch_identifier":"color,colour,couleur,colore,farbe,색,色,färg,farve"}},"quantity":{"type":"quantity","settings":{}},"stock_warning":{"type":"stock-level-indicator","settings":{"stock_range":5,"show_stock_count":false,"in_stock_message":"Ready to ship","low_stock_message":"Selling fast","out_of_stock_message":"Back in soon"}},"payment-buttons":{"type":"payment-buttons","settings":{"enable_gift_card_recipient_form":true}},"description":{"type":"description","settings":{"enable_accordion":true,"description_heading":"Details"}},"share-buttons":{"type":"social-sharing","settings":{}}},"block_order":["title","price","options","quantity","stock_warning","payment-buttons","description","share-buttons"],"settings":{}},"product-recommendations":{"type":"flotilla-product-recommendations","settings":{"color_scheme":"general","product_recommendations_subheading":"You may also like","product_recommendations_heading":"","heading_alignment":"text-center","product_row_desktop":4,"product_row_mobile":"two"}},"1715974313d3be1d0d":{"type":"apps","blocks":{"judge_me_reviews_review_widget_4wckLd":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{}}},"block_order":["judge_me_reviews_review_widget_4wckLd"],"settings":{"include_desktop_margins":true,"include_mobile_margins":false}}},"order":["gallery","main","product-recommendations","1715974313d3be1d0d"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "wrapper": "div.product-template-wrapper",
+  "sections": {
+    "gallery": {
+      "type": "product-main-gallery",
+      "settings": {
+        "gallery_style": "thumbnails",
+        "enable_zoom": true,
+        "enable_video_looping": true
+      }
+    },
+    "main": {
+      "type": "product-main-form",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "show_vendor": false,
+            "show_sku": false
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_tax_included_text": false,
+            "show_shipping_policy": false
+          }
+        },
+        "options": {
+          "type": "options",
+          "settings": {
+            "options_type": "dropdowns",
+            "preselect_variant": true,
+            "color_swatch_identifier": "color,colour,couleur,colore,farbe,색,色,färg,farve"
+          }
+        },
+        "quantity": {
+          "type": "quantity",
+          "settings": {}
+        },
+        "stock_warning": {
+          "type": "stock-level-indicator",
+          "settings": {
+            "stock_range": 5,
+            "show_stock_count": false,
+            "in_stock_message": "Ready to ship",
+            "low_stock_message": "Selling fast",
+            "out_of_stock_message": "Back in soon"
+          }
+        },
+        "payment-buttons": {
+          "type": "payment-buttons",
+          "settings": {
+            "enable_gift_card_recipient_form": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "enable_accordion": true,
+            "description_heading": "Details"
+          }
+        },
+        "share-buttons": {
+          "type": "social-sharing",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "options",
+        "quantity",
+        "stock_warning",
+        "payment-buttons",
+        "description",
+        "share-buttons"
+      ],
+      "settings": {}
+    },
+    "product-recommendations": {
+      "type": "flotilla-product-recommendations",
+      "settings": {
+        "color_scheme": "general",
+        "product_recommendations_subheading": "You may also like",
+        "product_recommendations_heading": "",
+        "heading_alignment": "text-center",
+        "product_row_desktop": 4,
+        "product_row_mobile": "two"
+      }
+    },
+    "1715974313d3be1d0d": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_4wckLd": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_4wckLd"
+      ],
+      "settings": {
+        "include_desktop_margins": true,
+        "include_mobile_margins": false
+      }
+    }
+  },
+  "order": [
+    "gallery",
+    "main",
+    "product-recommendations",
+    "1715974313d3be1d0d"
+  ]
+}

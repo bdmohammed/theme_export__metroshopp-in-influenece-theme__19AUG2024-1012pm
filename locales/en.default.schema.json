@@ -1,0 +1,1491 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "settings_schema": {
+    "favicon": {
+      "name": "Favicon",
+      "settings": {
+        "logo_image": {
+          "content": "+ Favicon image",
+          "favicon": {
+            "label": "Favicon image",
+            "info": "Upload image: png, ico, Will be scaled down to 32 x 32px"
+          }
+        },
+        "logo_retina": {
+          "content": "+ Favicon retina image",
+          "favicon_apple": {
+            "label": "Favicon retina image",
+            "info": "Upload image: png, ico, Will be scaled down to 152 x 152px"
+          }
+        }
+      }
+    },
+    "color": {
+      "name": "Colors",
+      "settings": {
+        "general": {
+          "content": "+ General",
+          "heading_color": {
+            "label": "Heading"
+          },
+          "text_color": {
+            "label": "Body text"
+          },
+          "accent_color": {
+            "label": "Primary accent"
+          },
+          "secondary_color": {
+            "label": "Secondary accent"
+          },
+          "loading_bar_color": {
+            "label": "Loading Bar"
+          },
+          "border_color": {
+            "label": "Lines and borders"
+          },
+          "border_primary_color": {
+            "label": "Lines and borders primary"
+          },
+          "price_primary": {
+            "label": "Price primary color"
+          },
+          "price_secondary": {
+            "label": "Price secondary color"
+          }
+        },
+        "accent_links_and_buttons": {
+          "content": "+ Links, Buttons",
+          "link_color": {
+            "label": "Link color"
+          },
+          "link_color_hover": {
+            "label": "Link color hover"
+          },
+          "btn_bg": {
+            "label": "Button background"
+          },
+          "btn_color": {
+            "label": "Button color"
+          }
+        },
+        "accent_icons": {
+          "content": "+ Lazyload Icon",
+          "cl_lazyload": {
+            "label": "Color Icon Lazyload"
+          },
+          "bg_lazyload": {
+            "label": "Background Color Lazyload"
+          },
+          "use_cus_lz": {
+            "label": "Use Cusom Icon Lazyload?"
+          },
+          "cus_lz": {
+            "label": "Icon lazyload",
+            "info": "Upload image: png, jpg or gif file"
+          },
+          "size_cus_lz": {
+            "label": "Size icon lazyload"
+          }
+        },
+        "accent_tooltip": {
+          "content": "+ Tooltip",
+          "bg_tooltip": {
+            "label": "Background color"
+          },
+          "cl_tooltip": {
+            "label": "Color"
+          }
+        },
+        "accent_swatch_product": {
+          "content": "+ Swatch product",
+          "sw_primary": {
+            "label": "Primary color"
+          },
+          "sw_secondary": {
+            "label": "Secondary color"
+          },
+          "sw_border": {
+            "label": "Border color"
+          }
+        }
+      }
+    },
+    "typography": {
+      "name": "Typography",
+      "settings": {
+        "font_sources": {
+          "content": "+ Font source",
+          "font_source": {
+            "label": "Font source",
+            "options": {
+              "option__1": {
+                "label": "Google Fonts"
+              },
+              "option__2": {
+                "label": "Shopify Fonts"
+              }
+            }
+          }
+        },
+        "shopify_font_settings": {
+          "content": "+ Shopify Font Settings",
+          "content__1": {
+            "content": "Selecting a different font can affect the speed of your store. [Learn more about system fonts.](https://help.shopify.com/en/manual/online-store/os/store-speed/improving-speed#fonts)"
+          },
+          "fnt_fm_sp1": {
+            "label": "Font Family #1"
+          },
+          "fnt_fm_sp2": {
+            "label": "Font Family #2"
+          },
+          "fnt_fm_sp3": {
+            "label": "Font Family #3"
+          }
+        },
+        "google_font_settings": {
+          "content": "+ Google Font Settings",
+          "content__1": {
+            "content": "+ Google Font Settings [Get name your google](https://fonts.google.com/)"
+          },
+          "fnt_fm_gg1": {
+            "label": "Font Family #1"
+          },
+          "fnt_fm_gg2": {
+            "label": "Font Family #2"
+          },
+          "fnt_fm_gg3": {
+            "label": "Font Family #3"
+          }
+        },
+        "body_font_settings": {
+          "content": "+ Body Font Settings",
+          "bd_ffamily": {
+            "label": "Body Font Family",
+            "options": {
+              "fnt_fm_1": {
+                "label": "Font Family #1"
+              },
+              "fnt_fm_2": {
+                "label": "Font Family #2"
+              },
+              "fnt_fm_3": {
+                "label": "Font Family #3"
+              }
+            }
+          },
+          "bd_fsize": {
+            "label": "Font size"
+          },
+          "bd_fweight": {
+            "label": "Font weight"
+          },
+          "bd_lheight": {
+            "label": "Line height"
+          },
+          "bd_lspacing": {
+            "label": "Letter spacing"
+          }
+        },
+        "heading_font_settings": {
+          "content": "+ Heading Font Settings",
+          "hd_ffamily": {
+            "label": "Heading Font Family",
+            "options": {
+              "fnt_fm_1": {
+                "label": "Font Family #1"
+              },
+              "fnt_fm_2": {
+                "label": "Font Family #2"
+              },
+              "fnt_fm_3": {
+                "label": "Font Family #3"
+              }
+            }
+          },
+          "fs_h1": {
+            "label": "Font size Heading 1"
+          },
+          "fs_h2": {
+            "label": "Font size Heading 2"
+          },
+          "fs_h3": {
+            "label": "Font size Heading 3"
+          },
+          "fs_h4": {
+            "label": "Font size Heading 4"
+          },
+          "fs_h5": {
+            "label": "Font size Heading 5"
+          },
+          "fs_h6": {
+            "label": "Font size Heading 6"
+          },
+          "hd_fweight": {
+            "label": "Font weight"
+          },
+          "hd_lheight": {
+            "label": "Line height"
+          },
+          "hd_lspacing": {
+            "label": "Letter spacing"
+          }
+        }
+      }
+    },
+    "layout": {
+      "name": "Layout",
+      "settings": {
+        "page_width": {
+          "label": "Page width"
+        },
+        "spacing_sections": {
+          "label": "Space between template sections"
+        },
+        "header__grid": {
+          "content": "Grid"
+        },
+        "paragraph__grid": {
+          "content": "Affects areas with multiple columns or rows."
+        },
+        "spacing_grid_horizontal": {
+          "label": "Horizontal space"
+        },
+        "spacing_grid_vertical": {
+          "label": "Vertical space"
+        }
+      }
+    },
+    "cart": {
+      "name": "Cart",
+      "settings": {
+        "min_qty": {
+          "label": "Min quantity cart",
+          "info": "Minimum quantity value in cart page/cart sidebar. For example, if you set the value to 1, the user cannot reduce it to 0."
+        },
+        "edit_item": {
+          "label": "Edit item mode:",
+          "options": {
+            "option__1": {
+              "label": "Replace old item"
+            },
+            "option__2": {
+              "label": "Add new item"
+            }
+          }
+        },
+        "free_shipping": {
+          "content": "+ Free shipping minimum amount",
+          "shipping_amount": {
+            "label": "Shipping amount",
+            "info": "Make sure that you have properly configured your [shipping rates](https://help.shopify.com/en/manual/shipping/setting-up-and-managing-your-shipping/setting-up-shipping-rates)."
+          },
+          "enable_shipbar": {
+            "label": "Enable free shipping bar?"
+          },
+          "des_shipbar": {
+            "label": "Design free shipping bar:",
+            "options": {
+              "option__1": {
+                "label": "#0 - Normal"
+              },
+              "option__2": {
+                "label": "#1 - Leaf"
+              },
+              "option__3": {
+                "label": "#2 - Overlap"
+              },
+              "option__4": {
+                "label": "#3 - Food"
+              },
+              "option__5": {
+                "label": "#4 - Bars"
+              },
+              "option__6": {
+                "label": "#5 - Lines"
+              },
+              "option__7": {
+                "label": "#6 - Wiggle"
+              },
+              "option__8": {
+                "label": "#7 - Dots"
+              },
+              "option__9": {
+                "label": "#8 - Circuit"
+              },
+              "option__10": {
+                "label": "#9 - Aztec"
+              },
+              "option__11": {
+                "label": "#10 - Bees"
+              },
+              "option__12": {
+                "label": "#11 - Clouds"
+              },
+              "option__13": {
+                "label": "#12 - Stripes"
+              },
+              "option__14": {
+                "label": "#13 - Crosses"
+              },
+              "option__15": {
+                "label": "#14 - Jupiter"
+              },
+              "option__16": {
+                "label": "#15 - Piano"
+              },
+              "option__17": {
+                "label": "#16 - Dominos"
+              },
+              "option__18": {
+                "label": "#17 - Pie"
+              },
+              "option__19": {
+                "label": "#18 - Floor"
+              },
+              "option__20": {
+                "label": "#19 - Bubbles"
+              },
+              "option__21": {
+                "label": "#20 - TicTac"
+              },
+              "option__22": {
+                "label": "#21 - ZigZag"
+              }
+            }
+          },
+          "shipconfetti": {
+            "label": "Enable confetti when got free shipping?"
+          }
+        },
+        "gift_wrap": {
+          "content": "+ Gift wrap",
+          "gift_wrap_pr": {
+            "label": "Product Gift wrap",
+            "info": "Gift wrap needs to be set up as a product."
+          }
+        },
+        "taxes_and_shipping_info": {
+          "content": "+ Taxes and shipping info",
+          "info": "Add a link Taxes and shipping info",
+          "link_ship": {
+            "label": "Taxes and shipping info (optional)"
+          }
+        },
+        "terms_and_conditions": {
+          "content": "+ Terms and conditions",
+          "info": "Add a link to your terms and conditions",
+          "link_conditions": {
+            "label": "Terms and conditions link (optional)"
+          }
+        }
+      }
+    },
+    "custom_settings": {
+      "name": "Other settings",
+      "settings": {
+        "account_page": {
+          "content": "+ My Account Page",
+          "lr_enable": {
+            "label": "Login and register",
+            "info": "Enable for login and register in one page"
+          },
+          "use_privacy_policy": {
+            "label": "Show privacy policy (GDPR compliant)"
+          },
+          "privacy_policy_link": {
+            "label": "Privacy policys page"
+          },
+          "login_side": {
+            "label": "Enable Login sidebar widget"
+          },
+          "return_login": {
+            "label": "Which page to show",
+            "info": "Choose which page to show when customers log in to your online store."
+          },
+          "growave_social_login": {
+            "label": "Enable Social Login?"
+          },
+          "content__1": "To give your customers an easy way to create an account and gain a loyal customer base install [Growave](https://growave.io/?ref=henry_pham) that offers Social Login, Social Sharing, Instagram, Loyalty and Rewards, Reviews, Wishlist "
+        }
+      }
+    },
+    "search": {
+      "name": "Search",
+      "settings": {
+        "filter_type_search": {
+          "label": "Search by product type",
+          "info": "Filter search results with product type"
+        },
+        "only_search_prs": {
+          "label": "Search only products",
+          "info": "Only returns products in the search results"
+        },
+        "unavailable_prs": {
+          "label": "Sold out products should...",
+          "options": {
+            "option__1": {
+              "label": "Be hidden"
+            },
+            "option__2": {
+              "label": "Always show"
+            },
+            "option__3": {
+              "label": "Show last"
+            }
+          }
+        },
+        "content__1": "Specifies whether to display results for unavailable products. The three possible options are show, hide, and last. Set to last to display unavailable products below other matching results. Set to hide to exclude unavailable products from the search results.",
+        "search_prs_suggest": {
+          "content": "+ Search suggest products",
+          "show_search_suggest": {
+            "label": "Show suggest products"
+          },
+          "search_prs_suggest": {
+            "label": "Collection"
+          }
+        },
+        "search_prs_hot": {
+          "content": "+ Search hot hot",
+          "show_search_hotkey": {
+            "label": "Show Search hot hot"
+          },
+          "list_hotkey": {
+            "label": "Enter list hot key",
+            "info": "Separate by a comma.",
+            "placeholder": "Women, Men, New"
+          }
+        }
+      }
+    },
+    "language_and_currency": {
+      "name": "Language, Currency",
+      "settings": {
+        "content__1": {
+          "content": "Language selector",
+          "info": "To add a language, go to your [language settings.](/admin/settings/languages)"
+        },
+        "content__2": {
+          "content": "[Learn more about selling in multiple languages](https://help.shopify.com/en/manual/cross-border/multilingual-online-store)"
+        },
+        "content__3": {
+          "content": "To work on translations, install a translations app that's compatible with selling in multiple languages. [Visit the Shopify App Store](https://apps.shopify.com/collections/apps-for-store-languages)"
+        },
+        "currency_format": {
+          "content": "Currency format",
+          "currency_code_enabled": {
+            "label": "Show currency codes"
+          },
+          "content__1": {
+            "content": "Cart and checkout prices always show currency codes. Example: $1.00 USD."
+          }
+        },
+        "currency_config": {
+          "content": "+ Currency Config",
+          "auto_currency": {
+            "label": "Enable Customer Geolocation",
+            "info": " Boost up your sales by showing your prices in the Visitor's Currency! When a customer goes to your store, your store chooses the currency to use based on the geolocation of their IP address. The prices in your storefront and checkout convert immediately to that currency. If a customer's location uses a currency that isn't supported by your store, then the store's currency is used. For example, your store currency is USD and you accept USD, EUR, and YEN. When a customer from Brazil visits your store, they see prices in USD (your store's currency) because you don't accept payments in BRL."
+          },
+          "currency_type": {
+            "label": "+ Source:",
+            "options": {
+              "option__1": {
+                "label": "Multiple Currencies By Shopify"
+              },
+              "option__2": {
+                "label": "Multiple Currencies By The4"
+              }
+            }
+          },
+          "flag_currency": {
+            "label": "Show country flag"
+          },
+          "size_currency": {
+            "label": "Size country flag",
+            "options": {
+              "option__1": {
+                "label": "Small"
+              },
+              "option__2": {
+                "label": "Medium"
+              }
+            }
+          }
+        },
+        "shopify_currency": {
+          "content": "+ Multiple Currencies By Shopify",
+          "content__1": {
+            "content": "This feature is only available for stores using Shopify Payments. Multi currency checkout page. My See [Can I use Shopify Payments?](https://help.shopify.com/en/manual/payments/shopify-payments/shopify-payments-requirements#can-I-use-shopify-payments) for a list of supported countries. [Learn more about multi-currency here](https://help.shopify.com/en/manual/payments/shopify-payments/multi-currency)"
+          },
+          "content__2": {
+            "content": "Your customers can pay for their orders and receive refunds in their local currency. [Enabling your store to sell in multiple currencies](https://help.shopify.com/manual/payments/multi-currency/setup)."
+          },
+          "content__3": {
+            "content": "To add a currency, go to your [payment settings.](/admin/settings/payments)"
+          }
+        },
+        "Th4_currency": {
+          "content": "+ Multiple Currencies By The4",
+          "content__1": {
+            "content": "Even though prices are displayed in different currencies, orders will still be processed in your store's currency."
+          },
+          "content__2": {
+            "content": "To offer multiple currencies on your online store, you must first [edit your store's currency formatting](https://kalles-docs.the4.co/theme-settings/currency-converter-plus#1-2-follow-by-the4)."
+          },
+          "supported_currencies": {
+            "label": "Supported currencies",
+            "info": "Use the country's ISO [currency code](http://www.xe.com/iso4217.php). Separate your currency codes with a '|'."
+          }
+        },
+        "price_config": {
+          "content": "+ Price Configuration",
+          "round_currency": {
+            "label": "Round converted amounts",
+            "info": "eg: $9.9 ==> $10"
+          }
+        },
+        "extra_features": {
+          "content": "+ Extra Features",
+          "notify_currency": {
+            "label": "Checkout currency notification",
+            "info": "This notification will appear on the cart page,shopping cart widget. It is meant to inform your customers that Shopify only allows them to Checkout in your shop's main currency."
+          },
+          "mess_currency": {
+            "label": "Currency notification text:",
+            "info": "[original_currency], [current_currency] is is the variable name will automatically be replaced you must not change.",
+            "default": "All charges are billed in [original_currency]. While the content of your cart is currently displayed in [current_currency], the checkout will use [original_currency] at the most current exchange rate."
+          },
+          "hover_currency": {
+            "label": "Enable original price on hover",
+            "info": "If your customer hovers over the converted prices he will still be able to see the price in your shop's main currency."
+          }
+        }
+      }
+    },
+    "social_media": {
+      "name": "Social Media",
+      "settings": {
+        "sharing_image": {
+          "content": "Social sharing image",
+          "share_image": {
+            "label": "Image",
+            "info": "Shown when sharing a link on social media. [Learn more](https://help.shopify.com/en/manual/using-themes/troubleshooting/showing-social-media-thumbnail-images/) about image thumbnails."
+          }
+        },
+        "sharing_options": {
+          "content": "Social sharing options",
+          "share_facebook": {
+            "label": "Share on Facebook"
+          },
+          "share_twitter": {
+            "label": "Tweet on Twitter"
+          },
+          "share_pinterest": {
+            "label": "Pin on Pinterest"
+          },
+          "share_tumblr": {
+            "label": "Share on Instagram"
+          },
+          "share_email": {
+            "label": "Share on Email"
+          },
+          "share_telegram": {
+            "label": "Share on Telegram"
+          },
+          "share_whatsapp": {
+            "label": "Share on WhatsApp"
+          }
+        },
+        "social_account": {
+          "content": "Social accounts",
+          "social_facebook_link": {
+            "label": "Facebook",
+            "info": "https://facebook.com/shopify"
+          },
+          "social_twitter_link": {
+            "label": "Twitter",
+            "info": "https://twitter.com/shopify"
+          },
+          "social_instagram_link": {
+            "label": "Instagram",
+            "info": "https://instagram.com/shopify"
+          },
+          "social_dribbble_link": {
+            "label": "Dribbble",
+            "info": "https://dribbble.com/shopify"
+          },
+          "social_linkedin_link": {
+            "label": "Linkedin",
+            "info": "https://www.linkedin.com/company/shopify"
+          },
+          "social_pinterest_link": {
+            "label": "Pinterest",
+            "info": "https://pinterest.com/shopify"
+          },
+          "social_tumblr_link": {
+            "label": "Tumblr",
+            "info": "https://www.tumblr.com"
+          },
+          "social_snapchat_link": {
+            "label": "Snapchat",
+            "info": "https://www.snapchat.com/add/shopify"
+          },
+          "social_youtube_link": {
+            "label": "YouTube",
+            "info": "https://www.youtube.com/shopify"
+          },
+          "social_vimeo_link": {
+            "label": "Vimeo",
+            "info": "https://vimeo.com/shopify"
+          },
+          "social_behance_link": {
+            "label": "Behance",
+            "info": "https://www.behance.net/gallery/62806021/Shopify"
+          },
+          "social_soundcloud_link": {
+            "label": "Soundcloud",
+            "info": "https://soundcloud.com/shopify"
+          },
+          "social_tiktok_link": {
+            "label": "Tiktok",
+            "info": "https://tiktok.com/@shopify"
+          }
+        }
+      }
+    },
+    "contact_info": {
+      "name": "Contact Info",
+      "settings": {
+        "email": {
+          "label": "Email"
+        },
+        "phone": {
+          "label": "Phone"
+        },
+        "location": {
+          "label": "Location"
+        }
+      }
+    },
+    "general_product": {
+      "name": "General Product",
+      "settings": {
+        "enable_ajax_cart": {
+          "label": "Enable ajax cart"
+        },
+        "wishlist": {
+          "content": "+ Wishlist",
+          "wishlist_mode": {
+            "label": "Wishlist mode",
+            "options": {
+              "option__1": {
+                "label": "Disable"
+              },
+              "option__2": {
+                "label": "Enable wishlist local"
+              },
+              "option__3": {
+                "label": "Enable wishlist account (nitro wishlist app) [install here](https://wishlist.teathemes.net/signup)"
+              },
+              "option__4": {
+                "label": "Enable growave wishlist [install here](https://growave.io/?ref=henry_pham)"
+              }
+            }
+          },
+          "enable_css_wis": {
+            "label": "Enable override css wishlist app"
+          },
+          "wis_atc_added": {
+            "label": "Action when people click added wishlist:",
+            "options": {
+              "option__1": {
+                "label": "Go to page wishlist"
+              },
+              "option__2": {
+                "label": "Remove from wishlist"
+              }
+            }
+          }
+        },
+        "compare": {
+          "content": "+ Compare",
+          "enable_compe": {
+            "label": "Enable compare",
+            "info": "Max products compare: 6"
+          }
+        },
+        "reviews": {
+          "content": "+ Reviews",
+          "app_review": {
+            "label": "Reviews app",
+            "options": {
+              "option__1": {
+                "label": "Shopify reviews [install here](https://apps.shopify.com/product-reviews)"
+              },
+              "option__2": {
+                "label": "Ryviu app [install here](https://www.ryviu.com/?rel=3in5hrqs)"
+              },
+              "option__3": {
+                "label": "Alireviews app [install here](https://fireapps.io/shopify-apps/ali-reviews?utm_campaign=The4&utm_source=theme_editor)"
+              },
+              "option__4": {
+                "label": "Loox photo reviews [install here](https://loox.io/app/The4)"
+              },
+              "option__5": {
+                "label": "Growave reviews [install here](https://growave.io/?ref=henry_pham)"
+              },
+              "option__6": {
+                "label": "LAI product aliExpress reviews [install here](https://apps.shopify.com/lai-reviews)"
+              },
+              "option__7": {
+                "label": "Judgeme reviews [install here](https://apps.shopify.com/judgeme)"
+              },
+              "option__8": {
+                "label": "Other app [Instructions here](https://kalles-docs.the4.co/features/custom-review-app)"
+              }
+            }
+          }
+        },
+        "badges": {
+          "content": "+ Badges",
+          "badge_shape": {
+            "label": "Badge shape",
+            "options": {
+              "option__1": {
+                "label": "Rounded"
+              },
+              "option__2": {
+                "label": "Rectangular"
+              }
+            }
+          },
+          "use_sale_badge": {
+            "label": "Use sale badge"
+          },
+          "label_sale_style": {
+            "label": "Sale badge display style",
+            "options": {
+              "option__1": {
+                "label": "Text label"
+              },
+              "option__2": {
+                "label": "Percentage label"
+              }
+            }
+          },
+          "use_new_badge": {
+            "label": "Use new badge"
+          },
+          "new_day_added": {
+            "label": "Show products added in the past x days:"
+          },
+          "use_soldout_badge": {
+            "label": "Use sold out badge"
+          },
+          "use_preorder_badge": {
+            "label": "Use preorder badge"
+          },
+          "use_custom_badge": {
+            "label": "Use custom badge"
+          }
+        },
+        "badge_color": {
+          "content": "Badge colors",
+          "sale_badge_color": {
+            "label": "Sale badge"
+          },
+          "new_badge_color": {
+            "label": "New badge"
+          },
+          "preorder_badge_color": {
+            "label": "Pre order badge"
+          },
+          "soldout_badge_color": {
+            "label": "Sold out Badge"
+          },
+          "custom_badge_color": {
+            "label": "Custom Badge"
+          }
+        },
+        "swatch_style": {
+          "content": "+ Style swatch color",
+          "color_ck": {
+            "label": "Enter variant name you want has style swatch color",
+            "info": "Default: Color, Colors, Couleur, Coloure"
+          }
+        },
+        "placeholder": {
+          "content": "+ Placeholder",
+          "placeholder_img": {
+            "label": "Placeholder for product no image"
+          }
+        }
+      }
+    },
+    "general_product_items": {
+      "name": "Product Items",
+      "settings": {
+        "price_varies_style": {
+          "label": "Price varies style",
+          "options": {
+            "option__1": {
+              "label": "$39.00 – $59.00"
+            },
+            "option__2": {
+              "label": "From $39.00"
+            }
+          }
+        },
+        "within_cat": {
+          "label": "Enable 'product url has link collection",
+          "info": "Creates a collection-aware product URL by prepending /collections/collection-handle to a product URL, where collection-handle is the handle of the collection that is currently being viewed."
+        },
+        "enable_quickview": {
+          "label": "Enable quick view"
+        },
+        "enable_quickshop": {
+          "label": "Enable quick shop"
+        },
+        "enable_rating": {
+          "label": "Enable rating"
+        },
+        "enable_atc": {
+          "label": "Enable add to cart, select option, quick shop"
+        },
+        "show_qty": {
+          "label": "Enable quantity selector"
+        },
+        "pr_border_style": {
+          "label": "Bordered style",
+          "info": "add borders between the products in your grid"
+        },
+        "color_swatches": {
+          "content": "+ COLOR SWATCHES",
+          "enable_pr_color": {
+            "label": "Enable color swatches"
+          },
+          "swatch_color_style": {
+            "label": "Swatch style",
+            "options": {
+              "option__1": {
+                "label": "Square"
+              },
+              "option__2": {
+                "label": "circle"
+              }
+            }
+          },
+          "swatch_item_style": {
+            "label": "Swatch item style",
+            "options": {
+              "option__1": {
+                "label": "Color"
+              },
+              "option__2": {
+                "label": "Image Variant"
+              }
+            }
+          },
+          "show_color_type": {
+            "label": "Show type:",
+            "options": {
+              "option__1": {
+                "label": "All color"
+              },
+              "option__2": {
+                "label": "Only color available"
+              }
+            }
+          },
+          "sw_limit": {
+            "label": "Enable swatch limit?",
+            "info": "If you have too many swatches, it will grow into more than one lines, which is not desirable. Instead, we'd like to only show one line only, and show a '+X' if there are too many swatches"
+          },
+          "sw_click": {
+            "label": "Action click swatch '+X':",
+            "options": {
+              "option__1": {
+                "label": "Go to product page"
+              },
+              "option__2": {
+                "label": "Expand all color"
+              }
+            }
+          }
+        },
+        "size_list": {
+          "content": "+ SIZE LIST",
+          "enable_pr_size": {
+            "label": "Enable size list"
+          },
+          "pr_size_pos": {
+            "label": "Size list position",
+            "options": {
+              "option__1": {
+                "label": "Above image"
+              },
+              "option__2": {
+                "label": "Below info"
+              }
+            }
+          },
+          "show_size_type": {
+            "label": "Show type:",
+            "options": {
+              "option__1": {
+                "label": "All size"
+              },
+              "option__2": {
+                "label": "Only size available"
+              }
+            }
+          },
+          "size_ck": {
+            "label": "Enter variant name you want show size list",
+            "info": "Default: size,sizes,Größe"
+          }
+        },
+        "image_list": {
+          "content": "+ Image",
+          "show_img": {
+            "label": "Maximum images to show"
+          },
+          "pr_img_effect": {
+            "label": "Image hover effects",
+            "info": "Effects not working when has only one image: opacity, move bottom",
+            "options": {
+              "option__1": {
+                "label": "None"
+              },
+              "option__2": {
+                "label": "Zoom"
+              },
+              "option__3": {
+                "label": "Rotate zoom"
+              },
+              "option__4": {
+                "label": "Opacity"
+              },
+              "option__5": {
+                "label": "Move bottom"
+              },
+              "option__6": {
+                "label": "Image slideshow"
+              }
+            }
+          },
+          "enable_eff_img1": {
+            "label": "Enable image hover effects for first image",
+            "info": "Only working with effects: zoom, rotate zoom"
+          },
+          "enable_shadow_round_img": {
+            "label": "Enable image shadow, round"
+          }
+        }
+      }
+    },
+    "single_product": {
+      "name": "Product Items",
+      "settings": {
+        "pr_curent": {
+          "label": "Variant picker",
+          "options": {
+            "option__1": {
+              "label": "No Pick"
+            },
+            "option__2": {
+              "label": "Pick first variant"
+            },
+            "option__3": {
+              "label": "Pick first available variant"
+            }
+          }
+        },
+        "use_group_media": {
+          "label": "Use group media"
+        },
+        "use_change_variant_by_img": {
+          "label": "Use select variants by change image on slide",
+          "info": "Normally, variants are selected from a swatch. You might want your customers to be able to select a product variant by change a variant image. *Only active on layout has slider in product page."
+        },
+        "enable_his": {
+          "label": "Enable historyState",
+          "info": "Update history state for product deeplinking shopify. It’s possible to create a deep-link directly to a specific variant by adding a query string to a product page URL. You can achieve this by appending the ?variant= query parameter to the URL of the product, along with the ID of the variant. Not working when Product variant is No Pick."
+        },
+        "use_incoming_mess": {
+          "label": "Use incoming message",
+          "info": "Use incoming stock transfer message when sold out."
+        },
+        "date_in": {
+          "label": "Date incoming format",
+          "info": "Date demo: 09/04/1994 (date/month/year)",
+          "options": {
+            "option__1": {
+              "label": "April 09, 1994 - MMM dd, yyyy"
+            },
+            "option__2": {
+              "label": "09/04/94 - dd/MM/yy"
+            },
+            "option__3": {
+              "label": "09/04/1994 - dd/MM/yyyy"
+            },
+            "option__4": {
+              "label": "9/04/1994 - d/MM/yyyy"
+            },
+            "option__5": {
+              "label": "Apr 94 - MMM yy"
+            },
+            "option__6": {
+              "label": "Apr 09 - MMM dd"
+            },
+            "option__7": {
+              "label": "04/09/1994 - MM/dd/yyyy"
+            },
+            "option__8": {
+              "label": "Tuesday 09/04/1994 - aa dd/MM/yyyy"
+            },
+            "option__9": {
+              "label": "Tue 09/04/1994 - a dd/MM/yyyy"
+            }
+          }
+        },
+        "variant_remove": {
+          "label": "Variant sold out, unavailable swatches",
+          "info": "Removing the variants that are sold out, unavailable.",
+          "options": {
+            "option__1": {
+              "label": "Only remove variants unavailable"
+            },
+            "option__2": {
+              "label": "Remove variants sold out, unavailable"
+            }
+          }
+        },
+        "use_notify_me": {
+          "label": "Use a back in stock notification form",
+          "info": "When a customer submits the back in stock notification form for a sold out product, you will receive an email to the email address you have set up in the admin to be [your Customer email.](//help.shopify.com/assets/manual/customize/customer-email-03cea16d2eb80d21ad80f8dc559ea5bc1ae4ce9f2b19d6cb83711f1e6c2b63bb.jpg)"
+        },
+        "notify_me_text": {
+          "content": "With a back in stock notification form, customers can let you know if they want to be informed when a sold out product becomes available again. When a customer uses the form to submit their email address, you will be sent information about the product that they are interested in. When more stock becomes available, you can let the customer know."
+        },
+        "share": {
+          "content": "+ Product social sharing options",
+          "share_source": {
+            "label": "Share source",
+            "options": {
+              "option__1": {
+                "label": "Default"
+              },
+              "option__2": {
+                "label": "AddThis"
+              },
+              "option__3": {
+                "label": "Growave social sharing"
+              }
+            }
+          }
+        },
+        "growave": {
+          "content": "[Growave ‑ Reviews, Loyalty ++by Growave](https://growave.io/?ref=henry_pham)"
+        },
+        "metafield__1": {
+          "content": "+ Metafield product countdown, Countdown to the end sale date will be shown. Be sure you have set final date of the product sale price. Namespace and key metafield: theme.countdown"
+        },
+        "metafield__2": {
+          "content": "+ Namespace and key metafield External/Affiliate button title: theme.external_title"
+        },
+        "metafield__3": {
+          "content": "+ Namespace and key metafield External/Affiliate button link: theme.external_link"
+        }
+      }
+    },
+    "product_cards": {
+      "name": "Product cards",
+      "settings": {
+        "product_cards_aspect_ratio": {
+          "label": "Image aspect ratio",
+          "option__1": {
+            "label": "Natural"
+          },
+          "option__2": {
+            "label": "Square (1:1)"
+          },
+          "option__3": {
+            "label": "Tall (2:3)"
+          },
+          "option__4": {
+            "label": "Wide (4:3)"
+          }
+        },
+        "product_info_position": {
+          "label": "Product information alignment",
+          "option__1": {
+            "label": "Left"
+          },
+          "option__2": {
+            "label": "Center"
+          },
+          "option__3": {
+            "label": "Right"
+          }
+        },
+        "collection_hover_effect": {
+          "label": "Image hover effect",
+          "option__1": {
+            "label": "Show image slideshow"
+          },
+          "option__2": {
+            "label": "Show second image"
+          },
+          "option__3": {
+            "label": "None"
+          }
+        },
+        "product_card_badges": {
+          "label": "Show badges"
+        },
+        "enable_quick_view": {
+          "label": "Enable quick view"
+        },
+        "quick_view_gallery_style": {
+          "label": "Quick view gallery style",
+          "option__1": {
+            "label": "Thumbnails"
+          },
+          "option__2": {
+            "label": "Slideshow"
+          }
+        },
+        "color_scheme": {
+          "content": "Color scheme",
+          "quick_view_color_scheme": {
+            "label": "Quick view color scheme",
+            "option__1": {
+              "label": "General"
+            },
+            "option__2": {
+              "label": "Accent 1"
+            },
+            "option__3": {
+              "label": "Accent 2"
+            },
+            "option__4": {
+              "label": "Accent 3"
+            }
+          }
+        }
+      }
+    },
+    "animations": {
+      "name": "Animations",
+      "settings": {
+        "enable_animations": {
+          "label": "Enable animations"
+        },
+        "slider_animation_duration": {
+          "label": "Transition animation speed",
+          "option__1": {
+            "label": "Slow"
+          },
+          "option__2": {
+            "label": "Medium"
+          },
+          "option__3": {
+            "label": "Fast"
+          }
+        }
+      }
+    },
+    "custom_css_javascript": {
+      "name": "Custom CSS, JS",
+      "settings": {
+        "custom_css_color": {
+          "content": "Colors CSS",
+          "colors_css": {
+            "label": "Use colors custom css"
+          }
+        },
+        "custom_css_style": {
+          "content": "Custom CSS",
+          "custom_css": {
+            "label": "Use custom css"
+          },
+          "global_css": {
+            "label": "Global custom css",
+            "placeholder": "Enter global css code"
+          },
+          "desktop_css": {
+            "label": "Custom css for only desktop",
+            "placeholder": "Enter css code for only desktop"
+          },
+          "tablet_mobile_css": {
+            "label": "Custom css for tablet, mobile",
+            "placeholder": "Enter css code for tablet, mobile"
+          },
+          "tablet_css": {
+            "label": "Custom css for only tablet",
+            "placeholder": "Enter css code for only tablet"
+          },
+          "mobile_css": {
+            "label": "Custom css for only mobile",
+            "placeholder": "Enter css code for only mobile"
+          }
+        },
+        "custom_js": {
+          "content": "Custom JS",
+          "content__1": {
+            "content": "[Instructions to custom js](https://kalles-docs.the4.co/theme-settings/custom-css-js)"
+          },
+          "custom_js": {
+            "label": "Use custom js"
+          }
+        }
+      }
+    },
+    "header": {
+      "name": "Header",
+      "settings": {
+        "header_design": {
+          "label": "header_design",
+          "options": {
+            "option__1": {
+              "label": "Header inline"
+            },
+            "option__2": {
+              "label": "Header sidebar"
+            },
+            "option__3": {
+              "label": "header with categories menu"
+            },
+            "option__4": {
+              "label": "Header menu in bottom"
+            },
+            "option__5": {
+              "label": "Header vertical"
+            }
+          }
+        },
+        "logo_image": {
+          "content": "+ Logo",
+          "logo_svg": {
+            "label": "Logo SVG",
+            "info": "Copy link svg upload files. [Get link svg](https://cdn.shopify.com/s/files/1/0332/6420/5963/files/copy_link_svg.jpg?v=1647428667)"
+          },
+          "logo": {
+            "label": "Logo (required)",
+            "info": "Upload image: png, jpg or gif file"
+          },
+          "logo_width": {
+            "label": "Custom logo width"
+          }
+        },
+        "logo_sticky": {
+          "content": "+ Logo sticky",
+          "logos": {
+            "label": "Logo sticky (option)",
+            "info": "Upload image: png, jpg or gif file"
+          },
+          "logos_width": {
+            "label": "Custom logo sticky width"
+          }
+        },
+        "logo_mobile": {
+          "content": "+ Logo Mobile",
+          "logo_mb": {
+            "label": "Logo Mobile (option)",
+            "info": "Upload image: png, jpg or gif file"
+          },
+          "logo_mb_width": {
+            "label": "Custom logo mobile width"
+          }
+        },
+        "logo_transparent": {
+          "content": "+ Logo Transparent",
+          "content__1": {
+            "content": "Tip: Logo Transparent only active when you enable header transparent, only show on homepage"
+          },
+          "logo_tr_svg": {
+            "label": "Logo SVG Transparent",
+            "info": "Copy link svg upload filess. [Get link svg](https://cdn.shopify.com/s/files/1/0332/6420/5963/files/copy_link_svg.jpg?v=1647428667)"
+          },
+          "logo_tr": {
+            "label": "Logo Transparent",
+            "info": "Upload image: png, jpg or gif file"
+          },
+          "logo_tr_width": {
+            "label": "Custom logo transparent width"
+          }
+        },
+        "header_mobile": {
+          "content": "+ Header Mobile",
+          "mobile_nav_type": {
+            "label": "Header mobile show",
+            "options": {
+              "option__1": {
+                "label": "Only mobile"
+              },
+              "option__2": {
+                "label": "Only categories"
+              },
+              "option__3": {
+                "label": "Mobile, categories"
+              },
+              "option__4": {
+                "label": "Categories, mobile"
+              }
+            }
+          },
+          "only_icon": {
+            "label": "Only click icon?",
+            "info": "Only click icon to show submenu."
+          }
+        }
+      }
+    },
+    "general": {
+      "name": "General",
+      "settings": {
+        "homepage_seo_keyword": {
+          "content": "+ Meta keywords for homepage(SEO)",
+          "home_keywords": {
+            "label": "Keywords for homepage",
+            "default": "Kalles shopify, Fastest, Ajax Shop, Minimal, Lazyload",
+            "info": "Define keywords for search engines."
+          },
+          "shop_author": {
+            "label": "Author for shop",
+            "default": "The4",
+            "info": "Define the author of a Shop."
+          }
+        },
+        "shop": {
+          "content": "+ Shop",
+          "global_acc": {
+            "label": "General instagram access token [learn more](https://kalles-docs.the4.co/installation/how-to-get-instagram-access-token)"
+          },
+          "content__1": {
+            "content": "NOTE: Via GraphQL API (General Instagram Access Token) Long-lived tokens are valid for 60 days. You will have to manually regenerate your access token."
+          },
+          "use_rtl": {
+            "label": "RTL mode:",
+            "options": {
+              "option__1": {
+                "label": "Disable"
+              },
+              "option__2": {
+                "label": "Enable"
+              },
+              "option__3": {
+                "label": "Only enable with 'List RTL'"
+              }
+            }
+          },
+          "list_rtl": {
+            "label": "List RTL language iso code:",
+            "default": "ar; ha; he",
+            "info": "Separate your language codes with a ';'. Only working when selected 'Only enable with List RTL'"
+          },
+          "content__2": {
+            "content": "List RTL language iso code: ar (Arabic); dv : (Dhivehi,Maldivian); ha : (Hausa); he : (Hebrew); ku : (Kurdish/Sorani); fa : (Persian/Farsi); ur : (Urdu); ps : (Pashto); yi : (Yiddish)"
+          },
+          "prevent_copying": {
+            "label": "Enable prevent copying?",
+            "info": "Prevent Image and Content Theft from Your Website"
+          },
+          "falling_snow": {
+            "label": "Enable falling snow effect?"
+          },
+          "catalog_mode": {
+            "label": "Enable catalog mode",
+            "info": "You can hide all 'Add to cart' buttons. This will allow you to showcase your products as an online catalog without ability to make a purchase."
+          }
+        },
+        "email_marketing": {
+          "content": "+ Email Marketing",
+          "platform_email": {
+            "label": "Platform email marketing",
+            "options": {
+              "option__1": {
+                "label": "Default"
+              },
+              "option__2": {
+                "label": "Omnisend [install here](https://apps.shopify.com/omnisend/?ref=the4)"
+              },
+              "option__3": {
+                "label": "Klaviyo [install here](https://apps.shopify.com/klaviyo-email-marketing/?ref=the4)"
+              },
+              "option__4": {
+                "label": "Mailchimp [install here](https://apps.shopify.com/mailchimp)"
+              }
+            }
+          },
+          "content__1": {
+            "content": "+ Default, Any customers who sign up will have an account created for them in Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)"
+          }
+        },
+        "klaviyo": {
+          "content": "+ Klaviyo",
+          "klaviyo_list_id": {
+            "label": "Klaviyo list ID [Find a List ID](https://help.klaviyo.com/hc/en-us/articles/115005078647-Find-a-List-ID)"
+          },
+          "content__1": {
+            "content": "[Why are my newsletter subscribers not being added to my list?](https://help.klaviyo.com/hc/en-us/articles/360028366831-FAQ-Why-are-my-newsletter-subscribers-not-being-added-to-my-list)"
+          },
+          "ajax_klaviyo": {
+            "label": "Enable ajax Klaviyo subscribe form?"
+          }
+        },
+        "mailChimp": {
+          "content": "+ MailChimp",
+          "action_mailchimp": {
+            "label": "MailChimp form action URL [Learn More](https://wiki.the4.co/?manual_kb=updated-get-mailchimp-action-url)"
+          },
+          "ajax_mailChimp": {
+            "label": "Enable ajax mailChimp subscribe form"
+          }
+        },
+        "agree_checkbox": {
+          "content": "+ Agree checkbox",
+          "checkbox_mail": {
+            "label": "Enable 'Agree to terms and conditions' checkbox",
+            "info": "Agree to terms and conditions newsletter (GDPR compliant)"
+          },
+          "link_mail": {
+            "label": "Terms and conditions page:"
+          }
+        },
+        "aspect_ratio": {
+          "content": "+ Aspect Ratio Customs",
+          "c_1": {
+            "label": "Ratio Custom 1:"
+          },
+          "c_2": {
+            "label": "Ratio Custom 2:"
+          },
+          "c_3": {
+            "label": "Ratio Custom 3:"
+          },
+          "c_4": {
+            "label": "Ratio Custom 4:"
+          }
+        },
+        "countdown": {
+          "content": "+ Countdown timezone",
+          "info": "Use to display a countdown accordingly to the you set timezone no matter the local time your computer is.",
+          "timezone": {
+            "label": "General timezone:",
+            "placeholder": "America/Chicago",
+            "info": "[Get a name your timezone.](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,164 @@
+{% comment %}
+  Component: Advanced Product Style Chooser
+  Description: Displays product variants/styles as swappable cards with hover effects
+  Features:
+  - Responsive grid layout
+  - Image hover transitions
+  - Dynamic variant selection
+  - Lazy-loaded images
+  Parameters:
+  - advance_pr_type: Array of products to display
+  - pid: Current product ID
+  - title: Section heading
+  - col_style: Responsive column class (3/15 column system)
+  Dependencies:
+  - Requires product metafields: theme.advance_pr_title
+  - button-style.css (if using in parent component)
+  Notes:
+  - Uses CSS custom properties for theme colors
+  - Includes mobile-friendly horizontal scroll
+  - Accessibility labels recommended for production
+  - Image ratios maintained via aspect-ratio CSS
+  Example usage:
+  {% render 'advanced-product-chooser',
+    advance_pr_type: collection.products,
+    pid: product.id,
+    title: 'Select Style',
+    col_style: section.settings.grid_style
+  %}
+{% endcomment %}
+
+{%- liquid
+  # Determine column style based on section ID
+  if section.id == 'main-qv'
+    assign col_style = '3'
+  else
+    assign col_style = '15'
+  endif
+-%}
+
+<style>
+  .pr-choose__wrap {
+    overflow: hidden;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  .pr-choose__title {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .pr-choose__img .lz_op_ef {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
+  .row.pr-choose__wrap {
+    margin: 10px 0 25px;
+  }
+  .pr-choose__style ~ .nt_cart_form .swatch {
+    margin-bottom: 15px;
+  }
+  .pr-choose__wrap > .pr-choose__item {
+    padding: 5px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    border-radius: 4px;
+  }
+  .rtl_true .pr-choose__wrap > .pr-choose__item {
+    margin-right: 0;
+    margin-left: 10px;
+  }
+  .pr-choose__wrap > .pr-choose__item:last-child {
+    margin: 0;
+  }
+  .pr-choose__info {
+    color: var(--secondary-color);
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 5px;
+  }
+  .pr-choose__img-hover {
+    opacity: 0 !important;
+    -webkit-transition: opacity 0.5s, -webkit-transform 2s cubic-bezier(0, 0, 0.44, 1.18);
+    transition: opacity 0.5s, transform 2s cubic-bezier(0, 0, 0.44, 1.18),
+      -webkit-transform 2s cubic-bezier(0, 0, 0.44, 1.18);
+  }
+  .pr-choose__item:hover .pr-choose__img-hover {
+    opacity: 1 !important;
+    transform: scale(1.09);
+  }
+  .pr-choose__wrap > .pr-choose__item.is--chosen {
+    border: 2px solid var(--accent-color);
+    background-color: rgba(var(--accent-color-rgb), 0.06);
+  }
+</style>
+<div class="pr-choose__style">
+  {%- capture choose__html -%}
+    {%- for pr in advance_pr_type -%}
+      {%- liquid
+        assign pr_imgs = pr.images
+        assign title_pr = pr.metafields.theme.advance_pr_title | default: pr.title | escape
+        assign title_chosen = ': ' | append: title_chosen_pr
+      -%}
+      <div
+        class="col-4 col-md-{{col_style}} col-item pr-choose__item text-center {% if pid == pr.id %}is--chosen{% endif %}"
+        tabindex="0"
+      >
+        <a href="{{pr.url | escape }}" class="d-block" data-tooltip="top" title="{{pr.title | escape}}">
+          {%- if pr_imgs.size > 0 -%}
+            {%- assign image = pr_imgs[0] -%}
+            {% unless image0 %}{% assign image0_ratio = image.aspect_ratio %}{% endunless -%}
+            <div class="pr-choose__img ratio relative overflow-hidden">
+              <img
+                class="pr-choose__img-main lazyload lz--fadeIn"
+                data-src="{{ image | image_url: '1x1' }}"
+                data-widths="[102,204]"
+                data-optimumx="2"
+                data-sizes="auto"
+                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                width="{{ image.width }}"
+                height="{{ image.height }}"
+                alt="{{ image.alt | escape }}"
+              >
+              {%- if pr_imgs.size > 1 -%}
+                {%- assign image = pr_imgs[1] -%}
+                <img
+                  class="pr-choose__img-hover pointer-events-none absolute ts-t-0 ts-t-0 ts-t-0 ts-t-0 opacity-0 lazyload lz--fadeIn"
+                  data-src="{{ image | image_url: '1x1' }}"
+                  data-widths="[102,204]"
+                  data-optimumx="2"
+                  data-sizes="auto"
+                  src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                  width="{{ image.width }}"
+                  height="{{ image.height }}"
+                  alt="{{ image.alt | escape }}"
+                >
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+          <div
+            class="pr-choose__info truncate"
+            role="list"
+            aria-label="Product options"
+          >
+            {{ title_pr }}
+          </div>
+        </a>
+      </div>
+    {%- endfor -%}
+  {%- endcapture -%}
+  <h4 class="pr-choose__title truncate">
+    {{ title | escape -}}
+    {{- title_chosen }}
+  </h4>
+  <div
+    class="row ts-g-0 flex-nowrap pr-choose__wrap ratioadapt current-scrollbar-"
+    style="--aspect-ratioapt:{{image0_ratio}}"
+    role="list"
+  >
+    {{ choose__html }}
+  </div>
+</div>

@@ -1,0 +1,360 @@
+{%- comment -%}
+  Grouped Form Component
+
+  Description:
+  Displays multiple products as a group with quantity selectors and a single "Add to Cart" button
+  that adds all products to cart at once.
+
+  Usage:
+  {% render 'grouped-forms',
+     product: product,
+     product_list: collection.products,
+     bk_stts: section.settings
+  %}
+
+  Features:                                                        
+ • Table layout listing each item (including “current” product)
+ • Variant selection dropdown for multi-variant items
+ • Quantity +/– controls with min/max limits
+ • Price & compare prices per row, plus a total at the bottom
+ • Wishlist & Compare icons (via separate snippet render)
+ • Dynamic “Notify me” + payment buttons if enabled  
+
+  Required variables:
+  - product: Current product (product object)
+  - product_list: List of related products to show (array of product objects)
+  - bk_stts: Section settings containing:
+    - show_product_current: Boolean to show current product in the list
+    - qty_val: Default quantity value for products
+    - btn_atc_full: Boolean for full-width button
+    - btn_txt: Button text style
+    - button_style: Button style (default, outline, etc.)
+    - button_color: Button color
+    - button_effect: Button hover effect
+    - pr_btn_round: Button border-radius in pixels
+    - ani: Add to cart animation type
+    - time: Animation duration in seconds
+    - enable_wishlist: Boolean to show wishlist button
+    - enable_compare: Boolean to show compare button
+{%- endcomment -%}
+
+
+{%- liquid
+  # Initialize variables for current product
+  assign pid = product.id
+  assign current_variant = product.selected_or_first_available_variant
+  assign current_variant_id = current_variant.id
+
+  # Initialize price tracking variables
+  assign total_price = 0
+  assign total_compare_price = 0
+
+  # Get settings from block settings
+  assign qty = bk_stts.qty_val
+  assign min = 0
+  assign show_product_current = bk_stts.show_product_current
+  assign form_id = 'grouped__frm' | append: pr_se_id
+  # assign txt_qv = 'products.product_card.quick_view' | t
+-%}
+
+{{ 'grouped.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="product-form__variants grouped-product is-btn-full-width__{{bk_stts.btn_atc_full}} is-btn-atc-txt-{{bk_stts.btn_txt}}"
+  {{ shopify_attributes }}
+>
+  {%- form 'product',
+    product,
+    id: form_id,
+    class: 'grouped__frm',
+    novalidate: 'novalidate',
+    data-groups-pr-form: '',
+    data-type: 'add-to-cart-form'
+  -%}
+    <table class="grouped-product-list" role="table" aria-label="grouped products">
+      <tbody>
+        {%- if show_product_current -%}
+          {%- liquid
+            # ROW 1: the main product (always shown)
+            # Get available variants for current product
+            assign available_v = product.variants | where: 'available'
+
+            # Set up pricing variables
+            assign cu_pr = current_variant.price
+            assign cp_pr = current_variant.compare_at_price | default: cu_pr
+            assign total_price = total_price | plus: cu_pr
+            assign total_compare_price = total_compare_price | plus: cp_pr
+
+            # Set up image variables
+            assign image = current_variant.featured_image | default: product.featured_image
+            assign img_url = image | image_url: '1x1'
+            assign featured_image = product.featured_image
+          -%}
+
+          <tr data-groups-pr-item class="grouped-pr-item">
+            <!-- IMAGE CELL -->
+            <td class="grouped-pr__img relative" data-groups-img="{% increment indexData %}">
+              <a href="{{item.url}}" class="d-inline-block grouped-pr__img-wrap relative">
+                <img
+                  class="lazyload lz--fadeIn"
+                  data-orginal="{{ img_url }}"
+                  data-src="{{img_url }}"
+                  data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
+                  data-optimumx="2"
+                  data-sizes="auto"
+                  src="{% render 'img_svg',w:image.width,h:image.height %}"
+                  width="{{ image.width }}"
+                  height="{{ image.height }}"
+                  alt="{{ image.alt | escape }}"
+                >
+                <span class="lazyload-loader is-bg-img" style="background: url({{ img_url }})"></span>
+              </a>
+            </td>
+            <!-- INFO + VARIANT SELECT -->
+            <td class="grouped-pr__info text-center">
+              <a class="grouped-pr__link d-inline-block" href="{{product.url}}">
+                {{- product.title -}}
+                {%- if available_v.size < 2 and product.has_only_default_variant == false %}
+                  - {{ current_variant.title -}}
+                {%- endif -%}
+              </a>
+              {%- if available_v.size < 2 -%}
+                <input
+                  data-groups-pr-sl
+                  name="items[][id]"
+                  data-cpprice="{{cp_pr}}"
+                  data-price="{{cu_pr}}"
+                  value="{{ current_variant.id }}"
+                  type="hidden"
+                >
+              {%- else -%}
+                <select
+                  data-groups-pr-sl
+                  name="items[][id]"
+                  autocomplete="off"
+                  data-cpprice="{{cp_pr}}"
+                  data-price="{{cu_pr}}"
+                >
+                  {%- for variant in available_v -%}
+                    <option
+                      data-img="{{variant.image | default:featured_image | image_url: '1x1'}}"
+                      data-cpprice="{{variant.compare_at_price |default:variant.price}}"
+                      data-price="{{variant.price}}"
+                      data-max="{% if variant.inventory_management == blank or variant.inventory_policy == 'continue' %}9999{% else %}{{ variant.inventory_quantity |default:9999 }}{% endif %}"
+                      value="{{ variant.id }}"
+                      {% if variant.id == current_variant_id %}
+                        selected="selected"
+                      {% endif %}
+                    >
+                      {{ variant.title | escape }}
+                    </option>
+                  {%- endfor -%}
+                </select>
+              {%- endif -%}
+              <div class="grouped-pr__price" data-groups-item-price>
+                {% if current_variant.compare_at_price > current_variant.price -%}
+                  <del>{{ current_variant.compare_at_price | money }}</del>
+                  <ins>{{ current_variant.price | money }}</ins>
+                {%- else -%}
+                  {{- current_variant.price | money -}}
+                {%- endif %}
+              </div>
+            </td>
+            <td class="grouped-pr__qty">
+              <div data-quantity-wrapper class="quantity-wrapper">
+                <button data-quantity-selector data-decrease-qty type="button" class="quantity-selector is--minus">
+                  <svg focusable="false" arial-hidden="true" class="icon icon--minus" viewBox="0 0 10 2" role="presentation">
+                    <path d="M10 0v2H0V0z" fill="currentColor"></path>
+                  </svg>
+                </button>
+                <input
+                  data-groups-qty-value
+                  data-quantity-value
+                  type="number"
+                  class="quantity-input"
+                  step="1"
+                  min="{{min}}"
+                  max="{% if current_variant.inventory_management == blank or current_variant.inventory_policy == 'continue' %}9999{% else %}{{current_variant.inventory_quantity | default:9999}}{% endif %}"
+                  name="items[][quantity]"
+                  value="1"
+                  size="4"
+                  pattern="[0-9]*"
+                  inputmode="numeric"
+                >
+                <button data-quantity-selector data-increase-qty type="button" class="quantity-selector is--plus">
+                  <svg focusable="false" arial-hidden="true" class="icon icon--plus" viewBox="0 0 10 10" role="presentation">
+                    <path d="M6 4h4v2H6v4H4V6H0V4h4V0h2v4z" fill="currentColor" fill-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        {%- endif -%}
+
+        {%- for item in product_list -%}
+          {%- liquid
+            if pid == item.id or item.available == false
+              continue
+            endif
+            # Get available variants for current product
+            assign available_v = item.variants | where: 'available'
+            assign available_v_1 = available_v.first
+
+            # Set up pricing variables
+            assign cu_pr = available_v_1.price
+            assign cp_pr = available_v_1.compare_at_price | default: cu_pr
+            assign total_price = total_price | plus: cu_pr
+            assign total_compare_price = total_compare_price | plus: cp_pr
+
+            # Set up image variables
+            assign image = available_v_1.featured_image | default: item.featured_image
+            assign img_url = image | image_url: '1x1'
+            assign featured_image = item.featured_image
+          -%}
+          <tr data-groups-pr-item class="grouped-pr-item">
+            <td class="grouped-pr__img relative" data-groups-img="{% increment indexData %}">
+              <a href="{{item.url}}" class="d-inline-block grouped-pr__img-wrap">
+                <img
+                  class="lazyload lz--fadeIn"
+                  data-orginal="{{ img_url }}"
+                  data-src="{{img_url }}"
+                  data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
+                  data-optimumx="2"
+                  data-sizes="auto"
+                  src="{% render 'img_svg',w:image.width,h:image.height %}"
+                  width="{{ image.width }}"
+                  height="{{ image.height }}"
+                  alt="{{ image.alt | escape }}"
+                >
+                <span class="lazyload-loader is-bg-img" style="background: url({{ img_url }})"></span>
+              </a>
+            </td>
+            <td class="grouped-pr__info text-center">
+              <a class="grouped-pr__link d-inline-block" href="{{item.url}}">
+                {{- item.title -}}
+                {%- if available_v.size < 2 and item.has_only_default_variant == false %}
+                  - {{ available_v_1.title -}}
+                {%- endif -%}
+              </a>
+              {%- if available_v.size < 2 -%}
+                <input
+                  data-groups-pr-sl
+                  name="items[][id]"
+                  data-cpprice="{{cp_pr}}"
+                  data-price="{{cu_pr}}"
+                  value="{{ available_v_1.id }}"
+                  type="hidden"
+                >
+              {%- else -%}
+                <select
+                  data-groups-pr-sl
+                  name="items[][id]"
+                  autocomplete="off"
+                  data-cpprice="{{cp_pr}}"
+                  data-price="{{cu_pr}}"
+                >
+                  {%- for variant in available_v -%}
+                    <option
+                      data-img="{{variant.image | default:featured_image | image_url: '1x1'}}"
+                      data-cpprice="{{variant.compare_at_price | default:variant.price}}"
+                      data-price="{{variant.price}}"
+                      data-max="{% if variant.inventory_management == blank or variant.inventory_policy == 'continue' %}9999{% else %}{{ variant.inventory_quantity |default:9999 }}{% endif %}"
+                      value="{{ variant.id }}"
+                      {% if variant.id == current_variant_id %}
+                        selected="selected"
+                      {% endif %}
+                    >
+                      {{ variant.title | escape }}
+                    </option>
+                  {%- endfor -%}
+                </select>
+              {%- endif -%}
+              <div class="grouped-pr__price" data-groups-item-price>
+                {% if available_v_1.compare_at_price > available_v_1.price -%}
+                  <del>{{ available_v_1.compare_at_price | money }}</del> <ins>{{ available_v_1.price | money }}</ins>
+                {%- else -%}
+                  {{- available_v_1.price | money -}}
+                {%- endif %}
+              </div>
+            </td>
+            <td class="grouped-pr__qty">
+              <div data-quantity-wrapper class="quantity-wrapper">
+                <button data-quantity-selector data-decrease-qty type="button" class="quantity-selector is--minus">
+                  <svg focusable="false" class="icon icon--minus" viewBox="0 0 10 2" role="presentation">
+                    <path d="M10 0v2H0V0z" fill="currentColor"></path>
+                  </svg>
+                </button>
+                <input
+                  data-groups-qty-value
+                  data-quantity-value
+                  type="number"
+                  class="quantity-input"
+                  step="1"
+                  min="{{min}}"
+                  max="{% if available_v_1.inventory_management == blank or available_v_1.inventory_policy == 'continue' %}9999{% else %}{{available_v_1.inventory_quantity | default:9999}}{% endif %}"
+                  name="items[][quantity]"
+                  value="{{qty}}"
+                  size="4"
+                  pattern="[0-9]*"
+                  inputmode="numeric"
+                >
+                <button data-quantity-selector data-increase-qty type="button" class="quantity-selector is--plus">
+                  <svg focusable="false" arial-hidden="true" class="icon icon--plus" viewBox="0 0 10 10" role="presentation">
+                    <path d="M6 4h4v2H6v4H4V6H0V4h4V0h2v4z" fill="currentColor" fill-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        {%- endfor -%}
+      </tbody>
+    </table>
+
+    <!-- Total price and buttons section -->
+    <div class="relativeoduct-form__buttons" style="--pr-btn-round:{{bk_stts.pr_btn_round}}px;">
+      <div class="grouped__text-total-price">
+        <span class="grouped__total-text">{{ 'products.grouped.tt_price' | t }} </span
+        ><span class="grouped__total-price" data-groups-total-price>
+          {%- if total_compare_price > total_price -%}
+            <del>{{ total_compare_price | money }}</del> <ins>{{ total_price | money }}</ins>
+          {%- else -%}
+            {{- total_price | money -}}
+          {%- endif -%}
+        </span>
+      </div>
+      <div class="d-flex flex-wrap">
+        {%- if bk_stts.enable_wishlist or bk_stts.enable_compare -%}
+          {%- render 'wis_cp', product: product, bk_stts: bk_stts -%}
+        {%- endif -%}
+
+        <button
+          data-animation-atc='{ "ani":"{{bk_stts.ani}}","time":{{bk_stts.time}}000 }'
+          type="submit"
+          name="add"
+          data-atc-form
+          class="product-form__submit btn btn-base btn-style-{{bk_stts.button_style}} btn-color-{{bk_stts.button_color}} w-100 justify-content-center {% if bk_stts.button_style == 'default' or bk_stts.button_style == 'outline'%} btn-effect-{{bk_stts.button_effect}} {% endif %} btn-loading__svg"
+        >
+          <span class="btn-atc_text">{{ 'products.product.add_to_cart' | t }}</span>
+          <span class="loading__spinner" hidden>
+            <svg
+              width="16"
+              height="16"
+              hidden
+              class="svg-spinner"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 66 66"
+              arial-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  {%- endform -%}
+  {%- if bk_stts.ani != 'none ' -%}
+    <link href="{{ 'ani-atc.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
+  {%- endif -%}
+</div>

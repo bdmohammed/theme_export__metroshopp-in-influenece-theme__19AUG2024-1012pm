@@ -1,37 +1,545 @@
-{% liquid
-  if section.settings.logo_aligment == 'left'
-    assign header_grid = 'style="grid-template-areas:' | append: "'logo nav cta'; grid-template-columns:auto 1fr auto;" | append: '"'
-    assign logo_align = 'lg:py-4 lg:mr-4 header-logo text-center justify-self-center lg:justify-self-start'
-  else
-    assign header_grid = 'style="grid-template-areas:' | append: "'nav logo cta'; grid-template-columns:minmax(20px, 2fr) minmax(" | append: section.settings.logo_width_desktop | append: "px, 0.5fr) minmax(20px, 2fr);" | append: '"'
-    assign logo_align = 'lg:py-4 header-logo text-center self-center justify-self-center'
-  endif
-%}
+{% comment %}
+  {% liquid
+    if section.settings.logo_aligment == 'left'
+      assign header_grid = 'style="grid-template-areas:' | append: "'logo nav cta'; grid-template-columns:auto 1fr auto;" | append: '"'
+      assign logo_align = 'lg:py-4 lg:mr-4 header-logo text-center justify-self-center lg:justify-self-start'
+    else
+      assign header_grid = 'style="grid-template-areas:' | append: "'nav logo cta'; grid-template-columns:minmax(20px, 2fr) minmax(" | append: section.settings.logo_width_desktop | append: "px, 0.5fr) minmax(20px, 2fr);" | append: '"'
+      assign logo_align = 'lg:py-4 header-logo text-center self-center justify-self-center'
+    endif
+  %}
 
-<safe-load-scripts>
-  <script src="{{ 'component-header-main.min.js' | asset_url }}" defer="defer" type="module"></script>
-</safe-load-scripts>
+  <safe-load-scripts>
+    <script src="{{ 'component-header-main.min.js' | asset_url }}" defer="defer" type="module"></script>
+  </safe-load-scripts>
 
-<header-main data-template-name="{{ template.name }}">
-  <header role="banner" data-section-id="{{ section.id }}" data-aid="header-section" {{ header_grid }} class="grid py-3 px-4 lg:px-5 xl:px-6 lg:py-0 md:gap-[1rem] items-center bg-page text-body relative border-b border-b-border-opacity-10" data-color-scheme="{{ section.settings.section_color_scheme }}">
+  <header-main data-template-name="{{ template.name }}">
+    <header role="banner" data-section-id="{{ section.id }}" data-aid="header-section" {{ header_grid }} class="grid py-3 px-4 lg:px-5 xl:px-6 lg:py-0 md:gap-[1rem] items-center bg-page text-body relative border-b border-b-border-opacity-10" data-color-scheme="{{ section.settings.section_color_scheme }}">
 
-    <button type="button" data-armada-selector="navigation-toggle" class="lg:hidden w-44 h-44 navigation-toggle group" aria-label="Open navigation" aria-expanded="false" aria-controls="main-navigation">
-      {% render 'armament-icon' with icon: 'mobile-nav', attributes: 'data-aid="hamburger-menu" style="grid-area:nav;" data-armada-selector="mobile-menu-open-icon"' %}
-      {% render 'armament-icon' with icon: 'cancel', classes: 'hidden', attributes: 'data-aid="hamburger-menu" style="grid-area:nav;" data-armada-selector="mobile-menu-close-icon"' %}
-    </button>
-    {% liquid
-      unless template == 'index'
-        assign text_logo_tag = 'h2'
-      else 
-        assign text_logo_tag = 'h1'
-      endunless
-      render 'ship-main-navigation' with section_blocks: section.blocks, icon: section.settings.menu_icon
-      render 'armament-logo' with logo_image: section.settings.header_logo, width_desktop: section.settings.logo_width_desktop, width_mobile: section.settings.logo_width_mobile, tag: text_logo_tag, text_classes: 'text-h5', image_classes: 'logo min-w-[50px] max-w-[160px] lg:min-w-[80px] lg:max-w-[270px]', section_id: section.id, link_classes: logo_align, attributes: 'style="grid-area:logo;"'
-      render 'ship-header-cta'
-    %}
+      <button type="button" data-armada-selector="navigation-toggle" class="lg:hidden w-44 h-44 navigation-toggle group" aria-label="Open navigation" aria-expanded="false" aria-controls="main-navigation">
+        {% render 'armament-icon' with icon: 'mobile-nav', attributes: 'data-aid="hamburger-menu" style="grid-area:nav;" data-armada-selector="mobile-menu-open-icon"' %}
+        {% render 'armament-icon' with icon: 'cancel', classes: 'hidden', attributes: 'data-aid="hamburger-menu" style="grid-area:nav;" data-armada-selector="mobile-menu-close-icon"' %}
+      </button>
+      {% liquid
+        unless template == 'index'
+          assign text_logo_tag = 'h2'
+        else
+          assign text_logo_tag = 'h1'
+        endunless
+        render 'ship-main-navigation' with section_blocks: section.blocks, icon: section.settings.menu_icon
+        render 'armament-logo' with logo_image: section.settings.header_logo, width_desktop: section.settings.logo_width_desktop, width_mobile: section.settings.logo_width_mobile, tag: text_logo_tag, text_classes: 'text-h5', image_classes: 'logo min-w-[50px] max-w-[160px] lg:min-w-[80px] lg:max-w-[270px]', section_id: section.id, link_classes: logo_align, attributes: 'style="grid-area:logo;"'
+        render 'ship-header-cta'
+      %}
 
-  </header>
-</header-main>
+    </header>
+  </header-main>
+{% endcomment %}
+
+<header id="shopify-section-header-inline" class="shopify-section section section-header">
+  {%- style -%}
+    .header__wrapper {
+      --h-text-color: #222222;
+      --h-text-color-rgb: 34, 34, 34;
+      --h-text-color-hover: #56cfe1;
+      --h-bg-color: #ffffff;
+      background-color: var(--h-bg-color);
+    }
+
+    .count-box {
+      --h-count-bgcolor: #000000;
+      --h-count-color: #ffffff;
+    }
+
+    .is-header--stuck .header__wrapper {
+      --h-text-color: #222222;
+      --h-text-color-rgb: 34, 34, 34;
+      --h-text-color-hover: #56cfe1;
+      --h-bg-color: #ffffff;
+    }
+
+    .is-header--stuck .header__sticky-logo {
+      display: block !important;
+    }
+
+    .is-header--stuck .header__normal-logo,
+    .is-header--stuck .header__mobile-logo {
+      display: none !important;
+    }
+
+    .section-header [data-header-height] {
+      min-height: 60px;
+    }
+
+    .header__logo img {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      transform: translateZ(0);
+      max-height: inherit;
+      height: auto;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .header__logo img[src*='.svg'] {
+      height: 100%;
+      perspective: 800px;
+      -webkit-perspective: 800px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .site-nav__icons .site-nav__icon {
+      padding: 0 6px;
+      display: inline-block;
+      line-height: 1;
+    }
+
+    .site-nav__icons svg.icon {
+      color: var(--h-text-color);
+      line-height: 1;
+      vertical-align: middle;
+      transition: color 0.2s ease-in-out;
+      width: 22px;
+      height: 22px;
+    }
+
+    .site-nav__icons.use__kalles svg.icon--account {
+      width: 24px;
+      height: 24px;
+    }
+
+    .site-nav__icons.use__line svg.icon {
+      width: 25px;
+      height: 25px;
+    }
+
+    .site-nav__icon > a:hover svg.icon {
+      color: var(--h-text-color-hover);
+    }
+
+    .site-nav__icon a {
+      display: inline-block;
+      line-height: 1;
+    }
+
+    .site-nav__cart > a,
+    .push-menu-btn {
+      color: var(--h-text-color);
+    }
+
+    .site-nav__cart > a:hover {
+      color: var(--h-text-color-hover);
+    }
+
+    @media (min-width: 768px) {
+      .site-nav__icons .site-nav__icon {
+        padding: 0 8px;
+      }
+    }
+
+    @media (min-width: 1025px) {
+      .section-header [data-header-height] {
+        min-height: 70px;
+      }
+
+      .announcement-bar > .container,
+      .top-bar > .container,
+      .header__wrapper > .container {
+        max-width: 100%;
+      }
+
+      .header-layout_logo_left .header__logo {
+        margin-left: 10px;
+      }
+
+      .nav__ul {
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav__ul > li > a {
+        color: var(--h-text-color);
+        padding: 5px 17.5px;
+        text-transform: none;
+        font-family: var(--font-family-1);
+        font-weight: 400;
+        font-size: 14px;
+      }
+
+      .nav__ul > li > a:hover {
+        color: var(--h-text-color-hover) !important;
+      }
+
+      .header-layout_logo_left .col-group_btns {
+        min-width: 16.666667%;
+      }
+
+      .nav__ul .icon-select-arrow {
+        position: static;
+        width: 8px;
+        margin-left: 4px;
+        height: 8px;
+        opacity: 0.8;
+      }
+
+      .header-layout_logo_center .nav__ul > li > a {
+        padding-left: 5px;
+      }
+    }
+  {%- endstyle -%}
+
+  <div
+    data-header-options='{ "isTransparent": false,"isSticky": true,"hideScroldown": true }'
+    class="header__wrapper relative header-layout_logo_left "
+  >
+    <div class="container">
+      <div data-header-height class="row ts-gx-15 ts-gx-md-30 align-items-center">
+        <div class="col-md-4 col-3 d-lg-none col-item">
+          <a
+            href="/"
+            data-menu-drawer
+            data-drawer-options='{ "id":"#menu-drawer" }'
+            class="push-menu-btn  lh-1 d-flex align-items-center"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" viewBox="0 0 30 16" fill="currentColor">
+              <rect width="30" height="1.5"></rect>
+              <rect y="7" width="20" height="1.5"></rect>
+              <rect y="14" width="30" height="1.5"></rect>
+            </svg>
+          </a>
+        </div>
+        <div class="col-lg-2 col-md-4 col-6 text-center text-lg-start col-item">
+          <div class=" header__logo lh-1">
+            <a class="d-inline-block" href="/">
+              <img
+                loading="eager"
+                srcset="//demo-kalles-4-1.myshopify.com/cdn/shop/files/kalles_babcb241-47cc-4352-a0ae-1458bbff9dcc.png?v=1652178358&width=95, //demo-kalles-4-1.myshopify.com/cdn/shop/files/kalles_babcb241-47cc-4352-a0ae-1458bbff9dcc.png?v=1652178358&width=190 2x"
+                src="//demo-kalles-4-1.myshopify.com/cdn/shop/files/kalles_babcb241-47cc-4352-a0ae-1458bbff9dcc.png?v=1652178358&width=95"
+                class="header__normal-logo d-none d-lg-block"
+                width="95"
+                height="29"
+                alt="Kalles shopify theme (password: 4)"
+                style="width: 95px"
+              >
+              <style>
+                @media (max-width: 1024px) {
+                  .header__sticky-logo {
+                    width: 95px !important;
+                  }
+                }
+              </style>
+              <img
+                loading="lazy"
+                srcset="//demo-kalles-4-1.myshopify.com/cdn/shop/files/kalles_babcb241-47cc-4352-a0ae-1458bbff9dcc.png?v=1652178358&width=95, //demo-kalles-4-1.myshopify.com/cdn/shop/files/kalles_babcb241-47cc-4352-a0ae-1458bbff9dcc.png?v=1652178358&width=190 2x"
+                src="//demo-kalles-4-1.myshopify.com/cdn/shop/files/kalles_babcb241-47cc-4352-a0ae-1458bbff9dcc.png?v=1652178358&width=95"
+                class="header__sticky-logo d-none d-none"
+                width="95"
+                height="29"
+                alt="Kalles shopify theme (password: 4)"
+                style="width: 95px"
+              >
+              <img
+                loading="eager"
+                srcset="//demo-kalles-4-1.myshopify.com/cdn/shop/files/kalles_babcb241-47cc-4352-a0ae-1458bbff9dcc.png?v=1652178358&width=95, //demo-kalles-4-1.myshopify.com/cdn/shop/files/kalles_babcb241-47cc-4352-a0ae-1458bbff9dcc.png?v=1652178358&width=190 2x"
+                src="//demo-kalles-4-1.myshopify.com/cdn/shop/files/kalles_babcb241-47cc-4352-a0ae-1458bbff9dcc.png?v=1652178358&width=95"
+                class="header__mobile-logo d-lg-none"
+                width="95"
+                height="29"
+                alt="Kalles shopify theme (password: 4)"
+                style="width: 95px"
+              >
+            </a>
+          </div>
+        </div>
+        <div class="col d-none d-lg-block col-item">
+          <nav class="navigation text-center nav__hover_sideup nav-arrow__false">
+            <ul data-menu-nav id="nav-ul" class="nav__ul d-inline-flex flex-wrap align-items-center">
+              <li
+                id="item_9883384a-d19a-4abe-9a94-388d91fce9b6"
+                data-placement="bottom"
+                class="type__mega menu-width__full menu-item has--children menu-has__offsets "
+              >
+                <a
+                  class="lh-1 d-flex align-items-center relative"
+                  href="https://demo-kalles-4-1.myshopify.com/"
+                  target="_self"
+                  >Demo</a
+                >
+                <div
+                  id="content_9883384a-d19a-4abe-9a94-388d91fce9b6"
+                  class="sub-menu absolute  opacity-0 pointer-events-none current-scrollbar"
+                >
+                  <div class="container" style="width:1200px">
+                    <div
+                      class="row ts-gx-20 ts-gy-30 lazy_menu isotope isotope-later"
+                      data-id="1"
+                      data-isotope-js='{ "itemSelector": ".sub-column-item", "layoutMode": "packery","gutter": 0 }'
+                    >
+                      <div class="loading--bg"></div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                id="item_e0be43d6-bf02-4962-a06e-4294c6d6bd53"
+                data-placement="bottom"
+                class="type__mega menu-width__cus menu-item has--children menu-has__offsets "
+              >
+                <a class="lh-1 d-flex align-items-center relative" href="/collections" target="_self">
+                  Shop<span class="lb_nav absolute  opacity-0" style="background-color: #00badb;color: #fff">New</span>
+                </a>
+                <div
+                  id="content_e0be43d6-bf02-4962-a06e-4294c6d6bd53"
+                  class="sub-menu absolute  opacity-0 pointer-events-none current-scrollbar"
+                >
+                  <div class="container" style="width:1200px">
+                    <div
+                      class="row ts-gx-20 ts-gy-30 lazy_menu isotope isotope-later"
+                      data-id="2"
+                      data-isotope-js='{ "itemSelector": ".sub-column-item", "layoutMode": "packery","gutter": 0 }'
+                    >
+                      <div class="loading--bg"></div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                id="item_3944a4f5-3618-4f4b-9d13-238ddb1b72f2"
+                data-placement="bottom"
+                class="type__mega menu-width__cus menu-item has--children menu-has__offsets "
+              >
+                <a class="lh-1 d-flex align-items-center relative" href="/collections/all" target="_self">Product</a>
+                <div
+                  id="content_3944a4f5-3618-4f4b-9d13-238ddb1b72f2"
+                  class="sub-menu absolute  opacity-0 pointer-events-none current-scrollbar"
+                >
+                  <div class="container" style="width:1100px">
+                    <div
+                      class="row ts-gx-20 ts-gy-30 lazy_menu isotope isotope-later"
+                      data-id="3"
+                      data-isotope-js='{ "itemSelector": ".sub-column-item", "layoutMode": "packery","gutter": 0 }'
+                    >
+                      <div class="loading--bg"></div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                id="item_4a281327-6e12-4cd4-af83-0ce2f502e7b8"
+                data-placement="bottom"
+                class="type__mega menu-width__cus menu-item has--children menu-has__offsets "
+              >
+                <a class="lh-1 d-flex align-items-center relative" href="/collections" target="_self">
+                  Sale<span class="lb_nav absolute  opacity-0" style="background-color: #ffa800;color: #fff">Sale</span>
+                </a>
+                <div
+                  id="content_4a281327-6e12-4cd4-af83-0ce2f502e7b8"
+                  class="sub-menu absolute  opacity-0 pointer-events-none current-scrollbar"
+                >
+                  <div class="container" style="width:1200px">
+                    <div
+                      class="row ts-gx-20 ts-gy-30 lazy_menu isotope isotope-later"
+                      data-id="4"
+                      data-isotope-js='{ "itemSelector": ".sub-column-item", "layoutMode": "packery","gutter": 0 }'
+                    >
+                      <div class="loading--bg"></div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                id="item_4895043f-6817-4c0e-a91c-e81b836e26d0"
+                data-placement="bottom"
+                class="type__mega menu-width__cus menu-item has--children menu-has__offsets "
+              >
+                <a class="lh-1 d-flex align-items-center relative" href="/" target="_self">Pages</a>
+                <div
+                  id="content_4895043f-6817-4c0e-a91c-e81b836e26d0"
+                  class="sub-menu absolute  opacity-0 pointer-events-none current-scrollbar"
+                >
+                  <div class="container" style="width:1200px">
+                    <div
+                      class="row ts-gx-20 ts-gy-30 lazy_menu isotope isotope-later"
+                      data-id="5"
+                      data-isotope-js='{ "itemSelector": ".sub-column-item", "layoutMode": "packery","gutter": 0 }'
+                    >
+                      <div class="loading--bg"></div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                id="item_556a85dc-041d-4d44-8c22-263ed70a8b48"
+                data-placement="bottom-start"
+                class="type__drop menu-item has--children menu-has__offsets menu-pos__left "
+              >
+                <a
+                  class="lh-1 d-flex align-items-center relative"
+                  href="https://demo-kalles-4-1.myshopify.com"
+                  target="_self"
+                  >Lookbook</a
+                >
+                <div id="content_556a85dc-041d-4d44-8c22-263ed70a8b48" class="sub-menu absolute  opacity-0 pointer-events-none">
+                  <div class="lazy_menu" data-handle="lookbook">
+                    <div class="loading--bg"></div>
+                  </div>
+                </div>
+              </li>
+              <li
+                id="item_9a73cf8b-993e-4dbe-9f11-6e990bfb91c0"
+                data-placement="bottom"
+                class="type__mega menu-width__cus menu-item has--children menu-has__offsets "
+              >
+                <a
+                  class="lh-1 d-flex align-items-center relative"
+                  href="https://demo-kalles-4-1.myshopify.com/blogs/fashion/?preview_theme_id="
+                  target="_self"
+                  >Blog</a
+                >
+                <div
+                  id="content_9a73cf8b-993e-4dbe-9f11-6e990bfb91c0"
+                  class="sub-menu absolute  opacity-0 pointer-events-none current-scrollbar"
+                >
+                  <div class="container" style="width:950px">
+                    <div
+                      class="row ts-gx-20 ts-gy-30 lazy_menu isotope isotope-later"
+                      data-id="6"
+                      data-isotope-js='{ "itemSelector": ".sub-column-item", "layoutMode": "packery","gutter": 0 }'
+                    >
+                      <div class="loading--bg"></div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li id="item_2e6c37f3-7dc6-430b-aae2-bb008f4d472f" class="type__simple menu-item ">
+                <a class="lh-1 d-flex align-items-center relative" href="https://bit.ly/2yrciwf " target="_self"
+                  >Buy Theme</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="col-lg-auto col-md-4 col-3 text-end col-group_btns col-item lh-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+            <symbol id="icon-h-search" viewBox="0 0 18 19" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.03 11.68A5.784 5.784 0 112.85 3.5a5.784 5.784 0 018.18 8.18zm.26 1.12a6.78 6.78 0 11.72-.7l5.4 5.4a.5.5 0 11-.71.7l-5.41-5.4z" fill="currentColor"></path>
+            </symbol>
+            <symbol id="icon-h-account" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </symbol>
+            <symbol id="icon-h-heart" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </symbol>
+            <symbol id="icon-h-cart" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </symbol>
+          </svg>
+          <div class="site-nav__icons use__kalles is--hover2 h-cart__design1 lh-1 d-inline-flex align-items-center">
+            <div class="site-nav__icon site-nav__search">
+              <a class="relative" href="/search" data-drawer-delay- data-drawer-options='{ "id":"#search-hidden" }'>
+                <svg class="icon icon--search" aria-hidden="true" focusable="false" role="presentation">
+                  <use href="#icon-h-search"></use>
+                </svg>
+              </a>
+            </div>
+            <div class="site-nav__icon site-nav__account relative !d-none !d-md-inline-block">
+              <a
+                class="relative"
+                href="/account"
+                data-no-instant
+                data-drawer-delay-
+                data-drawer-options='{ "id":"#login-sidebar" }'
+              >
+                <svg class="icon icon--account" aria-hidden="true" focusable="false" role="presentation">
+                  <use href="#icon-h-account"></use>
+                </svg>
+              </a>
+            </div>
+            <div class="site-nav__icon site-nav__heart !d-none !d-md-inline-block">
+              <a data-link-wishlist class="relative" href="/search/?view=wishlist">
+                <svg class="icon icon--heart" aria-hidden="true" focusable="false" role="presentation">
+                  <use href="#icon-h-heart"></use>
+                </svg>
+                <span data-count-wishlist class="absolute opacity-0 transition-opacity count-box">0</span>
+              </a>
+            </div>
+            <div class="site-nav__icon site-nav__cart">
+              <a href="/cart" data-drawer-delay- data-drawer-options='{ "id":"#mini_cart" }'>
+                <span class="relative icon-cart__wrap">
+                  <svg class="icon icon--cart" aria-hidden="true" focusable="false" role="presentation">
+                    <use href="#icon-h-cart"></use>
+                  </svg>
+                  <span data-cart-count class="absolute opacity-0 transition-opacity count-box">0</span>
+                </span>
+                <span class="h-cart-totals dn">
+                  <span class="h-cart__divider dn">/</span>
+                  <span data-cart-tt-price class="h-cart__total">$0.00</span>
+                </span>
+              </a>
+            </div>
+          </div>
+          <style>
+            .h-cart__design3 .count-box {
+              width: 19px;
+              height: 19px;
+              line-height: 19px;
+              position: static;
+              display: inline-block;
+            }
+
+            .h-cart__design2 .site-nav__icon:last-child,
+            .h-cart__design3 .site-nav__icon:last-child,
+            .h-cart__design4 .site-nav__icon:last-child,
+            .h-cart__design5 .site-nav__icon:last-child {
+              padding-right: 0;
+            }
+
+            @media (min-width: 768px) {
+              .h-cart__design2 .site-nav__cart a,
+              .h-cart__design4 .site-nav__cart a,
+              .h-cart__design5 .site-nav__cart a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+
+              .h-cart__design2 .h-cart-totals,
+              .h-cart__design4 .h-cart-totals {
+                display: block;
+                margin-left: 15px;
+              }
+
+              .h-cart__design4 .site-nav__cart .count-box,
+              .h-cart__design5 .site-nav__cart .count-box {
+                display: none;
+              }
+
+              .h-cart__design4 .h-cart-totals {
+                margin-left: 7px;
+              }
+
+              .h-cart__design5 .h-cart__divider {
+                display: inline-block;
+              }
+
+              .h-cart__design5 .h-cart-totals {
+                display: block;
+                margin-left: 7px;
+              }
+
+              .h-cart__design1 .site-nav__icon.site-nav__btnMenu {
+                padding-right: 0;
+              }
+            }
+          </style>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
 
 {% render 'structured-data' %}
 

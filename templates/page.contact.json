@@ -1,1 +1,97 @@
-{"sections":{"image-with-text-overlay":{"type":"section-image-with-text-overlay","blocks":{"image-with-text-overlay-1":{"type":"overlay_content","settings":{"title":"Big, beautiful imagery","section_subheading":"","button_1_link":"","button_1_text":"Shop now","button_1_style":"fill","button_2_link":"","button_2_text":"","button_2_style":"outline","text_color_scheme":"accent-1"}}},"block_order":["image-with-text-overlay-1"],"disabled":true,"settings":{"desktop_image":"shopify:\/\/shop_images\/H8a7a3944a41f44589c94846512089e75Q.jpg","desktop_height":"xs","mobile_height":"xs","image_link":"","section_width":"full","text_position":"center","background_color_scheme":"general","overlay_color_scheme":"dark","overlay_opacity":30}},"page-main":{"type":"page-main-content","disabled":true,"settings":{}},"rich-text":{"type":"ship-rich-text","blocks":{"rich-text-1":{"type":"heading","settings":{"heading":"Rich text"}}},"block_order":["rich-text-1"],"disabled":true,"settings":{"section_width":"narrow","horizontal_alignment":"text-left items-start","section_color_scheme":"general"}},"page-contact-form":{"type":"section-contact-form","blocks":{"name_input":{"type":"name_input","settings":{"required":true,"input_width":"partial"}},"email_input":{"type":"email_input","settings":{"required":true,"input_width":"partial"}},"tel_input":{"type":"tel_input","settings":{"required":true,"input_width":"full"}},"message_input":{"type":"message_input","settings":{"required":true,"input_width":"full"}}},"block_order":["name_input","email_input","tel_input","message_input"],"settings":{"form_title":"Send a message","section_color_scheme":"general"}},"section-newsletter":{"type":"section-newsletter","disabled":true,"settings":{"section_subheading":"Signup now","section_heading":"Get the newsletter","horizontal_alignment":"center","section_width":"full-with-padding","section_color_scheme":"general"}},"page-header":{"type":"page-main-header","disabled":true,"settings":{"section_color_scheme":"general"}}},"order":["image-with-text-overlay","page-main","rich-text","page-contact-form","section-newsletter","page-header"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "disabled": true,
+      "settings": {
+        "use_specify_image": true,
+        "parallax": false,
+        "color": "#000000",
+        "overlay": 54,
+        "padding": 50,
+        "paddingmb": 50,
+        "mg_b": 50,
+        "mg_bmb": 50,
+        "content_align": "text-center",
+        "bg_pos": "center center",
+        "bg_repeat": "no-repeat",
+        "bg_size": "cover",
+        "use_cus_css": false,
+        "code_cus_css": ".SectionID {\nbackground-color:red\n}"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "layout": "container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "60px,,60px,",
+        "pd": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": ""
+      }
+    },
+    "1648884254eae8e0bd": {
+      "type": "contact-form",
+      "blocks": {
+        "1648884254cd155bea-0": {
+          "type": "bl_form",
+          "settings": {
+            "heading": "DROP US A LINE",
+            "enable_phone": true,
+            "enable_full_btn": true,
+            "button_style": "outline",
+            "btn_size": "medium",
+            "btn_cl": "dark"
+          }
+        },
+        "1648884254cd155bea-1": {
+          "type": "bl_info",
+          "settings": {
+            "heading": "CONTACT INFORMATION",
+            "text": "<p>Shree Yamunaji Jewellers💎 is the leading destination for high quality fine jewelry with strikingly exquisite designs. We aim at revolutionizing the fine jewellers and lifestyle segment with a firm focus on craftsmanship, quality and customer experience.</p><p><i class=\"las la-home fs__16\"></i> Shalibhadra Residency\nMota Varachha\nSurat, Gujarat,\nIndia</p><p><i class=\"las la-phone fs__16\"></i> +91 095374 15353</p><p><i class=\"las la-envelope fs__16\"></i> shreeyamunaji@gmail.com</p><i class=\"las la-clock fs__16\"></i> Everyday 9:00 am – 8:30 pm"
+          }
+        }
+      },
+      "block_order": ["1648884254cd155bea-0", "1648884254cd155bea-1"],
+      "settings": {
+        "enable_map": true,
+        "map": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.787230728403!2d72.871971!3d21.240284199999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04fbca5f50061%3A0x77dcd230cf0e9de6!2sShree%20Yamunaji%20jewellers!5e0!3m2!1sen!2sin!4v1664613050035!5m2!1sen!2sin\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"></iframe>",
+        "layout": "container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "50px,,50px,",
+        "pd": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ".SectionID {\nbackground-color:red\n}"
+      }
+    },
+    "sidebar-page": {
+      "type": "sidebar-page",
+      "disabled": true,
+      "settings": {
+        "enable_drawer": true,
+        "space": 50,
+        "size": "medium",
+        "br_style": "none",
+        "brcolor": "#222222",
+        "sidebar_bdr": 5,
+        "sidebar_pd": 10
+      }
+    }
+  },
+  "order": ["heading", "main", "1648884254eae8e0bd", "sidebar-page"]
+}

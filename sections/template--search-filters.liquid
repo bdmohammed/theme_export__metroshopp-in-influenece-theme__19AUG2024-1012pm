@@ -1,4 +1,4 @@
-{% liquid 
+{% liquid
   if section.settings.filtering_position == 'sidebar'
     assign filter_classes = 'sidebar-form'
     if section.settings.enable_filtering
@@ -16,16 +16,24 @@
 %}
 
 {% if search.results.size > 0 %}
-  <div class="invisible w-screen h-screen fixed top-0 bg-black opacity-0 transition-opacity duration-300" data-armada-selector="filter_underlay"></div>
+  <div
+    class="invisible w-screen h-screen fixed top-0 bg-black opacity-0 transition-opacity duration-300"
+    data-armada-selector="filter_underlay"
+  ></div>
 
   <section
-    data-color-scheme="{{ section.settings.section_color_scheme }}" 
+    data-color-scheme="{{ section.settings.section_color_scheme }}"
     class="bg-page text-body relative h-full w-screen{% if section.settings.filtering_position == 'topbar' or section.settings.enable_filtering == false %} lg:w-screen{% else %} lg:w-full{% endif %}"
     data-armada-selector="section-search-filters"
     data-section-id="{{ section.id }}"
   >
     {% if search_type == 'product' %}
-      <div class="filter-topbar-container flex lg:hidden justify-center w-full order-2 lg:order-none{% if section.settings.filtering_position == 'topbar' %} lg:flex-wrap{% endif %}" {% if section.settings.filtering_position == 'topbar' %}style="display:flex;"{% endif %}>
+      <div
+        class="filter-topbar-container flex lg:hidden justify-center w-full order-2 lg:order-none{% if section.settings.filtering_position == 'topbar' %} lg:flex-wrap{% endif %}"
+        {% if section.settings.filtering_position == 'topbar' %}
+          style="display:flex;"
+        {% endif %}
+      >
         {% render 'ship-filter-dropdown-trigger' with show_filter: true, enable_filtering: section.settings.enable_filtering, show_sort: true, enable_sorting: section.settings.enable_sorting, results: search, filtering_position: section.settings.filtering_position %}
       </div>
 
@@ -64,13 +72,13 @@
       }
       .section-collection-grid {
         height: 100%;
-      } 
+      }
     {% endif %}
     {% if section.settings.filtering_position == 'topbar' %}
       .component-collection-grid {
         width: 100vw;
       }
-    {% else %} 
+    {% else %}
       @media (min-width: 1024px) {
         .component-collection-grid {
           padding-top: 0px;

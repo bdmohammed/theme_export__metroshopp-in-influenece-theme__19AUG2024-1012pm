@@ -1,0 +1,493 @@
+{%- liquid
+  assign se_stts = section.settings
+  assign show_txt = se_stts.show_txt
+  assign img_size = 'x40'
+  assign search_url = routes.search_url
+-%}
+{%- if se_stts.enable_toolbar -%}
+  {{ 'toolbar_mobile.css' | asset_url | stylesheet_tag }}
+  <div class="toolbar toolbar-label-{{show_txt}} fixed ts-r-0 ts-l-0 ts-b-0 d-flex align-items-center justify-content-between">
+    {%- for block in section.blocks -%}
+      {%- assign bk_stts = block.settings -%}
+      {%- assign block_type = block.type -%}
+      {%- case block_type -%}
+        {%- when 'shop' -%}
+          <div class="toolbart-{{block_type}} toolbar-item">
+            <a href="{{collections[bk_stts.link].url|default:routes.all_products_collection_url}}">
+              <span class="toolbar-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-grid"
+                >
+                  <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                </svg>
+              </span>
+              {%- if show_txt -%}
+                <span class="toolbar-label">{{ bk_stts.title }}</span>
+              {%- endif -%}
+            </a>
+          </div>
+        {%- when 'wish' -%}
+          {%- if settings.wishlist_mode == '0' %}{% continue %}{% endif -%}
+          <div class="toolbart-{{block_type}} toolbar-item">
+            <a
+              data-link-wishlist
+              href="{% if settings.wishlist_mode != '3' %}{{ search_url }}/?view=wishlist{%- else -%}/pages/wishlist{%- endif -%}"
+            >
+              <span class="toolbar-icon relative">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-heart"
+                >
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+                <span data-count-wishlist class="absolute opacity-0 transition-opacity count-box">0</span>
+              </span>
+              {%- if show_txt -%}
+                <span class="toolbar-label">{{ bk_stts.title }}</span>
+              {%- endif -%}
+            </a>
+          </div>
+        {%- when 'compe' -%}
+          {%- unless settings.enable_compe -%}{%- continue -%}{%- endunless -%}
+          <div class="toolbart-{{block_type}} toolbar-item">
+            <a data-link-wishlist href="{{ search_url }}/?view=compare">
+              <span class="toolbar-icon relative">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-refresh-cw"
+                >
+                  <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                </svg>
+                <span data-count-compare class="absolute opacity-0 transition-opacity count-box">0</span>
+              </span>
+              {%- if show_txt -%}
+                <span class="toolbar-label">{{ bk_stts.title }}</span>
+              {%- endif -%}
+            </a>
+          </div>
+        {%- when 'cart' -%}
+          <div class="toolbart-{{block_type}} toolbar-item">
+            <a href="{{ routes.cart_url }}" data-drawer-delay data-drawer-options='{ "id":"#mini_cart" }'>
+              <span class="toolbar-icon relative">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-shopping-cart"
+                >
+                  <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                </svg>
+                <span data-cart-count class="absolute opacity-0 transition-opacity count-box">
+                  {{- cart.item_count -}}
+                </span>
+              </span>
+              {%- if show_txt -%}
+                <span class="toolbar-label">{{ bk_stts.title }}</span>
+              {%- endif -%}
+            </a>
+          </div>
+        {%- when 'account' -%}
+          {%- unless shop.customer_accounts_enabled %}{% continue %}{% endunless -%}
+          <div class="toolbart-{{block_type}} toolbar-item">
+            <a
+              href="{{ routes.account_url }}"
+              {% unless customer or settings.login_side == false %}
+                data-drawer-options='{ "id":"#login-sidebar" }'
+              {% endunless %}
+            >
+              <span class="toolbar-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-user"
+                >
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+              </span>
+              {%- if show_txt -%}
+                <span class="toolbar-label">{{ bk_stts.title }}</span>
+              {%- endif -%}
+            </a>
+          </div>
+        {%- when 'search' -%}
+          <div class="toolbart-{{block_type}} toolbar-item">
+            <a href="{{ routes.search_url }}" data-drawer-delay data-drawer-options='{ "id":"#search-hidden" }'>
+              <span class="toolbar-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-search"
+                >
+                  <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+              </span>
+              {%- if show_txt -%}
+                <span class="toolbar-label">{{ bk_stts.title }}</span>
+              {%- endif -%}
+            </a>
+          </div>
+        {%- when 'blog' %}
+          {% assign blog = blogs[bk_stts.blog] -%}
+          <div class="toolbart-{{block_type}} toolbar-item">
+            <a href="{{blog.url |default:routes.all_products_collection_url}}">
+              <span class="toolbar-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-feather"
+                >
+                  <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/>
+                </svg>
+              </span>
+              {%- if show_txt -%}
+                <span class="toolbar-label">{{ bk_stts.title }}</span>
+              {%- endif -%}
+            </a>
+          </div>
+        {%- when 'home' -%}
+          <div class="toolbart-{{block_type}} toolbar-item">
+            <a href="{{routes.root_url}}">
+              <span class="toolbar-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-home"
+                >
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+              </span>
+              {%- if show_txt -%}
+                <span class="toolbar-label">{{ bk_stts.title }}</span>
+              {%- endif -%}
+            </a>
+          </div>
+        {%- when 'nav' -%}
+          <div class="toolbart-{{block_type}} toolbar-item d-none">
+            <a
+              href="{{routes.root_url}}"
+              data-menu-drawer
+              data-drawer-options='{ "id":"#menu-drawer" }'
+              class="push-menu-btn"
+            >
+              <span class="toolbar-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-menu"
+                >
+                  <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+              </span>
+              {%- if show_txt -%}
+                <span class="toolbar-label">{{ bk_stts.title }}</span>
+              {%- endif -%}
+            </a>
+          </div>
+        {%- when 'filter' -%}
+          <div class="toolbart-{{block_type}} toolbar-item d-none"></div>
+        {%- when 'sidebar' -%}
+          <div class="toolbart-{{block_type}} toolbar-item d-none"></div>
+        {%- else -%}
+          <div class="toolbart-{{block_type}} toolbar-item">
+            {%- assign image = bk_stts.image -%}
+            <a href="{{bk_stts.link |default:routes.account_url}}">
+              <span class="toolbar-icon relative">
+                {%- if image != blank %}
+                  <img
+                    class="lazyload lz--fadeIn"
+                    data-src="{{ image | image_url:img_size }}"
+                    data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
+                    data-optimumx="2"
+                    data-sizes="auto"
+                    src=" {%- render 'img_svg',w:image.img_size,h:image.img_size -%} "
+                    width="{{ image.img_size }}"
+                    height="{{ image.img_size }}"
+                    alt="{{ image.alt | escape }}"
+                  >
+                  <span class="lazyload-loader"></span>
+                {%- endif -%}
+              </span>
+              {%- if show_txt -%}
+                <span class="toolbar-label">{{ bk_stts.title }}</span>
+              {%- endif -%}
+            </a>
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Sticky toolbar mobile",
+  "class": "section toolbar-mobile",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_toolbar",
+      "label": "Enable sticky toolbar mobile",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_txt",
+      "label": "Show text under icon",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "shop",
+      "name": "Shop",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Shop"
+        },
+        {
+          "type": "collection",
+          "id": "link",
+          "label": "Link (optional)"
+        }
+      ]
+    },
+    {
+      "type": "wish",
+      "name": "Wishlist",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Wishlist"
+        }
+      ]
+    },
+    {
+      "type": "compe",
+      "name": "Compare",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Compare"
+        }
+      ]
+    },
+    {
+      "type": "cart",
+      "name": "Cart",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Cart"
+        }
+      ]
+    },
+    {
+      "type": "account",
+      "name": "Account",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Account"
+        }
+      ]
+    },
+    {
+      "type": "search",
+      "name": "Search",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Search"
+        }
+      ]
+    },
+    {
+      "type": "blog",
+      "name": "Blog",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Blog"
+        },
+        {
+          "id": "blog",
+          "type": "blog",
+          "label": "Blog"
+        }
+      ]
+    },
+    {
+      "type": "filter",
+      "name": "Filter",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Filter"
+        },
+        {
+          "type": "paragraph",
+          "content": "Only show when page has 'Filter'"
+        }
+      ]
+    },
+    {
+      "type": "sidebar",
+      "name": "Sidebar",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Sidebar"
+        },
+        {
+          "type": "paragraph",
+          "content": "Only show when page has 'Sidebar'"
+        }
+      ]
+    },
+    {
+      "type": "nav",
+      "name": "Menu",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "home",
+      "name": "Home",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Home"
+        }
+      ]
+    },
+    {
+      "type": "link",
+      "name": "Link Custom",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Custom"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "default": "/"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [{ "type": "shop" }, { "type": "wish" }, { "type": "cart" }, { "type": "account" }, { "type": "search" }]
+  }
+}
+{% endschema %}

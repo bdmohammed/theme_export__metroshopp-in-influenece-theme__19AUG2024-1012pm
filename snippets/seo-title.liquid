@@ -1,14 +1,18 @@
 {%- capture seo_title -%}
-{%- if request.page_type == 'search' and search.performed == true -%}
-    Search {{ search.results_count }}: {{ search.terms }}
+{%- if template == 'search' and search.performed == true -%}
+    {{ 'search.general.heading' | t: count: search.results_count }}: {{ 'search.results_with_count_and_term' | t: terms: search.terms, count: search.results_count }}
+{%- elsif template == 'search.wishlist' %}
+    {{ 'wishlist_page.meta' | t }}
+{%- elsif template == 'search.compare' %}
+    {{ 'compare_page.meta' | t }}
 {%- else -%}
     {{ page_title }}
 {%- endif -%}
 {%- if current_tags -%}
-    {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; Tagged "{{ meta_tags }}"
+    {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
 {%- endif -%}
 {%- if current_page != 1 -%}
-    &ndash; Page {{ current_page }}
+    &ndash; {{ 'general.meta.page' | t: page: current_page }}
 {%- endif -%}
 {%- assign escaped_page_title = page_title | escape -%}
 {%- unless escaped_page_title contains shop.name -%}
@@ -19,8 +23,5 @@
 <meta name="title" content="{{ page_title | default: shop.name }}">
 <meta
   name="description"
-  content="{{ page_description | default: shop.description | default: shop.name | escape | strip_html }}"
+  content="{{ page_description | default: shop.description | default: shop.name | escape }}"
 >
-{%- if product.tags -%}
-  <meta name="keywords" content="{% for tag in product.tags %}{{ tag }}, {% endfor %}">
-{%- endif -%}

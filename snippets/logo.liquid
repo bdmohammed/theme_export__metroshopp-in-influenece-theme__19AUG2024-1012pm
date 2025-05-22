@@ -1,0 +1,91 @@
+{%- liquid
+  assign svg_df = settings.logo_svg
+  assign svg = svg_df
+  assign logo = settings.logo
+  assign shop_name = shop.name
+  assign shop_name_escape = s_name | escape
+
+  assign lg_w = settings.logo_width | append: 'x'
+  if template.name == 'index' and isTransparent
+    assign svg = settings.logo_tr_svg | default: svg
+    assign logo = settings.logo_tr | default: logo
+    assign lg_w = settings.logo_tr_width | append: 'x'
+  endif
+-%}
+
+<{{ tag }} class="{{class}} header__logo lh-1"
+  ><a
+    class="{{class_a |default:'d-inline-block' }}"
+    href="{{ routes.root_url | escape }}"
+    {{ block.shopify_attributes }}
+  >
+    {%- if svg != blank -%}
+      <img
+        loading="lazy"
+        class="header__normal-logo d-none d-lg-block"
+        src="{{ svg }}"
+        alt="{{ shop_name_escape }}"
+        style="width: {{ settings.logo_width }}px"
+      >
+      <img
+        loading="lazy"
+        class="header__sticky-logo d-none d-none"
+        src="{{ svg_df|default:svg }}"
+        alt="{{ shop_name_escape }}"
+        style="width: {{ settings.logos_width }}px"
+      >
+      <img
+        loading="lazy"
+        class="header__mobile-logo d-lg-none"
+        src="{{ svg }}"
+        alt="{{ shop_name_escape }}"
+        style="width: {{ settings.logo_mb_width }}px"
+      >
+
+    {%- elsif logo != blank -%}
+      <img
+        loading="lazy"
+        srcset="{{ logo | image_url: lg_w }} 1x, {{ logo | image_url: lg_w, scale: 2 }} 2x"
+        src="{{ logo | image_url: image_size }}"
+        class="header__normal-logo d-none d-lg-block"
+        width="{{ logo.width }}"
+        height="{{ logo.height }}"
+        alt="{{ logo.alt | default: shop_name | escape }}"
+        style="width: {{ settings.logo_width }}px"
+      >
+
+      {%- liquid
+        assign lg_w = settings.logos_width | append: 'x'
+        assign assign logo = settings.logos | default:logo
+      -%}
+      <img
+        loading="lazy"
+        srcset="{{ logo | image_url: lg_w }} 1x, {{ logo | image_url: lg_w, scale: 2 }} 2x"
+        src="{{ logo | image_url: image_size }}"
+        class="header__sticky-logo d-none d-none"
+        width="{{ logo.width }}"
+        height="{{ logo.height }}"
+        alt="{{ logo.alt | default: shop_name | escape }}"
+        style="width: {{ settings.logos_width }}px"
+      >
+
+      {%- liquid
+        assign lg_w = settings.logo_mb_width | append: 'x'
+        assign assign logo = settings.logo_mb | default:logo
+      -%}
+      <img
+        loading="lazy"
+        srcset="{{ logo | image_url: lg_w }} 1x, {{ logo | image_url: lg_w, scale: 2 }} 2x"
+        src="{{ logo | image_url: image_size }}"
+        class="header__mobile-logo d-lg-none"
+        width="{{ logo.width }}"
+        height="{{ logo.height }}"
+        alt="{{ logo.alt | default: shop_name | escape }}"
+        style="width: {{ settings.logo_mb_width }}px"
+      >
+
+    {%- else -%}
+      {{- shop.name -}}
+    {%- endif -%}
+  </a></{{ tag }}
+>

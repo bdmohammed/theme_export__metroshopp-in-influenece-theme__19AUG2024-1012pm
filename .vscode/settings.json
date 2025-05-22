@@ -1,0 +1,12 @@
+{
+  "cSpell.words": [
+    "endfor",
+    "endstyle",
+    "forloop",
+    "stylesheet"
+  ],
+  "[liquid]": {
+    "editor.defaultFormatter": "Shopify.theme-check-vscode",
+    "editor.formatOnSave": true
+  }
+}

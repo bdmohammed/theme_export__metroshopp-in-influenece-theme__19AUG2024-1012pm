@@ -1,0 +1,117 @@
+{%- comment %}
+  Wishlist and Compare Buttons Component
+
+  This component renders wishlist and compare buttons for product cards/pages based on theme settings.
+
+  Parameters:
+  - product: Product object (required)
+  - bk_stts: Block settings containing enable_wishlist and enable_compare flags
+  render 'wis_cp', product, bk_stts
+
+  Features:
+  - Three wishlist modes:
+    1. Standard wishlist for all users
+    2. Account-required wishlist with login redirect
+    3. Third-party integration with Growave
+  - Compare functionality based on theme settings
+
+  Last updated: April 2025
+  Shopify Liquid version: 2.0+
+{%- endcomment %}
+
+{%- liquid
+  assign wishlist_mode = settings.wishlist_mode
+  assign product_url = product.url | escape
+  assign product_id = product.id
+  assign wishlist_enabled = bk_stts.enable_wishlist
+  assign compare_enabled = bk_stts.enable_compare and settings.enable_compe
+  assign is_logged_in = customer != null
+  assign login_url = routes.account_login_url | escape
+-%}
+
+{%- if wishlist_enabled -%}
+  {%- if wishlist_mode == '1' -%}
+    <a
+      href="{{product_url }}"
+      aria-label="{{ 'products.product.add_to_wishlist' | t }}"
+      data-tooltip="top"
+      data-id="{{product_id}}"
+      rel="nofollow"
+      class="product-form__btn pr-wishlist"
+      data-action-wishlist
+    >
+      <span class="svg-pr-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <use href="#icon-wis"></use>
+        </svg>
+      </span>
+      <span class="text-pr">{{ 'products.product.add_to_wishlist' | t }}</span>
+    </a>
+
+  {%- elsif wishlist_mode == '2' and shop.customer_accounts_enabled -%}
+    {%- if is_logged_in -%}
+      <a
+        href="{{ {%- if is_logged_in -%} purl {%- else -%}  login_url {%- endif -%}}}"
+        aria-label="
+          {{ 'products.product.'
+          | append: {%- if is_logged_in -%} 'add_to_wishlist' {%- else -%} 'login_to_wishlist' {%- endif -%}
+          | t }}
+        "
+        data-tooltip="top"
+        data-id="{{product_id}}"
+        rel="nofollow"
+        class="product-form__btn pr-wishlist"
+        data-action-wishlist
+        ><span class="svg-pr-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <use href="#icon-wis"></use>
+          </svg></span
+        ><span class="text-pr">
+          {{-
+            'products.product.'
+            | append: {%- if is_logged_in -%} 'add_to_wishlist' {%- else -%} 'login_to_wishlist' {%- endif -%}
+            | t
+          -}}
+        </span></a
+      >
+    {%- else -%}
+      <a
+        href="{{routes.account_login_url}}"
+        aria-label="{{ 'products.product.login_to_wishlist' | t }}"
+        data-tooltip="top"
+        data-id="{{product_id}}"
+        rel="nofollow"
+        class="product-form__btn pr-wishlist"
+        data-action-wishlist-login
+        ><span class="svg-pr-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <use href="#icon-wis"></use>
+          </svg></span
+        ><span class="text-pr">{{ 'products.product.login_to_wishlist' | t }}</span></a
+      >
+    {%- endif -%}
+
+  {%- elsif wishlist_mode == '3' and shop.customer_accounts_enabled -%}
+    {%- capture the_snippet_fave_icon %}{% render 'ssw-widget-faveicon' with pid %}{% endcapture -%}
+    {%- unless the_snippet_fave_icon contains 'Liquid error' -%}
+      <div class="product-form__btn pr-wishlist pr-growavewishlist">{{ the_snippet_fave_icon }}</div>
+    {%- endunless -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- if compare_enabled -%}
+  <a
+    href="{{product_url }}"
+    aria-label="{{ 'products.product.compare' | t }}"
+    data-tooltip="top"
+    data-id="{{product_id}}"
+    rel="nofollow"
+    class="product-form__btn pr-compare"
+    data-action-compare
+    ><span class="svg-pr-icon">
+      <svg class="svg-cp" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <use href="#icon-cp"></use>
+      </svg></span
+    ><span class="text-pr">{{ 'products.product.compare' | t }}</span></a
+  >
+{%- endif -%}

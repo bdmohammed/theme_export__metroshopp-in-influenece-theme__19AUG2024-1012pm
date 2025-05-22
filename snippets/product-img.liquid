@@ -1,0 +1,31 @@
+{% comment %}
+  Product Image Display
+  Renders a product image with lazy loading and aspect ratio support. The image is displayed with a placeholder while loading.
+
+  Accepts:
+  - image: {Object} The product image object containing properties like width, height, and alt text.
+  - imgatt: {String} Additional attributes for the image tag, such as data attributes for lazy loading.
+
+  Usage:
+  {% render 'product-img', image: image, imgatt: imgatt %}
+{% endcomment %}
+<div class="product-img ratio" {{ imgatt }}style="--aspect-ratioapt: {{image.aspect_ratio | default: 1}}">
+  <img
+    data-pr-img
+    class="product-main-img lazyload"
+    loading="lazy"
+    src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+    data-src="{{ image | image_url: '1x1' }}"
+    data-widths="[100,200,400,600,700,800,900]"
+    data-optimumx="1.5"
+    data-sizes="auto"
+    width="{{ image.width }}"
+    height="{{ image.height }}"
+    alt="{{ image.alt | escape }}"
+  >
+  <span class="lazyload-loader"></span>
+  <div data-replace-img2></div>
+  <noscript
+    ><img class="product-main-img" loading="lazy" src="{{ image | image_url: '600x' }}" alt="{{ image.alt | escape }}"
+  ></noscript>
+</div>

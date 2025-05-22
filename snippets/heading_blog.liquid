@@ -1,0 +1,29 @@
+{%- if se_bks.size > 0 -%}
+<div class="page-head relative overflow-hidden page_bg_img {{se_stts.content_align}}">
+   <div class="container relative z-100">
+      {%- for block in se_bks -%}
+      	{%- assign bk_stts = block.settings -%}
+        {%- case block.type -%}
+            {%- when '1' -%}
+            {%- assign general_block = true -%}
+            <h1 class="title-head  bl-item animation-none text-bl fnt-fm-{{bk_stts.fontf}} font-italic-{{bk_stts.font_italic}} uppercase-{{bk_stts.font_uppercase}} hidden-mobile-{{bk_stts.hidden_mobile}} br-mb-{{bk_stts.remove_br_tag}} text-shadow-{{bk_stts.text_shadow}}" id="b_{{block.id}}" {%- render 'bk_cus_style',type:'custom_text',bk_stts:bk_stts,ani_delay:ani_delay -%}>{{ blog.title }}</h1>
+            {%- when '2' -%}
+            {%- assign general_block = true -%}
+				    {% if block.settings.content == blank %}{% continue %}{% endif %}<div class="desc-head  bl-item animation-none text-bl fnt-fm-{{bk_stts.fontf}} font-italic-{{bk_stts.font_italic}} uppercase-{{bk_stts.font_uppercase}} hidden-mobile-{{bk_stts.hidden_mobile}} br-mb-{{bk_stts.remove_br_tag}} text-shadow-{{bk_stts.text_shadow}}" id="b_{{block.id}}" {%- render 'bk_cus_style',type:'custom_text',bk_stts:bk_stts,ani_delay:ani_delay -%}>{{ block.settings.content }}</div>
+            {%- when '3' -%}
+           	<nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs" style="--brc-cl:{{bk_stts.breadcrumb_color}};--brc_mgb:{{bk_stts.brc_mgb}}px;">
+      				<ul class="breadcrumbs__list">
+      		           <li class="breadcrumbs__item">
+      			          	<a href="{{ routes.root_url }}" class="dib">{{'general.breadcrumb.home' | t}}</a> <svg class="icon-arrow" viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow" transform="translate(100, 100) rotate(180) "></path></svg> 
+      			        </li>
+      			        <li class="breadcrumbs__item">{{ blog.title }}</li>
+      			    </ul>
+      			</nav> 
+      		{%- endcase -%} 
+      {%- endfor -%}
+   </div>
+</div>
+{%- endif -%} 
+{%- if general_block -%}
+    {{ 'general-block.css' | asset_url | stylesheet_tag }}
+{%- endif -%}

@@ -1,0 +1,48 @@
+.bg_color_white-cream.lazyloaded {
+  background-image: url(https://demo-kalles-4-1.myshopify.com//cdn/shop/files/color1.jpg?crop=center&height=100&v=1652945022&width=100)
+}
+
+.bg_color_heart-dotted.lazyloaded {
+  background-image: url(https://demo-kalles-4-1.myshopify.com//cdn/shop/files/color2.jpg?crop=center&height=100&v=1652945014&width=100)
+}
+
+.lb_menu_hot {
+  background-color: #ff3e11;
+  color: #fff
+}
+
+.bg_color_hessonite {
+  --ts-bg-color: #791616
+}
+
+.bg_color_emerald {
+  --ts-bg-color: #1e7b17
+}
+
+.bg_color_blue-sapphire {
+  --ts-bg-color: #3375c2
+}
+
+.bg_color_diamond {
+  --ts-bg-color: #f6f6f2
+}
+
+.bg_color_gold-diamond {
+  --ts-bg-color: #d8dabf
+}
+
+.bg_color_fancy-blue {
+  --ts-bg-color: #4a90e1
+}
+
+.bg_color_fancy-pink {
+  --ts-bg-color: #eec8f1
+}
+
+.bg_color_mint-green {
+  --ts-bg-color: #a7e1ea
+}
+
+.bg_color_pink-mystic {
+  --ts-bg-color: #ecdcea
+}

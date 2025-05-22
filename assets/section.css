@@ -9,7 +9,7 @@
   padding-inline-start: var(--pd-left);
 }
 
-.section-inner :not(.se-container),
+.section-inner:not(.se-container),
 .container>.container-inner {
   background: var(--bg-gradient);
   background-color: var(--bg-color);

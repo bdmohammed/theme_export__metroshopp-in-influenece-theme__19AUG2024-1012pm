@@ -1,0 +1,90 @@
+.grouped-product-list td {
+  padding: 10px;
+  text-align: center;
+}
+
+.grouped-pr__img-wrap img {
+  min-width: 50px;
+  max-width: 100px;
+}
+
+.grouped-pr__link {
+  color: var(--secondary-color);
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.grouped-pr__info select {
+  border-radius: 2px;
+  max-width: 200px;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.grouped-pr__qty .quantity-wrapper {
+  display: inline-flex;
+  border-radius: 2px;
+  border: 1px solid var(--border-color);
+}
+
+.grouped-pr__qty .quantity-wrapper button.quantity-selector {
+  background-color: transparent;
+  padding: 0;
+  width: 30px;
+  height: 40px;
+  color: var(--ts-dark-color);
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grouped-pr__qty .quantity-wrapper button.quantity-selector svg {
+  width: 10px;
+}
+
+.grouped-pr__qty input.quantity-input {
+  width: 35px;
+  border: 0;
+  padding: 0;
+  height: 40px;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ts-dark-color);
+  text-align: center;
+}
+
+.grouped-pr__qty .quantity-wrapper button.quantity-selector:hover,
+.grouped-pr__link:hover {
+  color: var(--accent-color);
+}
+
+.grouped-pr__price {
+  color: var(--primary-price-color);
+}
+
+.grouped__total-price del,
+.grouped-pr__price del {
+  color: var(--secondary-price-color);
+}
+
+.grouped__total-price {
+  color: var(--primary-price-color);
+}
+
+.grouped__text-total-price {
+  font-size: 20px;
+  color: var(--secondary-color);
+  font-weight: 500;
+  margin: 0 5px 10px 0;
+}
+
+/* Custom CSS */
+@media (min-width: 1025px) {
+
+  .product-form__variants.grouped-product.is-btn-full-width__false .product-form__buttons,
+  .product-form__variants.grouped-product.is-btn-full-width__false .product-form__submit {
+    min-width: 230px;
+  }
+}

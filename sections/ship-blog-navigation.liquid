@@ -5,7 +5,9 @@
     </div>
   {% elsif section.settings.blog_navigation == blank and request.design_mode %}
     <div class="px-3 md:px-4 lg:px-6 py-4">
-      <p class="text-center">Create a navigation and add it to the section to enable navigation between various blogs.</p>
+      <p class="text-center">
+        Create a navigation and add it to the section to enable navigation between various blogs.
+      </p>
     </div>
   {% endif %}
 </section>
@@ -51,17 +53,12 @@
   "presets": [
     {
       "name": "Blog navigation",
-      "settings": {
-      },
-      "blocks": [
-
-      ]
+      "settings": {},
+      "blocks": []
     }
   ],
   "enabled_on": {
-    "templates": [
-      "blog"
-    ]
+    "templates": ["blog"]
   }
 }
 {% endschema %}

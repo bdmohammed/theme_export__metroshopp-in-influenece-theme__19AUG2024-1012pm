@@ -1,0 +1,62 @@
+<!-- sections/dropdown-menu.liquid -->
+{% if search.terms == 'lookbook' %}
+  <div id="shopify-section-dropdown-menu" class="shopify-section">
+    [nt_drop_split1]
+    <link
+      rel="stylesheet"
+      href="{{ 'submenu.css' | asset_url }}"
+      media="all">
+    <div class="menu-item">
+      <a href="https://demo-kalles-4-1.myshopify.com/pages/home-lookbook/?preview_theme_id=128644972750">
+        <span class="">Lookbook Slider
+        </span>
+      </a>
+    </div>
+    <div class="menu-item">
+      <a href="https://demo-kalles-4-1.myshopify.com/?preview_theme_id=128644972750">
+        <span class="">Lookbook Section
+        </span>
+      </a>
+    </div>
+    <div class="menu-item">
+      <a href="https://demo-kalles-4-1.myshopify.com/pages/home-instagram-shop/?preview_theme_id=128644972750">
+        <span class="">Lookbook Instagram
+        </span>
+      </a>
+    </div>
+    <div class="menu-item">
+      <a href="https://demo-kalles-4-1.myshopify.com/blogs/fashion/the-easiest-way-to-break-out-on-top/?view=posts-with-lookbook&preview_theme_id=128644972750">
+        <span class="">Lookbook In Blog Post
+        </span>
+      </a>
+    </div>
+    <div class="menu-item">
+      <a href="https://demo-kalles-4-1.myshopify.com/blogs/portfolio/kalles-watch/?view=portfolio-with-lookbook&preview_theme_id=128644972750">
+        <span class="">Loobook In Portfolio
+        </span>
+      </a>
+    </div>
+    <div class="menu-item">
+      <a href="https://demo-kalles-4-1.myshopify.com/pages/lookbook-in-page/?preview_theme_id=128644972750">
+        <span class="">Lookbook In Page
+        </span>
+      </a>
+    </div>
+    [nt_drop_split1]
+  </div>
+{% else %}
+  <div id="shopify-section-dropdown-menu" class="shopify-section">
+    [nt_drop_split1]
+    <link
+      rel="stylesheet"
+      href="{{ 'submenu.css' | asset_url }}"
+      media="all">
+    [nt_drop_split1]
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "dropdown-menu",
+    "settings": []
+  }
+{% endschema %}

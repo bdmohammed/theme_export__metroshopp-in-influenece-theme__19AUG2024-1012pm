@@ -10,47 +10,47 @@
   endif
 
   case section.settings.text_position
-    when 'top_left' or 'top_center' or 'top_right'
+    when 'top_left', 'top_center', 'top_right'
       assign vertical_align = 'justify-start'
-    when 'left' or 'center' or 'right'
+    when 'left', 'center', 'right'
       assign vertical_align = 'justify-center'
-    when 'bottom_left' or 'bottom_center' or 'bottom_right'
+    when 'bottom_left', 'bottom_center', 'bottom_right'
       assign vertical_align = 'justify-end'
-    when 'top_left' or 'left' or 'bottom_left'
+    when 'top_left', 'left', 'bottom_left'
       assign horizontal_align = 'items-start text-left'
-    when 'top_center' or 'center' or 'bottom_center'
+    when 'top_center', 'center', 'bottom_center'
       assign horizontal_align = 'items-center text-center'
-    when 'top_right' or 'right' or 'bottom_right'
+    when 'top_right', 'right', 'bottom_right'
       assign horizontal_align = 'items-end text-right'
   endcase
 
   case section.settings.overlay_color_scheme
-  when 'light'
-    assign overlay_bg = 'bg-white'
-  when 'dark'
-    assign overlay_bg = 'bg-black'
+    when 'light'
+      assign overlay_bg = 'bg-white'
+    when 'dark'
+      assign overlay_bg = 'bg-black'
   endcase
 
   case section.settings.desktop_height
-  when 's'
-    assign desktop_height = 'md:h-[400px]'
-  when 'm'
-    assign desktop_height = 'md:h-[550px]'
-  when 'l'
-    assign desktop_height = 'md:h-[750px]'
-  when 'xl'
-    assign desktop_height = 'md:h-screen'
+    when 's'
+      assign desktop_height = 'md:h-[400px]'
+    when 'm'
+      assign desktop_height = 'md:h-[550px]'
+    when 'l'
+      assign desktop_height = 'md:h-[750px]'
+    when 'xl'
+      assign desktop_height = 'md:h-screen'
   endcase
 
   case section.settings.mobile_height
-  when 's'
-    assign mobile_height = 'h-[350px] '
-  when 'm'
-    assign mobile_height = 'h-[400px] '
-  when 'l'
-    assign mobile_height = 'h-[500px] '
-  when 'xl'
-    assign mobile_height = 'h-screen '
+    when 's'
+      assign mobile_height = 'h-[350px] '
+    when 'm'
+      assign mobile_height = 'h-[400px] '
+    when 'l'
+      assign mobile_height = 'h-[500px] '
+    when 'xl'
+      assign mobile_height = 'h-screen '
   endcase
 
   assign desktop_sizes = '110vw'
@@ -58,108 +58,366 @@
   assign opacity_value = section.settings.overlay_opacity | divided_by: 100.0
   assign bg_opacity = 'style="opacity:' | append: opacity_value | append: ';"'
 %}
+{% comment %}
+  {% if settings.enable_animations %}
+  <zoomout-animation>
+  {% endif %}
 
-{% if settings.enable_animations %}
-<zoomout-animation>
-{% endif %}
+  <section class='{{ desktop_padding }} {{ mobile_padding }} bg-page w-full grid grid-cols-1 auto-rows-auto overflow-hidden {{ section_heights }}' data-color-scheme='{{ section.settings.background_color_scheme }}' data-aid="image-with-text-overlay">
+  <div class="col-start-1 col-end-2 row-start-1 row-end-4 z-5 overflow-hidden">
+  {% liquid
+  if section.settings.desktop_image != blank and section.settings.mobile_image != blank
+  render 'armament-image' with image: section.settings.desktop_image, classes: 'hidden md:block md:object-cover h-full w-full', zoomout_animation: true, sizes: desktop_sizes
+  render 'armament-image' with image: section.settings.mobile_image, classes: mobile_image_classes, zoomout_animation: true
 
-<section class='{{ desktop_padding }} {{ mobile_padding }} bg-page w-full grid grid-cols-1 auto-rows-auto overflow-hidden {{ section_heights }}' data-color-scheme='{{ section.settings.background_color_scheme }}' data-aid="image-with-text-overlay">
-    <div class="col-start-1 col-end-2 row-start-1 row-end-4 z-5 overflow-hidden">
-      {% liquid
-        if section.settings.desktop_image != blank and section.settings.mobile_image != blank
-          render 'armament-image' with image: section.settings.desktop_image, classes: 'hidden md:block md:object-cover h-full w-full', zoomout_animation: true, sizes: desktop_sizes
-          render 'armament-image' with image: section.settings.mobile_image, classes: mobile_image_classes, zoomout_animation: true
+  elsif section.settings.desktop_image != blank and section.settings.mobile_image == blank
+  render 'armament-image' with image: section.settings.desktop_image, classes: 'object-cover h-full w-full', zoomout_animation: true, sizes: desktop_sizes
 
-        elsif section.settings.desktop_image != blank and section.settings.mobile_image == blank
-          render 'armament-image' with image: section.settings.desktop_image, classes: 'object-cover h-full w-full', zoomout_animation: true, sizes: desktop_sizes
+  elsif section.settings.desktop_image == blank and section.settings.mobile_image != blank
+  render 'armament-placeholder' with name: 'lifestyle-2', classes: 'hidden md:block h-full w-full'
+  render 'armament-image' with image: section.settings.mobile_image, classes: mobile_image_classes, zoomout_animation: true
 
-        elsif section.settings.desktop_image == blank and section.settings.mobile_image != blank
-          render 'armament-placeholder' with name: 'lifestyle-2', classes: 'hidden md:block h-full w-full'
-          render 'armament-image' with image: section.settings.mobile_image, classes: mobile_image_classes, zoomout_animation: true
+  elsif section.settings.desktop_image == blank and section.settings.mobile_image == blank
+  render 'armament-placeholder' with name: 'lifestyle-2', classes: 'hidden md:block w-full h-full'
+  render 'armament-placeholder' with name: 'collection-1', classes: mobile_image_classes
+  endif
+  %}
+  </div>
 
-        elsif section.settings.desktop_image == blank and section.settings.mobile_image == blank
-          render 'armament-placeholder' with name: 'lifestyle-2', classes: 'hidden md:block w-full h-full'
-          render 'armament-placeholder' with name: 'collection-1', classes: mobile_image_classes
-        endif
-      %}
-    </div>
+  <div class="{{ overlay_bg }} col-start-1 col-end-2 row-start-1 row-end-4 z-10" {{ bg_opacity }} data-aid="image-overlay"></div>
 
-    <div class="{{ overlay_bg }} col-start-1 col-end-2 row-start-1 row-end-4 z-10" {{ bg_opacity }} data-aid="image-overlay"></div>
+  <div {% if settings.enable_animations %}data-fadeup-animation{% endif %} class="z-20 col-start-1 col-end-2 row-start-1 row-end-4 text-body md:text-left p-4 md:p-6 flex flex-col {{ vertical_align }} {{ horizontal_align }}" data-aid="caption-container">
+  {% for block in section.blocks %}
+  {% case block.type %}
+  {% when 'overlay_content' %}
 
-    <div {% if settings.enable_animations %}data-fadeup-animation{% endif %} class="z-20 col-start-1 col-end-2 row-start-1 row-end-4 text-body md:text-left p-4 md:p-6 flex flex-col {{ vertical_align }} {{ horizontal_align }}" data-aid="caption-container">
-      {% for block in section.blocks %}
-        {% case block.type %}
-          {% when 'overlay_content' %}
+  <div class="flex flex-col {{ vertical_align }} {{ horizontal_align }}" data-color-scheme='{{ block.settings.text_color_scheme }}'>
+  {% if block.settings.section_subheading != blank %}
+  {% render 'armament-heading' with tag: 'h3', heading_content: block.settings.section_subheading, heading_type: 'heading-5', classes: 'text-body', data_aid: 'img-w-text-overlay-subheading' %}
+  {% endif %}
 
-            <div class="flex flex-col {{ vertical_align }} {{ horizontal_align }}" data-color-scheme='{{ block.settings.text_color_scheme }}'>
-              {% if block.settings.section_subheading != blank %}
-                {% render 'armament-heading' with tag: 'h3', heading_content: block.settings.section_subheading, heading_type: 'heading-5', classes: 'text-body', data_aid: 'img-w-text-overlay-subheading' %}
-              {% endif %}
+  {% if block.settings.title != blank %}
+  {% render 'armament-heading' with tag: 'h2', heading_content: block.settings.title, heading_type: 'heading-3', classes: 'text-body mt-3 md:mt-3', data_aid: 'img-w-text-overlay-heading' %}
+  {% endif %}
 
-              {% if block.settings.title != blank %}
-                {% render 'armament-heading' with tag: 'h2', heading_content: block.settings.title, heading_type: 'heading-3', classes: 'text-body mt-3 md:mt-3', data_aid: 'img-w-text-overlay-heading' %}
-              {% endif %}
+  <div class="button_container flex flex-col md:flex-row">
+  {% if block.settings.button_1_text != blank and block.settings.button_1_link != blank %}
+  {% render 'armament-button' with url: block.settings.button_1_link, content: block.settings.button_1_text, style: block.settings.button_1_style, type: 'button', classes: 'mt-3 md:mt-4 last:mr-0 md:mr-4', data_aid: "img-w-text-overlay-button-1" %}
+  {% endif %}
 
-              <div class="button_container flex flex-col md:flex-row">
-                {% if block.settings.button_1_text != blank and block.settings.button_1_link != blank %}
-                  {% render 'armament-button' with url: block.settings.button_1_link, content: block.settings.button_1_text, style: block.settings.button_1_style, type: 'button', classes: 'mt-3 md:mt-4 last:mr-0 md:mr-4', data_aid: "img-w-text-overlay-button-1" %}
-                {% endif %}
+  {% if block.settings.button_2_text != blank and block.settings.button_2_link != blank %}
+  {% render 'armament-button' with url: block.settings.button_2_link, content: block.settings.button_2_text, style: block.settings.button_2_style, type: 'button', classes: 'mt-3 md:mt-4', data_aid: "img-w-text-overlay-button-2" %}
+  {% endif %}
+  </div>
+  </div>
 
-                {% if block.settings.button_2_text != blank and block.settings.button_2_link != blank %}
-                  {% render 'armament-button' with url: block.settings.button_2_link, content: block.settings.button_2_text, style: block.settings.button_2_style, type: 'button', classes: 'mt-3 md:mt-4', data_aid: "img-w-text-overlay-button-2" %}
-                {% endif %}
-              </div>
-            </div>
+  {% when 'social_cta' %}
 
-          {% when 'social_cta' %}
+  {% unless block.settings.social_icon == 'none' and block.settings.social_link_text == blank %}
+  {%- liquid
+  if block.settings.transparent_bg
+  if section.settings.horizontal_alignment == 'left'
+  assign icon_size_int = block.settings.icon_size | times: 1
+  if icon_size_int < 25 and block.settings.social_icon != 'none' and block.settings.social_icon_shape == 'floating'
+  assign horizontal_class = ' -ml-3'
+  else
+  assign horizontal_class = ' -ml-2'
+  endif
+  elsif section.settings.horizontal_alignment == 'right'
+  assign horizontal_class = ' -mr-2'
+  endif
 
-            {% unless block.settings.social_icon == 'none' and block.settings.social_link_text == blank %}
-              {%- liquid
-                if block.settings.transparent_bg
-                  if section.settings.horizontal_alignment == 'left'
-                    assign icon_size_int = block.settings.icon_size | times: 1
-                    if icon_size_int < 25 and block.settings.social_icon != 'none' and block.settings.social_icon_shape == 'floating'
-                      assign horizontal_class = ' -ml-3'
-                    else
-                      assign horizontal_class = ' -ml-2'
-                    endif
-                  elsif section.settings.horizontal_alignment == 'right'
-                    assign horizontal_class = ' -mr-2'
-                  endif
+  assign social_cta_classes = 'first:-mt-3 last:md:mt-2 last:-mb-3' | append: horizontal_class
+  else
+  assign social_cta_classes = 'first:-mt-2 first:mb-2 last:mt-3 last:-mb-2'
+  endif
+  -%}
+  <div class="flex flex-col {{ vertical_align }} {{ horizontal_align }} {{ social_cta_classes }}">
+  {% render 'ship-social-callout' with
+  link: block.settings.social_link,
+  text: block.settings.social_link_text,
+  color_scheme: block.settings.social_color_scheme,
+  transparent: block.settings.transparent_bg,
+  social_icon: block.settings.social_icon,
+  icon_shape: block.settings.social_icon_shape,
+  icon_size: block.settings.icon_size,
+  animate: false,
+  %}
+  </div>
+  {% endunless %}
+  {% endcase %}
+  {% endfor %}
+  </div>
+  {% if section.settings.image_link != blank %}
+  <a class="col-start-1 col-end-2 row-start-1 row-end-4 z-30" href="{{ section.settings.image_link }}"></a>
+  {% endif %}
+  </section>
 
-                  assign social_cta_classes = 'first:-mt-3 last:md:mt-2 last:-mb-3' | append: horizontal_class
-                else
-                  assign social_cta_classes = 'first:-mt-2 first:mb-2 last:mt-3 last:-mb-2'
-                endif
-              -%}
-              <div class="flex flex-col {{ vertical_align }} {{ horizontal_align }} {{ social_cta_classes }}">
-                {% render 'ship-social-callout' with
-                  link: block.settings.social_link,
-                  text: block.settings.social_link_text,
-                  color_scheme:  block.settings.social_color_scheme,
-                  transparent: block.settings.transparent_bg,
-                  social_icon: block.settings.social_icon,
-                  icon_shape: block.settings.social_icon_shape,
-                  icon_size:  block.settings.icon_size,
-                  animate: false,
-                %}
-              </div>
-            {% endunless %}
-        {% endcase %}
-      {% endfor %}
-    </div>
-    {% if section.settings.image_link != blank %}
-      <a class="col-start-1 col-end-2 row-start-1 row-end-4 z-30" href="{{ section.settings.image_link }}"></a>
-    {% endif %}
-</section>
-
-{% if settings.enable_animations %}
+  {% if settings.enable_animations %}
   </zoomout-animation>
 
   <safe-load-scripts>
-    <script src="{{ 'engine-zoomout-animation.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="zoomout-animation"></script>
+  <script src="{{ 'engine-zoomout-animation.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="zoomout-animation"></script>
   </safe-load-scripts>
-{% endif %}
+  {% endif %}
+{% endcomment %}
+
+<!-- sections/slideshow.liquid -->
+<link
+  href="{{ 'pre_flickity.css' | asset_url }}"
+  rel="stylesheet"
+  type="text/css"
+  media="all">
+<link
+  href="{{ 'section.css' | asset_url }}"
+  rel="stylesheet"
+  type="text/css"
+  media="all">
+<link
+  href="{{ 'slideshow.css' | asset_url }}"
+  rel="stylesheet"
+  type="text/css"
+  media="all">
+<link
+  href="{{ 'content-position.css' | asset_url }}"
+  rel="stylesheet"
+  type="text/css"
+  media="all">
+<link
+  href="{{ 'slider-settings.css' | asset_url }}"
+  rel="stylesheet"
+  type="text/css"
+  media="all">
+<div class="section-inner nt_se_template--15319830495438__1646028739ae283905 nt_se_template--15319830495438__1646028739ae283905" style="--bg-color: ;--bg-gradient: ;--border-cl: ;--mg-top: ;--mg-right: auto;--mg-bottom: 30px;--mg-left:auto;--pd-top: ;--pd-right: ;--pd-bottom: ;--pd-left: ;--mgtb-top: ;--mgtb-right: auto;--mgtb-bottom: 30px;--mgtb-left: auto;--pdtb-top: ;--pdtb-right: ;--pdtb-bottom: ;--pdtb-left: ;--mgmb-top: ;--mgmb-right: auto;--mgmb-bottom: 10px;--mgmb-left: auto;--pdmb-top: ;--pdmb-right: ;--pdmb-bottom: ;--pdmb-left: ;--aspect-ratio-cusdt : 700px;--aspect-ratio-custb : 500px;--aspect-ratio-cusmb :250px;">
+  <div
+    class="slideshow row row-cols-1 ts-gx-0 flicky-slider position_8 cover ratio_cuspx slide-eff-fade cuspx1_true cuspx2_true cuspx3_true dots-style-default dots-cl-dark dots-default dots-round-true dots-hidden-mobile-false  flickity"
+    data-flickity-js='
+      {
+      "cellAlign": "center","freeScroll": 0,"customIcon":0,"contain" : 1,"dragThreshold" : 15,"percentPosition": 1,"imagesLoaded": 0,"lazyload": 0,
+      "arrowIcon":"2", "id": "template--15319830495438__1646028739ae283905", "prevNextButtons": false,
+      "pageDots": true,"pauseAutoPlayOnHover":true,"wrapAround": true,"autoPlay":0,
+      "adaptiveHeight":true
+      }
+    '
+    style="--space-dots: 10px;--flickity-btn-pos: 30px;--flickity-btn-pos-mb: 30px;">
+    <div
+      class="slideshow-item col-item slide position_8"
+      id="b_164602873867eb3815-0"
+      data-select-flickity>
+      <div class="slideshow-inner relative overflow-hidden ratio ratio_hasmb" style="--aspect-ratioapt:3.2;--aspect-ratioaptmb:3.2;">
+        <img
+          class="img-as-bg d-md-none lz--fadeIn slide-none"
+          srcset="//demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=375 375w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=550 550w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=750 750w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=1100 1100w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=1500 1500w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=1780 1780w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=2000 2000w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=3000 3000w,//demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=3840 3840w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793 1920w"
+          sizes="(min-width: 768px) 768px,100vw"
+          src="//demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=1500"
+          loading="lazy"
+          onload="loadImage(this)"
+          alt=""
+          width="1920"
+          height="600">
+        <span class="lazyload-loader is-bg-img !d-md-none" style="background: url(//demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?crop=center&height=1&v=1652056793&width=1)"></span>
+        <img
+          class="img-as-bg d-none d-md-block lz--fadeIn slide-none"
+          srcset="//demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=375 375w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=550 550w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=750 750w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=1100 1100w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=1500 1500w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=1780 1780w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=2000 2000w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=3000 3000w,//demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=3840 3840w, //demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793 1920w"
+          sizes="100vw"
+          src="//demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?v=1652056793&width=1500"
+          loading="lazy"
+          onload="loadImage(this)"
+          alt=""
+          width="1920"
+          height="600">
+        <span class="lazyload-loader is-bg-img !d-none !d-md-block" style="background: url(//demo-kalles-4-1.myshopify.com/cdn/shop/files/slider-01.jpg?crop=center&height=1&v=1652056793&width=1)"></span>
+        <div class="content-wrap pointer-event-none full-width-link z-100">
+          <div class="content-position container absolute text-md-start text-start bg-content-true box-content-square-false br-content-false br-style-solid" style="--time-animation:1s;--p-left:0%;--p-hx:0%;--p-top:50%;--p-vy:-50%; --p-left-mb:0%;--p-hx-mb:0%;--p-top-mb:50%;--p-vy-mb:-50%;--bg-content:rgba(0, 0, 0, 0.0);--content-pd:15px 15px;--content-pd-tb:15px 15px;--content-pd-mb:10px 10px;; --bg-content-radius: 0%;">
+            <p
+              data-lh="0"
+              data-lh-md="0"
+              data-lh-lg="0"
+              class="bl-item animation-fadeInUp text-bl fnt-fm-inherit font-italic-false hidden-mobile-false br-mb-false text-shadow-false"
+              id="b_164602873867eb3815-1"
+              style="--animation:fadeInUp ;--delay-animation:0s;--text-cl:#222222;--text-fs:18px;--text-fw:500;--text-lh:0px;--text-ls:1px;--text-mgb:5px;--text-fs-mb:12px;--text-lh-mb:0px;--text-ls-mb:0px;--text-mgb-mb:5px;">
+              SUMMER 2023
+            </p>
+            <p
+              data-lh="18"
+              data-lh-md="55"
+              data-lh-lg="55"
+              class="bl-item animation-fadeInUp text-bl fnt-fm-inherit font-italic-false hidden-mobile-false br-mb-false text-shadow-false"
+              id="b_164602873867eb3815-2"
+              style="--animation:fadeInUp ;--delay-animation:0.3s;--text-cl:#222222;--text-fs:55px;--text-fw:600;--text-lh:55px;--text-ls:0px;--text-mgb:10px;--text-fs-mb:18px;--text-lh-mb:18px;--text-ls-mb:0px;--text-mgb-mb:10px;">
+              New Arrival Collection
+            </p>
+            <a
+              href="/collections"
+              target="_self"
+              class="bl-item animation-fadeInUp btn btn-custom pointer-event-auto fnt-fm-inherit animation-fadeInUp hidden-mobile-false btn-style-default btn-effect-sweep-to-top"
+              id="b_390cb6f8-c5fc-44ed-badf-074a03818e5a"
+              style="--animation:fadeInUp ;--delay-animation:0.6s;--button-icon-w:0px;--button-icon-w-mb:0px;--pri-cl:#222222;--second-cl:#ffffff;--pri-cl-hover:#56cfe1;--second-cl-hover:#ffffff;--button-fs:14px;--button-fw:600; --button-pd-lr:32px;--button-bdr:0px;--button-ls:0px;--button-mh:40px;--button-mgb:0px;--button-mgb-mb:0px;--button-fs-mb:12px;--button-mh-mb:36px;--button-pd-lr-mb:22px;--button-ls-mb:0px;">Explore Now
+            </a>
+          </div>
+        </div>
+        <a
+          href=""
+          target="_blank"
+          class="full-width-link pointer-event-none "
+          style="--bg-overlay:rgba(0, 0, 0, 0.0);"></a>
+      </div>
+    </div>
+    <div
+      class="slideshow-item col-item slide position_8"
+      id="b_aca13d02-fdca-4dd7-b455-cc71ffabb08a"
+      data-select-flickity>
+      <div class="slideshow-inner relative overflow-hidden ratio ratio_hasmb" style="--aspect-ratioapt:2.742857142857143;--aspect-ratioaptmb:2.742857142857143;">
+        <img
+          class="lazyload lz--fadeIn img-as-bg d-md-none slide-none"
+          data-src="//demo-kalles-4-1.myshopify.com/cdn/shop/files/slide3.jpg?v=1682405064&width=1"
+          data-widths="[375, 575, 750]"
+          data-optimumx="2"
+          data-sizes="auto"
+          src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+          width="1920"
+          height="700"
+          alt="">
+        <span class="lazyload-loader is-bg-img !d-md-none" style="background: url(//demo-kalles-4-1.myshopify.com/cdn/shop/files/slide3.jpg?crop=center&height=1&v=1682405064&width=1)"></span>
+        <img
+          class="lazyload lz--fadeIn img-as-bg d-none d-md-block slide-none"
+          data-src="//demo-kalles-4-1.myshopify.com/cdn/shop/files/slide3.jpg?v=1682405064&width=1"
+          data-widths="[800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400, 3800, 4100]"
+          data-optimumx="2"
+          data-sizes="auto"
+          src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+          width="1920"
+          height="700"
+          alt="">
+        <span class="lazyload-loader is-bg-img !d-none !d-md-block" style="background: url(//demo-kalles-4-1.myshopify.com/cdn/shop/files/slide3.jpg?crop=center&height=1&v=1682405064&width=1)"></span>
+        <div class="content-wrap pointer-event-none full-width-link z-100">
+          <div class="content-position container absolute text-md-end text-end bg-content-true box-content-square-false br-content-false br-style-solid" style="--time-animation:1s;--p-right:calc(100% - 100%);--p-hx:calc(100% - 100%);--p-top:50%;--p-vy:-50%; --p-right-mb:calc(100% - 100%);--p-hx-mb:calc(100% - 100%);--p-top-mb:50%;--p-vy-mb:-50%;--bg-content:rgba(255, 255, 255, 0.0);--content-pd:15px 15px;--content-pd-tb:15px 15px;--content-pd-mb:10px 10px;; --bg-content-radius: 0%;">
+            <p
+              data-lh="0"
+              data-lh-md="0"
+              data-lh-lg="0"
+              class="bl-item animation-fadeInUp text-bl fnt-fm-inherit font-italic-false hidden-mobile-false br-mb-false text-shadow-false"
+              id="b_b069b77f-6f77-41d8-839e-5f21d12217db"
+              style="--animation:fadeInUp ;--delay-animation:0s;--text-cl:#222222;--text-fs:18px;--text-fw:500;--text-lh:0px;--text-ls:0px;--text-mgb:5px;--text-fs-mb:12px;--text-lh-mb:0px;--text-ls-mb:0px;--text-mgb-mb:5px;">
+              NEW SEASON
+            </p>
+            <p
+              data-lh="18"
+              data-lh-md="55"
+              data-lh-lg="55"
+              class="bl-item animation-fadeInUp text-bl fnt-fm-inherit font-italic-false hidden-mobile-false br-mb-false text-shadow-false"
+              id="b_ff196d3a-1239-4855-9969-90603c8cb52d"
+              style="--animation:fadeInUp ;--delay-animation:0.4s;--text-cl:#222222;--text-fs:55px;--text-fw:600;--text-lh:55px;--text-ls:0px;--text-mgb:10px;--text-fs-mb:18px;--text-lh-mb:18px;--text-ls-mb:0px;--text-mgb-mb:10px;">
+              Lookbook Collection
+            </p>
+            <a
+              href="/collections"
+              target="_self"
+              class="bl-item animation-fadeInRight btn btn-custom pointer-event-auto fnt-fm-inherit animation-fadeInRight hidden-mobile-false btn-style-default btn-effect-sweep-to-top"
+              id="b_efa3ea83-c43c-48b4-85ed-90ed7642e2f7"
+              style="--animation:fadeInRight ;--delay-animation:0.8s;--button-icon-w:0px;--button-icon-w-mb:0px;--pri-cl:#222222;--second-cl:#ffffff;--pri-cl-hover:#56cfe1;--second-cl-hover:#ffffff;--button-fs:14px;--button-fw:600; --button-pd-lr:32px;--button-bdr:0px;--button-ls:0px;--button-mh:40px;--button-mgb:0px;--button-mgb-mb:0px;--button-fs-mb:12px;--button-mh-mb:36px;--button-pd-lr-mb:22px;--button-ls-mb:0px;">Explore Now
+            </a>
+          </div>
+        </div>
+        <a
+          href=""
+          target="_blank"
+          class="full-width-link pointer-event-none "
+          style="--bg-overlay:rgba(0, 0, 0, 0.0);"></a>
+      </div>
+    </div>
+    <div
+      class="slideshow-item col-item slide position_8"
+      id="b_164602873867eb3815-4"
+      data-select-flickity>
+      <div class="slideshow-inner relative overflow-hidden ratio ratio_hasmb" style="--aspect-ratioapt:2.742857142857143;--aspect-ratioaptmb:2.742857142857143;">
+        <img
+          class="lazyload lz--fadeIn img-as-bg d-md-none slide-none"
+          data-src="//demo-kalles-4-1.myshopify.com/cdn/shop/files/slide2.jpg?v=1682405064&width=1"
+          data-widths="[375, 575, 750]"
+          data-optimumx="2"
+          data-sizes="auto"
+          src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+          width="1920"
+          height="700"
+          alt="">
+        <span class="lazyload-loader is-bg-img !d-md-none" style="background: url(//demo-kalles-4-1.myshopify.com/cdn/shop/files/slide2.jpg?crop=center&height=1&v=1682405064&width=1)"></span>
+        <img
+          class="lazyload lz--fadeIn img-as-bg d-none d-md-block slide-none"
+          data-src="//demo-kalles-4-1.myshopify.com/cdn/shop/files/slide2.jpg?v=1682405064&width=1"
+          data-widths="[800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400, 3800, 4100]"
+          data-optimumx="2"
+          data-sizes="auto"
+          src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+          width="1920"
+          height="700"
+          alt="">
+        <span class="lazyload-loader is-bg-img !d-none !d-md-block" style="background: url(//demo-kalles-4-1.myshopify.com/cdn/shop/files/slide2.jpg?crop=center&height=1&v=1682405064&width=1)"></span>
+        <div class="content-wrap pointer-event-none full-width-link z-100">
+          <div class="content-position container absolute text-md-start text-center bg-content-true box-content-square-false br-content-false br-style-solid" style="--time-animation:1s;--p-left:0%;--p-hx:0%;--p-top:50%;--p-vy:-50%; --p-left-mb:0%;--p-hx-mb:0%;--p-top-mb:50%;--p-vy-mb:-50%;--bg-content:rgba(255, 255, 255, 0.0);--content-pd:15px 15px;--content-pd-tb:15px 15px;--content-pd-mb:10px 10px;; --bg-content-radius: 0%;">
+            <p
+              data-lh="0"
+              data-lh-md="0"
+              data-lh-lg="0"
+              class="bl-item animation-fadeInDown text-bl fnt-fm-inherit font-italic-false hidden-mobile-false br-mb-false text-shadow-false"
+              id="b_164602873867eb3815-5"
+              style="--animation:fadeInDown ;--delay-animation:0s;--text-cl:#222222;--text-fs:18px;--text-fw:500;--text-lh:0px;--text-ls:1px;--text-mgb:5px;--text-fs-mb:12px;--text-lh-mb:0px;--text-ls-mb:0px;--text-mgb-mb:5px;">
+              SUMMER SALE
+            </p>
+            <p
+              data-lh="28"
+              data-lh-md="55"
+              data-lh-lg="55"
+              class="bl-item animation-fadeInDown text-bl fnt-fm-inherit font-italic-false hidden-mobile-false br-mb-false text-shadow-false"
+              id="b_164602873867eb3815-6"
+              style="--animation:fadeInDown ;--delay-animation:0.4s;--text-cl:#222222;--text-fs:55px;--text-fw:600;--text-lh:55px;--text-ls:0px;--text-mgb:10px;--text-fs-mb:28px;--text-lh-mb:28px;--text-ls-mb:0px;--text-mgb-mb:10px;">
+              Save up to 70%
+            </p>
+            <a
+              href="/collections"
+              target="_self"
+              class="bl-item animation-fadeInDown btn btn-custom pointer-event-auto fnt-fm-inherit animation-fadeInDown hidden-mobile-false btn-style-default btn-effect-sweep-to-top"
+              id="b_164602873867eb3815-7"
+              style="--animation:fadeInDown ;--delay-animation:0.8s;--button-icon-w:0px;--button-icon-w-mb:0px;--pri-cl:#222222;--second-cl:#ffffff;--pri-cl-hover:#56cfe1;--second-cl-hover:#ffffff;--button-fs:14px;--button-fw:600; --button-pd-lr:32px;--button-bdr:0px;--button-ls:0px;--button-mh:40px;--button-mgb:0px;--button-mgb-mb:0px;--button-fs-mb:12px;--button-mh-mb:36px;--button-pd-lr-mb:22px;--button-ls-mb:0px;">Explore Now
+            </a>
+          </div>
+        </div>
+        <a
+          href=""
+          target="_blank"
+          class="full-width-link pointer-event-none "
+          style="--bg-overlay:rgba(0, 0, 0, 0.0);"></a>
+      </div>
+    </div>
+  </div>
+</div>
+<link
+  href="{{ "general-block.css" | asset_url }}"
+  rel="stylesheet"
+  type="text/css"
+  media="all">
+<link
+  href="{{ "button-style.css" | asset_url }}"
+  rel="stylesheet"
+  type="text/css"
+  media="all">
+<link
+  href="{{ "custom-effect.css" | asset_url }}"
+  rel="stylesheet"
+  media="all"
+  onload="this.media='all'"><link
+  href="{{ "animation.css" | asset_url }}"
+  rel="stylesheet"
+  media="all"
+  onload="this.media='all'">
+<style>
+  .sec-slideshow .flicky-btn-text {
+    display: none;
+  }
+  .rtl_true .sec-slideshow .flickitybutton .is--cus-ic-1 {
+    transform: rotateY(180deg);
+  }
+</style>
 
 {% schema %}
   {
@@ -609,24 +867,18 @@
       }
     ],
     "presets": [
-     {
-       "name": "Image with text overlay",
-       "settings": {
-
-        },
-       "blocks": [
+      {
+        "name": "Image with text overlay",
+        "settings": {},
+        "blocks": [
           {
             "type": "overlay_content"
           }
-       ]
-     }
-   ],
-   "disabled_on": {
-    "groups": [
-      "header",
-      "footer",
-      "custom.overlay"
-    ]
-  }
+        ]
+      }
+    ],
+    "disabled_on": {
+      "groups": ["header", "footer", "custom.overlay"]
+    }
   }
 {% endschema %}

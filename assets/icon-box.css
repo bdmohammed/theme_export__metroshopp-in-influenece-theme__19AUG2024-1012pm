@@ -1,0 +1,110 @@
+.iconbox-inner {
+    padding: var(--pd-content);
+    border-radius: 10px;
+    transition: .3s all linear;
+    background-color: var(--cl-box);
+}
+
+.iconbox-shadow__true .iconbox-inner {
+    box-shadow: 7px 7px 12.22px 0.78px rgb(85 123 208 / 7%);
+}
+
+.iconbox-border__true .iconbox-inner {
+    border: 1px solid var(--cl-border);
+}
+
+.iconbox-head {
+    margin-bottom: 30px;
+}
+
+.iconbox-icon {
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cl-icon);
+}
+
+.iconbox-icon__right {
+    flex-direction: row-reverse;
+}
+
+.iconbox-icon__right .iconbox-icon {
+    margin-right: 0;
+}
+
+.iconbox-icon__right .iconbox-heading {
+    margin-right: 30px;
+}
+
+.iconbox-icon__awesome i {
+    font-size: var(--icon-awesome-fs);
+}
+
+.iconbox-icon__svg svg {
+    fill: currentColor;
+    width: var(--w-image-svg);
+    height: auto;
+}
+
+.iconbox-icon__image img {
+    width: 100%;
+    max-width: var(--width);
+    display: inline-block;
+    vertical-align: top;
+}
+
+.iconbox-icon__image[style*="--width:0px"] img {
+    max-width: var(--max-width);
+}
+
+.iconbox-heading {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 36px;
+    color: var(--cl-head);
+}
+
+.iconbox-des p {
+    font-size: 20px;
+    color: var(--cl-des);
+    line-height: 24px;
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+
+.iconbox-inner:hover {
+    background-color: var(--cl-box-hover);
+}
+
+.iconbox-inner.iconbox-border__true:hover {
+    border-color: var(--cl-box-hover);
+}
+
+.iconbox-inner:hover .iconbox-icon__awesome i,
+.iconbox-inner:hover .iconbox-icon__svg svg,
+.iconbox-inner:hover .iconbox-heading,
+.iconbox-inner:hover .iconbox-des p {
+    color: var(--cl-content-hover);
+}
+
+.iconbox-item:hover .iconbox-icon {
+    -webkit-animation: bounceIn .5s ease;
+    -o-animation: bounceIn .5s ease;
+    animation: bounceIn .5s ease;
+}
+
+.flickity-enabled .iconbox-item__wrapper {
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+@media (max-width:767px) {
+    .iconbox-icon__svg svg {
+        width: var(--w-image-svg-mb);
+    }
+
+    .iconbox-des p {
+        font-size: 14px;
+    }
+}

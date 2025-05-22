@@ -1,0 +1,26 @@
+{%- liquid 
+assign pr_url = product.url
+assign pid = product.id
+assign image = product.images[0] | default:placeholder_img
+-%}
+
+<div class="product pr-grid col-12 pr-group pr-{{pid}} {{col}} col-item">
+	<div class="row product-wrapper">
+		<div class="col-item col product-img">
+			{%- if image != blank -%}
+				<a href="{{pr_url}}">
+				    <div class="ratio" style="--aspect-ratioapt: {{image.aspect_ratio | default: 1}}">
+					    <img class="lazyload" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ image | image_url: '1x1' }}" data-widths="[100,200]" data-optimumx="1.5" data-sizes="auto" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
+					    <span class="lazyload-loader"></span>
+					    <noscript><img loading="lazy" src="{{ image | image_url: '100x' }}"  alt="{{ image.alt | escape }}"></noscript>
+					</div>
+			    </a>
+			{%- endif -%}
+		</div>
+		<div class="col-item col product-info">
+			<h3 class="widget__pr-title"><a data-pr-href href="{{pr_url}}">{{ product.title }}</a></h3>
+      {%- render 'product-price',class_price:'widget__pr-price',product:product,price_varies_style:price_varies_style,type:'card',isGrouped:false -%}
+		</div>
+	</div>
+</div>
+ 

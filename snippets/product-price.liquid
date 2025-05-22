@@ -1,0 +1,99 @@
+{%- comment -%}
+  Renders a list of product's price (regular, sale, unit)
+  Accompanies product listings (collection page, search result) and not updated dynamically
+  Accepts:
+  - variant: {Object} Variant Liquid object (optional)
+  - product: {Object} Product Liquid object (optional)
+  - class_price {String} a string set name class price (optional)
+
+  Usage:
+  {%- render 'product-price', product: product -%}
+{%- endcomment -%}
+
+{%- liquid
+  if product.title
+    assign price = product.price
+    assign compare_at_price = product.compare_at_price | default: price
+    assign variant = product.variants.first
+    assign variant_unit_price_measurement = variant.unit_price_measurement
+  else
+    assign price = 1999
+    assign compare_at_price = 1999
+  endif
+  assign cur_code_enabled = settings.currency_code_enabled
+
+  assign on_sale = false
+  if compare_at_price > price
+    assign on_sale = true
+  endif
+
+  if cur_code_enabled
+    assign money_price = price | money_with_currency
+    assign money_compare_at_price = compare_at_price | money_with_currency
+  else
+    assign money_price = price | money
+    assign money_compare_at_price = compare_at_price | money
+  endif
+-%}
+<div
+  class="{{class_price | default:'product-price'}}"
+  {%- if variant_unit_price_measurement == null -%}
+    data-pr-price data-product-price
+  {% endif %}
+>
+  {%- if variant_unit_price_measurement -%}
+    <span data-pr-price data-product-price>
+      {%- if cur_code_enabled -%}
+        {%- capture price_variant -%}{{ variant.price | money_with_currency }}{%- endcapture -%}
+        {%- capture price_compare -%}{{ variant.compare_at_price | money_with_currency }}{%- endcapture -%}
+        {%- capture price_unit -%}{{ variant.unit_price | money_with_currency }}{%- endcapture -%}
+      {%- else -%}
+        {%- capture price_variant -%}{{ variant.price | money }}{%- endcapture -%}
+        {%- capture price_compare -%}{{ variant.compare_at_price | money }}{%- endcapture -%}
+        {%- capture price_unit -%}{{ variant.unit_price | money }}{%- endcapture -%}
+      {%- endif -%}
+      {%- if variant.compare_at_price > variant.price -%}
+        <del>{{ price_compare }}</del><ins>{{ price_variant }}</ins>
+      {%- else -%}
+        {{ price_variant }}
+      {%- endif -%}
+    </span>
+
+    {%- capture unit_price_base_unit -%}
+       <span data-unit-base class="unit_base">
+         {%- if variant_unit_price_measurement -%}
+           {%- if variant_unit_price_measurement.reference_value != 1 -%}
+             {{- variant_unit_price_measurement.reference_value -}}
+           {%- endif -%}
+           {{ variant_unit_price_measurement.reference_unit }}
+         {%- endif -%}
+       </span>
+      {%- endcapture -%}
+    <div class="price__unit">
+      <span data-unit-price class="unit_price">{{ price_unit }}</span><span>/</span>
+      {{- unit_price_base_unit -}}
+    </div>
+
+  {%- elsif product.price_varies -%}
+    {%- liquid
+      if cur_code_enabled
+        assign price_min = product.price_min | money_with_currency
+        assign price_max = product.price_max | money_with_currency
+      else
+        assign price_min = product.price_min | money
+        assign price_max = product.price_max | money
+      endif
+    -%}
+
+    {%- if price_varies_style == '1' -%}
+      {{ price_min }} – {{ price_max }}
+    {%- else -%}
+      {{ 'products.product.from_price_html' | t: price_min: price_min, class: 'price-from' }}
+    {%- endif -%}
+
+  {%- elsif on_sale -%}
+    <del>{{ money_compare_at_price }}</del><ins>{{ money_price }}</ins>
+  {%- else -%}
+    {{ money_price }}
+  {%- endif -%}
+</div>

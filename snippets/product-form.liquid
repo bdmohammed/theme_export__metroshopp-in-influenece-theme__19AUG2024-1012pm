@@ -1,0 +1,515 @@
+{%- comment %}
+  Product Form Component
+
+  This component renders a complete product form with variant selectors, quantity inputs,
+  add-to-cart button, buy now button, wishlist/compare buttons, and other product actions.
+
+  Parameters:
+  - product: Product object (required)
+  - current_variant: Current selected variant (required)
+  - isProductDefault: Boolean indicating if this is a default product with no variants
+  - isProductAvailable: Boolean indicating if the product is available for purchase
+  - isExternal: Boolean indicating if this is an external product with custom link
+  - pr_se_id: Unique identifier for the product form
+  - bk_stts: Block settings containing configuration options
+  - type: Form type (main, main_sticky, etc.)
+  render 'product-form', type, product, bk_stts, pr_se_id, isExternal, external_title, external_link, isProductAvailable, isProductDefault, current_variant, remove_soldout, pr_no_pick, isPreoder, is_fit_ratio_img, first_ratio_img, name_sizeg, html_sizeg, advance_pr_type, advance_label, shopify_attributes
+
+  Features:
+  - Supports multiple variant selectors (swatches, dropdowns)
+  - Color swatch with multiple display modes
+  - Quantity selector
+  - Dynamic checkout button
+  - Stock notifications
+  - Wishlist/compare integration
+  - Preorder support
+  - Animation effects
+
+  Last updated: April 2025
+  Shopify Liquid version: 2.0+
+{%- endcomment %}
+
+{%- liquid
+  assign product_form_id = 'product-form-' | append: pr_se_id
+  assign pr_variants = product.variants
+  assign pr_buy_pr = bk_stts.show_dynamic_checkout and isExternal == false and isProductAvailable
+  assign choose_an_option = 'products.product.choose_an_option' | t
+  assign date_in = settings.date_in
+  assign class_frm = 'form__product has--form__swatch'
+  if isProductDefault
+    assign class_frm = 'form__product'
+  endif
+  if settings.sticky_atc and type == 'main'
+    assign class_frm = class_frm | append: ' is--main-sticky'
+  else
+    assign class_frm = class_frm | append: ' is--atc-sticky'
+  endif
+
+  assign color_swatch = 'disabled-'
+  assign color_mode = bk_stts.color_mode
+  assign selector_mode = bk_stts.selector_mode
+  assign color_ck = settings.color_ck | append: 'color,colors,couleur,colour'
+  assign get_color = color_ck | downcase | replace: ' ,', ',' | replace: ', ', ',' | split: ',' | uniq
+  assign color_mode_list = 'color, color is-sw-cl__round, variant_image, variant_image is-sw-cl__round' | split: ', '
+  if color_mode_list contains color_mode
+    assign color_swatch = 'is-sw__color '
+  endif
+  assign current_variant_available = current_variant.available
+  assign use_incoming_mess = settings.use_incoming_mess
+  assign current_variant_incoming = false
+  if current_variant.inventory_quantity <= 0 and current_variant.inventory_management == 'shopify' and current_variant.incoming
+    assign current_variant_incoming = true
+  endif
+-%}
+
+{%- if color_mode == 'dropdown' or selector_mode == 'dropdown' -%}
+  <link rel="stylesheet" href="{{ 'base_drop.css' | asset_url }}" media="all">
+{%- endif -%}
+
+{{ 'button-style.css' | asset_url | stylesheet_tag }}
+<link href="{{ 'custom-effect.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
+
+<div
+  class="product-form__variants is-no-pick__{{pr_no_pick}} is-payment-btn-{{pr_buy_pr}} is-remove-soldout-{{remove_soldout}} is-btn-full-width__{{bk_stts.btn_atc_full}} is-btn-atc-txt-{{bk_stts.btn_txt}} is-btn-ck-txt-{{bk_stts.btn_txt2}} is--fist-ratio-{{is_fit_ratio_img}}"
+  {% if is_fit_ratio_img %}
+    style="--fit-ratio-img:{{first_ratio_img}}"
+  {% endif %}
+  {{ shopify_attributes }}
+>
+  <div data-callBackVariant id="callBackVariant{{product_form_id}}">
+    {%- form 'product',
+      product,
+      id: product_form_id,
+      data-productid: product.id,
+      class: class_frm,
+      novalidate: 'novalidate',
+      data-type: 'add-to-cart-form',
+      data-disable-swatch: isProductDefault
+    -%}
+      {{- form | payment_terms -}}
+
+      {%- if isProductDefault -%}
+        <input name="id" value="{{ pr_variants.first.id }}" type="hidden">
+        {%- if advance_pr_type != blank -%}
+          {%- render 'choose_style', advance_pr_type: advance_pr_type, title: advance_label, pid: product.id -%}
+        {%- endif -%}
+      {%- else -%}
+        {{ 'swatch.css' | asset_url | stylesheet_tag }}
+        <select name="id" id="product-select-{{pr_se_id}}" class="product__select d-none">
+          {%- for variant in pr_variants -%}
+            {%- if variant.available -%}
+              <option
+                value="{{ variant.id }}"
+                data-mdid="{{variant.featured_media.id | json}}"
+                data-incoming="{{ variant.incoming }}"
+                data-inventoryQuantity="{{variant.inventory_quantity | json}}"
+                data-nextIncomingDate="{{ variant.next_incoming_date | date: date_in }}"
+                {% if variant.id == current_variant.id %}
+                  selected="selected"
+                {% endif %}
+              >
+                {{ variant.title | escape }}
+              </option>
+            {%- else -%}
+              <option
+                value="{{ variant.id }}"
+                data-mdid="{{variant.featured_media.id | json}}"
+                data-media-id="{{variant.featured_media.id | json}}"
+                data-incoming="{{ variant.incoming }}"
+                data-inventoryQuantity="{{variant.inventory_quantity | json}}"
+                data-inventory-quantity="{{variant.inventory_quantity | json}}"
+                data-nextIncomingDate="{{ variant.next_incoming_date | date: date_in }}"
+                data-next-incoming-date="{{ variant.next_incoming_date | date: date_in }}"
+                {% if remove_soldout %}
+                  disabled="disabled"
+                {% endif %}
+                class="is--sold-out"
+              >
+                {{ variant.title | escape }}
+              </option>
+            {%- endif -%}
+          {%- endfor -%}
+        </select>
+
+        <div class="swatch color-mode__{{color_mode}} color-size__{{bk_stts.color_size}} selector-mode__{{selector_mode}}">
+          {%- if advance_pr_type != blank -%}
+            {%- render 'choose_style', advance_pr_type: advance_pr_type, title: advance_label, pid: product.id -%}
+          {%- endif -%}
+          {%- for option in product.options_with_values -%}
+            {%- liquid
+              assign option_index = 'option' | append: forloop.index
+              assign selected_value = current_variant[option_index]
+              assign option_name = option.name
+              assign name_downcase = option_name | downcase
+            -%}
+
+            {%- if get_color contains name_downcase -%}
+              <div
+                data-swatch-option
+                data-id="{{ forloop.index0 }}"
+                class="swatch__option is-style__color is-name__{{option_name | handle}} {% cycle 'is--first-color', '', '' %}"
+              >
+                <h4 class="swatch__title">
+                  <span>
+                    {{- option_name }}:
+                    <span data-current-value class="swatch__current">
+                      {{- selected_value | default: choose_an_option -}}
+                    </span></span
+                  >
+                  {%- if name_sizeg == name_downcase %}{{ html_sizeg }}{% endif %}
+                </h4>
+                <div class="swatch__list">
+                  {%- if color_mode != 'dropdown' -%}
+                    {%- for value in option.values -%}
+                      <div
+                        data-swatch-item
+                        data-tooltip="top"
+                        title="{{value | escape}}"
+                        class="swatch__item {{color_swatch}}bg_color_{{value | handle}} lazyload{% if selected_value == value %} is--selected{% endif %}"
+                        data-value="{{ value | escape }}"
+                      >
+                        {{ value }}
+                      </div>
+                    {%- endfor -%}
+
+                  {%- else -%}
+                    <button
+                      data-dropdown-open
+                      data-position="bottom-end"
+                      data-id="nt_{{pr_se_id}}{{forloop.index}}"
+                      type="button"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      aria-controls="nt_{{pr_se_id}}{{forloop.index}}"
+                    >
+                      <span data-current-value>{{ selected_value | default: choose_an_option }}</span>
+                      <svg
+                        class="icon-select-arrow"
+                        aria-hidden="true"
+                        focusable="false"
+                        role="presentation"
+                        viewBox="0 0 19 12"
+                      >
+                        <use href="#select-arrow"></use>
+                      </svg>
+                    </button>
+                    <div data-dropdown-wrapper class="dropdown__wrapper" id="nt_{{pr_se_id}}{{forloop.index}}">
+                      <div class="drop-arrow"></div>
+                      <div class="dropdown__header">
+                        <span data-current-value class="dropdown__title">
+                          {{- selected_value | default: choose_an_option -}}
+                        </span>
+                        <button data-dropdown-close aria-label="{{ 'general.aria.close' | t }}">
+                          <svg
+                            role="presentation"
+                            aria-hidden="true"
+                            focusable="false"
+                            class="iconsvg-close"
+                            viewBox="0 0 16 14"
+                          >
+                            <path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path>
+                          </svg>
+                        </button>
+                      </div>
+                      <div class="dropdown__content">
+                        {%- for value in option.values -%}
+                          <div
+                            data-swatch-item
+                            data-dropdown-off
+                            class="swatch__item truncate {{color_swatch}}bg_color_{{value | handle}} lazyload{% if selected_value == value %} is--selected{% endif %}"
+                            data-value="{{ value | escape }}"
+                          >
+                            {{ value }}
+                          </div>
+                        {%- endfor -%}
+                      </div>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+
+            {%- else -%}
+              <div
+                data-swatch-option
+                data-id="{{ forloop.index0 }}"
+                class="swatch__option is-name__{{option_name | handle}}"
+              >
+                <h4 class="swatch__title">
+                  <span>
+                    {{- option_name }}:
+                    <span data-current-value class="swatch__current">
+                      {{- selected_value | default: choose_an_option -}}
+                    </span></span
+                  >
+                  {%- if name_sizeg == name_downcase %}{{ html_sizeg }}{% endif %}
+                </h4>
+                <div class="swatch__list">
+                  {%- if selector_mode != 'dropdown' -%}
+                    {%- for value in option.values -%}
+                      <div
+                        data-swatch-item
+                        class="swatch__item{% if selected_value == value %} is--selected{% endif %}"
+                        data-value="{{ value | escape }}"
+                      >
+                        {{ value }}
+                      </div>
+                    {%- endfor -%}
+
+                  {%- else -%}
+                    <button
+                      data-dropdown-open
+                      aria-label="{{ 'general.aria.open' | t }}"
+                      data-position="bottom-end"
+                      data-id="nt_{{pr_se_id}}{{forloop.index}}"
+                      type="button"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      aria-controls="nt_{{pr_se_id}}{{forloop.index}}"
+                    >
+                      <span data-current-value>{{ selected_value | default: choose_an_option }}</span>
+                      <svg
+                        class="icon-select-arrow"
+                        aria-hidden="true"
+                        focusable="false"
+                        role="presentation"
+                        viewBox="0 0 19 12"
+                      >
+                        <use href="#select-arrow"></use>
+                      </svg>
+                    </button>
+                    <div data-dropdown-wrapper class="dropdown__wrapper" id="nt_{{pr_se_id}}{{forloop.index}}">
+                      <div class="drop-arrow"></div>
+                      <div class="dropdown__header">
+                        <span data-current-value class="dropdown__title">
+                          {{- selected_value | default: choose_an_option -}}
+                        </span>
+                        <button data-dropdown-close aria-label="{{ 'general.aria.close' | t }}">
+                          <svg
+                            role="presentation"
+                            aria-hidden="true"
+                            focusable="false"
+                            class="iconsvg-close"
+                            viewBox="0 0 16 14"
+                          >
+                            <path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path>
+                          </svg>
+                        </button>
+                      </div>
+                      <div class="dropdown__content">
+                        {%- for value in option.values -%}
+                          <div
+                            data-swatch-item
+                            data-dropdown-off
+                            class="swatch__item truncate{% if selected_value == value %} is--selected{% endif %}"
+                            data-value="{{ value | escape }}"
+                          >
+                            {{ value }}
+                          </div>
+                        {%- endfor -%}
+                      </div>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if use_incoming_mess and current_variant_incoming and pr_variants.size == 1 -%}
+        {%- assign format_date = current_variant.next_incoming_date | date: format: date_in -%}
+        <div class="incoming__mess">
+          {% if current_variant_available -%}
+            {{- 'products.product_single.will_not_ship_until_html' | t: date: format_date -}}
+          {%- else -%}
+            {{- 'products.product_single.will_be_in_stock_after_html' | t: date: format_date -}}
+          {%- endif %}
+        </div>
+      {%- elsif use_incoming_mess and pr_variants.size > 1 -%}
+        {%- liquid
+          assign format_date = current_variant.next_incoming_date | date: format: date_in
+          unless format_date
+            assign format_date = '19041994'
+          endunless
+        -%}
+        <div
+          data-incoming__mess
+          class="incoming__mess"
+          {% unless current_variant_incoming %}
+            hidden
+          {% endunless %}
+        >
+          <span
+            data-incoming-available
+            {% if current_variant_available == false or current_variant == blank %}
+              style="display:none"
+            {% endif %}
+          >
+            {{- 'products.product_single.will_not_ship_until_html' | t: date: format_date -}}</span
+          ><span
+            data-incoming-soldout
+            {% if current_variant_available or current_variant == blank %}
+              style="display: none"
+            {% endif %}
+          >
+            {{- 'products.product_single.will_be_in_stock_after_html' | t: date: format_date -}}
+          </span>
+        </div>
+      {%- endif -%}
+
+      <div class="product-form__buttons" style="--pr-btn-round:{{bk_stts.pr_btn_round}}px;">
+        <div class="d-flex flex-wrap">
+          {%- if isExternal -%}
+            <a
+              href="{{external_link | escape}}"
+              rel="nofollow"
+              target="_blank"
+              class="product-form__submit truncate is--btn-external btn btn-base btn-style-{{bk_stts.button_style}} btn-color-{{bk_stts.button_color}} w-100 justify-content-center {% if bk_stts.button_style == 'default' or bk_stts.button_style == 'outline'%} btn-effect-{{bk_stts.button_effect}} {% endif %}"
+            >
+              {{- external_title -}}
+            </a>
+            {%- if bk_stts.enable_wishlist or bk_stts.enable_compare -%}
+              {%- render 'wis_cp', product: product, bk_stts: bk_stts -%}
+            {%- endif -%}
+
+          {%- else -%}
+            {%- if bk_stts.show_qty and isProductAvailable -%}
+              <div data-quantity-wrapper class="quantity-wrapper product-form__qty">
+                <button
+                  data-quantity-selector
+                  data-decrease-qty
+                  type="button"
+                  class="quantity-selector is--minus"
+                  aria-label="{{ 'products.product.decrease_quantity' | t }}"
+                >
+                  <svg
+                    focusable="false"
+                    aria-hidden="true"
+                    class="icon icon--minus"
+                    viewBox="0 0 10 2"
+                    role="presentation"
+                  >
+                    <path d="M10 0v2H0V0z" fill="currentColor"></path>
+                  </svg>
+                </button>
+                <input
+                  data-quantity-value
+                  type="number"
+                  class="quantity-input"
+                  step="1"
+                  min="1"
+                  max="9999"
+                  name="quantity"
+                  value="1"
+                  size="4"
+                  pattern="[0-9]*"
+                  inputmode="numeric"
+                  aria-label="{{ 'products.product.quantity' | t }}"
+                >
+                <button
+                  data-quantity-selector
+                  data-increase-qty
+                  type="button"
+                  class="quantity-selector is--plus"
+                  aria-label="{{ 'products.product.increase_quantity' | t }}"
+                >
+                  <svg focusable="false" aria-hidden="true" class="icon icon--plus" viewBox="0 0 10 10" role="presentation">
+                    <path d="M6 4h4v2H6v4H4V6H0V4h4V0h2v4z" fill="currentColor" fill-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </div>
+            {%- else -%}
+              <input type="hidden" name="quantity" value="1">
+            {%- endif -%}
+
+            {%- if bk_stts.enable_wishlist or bk_stts.enable_compare -%}
+              {%- render 'wis_cp', product: product, bk_stts: bk_stts -%}
+            {%- endif -%}
+            <button
+              data-animation-atc='{ "ani":"{{bk_stts.ani}}","time":{{bk_stts.time}}000 }'
+              type="submit"
+              name="add"
+              data-atc-form
+              class="product-form__submit btn btn-base btn-style-{{bk_stts.button_style}} btn-color-{{bk_stts.button_color}} w-100 justify-content-center {% if bk_stts.button_style == 'default' or bk_stts.button_style == 'outline'%} btn-effect-{{bk_stts.button_effect}} {% endif %} btn-loading__svg"
+              {% unless current_variant.available %}
+                aria-disabled="true"
+              {% endunless -%}
+              {% unless isProductAvailable %}
+                disabled="disabled"
+              {% endunless %}
+            >
+              {%- if bk_stts.btn_icon -%}
+                <svg viewBox="0 0 24 24" class="btn-icon">
+                  <use href="#icon-atc"></use>
+                </svg>
+              {%- endif -%}
+              <span class="btn-atc_text">
+                {%- if current_variant.available == false or isProductAvailable == false -%}
+                  {{ 'products.product.sold_out' | t -}}
+                {%- elsif isPreoder -%}
+                  {{- 'products.product.pre_order' | t }}
+                {%- else -%}
+                  {{ 'products.product.add_to_cart' | t }}
+                {%- endif -%}
+              </span>
+              <span class="loading__spinner" hidden>
+                <svg
+                  width="16"
+                  height="16"
+                  hidden
+                  class="svg-spinner"
+                  focusable="false"
+                  role="presentation"
+                  viewBox="0 0 66 66"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                </svg>
+              </span>
+            </button>
+          {%- endif -%}
+        </div>
+        {%- if pr_buy_pr and type != 'main_sticky' %}
+          <div class="payment-button btn-color-{{bk_stts.button_color_payment}}">
+            {{- form | payment_button -}}
+          </div>
+        {% endif -%}
+        {%- if settings.use_notify_me -%}
+          <button
+            data-class="mfp-btn-close-inline"
+            data-id="pr-popup__notify-stock"
+            data-storageid="notify-stock{{current_variant.id}}"
+            data-mfp-src
+            data-open-mfp-ajax
+            class="pr__notify-stock btn-color-{{bk_stts.button_color_payment}}{% if current_variant.available %} d-none{% endif %}"
+            type="button"
+            data-notify-stock-btn
+            data-variant-id="{{ current_variant.id }}"
+            data-base-url="{{ shop.url }}{{ routes.root_url }}"
+            aria-label="{{ 'products.notify_stock.trigger' | t }}"
+          >
+            {{ 'products.notify_stock.trigger' | t }}
+          </button>
+        {%- endif -%}
+      </div>
+    {%- endform -%}
+
+    {%- unless isProductDefault or type == 'main_sticky' -%}
+      <script type="application/json" class="pr_variants_json">
+        {{ product.variants | json }}
+      </script>
+      <script type="application/json" class="pr_options_json">
+        {{ product.options_with_values | json }}
+      </script>
+    {%- endunless -%}
+
+    {%- if bk_stts.ani != 'none ' -%}
+      <link href="{{ 'ani-atc.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
+    {%- endif -%}
+  </div>
+</div>
+{%- if pr_buy_pr and current_variant.available != true and type != 'main_sticky' -%}
+  <style>
+    #callBackVariant{{product_form_id}} .shopify-payment-button { display: none;}
+  </style>
+{% endif -%}

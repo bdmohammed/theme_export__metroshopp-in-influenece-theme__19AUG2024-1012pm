@@ -1,0 +1,21 @@
+{% comment %}
+  Product Countdown Timer Display
+  Renders a countdown timer for product offers or sales. The countdown is displayed in days, hours, minutes, and seconds.
+
+  Accepts:
+  - countdown: {String} The countdown date in the format 'YYYY/MM/DD HH:MM:SS'. This is the date and time when the offer ends.
+
+  Usage:
+  {% render 'product-countdown', countdown %}
+{% endcomment %}
+
+<div data-countdown-wrap class="product-countdown pointer-events-none absolute opacity-0">
+  <span class="pr-countdown-title">{{ 'products.product_card.offer_end_in' | t }}</span>
+  <span class="pr-countdown-date" data-countdown-ts data-date="{{countdown}}">
+    <span>
+      %-D %!D:{{ 'products.product_card.countdown_text.day' | t }},
+      {{- 'products.product_card.countdown_text.day_plural' | t -}}
+      ; %H:%M:%S
+    </span>
+  </span>
+</div>

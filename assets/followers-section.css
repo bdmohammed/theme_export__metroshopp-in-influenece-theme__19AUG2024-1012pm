@@ -1,0 +1,91 @@
+#followers{
+font-family: var(--font-body-family);
+color: #333;
+/* height: 100vh; */
+padding: 70px 20px;
+width: 100vw;
+display: flex;
+align-items: center;
+justify-content: center;
+background: #fef6f4;
+font-size: 16px;
+border-bottom: 1px solid #e6e6e6;
+} 
+
+#followers .ftext {
+max-width: 400px;
+}
+#followers .ftext h3 {
+text-align: left;
+}
+#followers .fcontainer {
+width: 100%;
+display: flex;
+justify-content: space-evenly;
+}
+#followers .fcontainer .fcard {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+#followers .fcontainer .fcard i {
+color: #333;
+font-size: 50px;
+}
+#followers .fcontainer .fcard p.counter {
+font-size: 40px;
+margin: 5px;
+}
+#followers .fcontainer .fcard p.label {
+margin: -20px;
+}
+@media screen and (max-width: 600px) {
+body {
+background: #fef6f4;
+}
+#followers .fcard {
+padding: 0px 10px;
+}
+#followers .fcontainer .fcard i {
+color: #333;
+font-size: 40px;
+}
+#followers .fcontainer .fcard p.counter {
+font-size: 40px;
+margin: 10px;
+}
+#followers .fcontainer .fcard p.label {
+font-size: 14px;
+}
+}
+@media screen and (max-width: 480px) {
+#followers {
+padding: 50px 10px;
+}
+#followers .fcard {
+padding: 0 5px;
+}
+#followers .fcontainer .fcard i {
+font-size: 35px;
+}
+#followers .fcontainer .fcard p.counter {
+font-size: 30px;
+}
+#followers .fcontainer .fcard p.label {
+font-size: 12px;
+}
+}
+.pinlogo {
+color: #e00122 !important;
+}
+#insta {
+background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+-webkit-background-clip: text;
+/* Also define standard property for compatibility */
+background-clip: text;
+-webkit-text-fill-color: transparent;
+
+font-size: 200px; /* change this to change the size*/
+
+}

@@ -40,12 +40,13 @@
       data-modal-dismissable="true"
       data-modal-underlay-classes="bg-black opacity-60"
       data-color-scheme="general"
-      class="invisible opacity-0"
-    >
-      <div
-        class="p-4 bg-page text-body"
-      >
-        {% render 'armament-heading' with tag: 'h2', heading_content: product_variant.product.title, heading_type: 'heading-5', classes: 'mb-2', attributes: 'id="PickupAvailabilityHeading"' %}
+      class="invisible opacity-0">
+      <div class="p-4 bg-page text-body">
+        {% render 'armament-heading' with tag: 'h2'
+          , heading_content: product_variant.product.title
+          , heading_type: 'heading-5'
+          , classes: 'mb-2'
+          , attributes: 'id="PickupAvailabilityHeading"' %}
 
         {% unless product_variant.product.has_only_default_variant %}
           <p class="mb-3">
@@ -61,15 +62,20 @@
           </p>
         {% endunless %}
 
-        <ul role="list" data-store-availability-drawer-content class="border-t border-t-border-opacity-10">
+        <ul
+          role="list"
+          data-store-availability-drawer-content
+          class="border-t border-t-border-opacity-10">
           {% for availability in pick_up_availabilities %}
             <li class="py-3 border-b border-b-border-opacity-10">
               <h3 class="mb-2">{{ availability.location.name | escape }}</h3>
               <p class="flex text-xs md:text-[14px] mb-2">
                 {% if availability.available %}
-                  {% render 'armament-icon' with icon: 'tick', classes: 'mr-2 mt-1' %} {{ 'products.product.pickup_availability.pick_up_available' | t }}, {{ availability.pick_up_time | downcase }}
+                  {% render 'armament-icon' with icon: 'tick'
+                    , classes: 'mr-2 mt-1' %} {{ 'products.product.pickup_availability.pick_up_available' | t }}, {{ availability.pick_up_time | downcase }}
                 {% else %}
-                  {% render 'armament-icon' with icon: 'error', classes: 'mr-2 mt-1' %} {{ 'products.product.pickup_availability.pick_up_unavailable_at_html' | t: location_name: availability.location.name }}
+                  {% render 'armament-icon' with icon: 'error'
+                    , classes: 'mr-2 mt-1' %} {{ 'products.product.pickup_availability.pick_up_unavailable_at_html' | t: location_name: availability.location.name }}
                 {% endif %}
               </p>
 
@@ -87,8 +93,16 @@
       </div>
     </armada-modal>
     <safe-load-scripts>
-      <script src="{{ 'engine-modal-open.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="modal-open"></script>
-      <script src="{{ 'engine-modal.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="modal"></script>
+      <script
+        src="{{ 'engine-modal-open.min.js' | asset_url }}"
+        defer="defer"
+        type="module"
+        data-armada-load-key="modal-open"></script>
+      <script
+        src="{{ 'engine-modal.min.js' | asset_url }}"
+        defer="defer"
+        type="module"
+        data-armada-load-key="modal"></script>
     </safe-load-scripts>
   </pickup-availability-preview>
 {% endif %}

@@ -7,33 +7,35 @@
   endcase
 %}
 
-<section class="text-body bg-page w-full py-5 px-4 md:py-6 {{ desktop_x_padding }}" data-color-scheme="{{ section.settings.color_scheme }}" data-aid="callout-text">
+<section
+  class="text-body bg-page w-full py-5 px-4 md:py-6 {{ desktop_x_padding }}"
+  data-color-scheme="{{ section.settings.color_scheme }}"
+  data-aid="callout-text"
+>
   {% if section.settings.section_width == 'narrow' %}<div class="max-w-screen-xl m-auto">{% endif %}
-    <div class=" flex flex-col {{ section.settings.horizontal_alignment }}">
+  <div class=" flex flex-col {{ section.settings.horizontal_alignment }}">
+    {% if section.settings.button_1_text == blank and section.settings.link_1 != blank %}
+      <a href="{{ section.settings.link_1 }}">
+    {% elsif section.settings.button_2_text == blank and section.settings.button_2_link != blank %}
+      <a href="{{ section.settings.button_2_link }}">
+    {% endif %}
+    {% render 'armament-heading' with tag: 'h2', heading_content: section.settings.text, heading_type: 'callout-heading', data_aid: 'callout-text-heading' %}
+    {% if section.settings.button_1_text == blank and section.settings.link_1 != blank %}
+      </a>
+    {% elsif section.settings.button_2_text == blank and section.settings.button_2_link != blank %}
+      </a>
+    {% endif %}
 
-      {% if section.settings.button_1_text == blank and section.settings.link_1 != blank %}
-        <a href="{{ section.settings.link_1 }}">
-      {% elsif section.settings.button_2_text == blank and section.settings.button_2_link != blank %}
-        <a href="{{ section.settings.button_2_link }}">
+    <div class="button_container flex flex-col md:flex-row">
+      {% if section.settings.button_1_text != blank and section.settings.link_1 != blank %}
+        {% render 'armament-button' with url: section.settings.link_1, content: section.settings.button_1_text, style: section.settings.button_1_style, type: 'button', classes: 'mt-3 md:mt-4 last:mr-0 md:mr-4 z-40' %}
       {% endif %}
-            {% render 'armament-heading' with tag: 'h2', heading_content: section.settings.text, heading_type: 'callout-heading', data_aid: 'callout-text-heading' %}
-      {% if section.settings.button_1_text == blank and section.settings.link_1 != blank %}
-        </a>
-      {% elsif section.settings.button_2_text == blank and section.settings.button_2_link != blank %}
-        </a>
+
+      {% if section.settings.button_2_text != blank and section.settings.button_2_link != blank %}
+        {% render 'armament-button' with url: section.settings.button_2_link, content: section.settings.button_2_text, style: section.settings.button_2_style, type: 'button', classes: 'mt-3 md:mt-4 z-40' %}
       {% endif %}
-
-      <div class="button_container flex flex-col md:flex-row">
-          {% if section.settings.button_1_text != blank and section.settings.link_1 != blank %}
-            {% render 'armament-button' with url: section.settings.link_1, content: section.settings.button_1_text, style: section.settings.button_1_style, type: 'button', classes: 'mt-3 md:mt-4 last:mr-0 md:mr-4 z-40' %}
-          {% endif %}
-
-          {% if section.settings.button_2_text != blank and section.settings.button_2_link != blank %}
-            {% render 'armament-button' with url: section.settings.button_2_link, content: section.settings.button_2_text, style: section.settings.button_2_style, type: 'button', classes: 'mt-3 md:mt-4 z-40' %}
-          {% endif %}
-      </div>
-
     </div>
+  </div>
   {% if section.settings.section_width == 'narrow' %}</div>{% endif %}
 </section>
 
@@ -174,19 +176,12 @@
   "presets": [
     {
       "name": "Callout text",
-      "settings": {
-      },
-      "blocks": [
-
-      ]
+      "settings": {},
+      "blocks": []
     }
   ],
   "disabled_on": {
-    "groups": [
-      "header",
-      "footer",
-      "custom.overlay"
-    ]
+    "groups": ["header", "footer", "custom.overlay"]
   }
 }
 {% endschema %}

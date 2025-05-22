@@ -9,13 +9,15 @@
           {% render 'armament-heading' with tag: 'h3', heading_type: 'heading-6', heading_content: item.product.title %}
 
           {% if item.product.has_only_default_variant == false %}
-          <p>{{ item.variant.title }}</p>
+            <p>{{ item.variant.title }}</p>
           {% endif %}
 
           {% render 'armament-price' with manual_price: item.final_price, manual_compare_at_price: item.original_price, cart_line_item: item, price_product: false, discount_type: settings.show_discount_savings %}
 
           {% if item.selling_plan_allocation %}
-            <p>{{ item.selling_plan_allocation.selling_plan.name }}<p>
+            <p>
+              {{ item.selling_plan_allocation.selling_plan.name }}
+              <p>
           {% endif %}
 
           {% if item.properties != empty %}

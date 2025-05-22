@@ -1,0 +1,61 @@
+.counter-item .counter-inner {
+	background-color: var(--bg-cl);
+	padding: 15px;
+}
+
+.counter-border-true .counter-inner {
+	border: solid 1px;
+	border-color: var(--bd-cl);
+}
+
+.counter-item .counter-title {
+	color: var(--heading-cl);
+	font-size: 16px;
+	line-height: 24px;
+	margin-bottom: 15px;
+}
+
+.counter-item .counter-number {
+	color: var(--number-cl);
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 30px;
+	margin-bottom: 10px;
+}
+
+.counter-item .counter-des {
+	color: var(--des-cl);
+	font-size: 14px;
+	line-height: 20px;
+	margin-bottom: 0;
+}
+
+.counter-medium .counter-title {
+	font-size: 18px;
+	line-height: 24px;
+}
+
+.counter-medium .counter-number {
+	font-size: 30px;
+	line-height: 36px;
+}
+
+.counter-medium .counter-des {
+	font-size: 16px;
+	line-height: 24px;
+}
+
+.counter-large .counter-title {
+	font-size: 22px;
+	line-height: 24px;
+}
+
+.counter-large .counter-number {
+	font-size: 36px;
+	line-height: 40px;
+}
+
+.counter-large .counter-des {
+	font-size: 18px;
+	line-height: 24px;
+}

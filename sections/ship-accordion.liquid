@@ -23,9 +23,9 @@
     {% if section.blocks.size > 0 %}
       {% for block in section.blocks %}
         {% if forloop.first %}
-          {% assign summary_class = "pt-0 md:pt-0" %}
+          {% assign summary_class = 'pt-0 md:pt-0' %}
         {% else %}
-          {% assign summary_class = "" %}
+          {% assign summary_class = '' %}
         {% endif %}
         {% render 'armament-accordion' with details_class: 'text-body', summary_class: summary_class, summary_header: block.settings.tab_item_header, summary_content: block.settings.tab_item_content, prose: true, shopify_attributes: block.shopify_attributes, block_id: block.id %}
       {% endfor %}
@@ -34,15 +34,15 @@
 </section>
 
 {% schema %}
-  {
-    "class": "w-full",
-    "name": "Accordion",
-    "settings": [
-      {
-        "type": "select",
-        "id": "bg_color_scheme",
-        "label": "Color scheme",
-        "options": [
+{
+  "class": "w-full",
+  "name": "Accordion",
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color_scheme",
+      "label": "Color scheme",
+      "options": [
         {
           "value": "general",
           "label": "General"
@@ -59,66 +59,62 @@
           "value": "accent-3",
           "label": "Accent 3"
         }
-        ],
-        "default": "general"
-      },
-      {
-        "type": "text",
-        "id": "subheading",
-        "label": "Subheading"
-      },
-      {
-        "type": "text",
-        "id": "heading",
-        "label": "Heading"
-      }
-    ],
-    "blocks": [
-      {
-        "type": "tab_item",
-        "name": "Accordion item",
-        "settings": [
-          {
-            "type": "text",
-            "id": "tab_item_header",
-            "label": "Heading",
-            "default": "Heading/FAQ"
-          },
-          {
-            "type": "richtext",
-            "id": "tab_item_content",
-            "label": "Body text",
-            "default": "<p>Use this text to provide detailed information like sizing, shipping, ingredients, or to answer frequently asked questions.</p>"
-          }
-        ]
-      }
-    ],
-    "presets": [
-      {
-        "name": "Accordion",
-        "settings": {
+      ],
+      "default": "general"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab_item",
+      "name": "Accordion item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_item_header",
+          "label": "Heading",
+          "default": "Heading/FAQ"
         },
-        "blocks": [
-          {
-            "type": "tab_item"
-          },
-          {
-            "type": "tab_item"
-          },
-          {
-            "type": "tab_item"
-          },
-          {
-            "type": "tab_item"
-          }
-        ]
-      }
-    ],
-    "disabled_on": {
-    "groups": [
-      "header",
-      "custom.overlay"
-    ]
+        {
+          "type": "richtext",
+          "id": "tab_item_content",
+          "label": "Body text",
+          "default": "<p>Use this text to provide detailed information like sizing, shipping, ingredients, or to answer frequently asked questions.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Accordion",
+      "settings": {},
+      "blocks": [
+        {
+          "type": "tab_item"
+        },
+        {
+          "type": "tab_item"
+        },
+        {
+          "type": "tab_item"
+        },
+        {
+          "type": "tab_item"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "custom.overlay"]
   }
-  }
+}
 {% endschema %}

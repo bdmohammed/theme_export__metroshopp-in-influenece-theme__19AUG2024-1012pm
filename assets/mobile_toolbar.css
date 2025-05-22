@@ -1,0 +1,125 @@
+@media (max-width: 1024px) {
+  .toolbar-mobile {
+    height: 55px;
+  }
+
+  .sticky-atc {
+    bottom: 55px;
+    border-bottom: 1px solid var(--border-color);
+    -webkit-transform: translate3d(0, calc(105% + 55px), 0) !important;
+    transform: translate3d(0, calc(105% + 55px), 0) !important;
+  }
+
+  #shopify-section-back_top #backToTop {
+    bottom: 60px;
+  }
+
+  .sticky-is--active #shopify-section-back_top #backToTop {
+    bottom: calc(60px + var(--stickyATC-height, 0px));
+  }
+
+  .sticky-is--active .popup__sales {
+    bottom: calc(60px + var(--stickyATC-height, 0px)) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .sticky-atc .dropdown__wrapper {
+    bottom: -56px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .toolbar {
+    display: none !important;
+  }
+}
+
+.toolbar-label-true .toolbar-item>a {
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.toolbar-icon {
+  position: relative;
+}
+
+.toolbar-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.toolbar {
+  background-color: var(--bg-color);
+  z-index: 190;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 5px;
+  height: 55px;
+  box-shadow: 0 0 9px rgb(0 0 0 / 12%);
+  transform: translate3d(0, 104%, 0);
+  -webkit-transform: translate3d(0, 104%, 0);
+  transition: transform 0.25s;
+}
+
+.toolbar {
+  transform: none;
+  -webkit-transform: none;
+}
+
+.toolbar .toolbar-item {
+  -ms-flex: 1 0 20%;
+  flex: 1 0 20%;
+  position: relative;
+}
+
+.toolbar-item>a {
+  padding-right: 10px;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  height: 45px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.toolbar-icon {
+  color: var(--icon-color);
+}
+
+.toolbar-label {
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  left: 10px;
+  display: block;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 1;
+  color: var(--label-color);
+}
+
+.toolbar .count-box {
+  color: var(--count-text-color);
+  background-color: var(--count-bg-color);
+}
+
+.toolbar-item>a:hover {
+  color: var(--accent-color);
+}
+
+.toolbar-item img {
+  max-height: 22px;
+}
+
+.count-box {
+  --h-count-bgcolor: #000000;
+  --h-count-color: #ffffff;
+}

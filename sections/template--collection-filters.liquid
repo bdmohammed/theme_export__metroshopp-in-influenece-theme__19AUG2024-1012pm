@@ -13,14 +13,22 @@
   endif
 %}
 
-<div class="invisible opacity-0 w-screen h-screen fixed top-0 bg-black transition-opacity duration-300" data-armada-selector="filter_underlay"></div>
+<div
+  class="invisible opacity-0 w-screen h-screen fixed top-0 bg-black transition-opacity duration-300"
+  data-armada-selector="filter_underlay"
+></div>
 
 <section
   class="bg-page text-body relative w-screen h-full no-js-hidden flex flex-col{% if section.settings.filtering_position == 'topbar' %} lg:w-screen{% else %} lg:w-full{% endif %}"
   data-armada-selector="section-collection-filters"
   data-section-id="{{ section.id }}"
 >
-  <div class="filter-topbar-container flex lg:hidden justify-center w-full order-2 lg:order-none{% if section.settings.filtering_position == 'topbar' %} lg:flex-wrap{% endif %}" {% if section.settings.filtering_position == 'topbar' %}style="display:flex;"{% endif %}>
+  <div
+    class="filter-topbar-container flex lg:hidden justify-center w-full order-2 lg:order-none{% if section.settings.filtering_position == 'topbar' %} lg:flex-wrap{% endif %}"
+    {% if section.settings.filtering_position == 'topbar' %}
+      style="display:flex;"
+    {% endif %}
+  >
     {% render 'ship-filter-dropdown-trigger' with show_filter: true, enable_filtering: section.settings.enable_filtering, show_sort: true, enable_sorting: section.settings.enable_sorting, results: collection, filtering_position: section.settings.filtering_position %}
   </div>
 
@@ -32,12 +40,15 @@
 </section>
 
 <noscript>
-
-
   <section
     class="bg-page text-body relative w-screen h-full no-js-hidden flex flex-col{% if section.settings.filtering_position == 'topbar' %} lg:w-screen{% else %} lg:w-full{% endif %}"
   >
-    <div class="filter-topbar-container flex lg:hidden justify-center w-full order-2 lg:order-none{% if section.settings.filtering_position == 'topbar' %} lg:flex-wrap{% endif %}" {% if section.settings.filtering_position == 'topbar' %}style="display:flex;"{% endif %}>
+    <div
+      class="filter-topbar-container flex lg:hidden justify-center w-full order-2 lg:order-none{% if section.settings.filtering_position == 'topbar' %} lg:flex-wrap{% endif %}"
+      {% if section.settings.filtering_position == 'topbar' %}
+        style="display:flex;"
+      {% endif %}
+    >
       {% render 'ship-filter-dropdown-trigger' with show_filter: true, enable_filtering: section.settings.enable_filtering, show_sort: true, enable_sorting: section.settings.enable_sorting, results: collection, filtering_position: section.settings.filtering_position %}
     </div>
 

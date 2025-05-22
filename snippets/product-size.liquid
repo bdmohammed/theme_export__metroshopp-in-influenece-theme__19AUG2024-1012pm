@@ -1,0 +1,14 @@
+{% comment %}
+  Product Size Variants Display
+  Renders a list of product size variants as a comma-separated string
+
+  Accepts:
+  - size_variants: {Array} Array of size variant strings
+
+  Usage:
+  {% render 'product-size', size_variants: product.size_variants %}
+{% endcomment %}
+
+<div class="product-sizes">
+  <span class="truncate d-block w-100">{{ size_variants | join: ', ' }}</span>
+</div>

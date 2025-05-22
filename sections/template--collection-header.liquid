@@ -1,14 +1,13 @@
-{% liquid 
-
+{% liquid
   if section.settings.show_collection_image == true
     assign show_img = true
-  else 
+  else
     assign show_img = false
   endif
 
   if section.settings.show_collection_title == true
     assign show_title = true
-  else 
+  else
     assign show_title = false
   endif
 
@@ -35,27 +34,35 @@
     assign content_over_image = true
     assign content_start_end = 'row-start-1 row-end-2 col-start-1 col-end-2'
 
-    if section.settings.show_collection_title 
+    if section.settings.show_collection_title
       assign overlay_color = overlay_color_value
       assign overlay_opacity = section.settings.overlay_opacity | divided_by: 100.0
       assign color_with_opacity = overlay_color | color_modify: 'alpha', overlay_opacity
       assign overlay_bg = 'style="background-color:' | append: color_with_opacity | append: ';"'
     endif
-  else 
+  else
     assign content_over_image = false
     assign content_start_end = 'row-start-2 row-end-3 col-start-1 col-end-2'
   endif
-  
 %}
 
-<section {% unless show_img %}data-color-scheme="{{ section.settings.section_color_scheme }}"{% endunless %} class="grid grid-cols-1 text-center {% unless show_img %}bg-page text-body{% endunless %} {% if content_over_image %}grid-rows-1{% else %}grid-rows-[repeat(2,minmax(0,auto))]{% endif %}">
+<section
+  {% unless show_img %}
+    data-color-scheme="{{ section.settings.section_color_scheme }}"
+  {% endunless %}
+  class="grid grid-cols-1 text-center {% unless show_img %}bg-page text-body{% endunless %} {% if content_over_image %}grid-rows-1{% else %}grid-rows-[repeat(2,minmax(0,auto))]{% endif %}"
+>
   {% if show_img and collection.image != blank %}
     <div class="{{ img_container_height }} col-start-1 col-end-2 {% if content_over_image %}row-start-1 row-end-3{% else %}row-start-1 row-end-2{% endif %}">
       {% render 'armament-image' with image: collection.image, classes: img_height, alt: collection.image.alt, sizes: '100vw' %}
     </div>
   {% endif %}
   {% if show_title %}
-    <div data-color-scheme="{{ section.settings.section_color_scheme }}" class="{{ content_start_end }} z-20 flex flex-col{% if section.settings.text_align == 'center' %} items-center{% elsif section.settings.text_align == 'right' %} items-end{% endif %} justify-center py-5 px-3 md:px-6 mx-auto w-full text-body{% unless content_over_image %} bg-page{% endunless %}{% if content_over_image %} my-0 max-w-full{% endif %}{% if show_title == false or collection.title == blank %} py-0{% endif %}" {{ overlay_bg }}>
+    <div
+      data-color-scheme="{{ section.settings.section_color_scheme }}"
+      class="{{ content_start_end }} z-20 flex flex-col{% if section.settings.text_align == 'center' %} items-center{% elsif section.settings.text_align == 'right' %} items-end{% endif %} justify-center py-5 px-3 md:px-6 mx-auto w-full text-body{% unless content_over_image %} bg-page{% endunless %}{% if content_over_image %} my-0 max-w-full{% endif %}{% if show_title == false or collection.title == blank %} py-0{% endif %}"
+      {{ overlay_bg }}
+    >
       <div class="text-{{ section.settings.text_align }}">
         {% render 'armament-heading' with tag: 'h2', heading_type: 'heading-3', heading_content: collection.title, data_aid: 'collection-title' %}
       </div>

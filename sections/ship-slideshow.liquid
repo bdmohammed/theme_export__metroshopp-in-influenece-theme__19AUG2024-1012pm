@@ -1,57 +1,53 @@
-
-
-
 {%- liquid
+  assign interval = section.settings['slide-time'] | times: 1000
+  assign enable_nav_elms = section.settings.enable_nav_elms
 
-    assign interval = section.settings.slide-time | times: 1000
-    assign enable_nav_elms = section.settings.enable_nav_elms
+  case section.settings.horizontal_alignment
+    when 'left'
+      assign alignment = 'md:items-start'
+    when 'center'
+      assign alignment = 'md:items-center'
+    when 'right'
+      assign alignment = 'md:items-end'
+  endcase
 
-    case section.settings.horizontal_alignment
-      when 'left'
-        assign alignment = "md:items-start"
-      when 'center'
-        assign alignment = "md:items-center"
-      when 'right'
-        assign alignment = "md:items-end"
-    endcase
+  assign hide_nav = ''
 
-    assign hide_nav = ''
+  if enable_nav_elms == false
+    assign hide_nav = ' hidden'
+  endif
 
-    if enable_nav_elms == false
-      assign hide_nav = ' hidden'
-    endif
+  case section.settings.desktop_height
+    when 's'
+      assign desktop_height = 'lg:h-[400px]'
+    when 'm'
+      assign desktop_height = 'lg:h-[550px]'
+    when 'l'
+      assign desktop_height = 'lg:h-[750px]'
+    when 'xl'
+      assign desktop_height = 'lg:h-screen'
+  endcase
 
-    case section.settings.desktop_height
-      when 's'
-        assign desktop_height = 'lg:h-[400px]'
-      when 'm'
-        assign desktop_height = 'lg:h-[550px]'
-      when 'l'
-        assign desktop_height = 'lg:h-[750px]'
-      when 'xl'
-        assign desktop_height = 'lg:h-screen'
-    endcase
+  case section.settings.mobile_height
+    when 's'
+      assign mobile_height = 'h-[350px] '
+    when 'm'
+      assign mobile_height = 'h-[400px] '
+    when 'l'
+      assign mobile_height = 'h-[500px] '
+    when 'xl'
+      assign mobile_height = 'h-screen '
+  endcase
 
-    case section.settings.mobile_height
-      when 's'
-        assign mobile_height = 'h-[350px] '
-      when 'm'
-        assign mobile_height = 'h-[400px] '
-      when 'l'
-        assign mobile_height = 'h-[500px] '
-      when 'xl'
-        assign mobile_height = 'h-screen '
-    endcase
+  assign section_heights = mobile_height | append: desktop_height
 
-    assign section_heights = mobile_height | append: desktop_height
-
-    if settings.enable_animations
-      assign animate_1 = 'animate-slideshow-up animate-slide-up-delay-1'
-      assign animate_2 = 'animate-slideshow-up animate-slide-up-delay-2'
-      assign animate_3 = 'animate-slideshow-up animate-slide-up-delay-3'
-      assign animate_4 = 'animate-slideshow-up animate-slide-up-delay-4'
-      assign animate_5 = 'animate-slideshow-up animate-slide-up-delay-5'
-    endif
+  if settings.enable_animations
+    assign animate_1 = 'animate-slideshow-up animate-slide-up-delay-1'
+    assign animate_2 = 'animate-slideshow-up animate-slide-up-delay-2'
+    assign animate_3 = 'animate-slideshow-up animate-slide-up-delay-3'
+    assign animate_4 = 'animate-slideshow-up animate-slide-up-delay-4'
+    assign animate_5 = 'animate-slideshow-up animate-slide-up-delay-5'
+  endif
 -%}
 
 <slider-engine
@@ -70,197 +66,192 @@
   tabindex="0"
 >
   <div data-name="slider-wrap" class="relative overflow-hidden">
-
     {% if section.blocks.size > 0 %}
-        <ul
-          data-name="slider"
-          class="flex {{ section_heights }}"
-        >
-          {% for block in section.blocks %}
-            {%- liquid
-              assign buttons_enabled = false
-              if block.settings.button_1_link != blank and block.settings.button_1_text != blank
-                assign buttons_enabled = true
-              endif
+      <ul
+        data-name="slider"
+        class="flex {{ section_heights }}"
+      >
+        {% for block in section.blocks %}
+          {%- liquid
+            assign buttons_enabled = false
+            if block.settings.button_1_link != blank and block.settings.button_1_text != blank
+              assign buttons_enabled = true
+            endif
 
-              if block.settings.button_2_link != blank and block.settings.button_2_text != blank
-                assign buttons_enabled = true
-              endif
+            if block.settings.button_2_link != blank and block.settings.button_2_text != blank
+              assign buttons_enabled = true
+            endif
 
-              assign slideImageOnly = true
-              if block.settings.heading_text != blank or buttons_enabled
-                assign slideImageOnly = false
-              endif
+            assign slideImageOnly = true
+            if block.settings.heading_text != blank or buttons_enabled
+              assign slideImageOnly = false
+            endif
 
-              assign opacity_value = block.settings.overlay_opacity | divided_by: 100.0
-              assign overlay_opacity = 'style="opacity:' | append: opacity_value | append: ';"'
-              assign overlay_style = block.settings.overlay_style
-            -%}
-            <li
-              data-name="slide"
-              class="{% unless slideImageOnly %}upto-md:grid grid-rows-1 w-full {% endunless %}max-w-[100vw] relative {{ section_heights }}"
-              data-aid="slide"
-              data-color-scheme="{{ block.settings.color_scheme }}"
-              data-slide-type="{{ block.type }}"
-              {% if forloop.index == 1 %}data-slide-active="true"{% endif %}
-              slideimageonly="{{ slideImageOnly }}"
-              data-block-id="{{ block.id }}"
+            assign opacity_value = block.settings.overlay_opacity | divided_by: 100.0
+            assign overlay_opacity = 'style="opacity:' | append: opacity_value | append: ';"'
+            assign overlay_style = block.settings.overlay_style
+          -%}
+          <li
+            data-name="slide"
+            class="{% unless slideImageOnly %}upto-md:grid grid-rows-1 w-full {% endunless %}max-w-[100vw] relative {{ section_heights }}"
+            data-aid="slide"
+            data-color-scheme="{{ block.settings.color_scheme }}"
+            data-slide-type="{{ block.type }}"
+            {% if forloop.index == 1 %}
+              data-slide-active="true"
+            {% endif %}
+            slideimageonly="{{ slideImageOnly }}"
+            data-block-id="{{ block.id }}"
+          >
+            <div
+              data-aid="slide-imgs"
+              class="relative {% if slideImageOnly %}h-full {% endif %}md:h-full w-full"
             >
+              {% if block.settings.overlay_style != 'none' %}
+                <div {{ overlay_opacity }} class="absolute h-full w-full {{ overlay_style }}"></div>
+              {% endif %}
+              {% liquid
+                assign attrs = 'data-armada-selector="slideshow-image"'
+                if block.settings.desktop_image != blank and block.settings.mobile_image != blank
+                  render 'armament-image' with image: block.settings.desktop_image, classes: 'hidden md:block w-full h-full object-cover', attributes: attrs
+                  render 'armament-image' with image: block.settings.mobile_image, classes: 'md:hidden block w-full h-full object-cover', attributes: attrs
+                elsif block.settings.desktop_image != blank and block.settings.mobile_image == blank
+                  render 'armament-image' with image: block.settings.desktop_image, classes: 'object-cover h-full w-full', attributes: attrs
+                elsif block.settings.desktop_image == blank and block.settings.mobile_image != blank
+                  render 'armament-placeholder' with name: 'lifestyle-2', classes: 'hidden md:block w-full', attributes: attrs
+                  render 'armament-image' with image: block.settings.mobile_image, classes: 'md:hidden block w-full h-full', attributes: attrs
+                elsif block.settings.desktop_image == blank and block.settings.mobile_image == blank
+                  render 'armament-placeholder' with name: 'lifestyle-2', classes: 'hidden md:block w-full h-full object-cover', attributes: attrs
+                  render 'armament-placeholder' with name: 'collection-1', classes: 'md:hidden block w-full h-full object-cover', attributes: attrs
+                endif
+              %}
+            </div>
+
+            {% assign width_minmax = 'md:min-w-[500px] md:max-w-[calc(100%-80px)]' %}
+
+            <div
+              {{ block.shopify_attributes }}
+              data-aid="slide-content"
+              class="relative upto-md:self-end upto-md:h-max md:absolute md:bottom-0 w-full flex flex-col {% unless slideImageOnly %}{{ alignment }}{% else %}md:items-center{% endunless %}"
+            >
+              {% unless section.blocks.size < 2 %}
                 <div
-                  data-aid="slide-imgs"
-                  class="relative {% if slideImageOnly %}h-full {% endif %}md:h-full w-full"
+                  data-armada-selector="slider-navigation-and-progress"
+                  class="upto-md:absolute upto-md:w-full {{ width_minmax }} z-10 {% if slideImageOnly %}upto-md:bottom-0 pb-6 px-4 upto-md:pb-4{% else %}upto-md:bottom-full{% endif %} {% if section.settings.horizontal_alignment == 'left' %}md:ml-6{% elsif section.settings.horizontal_alignment == 'right' %}md:mr-6{%- endif -%}{{ hide_nav }} {{ animate_2 }}"
                 >
-                  {% if block.settings.overlay_style != 'none' %}<div {{ overlay_opacity }} class="absolute h-full w-full {{ overlay_style }}"></div>{% endif %}
-                  {% liquid
-                    assign attrs = 'data-armada-selector="slideshow-image"'
-                    if block.settings.desktop_image != blank and block.settings.mobile_image != blank
-                      render 'armament-image' with image: block.settings.desktop_image, classes: 'hidden md:block w-full h-full object-cover', attributes: attrs
-                      render 'armament-image' with image: block.settings.mobile_image, classes: 'md:hidden block w-full h-full object-cover', attributes: attrs
-                    elsif block.settings.desktop_image != blank and block.settings.mobile_image == blank
-                      render 'armament-image' with image: block.settings.desktop_image, classes: 'object-cover h-full w-full', attributes: attrs
-                    elsif block.settings.desktop_image == blank and block.settings.mobile_image != blank
-                      render 'armament-placeholder' with name: 'lifestyle-2', classes: 'hidden md:block w-full', attributes: attrs
-                      render 'armament-image' with image: block.settings.mobile_image, classes: 'md:hidden block w-full h-full', attributes: attrs
-                    elsif block.settings.desktop_image == blank and block.settings.mobile_image == blank
-                      render 'armament-placeholder' with name: 'lifestyle-2', classes: 'hidden md:block w-full h-full object-cover', attributes: attrs
-                      render 'armament-placeholder' with name: 'collection-1', classes: 'md:hidden block w-full h-full object-cover', attributes: attrs
-                    endif
-                  %}
-                </div>
-
-                {% assign width_minmax = 'md:min-w-[500px] md:max-w-[calc(100%-80px)]' %}
-
-                <div
-                  {{ block.shopify_attributes }}
-                  data-aid="slide-content"
-                  class="relative upto-md:self-end upto-md:h-max md:absolute md:bottom-0 w-full flex flex-col {% unless slideImageOnly %}{{ alignment }}{% else %}md:items-center{% endunless %}"
-                >
-
-                  {% unless section.blocks.size < 2 %}
+                  <div class="relative flex place-content-center w-full">
+                    <div
+                      data-aid="slider-arrow-prev"
+                      data-icon-type="prev"
+                      data-name="icon-prev"
+                      class="icon-prev p-3 transition-opacity group"
+                      aria-label="Go to previous slide"
+                    >
+                      {% render 'armament-icon' with icon: 'arrow-left', width: 12, height: 12, classes: 'text-page mt-[1px]' %}
+                    </div>
 
                     <div
-                      data-armada-selector="slider-navigation-and-progress"
-                      class="upto-md:absolute upto-md:w-full {{ width_minmax }} z-10 {% if slideImageOnly %}upto-md:bottom-0 pb-6 px-4 upto-md:pb-4{% else %}upto-md:bottom-full{% endif %} {% if section.settings.horizontal_alignment == 'left' %}md:ml-6{% elsif section.settings.horizontal_alignment == 'right' %}md:mr-6{%- endif -%}{{ hide_nav }} {{ animate_2 }}"
+                      data-aid="slider-counter"
+                      data-name="counter"
+                      class="text-page font-heading leading-none text-h6 flex transition-opacity"
                     >
-
-                      <div class="relative flex place-content-center w-full">
-                        <div
-                          data-aid="slider-arrow-prev"
-                          data-icon-type="prev"
-                          data-name="icon-prev"
-                          class="icon-prev p-3 transition-opacity group"
-                          aria-label="Go to previous slide"
-                        >
-                          {% render 'armament-icon' with icon: 'arrow-left', width: 12, height: 12, classes: 'text-page mt-[1px]' %}
-                        </div>
-
-                        <div
-                          data-aid="slider-counter"
-                          data-name="counter"
-                          class="text-page font-heading leading-none text-h6 flex transition-opacity"
-                        >
-                          <div class="py-3">
-                            <span data-name="counter-current">
-                              <span class="sr-only">Slide</span> {{ forloop.index }}
-                            </span>
-                          </div>
-                          <div class="py-3 px-1">
-                            <span
-                              aria-hidden="true"
-                              data-name="counter-separator"
-                            >|</span>
-                            <span class="sr-only">of</span>
-                          </div>
-                          <div class="py-3">
-                            <span data-name="counter-total">{{ forloop.length }}</span>
-                          </div>
-                        </div>
-
-                        <div
-                          data-aid="slider-arrow-next"
-                          data-icon-type="next"
-                          data-name="icon-next"
-                          class="icon-next p-3 transition-opacity group"
-                          aria-label="Go to next slide"
-                        >
-                          {% render 'armament-icon' with icon: 'arrow-right', width: 12, height: 12, classes: 'text-page mt-[1px]' %}
-                        </div>
+                      <div class="py-3">
+                        <span data-name="counter-current">
+                          <span class="sr-only">Slide</span> {{ forloop.index }}
+                        </span>
                       </div>
-                      <div
-                        data-name="slide-nav-elems"
-                        data-aid="slide-nav-elems"
-                        class="flex flex-col {{ alignment }}"
-                      >
-                        <div class="w-full relative">
-                          {%- liquid
-                            assign play = false
-                            if forloop.first
-                              assign play = true
-                            else
-                              assign play = false
-                            endif
-
-                            assign track_color = ''
-                            assign bar_color = ''
-
-                            if slideImageOnly
-                              assign track_color = 'bg-page opacity-30'
-                              assign bar_color = 'bg-page opacity-100'
-                            endif
-                          -%}
-                          {% render 'armament-progress-bar' with interval: interval, play: play, classes: '', track: true, track_color: track_color, bar_color: bar_color %}
-                        </div>
+                      <div class="py-3 px-1">
+                        <span
+                          aria-hidden="true"
+                          data-name="counter-separator"
+                          >|</span
+                        >
+                        <span class="sr-only">of</span>
+                      </div>
+                      <div class="py-3">
+                        <span data-name="counter-total">{{ forloop.length }}</span>
                       </div>
                     </div>
-                  {% endunless %}
-
-                  {% if slideImageOnly == false %}
 
                     <div
-                      data-name="slide-content"
-                      class="relative overflow-hidden p-3 md:py-4 md:px-5 text-center bg-page {{ width_minmax }} flex flex-col justify-center md:mb-6 md:mr-6 md:ml-6 {{ animate_1 }}"
+                      data-aid="slider-arrow-next"
+                      data-icon-type="next"
+                      data-name="icon-next"
+                      class="icon-next p-3 transition-opacity group"
+                      aria-label="Go to next slide"
                     >
-
-                      {% if block.settings.heading_text != blank %}
-                        {% assign heading_classes = animate_3 | append: ' text-body z-40' %}
-                        {% render 'armament-heading' with tag: 'h3', heading_content: block.settings.heading_text, heading_type: 'heading-3', classes: heading_classes, data_aid: 'slide-heading' %}
-                      {% endif %}
-
+                      {% render 'armament-icon' with icon: 'arrow-right', width: 12, height: 12, classes: 'text-page mt-[1px]' %}
+                    </div>
+                  </div>
+                  <div
+                    data-name="slide-nav-elems"
+                    data-aid="slide-nav-elems"
+                    class="flex flex-col {{ alignment }}"
+                  >
+                    <div class="w-full relative">
                       {%- liquid
-                        if block.settings.button_2_link != blank and block.settings.button_2_text != blank
-                          assign button_classes = 'mr-3 md:mr-4'
+                        assign play = false
+                        if forloop.first
+                          assign play = true
                         else
-                          assign button_classes = 'mr-0'
+                          assign play = false
+                        endif
+
+                        assign track_color = ''
+                        assign bar_color = ''
+
+                        if slideImageOnly
+                          assign track_color = 'bg-page opacity-30'
+                          assign bar_color = 'bg-page opacity-100'
                         endif
                       -%}
-
-                      {% if buttons_enabled %}
-                        <div class="flex flex-row justify-center{% if block.settings.heading_text != blank %} mt-3 md:mt-4{% endif %}">
-                          {% if block.settings.button_1_link != blank and block.settings.button_1_text != blank %}
-                            {% assign button_classes = button_classes | append: ' ' | append: animate_4 %}
-                            {% render 'armament-button' with url: block.settings.button_1_link, content: block.settings.button_1_text, style: block.settings.button_1_style, classes: button_classes, data_aid: "slide-button-1" %}
-                          {% endif %}
-
-                          {% if block.settings.button_2_link != blank and block.settings.button_2_text != blank %}
-                            {% render 'armament-button' with url: block.settings.button_2_link, content: block.settings.button_2_text, style: block.settings.button_2_style, data_aid: 'slide-button-2', classes: animate_5 %}
-                          {% endif %}
-                        </div>
-                      {% endif %}
+                      {% render 'armament-progress-bar' with interval: interval, play: play, classes: '', track: true, track_color: track_color, bar_color: bar_color %}
                     </div>
+                  </div>
+                </div>
+              {% endunless %}
 
+              {% if slideImageOnly == false %}
+                <div
+                  data-name="slide-content"
+                  class="relative overflow-hidden p-3 md:py-4 md:px-5 text-center bg-page {{ width_minmax }} flex flex-col justify-center md:mb-6 md:mr-6 md:ml-6 {{ animate_1 }}"
+                >
+                  {% if block.settings.heading_text != blank %}
+                    {% assign heading_classes = animate_3 | append: ' text-body z-40' %}
+                    {% render 'armament-heading' with tag: 'h3', heading_content: block.settings.heading_text, heading_type: 'heading-3', classes: heading_classes, data_aid: 'slide-heading' %}
                   {% endif %}
 
+                  {%- liquid
+                    if block.settings.button_2_link != blank and block.settings.button_2_text != blank
+                      assign button_classes = 'mr-3 md:mr-4'
+                    else
+                      assign button_classes = 'mr-0'
+                    endif
+                  -%}
+
+                  {% if buttons_enabled %}
+                    <div class="flex flex-row justify-center{% if block.settings.heading_text != blank %} mt-3 md:mt-4{% endif %}">
+                      {% if block.settings.button_1_link != blank and block.settings.button_1_text != blank %}
+                        {% assign button_classes = button_classes | append: ' ' | append: animate_4 %}
+                        {% render 'armament-button' with url: block.settings.button_1_link, content: block.settings.button_1_text, style: block.settings.button_1_style, classes: button_classes, data_aid: "slide-button-1" %}
+                      {% endif %}
+
+                      {% if block.settings.button_2_link != blank and block.settings.button_2_text != blank %}
+                        {% render 'armament-button' with url: block.settings.button_2_link, content: block.settings.button_2_text, style: block.settings.button_2_style, data_aid: 'slide-button-2', classes: animate_5 %}
+                      {% endif %}
+                    </div>
+                  {% endif %}
                 </div>
-            </li>
-          {% endfor %}
-        </ul>
+              {% endif %}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
 
     {% else %}
       <p class="p-3 md:py-4 text-center">{{ 'general.onboarding.no_content' | t }}</p>
     {% endif %}
-
   </div>
-
 </slider-engine>
 
 <script src="{{ 'engine-slider.min.js' | asset_url }}" defer="defer" type="module"></script>
@@ -511,8 +502,7 @@
   "presets": [
     {
       "name": "Slideshow",
-      "settings": {
-      },
+      "settings": {},
       "blocks": [
         {
           "type": "slide_with_box"
@@ -524,11 +514,7 @@
     }
   ],
   "disabled_on": {
-    "groups": [
-      "header",
-      "footer",
-      "custom.overlay"
-    ]
+    "groups": ["header", "footer", "custom.overlay"]
   }
 }
 {% endschema %}

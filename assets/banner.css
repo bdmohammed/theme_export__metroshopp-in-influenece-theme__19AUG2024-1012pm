@@ -1,0 +1,131 @@
+.banner-item .banner-inner {
+  position: relative;
+  overflow: hidden
+}
+
+.banner-content .img-child {
+  margin-bottom: var(--img-mgb)
+}
+
+.banner-bg {
+  background-position: var(--bg-ps);
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover
+}
+
+.banner-content.auto {
+  z-index: 10;
+  width: fit-content
+}
+
+.banner-content.container {
+  left: 0 !important;
+  right: 0 !important;
+  margin: auto;
+  transform: translateY(var(--p-vy));
+  width: 100%
+}
+
+.collection-banner .banner-item,
+.collection-banner .banner-item .banner-inner {
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover
+}
+
+.coll-left {
+  flex-direction: row-reverse
+}
+
+.banner-item .banner-inner:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-color: var(--bg-overlay)
+}
+
+.banner-parallax-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  background-color: var(--bg-overlay)
+}
+
+.collection-banner2 .col-banner.col-lg-12 {
+  height: var(--height-dk)
+}
+
+.hidden_content_first .banner-item .banner-inner:after,
+.hidden_content_first .banner-item .content-position {
+  transition: .4s ease 0s
+}
+
+.hidden_content_first .banner-item:not(:hover) .banner-inner:after {
+  opacity: 0 !important
+}
+
+@media (min-width: 1025px) {
+  .col-lg-23 {
+    flex: 0 0 auto;
+    width: 20%
+  }
+
+  .collection-banner2 .col-banner.col-lg-9~.col-item {
+    max-width: 25%
+  }
+
+  .hidden_content_first .banner-item:not(:hover) .banner-inner:after,
+  .hidden_content_first .banner-item:not(:hover) .content-position {
+    opacity: 0 !important
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  .collection-banner2 .col-banner.col-md-9~.col-item {
+    max-width: 25%
+  }
+}
+
+@media (min-width: 768px) {
+
+  .equal-height-true .banner-item,
+  .equal-height-true .banner-item .banner-inner,
+  .equal-height-true .banner-item .ratio {
+    height: 100%
+  }
+
+  .collection-banner2 .col-banner.col-lg-12 {
+    height: var(--height-dk)
+  }
+}
+
+@media (max-width: 767px) {
+  .banner-item {
+    margin: var(--mg-mb)
+  }
+
+  .coll-left {
+    flex-direction: column-reverse
+  }
+
+  .collection-banner .banner-item .banner-inner {
+    height: var(--height)
+  }
+
+  .collection-banner2 .col-banner.col-9~.col-item {
+    max-width: 25%
+  }
+}

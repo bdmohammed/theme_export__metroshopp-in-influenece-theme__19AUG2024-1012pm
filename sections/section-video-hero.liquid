@@ -71,7 +71,10 @@
   assign image_classes = 'object-cover w-full ' | append: section_heights
 %}
 
-<section data-color-scheme="{{ section.settings.section_color_scheme }}" class="bg-page text-body grid grid-cols-1 grid-rows-[repeat(2,minmax(0,auto))] lg:grid-cols-1 lg:grid-rows-1 {{ section_heights }}">
+<section
+  data-color-scheme="{{ section.settings.section_color_scheme }}"
+  class="bg-page text-body grid grid-cols-1 grid-rows-[repeat(2,minmax(0,auto))] lg:grid-cols-1 lg:grid-rows-1 {{ section_heights }}"
+>
   {% if section.settings.video %}
     {% render 'armament-video' with video: section.settings.video, poster: section.settings.fallback_image, autoplay: true, loop: true, is_hero: true, classes: video_classes, iframe_classes: iframe_classes, attributes: 'data-aid="video-hero"', button_classes: button_classes, image_classes: image_classes %}
   {% elsif section.settings.video_url != blank %}
@@ -115,7 +118,7 @@
       "type": "video",
       "id": "video",
       "label": "Video"
-    }, 
+    },
     {
       "type": "header",
       "content": "Or embed video from URL"
@@ -126,10 +129,7 @@
       "label": "Video link",
       "info": "Accepts YouTube and Vimeo",
       "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-      "accept": [
-        "youtube",
-        "vimeo"
-      ]
+      "accept": ["youtube", "vimeo"]
     },
     {
       "type": "image_picker",
@@ -319,16 +319,11 @@
   "presets": [
     {
       "name": "Video hero",
-      "settings": {
-      }
+      "settings": {}
     }
   ],
   "disabled_on": {
-    "groups": [
-      "header",
-      "footer",
-      "custom.overlay"
-    ]
+    "groups": ["header", "footer", "custom.overlay"]
   }
 }
 {% endschema %}

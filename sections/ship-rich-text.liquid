@@ -7,27 +7,29 @@
   endcase
 %}
 
-<section class="text-body bg-page w-full py-5 px-4 {{ desktop_x_padding }}" data-color-scheme="{{ section.settings.section_color_scheme }}" data-aid="rich-text-ship">
+<section
+  class="text-body bg-page w-full py-5 px-4 {{ desktop_x_padding }}"
+  data-color-scheme="{{ section.settings.section_color_scheme }}"
+  data-aid="rich-text-ship"
+>
   <div class="{% if section.settings.section_width == 'narrow' %}max-w-screen-xl m-auto {% endif %}{{ section.settings.horizontal_alignment }}">
-
     {% for block in section.blocks %}
       {% case block.type %}
-
-        {% when "subheading" %}
+        {% when 'subheading' %}
           {% unless block.settings.subheading == blank %}
             <div class="rich-text-item-subheading my-2 md:my-3 first:mt-0 last:mb-0" {{ block.shopify_attributes }}>
               {% render 'armament-heading' with tag: 'h4', heading_type: 'section-subheading', heading_content: block.settings.subheading, data-aid: 'rich-text-subheading' %}
             </div>
           {% endunless %}
 
-        {% when "heading" %}
+        {% when 'heading' %}
           {% unless block.settings.heading == blank %}
             <div class="rich-text-item-heading my-2 md:my-3 first:mt-0 last:mb-0" {{ block.shopify_attributes }}>
               {% render 'armament-heading' with tag: 'h2', heading_type: 'section-heading', heading_content: block.settings.heading, data-aid: 'rich-text-heading' %}
             </div>
           {% endunless %}
 
-        {% when "text" %}
+        {% when 'text' %}
           {% unless block.settings.text == blank %}
             {%- liquid
               case section.settings.horizontal_alignment
@@ -40,26 +42,24 @@
               endcase
             -%}
             <div class="rich-text-item my-3 md:my-4 first:mt-0 last:mb-0" {{ block.shopify_attributes }}>
-            {% render 'armament-rich-text' with content: block.settings.text, align: align %}
+              {% render 'armament-rich-text' with content: block.settings.text, align: align %}
             </div>
           {% endunless %}
 
-        {% when "buttons" %}
-        <div class="block rich-text-item my-3 md:my-4 first:mt-0 last:mb-0" {{ block.shopify_attributes }}>
-          <div class="my-0 md:my-0 flex flex-col {{ section.settings.horizontal_alignment }} md:flex-row space-y-3 space-x-0 md:space-x-4 md:space-y-0">
-            {% if block.settings.button_1_text != blank %}
-              {% render 'armament-button' with url: block.settings.button_1_link, content: block.settings.button_1_text, style: block.settings.button_1_style, classes: 'w-full md:w-auto', type: 'button', data_aid: 'rich-text-button-1' %}
-            {% endif %}
+        {% when 'buttons' %}
+          <div class="block rich-text-item my-3 md:my-4 first:mt-0 last:mb-0" {{ block.shopify_attributes }}>
+            <div class="my-0 md:my-0 flex flex-col {{ section.settings.horizontal_alignment }} md:flex-row space-y-3 space-x-0 md:space-x-4 md:space-y-0">
+              {% if block.settings.button_1_text != blank %}
+                {% render 'armament-button' with url: block.settings.button_1_link, content: block.settings.button_1_text, style: block.settings.button_1_style, classes: 'w-full md:w-auto', type: 'button', data_aid: 'rich-text-button-1' %}
+              {% endif %}
 
-            {% if block.settings.button_2_text != blank %}
-              {% render 'armament-button' with url: block.settings.button_2_link, content: block.settings.button_2_text, style: block.settings.button_2_style, classes: 'w-full md:w-auto', type: 'button', data_aid: 'rich-text-button-2' %}
-            {% endif %}
+              {% if block.settings.button_2_text != blank %}
+                {% render 'armament-button' with url: block.settings.button_2_link, content: block.settings.button_2_text, style: block.settings.button_2_style, classes: 'w-full md:w-auto', type: 'button', data_aid: 'rich-text-button-2' %}
+              {% endif %}
+            </div>
           </div>
-        </div>
-
       {% endcase %}
     {% endfor %}
-
   </div>
 </section>
 
@@ -238,8 +238,7 @@
   "presets": [
     {
       "name": "Rich text",
-      "settings": {
-      },
+      "settings": {},
       "blocks": [
         {
           "type": "subheading"
@@ -254,10 +253,7 @@
     }
   ],
   "disabled_on": {
-    "groups": [
-      "header",
-      "custom.overlay"
-    ]
+    "groups": ["header", "custom.overlay"]
   }
 }
 {% endschema %}

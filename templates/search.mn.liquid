@@ -1,0 +1,25 @@
+{%- liquid
+ layout none
+ assign mobile_nav_type = settings.mobile_nav_type -%}
+
+  <link rel="stylesheet" href="{{ 'drawer.css' | asset_url }}" media="all">
+  <link rel="stylesheet" href="{{ 'mobile_nav.css' | asset_url }}" media="all">
+  {%- if mobile_nav_type == '1' or mobile_nav_type == '2' -%}
+  <div class="drawer__header"><span>{% if mobile_nav_type == '1' %}{%- assign navActive = 'is--active' -%}{{ 'general.mobile_menu.menu' | t }}{% else %}{%- assign catActive = 'is--active' -%}{{ 'general.mobile_menu.categories' | t }}{% endif %}</span></div>
+  {%- else -%}
+   
+   {%- if mobile_nav_type == '3' -%}
+    {%- assign navActive = 'is--active' -%}
+    {%- assign catActive = '' -%}
+   {%- else -%}
+    {%- assign order1 = 'order-2' -%}
+    {%- assign order2 = 'order-1' -%}
+    {%- assign navActive = '' -%}
+    {%- assign catActive = 'is--active' -%}
+   {%- endif -%}
+   <div data-tab-mb-nav class="drawer__header mb-nav__tabs rows g-0 row-cols-2 text-center">
+      <div data-tab-mb-item class="mb-tab__title col-item relative d-flex align-items-center justify-content-center {{order1}} {{navActive}}" data-id="#shopify-mb_nav"><span class="d-block truncate">{{ 'general.mobile_menu.menu' | t }}</span></div>
+      <div data-tab-mb-item class="mb-tab__title col-item relative d-flex align-items-center justify-content-center {{order2}} {{catActive}}" data-id="#shopify-mb_cat"><span class="d-block truncate">{{ 'general.mobile_menu.categories' | t }}</span></div>
+   </div>
+  {%- endif -%}
+  <div data-tab-mb-content id="shopify-mb_nav" class="mb-tab__content {{navActive}}">{%- section 'mb_nav' -%}</div><div data-tab-mb-content id="shopify-mb_cat" class="mb-tab__content {{catActive}}">{%- section 'mb_cat' -%}</div>

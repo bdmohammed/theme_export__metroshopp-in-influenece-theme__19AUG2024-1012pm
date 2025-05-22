@@ -1,5 +1,5 @@
 {% assign heading = section.settings.heading | default: blog.title %}
-<div data-color-scheme={{ section.settings.section_color_scheme }}>
+<div data-color-scheme="{{ section.settings.section_color_scheme }}">
   <div class="text-center py-4 md:py-6 md:pb-5 text-body bg-page">
     {% render 'armament-heading' with tag: 'h1', heading_content: heading, heading_type: 'section-heading', data_aid: 'blog-page-heading' %}
   </div>

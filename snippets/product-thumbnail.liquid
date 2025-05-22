@@ -1,0 +1,219 @@
+{% comment %}
+  Product Media Item - Renders a single media item with variant-specific visibility
+  
+  This component handles displaying product media (images, videos, 3D models) with intelligent
+  variant control. It processes alt text to determine which variant each media belongs to and
+  shows/hides media based on the currently selected variant options.
+  
+  Features:
+  - Smart variant detection from image alt text (format: "option1_value|Alt Text" or "color_blue|Product Image")
+  - Support for multiple media types (image, video, external_video, 3D model)
+  - Lazy loading with responsive image sizing
+  - Hides/shows media based on selected variant options
+  - Skips rendering for 360° images (handled separately)
+  
+  Required variables:
+  - media: {Object} The Shopify media object to display
+  - current_option1/2/3: {String} Currently selected variant option values
+  - ops_name: {Array} Option names from product.options
+  - ops_name_1/2/3: {Array} Option values for each option
+  - height: {Number} Height for media sizing
+  - se_id: {String} Section ID for unique identifiers
+  - class_col: {String} Column class for layout (optional)
+  - loop: {Boolean} Whether to loop videos (optional)
+  
+  Usage:
+  {%- render 'product-thumbnail', 
+    media: media_item,
+    current_option1: current_variant.option1,
+    current_option2: current_variant.option2,
+    current_option3: current_variant.option3,
+    se_id: section.id
+  -%}
+{% endcomment %}
+
+{%- liquid
+  # Media handling with variant-aware display logic
+  assign media_type = media.media_type
+  assign image = media.preview_image
+  assign img_alt = image.alt | escape
+  assign is_media_hidden = 'hidden'  # Default value for better control
+
+  # Exit early if 360 image
+  unless img_alt contains '360'
+    # Process image alt text that contains variant information
+    if img_alt contains '_'
+      # Clean up alt text formatting
+      assign arr_alt = img_alt | replace: ' | ', '|' | replace: '| ', '|' | replace: ' |', '|' | split: '|'
+      assign img_alt = arr_alt[1] | default: product.title
+
+      # Handle option-based naming in alt text
+      if arr_alt[0] contains 'option'
+        assign arr_alt_index = arr_alt[0] | remove: 'option' | split: '_'
+        assign index_alt_first = arr_alt_index | first | plus: 0
+        assign index_alt_last = arr_alt_index | last | plus: 0
+
+        # Map option index to the correct option array
+        case index_alt_first
+          when 0
+            assign ops_name_arr = ops_name_1
+            assign index = 1
+          when 1
+            assign ops_name_arr = ops_name_2
+            assign index = 2
+          else
+            assign ops_name_arr = ops_name_3
+            assign index = 3
+        endcase
+
+        assign grname = ops_name[index_alt_first] | strip | downcase
+        assign grpvl = ops_name_arr[index_alt_last] | strip | downcase
+      else
+        # Handle variant-based naming in alt text
+        assign var_alt = arr_alt[0] | split: '_'
+        assign grname = var_alt | first | strip | downcase
+        assign grpvl = var_alt | last | strip | downcase
+        assign index = product.options_by_name[grname].position
+      endif
+
+      # Map index to current option value
+      case index
+        when 1
+          assign current_value = current_option1
+        when 2
+          assign current_value = current_option2
+        when 3
+          assign current_value = current_option3
+      endcase
+
+      # Show media if it matches current variant
+      if current_value == grpvl and current_value != blank
+        assign is_media_hidden = ''
+      endif
+    else
+      # If no variant info in alt text, show the media
+      assign is_media_hidden = ''
+    endif
+
+    assign img_alt = img_alt | escape
+  endunless
+-%}
+
+{%- unless img_alt contains '360' -%}
+  {%- capture image_size %}{{ height }}x{{ height }}{% endcapture -%}
+
+  {%- if media_type == 'image' -%}
+    <div
+      data-product-single-media-wrapper
+      data-main-slide
+      class="{{class_col}} col-12 col-item product__media-item {{is_media_hidden}}{% if variant_images contains media.src %} product__media-item--variant{% endif %}"
+      data-media-id="{{ media.id }}"
+      data-nt-media-id="{{ se_id }}-{{ media.id }}"
+      data-media-type="{{ media.media_type }}"
+      data-grname="{{grname | escape }}"
+      data-grpvl="{{grpvl | escape}}"
+    >
+      <div
+        data-ts-gallery--open
+        class="ratio product__media{{class_pswp_disable}}"
+        style="--{{imgatt}}aspect-ratioapt:{{image.aspect_ratio}};--{{imgatt}}mw-media:{{image.width}}px"
+      >
+        {%- comment -%}Using native loading="lazy" for better performance{%- endcomment -%}
+        <noscript>
+          {{-
+            image
+            | image_url: width: image_size
+            | image_tag:
+              widths: '288, 576, 750, 1100, 1500',
+              alt: img_alt,
+              class: 'img-noscript',
+              loading: 'lazy',
+              sizes: '(min-width: 1500px) 1500px, (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem)'
+          -}}
+        </noscript>
+        <img
+          data-master="{{image | image_url: 'master'}}"
+          class="lazyload lz--fadeIn"
+          data-src="{{ image | image_url: '1x1' }}"
+          data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
+          data-optimumx="1.8"
+          data-sizes="auto"
+          src="{% render 'img_svg',w:image.width,h:image.height %}"
+          width="{{ image.width }}"
+          height="{{ image.height }}"
+          alt="{{ img_alt }}"
+          loading="lazy"
+        >
+        <span class="lazyload-loader"></span>
+      </div>
+    </div>
+  {%- else -%}
+    <div
+      data-product-single-media-wrapper
+      data-enable-video-looping="{{loop}}"
+      data-deferred-media
+      data-main-slide
+      class="{{class_col}} deferred-media col-12 col-item product__media-item {{is_media_hidden}}"
+      data-media-id="{{ media.id }}"
+      data-nt-media-id="{{ se_id }}-{{ media.id }}"
+      data-media-type="{{ media.media_type }}"
+      data-vhost="{{ media.host }}"
+      data-grname="{{grname | escape }}"
+      data-grpvl="{{grpvl | escape}}"
+    >
+      <div class="relative">
+        <div
+          class="ratio product__media"
+          style="--{{imgatt}} aspect-ratioapt:{{media.aspect_ratio | default: 1}};--{{imgatt}}mw-media:100%"
+        >
+          {%- comment -%}Preview image for non-image media{%- endcomment -%}
+          <noscript>
+            {{-
+              image
+              | image_url: width: image_size
+              | image_tag:
+                widths: '288, 576, 750, 1100, 1500',
+                alt: img_alt,
+                class: 'img-noscript',
+                loading: 'lazy',
+                sizes: '(min-width: 1500px) 1500px, (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem)'
+            -}}
+          </noscript>
+          <img
+            data-master="{{image | image_url: 'master'}}"
+            class="lazyload lz--fadeIn"
+            data-src="{{ image | image_url: '1x1' }}"
+            data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
+            data-optimumx="1.8"
+            data-sizes="auto"
+            src="{% render 'img_svg',w:image.width,h:image.height %}"
+            width="{{ image.width }}"
+            height="{{ image.height }}"
+            alt="{{ img_alt }}"
+            loading="lazy"
+          >
+          <span class="lazyload-loader"></span>
+        </div>
+        <template class="d-none">
+          {%- liquid
+            case media.media_type
+              when 'external_video'
+                assign video_class = 'js-' | append: media.host
+                if media.host == 'youtube'
+                  echo media | external_video_url: autoplay: false, loop: false, playlist: media.external_id | external_video_tag: class: video_class, loading: 'lazy'
+                else
+                  echo media | external_video_url: autoplay: false, loop: false | external_video_tag: class: video_class, loading: 'lazy'
+                endif
+              when 'video'
+                echo media | media_tag: image_size: image_size, autoplay: false, loop: false, controls: true, preload: 'auto', class: 'media-video'
+              when 'model'
+                echo media | media_tag: image_size: image_size, reveal: 'interaction', toggleable: true, data-model-id: media.id
+              else
+                echo media | media_tag: image_size: image_size, class: 'media-item'
+            endcase
+          -%}
+        </template>
+      </div>
+    </div>
+  {%- endif -%}
+{%- endunless -%}

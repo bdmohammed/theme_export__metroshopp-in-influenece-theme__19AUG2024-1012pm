@@ -1,1 +1,49 @@
-{"type":"footer","name":"Footer","sections":{"footer":{"type":"footer","blocks":{"footer-2":{"type":"links","settings":{"footer_links_heading":"Links","footer_navigation":"footer"}},"footer-3":{"type":"footer_social_media_icons","settings":{"footer_social_media_heading":"Follow us","show_labels":true,"icons_shape":"circle","icons_color_scheme":"general"}},"41c99217-5c64-422a-970f-93b7f99ff533":{"type":"footer_text","settings":{"footer_text_heading":"Store Address","footer_text_content":"<p>Madhya pradesh<\/p><p>India <\/p>"}},"footer-0":{"type":"logo","settings":{"logo_width_desktop":270,"logo_width_mobile":160}}},"block_order":["footer-2","footer-3","41c99217-5c64-422a-970f-93b7f99ff533","footer-0"],"settings":{"show_payment_methods":true,"section_color_scheme":"accent-3"}}},"order":["footer"]}
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "footer-2": {
+          "type": "links",
+          "settings": {
+            "footer_links_heading": "Links",
+            "footer_navigation": "footer"
+          }
+        },
+        "footer-3": {
+          "type": "footer_social_media_icons",
+          "settings": {
+            "footer_social_media_heading": "Follow us",
+            "show_labels": true,
+            "icons_shape": "circle",
+            "icons_color_scheme": "general"
+          }
+        },
+        "41c99217-5c64-422a-970f-93b7f99ff533": {
+          "type": "footer_text",
+          "settings": {
+            "footer_text_heading": "Store Address",
+            "footer_text_content": "<p>Madhya pradesh</p><p>India </p>"
+          }
+        },
+        "footer-0": {
+          "type": "logo",
+          "settings": { "logo_width_desktop": 270, "logo_width_mobile": 160 }
+        }
+      },
+      "block_order": [
+        "footer-2",
+        "footer-3",
+        "41c99217-5c64-422a-970f-93b7f99ff533",
+        "footer-0"
+      ],
+      "settings": {
+        "show_payment_methods": true,
+        "section_color_scheme": "accent-3"
+      }
+    }
+  },
+  "order": ["footer"]
+}

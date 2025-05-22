@@ -29,30 +29,30 @@
       assign overlay_bg = 'bg-white'
     when 'dark'
       assign overlay_bg = 'bg-black'
-    endcase
+  endcase
 
   assign defaultFrameClasses = 'border-0'
   assign activeFrameClasses = 'border-[80px] upto-md:border-[24px] upto-md:border-b-0 lg:border-[80px]'
-  assign mobileActiveFrameClasses= 'ml-4 upto-md:ml-4 lg:ml-6 mr-4 upto-md:mr-4 lg:mr-6'
-  assign mobileDefaultFrameClasses= 'ml-0 mr-0'
+  assign mobileActiveFrameClasses = 'ml-4 upto-md:ml-4 lg:ml-6 mr-4 upto-md:mr-4 lg:mr-6'
+  assign mobileDefaultFrameClasses = 'ml-0 mr-0'
 
   case section.settings.frame_sides
-  when 'all'
-    case section.settings.frame_type
-      when 'framed'
-        assign defaultFrameClasses = 'border-[80px] upto-md:border-[24px] upto-md:border-b-0 lg:border-[80px]'
-        assign activeFrameClasses = 'border-0'
-        assign mobileActiveFrameClasses= 'ml-0 mr-0'
-        assign mobileDefaultFrameClasses= 'ml-4 upto-md:ml-4 lg:ml-6 mr-4 upto-md:mr-4 lg:mr-6'
+    when 'all'
+      case section.settings.frame_type
+        when 'framed'
+          assign defaultFrameClasses = 'border-[80px] upto-md:border-[24px] upto-md:border-b-0 lg:border-[80px]'
+          assign activeFrameClasses = 'border-0'
+          assign mobileActiveFrameClasses = 'ml-0 mr-0'
+          assign mobileDefaultFrameClasses = 'ml-4 upto-md:ml-4 lg:ml-6 mr-4 upto-md:mr-4 lg:mr-6'
       endcase
-  when 'left_right'
-    assign activeFrameClasses = 'border-l-[80px] upto-md:border-l-[24px] lg:border-l-[80px] border-r-[80px] upto-md:border-r-[24px] lg:border-r-[80px]'
-    case section.settings.frame_type
-      when 'framed'
-        assign defaultFrameClasses = 'border-l-[80px] upto-md:border-l-[24px] lg:border-l-[80px] border-r-[80px] upto-md:border-r-[24px] lg:border-r-[80px]'
-        assign activeFrameClasses = 'border-0'
-        assign mobileActiveFrameClasses= 'ml-0 mr-0'
-        assign mobileDefaultFrameClasses= 'ml-4 upto-md:ml-4 lg:ml-6 mr-4 upto-md:mr-4 lg:mr-6'
+    when 'left_right'
+      assign activeFrameClasses = 'border-l-[80px] upto-md:border-l-[24px] lg:border-l-[80px] border-r-[80px] upto-md:border-r-[24px] lg:border-r-[80px]'
+      case section.settings.frame_type
+        when 'framed'
+          assign defaultFrameClasses = 'border-l-[80px] upto-md:border-l-[24px] lg:border-l-[80px] border-r-[80px] upto-md:border-r-[24px] lg:border-r-[80px]'
+          assign activeFrameClasses = 'border-0'
+          assign mobileActiveFrameClasses = 'ml-0 mr-0'
+          assign mobileDefaultFrameClasses = 'ml-4 upto-md:ml-4 lg:ml-6 mr-4 upto-md:mr-4 lg:mr-6'
       endcase
   endcase
 
@@ -84,9 +84,6 @@
   assign section_heights = mobile_height | append: desktop_height
 %}
 
-
-
-
 <framed-image
   data-armada-selector="{{ section.id }}"
   data-color-scheme="{{ section.settings.section_color_scheme }}"
@@ -99,39 +96,40 @@
   class="relative w-full flex flex-col  "
 >
   <div class="relative w-full overflow-hidden flex flex-col {{ section_heights }}">
-  {% liquid
-    if section.settings.desktop_image != blank and section.settings.mobile_image != blank
-      render 'armament-image' with image: section.settings.desktop_image, classes: 'hidden lg:block w-full h-full object-cover'
-      render 'armament-image' with image: section.settings.mobile_image, classes: 'lg:hidden w-full h-full object-cover'
-    elsif section.settings.desktop_image and section.settings.mobile_image == blank
-      render 'armament-image' with image: section.settings.desktop_image, classes: 'object-cover h-full w-full object-cover'
-    elsif section.settings.desktop_image == blank and section.settings.mobile_image != blank
-      render 'armament-image' with image: section.settings.mobile_image, classes: 'w-full h-full object-cover'
-    elsif section.settings.desktop_image == blank and section.settings.mobile_image == blank
-      render 'armament-placeholder' with name: 'lifestyle-2', classes: 'block w-full h-full object-cover'
-    endif
-  %}
+    {% liquid
+      if section.settings.desktop_image != blank and section.settings.mobile_image != blank
+        render 'armament-image' with image: section.settings.desktop_image, classes: 'hidden lg:block w-full h-full object-cover'
+        render 'armament-image' with image: section.settings.mobile_image, classes: 'lg:hidden w-full h-full object-cover'
+      elsif section.settings.desktop_image and section.settings.mobile_image == blank
+        render 'armament-image' with image: section.settings.desktop_image, classes: 'object-cover h-full w-full object-cover'
+      elsif section.settings.desktop_image == blank and section.settings.mobile_image != blank
+        render 'armament-image' with image: section.settings.mobile_image, classes: 'w-full h-full object-cover'
+      elsif section.settings.desktop_image == blank and section.settings.mobile_image == blank
+        render 'armament-placeholder' with name: 'lifestyle-2', classes: 'block w-full h-full object-cover'
+      endif
+    %}
 
-  <div
-    data-armada-selector="framed-content-container"
-    class="absolute w-full h-full top-0 left-0 ease-linear duration-500 z-2 {{ defaultFrameClasses }} border-page {{ overlay_bg }} {{ overlay_opacity_class }} flex flex-col {{ blocksVerticalClasses }} {{ blocksHorizontalClasses }} p-4 lg:p-6"
-  >
-    {% comment %} Shadow on mobile {% endcomment %}
-    <div class="absolute top-0 left-0 w-full h-full shadow-md md:hidden"></div>
+    <div
+      data-armada-selector="framed-content-container"
+      class="absolute w-full h-full top-0 left-0 ease-linear duration-500 z-2 {{ defaultFrameClasses }} border-page {{ overlay_bg }} {{ overlay_opacity_class }} flex flex-col {{ blocksVerticalClasses }} {{ blocksHorizontalClasses }} p-4 lg:p-6"
+    >
+      {% comment %} Shadow on mobile {% endcomment %}
+      <div class="absolute top-0 left-0 w-full h-full shadow-md md:hidden"></div>
 
-    {% for block in section.blocks %}
-      {% case block.type %}
-        {% when 'overlay_content' %}
-          <div
-            data-armada-selector="desktop-overlay-{{ section.id }}"
-            class="hidden md:flex flex-col z-3"
-            data-load-in="overlay-content"
-            {{ block.shopify_attributes }}
-          ></div>
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'overlay_content' %}
+            <div
+              data-armada-selector="desktop-overlay-{{ section.id }}"
+              class="hidden md:flex flex-col z-3"
+              data-load-in="overlay-content"
+              {{ block.shopify_attributes }}
+            ></div>
 
           {% when 'social_cta' %}
             {% comment %} SOCIAL CALL OUT {% endcomment %}
-            {% render 'ship-social-callout' with
+            {%
+              render 'ship-social-callout' with
               link: block.settings.social_link,
               text: block.settings.social_link_text,
               color_scheme: block.settings.social_color_scheme,
@@ -143,10 +141,9 @@
               shopify_attributes: block.shopify_attributes
             %}
         {% endcase %}
-    {% endfor %}
-
+      {% endfor %}
+    </div>
   </div>
-</div>
   {% comment %} Mobile First render {% endcomment %}
   <div
     data-armada-selector="mobile-overlay-content-{{ section.id }}"
@@ -156,9 +153,7 @@
     {%- for block in section.blocks -%}
       {% case block.type %}
         {% when 'overlay_content' %}
-
           {% liquid
-
             if block.settings.button_2_link != blank and block.settings.button_2_text != blank
               assign button_spacing = 'mr-3 md:mr-4'
             else
@@ -174,7 +169,6 @@
             if block.settings.button_2_link != blank and block.settings.button_2_text != blank
               assign buttons_enabled = true
             endif
-
           %}
 
           <div
@@ -183,8 +177,7 @@
             data-load-in="overlay-content"
             class="flex-col p-4 justify-center bg-page border-t-4 border-body shadow-md"
             {{ block.shopify_attributes }}
-           >
-
+          >
             {% if block.settings.heading != blank %}
               {% render 'armament-heading' with heading_content: block.settings.heading, tag: 'h3', heading_type: 'heading-3', data_aid: 'dynamic-image-heading', classes: 'text-center mb-3 last:mb-0 upto-sm:max-w-[250px] upto-sm:mx-auto upto-sm:leading-tight' %}
             {% endif %}
@@ -204,12 +197,15 @@
       {% endcase %}
     {%- endfor -%}
   </div>
-
 </framed-image>
 
-
 <safe-load-scripts>
-  <script src="{{ 'component-framed-image.min.js' | asset_url }}" defer="defer" type="module" data-armada-load-key="framed-image"></script>
+  <script
+    src="{{ 'component-framed-image.min.js' | asset_url }}"
+    defer="defer"
+    type="module"
+    data-armada-load-key="framed-image"
+  ></script>
 </safe-load-scripts>
 
 {% schema %}
@@ -621,8 +617,7 @@
   "presets": [
     {
       "name": "Framed image",
-      "settings": {
-      },
+      "settings": {},
       "blocks": [
         {
           "type": "overlay_content"
@@ -631,11 +626,7 @@
     }
   ],
   "disabled_on": {
-    "groups": [
-      "header",
-      "footer",
-      "custom.overlay"
-    ]
+    "groups": ["header", "footer", "custom.overlay"]
   }
 }
 {% endschema %}

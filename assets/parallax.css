@@ -1,0 +1,29 @@
+.parallax {
+  position: relative;
+  z-index: 1
+}
+
+.parallax>.parallax-img {
+  position: absolute;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4
+}
+
+.parallax>.parallax-inner {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0
+}
+
+.parallax-bg {
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat
+}

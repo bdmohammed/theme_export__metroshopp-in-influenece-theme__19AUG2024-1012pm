@@ -136,7 +136,7 @@
   fill: var(--text-cl);
 }
 
-.no-js .payment-footer-svg img.lazyloadt4s {
+.no-js .payment-footer-svg img.lazyload {
   display: inline-block !important;
 }
 

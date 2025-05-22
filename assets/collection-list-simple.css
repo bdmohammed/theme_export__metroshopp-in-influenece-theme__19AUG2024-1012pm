@@ -1,0 +1,87 @@
+.list-collections-simple {
+    display: flex;
+}
+
+.collection-item-simple a {
+    color: var(--title-cl-pri);
+    padding: 5px calc(var(--space-item-dk)/2);
+    font-size: 16px;
+    font-weight: 500;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.collection-item-simple a:hover {
+    color: var(--title-cl-pri-hover);
+}
+
+.collection-item-simple::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    bottom: 20%;
+    right: 0;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.rtl_true .collection-item-simple:first-child:after,
+.rtl_false .collection-item-simple:last-child::after {
+    display: none;
+}
+
+.rtl_false .list-collections-simple .collection-item-simple:first-child a,
+.rtl_true .list-collections-simple .collection-item-simple:first-child a {
+    padding-left: 0;
+}
+
+.rtl_false .list-collections-simple .collection-item-simple:last-child a,
+.rtl_true .list-collections-simple .collection-item-simple:last-child a {
+    padding-right: 0;
+}
+
+/* .list-collections-simple.flickity_next_enable .collection-item-simple:first-child a,
+.list-collections-simple.flickity_prev_enable .collection-item-simple:first-child a {
+    padding-left: 0;
+}
+.list-collections-simple.flickity_next_enable .collection-item-simple:last-child a,
+.list-collections-simple.flickity_prev_enable .collection-item-simple:last-child a {
+    padding-right: 0;
+} */
+/* .list-collections-simple.flickity_next_enable,
+.list-collections-simple.flickity_prev_enable {
+    padding: 0 35px;
+} */
+/* .list-collections-simple .flickity-prev-next-button,
+.list-collections-simple .flickity-prev-next-button {
+    display: none;
+} */
+/* .list-collections-simple.flickity_next_enable .flickity-prev-next-button,
+.list-collections-simple.flickity_prev_enable .flickity-prev-next-button {
+    display: flex;
+} */
+.collections-list-simple .flicky-slider .flickity-prev-next-button.previous {
+    left: 0;
+}
+
+.collections-list-simple .flicky-slider .flickity-prev-next-button.next {
+    right: 0;
+}
+
+.collections-list-simple .flickity-prev-next-button {
+    transform: translateY(-50%) !important;
+    width: 35px;
+    height: 35px;
+}
+
+@media screen and (max-width: 1023px) {
+    .collection-item-simple a {
+        padding: 5px calc(var(--space-item-tb)/2);
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .collection-item-simple a {
+        padding: 5px calc(var(--space-item-mb)/2);
+    }
+}

@@ -1,0 +1,273 @@
+{%- liquid
+  assign se_stts = section.settings
+  if se_stts.btn_owl == 'outline'
+    assign arrow_icon = 1
+  else
+    assign arrow_icon = 2
+  endif
+  assign se_blocks = section.blocks
+  assign isShowHTMl = false
+  if template.suffix == 'config' and request.design_mode
+    assign isShowHTMl = true
+  endif
+-%}
+{%- if isShowHTMl -%}
+  {{ 'pre_flickity.css' | asset_url | stylesheet_tag }}
+  {{ 'slider-settings.css' | asset_url | stylesheet_tag }}
+  <div class="container" style="margin-top:100px;margin-bottom: 100px;">
+    <h3 class="text-center" style="margin-bottom: 30px;">Slider button, dot config</h3>
+    {%- for block in se_blocks -%}
+      {%- assign index = forloop.index -%}
+      <div
+        class="flicky-slider ratio16_9 position_8 cover flickity row row-cols-lg-3 row-cols-md-2 row-cols-1 ts-gx-30 ts-gy-30 slider-btn-style-{{se_stts.btn_owl}} slider-btn-{{se_stts.btn_shape}} slider-btn-{{se_stts.btn_size}} slider-btn-cl-custom{{index}} slider-btn-vi-{{se_stts.btn_vi}} dots-style-{{se_stts.dot_owl}} dots-cl-custom{{index}} dots-round-{{se_stts.dots_round}}"
+        data-flickity-js='{"setPrevNextButtons":true,"arrowIcon":"{{arrow_icon}}","imagesLoaded": 0,"adaptiveHeight": 0, "contain": 1, "groupCells": "100%", "dragThreshold" : 5, "cellAlign": "left","wrapAround": true,"prevNextButtons": true,"percentPosition": 1,"pageDots": true, "autoPlay" : 5000, "pauseAutoPlayOnHover" : true }'
+        style="--space-dots: {{se_stts.dots_space}}px;--flickity-btn-pos: 30px;--flickity-btn-pos-mb: 30px;margin-bottom: 50px;"
+      >
+        {% for i in (1..5) %}
+          <div class="col-item">
+            <div class="ratio" data-cacl-slide>
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg obj-eff' }}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </div>
+{%- endif -%}
+{%- for block in se_blocks -%}
+  {%- liquid
+    assign bk_stts = block.settings
+    assign index = forloop.index
+    assign btn_color_primary = bk_stts.btn_color_primary
+    assign btn_color_second = bk_stts.btn_color_second
+    assign btn_color_primary_hover = bk_stts.btn_color_primary_hover
+    assign btn_color_second_hover = bk_stts.btn_color_second_hover
+  -%}
+  {%- style -%}
+    .flicky-slider.slider-btn-cl-custom{{index}}{
+        --btn-color           : {{btn_color_second}};
+        --btn-background      : {{btn_color_primary}};
+        --btn-border          : {{btn_color_primary}};
+        --btn-color-hover     : {{btn_color_second_hover}};
+        --btn-background-hover: {{btn_color_primary_hover}};
+        --btn-border-hover    :{{btn_olor_primary_hover}};
+    }
+    .flicky-slider.slider-btn-style-outline.slider-btn-cl-custom{{index}}{
+        --btn-color           : {{btn_color_primary}};
+        --btn-border          : {{btn_color_primary}};
+        --btn-color-hover     : {{btn_color_second_hover}};
+        --btn-background-hover : {{btn_color_primary_hover}};
+    }
+    .flicky-slider.slider-btn-style-simple.slider-btn-cl-custom{{index}}{
+        --btn-color           : {{btn_color_primary}};
+        --btn-border          : {{btn_color_primary}};
+        --btn-color-hover     : {{btn_color_primary_hover}};
+        --btn-border-hover    : {{btn_color_primary_hover}};
+    }
+    .flicky-slider.dots-cl-custom{{index}}{
+        --dots-background      : {{btn_color_primary}};
+    }
+  {%- endstyle -%}
+{%- endfor -%}
+{%- schema -%}
+{
+  "name": "Slider button, dot config",
+  "tag": "div",
+  "class": "section section-config tp_flickity",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Setting section only show here to preview (Not setting for all button or dots of site)."
+    },
+    {
+      "type": "header",
+      "content": "+ Prev next button"
+    },
+    {
+      "type": "select",
+      "id": "btn_vi",
+      "label": "Visible",
+      "default": "hover",
+      "options": [
+        {
+          "value": "always",
+          "label": "Always"
+        },
+        {
+          "value": "hover",
+          "label": "Only hover"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "btn_owl",
+      "label": "Button style",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "simple",
+          "label": "Simple"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "btn_shape",
+      "label": "Button shape",
+      "info": "Not working with button style 'Simple'",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "Default"
+        },
+        {
+          "value": "round",
+          "label": "Round"
+        },
+        {
+          "value": "rotate",
+          "label": "Rotate"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "btn_size",
+      "label": "Buttons size",
+      "default": "small",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "+ Dots"
+    },
+    {
+      "type": "select",
+      "id": "dot_owl",
+      "label": "Dots style",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "elessi",
+          "label": "Elessi"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "dots_round",
+      "label": "Enable dots round",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "dots_space",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "label": "Dot between horizontal",
+      "unit": "px",
+      "default": 10
+    }
+  ],
+  "blocks": [
+    {
+      "type": "custom1",
+      "name": "Custom color 1",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color",
+          "id": "btn_color_primary",
+          "label": "Primary color",
+          "default": "#ffb100"
+        },
+        {
+          "type": "color",
+          "id": "btn_color_second",
+          "label": "Secondary color",
+          "default": "#fff",
+          "info": "Only working button style default"
+        },
+        {
+          "type": "color",
+          "id": "btn_color_primary_hover",
+          "label": "Primary color hover",
+          "default": "#ff4e00"
+        },
+        {
+          "type": "color",
+          "id": "btn_color_second_hover",
+          "label": "Secondary color hover",
+          "default": "#fff",
+          "info": "Only working button style default, outline"
+        }
+      ]
+    },
+    {
+      "type": "custom2",
+      "name": "Custom color 2",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color",
+          "id": "btn_color_primary",
+          "label": "Primary color",
+          "default": "#109533"
+        },
+        {
+          "type": "color",
+          "id": "btn_color_second",
+          "label": "Secondary color",
+          "default": "#fff",
+          "info": "Only working button style default"
+        },
+        {
+          "type": "color",
+          "id": "btn_color_primary_hover",
+          "label": "Primary color hover",
+          "default": "#ff4e00"
+        },
+        {
+          "type": "color",
+          "id": "btn_color_second_hover",
+          "label": "Secondary color hover",
+          "default": "#fff",
+          "info": "Only working button style default, outline"
+        }
+      ]
+    }
+  ]
+}
+{%- endschema -%}

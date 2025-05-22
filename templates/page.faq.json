@@ -1,1 +1,89 @@
-{"sections":{"image-with-text-overlay":{"type":"section-image-with-text-overlay","blocks":{"2a4a6598-ffec-4cb4-b986-da89849a6eb9":{"type":"overlay_content","settings":{"section_subheading":"","button_1_link":"","button_1_text":"Shop now","button_1_style":"fill","button_2_link":"","button_2_text":"","button_2_style":"outline","text_color_scheme":"accent-1"}}},"block_order":["2a4a6598-ffec-4cb4-b986-da89849a6eb9"],"settings":{"desktop_height":"s","mobile_height":"s","image_link":"","section_width":"full","text_position":"center","background_color_scheme":"general","overlay_color_scheme":"dark","overlay_opacity":30}},"page-main":{"type":"page-main-content","disabled":true,"settings":{}},"accordion-00":{"type":"ship-accordion","blocks":{"1650976224e925dfd3-0":{"type":"tab_item","settings":{}},"1650976224e925dfd3-1":{"type":"tab_item","settings":{}},"1650976224e925dfd3-2":{"type":"tab_item","settings":{}}},"block_order":["1650976224e925dfd3-0","1650976224e925dfd3-1","1650976224e925dfd3-2"],"settings":{"bg_color_scheme":"general","subheading":"","heading":""}},"icons-with-text":{"type":"flotilla-icons-with-text","blocks":{"1649413452d2e5f457-0":{"type":"icon_with_text","settings":{}},"1649413452d2e5f457-1":{"type":"icon_with_text","settings":{}},"1649413452d2e5f457-2":{"type":"icon_with_text","settings":{}}},"block_order":["1649413452d2e5f457-0","1649413452d2e5f457-1","1649413452d2e5f457-2"],"settings":{"text_alignment":"center","section_color_scheme":"accent-2"}},"accordion-01":{"type":"ship-accordion","blocks":{"165097747788875b7f-0":{"type":"tab_item","settings":{}},"165097747788875b7f-1":{"type":"tab_item","settings":{}},"165097747788875b7f-2":{"type":"tab_item","settings":{}},"165097747788875b7f-3":{"type":"tab_item","settings":{}}},"block_order":["165097747788875b7f-0","165097747788875b7f-1","165097747788875b7f-2","165097747788875b7f-3"],"settings":{"bg_color_scheme":"general","subheading":"","heading":""}},"rich-text":{"type":"ship-rich-text","blocks":{"1649413495d7b6d464-0":{"type":"subheading","settings":{}},"1649413495d7b6d464-1":{"type":"heading","settings":{}},"cb957900-6b3b-4816-9052-0f65919d28a2":{"type":"buttons","settings":{"button_1_link":"shopify:\/\/collections\/all","button_1_text":"Learn more","button_1_style":"outline","button_2_link":"","button_2_text":""}}},"block_order":["1649413495d7b6d464-0","1649413495d7b6d464-1","cb957900-6b3b-4816-9052-0f65919d28a2"],"settings":{"section_width":"w-full xl:px-7","horizontal_alignment":"text-center justify-center","section_color_scheme":"accent-2"}},"1649413511cf5f4e6f":{"type":"flotilla-gallery","blocks":{"1649413511ba00cb92-0":{"type":"image","settings":{"link":"","button_text":"","button_style":"outline","heading":"","text_color_scheme":"general","overlay_style":"bg-black","overlay_opacity":0}},"1649413511ba00cb92-1":{"type":"image","settings":{"link":"","button_text":"","button_style":"outline","heading":"","text_color_scheme":"general","overlay_style":"bg-black","overlay_opacity":0}},"1649413511ba00cb92-2":{"type":"image","settings":{"link":"","button_text":"","button_style":"outline","heading":"","text_color_scheme":"general","overlay_style":"bg-black","overlay_opacity":0}},"1649413511ba00cb92-3":{"type":"image","settings":{"link":"","button_text":"","button_style":"outline","heading":"","text_color_scheme":"general","overlay_style":"bg-black","overlay_opacity":0}}},"block_order":["1649413511ba00cb92-0","1649413511ba00cb92-1","1649413511ba00cb92-2","1649413511ba00cb92-3"],"settings":{"section_subheading":"","section_heading":"","heading_alignment":"text-center","img_row_desktop":4,"img_row_mobile":"two","img_aspect_ratio":"portrait","section_width":"full","bg_color_scheme":"accent-2"}},"page-header":{"type":"page-main-header","disabled":true,"settings":{"section_color_scheme":"general"}}},"order":["image-with-text-overlay","page-main","accordion-00","icons-with-text","accordion-01","rich-text","1649413511cf5f4e6f","page-header"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "18952756-58af-4afa-a0cc-b1b54300fb8b": {
+          "type": "1",
+          "settings": {
+            "heading": "",
+            "fontf": "inherit",
+            "text_cl": "#ffffff",
+            "text_fs": 20,
+            "text_lh": 20,
+            "text_fw": 500,
+            "text_ls": 0,
+            "font_italic": false,
+            "font_uppercase": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 20,
+            "text_lh_mb": 20,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10
+          }
+        },
+        "cc993342-0dd0-41d6-a6c4-a5f3c87e6f96": {
+          "type": "3",
+          "settings": { "breadcrumb_color": "#f2f2f2", "brc_mgb": 5 }
+        }
+      },
+      "block_order": [
+        "18952756-58af-4afa-a0cc-b1b54300fb8b",
+        "cc993342-0dd0-41d6-a6c4-a5f3c87e6f96"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/bg-heading.jpg",
+        "parallax": false,
+        "color": "#000000",
+        "overlay": 54,
+        "padding": 50,
+        "paddingmb": 50,
+        "mg_b": 50,
+        "mg_bmb": 50,
+        "content_align": "text-center",
+        "bg_pos": "center center",
+        "bg_repeat": "no-repeat",
+        "bg_size": "cover",
+        "use_cus_css": false,
+        "code_cus_css": ".SectionID {\nbackground-color:red\n}"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "layout": "container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "60px,,60px,",
+        "pd": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": ""
+      }
+    },
+    "sidebar-page": {
+      "type": "sidebar-page",
+      "disabled": true,
+      "settings": {
+        "enable_drawer": true,
+        "space": 50,
+        "size": "medium",
+        "br_style": "none",
+        "brcolor": "#222222",
+        "sidebar_bdr": 5,
+        "sidebar_pd": 10
+      }
+    }
+  },
+  "order": ["heading", "main", "sidebar-page"]
+}

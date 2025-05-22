@@ -1,44 +1,151 @@
 {%- liquid
-  assign og_title = page_title | default: shop.name
-  assign og_url = canonical_url | default: shop.url
-  assign og_type = 'website'
-  assign og_description = page_description | default: shop.description | default: shop.name
+  # Basic site information
+  assign shop_name = shop.name | escape
+  assign shop_domain = shop.domain
+
+  # Default meta values
+  assign meta_title = page_title | default: shop_name
+  assign meta_url = canonical_url | default: shop.url
+  assign meta_description = page_description | default: shop.description | default: shop_name
+  assign meta_image = settings.share_image | default: page_image | default: settings.logo
+  assign meta_type = 'website'
+
+  # Page type specific handling
+  case request.page_type
+    when 'product'
+      assign meta_title = product.title | strip_html
+      assign meta_type = 'product'
+      assign meta_description = product.description | strip_html | truncatewords: 120
+      if product.featured_image
+        assign meta_image = product.featured_image
+      endif
+
+    when 'article'
+      assign meta_title = article.title | strip_html
+      assign meta_type = 'article'
+      assign meta_description = article.excerpt_or_content | default: article.content | strip_html | truncatewords: 120
+      if article.image
+        assign meta_image = article.image
+      endif
+
+    when 'collection'
+      assign meta_title = collection.title | strip_html
+      assign meta_type = 'product.group'
+      assign meta_description = collection.description | strip_html | truncatewords: 120
+      if collection.image
+        assign meta_image = collection.image
+      elsif settings.cat_bg_img
+        assign meta_image = settings.cat_bg_img
+      endif
+
+    when 'blog'
+      assign meta_title = blog.title | strip_html
+      assign meta_type = 'blog'
+      if blog.articles.first.image
+        assign meta_image = blog.articles.first.image
+      endif
+
+    when 'password'
+      assign meta_title = shop_name
+      assign meta_url = shop.url
+      assign meta_type = 'website'
+
+    when 'search'
+      if template == 'search.wish'
+        assign meta_title = 'wishlist_page.meta' | t | escape
+      elsif template == 'search.compe'
+        assign meta_title = 'compare_page.meta' | t | escape
+      else
+        assign meta_title = 'search ' | append: shop_name
+      endif
+  endcase
 -%}
 
-{%- liquid
-  if request.page_type == 'product'
-    assign og_type = 'product'
-  elsif request.page_type == 'article'
-    assign og_type = 'article'
-  elsif request.page_type == 'collection'
-    assign og_type = 'product.group'
-  elsif request.page_type == 'password'
-    assign og_url = shop.url
-  endif
--%}
-<meta property="og:site_name" content="{{ shop.name }}">
-<meta property="og:url" content="{{ og_url }}">
-<meta property="og:title" content="{{ og_title }}">
-<meta property="og:type" content="{{ og_type }}">
-<meta property="og:description" content="{{ og_description | escape }}">
+{%- comment -%}
+  Keywords meta tag - note that this has minimal SEO value in modern search engines,
+  but is included for legacy support
+{%- endcomment -%}
+{%- case request.page_type -%}
+  {%- when 'index' -%}
+    {%- if settings.home_keywords != blank -%}
+      <meta name="keywords" content="{{ settings.home_keywords }}">
+    {%- else -%}
+      <meta name="keywords" content="{{ shop_name }}, {{ shop_domain }}">
+    {%- endif -%}
+  {%- when 'product' -%}
+    <meta name="keywords" content="{{ product.title | escape }}, {{ shop_name }}, {{ shop_domain }}">
+  {%- when 'collection' -%}
+    <meta name="keywords" content="{{ collection.title | escape }}, {{ shop_name }}, {{ shop_domain }}">
+  {%- when 'blog' -%}
+    <meta name="keywords" content="{{ blog.title | escape }}, {{ shop_name }}, {{ shop_domain }}">
+  {%- when 'article' -%}
+    <meta
+      name="keywords"
+      content="{{ article.title | escape }}, {{ blog.title | escape }}, {{ shop_name }}, {{ shop_domain }}"
+    >
+  {%- when 'search' -%}
+    <meta name="keywords" content="{{ meta_title }}, {{ shop_name }}, {{ shop_domain }}">
+  {%- else -%}
+    <meta name="keywords" content="{{ page_title | escape }}, {{ shop_name }}, {{ shop_domain }}">
+{%- endcase -%}
 
-{%- if page_image -%}
-  <meta property="og:image" content="http:{{ page_image | image_url: 'master' }}">
-  <meta property="og:image:secure_url" content="https:{{ page_image | image_url: 'master' }}">
-  <meta property="og:image:width" content="{{ page_image.width }}">
-  <meta property="og:image:height" content="{{ page_image.height }}">
+{%- if request.page_type contains 'search' -%}
+  <meta name="robots" content="noindex">
+{%- endif -%}
+<meta name="author" content="{{ settings.shop_author | default: shop_name }}">
+
+{%- comment -%}
+  Open Graph meta tags for rich sharing to Facebook, Pinterest, etc.
+{%- endcomment -%}
+<meta property="og:site_name" content="{{ shop_name }}">
+<meta property="og:url" content="{{ meta_url }}">
+<meta property="og:title" content="{{ meta_title }}">
+<meta property="og:type" content="{{ meta_type }}">
+<meta property="og:description" content="{{ meta_description | escape }}">
+<meta property="og:image:type" content="image/jpeg">
+
+{%- if meta_image -%}
+  <meta property="og:image" content="{{ meta_image | image_url: '1200x1200', crop: 'center' }}">
+  <meta property="og:image:secure_url" content="{{ meta_image | image_url: '1200x1200', crop: 'center' }}">
+  <meta property="og:image:width" content="{{ meta_image.width | default: 1200 }}">
+  <meta property="og:image:height" content="{{ meta_image.height | default: 1200 }}">
+  <meta property="og:image:alt" content="{{ meta_image.alt | default: meta_title }}">
 {%- endif -%}
 
-{% if request.page_type == 'product' %}
-  <meta property="og:price:amount" content="{{ product.price | money_without_currency | strip_html }}">
+{%- comment -%}
+  Product-specific meta tags for pricing
+{%- endcomment -%}
+{%- if request.page_type == 'product' and product.selected_or_first_available_variant -%}
+  <meta
+    property="og:price:amount"
+    content="{{ product.selected_or_first_available_variant.price | money_without_currency | strip_html | remove: ',' }}"
+  >
   <meta property="og:price:currency" content="{{ cart.currency.iso_code }}">
-{% endif %}
+  <meta
+    property="product:price:amount"
+    content="{{ product.selected_or_first_available_variant.price | money_without_currency | strip_html | remove: ','}}"
+  >
+  <meta property="product:price:currency" content="{{ cart.currency.iso_code }}">
 
-{% unless settings.social_twitter_link == blank %}
-  <meta name="twitter:site" content="{{ settings.social_twitter_link | split: 'twitter.com/' | last | prepend: '@' }}">
-{% endunless %}
+  {%- if product.available -%}
+    <meta property="product:availability" content="in stock">
+  {%- else -%}
+    <meta property="product:availability" content="out of stock">
+  {%- endif -%}
+{%- endif -%}
+
+{%- comment -%}
+  Twitter Card meta tags for Twitter sharing
+{%- endcomment -%}
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ og_title }}">
-<meta name="twitter:description" content="{{ og_description | escape }}">
+<meta name="twitter:title" content="{{ meta_title }}">
+<meta name="twitter:description" content="{{ meta_description | escape }}">
 
-<link rel="canonical" href="{{ canonical_url }}" />
+{%- if meta_image -%}
+  <meta name="twitter:image" content="{{ meta_image | image_url: '1200x1200', crop: 'center' }}">
+  <meta name="twitter:image:alt" content="{{ meta_image.alt | default: meta_title }}">
+{%- endif -%}
+
+{%- unless settings.social_twitter_link == blank -%}
+  <meta name="twitter:site" content="{{ settings.social_twitter_link | split: 'twitter.com/' | last | prepend: '@' }}">
+{%- endunless -%}

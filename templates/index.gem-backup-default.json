@@ -1,1 +1,817 @@
-{"sections":{"image-with-text-overlay":{"type":"section-image-with-text-overlay","blocks":{"image-with-text-overlay-1":{"type":"overlay_content","settings":{"title":"Beauty Junkee Collection","section_subheading":"Shop With Confidence","button_1_link":"shopify:\/\/collections\/dresses","button_1_text":"Shop now","button_1_style":"fill","button_2_link":"shopify:\/\/collections\/all","button_2_text":"Shop all","button_2_style":"outline","text_color_scheme":"accent-1"}}},"block_order":["image-with-text-overlay-1"],"settings":{"desktop_image":"shopify:\/\/shop_images\/metro.jpg","desktop_height":"l","mobile_height":"l","image_link":"shopify:\/\/collections\/all","section_width":"full","text_position":"bottom_right","background_color_scheme":"accent-2","overlay_color_scheme":"light","overlay_opacity":10}},"multi-collections":{"type":"flotilla-multi-collections","blocks":{"multi-collections-1":{"type":"collection","settings":{"collection":"home-finds","heading":"{{ block.settings.collection.title }}","products_to_show":8,"button_style":"outline"}},"multi-collections-2":{"type":"collection","settings":{"collection":"kitchen-favourites","heading":"{{ block.settings.collection.title }}","products_to_show":8,"button_style":"filled"}},"multi-collections-3":{"type":"collection","settings":{"collection":"jumpsuits-rompers","heading":"{{ block.settings.collection.title }}","products_to_show":8,"button_style":"filled"}}},"block_order":["multi-collections-1","multi-collections-2","multi-collections-3"],"settings":{"subheading":"","heading":"OUR COLLECTIONS","text_alignment":"center","visible_products":4,"section_color_scheme":"general"}},"collection-grid":{"type":"section-collection-grid","blocks":{"collection-grid-1":{"type":"collection","settings":{"collection":"exclusive-deals","collection_heading":"Dresses","collection_text_position":"bottom_left","button_label":"Shop now","button_style":"filled","text_overlay_color_scheme":"accent-1","overlay_color_scheme":"bg-black","overlay_opacity":30}},"collection_YKUFLA":{"type":"collection","settings":{"collection":"pet-finds","collection_heading":"Collection name","collection_text_position":"bottom_left","button_label":"Shop now","button_style":"filled","text_overlay_color_scheme":"accent-1","overlay_color_scheme":"bg-black","overlay_opacity":20}},"collection-grid-2":{"type":"collection","settings":{"collection":"kitchen-favourites","collection_heading":"Bottoms","collection_text_position":"bottom_left","button_label":"Shop now","button_style":"filled","text_overlay_color_scheme":"accent-1","overlay_color_scheme":"bg-black","overlay_opacity":30}},"collection-grid-3":{"type":"collection","settings":{"collection":"kitchen-favourites","collection_heading":"Jackets","collection_text_position":"bottom_left","button_label":"Shop now","button_style":"filled","text_overlay_color_scheme":"accent-1","overlay_color_scheme":"bg-black","overlay_opacity":30}},"collection-grid-4":{"type":"collection","disabled":true,"settings":{"collection":"jumpsuits-rompers","collection_heading":"Jumpsuits & Rompers","collection_text_position":"bottom_left","button_label":"Shop now","button_style":"filled","text_overlay_color_scheme":"accent-1","overlay_color_scheme":"bg-black","overlay_opacity":30}},"collection-grid-5":{"type":"collection","disabled":true,"settings":{"collection":"sets","collection_heading":"Sets","collection_text_position":"bottom_left","button_label":"Shop now","button_style":"filled","text_overlay_color_scheme":"accent-1","overlay_color_scheme":"bg-black","overlay_opacity":30}},"collection-grid-6":{"type":"collection","disabled":true,"settings":{"collection":"swim","collection_heading":"Swim","collection_text_position":"bottom_left","button_label":"Shop now","button_style":"filled","text_overlay_color_scheme":"accent-1","overlay_color_scheme":"bg-black","overlay_opacity":30}},"49a56cf3-beb1-4e61-98b7-59ed1d9c410a":{"type":"collection","disabled":true,"settings":{"collection":"activewear","collection_heading":"Activewear","collection_text_position":"bottom_left","button_label":"Shop now","button_style":"filled","text_overlay_color_scheme":"accent-1","overlay_color_scheme":"bg-black","overlay_opacity":20}},"dd17e68a-94e0-42e6-86d9-23e5f1f902b3":{"type":"collection","disabled":true,"settings":{"collection":"shapewear","collection_heading":"SS Collection","collection_text_position":"bottom_left","button_label":"Shop now","button_style":"filled","text_overlay_color_scheme":"accent-1","overlay_color_scheme":"bg-black","overlay_opacity":20}},"8d23e706-4a41-48f2-a1b8-a0a4445d55de":{"type":"collection","disabled":true,"settings":{"collection":"heels","collection_heading":"","collection_text_position":"bottom_left","button_label":"Shop now","button_style":"filled","text_overlay_color_scheme":"accent-1","overlay_color_scheme":"bg-black","overlay_opacity":20}}},"block_order":["collection-grid-1","collection_YKUFLA","collection-grid-2","collection-grid-3","collection-grid-4","collection-grid-5","collection-grid-6","49a56cf3-beb1-4e61-98b7-59ed1d9c410a","dd17e68a-94e0-42e6-86d9-23e5f1f902b3","8d23e706-4a41-48f2-a1b8-a0a4445d55de"],"settings":{"subheading":"","heading":"SHOP THE NEW SEASON NOW","text_alignment":"center","collections_per_row_desktop":2,"collections_per_row_mobile":"1","section_color_scheme":"general"}},"shop-the-look":{"type":"section-shop-the-look","blocks":{"product-1":{"type":"product","settings":{"product":"cutesy-big-pocket-drawstring-short-set","marker_horizontal":50,"marker_vertical":50}},"product-2":{"type":"product","settings":{"product":"d-g-inspired-strappy-mini-dress","marker_horizontal":25,"marker_vertical":35}},"product_D69Bgz":{"type":"product","settings":{"product":"colada-tropics-set","marker_horizontal":50,"marker_vertical":50}}},"block_order":["product-1","product-2","product_D69Bgz"],"settings":{"main_image":"shopify:\/\/shop_images\/n.jpg","text_alignment":"center","image_position":"left","subheading":"LIVE IN YOUR WORLD, BUT GET DRESSED IN OURS","heading":"Beauty Junkee Collection","button_text":"Shop now","button_link":"shopify:\/\/collections\/all","button_style":"filled","bg_color_scheme":"general","content_color_scheme":"accent-1","overlay_color_scheme":"dark","overlay_opacity":10}},"image-with-text-overlay-two":{"type":"section-image-with-text-overlay","blocks":{"image-with-text-overlay-1":{"type":"overlay_content","settings":{"title":"Style the Confidence","section_subheading":"Unlock a world of fashion possibilities","button_1_link":"shopify:\/\/collections\/sets","button_1_text":"Shop now","button_1_style":"fill","button_2_link":"shopify:\/\/collections\/all","button_2_text":"","button_2_style":"outline","text_color_scheme":"accent-1"}}},"block_order":["image-with-text-overlay-1"],"settings":{"desktop_image":"shopify:\/\/shop_images\/girl-5623231_960_720.jpg","desktop_height":"l","mobile_height":"m","image_link":"shopify:\/\/collections\/sets","section_width":"full","text_position":"bottom_left","background_color_scheme":"general","overlay_color_scheme":"dark","overlay_opacity":20}},"featured-collection":{"type":"section-featured-collection","settings":{"collection":"pet-finds","subheading":"","heading":"","alignment":"text-left","products_per_page":8,"products_per_row":5,"products_per_row_mobile":"1","color_scheme":"general"}},"framed-image":{"type":"ship-framed-image","blocks":{"overlay-content":{"type":"overlay_content","settings":{"heading":"","button_1_link":"shopify:\/\/collections\/all","button_1_text":"Shop The Sale","button_1_style":"fill","button_2_link":"","button_2_text":"Learn more","button_2_style":"outline","caption_color_scheme":"general"}},"social_cta":{"type":"social_cta","settings":{"social_icon":"instagram","social_icon_shape":"circle","icon_size":"32","social_link_text":"SEE IT STYLR ON INSTA","social_link":"https:\/\/www.instagram.com\/the_bjcollection\/","social_color_scheme":"accent-1","transparent_bg":true}}},"block_order":["overlay-content","social_cta"],"settings":{"desktop_height":"xl","mobile_height":"xl","frame_type":"full-width","frame_sides":"left_right","section_color_scheme":"general","overlay_opacity":20,"overlay_color_scheme":"dark"}},"featured-product":{"type":"flotilla-featured-product","blocks":{"title":{"type":"title","settings":{"show_vendor":false,"show_sku":false}},"price":{"type":"price","settings":{"show_tax_included_text":false,"show_shipping_policy":false}},"options":{"type":"options","settings":{"options_type":"buttons","preselect_variant":true,"color_swatch_identifier":"color,colour,couleur,colore,farbe,색,色,färg,farve"}},"quantity":{"type":"quantity","settings":{}},"payment-buttons":{"type":"payment-buttons","settings":{}}},"block_order":["title","price","options","quantity","payment-buttons"],"settings":{"subheading":"","heading":"","heading_alignment":"center","product":"cutesy-big-pocket-drawstring-short-set","gallery_style":"thumbnails","section_color_scheme":"general"}},"c2d49ee5-71a0-4b61-9f07-53125d534147":{"type":"ship-lookbook","blocks":{"template--20819574292758__c2d49ee5-71a0-4b61-9f07-53125d534147-look-2":{"type":"look","settings":{"image":"shopify:\/\/shop_images\/gempages_519084546960917294-5dbab1a2-ea96-42cd-9d0b-de26e47ade4f.jpg","image_position":"left","text_alignment":"text-center","subheading":"Star Studded Sparkle Mesh Dress","heading":"Beauty Junkee Collection","button_link":"shopify:\/\/products\/star-studded-sparkle-mesh-dress","button_text":"Shop the look","button_style":"fill"}},"template--20819574292758__c2d49ee5-71a0-4b61-9f07-53125d534147-look-1":{"type":"look","settings":{"image_position":"left","text_alignment":"text-center","subheading":"Play Up Off the Shoulder Mini Zipper Dress","heading":"Beauty Junkee Collection","button_link":"shopify:\/\/collections\/all","button_text":"Shop the look","button_style":"fill"}}},"block_order":["template--20819574292758__c2d49ee5-71a0-4b61-9f07-53125d534147-look-2","template--20819574292758__c2d49ee5-71a0-4b61-9f07-53125d534147-look-1"],"disabled":true,"settings":{"image_aspect_ratio":"square","bg_color_scheme":"general","color_scheme":"general"}},"testimonials":{"type":"section-testimonials","blocks":{"testimonial-1":{"type":"testimonial","settings":{"star_rating":5,"testimonial_content":"This is my very first order through site, and I am totally and completely satisfied! The fit is great and so are the prices. I will definitely return again and again..","testimonial_author":"Tina Robin"}},"testimonial-2":{"type":"testimonial","settings":{"star_rating":5,"testimonial_content":"I completely love this site. I  am always complimented on my outfits I will be back for more...Thank you for having cute trendy clothes that fit and look good","testimonial_author":"Maria"}},"testimonial-3":{"type":"testimonial","settings":{"star_rating":5,"testimonial_content":"I love the clothes from this website!! I am so glad I found them.....everything has been spot on, fits wonderfully, styles are trendy and lots to choose from!! Thanks for being here for us!!!","testimonial_author":"Kathy"}},"fe7649e6-fcfe-42e5-95b4-f3870d64564c":{"type":"testimonial","settings":{"star_rating":5,"testimonial_content":"I absolutely adore the trendy styles this store offers. The clothes fit so well and they look amazing on a curvy figure. I really appreciate this option and the quality of the goods is so great that I will order product in the future. Thank you so much for making me feel beautiful!","testimonial_author":"Veronica"}}},"block_order":["testimonial-1","testimonial-2","testimonial-3","fe7649e6-fcfe-42e5-95b4-f3870d64564c"],"settings":{"section_subheading":"DIRECT FROM THE CUSTOMERS","section_heading":"5 STAR FEEDBACK","section_color_scheme":"accent-1"}},"31933204-7c7e-4335-9c89-197e011c2c7d":{"type":"flotilla-image-with-text","blocks":{"template--20819574292758__31933204-7c7e-4335-9c89-197e011c2c7d-text-1":{"type":"text","settings":{"subheading":"","heading":"","body_text":"Our user-friendly website makes shopping a breeze. Find what you love and check out in just a few clicks.","button_link":"shopify:\/\/collections\/all","button_text":"Shop now","button_style":"fill"}},"template--20819574292758__31933204-7c7e-4335-9c89-197e011c2c7d-text-2":{"type":"text","disabled":true,"settings":{"subheading":"","heading":"Totally Responsive","body_text":"In order to ensure customer satisfaction, we provide pertinent follow-ups throughout the ordering process.","button_link":"","button_text":"Shop now","button_style":"outline"}},"template--20819574292758__31933204-7c7e-4335-9c89-197e011c2c7d-text-3":{"type":"text","disabled":true,"settings":{"subheading":"","heading":"Highly Customizable","body_text":"We offer a personalized instore and online shopping experience that allows our customers to interact with our shop that’s unique to their profile or style preferences.","button_link":"","button_text":"Shop now","button_style":"outline"}},"1d602b86-92bd-4c9a-b7b0-3a16bc99e08a":{"type":"text","disabled":true,"settings":{"subheading":"","heading":"Tech Fashion","body_text":"We are a trendy brand so rightfully we will take our place in the tech fashion industry. Our Collection will offer a virtual 3D fitting room and a live fashion streaming platform for our customers.","button_link":"","button_text":"Shop now","button_style":"outline"}},"8c3ded8f-c7a7-4573-872c-04966dfc2ed7":{"type":"text","disabled":true,"settings":{"subheading":"","heading":"Google Fashion","body_text":"“Y2K fashion” and “casual style” are the obvious fashion trends on Google’s most-searched report. Our products are geared towards the fashion industry, and we keep bringing trendy innovative pieces into our Collection to ensure customer satisfaction.","button_link":"","button_text":"Shop now","button_style":"outline"}},"f4783878-a9b6-4e55-b245-21fada3948c2":{"type":"text","disabled":true,"settings":{"subheading":"","heading":"Agile Retail","body_text":"Agile retail is a new form of fast fashion that applies the concepts of “Agile” and “Lean” in the fashion retail business. It is also all about serving customers better by aligning to their changing needs.","button_link":"","button_text":"Shop now","button_style":"outline"}},"ce48022e-deee-41d9-b0cd-35d49c9566ed":{"type":"text","disabled":true,"settings":{"subheading":"","heading":"Mobile Availability","body_text":"Our website provides easy mobile accessibility that is compatible across all devices. Our goal is to keep our brand prominent in the marketplace, increasing customer retention and loyalty.","button_link":"","button_text":"Shop now","button_style":"outline"}},"41d4a9d1-d64d-4fe4-ad80-93d3cc1cc02b":{"type":"text","disabled":true,"settings":{"subheading":"","heading":"Alterations","body_text":"Measurement is a key part of fashion. Without measurement, the clothes you wear today would not fit correctly. Here at the Beauty Junkee Collection our staff is trained in tailoring pieces to fit your body type.","button_link":"","button_text":"Shop now","button_style":"outline"}}},"block_order":["template--20819574292758__31933204-7c7e-4335-9c89-197e011c2c7d-text-1","template--20819574292758__31933204-7c7e-4335-9c89-197e011c2c7d-text-2","template--20819574292758__31933204-7c7e-4335-9c89-197e011c2c7d-text-3","1d602b86-92bd-4c9a-b7b0-3a16bc99e08a","8c3ded8f-c7a7-4573-872c-04966dfc2ed7","f4783878-a9b6-4e55-b245-21fada3948c2","ce48022e-deee-41d9-b0cd-35d49c9566ed","41d4a9d1-d64d-4fe4-ad80-93d3cc1cc02b"],"settings":{"image_position":"md:flex-row","bg_color_scheme":"general","content_color_scheme":"general"}},"gallery":{"type":"flotilla-gallery","blocks":{"image-1":{"type":"image","settings":{"link":"","button_text":"","button_style":"outline","heading":"","text_position":"center","text_color_scheme":"general","overlay_style":"bg-black","overlay_opacity":0}},"image-2":{"type":"image","settings":{"link":"","button_text":"","button_style":"outline","heading":"","text_position":"center","text_color_scheme":"general","overlay_style":"bg-black","overlay_opacity":0}},"image-3":{"type":"image","settings":{"link":"","button_text":"","button_style":"outline","heading":"","text_position":"center","text_color_scheme":"general","overlay_style":"bg-black","overlay_opacity":0}},"image-4":{"type":"image","settings":{"link":"","button_text":"","button_style":"outline","heading":"","text_position":"center","text_color_scheme":"general","overlay_style":"bg-black","overlay_opacity":0}},"image_mxY8pb":{"type":"image","disabled":true,"settings":{"link":"","button_text":"","button_style":"outline","heading":"","text_position":"center","text_color_scheme":"general","overlay_style":"bg-black","overlay_opacity":20}}},"block_order":["image-1","image-2","image-3","image-4","image_mxY8pb"],"settings":{"section_subheading":"","section_heading":"See The Look","heading_alignment":"text-center","img_row_desktop":4,"img_row_mobile":"two","img_aspect_ratio":"portrait","section_width":"full","bg_color_scheme":"general"}},"feef5cdc-7e57-4953-824b-b323931d345e":{"type":"flotilla-image-with-text","blocks":{"template--20819574292758__feef5cdc-7e57-4953-824b-b323931d345e-text-1":{"type":"text","settings":{"subheading":"","heading":"We Care About You!","body_text":"Have questions or need assistance? Our friendly customer support team is here to help. Feel free to reach out at support@beautyjunkeeonline.com and we'll be glad to assist you.","button_link":"shopify:\/\/collections\/all","button_text":"Continue Shopping","button_style":"outline"}}},"block_order":["template--20819574292758__feef5cdc-7e57-4953-824b-b323931d345e-text-1"],"settings":{"image_position":"md:flex-row-reverse","bg_color_scheme":"general","content_color_scheme":"accent-1"}},"newsletter":{"type":"section-newsletter","settings":{"section_subheading":"Be the first to know about new collections and exclusive offers.","section_heading":"Connect with us!","horizontal_alignment":"center","section_width":"full-with-padding","section_color_scheme":"general"}},"cd90a995-b3f4-4733-8e90-9a95ab2fde19":{"type":"flotilla-icons-with-text","blocks":{"template--20819574292758__cd90a995-b3f4-4733-8e90-9a95ab2fde19-icon_with_text-1":{"type":"icon_with_text","settings":{"heading":"Our Services","text":"Our customers get one-on-one assistance with the Beauty Junkee Collection. If anything, think of our Collection as a specialized type of retail boutique that fits your niche with specialized products and more personal customer service.","link":""}},"template--20819574292758__cd90a995-b3f4-4733-8e90-9a95ab2fde19-icon_with_text-2":{"type":"icon_with_text","settings":{"heading":"Describe key features","text":"Use this text to emphasise your brand’s unique selling points.","link":""}},"template--20819574292758__cd90a995-b3f4-4733-8e90-9a95ab2fde19-icon_with_text-3":{"type":"icon_with_text","settings":{"heading":"Describe key features","text":"Use this text to emphasise your brand’s unique selling points.","link":""}}},"block_order":["template--20819574292758__cd90a995-b3f4-4733-8e90-9a95ab2fde19-icon_with_text-1","template--20819574292758__cd90a995-b3f4-4733-8e90-9a95ab2fde19-icon_with_text-2","template--20819574292758__cd90a995-b3f4-4733-8e90-9a95ab2fde19-icon_with_text-3"],"disabled":true,"settings":{"text_alignment":"center","section_width":"full","section_color_scheme":"general"}}},"order":["image-with-text-overlay","multi-collections","collection-grid","shop-the-look","image-with-text-overlay-two","featured-collection","framed-image","featured-product","c2d49ee5-71a0-4b61-9f07-53125d534147","testimonials","31933204-7c7e-4335-9c89-197e011c2c7d","gallery","feef5cdc-7e57-4953-824b-b323931d345e","newsletter","cd90a995-b3f4-4733-8e90-9a95ab2fde19"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "sections": {
+    "image-with-text-overlay": {
+      "type": "section-image-with-text-overlay",
+      "blocks": {
+        "image-with-text-overlay-1": {
+          "type": "overlay_content",
+          "settings": {
+            "title": "Beauty Junkee Collection",
+            "section_subheading": "Shop With Confidence",
+            "button_1_text": "Shop now",
+            "button_1_style": "fill",
+            "button_2_link": "shopify://collections/all",
+            "button_2_text": "Shop all",
+            "button_2_style": "outline",
+            "text_color_scheme": "accent-1"
+          }
+        }
+      },
+      "block_order": [
+        "image-with-text-overlay-1"
+      ],
+      "settings": {
+        "desktop_image": "shopify://shop_images/metro.jpg",
+        "desktop_height": "l",
+        "mobile_height": "l",
+        "image_link": "shopify://collections/all",
+        "section_width": "full",
+        "text_position": "bottom_right",
+        "background_color_scheme": "accent-2",
+        "overlay_color_scheme": "light",
+        "overlay_opacity": 10
+      }
+    },
+    "multi-collections": {
+      "type": "flotilla-multi-collections",
+      "blocks": {
+        "multi-collections-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "home-finds",
+            "heading": "{{ block.settings.collection.title }}",
+            "products_to_show": 8,
+            "button_style": "outline"
+          }
+        },
+        "multi-collections-2": {
+          "type": "collection",
+          "settings": {
+            "collection": "kitchen-favourites",
+            "heading": "{{ block.settings.collection.title }}",
+            "products_to_show": 8,
+            "button_style": "filled"
+          }
+        },
+        "multi-collections-3": {
+          "type": "collection",
+          "settings": {
+            "collection": "jumpsuits-rompers",
+            "heading": "{{ block.settings.collection.title }}",
+            "products_to_show": 8,
+            "button_style": "filled"
+          }
+        }
+      },
+      "block_order": [
+        "multi-collections-1",
+        "multi-collections-2",
+        "multi-collections-3"
+      ],
+      "settings": {
+        "subheading": "",
+        "heading": "OUR COLLECTIONS",
+        "text_alignment": "center",
+        "visible_products": 4,
+        "section_color_scheme": "general"
+      }
+    },
+    "collection-grid": {
+      "type": "section-collection-grid",
+      "blocks": {
+        "collection-grid-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "exclusive-deals",
+            "collection_heading": "Dresses",
+            "collection_text_position": "bottom_left",
+            "button_label": "Shop now",
+            "button_style": "filled",
+            "text_overlay_color_scheme": "accent-1",
+            "overlay_color_scheme": "bg-black",
+            "overlay_opacity": 30
+          }
+        },
+        "collection_YKUFLA": {
+          "type": "collection",
+          "settings": {
+            "collection": "pet-finds",
+            "collection_heading": "Collection name",
+            "collection_text_position": "bottom_left",
+            "button_label": "Shop now",
+            "button_style": "filled",
+            "text_overlay_color_scheme": "accent-1",
+            "overlay_color_scheme": "bg-black",
+            "overlay_opacity": 20
+          }
+        },
+        "collection-grid-2": {
+          "type": "collection",
+          "settings": {
+            "collection": "kitchen-favourites",
+            "collection_heading": "Bottoms",
+            "collection_text_position": "bottom_left",
+            "button_label": "Shop now",
+            "button_style": "filled",
+            "text_overlay_color_scheme": "accent-1",
+            "overlay_color_scheme": "bg-black",
+            "overlay_opacity": 30
+          }
+        },
+        "collection-grid-3": {
+          "type": "collection",
+          "settings": {
+            "collection": "kitchen-favourites",
+            "collection_heading": "Jackets",
+            "collection_text_position": "bottom_left",
+            "button_label": "Shop now",
+            "button_style": "filled",
+            "text_overlay_color_scheme": "accent-1",
+            "overlay_color_scheme": "bg-black",
+            "overlay_opacity": 30
+          }
+        },
+        "collection-grid-4": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "jumpsuits-rompers",
+            "collection_heading": "Jumpsuits & Rompers",
+            "collection_text_position": "bottom_left",
+            "button_label": "Shop now",
+            "button_style": "filled",
+            "text_overlay_color_scheme": "accent-1",
+            "overlay_color_scheme": "bg-black",
+            "overlay_opacity": 30
+          }
+        },
+        "collection-grid-5": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "sets",
+            "collection_heading": "Sets",
+            "collection_text_position": "bottom_left",
+            "button_label": "Shop now",
+            "button_style": "filled",
+            "text_overlay_color_scheme": "accent-1",
+            "overlay_color_scheme": "bg-black",
+            "overlay_opacity": 30
+          }
+        },
+        "collection-grid-6": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "swim",
+            "collection_heading": "Swim",
+            "collection_text_position": "bottom_left",
+            "button_label": "Shop now",
+            "button_style": "filled",
+            "text_overlay_color_scheme": "accent-1",
+            "overlay_color_scheme": "bg-black",
+            "overlay_opacity": 30
+          }
+        },
+        "49a56cf3-beb1-4e61-98b7-59ed1d9c410a": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "activewear",
+            "collection_heading": "Activewear",
+            "collection_text_position": "bottom_left",
+            "button_label": "Shop now",
+            "button_style": "filled",
+            "text_overlay_color_scheme": "accent-1",
+            "overlay_color_scheme": "bg-black",
+            "overlay_opacity": 20
+          }
+        },
+        "dd17e68a-94e0-42e6-86d9-23e5f1f902b3": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "shapewear",
+            "collection_heading": "SS Collection",
+            "collection_text_position": "bottom_left",
+            "button_label": "Shop now",
+            "button_style": "filled",
+            "text_overlay_color_scheme": "accent-1",
+            "overlay_color_scheme": "bg-black",
+            "overlay_opacity": 20
+          }
+        },
+        "8d23e706-4a41-48f2-a1b8-a0a4445d55de": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "heels",
+            "collection_heading": "",
+            "collection_text_position": "bottom_left",
+            "button_label": "Shop now",
+            "button_style": "filled",
+            "text_overlay_color_scheme": "accent-1",
+            "overlay_color_scheme": "bg-black",
+            "overlay_opacity": 20
+          }
+        }
+      },
+      "block_order": [
+        "collection-grid-1",
+        "collection_YKUFLA",
+        "collection-grid-2",
+        "collection-grid-3",
+        "collection-grid-4",
+        "collection-grid-5",
+        "collection-grid-6",
+        "49a56cf3-beb1-4e61-98b7-59ed1d9c410a",
+        "dd17e68a-94e0-42e6-86d9-23e5f1f902b3",
+        "8d23e706-4a41-48f2-a1b8-a0a4445d55de"
+      ],
+      "settings": {
+        "subheading": "",
+        "heading": "SHOP THE NEW SEASON NOW",
+        "text_alignment": "center",
+        "collections_per_row_desktop": 2,
+        "collections_per_row_mobile": "1",
+        "section_color_scheme": "general"
+      }
+    },
+    "shop-the-look": {
+      "type": "section-shop-the-look",
+      "blocks": {
+        "product-1": {
+          "type": "product",
+          "settings": {
+            "product": "cutesy-big-pocket-drawstring-short-set",
+            "marker_horizontal": 50,
+            "marker_vertical": 50
+          }
+        },
+        "product-2": {
+          "type": "product",
+          "settings": {
+            "product": "d-g-inspired-strappy-mini-dress",
+            "marker_horizontal": 25,
+            "marker_vertical": 35
+          }
+        },
+        "product_D69Bgz": {
+          "type": "product",
+          "settings": {
+            "product": "colada-tropics-set",
+            "marker_horizontal": 50,
+            "marker_vertical": 50
+          }
+        }
+      },
+      "block_order": [
+        "product-1",
+        "product-2",
+        "product_D69Bgz"
+      ],
+      "settings": {
+        "main_image": "shopify://shop_images/n.jpg",
+        "text_alignment": "center",
+        "image_position": "left",
+        "subheading": "LIVE IN YOUR WORLD, BUT GET DRESSED IN OURS",
+        "heading": "Beauty Junkee Collection",
+        "button_text": "Shop now",
+        "button_link": "shopify://collections/all",
+        "button_style": "filled",
+        "bg_color_scheme": "general",
+        "content_color_scheme": "accent-1",
+        "overlay_color_scheme": "dark",
+        "overlay_opacity": 10
+      }
+    },
+    "image-with-text-overlay-two": {
+      "type": "section-image-with-text-overlay",
+      "blocks": {
+        "image-with-text-overlay-1": {
+          "type": "overlay_content",
+          "settings": {
+            "title": "Style the Confidence",
+            "section_subheading": "Unlock a world of fashion possibilities",
+            "button_1_text": "Shop now",
+            "button_1_style": "fill",
+            "button_2_link": "shopify://collections/all",
+            "button_2_text": "",
+            "button_2_style": "outline",
+            "text_color_scheme": "accent-1"
+          }
+        }
+      },
+      "block_order": [
+        "image-with-text-overlay-1"
+      ],
+      "settings": {
+        "desktop_image": "shopify://shop_images/girl-5623231_960_720.jpg",
+        "desktop_height": "l",
+        "mobile_height": "m",
+        "section_width": "full",
+        "text_position": "bottom_left",
+        "background_color_scheme": "general",
+        "overlay_color_scheme": "dark",
+        "overlay_opacity": 20
+      }
+    },
+    "featured-collection": {
+      "type": "section-featured-collection",
+      "settings": {
+        "collection": "pet-finds",
+        "subheading": "",
+        "heading": "",
+        "alignment": "text-left",
+        "products_per_page": 8,
+        "products_per_row": 5,
+        "products_per_row_mobile": "1",
+        "color_scheme": "general"
+      }
+    },
+    "framed-image": {
+      "type": "ship-framed-image",
+      "blocks": {
+        "overlay-content": {
+          "type": "overlay_content",
+          "settings": {
+            "heading": "",
+            "button_1_link": "shopify://collections/all",
+            "button_1_text": "Shop The Sale",
+            "button_1_style": "fill",
+            "button_2_link": "",
+            "button_2_text": "Learn more",
+            "button_2_style": "outline",
+            "caption_color_scheme": "general"
+          }
+        },
+        "social_cta": {
+          "type": "social_cta",
+          "settings": {
+            "social_icon": "instagram",
+            "social_icon_shape": "circle",
+            "icon_size": "32",
+            "social_link_text": "SEE IT STYLR ON INSTA",
+            "social_link": "https://www.instagram.com/the_bjcollection/",
+            "social_color_scheme": "accent-1",
+            "transparent_bg": true
+          }
+        }
+      },
+      "block_order": [
+        "overlay-content",
+        "social_cta"
+      ],
+      "settings": {
+        "desktop_height": "xl",
+        "mobile_height": "xl",
+        "frame_type": "full-width",
+        "frame_sides": "left_right",
+        "section_color_scheme": "general",
+        "overlay_opacity": 20,
+        "overlay_color_scheme": "dark"
+      }
+    },
+    "featured-product": {
+      "type": "flotilla-featured-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "show_vendor": false,
+            "show_sku": false
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_tax_included_text": false,
+            "show_shipping_policy": false
+          }
+        },
+        "options": {
+          "type": "options",
+          "settings": {
+            "options_type": "buttons",
+            "preselect_variant": true,
+            "color_swatch_identifier": "color,colour,couleur,colore,farbe,색,色,färg,farve"
+          }
+        },
+        "quantity": {
+          "type": "quantity",
+          "settings": {}
+        },
+        "payment-buttons": {
+          "type": "payment-buttons",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "options",
+        "quantity",
+        "payment-buttons"
+      ],
+      "settings": {
+        "subheading": "",
+        "heading": "",
+        "heading_alignment": "center",
+        "product": "cutesy-big-pocket-drawstring-short-set",
+        "gallery_style": "thumbnails",
+        "section_color_scheme": "general"
+      }
+    },
+    "c2d49ee5-71a0-4b61-9f07-53125d534147": {
+      "type": "ship-lookbook",
+      "blocks": {
+        "template--20819574292758__c2d49ee5-71a0-4b61-9f07-53125d534147-look-2": {
+          "type": "look",
+          "settings": {
+            "image": "shopify://shop_images/gempages_519084546960917294-5dbab1a2-ea96-42cd-9d0b-de26e47ade4f.jpg",
+            "image_position": "left",
+            "text_alignment": "text-center",
+            "subheading": "Star Studded Sparkle Mesh Dress",
+            "heading": "Beauty Junkee Collection",
+            "button_link": "shopify://products/star-studded-sparkle-mesh-dress",
+            "button_text": "Shop the look",
+            "button_style": "fill"
+          }
+        },
+        "template--20819574292758__c2d49ee5-71a0-4b61-9f07-53125d534147-look-1": {
+          "type": "look",
+          "settings": {
+            "image_position": "left",
+            "text_alignment": "text-center",
+            "subheading": "Play Up Off the Shoulder Mini Zipper Dress",
+            "heading": "Beauty Junkee Collection",
+            "button_link": "shopify://collections/all",
+            "button_text": "Shop the look",
+            "button_style": "fill"
+          }
+        }
+      },
+      "block_order": [
+        "template--20819574292758__c2d49ee5-71a0-4b61-9f07-53125d534147-look-2",
+        "template--20819574292758__c2d49ee5-71a0-4b61-9f07-53125d534147-look-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "image_aspect_ratio": "square",
+        "bg_color_scheme": "general",
+        "color_scheme": "general"
+      }
+    },
+    "testimonials": {
+      "type": "section-testimonials",
+      "blocks": {
+        "testimonial-1": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "testimonial_content": "This is my very first order through site, and I am totally and completely satisfied! The fit is great and so are the prices. I will definitely return again and again..",
+            "testimonial_author": "Tina Robin"
+          }
+        },
+        "testimonial-2": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "testimonial_content": "I completely love this site. I  am always complimented on my outfits I will be back for more...Thank you for having cute trendy clothes that fit and look good",
+            "testimonial_author": "Maria"
+          }
+        },
+        "testimonial-3": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "testimonial_content": "I love the clothes from this website!! I am so glad I found them.....everything has been spot on, fits wonderfully, styles are trendy and lots to choose from!! Thanks for being here for us!!!",
+            "testimonial_author": "Kathy"
+          }
+        },
+        "fe7649e6-fcfe-42e5-95b4-f3870d64564c": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "testimonial_content": "I absolutely adore the trendy styles this store offers. The clothes fit so well and they look amazing on a curvy figure. I really appreciate this option and the quality of the goods is so great that I will order product in the future. Thank you so much for making me feel beautiful!",
+            "testimonial_author": "Veronica"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial-1",
+        "testimonial-2",
+        "testimonial-3",
+        "fe7649e6-fcfe-42e5-95b4-f3870d64564c"
+      ],
+      "settings": {
+        "section_subheading": "DIRECT FROM THE CUSTOMERS",
+        "section_heading": "5 STAR FEEDBACK",
+        "section_color_scheme": "accent-1"
+      }
+    },
+    "31933204-7c7e-4335-9c89-197e011c2c7d": {
+      "type": "flotilla-image-with-text",
+      "blocks": {
+        "template--20819574292758__31933204-7c7e-4335-9c89-197e011c2c7d-text-1": {
+          "type": "text",
+          "settings": {
+            "subheading": "",
+            "heading": "",
+            "body_text": "Our user-friendly website makes shopping a breeze. Find what you love and check out in just a few clicks.",
+            "button_link": "shopify://collections/all",
+            "button_text": "Shop now",
+            "button_style": "fill"
+          }
+        },
+        "template--20819574292758__31933204-7c7e-4335-9c89-197e011c2c7d-text-2": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "subheading": "",
+            "heading": "Totally Responsive",
+            "body_text": "In order to ensure customer satisfaction, we provide pertinent follow-ups throughout the ordering process.",
+            "button_link": "",
+            "button_text": "Shop now",
+            "button_style": "outline"
+          }
+        },
+        "template--20819574292758__31933204-7c7e-4335-9c89-197e011c2c7d-text-3": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "subheading": "",
+            "heading": "Highly Customizable",
+            "body_text": "We offer a personalized instore and online shopping experience that allows our customers to interact with our shop that’s unique to their profile or style preferences.",
+            "button_link": "",
+            "button_text": "Shop now",
+            "button_style": "outline"
+          }
+        },
+        "1d602b86-92bd-4c9a-b7b0-3a16bc99e08a": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "subheading": "",
+            "heading": "Tech Fashion",
+            "body_text": "We are a trendy brand so rightfully we will take our place in the tech fashion industry. Our Collection will offer a virtual 3D fitting room and a live fashion streaming platform for our customers.",
+            "button_link": "",
+            "button_text": "Shop now",
+            "button_style": "outline"
+          }
+        },
+        "8c3ded8f-c7a7-4573-872c-04966dfc2ed7": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "subheading": "",
+            "heading": "Google Fashion",
+            "body_text": "“Y2K fashion” and “casual style” are the obvious fashion trends on Google’s most-searched report. Our products are geared towards the fashion industry, and we keep bringing trendy innovative pieces into our Collection to ensure customer satisfaction.",
+            "button_link": "",
+            "button_text": "Shop now",
+            "button_style": "outline"
+          }
+        },
+        "f4783878-a9b6-4e55-b245-21fada3948c2": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "subheading": "",
+            "heading": "Agile Retail",
+            "body_text": "Agile retail is a new form of fast fashion that applies the concepts of “Agile” and “Lean” in the fashion retail business. It is also all about serving customers better by aligning to their changing needs.",
+            "button_link": "",
+            "button_text": "Shop now",
+            "button_style": "outline"
+          }
+        },
+        "ce48022e-deee-41d9-b0cd-35d49c9566ed": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "subheading": "",
+            "heading": "Mobile Availability",
+            "body_text": "Our website provides easy mobile accessibility that is compatible across all devices. Our goal is to keep our brand prominent in the marketplace, increasing customer retention and loyalty.",
+            "button_link": "",
+            "button_text": "Shop now",
+            "button_style": "outline"
+          }
+        },
+        "41d4a9d1-d64d-4fe4-ad80-93d3cc1cc02b": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "subheading": "",
+            "heading": "Alterations",
+            "body_text": "Measurement is a key part of fashion. Without measurement, the clothes you wear today would not fit correctly. Here at the Beauty Junkee Collection our staff is trained in tailoring pieces to fit your body type.",
+            "button_link": "",
+            "button_text": "Shop now",
+            "button_style": "outline"
+          }
+        }
+      },
+      "block_order": [
+        "template--20819574292758__31933204-7c7e-4335-9c89-197e011c2c7d-text-1",
+        "template--20819574292758__31933204-7c7e-4335-9c89-197e011c2c7d-text-2",
+        "template--20819574292758__31933204-7c7e-4335-9c89-197e011c2c7d-text-3",
+        "1d602b86-92bd-4c9a-b7b0-3a16bc99e08a",
+        "8c3ded8f-c7a7-4573-872c-04966dfc2ed7",
+        "f4783878-a9b6-4e55-b245-21fada3948c2",
+        "ce48022e-deee-41d9-b0cd-35d49c9566ed",
+        "41d4a9d1-d64d-4fe4-ad80-93d3cc1cc02b"
+      ],
+      "settings": {
+        "image_position": "md:flex-row",
+        "bg_color_scheme": "general",
+        "content_color_scheme": "general"
+      }
+    },
+    "gallery": {
+      "type": "flotilla-gallery",
+      "blocks": {
+        "image-1": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "button_text": "",
+            "button_style": "outline",
+            "heading": "",
+            "text_position": "center",
+            "text_color_scheme": "general",
+            "overlay_style": "bg-black",
+            "overlay_opacity": 0
+          }
+        },
+        "image-2": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "button_text": "",
+            "button_style": "outline",
+            "heading": "",
+            "text_position": "center",
+            "text_color_scheme": "general",
+            "overlay_style": "bg-black",
+            "overlay_opacity": 0
+          }
+        },
+        "image-3": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "button_text": "",
+            "button_style": "outline",
+            "heading": "",
+            "text_position": "center",
+            "text_color_scheme": "general",
+            "overlay_style": "bg-black",
+            "overlay_opacity": 0
+          }
+        },
+        "image-4": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "button_text": "",
+            "button_style": "outline",
+            "heading": "",
+            "text_position": "center",
+            "text_color_scheme": "general",
+            "overlay_style": "bg-black",
+            "overlay_opacity": 0
+          }
+        },
+        "image_mxY8pb": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "link": "",
+            "button_text": "",
+            "button_style": "outline",
+            "heading": "",
+            "text_position": "center",
+            "text_color_scheme": "general",
+            "overlay_style": "bg-black",
+            "overlay_opacity": 20
+          }
+        }
+      },
+      "block_order": [
+        "image-1",
+        "image-2",
+        "image-3",
+        "image-4",
+        "image_mxY8pb"
+      ],
+      "settings": {
+        "section_subheading": "",
+        "section_heading": "See The Look",
+        "heading_alignment": "text-center",
+        "img_row_desktop": 4,
+        "img_row_mobile": "two",
+        "img_aspect_ratio": "portrait",
+        "section_width": "full",
+        "bg_color_scheme": "general"
+      }
+    },
+    "feef5cdc-7e57-4953-824b-b323931d345e": {
+      "type": "flotilla-image-with-text",
+      "blocks": {
+        "template--20819574292758__feef5cdc-7e57-4953-824b-b323931d345e-text-1": {
+          "type": "text",
+          "settings": {
+            "subheading": "",
+            "heading": "We Care About You!",
+            "body_text": "Have questions or need assistance? Our friendly customer support team is here to help. Feel free to reach out at support@beautyjunkeeonline.com and we'll be glad to assist you.",
+            "button_link": "shopify://collections/all",
+            "button_text": "Continue Shopping",
+            "button_style": "outline"
+          }
+        }
+      },
+      "block_order": [
+        "template--20819574292758__feef5cdc-7e57-4953-824b-b323931d345e-text-1"
+      ],
+      "settings": {
+        "image_position": "md:flex-row-reverse",
+        "bg_color_scheme": "general",
+        "content_color_scheme": "accent-1"
+      }
+    },
+    "newsletter": {
+      "type": "section-newsletter",
+      "settings": {
+        "section_subheading": "Be the first to know about new collections and exclusive offers.",
+        "section_heading": "Connect with us!",
+        "horizontal_alignment": "center",
+        "section_width": "full-with-padding",
+        "section_color_scheme": "general"
+      }
+    },
+    "cd90a995-b3f4-4733-8e90-9a95ab2fde19": {
+      "type": "flotilla-icons-with-text",
+      "blocks": {
+        "template--20819574292758__cd90a995-b3f4-4733-8e90-9a95ab2fde19-icon_with_text-1": {
+          "type": "icon_with_text",
+          "settings": {
+            "heading": "Our Services",
+            "text": "Our customers get one-on-one assistance with the Beauty Junkee Collection. If anything, think of our Collection as a specialized type of retail boutique that fits your niche with specialized products and more personal customer service.",
+            "link": ""
+          }
+        },
+        "template--20819574292758__cd90a995-b3f4-4733-8e90-9a95ab2fde19-icon_with_text-2": {
+          "type": "icon_with_text",
+          "settings": {
+            "heading": "Describe key features",
+            "text": "Use this text to emphasise your brand’s unique selling points.",
+            "link": ""
+          }
+        },
+        "template--20819574292758__cd90a995-b3f4-4733-8e90-9a95ab2fde19-icon_with_text-3": {
+          "type": "icon_with_text",
+          "settings": {
+            "heading": "Describe key features",
+            "text": "Use this text to emphasise your brand’s unique selling points.",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--20819574292758__cd90a995-b3f4-4733-8e90-9a95ab2fde19-icon_with_text-1",
+        "template--20819574292758__cd90a995-b3f4-4733-8e90-9a95ab2fde19-icon_with_text-2",
+        "template--20819574292758__cd90a995-b3f4-4733-8e90-9a95ab2fde19-icon_with_text-3"
+      ],
+      "disabled": true,
+      "settings": {
+        "text_alignment": "center",
+        "section_width": "full",
+        "section_color_scheme": "general"
+      }
+    }
+  },
+  "order": [
+    "image-with-text-overlay",
+    "multi-collections",
+    "collection-grid",
+    "shop-the-look",
+    "image-with-text-overlay-two",
+    "featured-collection",
+    "framed-image",
+    "featured-product",
+    "c2d49ee5-71a0-4b61-9f07-53125d534147",
+    "testimonials",
+    "31933204-7c7e-4335-9c89-197e011c2c7d",
+    "gallery",
+    "feef5cdc-7e57-4953-824b-b323931d345e",
+    "newsletter",
+    "cd90a995-b3f4-4733-8e90-9a95ab2fde19"
+  ]
+}

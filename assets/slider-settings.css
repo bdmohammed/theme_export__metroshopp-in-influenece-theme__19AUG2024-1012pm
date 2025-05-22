@@ -1,0 +1,663 @@
+.flicky-slider.slider-btn-small {
+  --btn-width-slider: 40px;
+  --btn-height-slider: 40px;
+  --icon-height-slider: 16px
+}
+
+.flicky-slider {
+  --btn-width-slider: 50px;
+  --btn-height-slider: 50px;
+  --icon-height-slider: 20px;
+  --slider-dot-width: 11px;
+  --slider-dot-height: 11px;
+  --slider-dot-background: #000;
+  --slider-dot-border: #000;
+}
+
+.flicky-slider.slider-btn-large {
+  --btn-width-slider: 60px;
+  --btn-height-slider: 60px;
+  --icon-height-slider: 24px
+}
+
+.flicky-slider .flickity-button {
+  width: var(--btn-width-slider);
+  height: var(--btn-height-slider);
+  text-align: center;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .5s ease;
+  margin: auto 0;
+  min-width: 1px;
+  min-height: 1px;
+  -webkit-animation: 1s ani-fadeIn;
+  animation: 1s ani-fadeIn;
+  z-index: 3;
+  color: var(--slider-btn-color);
+  background-color: var(--slider-btn-background);
+  border-color: var(--slider-btn-border);
+}
+
+.flickity-enabled .flickity-prev-next-button[disabled],
+.flickity-enabled:hover .flickity-prev-next-button[disabled] {
+  opacity: .3
+}
+
+.flicky-slider:not(:hover) .flickity-button.previous {
+  transform: translate(15px) translateY(-50%)
+}
+
+.flicky-slider:not(:hover) .flickity-button.next {
+  transform: translate(-15px) translateY(-50%)
+}
+
+.flicky-slider.slider-btn-vi-always .flickity-button {
+  transform: translate(0) translateY(-50%)
+}
+
+.flickity-prev-next-button .flickity-button-icon {
+  height: var(--icon-height-slider) !important
+}
+
+.flicky-slider.slider-btn-vi-hover .flickity-button {
+  opacity: 0;
+  visibility: hidden
+}
+
+.flicky-slider.slider-btn-vi-hover:hover .flickity-button,
+.flicky-slider.slider-btn-vi-always .flickity-button {
+  opacity: 1;
+  visibility: visible
+}
+
+.flicky-slider.slider-btn-round .flickity-button {
+  border-radius: 50%
+}
+
+.flicky-slider.slider-btn-rotate .flickity-button {
+  transform-origin: 50% 15px
+}
+
+.flicky-slider.slider-btn-rotate .flickity-button.previous {
+  transform: rotate(45deg) translateY(-50%)
+}
+
+.flicky-slider.slider-btn-rotate .flickity-button.next .flickity-button-icon {
+  transform: rotate(45deg)
+}
+
+.flicky-slider.slider-btn-rotate .flickity-button.next {
+  transform: rotate(-45deg) translateY(-50%)
+}
+
+.flicky-slider.slider-btn-rotate .flickity-button.previous .flickity-button-icon {
+  transform: rotate(-45deg)
+}
+
+.flicky-slider.slider-btn-rotate:not(:hover) .flickity-button.previous {
+  transform: rotate(45deg) translate(15px) translateY(-50%)
+}
+
+.flicky-slider.slider-btn-rotate:not(:hover) .flickity-button.next {
+  transform: rotate(-45deg) translate(-15px) translateY(-50%)
+}
+
+.flicky-slider:not(:hover) .flickity-button,
+.flicky-slider.slider-btn-pos-middle-border .flickity-button {
+  transform: translate(0) translateY(-50%) !important
+}
+
+.slider-btn-pos-middle-border .flickity-button.previous {
+  margin-inline-start: calc(-1 * var(--ts-gutter-x) * .5)
+}
+
+.slider-btn-pos-middle-border .flickity-button.next {
+  margin-inline-end: calc(-1 * var(--ts-gutter-x) * .5)
+}
+
+.flicky-slider .flickity-button:hover {
+  color: var(--slider-btn-color-hover);
+  background-color: var(--slider-btn-background-hover);
+  border-color: var(--slider-btn-border-hover)
+}
+
+.flicky-slider.slider-btn-cl-light.slider-btn-style-default .flickity-button {
+  box-shadow: 0 2px 10px #36363626
+}
+
+.flicky-slider.slider-btn-cl-default {
+  --slider-btn-color: var(--ts-light-color);
+  --slider-btn-background: var(--ts-dark-color);
+  --slider-btn-border: var(--ts-dark-color);
+  --slider-btn-color-hover: var(--ts-light-color);
+  --slider-btn-background-hover: var(--ts-dark-color);
+  --slider-btn-border-hover: var(--ts-dark-color)
+}
+
+.flicky-slider.slider-btn-cl-default .flickity-button:hover {
+  opacity: .8 !important
+}
+
+.flicky-slider.slider-btn-cl-dark {
+  --slider-btn-color: var(--ts-light-color);
+  --slider-btn-background: var(--ts-dark-color);
+  --slider-btn-border: var(--ts-dark-color);
+  --slider-btn-color-hover: var(--ts-light-color);
+  --slider-btn-background-hover: var(--accent-color);
+  --slider-btn-border-hover: var(--accent-color)
+}
+
+.flicky-slider.slider-btn-cl-light {
+  --slider-btn-color: var(--ts-dark-color);
+  --slider-btn-background: var(--ts-light-color);
+  --slider-btn-border: var(--ts-light-color);
+  --slider-btn-color-hover: var(--ts-light-color);
+  --slider-btn-background-hover: var(--accent-color);
+  --slider-btn-border-hover: var(--accent-color)
+}
+
+.flicky-slider.slider-btn-cl-primary {
+  --slider-btn-color: var(--ts-light-color);
+  --slider-btn-background: var(--accent-color);
+  --slider-btn-border: var(--accent-color);
+  --slider-btn-color-hover: var(--ts-light-color);
+  --slider-btn-background-hover: var(--accent-color-hover);
+  --slider-btn-border-hover: var(--accent-color-hover)
+}
+
+.flicky-slider.slider-btn-cl-custom1,
+.flicky-slider.slider-btn-cl-custom2 {
+  --slider-btn-color: var(--btn-color);
+  --slider-btn-background: var(--btn-background);
+  --slider-btn-border: var(--btn-background);
+  --slider-btn-color-hover: var(--btn-color-hover);
+  --slider-btn-background-hover: var(--btn-background-hover);
+  --slider-btn-border-hover: var(--btn-background-hover)
+}
+
+.flicky-slider.slider-btn-style-outline {
+  --slider-btn-color: var(--ts-dark-color);
+  --slider-btn-border: var(--ts-dark-color);
+  --slider-btn-background-hover: var(--ts-dark-color);
+  --slider-btn-color-hover: var(--ts-light-color);
+  --slider-btn-border-hover: var(--ts-dark-color);
+  --slider-btn-background: transparent;
+}
+
+.flicky-slider.slider-btn-style-outline.slider-btn-cl-light {
+  --slider-btn-color: var(--ts-light-color);
+  --slider-btn-border: var(--ts-light-color);
+  --slider-btn-background-hover: var(--accent-color);
+  --slider-btn-color-hover: var(--ts-light-color);
+  --slider-btn-border-hover: var(--accent-color)
+}
+
+.flicky-slider.slider-btn-style-outline.slider-btn-cl-dark {
+  --slider-btn-color: var(--ts-dark-color);
+  --slider-btn-border: var(--ts-dark-color);
+  --slider-btn-background-hover: var(--accent-color);
+  --slider-btn-color-hover: var(--ts-light-color);
+  --slider-btn-border-hover: var(--accent-color)
+}
+
+.flicky-slider.slider-btn-style-outline.slider-btn-cl-primary {
+  --slider-btn-color: var(--accent-color);
+  --slider-btn-border: var(--accent-color);
+  --slider-btn-background-hover: var(--accent-color);
+  --slider-btn-color-hover: var(--ts-light-color);
+  --slider-btn-border-hover: var(--accent-color)
+}
+
+.flicky-slider.slider-btn-style-outline.slider-btn-cl-custom1,
+.flicky-slider.slider-btn-style-outline.slider-btn-cl-custom2 {
+  --slider-btn-color: var(--btn-color);
+  --slider-btn-border: var(--btn-color);
+  --slider-btn-background-hover: var(--btn-background-hover);
+  --slider-btn-color-hover: var(--btn-color-hover);
+  --slider-btn-border-hover: var(--btn-background-hover)
+}
+
+.flicky-slider.slider-btn-style-simple {
+  --slider-btn-color: var(--ts-dark-color);
+  --slider-btn-color-hover: var(--ts-dark-color);
+  --slider-btn-background: transparent;
+  --slider-btn-border: transparent;
+  --slider-btn-background-hover: transparent;
+  --slider-btn-border-hover: transparent;
+}
+
+.flicky-slider.slider-btn-style-simple.slider-btn-cl-light {
+  --slider-btn-color: var(--ts-light-color);
+  --slider-btn-color-hover: var(--accent-color)
+}
+
+.flicky-slider.slider-btn-style-simple.slider-btn-cl-dark {
+  --slider-btn-color: var(--ts-dark-color);
+  --slider-btn-color-hover: var(--accent-color)
+}
+
+.flicky-slider.slider-btn-style-simple.slider-btn-cl-primary {
+  --slider-btn-color: var(--accent-color);
+  --slider-btn-color-hover: var(--accent-color-hover)
+}
+
+.flicky-slider.slider-btn-style-simple.slider-btn-cl-custom1,
+.flicky-slider.slider-btn-style-simple.slider-btn-cl-custom2 {
+  --slider-btn-color: var(--btn-color);
+  --slider-btn-color-hover: var(--btn-color-hover)
+}
+
+.flicky-slider.slider-btn-style-outline .flickity-button {
+  border-style: solid;
+  border-width: 2px
+}
+
+.slider-btn-pos-ontop.flicky-slider .flickity-button {
+  position: absolute;
+  z-index: 2;
+  white-space: nowrap;
+  --abc: calc(var(--heading-height)/2);
+  --xyz: calc(var(--btn-height-slider)/2);
+  top: auto;
+  bottom: calc(100% + var(--tophead_mb));
+  opacity: 1;
+  visibility: visible;
+  margin: 0
+}
+
+.slider-btn-pos-ontop.flicky-slider .flickity-button.next {
+  right: calc(var(--flickity-btn-pos)/2);
+  transform: none
+}
+
+.slider-btn-pos-ontop.flicky-slider.slider-btn-style-simple .flickity-button.next {
+  right: calc(var(--flickity-btn-pos)/2 - 7px)
+}
+
+.slider-btn-pos-ontop.flicky-slider .flickity-button.previous {
+  right: calc(var(--btn-height-slider) + 20px + var(--flickity-btn-pos)/2);
+  left: auto;
+  transform: none
+}
+
+.slider-btn-pos-ontop.flicky-slider.slider-btn-style-simple .flickity-button.previous {
+  right: calc(var(--btn-height-slider) + 20px + var(--flickity-btn-pos)/2 - 7px)
+}
+
+.slider-btn-pos-ontop.flicky-slider:not(:hover) .flickity-button.previous,
+.slider-btn-pos-ontop.flicky-slider:not(:hover) .flickity-button.next {
+  transform: none
+}
+
+.slider-btn-style-outline.slider-btn-pos-middle-border {
+  --slider-btn-background: var(--btn-background);
+  --slider-btn-border: var(--border-color) !important
+}
+
+.flicky-slider .flickity-page-dots {
+  display: block;
+  -webkit-animation: 1s ani-fadeIn;
+  animation: 1s ani-fadeIn;
+  padding-inline-start: calc(var(--ts-gutter-x)/2);
+  padding-inline-end: calc(var(--ts-gutter-x)/2);
+  margin-inline-start: calc(-1 * (var(--space-dots)/2));
+  margin-inline-end: calc(-1 * (var(--space-dots)/2));
+  margin-top: var(--dots-bottom-pos);
+}
+
+.flickity-page-dots .dot.is-selected:first-child:last-child {
+  display: none
+}
+
+.flicky-slider.dots-round-true .flickity-page-dots .dot {
+  border-radius: 50%
+}
+
+.dots-style-elessi.dots-round-true .flickity-page-dots .dot {
+  border-radius: 5px
+}
+
+.flicky-slider.dots-style-outline .flickity-page-dots .dot:not(.is-selected) {
+  --slider-dot-background: transparent !important
+}
+
+.flicky-slider.dots-style-outline .flickity-page-dots .dot {
+  border-style: solid;
+  border-width: 2px
+}
+
+.flicky-slider.dots-style-default.dots-cl-default .dot.is-selected {
+  --slider-dot-background: rgba(0, 0, 0, .9)
+}
+
+.flicky-slider.dots-style-outline {
+  --slider-dot-width: 13px;
+  --slider-dot-height: 13px;
+  --slider-dot-background: #fff;
+  --slider-dot-border: #fff
+}
+
+.flicky-slider.dots-style-outline.dots-cl-default .dot.is-selected {
+  --slider-dot-background: #000;
+  --slider-dot-border: #000
+}
+
+.flicky-slider.dots-style-outline.dots-cl-default .dot:not(.is-selected) {
+  --slider-dot-background: #fff !important;
+  --slider-dot-border: rgba(0, 0, 0, .2);
+  opacity: 1
+}
+
+.flicky-slider.dots-style-elessi {
+  --slider-dot-width: 13px;
+  --slider-dot-height: 13px;
+  --slider-dot-background: #fff;
+  --slider-dot-border: #000;
+  --slider-dot-background-active: #000;
+  --slider-dot-width: 8px;
+  --slider-dot-height: 8px;
+}
+
+.flicky-slider.dots-style-elessi .dot.is-selected {
+  --slider-dot-width: 30px
+}
+
+.flicky-slider.dots-style-elessi.dots-cl-default .dot.is-selected {
+  --slider-dot-background: #000;
+  --slider-dot-border: #000
+}
+
+.flicky-slider.dots-style-elessi.dots-cl-default .dot:not(.is-selected) {
+  --slider-dot-background: #fff !important;
+  --slider-dot-border: #fff;
+  opacity: 1
+}
+
+.flicky-slider.dots-style-br-outline {
+  --slider-dot-width: 8px;
+  --slider-dot-height: 8px;
+  --slider-dot-background: var(--ts-light-color);
+  --slider-dot-border: var(--ts-dark-color);
+  --slider-dot-background-active: var(--ts-dark-color)
+}
+
+.flicky-slider.dots-style-br-outline,
+.flicky-slider.dots-style-br-outline2 {
+  --slider-dot-background: var(--ts-light-color);
+  --slider-dot-border: var(--ts-dark-color);
+  --slider-dot-background-active: var(--ts-dark-color)
+}
+
+.flicky-slider.dots-style-br-outline .dot,
+.flicky-slider.dots-style-br-outline2 .dot {
+  position: relative;
+  --slider-dot-width: 17px;
+  --slider-dot-height: 17px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #fff0;
+  -webkit-transition: box-shadow .3s ease;
+  transition: box-shadow .3s ease;
+  background-color: transparent !important
+}
+
+.flicky-slider.dots-style-br-outline .dot {
+  --slider-dot-width: 22px;
+  --slider-dot-height: 22px
+}
+
+.flicky-slider.dots-style-br-outline .dot.is-selected,
+.flicky-slider.dots-style-br-outline2 .dot.is-selected {
+  box-shadow: 0 0 0 2px var(--slider-dot-background)
+}
+
+.flicky-slider.dots-style-br-outline .dot:before,
+.flicky-slider.dots-style-br-outline2 .dot:before {
+  content: "";
+  border-radius: 100%;
+  background-color: var(--slider-dot-background);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0
+}
+
+.flicky-slider.dots-style-br-outline2 .dot.is-selected:before {
+  background-color: transparent
+}
+
+.flicky-slider.dots-style-br-outline2 .dot:before,
+.flicky-slider.dots-style-br-outline .dot.is-selected:before {
+  transform: scale(.3);
+  -webkit-transform: scale(.3)
+}
+
+.flicky-slider.dots-style-br-outline .dot:before {
+  transform: scale(.4);
+  -webkit-transform: scale(.4)
+}
+
+.flicky-slider.dots-cl-dark {
+  --slider-dot-background: var(--ts-dark-color);
+  --slider-dot-border: var(--ts-dark-color)
+}
+
+.flicky-slider.dots-cl-light {
+  --slider-dot-background: var(--ts-light-color);
+  --slider-dot-border: var(--ts-light-color)
+}
+
+.flicky-slider.dots-cl-primary {
+  --slider-dot-background: var(--accent-color);
+  --slider-dot-border: var(--accent-color)
+}
+
+.flicky-slider.dots-cl-custom1,
+.flicky-slider.dots-cl-custom2 {
+  --slider-dot-background: var(--dots-background);
+  --slider-dot-border: var(--dots-background)
+}
+
+.flicky-slider .flickity-page-dots .dot {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--slider-dot-width);
+  height: var(--slider-dot-height);
+  background-color: var(--slider-dot-background);
+  border-color: var(--slider-dot-border);
+  margin: 0 calc(var(--space-dots)/2);
+  cursor: pointer;
+  opacity: .5;
+  transition: all .3s
+}
+
+.flicky-slider .flickity-page-dots .dot:hover,
+.flicky-slider .flickity-page-dots .dot.is-selected {
+  opacity: 1
+}
+
+.flicky-slider .flickity-prev-next-button.previous {
+  left: calc(var(--flickity-btn-pos)/2)
+}
+
+.flicky-slider .flickity-prev-next-button.next {
+  right: calc(var(--flickity-btn-pos)/2)
+}
+
+.flicky-slider.dots-style-fullwidth .flickity-page-dots {
+  display: table;
+  width: 100%;
+  max-width: calc(100% - var(--ts-gutter-x));
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 45px
+}
+
+.flicky-slider.dots-style-fullwidth .flickity-page-dots .dot {
+  display: table-cell;
+  vertical-align: middle;
+  width: auto;
+  height: 3px;
+  background-color: #ededed;
+  opacity: 1
+}
+
+.flicky-slider.dots-style-fullwidth .flickity-page-dots .dot:hover,
+.flicky-slider.dots-style-fullwidth .flickity-page-dots .dot.is-selected {
+  background-color: var(--slider-dot-background)
+}
+
+.flicky-slider.dots-round-true.dots-style-fullwidth .flickity-page-dots .dot {
+  border-radius: 1px
+}
+
+.dots-style-number .flickity-page-dots {
+  opacity: 0;
+  visibility: hidden
+}
+
+.dots-style-number.flickity-enabled .flickity-page-dots {
+  opacity: 1;
+  visibility: visible
+}
+
+.dots-style-number .flickity-page-dots:not(.dots-list) {
+  display: none
+}
+
+.dots-style-number.dots-cl-dark {
+  --dots-cl: var(--ts-light-color);
+  --bg-dots-cl: var(--ts-dark-color)
+}
+
+.dots-style-number.dots-cl-light {
+  --dots-cl: var(--ts-dark-color);
+  --bg-dots-cl: var(--ts-light-color)
+}
+
+.dots-style-number.dots-cl-primary {
+  --dots-cl: var(--ts-light-color);
+  --bg-dots-cl: var(--accent-color)
+}
+
+.dots-style-number .dots-list {
+  padding: 5px 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 20px;
+  font-size: 14px;
+  margin: 0;
+  color: var(--dots-cl);
+  background-color: var(--bg-dots-cl);
+  left: 50%;
+  right: auto;
+  transform: translate(-50%);
+  width: auto
+}
+
+.dots-style-number.dots-round-true .dots-list {
+  border-radius: 15px
+}
+
+.flicky-slider.dots-bottom_left .flickity-page-dots {
+  text-align: left
+}
+
+.flicky-slider.dots-bottom_right .flickity-page-dots {
+  text-align: right
+}
+
+@media (min-width: 768px) {
+  .slider-btn-pos-middle-border .flickity-button.previous {
+    margin-inline-start: calc(-1 * var(--ts-gutter-x) * .5)
+  }
+
+  .slider-btn-pos-middle-border .flickity-button.next {
+    margin-inline-end: calc(-1 * var(--ts-gutter-x) * .5)
+  }
+}
+
+@media (min-width: 1441px) {
+  .slider-btn-pos-middle-border .flickity-button.previous {
+    margin-inline-start: calc(-1* (var(--btn-width-slider) / 2))
+  }
+
+  .slider-btn-pos-middle-border .flickity-button.next {
+    margin-inline-end: calc(-1* (var(--btn-width-slider) / 2))
+  }
+}
+
+@media (max-width: 1024px) {
+  .flicky-slider.slider-btn-small {
+    --btn-width-slider: 34px;
+    --btn-height-slider: 34px;
+    --icon-height-slider: 10px
+  }
+
+  .flicky-slider {
+    --btn-width-slider: 44px;
+    --btn-height-slider: 44px;
+    --icon-height-slider: 14px
+  }
+
+  .flicky-slider.slider-btn-large {
+    --btn-width-slider: 54px;
+    --btn-height-slider: 54px;
+    --icon-height-slider: 18px
+  }
+}
+
+@media (max-width: 767px) {
+  .flicky-slider.slider-btn-small {
+    --btn-width-slider: 28px;
+    --btn-height-slider: 28px;
+    --icon-height-slider: 10px
+  }
+
+  .flicky-slider {
+    --btn-width-slider: 36px;
+    --btn-height-slider: 36px;
+    --icon-height-slider: 14px
+  }
+
+  .flicky-slider.slider-btn-large {
+    --btn-width-slider: 44px;
+    --btn-height-slider: 44px;
+    --icon-height-slider: 18px
+  }
+
+  .flickity-page-dots {
+    margin: 5px 0 0
+  }
+
+  .flicky-slider.slider-btn-hidden-mobile-true .flickity-button,
+  .flicky-slider.dots-hidden-mobile-true .flickity-page-dots {
+    display: none
+  }
+
+  .flicky-slider:not(:hover) .flickity-button.previous,
+  .flicky-slider:not(:hover) .flickity-button.next {
+    transform: translate(0) translateY(-50%)
+  }
+
+  .flickity-prev-next-button.previous {
+    left: 10px
+  }
+
+  .flickity-prev-next-button.next {
+    right: 10px
+  }
+
+  .flicky-slider .flickity-prev-next-button.previous {
+    left: calc(var(--flickity-btn-pos-mb)/2)
+  }
+
+  .flicky-slider .flickity-prev-next-button.next {
+    right: calc(var(--flickity-btn-pos-mb)/2)
+  }
+}

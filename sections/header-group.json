@@ -1,31 +1,73 @@
-{
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
   "type": "header",
   "name": "Header",
   "sections": {
-    "announcement-bar": {
+    "section_announcement_bar_EF7iwG": {
       "type": "section-announcement-bar",
       "blocks": {
-        "announcement_1": {
+        "announcement_LjNtRD": {
           "type": "announcement",
           "settings": {
-            "announcement_text": "USE CODE: DOLL15 FOR 15% OFF MINIMUM PURCHASE OF $75",
-            "announcement_link": ""
-          }
-        },
-        "9ea8d0f3-1881-41d4-a75d-74fa49ce63e9": {
-          "type": "announcement",
-          "disabled": true,
-          "settings": {
-            "announcement_text": "Comfortable and Quality fabrics Materials",
-            "announcement_link": ""
+            "announcement_start_text": "Today deal sale off 70%",
+            "link": "shopify://collections",
+            "announcement_end_text": "Hurry Up",
+            "show_arrow": true,
+            "show_countdown": true,
+            "countdown_end_time": "2026/09/19"
           }
         }
       },
-      "block_order": ["announcement_1", "9ea8d0f3-1881-41d4-a75d-74fa49ce63e9"],
+      "block_order": [
+        "announcement_LjNtRD"
+      ],
       "settings": {
-        "show_announcement": false,
-        "rotation_interval": 5,
-        "show_arrows": false,
+        "background_color": "#e91e63",
+        "text_color": "#ffffff",
+        "height": 45,
+        "font_size": 12,
+        "emphasis_font_size": 14,
+        "slider_speed": 2000,
+        "pause_on_hover": true,
+        "show_dots": false,
+        "show_close_button": true,
+        "close_btn_position": "right",
+        "close_button_style": "1",
+        "cookie_duration": 7
+      }
+    },
+    "section_top_bar_6ybw3N": {
+      "type": "section-top-bar",
+      "blocks": {
+        "currency_JUhhYj": {
+          "type": "currency",
+          "settings": {
+            "currency_name": "USD",
+            "currency_code": "USD",
+            "country_name": "United States"
+          }
+        }
+      },
+      "block_order": [
+        "currency_JUhhYj"
+      ],
+      "settings": {
+        "is_transparent": false,
+        "phone_number": "+01 23456789",
+        "email_address": "shabbirvajihi76@gmail.com",
+        "sale_text": "Summer sale discount off 50%! Shop Now",
+        "location_text": "Location",
+        "location_link": "/pages/store-locator",
+        "default_language": "English",
+        "default_currency": "USD",
         "section_color_scheme": "accent-1"
       }
     },
@@ -34,7 +76,10 @@
       "blocks": {
         "header-0": {
           "type": "standard_menu",
-          "settings": { "default_navigation": "main-menu" }
+          "disabled": true,
+          "settings": {
+            "default_navigation": "main-menu"
+          }
         },
         "header-2": {
           "type": "menu_link",
@@ -48,18 +93,14 @@
           "settings": {
             "heading": "New In",
             "heading_link": "shopify://collections/all",
-            "image_1": "shopify://shop_images/4110214d-ac20-4b3b-bf1a-01cea0733c0f.jpg",
             "image_heading_1": "Volcanic Flame Aroma Air Humidifier",
             "image_link_1": "shopify://collections/home-finds",
-            "image_2": "shopify://shop_images/f11e0c16-4232-4a98-943c-bfb07031fd99_200x200_40955f81-9655-45a0-8176-89288e3d970c.jpg",
             "image_heading_2": "Kitchen Double Tier Spice Rack",
             "image_link_2": "shopify://collections/kitchen-favourites",
-            "image_3": "shopify://shop_images/1239dcdc-e138-4b9f-a214-7533f2dcf4f5_ef64e9e7-6686-4058-8936-71ceadee01c2.jpg",
             "image_heading_3": "Winter Warm Pet Bed Pet Supplies Cat Pet Bed",
             "image_link_3": "shopify://collections/pet-finds",
-            "image_4": "shopify://shop_images/6554667863817_200x200_f6bc183f-afa4-46c5-955e-7204759fd70a.jpg",
-            // "image_heading_4": "Fitness Headband",
-            // "image_link_4": "shopify://collections/swim",
+            "image_heading_4": "",
+            "image_link_4": "",
             "image_aspect": "original",
             "overlay_color_scheme": "light",
             "overlay_opacity": 20,
@@ -73,7 +114,6 @@
         "7e266268-8afd-4dfb-811b-befec0d754c0"
       ],
       "settings": {
-        "header_logo": "shopify://shop_images/metro_logo.png",
         "logo_width_desktop": 190,
         "logo_width_mobile": 160,
         "logo_aligment": "left",
@@ -103,9 +143,18 @@
           }
         }
       },
-      "block_order": ["engine-quick-search-0", "engine-quick-search-1"],
+      "block_order": [
+        "engine-quick-search-0",
+        "engine-quick-search-1"
+      ],
+      "disabled": true,
       "settings": {}
     }
   },
-  "order": ["announcement-bar", "header", "engine-quick-search"]
+  "order": [
+    "section_announcement_bar_EF7iwG",
+    "section_top_bar_6ybw3N",
+    "header",
+    "engine-quick-search"
+  ]
 }

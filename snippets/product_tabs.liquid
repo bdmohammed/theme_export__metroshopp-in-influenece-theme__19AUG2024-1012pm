@@ -1,0 +1,410 @@
+{%- comment -%}
+  SNIPPET: product-tabs
+    Version: 1.0
+
+    Purpose:
+      Renders a configurable tabbed interface for product pages, supporting:
+        • Description
+        • Reviews (multiple providers)
+        • Additional attributes
+        • Upsell / “Buy Again” blocks
+        • Custom HTML and Liquid tabs
+
+    Inputs:
+      • product            — Shopify product object
+      • tabs_layout        — layout style (e.g. “tab”, “accordion”)
+      • seBlocks           — section.blocks array
+      • idTabDes           — HTML ID for Description tab
+      • idTabReview        — HTML ID for Reviews tab
+      • isProductDefault   — boolean: single-variant mode
+      • se_stts            — section settings (design, layout, colors, etc.)
+
+    Parameters:
+      product: {Object} Product Liquid object
+      se_stts: {Object} Section settings
+      seBlocks: {Array} Section blocks
+      idTabDes: {String} ID for description tab
+      idTabReview: {String} ID for review tab
+      isProductDefault: {Boolean} Whether this is the default product view
+      tabs_layout: {String} Layout style for tabs
+    Usage:
+      {% render 'product-tabs',
+         product: product,
+         tabs_layout: se_stts.tabs_layout,
+         seBlocks: section.blocks,
+         idTabDes: 'desc-tab',
+         idTabReview: 'rev-tab',
+         isProductDefault: false
+      -%}
+
+    Best Practices:
+      • Always escape user-facing strings: {{ bk_stts.title | escape }}
+      • Avoid duplicate IDs: generate per-section unique IDs
+      • Defer heavy scripts/styles to design_mode only
+      • Keep markup semantic (use <ul>/<li> for tab nav)
+      • Early-exit empty or mis-configured blocks for performance
+{%- endcomment -%}
+
+{{ 'pre_flickity.css' | asset_url | stylesheet_tag }}
+{{ 'product-tabs.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .product-tabs-wrapper-{{section.id}} {
+    --bg-tabs: {{se_stts.bg}};
+    --bg-tabs-mb: {{se_stts.bg_mb}};
+  }
+{%- endstyle -%}
+
+{%- liquid
+  # Initialize key variables
+  assign pid = product.id
+
+  # Extract tab blocks from section blocks
+  assign type_blocks = seBlocks | map: 'type'
+  assign tab_blocks = type_blocks | where: 'tab_'
+
+  # Get design settings
+  assign tabs_design = se_stts.tabs_design
+  assign tabs_design_mb = se_stts.tabs_design_mb
+  assign enable_first_tab = se_stts.enable_first_tab
+
+  # Initialize tracking variables for tracking blocks in loops
+  assign list_ty_curent = ''
+  assign list_ty_curent1 = ''
+  assign list_ty_curent2 = ''
+-%}
+
+{%- for i in (1..1) -%}
+  {%- if tab_blocks.size == 0 %}{% break %}{% endif -%}
+
+  <div class="product-tabs-wrapper product-tabs-wrapper-{{section.id}} is--tab-design__{{tabs_design}} is--tab-design-mb__{{tabs_design_mb}} is--tab-layout__{{se_stts.tabs_layout}} is--tab-position__{{se_stts.tabs_position}}">
+    <div class="container">
+      {%- comment -%}Debug mode for admin - adds block IDs for easier Shopify editor targeting{%- endcomment -%}
+      {%- if request.design_mode -%}
+        <div class="dev-tab-adm">
+          {%- for type in tab_blocks -%}
+            {%- liquid
+              assign arr_ty_curent = list_ty_curent1 | split: ',' | compact | where: type
+              assign arrblock = seBlocks | where: 'type', type
+              assign block = arrblock[arr_ty_curent.size]
+              assign list_ty_curent1 = list_ty_curent1 | append: ',' | append: type
+            -%}
+            <div {{ block.shopify_attributes }}>{{ block.id }}</div>
+          {%- endfor %}
+        </div>
+        <style>
+          .product-tabs-wrapper-{{section.id}} {
+              position: relative;
+          }
+          .dev-tab-adm {
+              position: absolute;opacity: 0;
+              pointer-events: none;
+              top: -10px;
+          }
+        </style>
+      {%- endif -%}
+
+      <div
+        class="tabs type-tabs accordion-mb-{% if tabs_design_mb == 'accordion' %}true{% else %}false{% endif %}"
+        data-ts-tabs
+        data-ts-accordion-pr
+      >
+        {%- if tabs_design == 'tab' -%}
+          {%- assign forloop_first = true -%}
+          <ul
+            class="tabs-ul tabs-pr-ul flicky-slider slider-btn-style-simple slider-btn-none slider-btn-small slider-btn-vi-always flickity"
+            data-ts-tab-ul
+            data-flickity-js='{"freeScroll": true, "setPrevNextButtons":true, "arrowIcon":"1", "imagesLoaded": 0,"adaptiveHeight": 0, "contain": 1, "groupCells": "70%", "dragThreshold" : 5, "cellAlign":"center", "wrapAround": false,"prevNextButtons": true,"percentPosition": 1,"pageDots": false, "pauseAutoPlayOnHover" : true }'
+          >
+            {%- comment -%}Tab navigation - only render if tab design is selected{%- endcomment -%}
+            {%- for type in tab_blocks -%}
+              {%- liquid
+                # Track which blocks we've processed
+                assign arr_ty_curent = list_ty_curent | split: ',' | compact | where: type
+                assign arrblock = seBlocks | where: 'type', type
+                assign block = arrblock[arr_ty_curent.size]
+                assign list_ty_curent = list_ty_curent | append: ',' | append: type
+
+                # Get block settings and prepare IDs
+                assign bk_stts = block.settings
+                assign bk_id = block.id
+                assign tab_id = 'tab_' | append: bk_id
+
+                # Handle special tab cases and conditionally skip tabs
+                case block.type
+                  when 'tab_des'
+                    assign tab_id = idTabDes
+                  when 'tab_rivui'
+                    assign tab_id = idTabReview
+                  when 'tab_add'
+                    if isProductDefault
+                      continue
+                    endif
+                  when 'tab_buy'
+                    if nav_up_size == 0
+                      continue
+                    endif
+                  when 'tab_html'
+                    assign bk_title = bk_stts.title | default: bk_stts.page.title
+                    if bk_title == blank or bk_stts.page.content == blank and bk_stts.content == blank
+                      continue
+                    endif
+                  when 'tab_liquid'
+                    if bk_stts.title == blank or bk_stts.custom_liquid == blank
+                      continue
+                    endif
+                  else
+                    if bk_stts.title == blank or bk_stts.text == blank
+                      continue
+                    endif
+                endcase
+              -%}
+
+              <li class="d-inline-flex">
+                <a
+                  id="b_{{bk_id}}"
+                  {% if forloop_first %}
+                    class="active"
+                  {% endif %}
+                  href="#{{tab_id}}"
+                  rel="nofollow"
+                  data-ts-tab-item
+                  data-no-instant
+                >
+                  {{- bk_stts.title | escape -}}
+                </a>
+              </li>
+
+              {%- assign forloop_first = false -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- comment -%}Initialize logic for making first tab active{%- endcomment -%}
+        {%- liquid
+          if enable_first_tab
+            assign forloop_first = true
+            assign class_first_tab = ' active'
+          else
+            assign forloop_first = false
+          endif
+        -%}
+
+        {%- comment -%}Tab content panels{%- endcomment -%}
+        {%- for type in tab_blocks -%}
+          {%- liquid
+            # Track which blocks we've processed
+            assign arr_ty_curent = list_ty_curent2 | split: ',' | compact | where: type
+            assign arrblock = seBlocks | where: 'type', type
+            assign block = arrblock[arr_ty_curent.size]
+            assign list_ty_curent2 = list_ty_curent2 | append: ',' | append: type
+
+            # Get block settings
+            assign bk_stts = block.settings
+            assign bk_id = block.id
+            assign tab_id = 'tab_' | append: bk_id
+
+            # Determine if this is the active tab
+            unless forloop_first
+              assign class_first_tab = ''
+            endunless
+          -%}
+
+          {%- case block.type -%}
+              {%- comment -%}Product Description Tab{%- endcomment -%}
+            {%- when 'tab_des' %}
+              <div class="tab-wrapper{{class_first_tab}}" data-ts-tab-wrapper>
+                <a
+                  id="t44_{{bk_id}}"
+                  href="#{{idTabDes}}"
+                  rel="nofollow"
+                  class="tab__title fwm ch"
+                  data-ts-tab-item
+                  data-no-instant
+                  ><span class="tab__text">{{ bk_stts.title | escape }}</span><span class="tab__icon"></span
+                ></a>
+                <div id="{{idTabDes}}" class="rte tab-content{{class_first_tab}}" data-ts-tab-content>
+                  {{- product.description -}}
+                </div>
+              </div>
+              {%- assign forloop_first = false -%}
+
+              {%- comment -%}Product Reviews Tab{%- endcomment -%}
+            {%- when 'tab_rivui' %}
+              <div class="tab-wrapper{{class_first_tab}}" data-ts-tab-wrapper>
+                <a
+                  id="t44_{{bk_id}}"
+                  href="#{{idTabReview}}"
+                  rel="nofollow"
+                  class="tab__title fwm ch"
+                  data-ts-tab-item
+                  data-no-instant
+                  ><span class="tab__text">{{ bk_stts.title | escape }}</span><span class="tab__icon"></span
+                ></a>
+                <div id="{{idTabReview}}" class="tab-content{{class_first_tab}}" data-ts-tab-content>
+                  {%- case settings.app_review -%}
+                    {%- when '1' -%}
+                      <div id="shopify-product-reviews" data-id="{{pid}}">{{ product.metafields.spr.reviews }}</div>
+                    {%- when '2' -%}
+                      <div class="lt-block-reviews">
+                        <ryviu-widget
+                          handle="{{product.handle}}"
+                          title_product="{{product.title}}"
+                          total_meta="{{ product.metafields.ryviu.r_count }}"
+                          image_product="{{ product.featured_image.src | image_url: '800x' }}"
+                        ></ryviu-widget>
+                      </div>
+                    {%- when '3' -%}
+                      <div id="shopify-ali-review" product-id="{{ pid }}">
+                        {{ shop.metafields.review_collector.review_code }}
+                      </div>
+                    {%- when '4' -%}
+                      <div id="looxReviews" data-product-id="{{pid}}" class="loox-reviews-default">
+                        {{ product.metafields.loox.reviews }}
+                      </div>
+                    {%- when '5' -%}
+                      {%- capture the_snippet_reviews %}{% render 'socialshopwave-widget-recommends' with 1 %}{% endcapture -%}
+                      {%- unless the_snippet_reviews contains 'Liquid error' %}{{ the_snippet_reviews }}{% endunless -%}
+                    {%- when '7' -%}
+                      {%- render 'judgeme_widgets',
+                        widget_type: 'judgeme_review_widget',
+                        concierge_install: true,
+                        product: product
+                      -%}
+                    {%- when '8' -%}
+                      {%- render 'reviews-importer', product: product -%}
+                      <div class="scm-container custom" style="display: none;">
+                        <div id="scm-reviews-importer" class="scm-reviews-importer">
+                          <iframe id="scm-reviews-importer-iframe" width="100%"></iframe>
+                        </div>
+                      </div>
+                    {%- else -%}
+                      {%- comment -%}Custom review widget{%- endcomment -%}
+                      <div class="star-rating review_widget_other">{{ bk_setts.review_liquid }}</div>
+                  {%- endcase -%}
+                </div>
+              </div>
+              {%- assign forloop_first = false -%}
+
+              {%- comment -%}Product Attributes Tab{%- endcomment -%}
+            {%- when 'tab_add' -%}
+              {%- if isProductDefault %}{% continue %}{% endif -%}
+              <div class="tab-wrapper{{class_first_tab}}" data-ts-tab-wrapper>
+                <a
+                  id="t44_{{bk_id}}"
+                  href="#{{tab_id}}"
+                  rel="nofollow"
+                  class="tab__title fwm ch"
+                  data-ts-tab-item
+                  data-no-instant
+                  ><span class="tab__text">{{ bk_stts.title | escape }}</span><span class="tab__icon"></span
+                ></a>
+                <div id="{{tab_id}}" class="tab-content{{class_first_tab}}" data-ts-tab-content>
+                  <table class="pr_attrs">
+                    <tbody>
+                      {%- for product_option in product.options_with_values -%}
+                        <tr class="attr_pa_{{product_option.name | handle }}">
+                          <th class="attr__label">{{ product_option.name }}</th>
+                          <td class="attr__value">
+                            <p>
+                              {% for value in product_option.values -%}
+                                {{- value -}}
+                                {%- unless forloop.last == true %}, {% endunless -%}
+                              {%- endfor %}
+                            </p>
+                          </td>
+                        </tr>
+                      {%- endfor -%}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              {%- assign forloop_first = false -%}
+
+              {%- comment -%}Frequently Bought Together Tab{%- endcomment -%}
+            {%- when 'tab_buy' -%}
+              {%- if nav_up_size == 0 %}{% continue %}{% endif -%}
+              <div class="tab-wrapper{{class_first_tab}}" data-ts-tab-wrapper>
+                <a
+                  id="t44_{{bk_id}}"
+                  href="#{{tab_id}}"
+                  rel="nofollow"
+                  class="tab__title fwm ch"
+                  data-ts-tab-item
+                  data-no-instant
+                  ><span class="tab__text">{{ bk_stts.title | escape }}</span><span class="tab__icon"></span
+                ></a>
+                <div id="{{tab_id}}" class="tab-content{{class_first_tab}}" data-ts-tab-content>
+                  {%- render 'pr-FBT', product: product, nav_up_size: nav_up_size, class: 'is--tab-product' -%}
+                </div>
+              </div>
+              {%- assign forloop_first = false -%}
+
+              {%- comment -%}Custom HTML Content Tab{%- endcomment -%}
+            {%- when 'tab_html' -%}
+              {%- assign bk_title = bk_stts.title | default: bk_stts.page.title %}
+              {%- if bk_title == blank or bk_stts.page.content == blank and bk_stts.content == blank -%}
+                {%- continue -%}
+              {%- endif -%}
+              <div class="tab-wrapper{{class_first_tab}}" data-ts-tab-wrapper>
+                <a
+                  id="t44_{{bk_id}}"
+                  href="#{{tab_id}}"
+                  rel="nofollow"
+                  class="tab__title fwm ch"
+                  data-ts-tab-item
+                  data-no-instant
+                  ><span class="tab__text">{{ bk_title | escape }}</span><span class="tab__icon"></span
+                ></a>
+                <div id="{{tab_id}}" class="rte tab-content{{class_first_tab}}" data-ts-tab-content>
+                  {{ bk_stts.content }}
+                  {{ bk_stts.page.content }}
+                </div>
+              </div>
+              {%- assign forloop_first = false -%}
+
+              {%- comment -%}Custom Liquid Content Tab{%- endcomment -%}
+            {%- when 'tab_liquid' -%}
+              {%- if bk_stts.title == blank or bk_stts.custom_liquid == blank %}{% continue %}{% endif -%}
+              <div class="tab-wrapper{{class_first_tab}}" data-ts-tab-wrapper>
+                <a
+                  id="t44_{{bk_id}}"
+                  href="#{{tab_id}}"
+                  rel="nofollow"
+                  class="tab__title fwm ch"
+                  data-ts-tab-item
+                  data-no-instant
+                  ><span class="tab__text">{{ bk_stts.title | escape }}</span><span class="tab__icon"></span
+                ></a>
+                <div id="{{tab_id}}" class="tab-content{{class_first_tab}}" data-ts-tab-content>
+                  {{ bk_stts.custom_liquid }}
+                </div>
+              </div>
+              {%- assign forloop_first = false -%}
+
+              {%- comment -%}Default tab handling (custom tab types){%- endcomment -%}
+            {%- else -%}
+              {%- if bk_stts.title == blank or bk_stts.text == blank %}{% continue %}{% endif -%}
+              <div class="tab-wrapper{{class_first_tab}}" data-ts-tab-wrapper>
+                <a
+                  id="t44_{{bk_id}}"
+                  href="#{{tab_id}}"
+                  rel="nofollow"
+                  class="tab__title fwm ch"
+                  data-ts-tab-item
+                  data-no-instant
+                >
+                  <span class="tab__text">{{ bk_stts.title | escape }}</span>
+                  <span class="tab__icon"></span>
+                </a>
+                <div id="{{tab_id}}" class="tab-content{{class_first_tab}}" data-ts-tab-content>
+                  {{ bk_stts.text }}
+                </div>
+              </div>
+              {%- assign forloop_first = false -%}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+{%- endfor -%}
