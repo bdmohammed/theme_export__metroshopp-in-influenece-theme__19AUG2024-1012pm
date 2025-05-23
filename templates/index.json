@@ -14,11 +14,12 @@
       "blocks": {
         "image_parent_w6imV4": {
           "type": "image_parent",
-          "disabled": true,
           "settings": {
+            "image": "shopify://shop_images/slider-01_1.jpg",
+            "image_mb": "shopify://shop_images/slider-01_1.jpg",
             "image_position": "8",
             "cl_img": "",
-            "link_img1": "",
+            "link_img1": "shopify://collections",
             "open_link": "_blank",
             "animate_slide": "none",
             "text_align": "start",
@@ -1176,7 +1177,10 @@
           }
         }
       },
-      "block_order": ["1657013000fe2dad89-0", "1657013000fe2dad89-1"],
+      "block_order": [
+        "1657013000fe2dad89-0",
+        "1657013000fe2dad89-1"
+      ],
       "disabled": true,
       "settings": {
         "design_heading": "1",
@@ -1216,7 +1220,10 @@
           }
         }
       },
-      "block_order": ["166169031015805e1c-0", "166169031015805e1c-1"],
+      "block_order": [
+        "166169031015805e1c-0",
+        "166169031015805e1c-1"
+      ],
       "disabled": true,
       "settings": {
         "design_heading": "2",
@@ -2029,7 +2036,10 @@
           }
         }
       },
-      "block_order": ["166193933244dd3800-0", "166193933244dd3800-1"],
+      "block_order": [
+        "166193933244dd3800-0",
+        "166193933244dd3800-1"
+      ],
       "settings": {
         "design_heading": "2",
         "heading_align": "text-center",
