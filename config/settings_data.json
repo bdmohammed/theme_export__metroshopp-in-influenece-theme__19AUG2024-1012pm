@@ -401,7 +401,6 @@
           },
           "1bde09fa-0c40-4296-b411-d7f8815c64b8": {
             "type": "mega",
-            "disabled": true,
             "settings": {
               "title": "Gifiting",
               "url": "/",
@@ -799,7 +798,6 @@
           },
           "31b0751c-9378-4557-be28-99c34fadabad": {
             "type": "link",
-            "disabled": true,
             "settings": {
               "tt_hd": "For Gifting",
               "url": "",
@@ -847,7 +845,6 @@
           },
           "b3c09a9d-0ab6-468c-bd40-26cbc747d21e": {
             "type": "link",
-            "disabled": true,
             "settings": {
               "tt_hd": "For Gifting",
               "url": "",
@@ -905,7 +902,6 @@
           },
           "9cc793ba-2128-4cc0-9e5a-a7f4119ac09e": {
             "type": "link",
-            "disabled": true,
             "settings": {
               "tt_hd": "For Gifting",
               "url": "",
