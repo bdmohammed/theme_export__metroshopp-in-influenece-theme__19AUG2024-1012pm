@@ -157,7 +157,7 @@
       {%- if settings.use_cus_lz and settings.cus_lz != blank -%}
       {%- assign size_cus_lz = settings.size_cus_lz -%}
       {%- assign size_cus_lz_x = size_cus_lz |append:'x' -%}
-      --lz-img-cus: url("{{settings.cus_lz | asset_url | image_url: size_cus_lz_x, scale: 2 }}");
+      --lz-img-cus: url("{{settings.cus_lz | image_url: size_cus_lz_x, scale: 2 }}");
       --lz-size-cus: url("{{size_cus_lz }}");
       {%- endif -%}
   }

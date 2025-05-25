@@ -429,7 +429,7 @@
               <div class="ratio relative overflow-hidden" style="--aspect-ratioapt:{{image.aspect_ratio |default: 1}};">
                 <img
                   class="w-100 lazyload"
-                  data-src="{{ image | asset_url | image_url: '1x1' }}"
+                  data-src="{{ image | image_url: '1x1' }}"
                   data-widths="[100,200,400,600]"
                   data-optimumx="2"
                   data-sizes="auto"
@@ -440,7 +440,7 @@
                 >
                 <span
                   class="lazyload-loader is-bg-img"
-                  style="background: url({{ image | asset_url | image_url: '1x1' }});"
+                  style="background: url({{ image | image_url: '1x1' }});"
                 ></span>
               </div>
             </div>

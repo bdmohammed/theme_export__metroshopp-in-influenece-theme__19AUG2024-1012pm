@@ -47,10 +47,10 @@
     assign results_count = blog.articles_count
 -%}
 {%- paginate blog.articles by limit -%}
-    <div class="section-inner nt_se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank and stt_layout != 'se-container' %} data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %} {% render 'section_style',se_stts:se_stts -%} >
+    <div class="section-inner nt_se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank and stt_layout != 'se-container' %} data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %} {% render 'section_style',se_stts:se_stts -%} >
         {{-html_layout[0]-}}
         {%- if stt_layout == 'se-container' -%}
-            <div class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank %} data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %}>{% endif -%}
+            <div class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank %} data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %}>{% endif -%}
                 <div class="row">
                     <div data-ntajax-container data-ntajax-options='{"id":"{{sid}}","type":"{{typeAjax}}","isProduct":false,"updateURL":true,"updateURLPrev":true}' class="col-item main-portfolio-page main-area">
                       {%- if source != '0' -%}
@@ -99,8 +99,8 @@
                                     <div class="portfolio-inner relative">
                                         {%- if image != blank -%}
                                             <a class="portfolio-thumb d-block" href="{{article.url}}">
-                                                <div class="ratio" style="background: url({{ image | asset_url | image_url: '1x1' }});--aspect-ratioapt: {{image.aspect_ratio | default: 2}}">
-                                                    <img class="lazyload is-lz--fadeIn" data-src="{{ image | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src=" {%- render 'img_svg',w:image.width,h:image.height -%} " width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
+                                                <div class="ratio" style="background: url({{ image | image_url: '1x1' }});--aspect-ratioapt: {{image.aspect_ratio | default: 2}}">
+                                                    <img class="lazyload is-lz--fadeIn" data-src="{{ image | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src=" {%- render 'img_svg',w:image.width,h:image.height -%} " width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
                                                 </div>
                                             </a>
                                         {%- endif -%}

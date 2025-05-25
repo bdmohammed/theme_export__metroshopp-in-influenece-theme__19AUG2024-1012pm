@@ -28,7 +28,7 @@
                     {%- if bk_stts.cl_gradient != blank and bk_stts.color_img == false or bk_stts.color_jpg == blank -%}background-image: {{bk_stts.cl_gradient}}{%- endif -%}
                   }
                   {%- if bk_stts.color_img and bk_stts.color_jpg != blank -%} 
-                  .bg_color_{{title_h}}.lazyloaded{background-image: url('{{ bk_stts.color_jpg | asset_url | image_url: img_size_sw, crop: 'center' }}')}
+                  .bg_color_{{title_h}}.lazyloaded{background-image: url('{{ bk_stts.color_jpg | image_url: img_size_sw, crop: 'center' }}')}
                   {%- endif -%}
 
                {%- when 'lb_menu' -%}

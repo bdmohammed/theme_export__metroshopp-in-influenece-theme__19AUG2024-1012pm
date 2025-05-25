@@ -251,7 +251,7 @@
                           handle="{{product.handle}}"
                           title_product="{{product.title}}"
                           total_meta="{{ product.metafields.ryviu.r_count }}"
-                          image_product="{{ product.featured_image.src | asset_url | image_url: '800x' }}"
+                          image_product="{{ product.featured_image.src | image_url: '800x' }}"
                         ></ryviu-widget>
                       </div>
                     {%- when '3' -%}

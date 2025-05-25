@@ -44,6 +44,6 @@
   alt="{{ alt | escape }}"
   width="{{ image_width }}"
   height="{{ image_height }}"
-  src="{{ url | asset_url | image_url: width: crop_size, crop: image_position }}"
+  src="{{ url | image_url: width: crop_size, crop: image_position }}"
   data-aid="thumbnail-image"
 >

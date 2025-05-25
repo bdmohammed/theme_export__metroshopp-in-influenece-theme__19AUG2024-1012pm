@@ -17,14 +17,14 @@
   {% if share_object == 'product' %}
     {% capture permalinkURL %}{{ shop.url }}{{ product.url }}{% endcapture %}
     {% capture shareTitle %}{{ product.title }}{% endcapture %}
-    {% capture shareImage %}{{ product.featured_image | asset_url | image_url: width: 2000, height: 2000 }}{% endcapture %}
+    {% capture shareImage %}{{ product.featured_image | image_url: width: 2000, height: 2000 }}{% endcapture %}
   {% endif %}
 
   {% if share_object == 'article' %}
     {% capture permalinkURL %}{{ shop.url }}{{ article.url }}{% endcapture %}
     {% capture shareTitle %}{{ article.title }}{% endcapture %}
     {% assign article_img = article.image | default: page_image %}
-    {% capture shareImage %}{{ article_img | asset_url | image_url: width: 2000, height: 2000 }}{% endcapture %}
+    {% capture shareImage %}{{ article_img | image_url: width: 2000, height: 2000 }}{% endcapture %}
   {% endif %}
 
   {%- liquid

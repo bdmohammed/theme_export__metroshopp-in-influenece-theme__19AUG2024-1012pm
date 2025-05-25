@@ -49,7 +49,7 @@
               <div class="lookbook-img-wrap ratio" style="--aspect-ratioapt:{{ratio | default:1.7777 }};">
                 <img
                   class="lazyload lz--fadeIn img-as-bg pin__image"
-                  data-src="{{ image | asset_url | image_url: '1x1' }}"
+                  data-src="{{ image | image_url: '1x1' }}"
                   data-widths="[800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400, 3800, 4100]"
                   data-optimumx="1.5"
                   data-sizes="auto"
@@ -60,7 +60,7 @@
                 >
                 <span
                   class="lazyload-loader is-bg-img"
-                  style="background: url({{ image | asset_url | image_url: '1x1' }})"
+                  style="background: url({{ image | image_url: '1x1' }})"
                 ></span>
               </div>
             {%- else -%}

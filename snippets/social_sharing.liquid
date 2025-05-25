@@ -19,7 +19,7 @@
     unless share_image
       assign share_image = product.featured_image | default: article.image | default: settings.share_image | default: page_image | default: settings.logo
     endunless
-    assign permaImage = share_image | asset_url | image_url: '1024x1024'
+    assign permaImage = share_image | image_url: '1024x1024'
   else
     if settings.social_tiktok_link != blank or settings.social_soundcloud_link != blank or settings.social_behance_link != blank or settings.social_youtube_link != blank or settings.social_tumblr_link != blank or settings.social_pinterest_link != blank or settings.social_linkedin_link != blank or settings.social_dribbble_link != blank or settings.social_instagram_link != blank or settings.social_twitter_link != blank or settings.social_facebook_link != blank
       assign social_icons = true

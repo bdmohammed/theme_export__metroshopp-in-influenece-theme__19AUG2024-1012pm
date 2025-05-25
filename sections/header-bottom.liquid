@@ -210,7 +210,7 @@
 <div
   data-header-options='{ "isTransparent": {{h_transparent}},"isSticky": {{se_stts.sticky_header}},"hideScroldown": {{se_stts.scroll_header}} }'
   class="header__wrapper relative layout-layout_bottom{% if h__bgimg != blank %} lazyload header__bgimg"
-  data-bgset="{{ h__bgimg | asset_url | image_url: '1x1' }}"
+  data-bgset="{{ h__bgimg | image_url: '1x1' }}"
   data-ratio="{{h__bgimg.aspect_ratio}}"
   data-sizes="auto"
   {% else %}

@@ -10,7 +10,7 @@
   assign space_transparent = se_stts.space_transparent_header 
   assign source = se_stts.source -%}
 
-<div data-header-options='{ "isTransparent": {{h_transparent}},"isSticky": {{se_stts.sticky_header}},"hideScroldown": {{se_stts.scroll_header}} }' class="header__wrapper layout-layout_{{se_stts.layout}} {% if h__bgimg != blank %} lazyload header__bgimg" data-bgset="{{ h__bgimg | asset_url | image_url: '1x1' }}" data-ratio="{{h__bgimg.aspect_ratio}}" data-sizes="auto"{% else %}"{% endif %}>
+<div data-header-options='{ "isTransparent": {{h_transparent}},"isSticky": {{se_stts.sticky_header}},"hideScroldown": {{se_stts.scroll_header}} }' class="header__wrapper layout-layout_{{se_stts.layout}} {% if h__bgimg != blank %} lazyload header__bgimg" data-bgset="{{ h__bgimg | image_url: '1x1' }}" data-ratio="{{h__bgimg.aspect_ratio}}" data-sizes="auto"{% else %}"{% endif %}>
   <div class="container">
     <div data-header-height class="row ts-gx-15 ts-gx-md-30 align-items-center">
     {%- case se_stts.layout -%}

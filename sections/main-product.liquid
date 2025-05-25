@@ -294,7 +294,7 @@
     {%- if sc_type == '1' and page_size != blank and ck_s -%}
       <a class="ch btn__size-chart" data-no-instant rel="nofollow" href="{{page_size.url}}" data-class="mfp-btn-close-inline" data-id="pr-popup__size-guide" data-storageid="{{page_size.url}}" data-open-mfp-ajax data-style="max-width:950px" data-mfp-src="{{page_size.url}}/?section_id=ajax_popup">{{ 'products.product.product_size_guide' | t }}</a>
     {%- elsif sc_type == '2' and image != blank and ck_s -%}
-      <a class="ch btn__size-chart" data-no-instant rel="nofollow"  href="{{product.url}}" data-ts-image-opend data-pswp-src="{{ image | asset_url | image_url: 'master' }}" data-pswp-w="{{ image.width }}" data-pswp-h="{{ image.height }}" data-pswp-class="pswp__size-guide">{{ 'products.product.product_size_guide' | t }}</a>
+      <a class="ch btn__size-chart" data-no-instant rel="nofollow"  href="{{product.url}}" data-ts-image-opend data-pswp-src="{{ image | image_url: 'master' }}" data-pswp-w="{{ image.width }}" data-pswp-h="{{ image.height }}" data-pswp-class="pswp__size-guide">{{ 'products.product.product_size_guide' | t }}</a>
 
     {%- endif -%}
 
@@ -341,9 +341,9 @@
                         -}}
                       </noscript>
                       <img
-                        data-master="{{image | asset_url | image_url: 'master'}}"
+                        data-master="{{image | image_url: 'master'}}"
                         class="lazyload lz--fadeIn"
-                        data-src="{{ image | asset_url | image_url: '1x1' }}"
+                        data-src="{{ image | image_url: '1x1' }}"
                         data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
                         data-optimumx="1.5"
                         data-sizes="auto"
@@ -913,7 +913,7 @@
                           width="{{image.width}}"
                           height="{{image.height}}"
                           src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20{{image.width}}%20{{image.height}}%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3C%2Fsvg%3E"
-                          data-src="{{ image | asset_url | image_url: '1x1' }}"
+                          data-src="{{ image | image_url: '1x1' }}"
                           data-widths="[60, 90, 180, 320, 640]"
                           data-sizes="auto"
                           class="w-100 lazyload lz--fadeIn"
@@ -931,7 +931,7 @@
                   {%- capture html_trust -%}
                       {%- assign image = bk_stts.image -%}
                       {%- if bk_stts.source == '1' and image != blank  -%}
-                          <img style="--max-w-img:{{bk_stts.wimg}}%" width="{{image.width}}" height="{{image.height}}" class="img-tr__img lazyload" src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20{{image.width}}%20{{image.height}}%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3C%2Fsvg%3E" data-src="{{ image | asset_url | image_url: '1x1' }}" data-widths="[90, 120, 150, 180, 360, 480, 600, 750, 940]" data-sizes="auto" alt="{{image.alt}}">
+                          <img style="--max-w-img:{{bk_stts.wimg}}%" width="{{image.width}}" height="{{image.height}}" class="img-tr__img lazyload" src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20{{image.width}}%20{{image.height}}%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3C%2Fsvg%3E" data-src="{{ image | image_url: '1x1' }}" data-widths="[90, 120, 150, 180, 360, 480, 600, 750, 940]" data-sizes="auto" alt="{{image.alt}}">
                       {%- else bk_stts.svg -%}
                           {%- assign isStyleSvg = true -%}
                           {%- assign svg_height = bk_stts.height -%}
@@ -970,7 +970,7 @@
                         <img
                           class="lazyload w-100 ani-{{bk_stts.ani}}"
                           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                          data-src="{{ image | asset_url | image_url: '50x' }}"
+                          data-src="{{ image | image_url: '50x' }}"
                           alt="{{image.alt}}"
                         >
                       {%- else -%}
@@ -1003,7 +1003,7 @@
                         <img
                           class="lazyload w-100 ani-{{bk_stts.ani}}"
                           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                          data-src="{{ image | asset_url | image_url: '50x' }}"
+                          data-src="{{ image | image_url: '50x' }}"
                           alt="{{image.alt}}"
                         >
                       {%- else -%}
@@ -1040,7 +1040,7 @@
                         <img
                           class="lazyload w-100 ani-{{bk_stts.ani}}"
                           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                          data-src="{{ image | asset_url | image_url: '50x' }}"
+                          data-src="{{ image | image_url: '50x' }}"
                           alt="{{image.alt}}"
                         >
                       {%- else -%}
@@ -1102,7 +1102,7 @@
                             <img
                               class="lazyload w-100 ani-{{bk_stts.ani}}"
                               src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                              data-src="{{ image | asset_url | image_url: '50x' }}"
+                              data-src="{{ image | image_url: '50x' }}"
                               alt="{{image.alt}}"
                             >
                           {%- else -%}
@@ -1184,7 +1184,7 @@
                           <img
                             class="lazyload w-100 ani-{{bk_stts.ani}}"
                             src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                            data-src="{{ image | asset_url | image_url: '50x' }}"
+                            data-src="{{ image | image_url: '50x' }}"
                             alt="{{image.alt}}"
                           >
                         {%- else -%}
@@ -1307,7 +1307,7 @@
       <div class="sticky-atc__product">
         {%- liquid
           assign image = current_variant.featured_image | default: product.featured_image
-          assign img_url = image | asset_url | image_url: '1x1'
+          assign img_url = image | image_url: '1x1'
         -%}
         <div data-sticky-img class="sticky-atc__img relative">
           <img
@@ -1434,7 +1434,7 @@
     "url": "{{ request.origin }}{{ product.url }}",
     {%- if seo_media != blank -%}
       "image": [
-        "https:{{ seo_media | asset_url | image_url: width: seo_media.preview_image.width }}"
+        "https:{{ seo_media | image_url: width: seo_media.preview_image.width }}"
       ],
     {%- endif -%}
     "description": {{ product.description | strip_html | escape | strip_newlines | json }},

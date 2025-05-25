@@ -36,7 +36,7 @@
 <div
   class="section-inner nt_se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}"
   {% if stt_image_bg != blank and stt_layout != 'se-container' %}
-    data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+    data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
   {% endif %}
   {% render 'section_style', se_stts: se_stts -%}
 >
@@ -45,7 +45,7 @@
     <div
       class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}"
       {% if stt_image_bg != blank %}
-        data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+        data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
       {% endif %}
     >
   {% endif -%}
@@ -62,7 +62,7 @@
             >
               <img
                 class="lazyload"
-                data-src="{{ image | asset_url | image_url: '1x1' }}"
+                data-src="{{ image | image_url: '1x1' }}"
                 data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
                 data-optimumx="2"
                 data-sizes="auto"
@@ -73,7 +73,7 @@
               >
               <span
                 class="lazyload-loader is-bg-img"
-                style="background: url({{image | asset_url | image_url: '1x1'}});"
+                style="background: url({{image | image_url: '1x1'}});"
               ></span>
               {%- if bk_stts.cate_des != 'none' -%}
                 {%- assign article_tags = article_tags | join: ';' | split: ';' -%}
@@ -329,7 +329,7 @@
                           {%- if image != blank -%}
                             <img
                               class="lazyload lz--fadeIn obj-eff"
-                              data-src="{{ image | asset_url | image_url: '1x1' }}"
+                              data-src="{{ image | image_url: '1x1' }}"
                               data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
                               data-optimumx="2"
                               data-sizes="auto"
@@ -340,7 +340,7 @@
                             >
                             <span
                               class="lazyload-loader is-bg-img"
-                              style="background: url({{ image | asset_url | image_url: '1x1' }});"
+                              style="background: url({{ image | image_url: '1x1' }});"
                             ></span>
                           {%- else -%}
                             {{ 'image' | placeholder_svg_tag: 'placeholder-svg obj-eff' }}
@@ -807,7 +807,7 @@
     {%- if article.image -%}
       {%- assign image_size = article.image.width | append: 'x' -%}
       "image": [
-        {{ article | asset_url | image_url: image_size | prepend: "https:" | json }}
+        {{ article | image_url: image_size | prepend: "https:" | json }}
       ],
     {%- endif -%}
     "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
@@ -823,7 +823,7 @@
         "logo": {
           "@type": "ImageObject",
           "height": {{ image.height | json }},
-          "url": {{ image | asset_url | image_url: image_size | prepend: "https:" | json }},
+          "url": {{ image | image_url: image_size | prepend: "https:" | json }},
           "width": {{ image.width | json }}
         },
       {%- endif -%}

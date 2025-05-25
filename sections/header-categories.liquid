@@ -59,10 +59,10 @@
 
                                    <{{ARRhtml[0]}} {{ARRhtml[1]}}href="{{ bk_stts.b_link}}"  {{ARRhtml[2]}}target="{{bk_stts.open_link}}" class="d-block ratio ratio_hasmb" {{imgatt}}style="--aspect-ratioapt: {{image.aspect_ratio | default: 2}};--aspect-ratioaptmb: {{image_mb.aspect_ratio | default: 2}};">
                                      {%- if image != blank -%}
-                                         <img class="lazyload lz--fadeIn obj-eff d-md-none" data-src="{{ image_mb | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image_mb.width,h:image_mb.height %}" width="{{ image_mb.width }}" height="{{ image_mb.height }}" alt="{{ image_mb.alt | escape }}">
-                                         <span class="lazyload-loader is-bg-img d-md-none" style="background: url({{ image_mb | asset_url | image_url: '1x1' }})"></span>
-                                         <img class="lazyload lz--fadeIn obj-eff d-none d-md-block" data-src="{{ image | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
-                                         <span class="lazyload-loader is-bg-img d-none d-md-block" style="background: url({{ image | asset_url | image_url: '1x1' }})"></span>
+                                         <img class="lazyload lz--fadeIn obj-eff d-md-none" data-src="{{ image_mb | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image_mb.width,h:image_mb.height %}" width="{{ image_mb.width }}" height="{{ image_mb.height }}" alt="{{ image_mb.alt | escape }}">
+                                         <span class="lazyload-loader is-bg-img d-md-none" style="background: url({{ image_mb | image_url: '1x1' }})"></span>
+                                         <img class="lazyload lz--fadeIn obj-eff d-none d-md-block" data-src="{{ image | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
+                                         <span class="lazyload-loader is-bg-img d-none d-md-block" style="background: url({{ image | image_url: '1x1' }})"></span>
                                      {%- else -%}
                                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg svg-bg1 obj-eff' }}
                                      {%- endif -%}

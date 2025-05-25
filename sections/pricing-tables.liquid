@@ -27,7 +27,7 @@
 <div
   class="section-inner se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}"
   {% if stt_image_bg != blank and stt_layout != 'se-container' %}
-    data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+    data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
   {% endif %}
   {% render 'section_style', se_stts: se_stts -%}
 >
@@ -36,7 +36,7 @@
     <div
       class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}"
       {% if stt_image_bg != blank %}
-        data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+        data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
       {% endif %}
     >
   {% endif -%}
@@ -62,7 +62,7 @@
               <div
                 class="price-tables-head relative overflow-hidden {% if bk_stts.head_bg != blank %}has-imgbg lazyload{% endif %}"
                 {% if bk_stts.head_bg != blank %}
-                  data-bgset="{{ bk_stts.head_bg | asset_url | image_url: '1x1' }}" data-sizes="auto"
+                  data-bgset="{{ bk_stts.head_bg | image_url: '1x1' }}" data-sizes="auto"
                   data-optimumx="1.5"
                 {% endif %}
               >
@@ -109,7 +109,6 @@
                           viewBox="0 0 300.000000 300.000000"
                           preserveAspectRatio="xMidYMid meet"
                         >
-
                           <g transform="translate(0.000000,300.000000) scale(0.050000,-0.050000)"
                           fill="#000000" stroke="none">
                           <path d="M2760 5991 c-16 -4 -111 -18 -210 -32 -1577 -211 -2746 -1766 -2520

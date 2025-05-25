@@ -58,9 +58,9 @@
     render 'se_cus_css',code_cus_css:se_stts.code_cus_css,se_class:se_class
   endif 
 -%} 
-<div class="section-inner se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank and stt_layout != 'se-container' %} data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %} {% render 'section_style',se_stts:se_stts -%} >
+<div class="section-inner se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank and stt_layout != 'se-container' %} data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %} {% render 'section_style',se_stts:se_stts -%} >
     {{-html_layout[0]-}}
-    {%- if stt_layout == 'se-container' -%}<div class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank %} data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %}>{% endif -%}
+    {%- if stt_layout == 'se-container' -%}<div class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank %} data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %}>{% endif -%}
     {%- render 'section_tophead',se_stts:se_stts -%}
     {% if se_stts.layout_des == "1" %}
       <div class="blog_grid has_post_des_{{se_stts.post_des}} {{se_stts.image_ratio}} position_{{se_stts.image_position}} {{se_stts.image_size}} {{se_stts.content_align}} row row-cols-lg-{{col_dk}} row-cols-md-{{col_tb}} row-cols-{{col_mb}} ts-gx-md-{{se_stts.space_h_item}} ts-gy-md-{{se_stts.space_v_item}} ts-gx-{{se_stts.space_h_item_mb}} ts-gy-{{se_stts.space_v_item_mb}}">

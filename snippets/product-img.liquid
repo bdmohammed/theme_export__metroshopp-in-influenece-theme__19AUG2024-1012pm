@@ -15,7 +15,7 @@
     class="product-main-img lazyload"
     loading="lazy"
     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-    data-src="{{ image | asset_url | image_url: '1x1' }}"
+    data-src="{{ image | image_url: '1x1' }}"
     data-widths="[100,200,400,600,700,800,900]"
     data-optimumx="1.5"
     data-sizes="auto"
@@ -29,7 +29,7 @@
     ><img
       class="product-main-img"
       loading="lazy"
-      src="{{ image | asset_url | image_url: '600x' }}"
+      src="{{ image | image_url: '600x' }}"
       alt="{{ image.alt | escape }}"
   ></noscript>
 </div>

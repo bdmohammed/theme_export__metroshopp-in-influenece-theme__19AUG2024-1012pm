@@ -68,13 +68,13 @@
         <div
           class="ratio position_0"
           {% if image != blank %}
-            style="background: url({{ image | asset_url | image_url: '1x1' }})"
+            style="background: url({{ image | image_url: '1x1' }})"
           {%- endif -%}
         >
           {%- if image != blank -%}
             <img
               class="img-video pointer-events-none lazyload"
-              data-src="{{ image | asset_url | image_url: '1x1' }}"
+              data-src="{{ image | image_url: '1x1' }}"
               data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
               data-optimumx="2"
               data-sizes="auto"
@@ -133,7 +133,7 @@
                     >
                       <img
                         class="lazyload lz--fadeIn"
-                        data-src="{{ image | asset_url | image_url: '1x1' }}"
+                        data-src="{{ image | image_url: '1x1' }}"
                         data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
                         data-optimumx="2"
                         data-sizes="auto"

@@ -5,10 +5,10 @@
       {%- assign image = bk_stts.image_avata -%}
       <div
         class="quote-avatar lazyload"
-        data-bgset="{{ image | asset_url | image_url: '1x1' }}"
+        data-bgset="{{ image | image_url: '1x1' }}"
         data-sizes="auto"
         data-optimumx="1.5"
-        style="background-image: url({{ image | asset_url | image_url: '1x1' }};"
+        style="background-image: url({{ image | image_url: '1x1' }};"
       ></div>
     {%- endif -%}
     <div class="quote-au-rev">

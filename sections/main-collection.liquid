@@ -106,9 +106,9 @@
 -%}
 
 {%- paginate collection.products by limit -%}
-<div class="section-inner se_{{sid}} {{stt_layout}} {%- if stt_image_bg != blank and stt_layout != 'se-container' -%} has-imgbg lazyload {%- endif -%}"  {%- if stt_image_bg != blank and stt_layout != 'se-container' -%} data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5" {%- endif -%} {% render 'section_style',se_stts:se_stts %} >
+<div class="section-inner se_{{sid}} {{stt_layout}} {%- if stt_image_bg != blank and stt_layout != 'se-container' -%} has-imgbg lazyload {%- endif -%}"  {%- if stt_image_bg != blank and stt_layout != 'se-container' -%} data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5" {%- endif -%} {% render 'section_style',se_stts:se_stts %} >
   {{-html_layout[0]-}}
-  {%- if stt_layout == 'se-container' -%}<div class="container-inner {%- if stt_image_bg != blank -%}  has-imgbg lazyload {%- endif -%} "  {%- if stt_image_bg != blank -%}  data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5" {%- endif -%} > {%- endif -%}
+  {%- if stt_layout == 'se-container' -%}<div class="container-inner {%- if stt_image_bg != blank -%}  has-imgbg lazyload {%- endif -%} "  {%- if stt_image_bg != blank -%}  data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5" {%- endif -%} > {%- endif -%}
   {%- if se_stts.position_desc == '1' and se_stts.show_desc -%}<div id="desc-collection" class="desc-collection desc-before">{{collection.description}}</div>{%- endif -%} 
   {% if se_blocks.size > 0 %}
     <div class="collection-header d-flex 4s-align-items-center">

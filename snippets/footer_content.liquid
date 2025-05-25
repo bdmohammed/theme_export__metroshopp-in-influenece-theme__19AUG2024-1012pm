@@ -25,7 +25,7 @@
         >
           <img
             class="lazyload lz--fadeIn"
-            data-src="{{ image | asset_url | image_url: '1x1' }}"
+            data-src="{{ image | image_url: '1x1' }}"
             data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
             data-optimumx="2"
             data-sizes="auto"
@@ -52,7 +52,7 @@
           <img
             class="lazyload"
             src="https://cdn.shopify.com/s/assets/payment_icons/generic-dfdcaf09b6731ca14dd7441354c0ad8bc934184eb15ae1fda6a6b9e307675485.svg"
-            data-src="{{ image | asset_url | image_url: '100x' }}"
+            data-src="{{ image | image_url: '100x' }}"
             alt="{{image.alt | escape}}"
           >
         {%- else -%}

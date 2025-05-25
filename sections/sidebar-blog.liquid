@@ -65,8 +65,8 @@
                                 {%- for i in (1..9) -%}
                                     {%- liquid
                                         assign image_list = 'img' | append:i 
-                                        assign asset_url | image_url_list = 'link' | append:i 
-                                        assign url = bk_stts[asset_url | image_url_list]
+                                        assign image_url_list = 'link' | append:i 
+                                        assign url = bk_stts[image_url_list]
                                         assign image = bk_stts[image_list] 
                                         if url == blank 
                                             assign ARRhtml = ARRhtml2
@@ -77,8 +77,8 @@
                                     {%- if image != blank -%}
                                         <div class="col-item gallery-item">
                                             <{{ARRhtml[0]}} {{ARRhtml[1]}}href="{{url}}" {{ARRhtml[2]}}target="{{bk_stts.open_link}}" class="effect relative overflow-hidden d-block">
-                                                <div class="ratio" style="background: url({{ image | asset_url | image_url: '1x1' }});">
-                                                    <img class="lazyload" data-src="{{ image | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
+                                                <div class="ratio" style="background: url({{ image | image_url: '1x1' }});">
+                                                    <img class="lazyload" data-src="{{ image | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
                                                 </div>
                                             </{{ARRhtml[0]}}>
                                         </div>  
@@ -203,7 +203,7 @@
                                         {%- if bk_stts.b_link != blank -%}
                                         <a class="overflow-hidden d-block" href="{{ bk_stts.b_link }}" target="{{bk_stts.open_link}}">
                                         {%- endif -%}
-                                            <img class="lazyload obj-eff" data-src="{{ image | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
+                                            <img class="lazyload obj-eff" data-src="{{ image | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
                                             {%- if bk_stts.countdown_pos == "2"  -%}<span class="lazyload-loader"></span>{%- endif -%}
                                         {%- if bk_stts.b_link != blank -%}
                                         </a>

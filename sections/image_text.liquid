@@ -25,7 +25,7 @@
 <div
   class="section-inner {{se_class}} nt_se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}"
   {% if stt_image_bg != blank and stt_layout != 'se-container' %}
-    data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+    data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
   {% endif %}
   {% render 'section_style', se_stts: se_stts -%}
 >
@@ -34,7 +34,7 @@
     <div
       class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}"
       {% if stt_image_bg != blank %}
-        data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+        data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
       {% endif %}
     >
   {% endif -%}
@@ -70,7 +70,7 @@
                             {%- if image != blank -%}
                                 {%- assign index = index | plus:1 -%}   
                                 <div class="image-text-overlap-item" >           
-                                    <img class="lazyload" data-src="{{ image | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">    
+                                    <img class="lazyload" data-src="{{ image | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">    
                                     <span class="lazyload-loader"></span>              
                                 </div>
                             {%- endif -%}
@@ -78,8 +78,8 @@
                             {%- if image != blank -%}
                                 <div class="col-item" >
                                     <div class="ratio" style="--aspect-ratioapt:{{image.aspect_ratio}}">
-                                        <img class="lazyload" data-src="{{ image | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">    
-                                        <span class="lazyload-loader is-bg-img" style="background: url({{ image | asset_url | image_url: '1x1' }});"></span>
+                                        <img class="lazyload" data-src="{{ image | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">    
+                                        <span class="lazyload-loader is-bg-img" style="background: url({{ image | image_url: '1x1' }});"></span>
                                     </div>
                                 </div>
                             {%- endif -%} 

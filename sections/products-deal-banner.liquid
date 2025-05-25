@@ -35,7 +35,7 @@
 <div
   class="section-inner se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}"
   {% if stt_image_bg != blank and stt_layout != 'se-container' %}
-    data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+    data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
   {% endif %}
   {% render 'section_style', se_stts: se_stts -%}
 >
@@ -44,7 +44,7 @@
     <div
       class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}"
       {% if stt_image_bg != blank %}
-        data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+        data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
       {% endif %}
     >
   {% endif -%}
@@ -77,7 +77,7 @@
                   {%- if image != blank -%}
                     <img
                       class="lazyload lz--fadeIn obj-eff"
-                      data-src="{{ image | asset_url | image_url: '1x1' }}"
+                      data-src="{{ image | image_url: '1x1' }}"
                       data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
                       data-optimumx="2"
                       data-sizes="auto"
@@ -88,7 +88,7 @@
                     >
                     <span
                       class="lazyload-loader is-bg-img d-md-none"
-                      style="background: url({{ image_mb | asset_url | image_url: '1x1' }})"
+                      style="background: url({{ image_mb | image_url: '1x1' }})"
                     ></span>
                   {%- else -%}
                     {{ 'image' | placeholder_svg_tag: 'placeholder-svg svg-bg1 obj-eff' }}
@@ -209,7 +209,7 @@
                   {%- if image != blank -%}
                     <img
                       class="lazyload lz--fadeIn obj-eff"
-                      data-src="{{ image | asset_url | image_url: '1x1' }}"
+                      data-src="{{ image | image_url: '1x1' }}"
                       data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
                       data-optimumx="2"
                       data-sizes="auto"
@@ -220,7 +220,7 @@
                     >
                     <span
                       class="lazyload-loader is-bg-img d-md-none"
-                      style="background: url({{ image_mb | asset_url | image_url: '1x1' }})"
+                      style="background: url({{ image_mb | image_url: '1x1' }})"
                     ></span>
                   {%- else -%}
                     {{ 'image' | placeholder_svg_tag: 'placeholder-svg svg-bg1 obj-eff' }}

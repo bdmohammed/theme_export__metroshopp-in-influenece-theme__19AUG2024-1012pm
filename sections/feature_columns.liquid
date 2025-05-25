@@ -44,10 +44,10 @@
 {% endif %}
 
 
-<div class="section-inner {{se_class}} nt_se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank and stt_layout != 'se-container' %} data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %} {% render 'section_style',se_stts:se_stts -%} >
+<div class="section-inner {{se_class}} nt_se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank and stt_layout != 'se-container' %} data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %} {% render 'section_style',se_stts:se_stts -%} >
     {{-html_layout[0]-}}
     {%- if stt_layout == 'se-container' -%}
-        <div class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank %} data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %}>{% endif -%}
+        <div class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank %} data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %}>{% endif -%}
     {%- render 'section_tophead',se_stts:se_stts -%}
     {% if se_stts.layout_des == "1" %}
         <div class="{{image_ratio}} position_{{se_stts.image_position}} {{se_stts.image_size}} row row-cols-lg-{{se_stts.col_dk}} row-cols-md-{{se_stts.col_tb}} row-cols-{{se_stts.col_mb}} ts-gx-md-{{se_stts.space_h_item}} ts-gy-md-{{se_stts.space_v_item}} ts-gx-{{se_stts.space_h_item_mb}} ts-gy-{{se_stts.space_v_item_mb}}">
@@ -68,9 +68,9 @@
                     <div class="col-item pos-text-{{se_stts.pos_text}} text-{{se_stts.text_align}}" id="b_{{block.id}}" data-select-flickity {{ block.shopify_attributes }}>
                         {%- if bk_stts.enable_image -%}
                             <a href="{{button_link}}" class="d-block eff eff-{{b_effect}} eff-img-{{img_effect}}" target="{{open_link}}">
-                                <div class="ratio" style="background: url({{ image | asset_url | image_url: '1x1' }});{{imgatt}}--aspect-ratioapt: {{image.aspect_ratio | default: 1.7777}}" data-cacl-slide>
+                                <div class="ratio" style="background: url({{ image | image_url: '1x1' }});{{imgatt}}--aspect-ratioapt: {{image.aspect_ratio | default: 1.7777}}" data-cacl-slide>
                                 {%- if image != blank -%}
-                                    <img class="lazyload lz--fadeIn obj-eff" data-src="{{ image | asset_url | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
+                                    <img class="lazyload lz--fadeIn obj-eff" data-src="{{ image | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
                                 {%- else -%}
                                     {{ 'image' | placeholder_svg_tag: 'placeholder-svg obj-eff' }}
                                 {%- endif -%} 
@@ -94,9 +94,9 @@
                     <div class="col-item pos-text-{{se_stts.pos_text}} text-{{se_stts.text_align}}"  id="b_{{block.id}}" data-select-flickity {{ block.shopify_attributes }}>
                         {%- if bk_stts.enable_image -%}
                             <div class="eff eff-{{b_effect}} eff-img-{{img_effect}}">
-                                <div class="ratio" style="background: url({{ image | asset_url | asset_url | image_url: '1x1' }});{{imgatt}}--aspect-ratioapt: {{image.aspect_ratio | default: 1.7777}}" data-cacl-slide>
+                                <div class="ratio" style="background: url({{ image | asset_url | image_url: '1x1' }});{{imgatt}}--aspect-ratioapt: {{image.aspect_ratio | default: 1.7777}}" data-cacl-slide>
                                 {%- if image != blank -%}
-                                    <img class="lazyload lz--fadeIn obj-eff" data-src="{{ image | asset_url | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
+                                    <img class="lazyload lz--fadeIn obj-eff" data-src="{{ image | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
                                 {%- else -%}
                                     {{ 'image' | placeholder_svg_tag: 'placeholder-svg obj-eff' }}
                                 {%- endif -%} 
