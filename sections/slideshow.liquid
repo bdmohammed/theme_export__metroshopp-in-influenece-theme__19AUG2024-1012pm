@@ -123,7 +123,6 @@
               {%- assign class_img_first = 'lazyload lz--fadeIn img-as-bg d-md-none' | append: class_img -%}
               {{
                 mb_image
-                | asset_url
                 | image_url: width: 800
                 | image_tag: class: class_img_first, loading: lazy, widths: '375, 575, 750'
               }}
