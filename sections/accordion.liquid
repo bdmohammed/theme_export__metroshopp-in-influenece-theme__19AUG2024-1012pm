@@ -26,7 +26,7 @@
 <div
   class="section-inner se_{{sid}} {{stt_layout}} {%- if stt_image_bg != blank and stt_layout != 'se-container' -%}  has-imgbg lazyload {%- endif -%} "
   {%- if stt_image_bg != blank and stt_layout != 'se-container' -%}
-    data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+    data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
   {%- endif -%}
   {% render 'section_style', se_stts: se_stts %}
 >
@@ -35,7 +35,7 @@
     <div
       class="container-inner {%- if stt_image_bg != blank -%}  has-imgbg lazyload {%- endif -%} "
       {%- if stt_image_bg != blank -%}
-        data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+        data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
       {%- endif -%}
     >
   {%- endif -%}

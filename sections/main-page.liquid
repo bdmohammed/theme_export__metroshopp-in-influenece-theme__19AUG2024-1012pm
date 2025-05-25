@@ -4,12 +4,12 @@
   assign sid = section.id
   assign se_stts = section.settings
   assign stt_layout = se_stts.layout
-  #assign blog_sidebar = se_stts.blog_sidebar
+  # assign blog_sidebar = se_stts.blog_sidebar
   assign stt_image_bg = se_stts.image_bg
 
-  #if blog_sidebar == 'none'
+  # if blog_sidebar == 'none'
   # assign use_sidebar = false
-  #endif
+  # endif
   if stt_layout == 'se-container'
     assign html_layout = '<div class="container">__</div></div>' | split: '__'
   elsif stt_layout == 'container-wrap'
@@ -21,20 +21,22 @@
 <div
   class="section-inner nt_se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}"
   {% if stt_image_bg != blank and stt_layout != 'se-container' %}
-  data-bgset="{{ stt_image_bg | image_url: '1x1' }}"
-  data-sizes="auto"
-  data-optimumx="1.5"
+    data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}"
+    data-sizes="auto"
+    data-optimumx="1.5"
   {% endif %}
-  {% render 'section_style', se_stts: se_stts -%}>
+  {% render 'section_style', se_stts: se_stts -%}
+>
   {{- html_layout[0] -}}
   {%- if stt_layout == 'se-container' -%}
     <div
       class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}"
       {% if stt_image_bg != blank %}
-      data-bgset="{{ stt_image_bg | image_url: '1x1' }}"
-      data-sizes="auto"
-      data-optimumx="1.5"
-      {% endif %}></div>
+        data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}"
+        data-sizes="auto"
+        data-optimumx="1.5"
+      {% endif %}
+    ></div>
   {% endif -%}
   <div class="row">
     {%- if page.content != blank -%}
@@ -47,80 +49,79 @@
   {{- html_layout[1] -}}
 </div>
 
-
 {%- schema -%}
-  {
-    "name": "Main page",
-    "tag": "section",
-    "class": "section section-main",
-    "settings": [
-      {
-        "type": "select",
-        "id": "layout",
-        "default": "container-wrap",
-        "label": "Layout",
-        "options": [
-          {
-            "value": "se-container",
-            "label": "Container"
-          },
-          {
-            "value": "container-wrap",
-            "label": "Wrapped container"
-          },
-          {
-            "value": "container-fluid",
-            "label": "Full width"
-          }
-        ]
-      },
-      {
-        "type": "color",
-        "id": "cl_bg",
-        "label": "Background"
-      },
-      {
-        "type": "color_background",
-        "id": "cl_bg_gradient",
-        "label": "Background gradient"
-      },
-      {
-        "type": "image_picker",
-        "id": "image_bg",
-        "label": "Background image"
-      },
-      {
-        "type": "text",
-        "id": "mg",
-        "label": "Margin",
-        "info": "Margin top, margin right, margin bottom, margin left. If you not use to blank",
-        "default": "60px,,60px,",
-        "placeholder": ",,50px,"
-      },
-      {
-        "type": "text",
-        "id": "pd",
-        "label": "Padding",
-        "info": "Padding top, padding right, padding bottom, padding left. If you not use to blank",
-        "placeholder": "50px,,50px,"
-      },
-      {
-        "type": "header",
-        "content": "+ Design mobile options"
-      },
-      {
-        "type": "text",
-        "id": "mg_mb",
-        "label": "Margin",
-        "default": ",,30px,",
-        "placeholder": ",,50px,"
-      },
-      {
-        "type": "text",
-        "id": "pd_mb",
-        "label": "Padding",
-        "placeholder": ",,50px,"
-      }
-    ]
-  }
+{
+  "name": "Main page",
+  "tag": "section",
+  "class": "section section-main",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "default": "container-wrap",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "se-container",
+          "label": "Container"
+        },
+        {
+          "value": "container-wrap",
+          "label": "Wrapped container"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Full width"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "cl_bg",
+      "label": "Background"
+    },
+    {
+      "type": "color_background",
+      "id": "cl_bg_gradient",
+      "label": "Background gradient"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_bg",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "mg",
+      "label": "Margin",
+      "info": "Margin top, margin right, margin bottom, margin left. If you not use to blank",
+      "default": "60px,,60px,",
+      "placeholder": ",,50px,"
+    },
+    {
+      "type": "text",
+      "id": "pd",
+      "label": "Padding",
+      "info": "Padding top, padding right, padding bottom, padding left. If you not use to blank",
+      "placeholder": "50px,,50px,"
+    },
+    {
+      "type": "header",
+      "content": "+ Design mobile options"
+    },
+    {
+      "type": "text",
+      "id": "mg_mb",
+      "label": "Margin",
+      "default": ",,30px,",
+      "placeholder": ",,50px,"
+    },
+    {
+      "type": "text",
+      "id": "pd_mb",
+      "label": "Padding",
+      "placeholder": ",,50px,"
+    }
+  ]
+}
 {%- endschema -%}

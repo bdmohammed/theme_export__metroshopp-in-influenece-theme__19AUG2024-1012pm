@@ -1,113 +1,151 @@
-{%- liquid 
-assign pr_url = product.url
-assign pid = product.id
-assign isDefault = product.has_only_default_variant
-assign pr_variants = product.variants
-assign current_variant = pr_variants.first
-assign isPreoder = false
+{%- liquid
+  assign pr_url = product.url
+  assign pid = product.id
+  assign isDefault = product.has_only_default_variant
+  assign pr_variants = product.variants
+  assign current_variant = pr_variants.first
+  assign isPreoder = false
 
-if product.tags contains 'isPreoder' or current_variant.inventory_policy == 'continue' and current_variant.inventory_management == 'shopify' and current_variant.inventory_quantity <= 0 and isDefault and product.available
-   assign isPreoder = true
-endif
+  if product.tags contains 'isPreoder' or current_variant.inventory_policy == 'continue' and current_variant.inventory_management == 'shopify' and current_variant.inventory_quantity <= 0 and isDefault and product.available
+    assign isPreoder = true
+  endif
 
-if current_variant.inventory_management == 'shopify'
-   assign cur_qty = current_variant.inventory_quantity |default:9999
-else
-   assign cur_qty = 9999
-endif
+  if current_variant.inventory_management == 'shopify'
+    assign cur_qty = current_variant.inventory_quantity | default: 9999
+  else
+    assign cur_qty = 9999
+  endif
 
-assign meta_theme = product.metafields.theme 
-assign isExternal = false
-assign external_title = meta_theme.external_title 
-assign external_link = meta_theme.external_link
-if external_title != blank and external_link != blank 
-   assign isExternal = true 
-endif
-assign isGrouped = false 
-if  meta_theme.grouped != blank
-   assign isGrouped = true 
-endif
+  assign meta_theme = product.metafields.theme
+  assign isExternal = false
+  assign external_title = meta_theme.external_title
+  assign external_link = meta_theme.external_link
+  if external_title != blank and external_link != blank
+    assign isExternal = true
+  endif
+  assign isGrouped = false
+  if meta_theme.grouped != blank
+    assign isGrouped = true
+  endif
 
-assign custom_badge = meta_theme.custom_badge
-if custom_badge != blank
-   assign arr_badge = custom_badge | replace:'  ', '' | replace:' ;', ';' | replace:'; ', ';' |split:';'
-   assign arr_badge_handle = arr_badge | join:'nt'| handle | split:'nt'
-endif 
-assign countdown = time_meta| default:meta_theme.countdown | date: '%Y/%m/%d %H:%M:%S'
-assign image = product.images[0] | default:placeholder_img
+  assign custom_badge = meta_theme.custom_badge
+  if custom_badge != blank
+    assign arr_badge = custom_badge | replace: '  ', '' | replace: ' ;', ';' | replace: '; ', ';' | split: ';'
+    assign arr_badge_handle = arr_badge | join: 'nt' | handle | split: 'nt'
+  endif
+  assign countdown = time_meta | default: meta_theme.countdown | date: '%Y/%m/%d %H:%M:%S'
+  assign image = product.images[0] | default: placeholder_img
 
-assign color_count = 0
-assign size_count = 0
+  assign color_count = 0
+  assign size_count = 0
 
-if isDefault == false and enable_pr_color or enable_pr_size
-   assign pr_options = product.options_with_values
-   
-   assign img_variants = pr_variants | where: "featured_image"
-   if show_cl_type == '2' or show_size_type == '2'
-      assign available_variants = product.variants | where: "available"
-   endif 
-   for option in pr_options
+  if isDefault == false and enable_pr_color or enable_pr_size
+    assign pr_options = product.options_with_values
+
+    assign img_variants = pr_variants | where: 'featured_image'
+    if show_cl_type == '2' or show_size_type == '2'
+      assign available_variants = product.variants | where: 'available'
+    endif
+    for option in pr_options
       assign name = option.name | downcase
       if get_color contains name and color_count == 0 and enable_pr_color
-        
-        assign pr_option_color = 'option'| append:forloop.index 
-        assign featured_imgs = img_variants | map:'featured_image'
+        assign pr_option_color = 'option' | append: forloop.index
+        assign featured_imgs = img_variants | map: 'featured_image'
         if show_cl_type == '1'
-           assign color_variants = option.values
+          assign color_variants = option.values
         else
-          assign color_variants = available_variants | map:pr_option_color | uniq
+          assign color_variants = available_variants | map: pr_option_color | uniq
         endif
         assign color_count = color_variants.size
       elsif get_size contains name and size_count == 0 and enable_pr_size
         if show_size_type == '1'
           assign size_variants = option.values
         else
-          assign pr_option_size = 'option'| append:forloop.index 
-          assign size_variants = available_variants | map:pr_option_size | uniq
+          assign pr_option_size = 'option' | append: forloop.index
+          assign size_variants = available_variants | map: pr_option_size | uniq
         endif
         assign size_count = size_variants.size
       endif
-   endfor
-endif -%}
+    endfor
+  endif
+-%}
 
-<div class="product pr-grid pr-style1 pr-deal1 pr-{{pid}} {{col}} col-item"{% if product.id != blank %} data-product-options='{ "id":"{{pid}}","available":{{product.available}}, "handle":"{{product.handle}}", "isDefault": {{isDefault}}, "VariantFirstID": {{current_variant.id}}, "customBadge":{{arr_badge | json }}, "customBadgeHandle":{{arr_badge_handle | json }},"dateStart":{{product.created_at | date: "%s"}}, "compare_at_price":{{current_variant.compare_at_price | json}},"price":{{current_variant.price| json}}, "isPreoder":{{isPreoder}},"isExternal":{{isExternal}}{% if isExternal %},"external_title":{{external_title| json}},"external_link":"{{external_link| escape}}"{% endif %},"image2":{% if product.images[1] != blank %}{{product.images[1] | image_url:'1x1' | json }}{% else %}false{% endif %},"isGrouped":{{isGrouped}},"maxQuantity":{% if isDefault and isPreoder == false %}{{cur_qty}}{% else %}9999{% endif %} }'{% endif %}>
+<div
+  class="product pr-grid pr-style1 pr-deal1 pr-{{pid}} {{col}} col-item"
+  {% if product.id != blank %}
+    data-product-options='{ "id":"{{pid}}","available":{{product.available}}, "handle":"{{product.handle}}", "isDefault": {{isDefault}}, "VariantFirstID": {{current_variant.id}}, "customBadge":{{arr_badge | json }}, "customBadgeHandle":{{arr_badge_handle | json }},"dateStart":{{product.created_at | date: "%s"}}, "compare_at_price":{{current_variant.compare_at_price | json}},"price":{{current_variant.price| json}}, "isPreoder":{{isPreoder}},"isExternal":{{isExternal}}{% if isExternal %},"external_title":{{external_title| json}},"external_link":"{{external_link| escape}}"{% endif %},"image2":{% if product.images[1] != blank %}{{product.images[1] | asset_url | image_url:'1x1' | json }}{% else %}false{% endif %},"isGrouped":{{isGrouped}},"maxQuantity":{% if isDefault and isPreoder == false %}{{cur_qty}}{% else %}9999{% endif %} }'
+  {% endif %}
+>
   <div class="product-wrapper">
     <div class="product-info">
       <div class="product-info__inner">
-         {%- if product.vendor.size > 0 and show_vendor -%}<div class="product-vendor"><a href="{{ product.vendor | url_for_vendor }}">{{ product.vendor }}</a></div>{%- endif -%}
-         <h3 class="product-title"><a data-pr-href href="{{pr_url}}">{{ product.title }}</a></h3>
-         {%- render 'product-price',product:product,price_varies_style:price_varies_style,type:'card',isGrouped:isGrouped -%}
-         {%- if enable_rating %}{%- render 'product-rating',product:product,app_review:app_review -%}{% endif -%}
-         {%- if color_count > 0 %}<div class="product-colors" data-color-options='{ "color_count":{{color_count}}, "color_variants":{{color_variants | json}}, "color_variants_handle":{{color_variants | join:'nt'| handle | split:'nt' | json}}, "img_variants":{{featured_imgs | json }}, "id_variants":{{img_variants  | map:'id' | json }}, "img_ratios":{{featured_imgs  | map:'aspect_ratio' | json }}, "img_options":{{img_variants  | map:pr_option_color | json }} }'><span class="pr-color__item"><span class="pr-color__value bg_color_ntloading"></span></span><span class="pr-color__item"><span class="pr-color__value bg_color_ntloading"></span></span><span class="pr-color__item"><span class="pr-color__value bg_color_ntloading"></span></span></div>{% endif -%}
-         {%- if size_count > 0 and pr_size_pos == '2' %}{%- render 'product-size',size_variants:size_variants -%}{% endif -%}
+        {%- if product.vendor.size > 0 and show_vendor -%}
+          <div class="product-vendor">
+            <a href="{{ product.vendor | url_for_vendor }}">{{ product.vendor }}</a>
+          </div>
+        {%- endif -%}
+        <h3 class="product-title">
+          <a data-pr-href href="{{pr_url}}">{{ product.title }}</a>
+        </h3>
+        {%- render 'product-price',
+          product: product,
+          price_varies_style: price_varies_style,
+          type: 'card',
+          isGrouped: isGrouped
+        -%}
+        {%- if enable_rating %}{%- render 'product-rating', product: product, app_review: app_review -%}{% endif -%}
+        {%- if color_count > 0 %}
+          <div
+            class="product-colors"
+            data-color-options='{ "color_count":{{color_count}}, "color_variants":{{color_variants | json}}, "color_variants_handle":{{color_variants | join:'nt'| handle | split:'nt' | json}}, "img_variants":{{featured_imgs | json }}, "id_variants":{{img_variants  | map:'id' | json }}, "img_ratios":{{featured_imgs  | map:'aspect_ratio' | json }}, "img_options":{{img_variants  | map:pr_option_color | json }} }'
+          >
+            <span class="pr-color__item"><span class="pr-color__value bg_color_ntloading"></span></span
+            ><span class="pr-color__item"><span class="pr-color__value bg_color_ntloading"></span></span
+            ><span class="pr-color__item"><span class="pr-color__value bg_color_ntloading"></span></span>
+          </div>
+        {% endif -%}
+        {%- if size_count > 0 and pr_size_pos == '2' %}
+          {%- render 'product-size', size_variants: size_variants -%}
+        {% endif -%}
       </div>
     </div>
     <div data-cacl-slide class="product-inner relative overflow-hidden">
-      {%- if image != blank %}{% render 'product-img',image:image,imgatt:imgatt %}{% endif -%}
+      {%- if image != blank %}{% render 'product-img', image: image, imgatt: imgatt %}{% endif -%}
 
       <div data-product-badge data-sort="sale,new,soldout,preOrder,custom" class="product-badge"></div>
       <div class="product-btns">
-         <div data-replace-quickview></div>
-         <div data-replace-atc data-has-qty></div>
+        <div data-replace-quickview></div>
+        <div data-replace-atc data-has-qty></div>
       </div>
       <div class="product-btns2">
-         {%- if isGrowaveWishlist -%} 
-            {%- capture the_snippet_fave_icon %}{% render 'ssw-widget-faveicon' with pid %}{% endcapture -%}
-            {%- unless the_snippet_fave_icon contains 'Liquid error' -%}<div class="pr-item-btn pr-wishlist is--growave">{{ the_snippet_fave_icon }}</div>{%- endunless -%}
-            <div class="pr-item-btn pr-wishlist is--growave">
-              <div class="ssw-faveiticon sswfaveicon158753129">
-                 <i data-product-id="158753129" data-count="4" class="ssw-icon-heart-o ssw-fave-icon ssw-wishlist-element ssw-not-synch" title="Fave" data-params="{&quot;product_id&quot;:&quot;158753129&quot;,&quot;event&quot;:&quot;fave_button&quot;,&quot;page&quot;:&quot;product_profile&quot;}"></i>
-                 <span class="faves-count">4</span>
-              </div>
-             </div>
-         {%- else -%}<div data-replace-wishlist data-tooltip="right"></div>
-         {%- endif -%}
-         <div data-replace-compare data-tooltip="right"></div>
+        {%- if isGrowaveWishlist -%}
+          {%- capture the_snippet_fave_icon %}{% render 'ssw-widget-faveicon' with pid %}{% endcapture -%}
+          {%- unless the_snippet_fave_icon contains 'Liquid error' -%}
+            <div class="pr-item-btn pr-wishlist is--growave">{{ the_snippet_fave_icon }}</div>
+          {%- endunless -%}
+          <div class="pr-item-btn pr-wishlist is--growave">
+            <div class="ssw-faveiticon sswfaveicon158753129">
+              <i
+                data-product-id="158753129"
+                data-count="4"
+                class="ssw-icon-heart-o ssw-fave-icon ssw-wishlist-element ssw-not-synch"
+                title="Fave"
+                data-params="{&quot;product_id&quot;:&quot;158753129&quot;,&quot;event&quot;:&quot;fave_button&quot;,&quot;page&quot;:&quot;product_profile&quot;}"
+              ></i>
+              <span class="faves-count">4</span>
+            </div>
+          </div>
+        {%- else -%}
+          <div data-replace-wishlist data-tooltip="right"></div>
+        {%- endif -%}
+        <div data-replace-compare data-tooltip="right"></div>
       </div>
-      {%- if size_count > 0 and pr_size_pos == '1'%}{%- render 'product-size',size_variants:size_variants -%}{% endif -%}
-      {%- if use_countdown and countdown != blank %}{%- render 'product-countdown',countdown:countdown %}{% endif -%}
+      {%- if size_count > 0 and pr_size_pos == '1' %}
+        {%- render 'product-size', size_variants: size_variants -%}
+      {% endif -%}
+      {%- if use_countdown and countdown != blank %}{%- render 'product-countdown', countdown: countdown %}{% endif -%}
       <a data-pr-href class="full-width-link" href="{{pr_url}}"></a>
     </div>
-    {{append_stock}}
+    {{ append_stock }}
   </div>
 </div>

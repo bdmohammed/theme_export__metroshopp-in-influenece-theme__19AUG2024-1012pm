@@ -45,8 +45,8 @@
     {%- elsif logo != blank -%}
       <img
         loading="lazy"
-        srcset="{{ logo | image_url: lg_w }} 1x, {{ logo | image_url: lg_w, scale: 2 }} 2x"
-        src="{{ logo | image_url: image_size }}"
+        srcset="{{ logo | asset_url | image_url: lg_w }} 1x, {{ logo | asset_url | image_url: lg_w, scale: 2 }} 2x"
+        src="{{ logo | asset_url | image_url: image_size }}"
         class="header__normal-logo d-none d-lg-block"
         width="{{ logo.width }}"
         height="{{ logo.height }}"
@@ -60,8 +60,8 @@
       -%}
       <img
         loading="lazy"
-        srcset="{{ logo | image_url: lg_w }} 1x, {{ logo | image_url: lg_w, scale: 2 }} 2x"
-        src="{{ logo | image_url: image_size }}"
+        srcset="{{ logo | asset_url | image_url: lg_w }} 1x, {{ logo | asset_url | image_url: lg_w, scale: 2 }} 2x"
+        src="{{ logo | asset_url | image_url: image_size }}"
         class="header__sticky-logo d-none d-none"
         width="{{ logo.width }}"
         height="{{ logo.height }}"
@@ -75,8 +75,8 @@
       -%}
       <img
         loading="lazy"
-        srcset="{{ logo | image_url: lg_w }} 1x, {{ logo | image_url: lg_w, scale: 2 }} 2x"
-        src="{{ logo | image_url: image_size }}"
+        srcset="{{ logo | asset_url | image_url: lg_w }} 1x, {{ logo | asset_url | image_url: lg_w, scale: 2 }} 2x"
+        src="{{ logo | asset_url | image_url: image_size }}"
         class="header__mobile-logo d-lg-none"
         width="{{ logo.width }}"
         height="{{ logo.height }}"

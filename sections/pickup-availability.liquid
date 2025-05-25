@@ -28,24 +28,32 @@
       <div class="pickup-availability-information-container">
         {%- if closest_location.available -%}
           <p class="pickup-availability-information__title">
-            {{ 'store_availability.general.pick_up_available_at_html' | t: location_name: closest_location.location.name }}
+            {{
+              'store_availability.general.pick_up_available_at_html'
+              | t: location_name: closest_location.location.name
+            }}
           </p>
           <p class="pickup-availability-information__stock pickup-availability-small-text">
             {{ closest_location.pick_up_time }}
           </p>
         {%- else -%}
           <p class="pickup-availability-information__title">
-            {{ 'store_availability.general.pick_up_unavailable_at_html' | t: location_name: closest_location.location.name }}
+            {{
+              'store_availability.general.pick_up_unavailable_at_html'
+              | t: location_name: closest_location.location.name
+            }}
           </p>
         {%- endif -%}
         <button
           class="pickup-availability-information__button pickup-availability-small-text"
           data-pickup-availability-popup-open
-          aria-haspopup="dialog">
+          aria-haspopup="dialog"
+        >
           {%- if pick_up_availabilities_size == 1 %}
             {{ 'store_availability.general.view_store_info' | t }}
           {% else %}
-            {{ 'store_availability.general.check_other_stores' | t }}{% endif -%}
+            {{ 'store_availability.general.check_other_stores' | t -}}
+          {%- endif -%}
         </button>
       </div>
     </div>
@@ -54,21 +62,26 @@
       id="pickupAvailabilityPopup"
       role="dialog"
       aria-modal="true"
-      tabindex="-1">
+      tabindex="-1"
+    >
       <div class="product-pickup">
         {%- if image != blank -%}
           <div class="product-pickup__img">
             <img
               class="lazyload lz--fadeIn"
-              data-src="{{ image | image_url: '1x1' }}"
+              data-src="{{ image | asset_url | image_url: '1x1' }}"
               data-widths="[80,120,160,200]"
               data-optimumx="1.2"
               data-sizes="auto"
               src="{% render 'img_svg',w:image.width,h:image.height %}"
               width="{{ image.width }}"
               height="{{ image.height }}"
-              alt="{{ image.alt | escape }}">
-            <span class="lazyload-loader is-bg-img" style="background: url({{ image | image_url: '1x1' }})"></span>
+              alt="{{ image.alt | escape }}"
+            >
+            <span
+              class="lazyload-loader is-bg-img"
+              style="background: url({{ image | asset_url | image_url: '1x1' }})"
+            ></span>
           </div>
         {%- endif -%}
         <div class="product-pickup__infos">
@@ -76,8 +89,10 @@
           {%- unless product.has_only_default_variant -%}
             <p class="product-pickup__variant">
               {%- for product_option in product.options_with_values -%}
-                {{ product_option.name | escape }}:&nbsp;<span class="csecondary">{{ variant_options[forloop.index0] | escape }}</span>
-                {%- unless forloop.last -%},&nbsp;{%- endunless forloop.last -%}
+                {{ product_option.name | escape }}:&nbsp;<span class="csecondary">
+                  {{- variant_options[forloop.index0] | escape -}}
+                </span>
+                {%- unless forloop.last -%},&nbsp;{%- endunless -%}
               {%- endfor -%}
             </p>
           {%- endunless -%}
@@ -86,7 +101,8 @@
               <del>{{ product_variant.compare_at_price | money }}</del>
               <ins>{{ product_variant.price | money }}</ins>
             {%- else -%}
-              {{ product_variant.price | money }}{%- endif -%}
+              {{ product_variant.price | money }}
+            {%- endif -%}
           </div>
         </div>
       </div>
@@ -98,9 +114,11 @@
             </h3>
             <div class="pickup-availability-list__stock pickup-availability-small-text">
               {%- if availability.available -%}
-                {{ icon_in_stock }} {{ 'store_availability.general.pick_up_available' | t }}, {{ availability.pick_up_time | downcase }}
+                {{ icon_in_stock }}
+                {{ 'store_availability.general.pick_up_available' | t }}, {{ availability.pick_up_time | downcase }}
               {%- else -%}
-                {{ icon_out_of_stock }} {{ 'store_availability.general.pick_up_currently_unavailable' | t }}
+                {{ icon_out_of_stock }}
+                {{ 'store_availability.general.pick_up_currently_unavailable' | t }}
               {%- endif -%}
             </div>
             {%- assign address = availability.location.address -%}
@@ -109,7 +127,8 @@
             </address>
             {%- if address.phone.size > 0 -%}
               <p class="pickup-availability-list__phone pickup-availability-small-text">
-                {{ address.phone }}<br>
+                {{ address.phone -}}
+                <br>
               </p>
             {%- endif -%}
             <a
@@ -117,7 +136,11 @@
               class="pickup-availability-list__btn pickup-availability-small-text d-inline-block"
               target="_blank"
               rel="noopener"
-              aria-describedby="a11y-new-window-external-message">{{ icon_map }} {{ check_map }}</a>
+              aria-describedby="a11y-new-window-external-message"
+            >
+              {{- icon_map }}
+              {{ check_map -}}
+            </a>
           </li>
         {%- endfor -%}
       </ul>
@@ -126,8 +149,8 @@
 </div>
 
 {% schema %}
-  {
-    "name": {},
-    "settings": []
-  }
+{
+  "name": {},
+  "settings": []
+}
 {% endschema %}

@@ -28,7 +28,7 @@
                     {%- if bk_stts.cl_gradient != blank and bk_stts.color_img == false or bk_stts.color_jpg == blank -%}background-image: {{bk_stts.cl_gradient}}{%- endif -%}
                   }
                   {%- if bk_stts.color_img and bk_stts.color_jpg != blank -%} 
-                  .bg_color_{{title_h}}.lazyloaded{background-image: url('{{ bk_stts.color_jpg | image_url: img_size_sw, crop: 'center' }}')}
+                  .bg_color_{{title_h}}.lazyloaded{background-image: url('{{ bk_stts.color_jpg | asset_url | image_url: img_size_sw, crop: 'center' }}')}
                   {%- endif -%}
 
                {%- when 'lb_menu' -%}
@@ -170,30 +170,28 @@
       margin-top: 0;
     }
     .color_section .col-auto.is--selected {
-      background-image: repeating-linear-gradient(0deg, #d41616, #d41616 9px, transparent 9px, transparent 16px, #d41616 16px), repeating-linear-gradient(90deg, #d41616, #d41616 9px, transparent 9px, transparent 16px, #d41616 16px), repeating-linear-gradient(180deg, #d41616, #d41616 9px, transparent 9px, transparent 16px, #d41616 16px), repeating-linear-gradient(270deg, #d41616, #d41616 9px, transparent 9px, transparent 16px, #d41616 16px);
-      background-size: 2px calc(100% + 16px)
-      , calc(100% + 16px) 2px
-      , 2px calc(100% + 16px)
-      , calc(100% + 16px) 2px;
-      background-position: 0 0
-      , 0 0
-      , 100% 0
-      , 0 100%;
+      background-image: repeating-linear-gradient(
+          0deg,
+          #d41616,
+          #d41616 9px,
+          transparent 9px,
+          transparent 16px,
+          #d41616 16px
+        ),
+        repeating-linear-gradient(90deg, #d41616, #d41616 9px, transparent 9px, transparent 16px, #d41616 16px),
+        repeating-linear-gradient(180deg, #d41616, #d41616 9px, transparent 9px, transparent 16px, #d41616 16px),
+        repeating-linear-gradient(270deg, #d41616, #d41616 9px, transparent 9px, transparent 16px, #d41616 16px);
+      background-size: 2px calc(100% + 16px), calc(100% + 16px) 2px, 2px calc(100% + 16px), calc(100% + 16px) 2px;
+      background-position: 0 0, 0 0, 100% 0, 0 100%;
       background-repeat: no-repeat;
       animation: 0.6s linear infinite borderAnimation;
     }
     @keyframes borderAnimation {
       from {
-        background-position: 0 0
-        , -16px 0
-        , 100% -16px
-        , 0 100%;
+        background-position: 0 0, -16px 0, 100% -16px, 0 100%;
       }
       to {
-        background-position: 0 -16px
-        , 0 0
-        , 100% 0
-        , -16px 100%;
+        background-position: 0 -16px, 0 0, 100% 0, -16px 100%;
       }
     }
   </style>
@@ -203,7 +201,8 @@
     <button
       onclick="myFunctionT4('{{sid}}')"
       onmouseout="outFuncT4('{{sid}}')"
-      class="btn_cp tooltip button mt__60 mb__60 relative tc">
+      class="btn_cp tooltip button mt__60 mb__60 relative tc"
+    >
       <span class="tooltiptext" id="myTooltip{{sid}}">Copy code to clipboard</span>
       <svg
         viewBox="0 0 24 24"
@@ -214,7 +213,8 @@
         fill="none"
         stroke-linecap="round"
         stroke-linejoin="round"
-        class="css-i6dzq1">
+        class="css-i6dzq1"
+      >
         <rect
           x="9"
           y="9"
@@ -239,7 +239,8 @@
           <div
             class="col-auto col-item pt__15 pb__15 text-center"
             id="item_{{block.id}}"
-            {{ block.shopify_attributes }}>
+            {{ block.shopify_attributes }}
+          >
             {%- case block.type -%}
               {%- when 'bg_color' -%}
                 <span class="color-bg-config bg_color_{{title_h}} lazyload"></span>
@@ -260,113 +261,113 @@
 {%- endif -%}
 
 {%- schema -%}
-  {
-    "name": "Custom color",
-    "class": "color_section",
-    "settings": [
-      {
-        "type": "paragraph",
-        "content": "Set name the color and select the color code you want to customize."
-      },
-      {
-        "type": "paragraph",
-        "content": "Separate by a comma ; . If you want support multilingual"
-      },
-      {
-        "type": "paragraph",
-        "content": "Eg: yellow; jaune"
-      }
-    ],
-    "blocks": [
-      {
-        "type": "bg_color",
-        "name": "Swatch color",
-        "settings": [
-          {
-            "type": "textarea",
-            "id": "title",
-            "label": "Color Name",
-            "info": "eg: yellow"
-          },
-          {
-            "type": "color",
-            "id": "color",
-            "label": "Backgroung color"
-          },
-          {
-            "type": "color_background",
-            "id": "cl_gradient",
-            "label": "Background gradient (optional)"
-          },
-          {
-            "type": "checkbox",
-            "id": "color_img",
-            "label": "Show image"
-          },
-          {
-            "type": "image_picker",
-            "id": "color_jpg",
-            "label": "Color image",
-            "info": "100px x 100px recommended"
-          }
-        ]
-      },
-      {
-        "type": "lb_menu",
-        "name": "Label menu color",
-        "settings": [
-          {
-            "type": "textarea",
-            "id": "title",
-            "label": "Label Menu Name",
-            "info": "eg: Sale"
-          },
-          {
-            "type": "color",
-            "id": "color",
-            "label": "Backgroung color"
-          },
-          {
-            "type": "color_background",
-            "id": "cl_gradient",
-            "label": "Background gradient (optional)"
-          },
-          {
-            "type": "color",
-            "id": "color_txt",
-            "label": "Text color",
-            "default": "#fff"
-          }
-        ]
-      },
-      {
-        "type": "nt_label",
-        "name": "Label product custom",
-        "settings": [
-          {
-            "type": "textarea",
-            "id": "title",
-            "label": "Label Product Name",
-            "info": "eg: Sale"
-          },
-          {
-            "type": "color",
-            "id": "color",
-            "label": "Backgroung color"
-          },
-          {
-            "type": "color_background",
-            "id": "cl_gradient",
-            "label": "Background gradient (optional)"
-          },
-          {
-            "type": "color",
-            "id": "color_txt",
-            "label": "Text color",
-            "default": "#fff"
-          }
-        ]
-      }
-    ]
-  }
+{
+  "name": "Custom color",
+  "class": "color_section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Set name the color and select the color code you want to customize."
+    },
+    {
+      "type": "paragraph",
+      "content": "Separate by a comma ; . If you want support multilingual"
+    },
+    {
+      "type": "paragraph",
+      "content": "Eg: yellow; jaune"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bg_color",
+      "name": "Swatch color",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Color Name",
+          "info": "eg: yellow"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Backgroung color"
+        },
+        {
+          "type": "color_background",
+          "id": "cl_gradient",
+          "label": "Background gradient (optional)"
+        },
+        {
+          "type": "checkbox",
+          "id": "color_img",
+          "label": "Show image"
+        },
+        {
+          "type": "image_picker",
+          "id": "color_jpg",
+          "label": "Color image",
+          "info": "100px x 100px recommended"
+        }
+      ]
+    },
+    {
+      "type": "lb_menu",
+      "name": "Label menu color",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Label Menu Name",
+          "info": "eg: Sale"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Backgroung color"
+        },
+        {
+          "type": "color_background",
+          "id": "cl_gradient",
+          "label": "Background gradient (optional)"
+        },
+        {
+          "type": "color",
+          "id": "color_txt",
+          "label": "Text color",
+          "default": "#fff"
+        }
+      ]
+    },
+    {
+      "type": "nt_label",
+      "name": "Label product custom",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Label Product Name",
+          "info": "eg: Sale"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Backgroung color"
+        },
+        {
+          "type": "color_background",
+          "id": "cl_gradient",
+          "label": "Background gradient (optional)"
+        },
+        {
+          "type": "color",
+          "id": "color_txt",
+          "label": "Text color",
+          "default": "#fff"
+        }
+      ]
+    }
+  ]
+}
 {%- endschema -%}

@@ -1,17 +1,17 @@
 {% comment %}
   Product Media Item - Renders a single media item with variant-specific visibility
-  
+
   This component handles displaying product media (images, videos, 3D models) with intelligent
   variant control. It processes alt text to determine which variant each media belongs to and
   shows/hides media based on the currently selected variant options.
-  
+
   Features:
   - Smart variant detection from image alt text (format: "option1_value|Alt Text" or "color_blue|Product Image")
   - Support for multiple media types (image, video, external_video, 3D model)
   - Lazy loading with responsive image sizing
   - Hides/shows media based on selected variant options
   - Skips rendering for 360° images (handled separately)
-  
+
   Required variables:
   - media: {Object} The Shopify media object to display
   - current_option1/2/3: {String} Currently selected variant option values
@@ -21,9 +21,9 @@
   - se_id: {String} Section ID for unique identifiers
   - class_col: {String} Column class for layout (optional)
   - loop: {Boolean} Whether to loop videos (optional)
-  
+
   Usage:
-  {%- render 'product-thumbnail', 
+  {%- render 'product-thumbnail',
     media: media_item,
     current_option1: current_variant.option1,
     current_option2: current_variant.option2,
@@ -122,6 +122,7 @@
         <noscript>
           {{-
             image
+            | asset_url
             | image_url: width: image_size
             | image_tag:
               widths: '288, 576, 750, 1100, 1500',
@@ -132,9 +133,9 @@
           -}}
         </noscript>
         <img
-          data-master="{{image | image_url: 'master'}}"
+          data-master="{{image | asset_url | image_url: 'master'}}"
           class="lazyload lz--fadeIn"
-          data-src="{{ image | image_url: '1x1' }}"
+          data-src="{{ image | asset_url | image_url: '1x1' }}"
           data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
           data-optimumx="1.8"
           data-sizes="auto"
@@ -170,6 +171,7 @@
           <noscript>
             {{-
               image
+              | asset_url
               | image_url: width: image_size
               | image_tag:
                 widths: '288, 576, 750, 1100, 1500',
@@ -180,9 +182,9 @@
             -}}
           </noscript>
           <img
-            data-master="{{image | image_url: 'master'}}"
+            data-master="{{image | asset_url | image_url: 'master'}}"
             class="lazyload lz--fadeIn"
-            data-src="{{ image | image_url: '1x1' }}"
+            data-src="{{ image | asset_url | image_url: '1x1' }}"
             data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
             data-optimumx="1.8"
             data-sizes="auto"

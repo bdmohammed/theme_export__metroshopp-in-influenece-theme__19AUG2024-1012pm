@@ -93,9 +93,9 @@
 
 {%- paginate collection.products by limit -%}
 
-<div data-not-main data-ntajax-options='{"id":"{{sid}}","type":"{{typeAjax}}","isProduct":true}' class="section-inner se_{{sid}} {{stt_layout}} {%- if stt_image_bg != blank and stt_layout != 'se-container' -%} has-imgbg lazyload {%- endif -%}"  {%- if stt_image_bg != blank and stt_layout != 'se-container' -%}  data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5" {%- endif -%} {% render 'section_style',se_stts:se_stts %} >
+<div data-not-main data-ntajax-options='{"id":"{{sid}}","type":"{{typeAjax}}","isProduct":true}' class="section-inner se_{{sid}} {{stt_layout}} {%- if stt_image_bg != blank and stt_layout != 'se-container' -%} has-imgbg lazyload {%- endif -%}"  {%- if stt_image_bg != blank and stt_layout != 'se-container' -%}  data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5" {%- endif -%} {% render 'section_style',se_stts:se_stts %} >
   {{-html_layout[0]-}}
-  {%- if stt_layout == 'se-container' -%}<div class="container-inner {%- if stt_image_bg != blank -%}  has-imgbg lazyload {%- endif -%} "  {%- if stt_image_bg != blank -%}  data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5" {%- endif -%} > {%- endif -%}
+  {%- if stt_layout == 'se-container' -%}<div class="container-inner {%- if stt_image_bg != blank -%}  has-imgbg lazyload {%- endif -%} "  {%- if stt_image_bg != blank -%}  data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5" {%- endif -%} > {%- endif -%}
     {% if se_blocks.size > 0 %}
       <div class="row banner-in-{{se_stts.banner_pos}} ts-gy-30">
         {%- for block in arr_item offset:index -%}
@@ -124,10 +124,10 @@
                 {%- endif -%}
                 <{{ARRhtml[0]}} {{ARRhtml[1]}}href="{{ bk_stts.b_link}}"  {{ARRhtml[2]}}target="{{bk_stts.open_link}}" class="d-block ratio ratio_hasmb h-100" {{imgatt}}style="--aspect-ratioapt: {{image.aspect_ratio | default: 2}};--aspect-ratioaptmb: {{image_mb.aspect_ratio | default: 2}};">
                   {%- if image != blank -%}
-                      <img class="lazyload lz--fadeIn obj-eff d-md-none" data-src="{{ image_mb | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src=" {%- render 'img_svg',w:image_mb.width,h:image_mb.height -%} " width="{{ image_mb.width }}" height="{{ image_mb.height }}" alt="{{ image_mb.alt | escape }}">
-                      <span class="lazyload-loader is-bg-img d-md-none" style="background: url({{ image_mb | image_url: '1x1' }})"></span>
-                      <img class="lazyload lz--fadeIn obj-eff d-none d-md-block" data-src="{{ image | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src=" {%- render 'img_svg',w:image.width,h:image.height -%} " width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
-                      <span class="lazyload-loader is-bg-img d-none d-md-block" style="background: url({{ image | image_url: '1x1' }})"></span>
+                      <img class="lazyload lz--fadeIn obj-eff d-md-none" data-src="{{ image_mb | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src=" {%- render 'img_svg',w:image_mb.width,h:image_mb.height -%} " width="{{ image_mb.width }}" height="{{ image_mb.height }}" alt="{{ image_mb.alt | escape }}">
+                      <span class="lazyload-loader is-bg-img d-md-none" style="background: url({{ image_mb | asset_url | image_url: '1x1' }})"></span>
+                      <img class="lazyload lz--fadeIn obj-eff d-none d-md-block" data-src="{{ image | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src=" {%- render 'img_svg',w:image.width,h:image.height -%} " width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
+                      <span class="lazyload-loader is-bg-img d-none d-md-block" style="background: url({{ image | asset_url | image_url: '1x1' }})"></span>
                   {%- else -%}
                     {{ 'image' | placeholder_svg_tag: 'placeholder-svg svg-bg2 obj-eff' }}
                   {%- endif -%}
@@ -159,7 +159,7 @@
                     {%- assign image = bk_stts.image_child -%}
                     {%- if image -%}
                       <div class="bl-item img-child animation-{{bk_stts.animation}} hidden-mobile-{{bk_stts.hidden_mobile}}" id="b_{{block.id}}" {%- render 'bk_cus_style',type:'image',bk_stts:bk_stts,ani_delay:ani_delay -%}>
-                          <img class="lazyload lz--fadeIn" data-src="{{ image | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
+                          <img class="lazyload lz--fadeIn" data-src="{{ image | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
                           <span class="lazyload-loader"></span>
                       </div>
                     {%- endif -%}

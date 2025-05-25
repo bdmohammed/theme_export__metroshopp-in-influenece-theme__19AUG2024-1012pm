@@ -11,7 +11,7 @@
       >
         <img
           class="lazyload"
-          data-src="{{ image | image_url: '1x1' }}"
+          data-src="{{ image | asset_url | image_url: '1x1' }}"
           data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
           data-optimumx="2"
           data-sizes="auto"
@@ -20,7 +20,10 @@
           height="{{ image.height }}"
           alt="{{ image.alt | escape }}"
         >
-        <span class="lazyload-loader is-bg-img" style="background: url({{ image | image_url: '1x1' }});"></span>
+        <span
+          class="lazyload-loader is-bg-img"
+          style="background: url({{ image | asset_url | image_url: '1x1' }});"
+        ></span>
       </a>
     {%- endif -%}
   </div>

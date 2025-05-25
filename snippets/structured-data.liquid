@@ -97,8 +97,8 @@
     "sku": {{ product.selected_or_first_available_variant.sku | json }},
     "image": {
       "@type": "ImageObject",
-      "url": "https:{{ product.featured_image | image_url: width: 1024 }}",
-      "image": "https:{{ product.featured_image | image_url: width: 1024 }}",
+      "url": "https:{{ product.featured_image | asset_url | image_url: width: 1024 }}",
+      "image": "https:{{ product.featured_image | asset_url | image_url: width: 1024 }}",
       "name": {{ product.featured_image.alt | json }},
       "width": "1024",
       "height": "1024"
@@ -204,7 +204,7 @@
       "@type": "BlogPosting",
       "headline": "{{ article.title | escape }}",
       "description": "{{ article.excerpt_or_content | strip_html | escape }}",
-      "image": "{{ article.image | image_url: '1200x1200', crop: 'center' }}",
+      "image": "{{ article.image | asset_url | image_url: '1200x1200', crop: 'center' }}",
       "author": {
         "@type": "Person",
         "name": "{{ article.author | escape }}"
@@ -214,7 +214,7 @@
         "name": "{{ shop.name | escape }}",
         "logo": {
           "@type": "ImageObject",
-          "url": "{{ settings.logo | image_url: '1200x1200', crop: 'center' }}"
+          "url": "{{ settings.logo | asset_url | image_url: '1200x1200', crop: 'center' }}"
         }
       },
       "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%S:%z' }}",
@@ -299,7 +299,7 @@
       "@type": "BlogPosting",
       "headline": "{{ article.title | escape }}",
       "description": "{{ article.excerpt_or_content | strip_html | escape }}",
-      "image": "{{ article.image | image_url: '1200x1200', crop: 'center' }}",
+      "image": "{{ article.image | asset_url | image_url: '1200x1200', crop: 'center' }}",
       "author": {
         "@type": "Person",
         "name": "{{ article.author | escape }}"
@@ -309,7 +309,7 @@
         "name": "{{ shop.name | escape }}",
         "logo": {
           "@type": "ImageObject",
-          "url": "{{ settings.logo | image_url: '1200x1200', crop: 'center' }}"
+          "url": "{{ settings.logo | asset_url | image_url: '1200x1200', crop: 'center' }}"
         }
       },
       "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%S:%z' }}",

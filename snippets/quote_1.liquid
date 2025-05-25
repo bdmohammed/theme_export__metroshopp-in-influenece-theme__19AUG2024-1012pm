@@ -1,12 +1,20 @@
 <div class="quote-wrap quote_01">
   {%- if bk_stts.image_avata -%}
-     {%- assign image = bk_stts.image_avata -%} 
-    <div class="quote-avatar lazyload" data-bgset="{{ image | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5" style="background-image: url({{ image | image_url: '1x1' }};"></div>
+    {%- assign image = bk_stts.image_avata -%}
+    <div
+      class="quote-avatar lazyload"
+      data-bgset="{{ image | asset_url | image_url: '1x1' }}"
+      data-sizes="auto"
+      data-optimumx="1.5"
+      style="background-image: url({{ image | asset_url | image_url: '1x1' }};"
+    ></div>
   {%- endif -%}
   <div class="quote-content">
-     {%- render 'rating_star',rating:bk_stts.rating -%}
-    {{bk_stts.content}}
-    <div class="quote-author">{{bk_stts.title}}</div>
-    {%- if bk_stts.pos != blank -%}<div class="quote-position">{{bk_stts.pos}}</div>{%- endif -%} 
+    {%- render 'rating_star', rating: bk_stts.rating -%}
+    {{ bk_stts.content }}
+    <div class="quote-author">{{ bk_stts.title }}</div>
+    {%- if bk_stts.pos != blank -%}
+      <div class="quote-position">{{ bk_stts.pos }}</div>
+    {%- endif -%}
   </div>
 </div>

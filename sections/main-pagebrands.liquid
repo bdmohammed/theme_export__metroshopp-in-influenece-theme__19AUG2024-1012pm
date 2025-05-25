@@ -1,36 +1,51 @@
 <!-- sections/main-pagebrands.liquid -->
 {{ 'section.css' | asset_url | stylesheet_tag }}
 {%- liquid
-    assign sid = section.id
-    assign se_stts  = section.settings
-    assign stt_layout = se_stts.layout
-    assign stt_image_bg = se_stts.image_bg
-    if stt_layout == 'se-container' 
-        assign html_layout = '<div class="container">__</div></div>' | split:'__'
-    elsif stt_layout == 'container-wrap'
-        assign html_layout = '<div class="container">__</div>' | split:'__'
-    else
-        assign html_layout = '__' | split:'__'
-    endif 
-    assign html_title = '' 
+  assign sid = section.id
+  assign se_stts = section.settings
+  assign stt_layout = se_stts.layout
+  assign stt_image_bg = se_stts.image_bg
+  if stt_layout == 'se-container'
+    assign html_layout = '<div class="container">__</div></div>' | split: '__'
+  elsif stt_layout == 'container-wrap'
+    assign html_layout = '<div class="container">__</div>' | split: '__'
+  else
+    assign html_layout = '__' | split: '__'
+  endif
+  assign html_title = ''
 -%}
-<div class="section-inner nt_se_{{sid}} main-brand-page {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank and stt_layout != 'se-container' %} data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %} {% render 'section_style',se_stts:se_stts -%} >
-    {{-html_layout[0]-}}
-    {%- if stt_layout == 'se-container' -%}
-        <div class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank %} data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %}>{% endif -%}
-            {%- if se_stts.options == 'shop_vendor' -%}
-                <div class="row row-cols-lg-5 row-cols-md-3 row-cols-2 ts-gx-10 isotope" data-isotope-js='{ "itemSelector": ".filter-item", "layoutMode": "masonry" }'>
-                    {%- for product_vendor in shop.vendors -%}
-                        <div class="filter-item col-item">
-                            <div class="vendor-item text-center">
-                                <a href="{{ product_vendor | url_for_vendor }}">{{ product_vendor }}</a>
-                            </div>
-                        </div>
-                    {%- endfor -%}
-                </div>
-            {%- else -%}
-                {%- for i in (1..1) -%}
-                    {%- capture getContentHTML -%}
+<div
+  class="section-inner nt_se_{{sid}} main-brand-page {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}"
+  {% if stt_image_bg != blank and stt_layout != 'se-container' %}
+    data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+  {% endif %}
+  {% render 'section_style', se_stts: se_stts -%}
+>
+  {{- html_layout[0] -}}
+  {%- if stt_layout == 'se-container' -%}
+    <div
+      class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}"
+      {% if stt_image_bg != blank %}
+        data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+      {% endif %}
+    >
+  {% endif -%}
+  {%- if se_stts.options == 'shop_vendor' -%}
+    <div
+      class="row row-cols-lg-5 row-cols-md-3 row-cols-2 ts-gx-10 isotope"
+      data-isotope-js='{ "itemSelector": ".filter-item", "layoutMode": "masonry" }'
+    >
+      {%- for product_vendor in shop.vendors -%}
+        <div class="filter-item col-item">
+          <div class="vendor-item text-center">
+            <a href="{{ product_vendor | url_for_vendor }}">{{ product_vendor }}</a>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    {%- for i in (1..1) -%}
+      {%- capture getContentHTML -%}
                         {%- for link in linklists[se_stts.link_list].links -%}
                             {%- liquid
                                 assign ltt = link.title
@@ -60,20 +75,23 @@
                             {%- endif -%}
                         {%- endfor -%}
                     {%- endcapture -%}
-                    <div class="brands-filter text-center" data-isotope-filter>{{html_title}}</div>
-                    <div class="row row-cols-lg-4 row-cols-md-2 row-cols-2 ts-gx-10 isotope" data-isotope-js='{ "itemSelector": ".filter-item", "layoutMode": "masonry" }'>
-                        {{getContentHTML}}
-                    </div>
-                {%- endfor -%}
-            {%- endif -%}
-    {{-html_layout[1]-}}
+      <div class="brands-filter text-center" data-isotope-filter>{{ html_title }}</div>
+      <div
+        class="row row-cols-lg-4 row-cols-md-2 row-cols-2 ts-gx-10 isotope"
+        data-isotope-js='{ "itemSelector": ".filter-item", "layoutMode": "masonry" }'
+      >
+        {{ getContentHTML }}
+      </div>
+    {%- endfor -%}
+  {%- endif -%}
+  {{- html_layout[1] -}}
 </div>
 <style>
-.brands-filter{
+  .brands-filter {
     font-weight: 500;
     margin-bottom: 35px;
-}
-button.btn-filter {
+  }
+  button.btn-filter {
     position: relative;
     font-weight: 600;
     letter-spacing: 1px;
@@ -85,138 +103,143 @@ button.btn-filter {
     border: 0;
     background-color: transparent;
     color: var(--text-color);
-  	border-radius: 0;
+    border-radius: 0;
     box-shadow: inset -1px -1px #eee, -1px -1px #eee;
-}
-button.btn-filter:not(.filter-haschild) {
+  }
+  button.btn-filter:not(.filter-haschild) {
     pointer-events: none;
     text-decoration: line-through;
-}
-button.btn-filter:not(.filter-haschild) span{
-    opacity: .5;
-}
-button.btn-filter.is--active {
-    color:var(--secondary-color);;
+  }
+  button.btn-filter:not(.filter-haschild) span {
+    opacity: 0.5;
+  }
+  button.btn-filter.is--active {
+    color: var(--secondary-color);
     background-color: #f5f5f5;
-}
-button.btn-filter:focus, button.btn-filter:hover {
-    color: var(--secondary-color);;
-}
-.filter-item {
+  }
+  button.btn-filter:focus,
+  button.btn-filter:hover {
+    color: var(--secondary-color);
+  }
+  .filter-item {
     box-shadow: inset -1px -1px #eee, -1px -1px #eee;
-}
-.filter-item-inner {
+  }
+  .filter-item-inner {
     padding: 15px 5px;
-}
-.filter-item ul {
+  }
+  .filter-item ul {
     list-style: square;
     padding-left: 20px;
     line-height: 1.6;
-}
-.filter-item h4 {
-    margin: 0 0 15px;font-size: 16px;
-}
-.vendor-item a {
+  }
+  .filter-item h4 {
+    margin: 0 0 15px;
+    font-size: 16px;
+  }
+  .vendor-item a {
     padding: 15px 0px;
     display: inline-block;
     width: 100%;
-}
-@media (min-width: 768px) {
+  }
+  @media (min-width: 768px) {
     .filter-item-inner {
-        padding: 20px 5px;
+      padding: 20px 5px;
     }
     .vendor-item a {
-        padding: 20px 0px;
+      padding: 20px 0px;
     }
-}
+  }
 </style>
 {%- schema -%}
 {
-    "name": "Page Brands",
-    "tag":"section",
-    "class":"section tp_istope",
-    "settings":[
+  "name": "Page Brands",
+  "tag": "section",
+  "class": "section tp_istope",
+  "settings": [
+    {
+      "type": "select",
+      "id": "options",
+      "label": "Source brands",
+      "default": "shop_vendor",
+      "options": [
         {
-            "type":"select",
-            "id":"options",
-            "label":"Source brands",
-            "default":"shop_vendor",
-            "options":[
-                {
-                    "label":"Shop vendor",
-                    "value":"shop_vendor"
-                },
-                {
-                    "label":"Linklist",
-                    "value":"linklist"
-                }
-            ]
+          "label": "Shop vendor",
+          "value": "shop_vendor"
         },
         {
-            "type":"link_list",
-            "id":"link_list",
-            "label":"Choose menu"
-        },
-        {
-            "type": "select","id": "layout","default": "container-wrap","label": "Layout",
-            "options": [
-                { "value": "se-container", "label": "Container"},
-                { "value": "container-wrap", "label": "Wrapped container"},
-                { "value": "container-fluid", "label": "Full width"}
-            ]
-        },
-        {
-            "type": "color",
-            "id": "cl_bg",
-            "label": "Background"
-        },
-        {
-            "type": "color_background",
-            "id": "cl_bg_gradient",
-            "label": "Background gradient"
-        },
-        {
-            "type": "image_picker",
-            "id": "image_bg",
-            "label": "Background image"
-        },
-        {
-            "type": "text",
-            "id": "mg",
-            "label": "Margin",
-            "info":"Margin top, margin right, margin bottom, margin left. If you not use to blank",
-            "default": "50px,,50px,",
-            "placeholder": ",,50px,"
-        },
-        {
-            "type": "text",
-            "id": "pd",
-            "label": "Padding",
-            "info":"Padding top, padding right, padding bottom, padding left. If you not use to blank",
-            "placeholder": "50px,,50px,"
-        },
-        {
-            "type": "header",
-            "content": "+ Design mobile options"
-        },
-        {
-            "type": "text",
-            "id": "mg_mb",
-            "label": "Margin",
-            "default": "30px,,30px,",
-            "placeholder": ",,50px,"
-        },
-        {
-            "type": "text",
-            "id": "pd_mb",
-            "label": "Padding",
-            "placeholder": ",,50px,"
+          "label": "Linklist",
+          "value": "linklist"
         }
-    ],
-    "presets":[
-        {
-            "name":"Page Brands"
-        }
-    ]
+      ]
+    },
+    {
+      "type": "link_list",
+      "id": "link_list",
+      "label": "Choose menu"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "default": "container-wrap",
+      "label": "Layout",
+      "options": [
+        { "value": "se-container", "label": "Container" },
+        { "value": "container-wrap", "label": "Wrapped container" },
+        { "value": "container-fluid", "label": "Full width" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "cl_bg",
+      "label": "Background"
+    },
+    {
+      "type": "color_background",
+      "id": "cl_bg_gradient",
+      "label": "Background gradient"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_bg",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "mg",
+      "label": "Margin",
+      "info": "Margin top, margin right, margin bottom, margin left. If you not use to blank",
+      "default": "50px,,50px,",
+      "placeholder": ",,50px,"
+    },
+    {
+      "type": "text",
+      "id": "pd",
+      "label": "Padding",
+      "info": "Padding top, padding right, padding bottom, padding left. If you not use to blank",
+      "placeholder": "50px,,50px,"
+    },
+    {
+      "type": "header",
+      "content": "+ Design mobile options"
+    },
+    {
+      "type": "text",
+      "id": "mg_mb",
+      "label": "Margin",
+      "default": "30px,,30px,",
+      "placeholder": ",,50px,"
+    },
+    {
+      "type": "text",
+      "id": "pd_mb",
+      "label": "Padding",
+      "placeholder": ",,50px,"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Brands"
+    }
+  ]
 }
-{% endschema %}
+{%- endschema -%}

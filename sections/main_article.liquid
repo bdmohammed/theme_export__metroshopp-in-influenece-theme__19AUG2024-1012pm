@@ -26,10 +26,10 @@
         assign html_layout = '__' | split:'__'
     endif  
 -%}
-<div class="section-inner nt_se_{{sid}} main-blog {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank and stt_layout != 'se-container' %} data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %} {% render 'section_style',se_stts:se_stts -%} >
+<div class="section-inner nt_se_{{sid}} main-blog {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank and stt_layout != 'se-container' %} data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %} {% render 'section_style',se_stts:se_stts -%} >
     {{-html_layout[0]-}}
     {%- if stt_layout == 'se-container' -%}
-        <div class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank %} data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %}>{% endif -%}
+        <div class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank %} data-bgset="{{ stt_image_bg | asset_url | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %}>{% endif -%}
         <div class="row row-cols-1">
             <div class="col-item">
                 {%- for block in section.blocks -%}
@@ -38,7 +38,7 @@
                         {%- when 'bl_img' -%}
                             {% if image_article == blank  %}{% continue %}{% endif -%}
                             <div class="article-image text-center relative">
-                                <img class="lazyload" data-src="{{ image_article | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image_article.width,h:image_article.height %}" width="{{ image_article.width }}" height="{{ image_article.height }}" alt="{{ image_article.alt | escape }}">
+                                <img class="lazyload" data-src="{{ image_article | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image_article.width,h:image_article.height %}" width="{{ image_article.width }}" height="{{ image_article.height }}" alt="{{ image_article.alt | escape }}">
                                 <span class="lazyload-loader"></span>
                             </div>
                         {%- when 'bl_content' -%}
@@ -119,7 +119,7 @@
                                             <a href="{{art_url}}" class="d-block eff eff-{{bk_stts.b_effect}} eff-img-{{bk_stts.img_effect}}">
                                                 <div class="ratio" {{imgatt}}style="--aspect-ratioapt: {{image.aspect_ratio | default: 1.7777}}" data-cacl-slide>
                                                     {%- if image != blank -%}
-                                                        <img class="lazyload obj-eff" data-src="{{ image | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
+                                                        <img class="lazyload obj-eff" data-src="{{ image | asset_url | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
                                                         <span class="lazyload-loader"></span>
                                                     {%- else -%}
                                                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg obj-eff' }}

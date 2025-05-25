@@ -158,7 +158,7 @@
   assign block_sizing = se_blocks | where: 'type', 'size' | first
   assign bk_stts = block_sizing.settings
   assign pos_sizeg = bk_stts.pos_sizeg | default: '1'
-  #assign ck_sizeg = false
+  # assign ck_sizeg = false
   # assign pr_tags_str = pr_tags | join: 'ntt4'
   if pos_sizeg == '2'
     assign size_ck = bk_stts.size_ck | append: ',size,sizes,Größe'
@@ -177,12 +177,12 @@
   assign id_tab_review = 'tab-review' | append: se_id
   assign tabs_position = se_stts.tabs_position
   assign enable_video_looping = se_stts.enable_video_looping
-  #case media_layout
+  # case media_layout
   #  when 'thumbnails_left', 'thumbnails_bottom', 'thumbnails_right', 'without_thumbnails'
   #    assign hasIsotope = false
   #  else
   #    assign hasIsotope = true
-  #endcase
+  # endcase
 -%}
 
 {%- capture html_sizeg -%}
@@ -209,7 +209,7 @@
       {%- if sc_type == '1' and page_size != blank and ck_s -%}
         <a class="ch btn__size-chart" data-no-instant rel="nofollow" href="{{page_size.url}}" data-class="mfp-btn-close-inline" data-id="pr-popup__size-guide" data-storageid="{{page_size.url}}" data-open-mfp-ajax data-style="max-width:950px" data-mfp-src="{{page_size.url}}/?section_id=ajax_popup">{{ 'products.product.product_size_guide' | t }}</a>
       {%- elsif sc_type == '2' and image != blank and ck_s -%}
-        <a class="ch btn__size-chart" data-no-instant rel="nofollow"  href="{{product.url}}" data-ts-image-opend data-pswp-src="{{ image | image_url: 'master' }}" data-pswp-w="{{ image.width }}" data-pswp-h="{{ image.height }}" data-pswp-class="pswp__size-guide">{{ 'products.product.product_size_guide' | t }}</a>
+        <a class="ch btn__size-chart" data-no-instant rel="nofollow"  href="{{product.url}}" data-ts-image-opend data-pswp-src="{{ image | asset_url | image_url: 'master' }}" data-pswp-w="{{ image.width }}" data-pswp-h="{{ image.height }}" data-pswp-class="pswp__size-guide">{{ 'products.product.product_size_guide' | t }}</a>
 
       {%- endif -%}
 
@@ -255,6 +255,7 @@
                   <noscript>
                     {{-
                       image
+                      | asset_url
                       | image_url: width: 1500
                       | image_tag:
                         widths: '288, 576, 750, 1100, 1500',
@@ -264,9 +265,9 @@
                     -}}
                   </noscript>
                   <img
-                    data-master="{{image | image_url: 'master'}}"
+                    data-master="{{image | asset_url | image_url: 'master'}}"
                     class="lazyload lz--fadeIn"
-                    data-src="{{ image | image_url: '1x1' }}"
+                    data-src="{{ image | asset_url | image_url: '1x1' }}"
                     data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
                     data-optimumx="1.5"
                     data-sizes="auto"
@@ -761,7 +762,7 @@
                     rel="nofollow"
                     href="{{product.url}}"
                     data-ts-image-opend
-                    data-pswp-src="{{ image | image_url: 'master' }}"
+                    data-pswp-src="{{ image | asset_url | image_url: 'master' }}"
                     data-pswp-w="{{ image.width }}"
                     data-pswp-h="{{ image.height }}"
                     data-pswp-class="pswp__size-guide"
@@ -876,8 +877,8 @@
                 >
                   {%- if bk_stts.social_mode == '1' -%}
                     {%- assign follow_social = true -%}
-                  {% comment %} {%- else -%} {% endcomment %}
-                  {% comment %} {%- assign share_image = settings.share_image | default: page_image | default: settings.logo -%} {% endcomment %}
+                    {% comment %} {%- else -%} {% endcomment %}
+                    {% comment %} {%- assign share_image = settings.share_image | default: page_image | default: settings.logo -%} {% endcomment %}
                   {%- endif -%}
                   {%- render 'social_sharing',
                     style: bk_stts.social_style,
@@ -920,7 +921,7 @@
                     width="{{image.width}}"
                     height="{{image.height}}"
                     src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20{{image.width}}%20{{image.height}}%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3C%2Fsvg%3E"
-                    data-src="{{ image | image_url: '1x1' }}"
+                    data-src="{{ image | asset_url | image_url: '1x1' }}"
                     data-widths="[60, 90, 180, 320, 640]"
                     data-sizes="auto"
                     class="w-100 lazyload lz--fadeIn"
@@ -937,7 +938,7 @@
             {%- capture html_trust -%}
                 {%- assign image = bk_stts.image -%}
                 {%- if bk_stts.source == '1' and image != blank  -%}
-                    <img style="--max-w-img:{{bk_stts.wimg}}%" width="{{image.width}}" height="{{image.height}}" class="img-tr__img lazyload" src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20{{image.width}}%20{{image.height}}%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3C%2Fsvg%3E" data-src="{{ image | image_url: '1x1' }}" data-widths="[90, 120, 150, 180, 360, 480, 600, 750, 940]" data-sizes="auto" alt="{{image.alt}}">
+                    <img style="--max-w-img:{{bk_stts.wimg}}%" width="{{image.width}}" height="{{image.height}}" class="img-tr__img lazyload" src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20{{image.width}}%20{{image.height}}%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3C%2Fsvg%3E" data-src="{{ image | asset_url | image_url: '1x1' }}" data-widths="[90, 120, 150, 180, 360, 480, 600, 750, 940]" data-sizes="auto" alt="{{image.alt}}">
                 {%- else bk_stts.svg -%}
                     {%- assign is_style_svg = true -%}
                     {%- assign svg_height = bk_stts.height -%}
@@ -976,7 +977,7 @@
                   <img
                     class="lazyload w-100 ani-{{bk_stts.ani}}"
                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                    data-src="{{ image | image_url: '50x' }}"
+                    data-src="{{ image | asset_url | image_url: '50x' }}"
                     alt="{{image.alt}}"
                   >
                 {%- else -%}
@@ -1009,7 +1010,7 @@
                   <img
                     class="lazyload w-100 ani-{{bk_stts.ani}}"
                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                    data-src="{{ image | image_url: '50x' }}"
+                    data-src="{{ image | asset_url | image_url: '50x' }}"
                     alt="{{image.alt}}"
                   >
                 {%- else -%}
@@ -1046,7 +1047,7 @@
                   <img
                     class="lazyload w-100 ani-{{bk_stts.ani}}"
                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                    data-src="{{ image | image_url: '50x' }}"
+                    data-src="{{ image | asset_url | image_url: '50x' }}"
                     alt="{{image.alt}}"
                   >
                 {%- else -%}
@@ -1108,7 +1109,7 @@
                       <img
                         class="lazyload w-100 ani-{{bk_stts.ani}}"
                         src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                        data-src="{{ image | image_url: '50x' }}"
+                        data-src="{{ image | asset_url | image_url: '50x' }}"
                         alt="{{image.alt}}"
                       >
                     {%- else -%}
@@ -1192,7 +1193,7 @@
                     <img
                       class="lazyload w-100 ani-{{bk_stts.ani}}"
                       src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                      data-src="{{ image | image_url: '50x' }}"
+                      data-src="{{ image | asset_url | image_url: '50x' }}"
                       alt="{{image.alt}}"
                     >
                   {%- else -%}

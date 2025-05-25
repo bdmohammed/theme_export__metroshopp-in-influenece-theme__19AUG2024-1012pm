@@ -1,43 +1,42 @@
 {%- comment -%}
-  Grouped Form Component
+   Grouped Form Component
 
-  Description:
-  Displays multiple products as a group with quantity selectors and a single "Add to Cart" button
-  that adds all products to cart at once.
+   Description:
+   Displays multiple products as a group with quantity selectors and a single "Add to Cart" button
+   that adds all products to cart at once.
 
-  Usage:
-  {% render 'grouped-forms',
-     product: product,
-     product_list: collection.products,
-     bk_stts: section.settings
-  %}
+   Usage:
+   {% render 'grouped-forms',
+      product: product,
+      product_list: collection.products,
+      bk_stts: section.settings
+   %}
 
-  Features:                                                        
- • Table layout listing each item (including “current” product)
- • Variant selection dropdown for multi-variant items
- • Quantity +/– controls with min/max limits
- • Price & compare prices per row, plus a total at the bottom
- • Wishlist & Compare icons (via separate snippet render)
- • Dynamic “Notify me” + payment buttons if enabled  
+   Features:
+  • Table layout listing each item (including “current” product)
+  • Variant selection dropdown for multi-variant items
+  • Quantity +/– controls with min/max limits
+  • Price & compare prices per row, plus a total at the bottom
+  • Wishlist & Compare icons (via separate snippet render)
+  • Dynamic “Notify me” + payment buttons if enabled
 
-  Required variables:
-  - product: Current product (product object)
-  - product_list: List of related products to show (array of product objects)
-  - bk_stts: Section settings containing:
-    - show_product_current: Boolean to show current product in the list
-    - qty_val: Default quantity value for products
-    - btn_atc_full: Boolean for full-width button
-    - btn_txt: Button text style
-    - button_style: Button style (default, outline, etc.)
-    - button_color: Button color
-    - button_effect: Button hover effect
-    - pr_btn_round: Button border-radius in pixels
-    - ani: Add to cart animation type
-    - time: Animation duration in seconds
-    - enable_wishlist: Boolean to show wishlist button
-    - enable_compare: Boolean to show compare button
+   Required variables:
+   - product: Current product (product object)
+   - product_list: List of related products to show (array of product objects)
+   - bk_stts: Section settings containing:
+     - show_product_current: Boolean to show current product in the list
+     - qty_val: Default quantity value for products
+     - btn_atc_full: Boolean for full-width button
+     - btn_txt: Button text style
+     - button_style: Button style (default, outline, etc.)
+     - button_color: Button color
+     - button_effect: Button hover effect
+     - pr_btn_round: Button border-radius in pixels
+     - ani: Add to cart animation type
+     - time: Animation duration in seconds
+     - enable_wishlist: Boolean to show wishlist button
+     - enable_compare: Boolean to show compare button
 {%- endcomment -%}
-
 
 {%- liquid
   # Initialize variables for current product
@@ -87,7 +86,7 @@
 
             # Set up image variables
             assign image = current_variant.featured_image | default: product.featured_image
-            assign img_url = image | image_url: '1x1'
+            assign img_url = image | asset_url | image_url: '1x1'
             assign featured_image = product.featured_image
           -%}
 
@@ -137,7 +136,7 @@
                 >
                   {%- for variant in available_v -%}
                     <option
-                      data-img="{{variant.image | default:featured_image | image_url: '1x1'}}"
+                      data-img="{{variant.image | default:featured_image | asset_url | image_url: '1x1'}}"
                       data-cpprice="{{variant.compare_at_price |default:variant.price}}"
                       data-price="{{variant.price}}"
                       data-max="{% if variant.inventory_management == blank or variant.inventory_policy == 'continue' %}9999{% else %}{{ variant.inventory_quantity |default:9999 }}{% endif %}"
@@ -163,7 +162,13 @@
             <td class="grouped-pr__qty">
               <div data-quantity-wrapper class="quantity-wrapper">
                 <button data-quantity-selector data-decrease-qty type="button" class="quantity-selector is--minus">
-                  <svg focusable="false" arial-hidden="true" class="icon icon--minus" viewBox="0 0 10 2" role="presentation">
+                  <svg
+                    focusable="false"
+                    arial-hidden="true"
+                    class="icon icon--minus"
+                    viewBox="0 0 10 2"
+                    role="presentation"
+                  >
                     <path d="M10 0v2H0V0z" fill="currentColor"></path>
                   </svg>
                 </button>
@@ -182,7 +187,13 @@
                   inputmode="numeric"
                 >
                 <button data-quantity-selector data-increase-qty type="button" class="quantity-selector is--plus">
-                  <svg focusable="false" arial-hidden="true" class="icon icon--plus" viewBox="0 0 10 10" role="presentation">
+                  <svg
+                    focusable="false"
+                    arial-hidden="true"
+                    class="icon icon--plus"
+                    viewBox="0 0 10 10"
+                    role="presentation"
+                  >
                     <path d="M6 4h4v2H6v4H4V6H0V4h4V0h2v4z" fill="currentColor" fill-rule="evenodd"></path>
                   </svg>
                 </button>
@@ -208,7 +219,7 @@
 
             # Set up image variables
             assign image = available_v_1.featured_image | default: item.featured_image
-            assign img_url = image | image_url: '1x1'
+            assign img_url = image | asset_url | image_url: '1x1'
             assign featured_image = item.featured_image
           -%}
           <tr data-groups-pr-item class="grouped-pr-item">
@@ -255,7 +266,7 @@
                 >
                   {%- for variant in available_v -%}
                     <option
-                      data-img="{{variant.image | default:featured_image | image_url: '1x1'}}"
+                      data-img="{{variant.image | default:featured_image | asset_url | image_url: '1x1'}}"
                       data-cpprice="{{variant.compare_at_price | default:variant.price}}"
                       data-price="{{variant.price}}"
                       data-max="{% if variant.inventory_management == blank or variant.inventory_policy == 'continue' %}9999{% else %}{{ variant.inventory_quantity |default:9999 }}{% endif %}"
@@ -299,7 +310,13 @@
                   inputmode="numeric"
                 >
                 <button data-quantity-selector data-increase-qty type="button" class="quantity-selector is--plus">
-                  <svg focusable="false" arial-hidden="true" class="icon icon--plus" viewBox="0 0 10 10" role="presentation">
+                  <svg
+                    focusable="false"
+                    arial-hidden="true"
+                    class="icon icon--plus"
+                    viewBox="0 0 10 10"
+                    role="presentation"
+                  >
                     <path d="M6 4h4v2H6v4H4V6H0V4h4V0h2v4z" fill="currentColor" fill-rule="evenodd"></path>
                   </svg>
                 </button>

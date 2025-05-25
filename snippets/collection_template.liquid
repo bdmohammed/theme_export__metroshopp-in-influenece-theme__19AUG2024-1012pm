@@ -1,52 +1,89 @@
 {%- liquid
   assign collection = collections[bk_stts.collection]
-  assign block_title = bk_stts.title | default:collection.title
+  assign block_title = bk_stts.title | default: collection.title
   assign image = bk_stts.image
-  assign title = bk_stts.collection_title | default:collection.title
-  assign collection_link = bk_stts.collection_link | default:collection.url
-  assign html = cur_html |split:','
+  assign title = bk_stts.collection_title | default: collection.title
+  assign collection_link = bk_stts.collection_link | default: collection.url
+  assign html = cur_html | split: ','
 -%}
 
-{{html[0]}}
-<div class="col-item collection-item coll-style-{{collection_des}} coll-item-{{stt}} col-lg-{{html[1]}} col-md-{{html[2]}} col-{{html[3]}}" id="b_{{block.id}}">      
+{{ html[0] }}
+<div
+  class="col-item collection-item coll-style-{{collection_des}} coll-item-{{stt}} col-lg-{{html[1]}} col-md-{{html[2]}} col-{{html[3]}}"
+  id="b_{{block.id}}"
+>
   <div class="cat-content source-{{source}} eff eff-{{b_effect}} eff-img-{{img_effect}} text-center relative overflow-hidden">
     <div class="coll-img relative" data-cacl-slide>
-    {% if collection_des == "11" %}
-      <span class="count">{{collection.all_products_count | default:0}}</span>  
-    {% endif %}
-    <a class="cat_item_link img-wrap d-block" href="{{ collection_link }}" target="{{open_link}}">
-    	<div class="ratio ratio_hasmb" style="background: url({{ image | image_url: '1x1' }});--aspect-ratioapt: {{html[4]}}/{{html[5]}};--aspect-ratioapttb: {{html[6]}}/{{html[7]}};--aspect-ratioaptmb: {{html[8]}}/{{html[9]}};" data-cacl-slide>
-        {%- if image != blank -%}
-          <img class="lazyload lz--fadeIn obj-eff" data-src="{{ image | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src=" {%- render 'img_svg',w:image.width,h:image.height -%}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
-          <span class="lazyload-loader is-bg-img" style="background: url({{ image | image_url: '1x1' }});"></span>   
-        {%- elsif collection != blank -%}
-          {%- assign image = collection.image -%} 
-          {% if image != blank%}
-            <img class="lazyload lz--fadeIn obj-eff" data-src="{{ image | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src=" {%- render 'img_svg',w:image.width,h:image.height -%}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
-            <span class="lazyload-loader is-bg-img" style="background: url({{ image | image_url: '1x1' }});"></span>   
-          {% else %}
+      {% if collection_des == '11' %}
+        <span class="count">{{ collection.all_products_count | default: 0 }}</span>
+      {% endif %}
+      <a class="cat_item_link img-wrap d-block" href="{{ collection_link }}" target="{{open_link}}">
+        <div
+          class="ratio ratio_hasmb"
+          style="background: url({{ image | asset_url | image_url: '1x1' }});--aspect-ratioapt: {{html[4]}}/{{html[5]}};--aspect-ratioapttb: {{html[6]}}/{{html[7]}};--aspect-ratioaptmb: {{html[8]}}/{{html[9]}};"
+          data-cacl-slide
+        >
+          {%- if image != blank -%}
+            <img
+              class="lazyload lz--fadeIn obj-eff"
+              data-src="{{ image | asset_url | image_url: '1x1' }}"
+              data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
+              data-optimumx="2"
+              data-sizes="auto"
+              src=" {%- render 'img_svg',w:image.width,h:image.height -%}"
+              width="{{ image.width }}"
+              height="{{ image.height }}"
+              alt="{{ image.alt | escape }}"
+            >
+            <span
+              class="lazyload-loader is-bg-img"
+              style="background: url({{ image | asset_url | image_url: '1x1' }});"
+            ></span>
+          {%- elsif collection != blank -%}
+            {%- assign image = collection.image -%}
+            {% if image != blank %}
+              <img
+                class="lazyload lz--fadeIn obj-eff"
+                data-src="{{ image | asset_url | image_url: '1x1' }}"
+                data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
+                data-optimumx="2"
+                data-sizes="auto"
+                src=" {%- render 'img_svg',w:image.width,h:image.height -%}"
+                width="{{ image.width }}"
+                height="{{ image.height }}"
+                alt="{{ image.alt | escape }}"
+              >
+              <span
+                class="lazyload-loader is-bg-img"
+                style="background: url({{ image | asset_url | image_url: '1x1' }});"
+              ></span>
+            {% else %}
+              {%- assign txt = html[4] | append: 'x' | append: html[5] -%}
+              {%- render 'svg_holder',txt:txt,fs:"40px" | placeholder_svg_tag: 'placeholder-svg obj-eff' -%}
+            {% endif %}
+          {%- else -%}
             {%- assign txt = html[4] | append: 'x' | append: html[5] -%}
             {%- render 'svg_holder',txt:txt,fs:"40px" | placeholder_svg_tag: 'placeholder-svg obj-eff' -%}
-          {% endif %}
-        {%- else -%}
-          {%- assign txt = html[4] | append: 'x' | append: html[5] -%}
-          {%- render 'svg_holder',txt:txt,fs:"40px" | placeholder_svg_tag: 'placeholder-svg obj-eff' -%}
-        {%- endif -%}
-	    </div>
-    </a>
+          {%- endif -%}
+        </div>
+      </a>
     </div>
     {%- if title != blank -%}
       <div class="cate-wrapper">
-          <a class="cat-title" href="{{ collection_link }}" target="{{open_link}}">
-            <span class="text">{{ title }}</span> {% if collection_des == "12" %} <span class="count">{{collection.all_products_count | default:0}}</span> {% endif %}
-          </a>
+        <a class="cat-title" href="{{ collection_link }}" target="{{open_link}}">
+          <span class="text">{{ title }}</span>
+          {% if collection_des == '12' %}
+            <span class="count">{{ collection.all_products_count | default: 0 }}</span>
+          {% endif %}
+        </a>
         {%- if subtitle != blank -%}
           <a class="cat-subtitle" href="{{ collection_link }}" target="{{open_link}}">
-            <span class="count">{{collection.all_products_count | default:0}}</span> <span class="text">{{ subtitle }}</span>
+            <span class="count">{{ collection.all_products_count | default: 0 }}</span>
+            <span class="text">{{ subtitle }}</span>
           </a>
         {%- endif -%}
       </div>
     {%- endif -%}
   </div>
 </div>
-{{html[10]}}
+{{ html[10] }}
