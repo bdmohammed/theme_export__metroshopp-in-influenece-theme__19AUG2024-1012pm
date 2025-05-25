@@ -1,14 +1,23 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
-    "purchase_code": "3fe24029-341a-436e-95bc-e41b44f39233",
     "general_layout": "custom",
     "cus_w_bd": 1100,
     "home_keywords": "",
     "shop_author": "Yamora",
     "use_rtl": "0",
     "falling_snow": false,
+    "favicon": "shopify://shop_images/faviconfin.png",
     "header_design": "inline",
-    "logo": "shopify:\/\/shop_images\/yamora_logo_3.png",
+    "logo": "shopify://shop_images/yamora_logo_3.png",
     "logo_width": 185,
     "logos_width": 125,
     "logo_mb_width": 95,
@@ -28,6 +37,35 @@
     "fnt_fm_gg2": "Poppins",
     "fnt_fm_gg3": "Libre Baskerville",
     "hd_ffamily": "1",
+    "shipping_amount": 1000,
+    "gift_wrap_pr": "gift-wrap",
+    "filter_type_search": true,
+    "show_search_suggest": true,
+    "search_prs_suggest": "women",
+    "show_search_hotkey": true,
+    "share_twitter": false,
+    "share_tumblr": true,
+    "share_email": false,
+    "share_telegram": false,
+    "share_whatsapp": false,
+    "social_facebook_link": "https://www.facebook.com/people/yamoraco/100088520829710/",
+    "social_twitter_link": "",
+    "social_instagram_link": "https://www.instagram.com/yamora.jewel/",
+    "social_dribbble_link": "",
+    "social_linkedin_link": "",
+    "social_pinterest_link": "https://in.pinterest.com/shreeyamunajijewellers/",
+    "social_tumblr_link": "",
+    "social_snapchat_link": "",
+    "social_youtube_link": "https://www.youtube.com/channel/UCECc_dnhLzhS92-SCoiAMTA",
+    "social_vimeo_link": "",
+    "social_behance_link": "",
+    "social_soundcloud_link": "",
+    "social_tiktok_link": "",
+    "currency_type": "1",
+    "size_currency": "sm",
+    "round_currency": false,
+    "notify_currency": true,
+    "hover_currency": false,
     "wishlist_mode": "1",
     "enable_css_wis": true,
     "enable_compe": false,
@@ -52,41 +90,12 @@
     "enable_his": true,
     "variant_remove": "2",
     "share_source": "2",
-    "shipping_amount": 1000,
-    "gift_wrap_pr": "gift-wrap",
-    "filter_type_search": true,
-    "show_search_suggest": true,
-    "search_prs_suggest": "women",
-    "show_search_hotkey": true,
-    "currency_type": "1",
-    "size_currency": "sm",
-    "round_currency": false,
-    "notify_currency": true,
-    "hover_currency": false,
     "custom_css": true,
     "global_css": ".pr-style1 .product-btns{\ndisplay: none;\n}\n#followers .fcontainer{\nwidth: 50%;\n}\n.pr__notify-stock.btn-color-primary, .payment-button.btn-color-primary .shopify-payment-button__button--unbranded{\nbackground-color: #ab7a65;\n}",
     "tablet_mobile_css": "",
     "mobile_css": "#followers .fcontainer{\nwidth: 100%;\n}\n#followers .fcontainer .fcard p.label{\nmargin: -20px 10px;\n}\n.promise-section .cards{\npadding: 0px 15px;\n}",
-    "share_twitter": false,
-    "share_tumblr": true,
-    "share_email": false,
-    "share_telegram": false,
-    "share_whatsapp": false,
-    "social_facebook_link": "https:\/\/www.facebook.com\/people\/yamoraco\/100088520829710\/",
-    "social_twitter_link": "",
-    "social_instagram_link": "https:\/\/www.instagram.com\/yamora.jewel\/",
-    "social_dribbble_link": "",
-    "social_linkedin_link": "",
-    "social_pinterest_link": "https:\/\/in.pinterest.com\/shreeyamunajijewellers\/",
-    "social_tumblr_link": "",
-    "social_snapchat_link": "",
-    "social_youtube_link": "https:\/\/www.youtube.com\/channel\/UCECc_dnhLzhS92-SCoiAMTA",
-    "social_vimeo_link": "",
-    "social_behance_link": "",
-    "social_soundcloud_link": "",
-    "social_tiktok_link": "",
-    "favicon": "shopify:\/\/shop_images\/faviconfin.png",
-    "checkout_logo_image": "shopify:\/\/shop_images\/checkout_logo.png",
+    "purchase_code": "3fe24029-341a-436e-95bc-e41b44f39233",
+    "checkout_logo_image": "shopify://shop_images/checkout_logo.png",
     "checkout_logo_position": "center",
     "checkout_logo_size": "large",
     "checkout_accent_color": "#de9e82",
@@ -117,7 +126,7 @@
           "b3c6ceca-2d54-4a14-b482-bb86cbf25f08": {
             "type": "copyR",
             "settings": {
-              "text": "Copyright © [year] <span>ShreeYamunaji Jewellers<\/span> all rights reserved.",
+              "text": "Copyright © [year] <span>ShreeYamunaji Jewellers</span> all rights reserved.",
               "mgb": 15,
               "mgb_mb": 15
             }
@@ -166,8 +175,8 @@
             "type": "announcement",
             "settings": {
               "link": "",
-              "content": "<p><strong>Free Delivery<\/strong> on all orders!<\/p>",
-              "countdown": "2022\/09\/19",
+              "content": "<p><strong>Free Delivery</strong> on all orders!</p>",
+              "countdown": "2022/09/19",
               "txt_day": "days",
               "dayx": 0
             }
@@ -176,8 +185,8 @@
             "type": "announcement",
             "settings": {
               "link": "",
-              "content": "<p>Limited Offer : Get 10% off   [icon_arrow] <strong>Code: SPECIAL10<\/strong><\/p>",
-              "countdown": "2022\/09\/19",
+              "content": "<p>Limited Offer : Get 10% off   [icon_arrow] <strong>Code: SPECIAL10</strong></p>",
+              "countdown": "2022/09/19",
               "txt_day": "days",
               "dayx": 0
             }
@@ -196,7 +205,7 @@
           "cl": "#ffffff",
           "bg": "#de9e82",
           "bg_op": 100,
-          "close": "0",
+          "close": "1",
           "cl_btn": "#ffffff",
           "version": "1",
           "date": 60
@@ -207,9 +216,8 @@
         "blocks": {
           "top-bar-0": {
             "type": "html",
-            "disabled": true,
             "settings": {
-              "html": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"16\" height=\"16\" viewbox=\"0 0 32 32\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\">\n   <path d=\"M23.407 30.394c-2.431 0-8.341-3.109-13.303-9.783-4.641-6.242-6.898-10.751-6.898-13.785 0-2.389 1.65-3.529 2.536-4.142l0.219-0.153c0.979-0.7 2.502-0.927 3.086-0.927 1.024 0 1.455 0.599 1.716 1.121 0.222 0.442 2.061 4.39 2.247 4.881 0.286 0.755 0.192 1.855-0.692 2.488l-0.155 0.108c-0.439 0.304-1.255 0.869-1.368 1.557-0.055 0.334 0.057 0.684 0.342 1.068 1.423 1.918 5.968 7.55 6.787 8.314 0.642 0.6 1.455 0.685 2.009 0.218 0.573-0.483 0.828-0.768 0.83-0.772l0.059-0.057c0.048-0.041 0.496-0.396 1.228-0.396 0.528 0 1.065 0.182 1.596 0.541 1.378 0.931 4.487 3.011 4.487 3.011l0.050 0.038c0.398 0.341 0.973 1.323 0.302 2.601-0.695 1.327-2.85 4.066-5.079 4.066zM9.046 2.672c-0.505 0-1.746 0.213-2.466 0.728l-0.232 0.162c-0.827 0.572-2.076 1.435-2.076 3.265 0 2.797 2.188 7.098 6.687 13.149 4.914 6.609 10.532 9.353 12.447 9.353 1.629 0 3.497-2.276 4.135-3.494 0.392-0.748 0.071-1.17-0.040-1.284-0.36-0.241-3.164-2.117-4.453-2.988-0.351-0.238-0.688-0.358-0.999-0.358-0.283 0-0.469 0.1-0.532 0.14-0.104 0.111-0.39 0.405-0.899 0.833-0.951 0.801-2.398 0.704-3.424-0.254-0.923-0.862-5.585-6.666-6.916-8.459-0.46-0.62-0.641-1.252-0.538-1.877 0.187-1.133 1.245-1.866 1.813-2.26l0.142-0.099c0.508-0.363 0.4-1.020 0.316-1.242-0.157-0.414-1.973-4.322-2.203-4.781-0.188-0.376-0.336-0.533-0.764-0.533z\" fill=\"currentColor\"><\/path>\n<\/svg>\n<a class=\"ct\" href=\"tel:%20+0123456789\"> +01 23456789<\/a> \n<svg class=\"ml__15\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"16\" height=\"16\" viewbox=\"0 0 32 32\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink \">\n   <path d=\"M28.244 7.47h-25.572v17.060h26.656v-17.060h-1.084zM27.177 8.536l-10.298 10.298c-0.47 0.47-1.289 0.47-1.759 0l-10.3-10.298h22.356zM3.738 8.961l6.923 6.922-6.923 6.923v-13.846zM4.589 23.464l6.827-6.826 2.951 2.95c0.436 0.436 1.016 0.677 1.633 0.677s1.197-0.241 1.633-0.677l2.951-2.951 6.826 6.826h-22.822zM28.262 22.807l-6.923-6.924 6.923-6.924v13.848z\" fill=\"currentColor\"><\/path>\n<\/svg> \n<a class=\"ct\" href=\"mailto:kalles@domain.com\">Kalles@domain.com<\/a>",
+              "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewbox=\"0 0 32 32\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n   <path d=\"M23.407 30.394c-2.431 0-8.341-3.109-13.303-9.783-4.641-6.242-6.898-10.751-6.898-13.785 0-2.389 1.65-3.529 2.536-4.142l0.219-0.153c0.979-0.7 2.502-0.927 3.086-0.927 1.024 0 1.455 0.599 1.716 1.121 0.222 0.442 2.061 4.39 2.247 4.881 0.286 0.755 0.192 1.855-0.692 2.488l-0.155 0.108c-0.439 0.304-1.255 0.869-1.368 1.557-0.055 0.334 0.057 0.684 0.342 1.068 1.423 1.918 5.968 7.55 6.787 8.314 0.642 0.6 1.455 0.685 2.009 0.218 0.573-0.483 0.828-0.768 0.83-0.772l0.059-0.057c0.048-0.041 0.496-0.396 1.228-0.396 0.528 0 1.065 0.182 1.596 0.541 1.378 0.931 4.487 3.011 4.487 3.011l0.050 0.038c0.398 0.341 0.973 1.323 0.302 2.601-0.695 1.327-2.85 4.066-5.079 4.066zM9.046 2.672c-0.505 0-1.746 0.213-2.466 0.728l-0.232 0.162c-0.827 0.572-2.076 1.435-2.076 3.265 0 2.797 2.188 7.098 6.687 13.149 4.914 6.609 10.532 9.353 12.447 9.353 1.629 0 3.497-2.276 4.135-3.494 0.392-0.748 0.071-1.17-0.040-1.284-0.36-0.241-3.164-2.117-4.453-2.988-0.351-0.238-0.688-0.358-0.999-0.358-0.283 0-0.469 0.1-0.532 0.14-0.104 0.111-0.39 0.405-0.899 0.833-0.951 0.801-2.398 0.704-3.424-0.254-0.923-0.862-5.585-6.666-6.916-8.459-0.46-0.62-0.641-1.252-0.538-1.877 0.187-1.133 1.245-1.866 1.813-2.26l0.142-0.099c0.508-0.363 0.4-1.020 0.316-1.242-0.157-0.414-1.973-4.322-2.203-4.781-0.188-0.376-0.336-0.533-0.764-0.533z\" fill=\"currentColor\"></path>\n</svg>\n<a class=\"ct\" href=\"tel:%20+0123456789\"> +01 23456789</a> \n<svg class=\"ml__15\" xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewbox=\"0 0 32 32\" xmlns:xlink=\"http://www.w3.org/1999/xlink \">\n   <path d=\"M28.244 7.47h-25.572v17.060h26.656v-17.060h-1.084zM27.177 8.536l-10.298 10.298c-0.47 0.47-1.289 0.47-1.759 0l-10.3-10.298h22.356zM3.738 8.961l6.923 6.922-6.923 6.923v-13.846zM4.589 23.464l6.827-6.826 2.951 2.95c0.436 0.436 1.016 0.677 1.633 0.677s1.197-0.241 1.633-0.677l2.951-2.951 6.826 6.826h-22.822zM28.262 22.807l-6.923-6.924 6.923-6.924v13.848z\" fill=\"currentColor\"></path>\n</svg> \n<a class=\"ct\" href=\"mailto:kalles@domain.com\">Kalles@domain.com</a>",
               "hide": false,
               "text_align": "start",
               "col": "4"
@@ -217,10 +225,9 @@
           },
           "top-bar-1": {
             "type": "text",
-            "disabled": true,
             "settings": {
-              "text": "<p>Summer sale discount off <strong>50%<\/strong>! <a href=\"\/collections\" title=\"All collections\">Shop Now<\/a><\/p>",
-              "countdown": "2022\/04\/19",
+              "text": "<p>Summer sale discount off <strong>50%</strong>! <a href=\"/collections\" title=\"All collections\">Shop Now</a></p>",
+              "countdown": "2022/04/19",
               "txt_day": "days",
               "dayx": 0,
               "effect": "1",
@@ -243,7 +250,7 @@
               "show_language": true,
               "use_location": true,
               "txt_location": "Location",
-              "url_location": "shopify:\/\/blogs\/lingeries\/5-best-swimsuits-for-big-busts",
+              "url_location": "shopify://blogs/lingeries/5-best-swimsuits-for-big-busts",
               "open_link": "_self",
               "hide": false,
               "text_align": "end",
@@ -257,7 +264,7 @@
           "top-bar-2"
         ],
         "settings": {
-          "show_topbar": false,
+          "show_topbar": true,
           "topbar_transparent": false,
           "height": 45,
           "fontsize": 12,
@@ -282,7 +289,7 @@
             "type": "mega",
             "settings": {
               "title": "Rings",
-              "url": "shopify:\/\/collections\/rings",
+              "url": "shopify://collections/rings",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -301,7 +308,7 @@
             "type": "mega",
             "settings": {
               "title": "Earrings",
-              "url": "shopify:\/\/collections",
+              "url": "shopify://collections",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -320,7 +327,7 @@
             "type": "mega",
             "settings": {
               "title": "Bracelets & Bengals",
-              "url": "shopify:\/\/collections\/solitaires",
+              "url": "shopify://collections/solitaires",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -339,7 +346,7 @@
             "type": "mega",
             "settings": {
               "title": "Solitaries",
-              "url": "shopify:\/\/collections\/solitaires-1",
+              "url": "shopify://collections/solitaires-1",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -377,7 +384,7 @@
             "type": "mega",
             "settings": {
               "title": "Try At Home",
-              "url": "shopify:\/\/collections\/try-at-home",
+              "url": "shopify://collections/try-at-home",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -394,10 +401,9 @@
           },
           "1bde09fa-0c40-4296-b411-d7f8815c64b8": {
             "type": "mega",
-            "disabled": true,
             "settings": {
               "title": "Gifiting",
-              "url": "\/",
+              "url": "/",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -786,18 +792,17 @@
               "tt_hd": "Shop By Style",
               "url": "",
               "open_link": "_self",
-              "menu": "rings",
+              "menu": "",
               "col": "4"
             }
           },
           "31b0751c-9378-4557-be28-99c34fadabad": {
             "type": "link",
-            "disabled": true,
             "settings": {
               "tt_hd": "For Gifting",
               "url": "",
               "open_link": "_self",
-              "menu": "gifts",
+              "menu": "",
               "col": "4"
             }
           },
@@ -808,7 +813,6 @@
               "image_size": "cover",
               "image_position": "8",
               "height_dk": 400,
-              "image": "shopify:\/\/shop_images\/1_d1952e74-afd0-4a93-8610-7c4921a75b48.png",
               "img_effect": "zoom",
               "b_effect": "none",
               "b_link": "",
@@ -835,18 +839,17 @@
               "tt_hd": "Shop By Style",
               "url": "",
               "open_link": "_self",
-              "menu": "earrings",
+              "menu": "",
               "col": "4"
             }
           },
           "b3c09a9d-0ab6-468c-bd40-26cbc747d21e": {
             "type": "link",
-            "disabled": true,
             "settings": {
               "tt_hd": "For Gifting",
               "url": "",
               "open_link": "_self",
-              "menu": "gifts",
+              "menu": "",
               "col": "4"
             }
           },
@@ -857,7 +860,6 @@
               "image_size": "cover",
               "image_position": "8",
               "height_dk": 400,
-              "image": "shopify:\/\/shop_images\/banner-15.png",
               "img_effect": "zoom",
               "b_effect": "none",
               "b_link": "",
@@ -884,7 +886,7 @@
               "tt_hd": "Bracelets",
               "url": "",
               "open_link": "_self",
-              "menu": "bracelet",
+              "menu": "",
               "col": "3"
             }
           },
@@ -894,18 +896,17 @@
               "tt_hd": "Bangles",
               "url": "",
               "open_link": "_self",
-              "menu": "bangles",
+              "menu": "",
               "col": "3"
             }
           },
           "9cc793ba-2128-4cc0-9e5a-a7f4119ac09e": {
             "type": "link",
-            "disabled": true,
             "settings": {
               "tt_hd": "For Gifting",
               "url": "",
               "open_link": "_self",
-              "menu": "gifts",
+              "menu": "",
               "col": "3"
             }
           },
@@ -916,7 +917,6 @@
               "image_size": "cover",
               "image_position": "8",
               "height_dk": 403,
-              "image": "shopify:\/\/shop_images\/instagram-01.png",
               "img_effect": "none",
               "b_effect": "none",
               "b_link": "",
@@ -943,7 +943,7 @@
               "tt_hd": "Necklace",
               "url": "",
               "open_link": "_self",
-              "menu": "necklaces-1",
+              "menu": "",
               "col": "3"
             }
           },
@@ -953,7 +953,7 @@
               "tt_hd": "Pendants",
               "url": "",
               "open_link": "_self",
-              "menu": "pendents",
+              "menu": "",
               "col": "3"
             }
           },
@@ -963,7 +963,7 @@
               "tt_hd": "For Gifting",
               "url": "",
               "open_link": "_self",
-              "menu": "gifts",
+              "menu": "",
               "col": "3"
             }
           },
@@ -974,7 +974,6 @@
               "image_size": "cover",
               "image_position": "8",
               "height_dk": 400,
-              "image": "shopify:\/\/shop_images\/instagram-05.png",
               "img_effect": "none",
               "b_effect": "none",
               "b_link": "",
@@ -1001,7 +1000,7 @@
               "tt_hd": "Other Jewellery",
               "url": "",
               "open_link": "_self",
-              "menu": "silver-jewellery",
+              "menu": "",
               "col": "4"
             }
           },
@@ -1011,7 +1010,7 @@
               "tt_hd": "For Gifting",
               "url": "",
               "open_link": "_self",
-              "menu": "gifts",
+              "menu": "",
               "col": "4"
             }
           },
@@ -1022,7 +1021,6 @@
               "image_size": "cover",
               "image_position": "8",
               "height_dk": 400,
-              "image": "shopify:\/\/shop_images\/2.png",
               "img_effect": "none",
               "b_effect": "none",
               "b_link": "",
@@ -1049,7 +1047,7 @@
               "tt_hd": "Shop By",
               "url": "",
               "open_link": "_self",
-              "menu": "shop-by",
+              "menu": "",
               "col": "3"
             }
           },
@@ -1059,7 +1057,7 @@
               "tt_hd": "Mangalsutras",
               "url": "",
               "open_link": "_self",
-              "menu": "mangalsutra",
+              "menu": "",
               "col": "3"
             }
           },
@@ -1069,7 +1067,7 @@
               "tt_hd": "Men's Jewellery",
               "url": "",
               "open_link": "_self",
-              "menu": "mens-jewellery",
+              "menu": "",
               "col": "3"
             }
           },
@@ -1079,7 +1077,7 @@
               "tt_hd": "Kid's Jewellery",
               "url": "",
               "open_link": "_self",
-              "menu": "kids-jewellery",
+              "menu": "",
               "col": "3"
             }
           }
@@ -1113,8 +1111,7 @@
           "3678b284-9ec4-4121-920e-1761ba9271b8",
           "0b01e2d1-97b3-45f9-8e31-1549eb9aeb25"
         ],
-        "settings": {
-        }
+        "settings": {}
       },
       "mb_nav": {
         "type": "mb_nav",
@@ -1123,7 +1120,7 @@
             "type": "menu",
             "settings": {
               "title": "Home",
-              "url": "\/",
+              "url": "/",
               "open_link": "_self",
               "menu": "",
               "icon": "",
@@ -1137,7 +1134,7 @@
               "title": "Rings",
               "url": "",
               "open_link": "_self",
-              "menu": "rings",
+              "menu": "",
               "icon": "",
               "lb": "",
               "lb_cl": ""
@@ -1147,9 +1144,9 @@
             "type": "menu",
             "settings": {
               "title": "Earrings",
-              "url": "shopify:\/\/collections\/women",
+              "url": "shopify://collections/women",
               "open_link": "_self",
-              "menu": "earrings",
+              "menu": "",
               "icon": "",
               "lb": "",
               "lb_cl": ""
@@ -1161,7 +1158,7 @@
               "title": "Bracelets",
               "url": "",
               "open_link": "_self",
-              "menu": "bracelet",
+              "menu": "",
               "icon": "",
               "lb": "",
               "lb_cl": ""
@@ -1173,7 +1170,7 @@
               "title": "Necklaces",
               "url": "",
               "open_link": "_self",
-              "menu": "necklaces-1",
+              "menu": "",
               "icon": "",
               "lb": "",
               "lb_cl": ""
@@ -1181,8 +1178,7 @@
           },
           "mb_nav-9": {
             "type": "cur",
-            "settings": {
-            }
+            "settings": {}
           },
           "79803ae4-232d-45e4-b086-25aa009c977b": {
             "type": "menu",
@@ -1190,7 +1186,7 @@
               "title": "Silver jewelry",
               "url": "",
               "open_link": "_self",
-              "menu": "silver-jewellery",
+              "menu": "",
               "icon": "",
               "lb": "",
               "lb_cl": ""
@@ -1202,7 +1198,7 @@
               "title": "Pandant",
               "url": "",
               "open_link": "_self",
-              "menu": "pendents",
+              "menu": "",
               "icon": "",
               "lb": "",
               "lb_cl": ""
@@ -1215,7 +1211,7 @@
               "title": "Bangles",
               "url": "",
               "open_link": "_self",
-              "menu": "bangles",
+              "menu": "",
               "icon": "",
               "lb": "",
               "lb_cl": ""
@@ -1233,8 +1229,7 @@
           "d8790124-4125-4ccf-9092-7fe609e2577d",
           "6b162aa9-3364-4ca9-8cf5-bed9e8c3cbac"
         ],
-        "settings": {
-        }
+        "settings": {}
       },
       "mb_cat": {
         "type": "mb_cat",
@@ -1351,16 +1346,14 @@
           "a8e444e6-eaae-4fff-a0dd-f13d43abd5f0",
           "a613ac38-3b02-42a8-8d06-c7fab073ed0c"
         ],
-        "settings": {
-        }
+        "settings": {}
       },
       "mini_cart": {
         "type": "mini_cart",
         "blocks": {
           "mini_cart-0": {
             "type": "price",
-            "settings": {
-            }
+            "settings": {}
           },
           "mini_cart-1": {
             "type": "tax",
@@ -1371,8 +1364,7 @@
           "mini_cart-2": {
             "type": "agree",
             "disabled": true,
-            "settings": {
-            }
+            "settings": {}
           },
           "mini_cart-3": {
             "type": "btnc",
@@ -1394,8 +1386,7 @@
           },
           "mini_cart-5": {
             "type": "img",
-            "settings": {
-            }
+            "settings": {}
           },
           "mini_cart-6": {
             "type": "btn",
@@ -1481,15 +1472,11 @@
               "show_dynamic_checkout": true,
               "btn_txt2": "3",
               "button_color_payment": "dark",
-              "product_list": [
-
-              ],
+              "product_list": [],
               "show_product_current": true,
               "qty_val": "0",
               "advance_label": "Choose style",
-              "advance_pr_list": [
-
-              ]
+              "advance_pr_list": []
             }
           },
           "main-qv-6": {
@@ -1513,7 +1500,7 @@
             "type": "description",
             "settings": {
               "des": "2",
-              "text": "<p>Go kalles this summer with this vintage navy and white striped v-neck t-shirt from the Nike. Perfect for pairing with denim and white kicks for a stylish kalles vibe.<\/p>",
+              "text": "<p>Go kalles this summer with this vintage navy and white striped v-neck t-shirt from the Nike. Perfect for pairing with denim and white kicks for a stylish kalles vibe.</p>",
               "length": 31,
               "readm": false,
               "readm_txt": "Read more"
@@ -1584,8 +1571,7 @@
       },
       "search-hidden": {
         "type": "search-hidden",
-        "settings": {
-        }
+        "settings": {}
       },
       "login-sidebar": {
         "type": "login-sidebar",
@@ -1634,7 +1620,7 @@
           "heading-template-0"
         ],
         "settings": {
-          "image": "shopify:\/\/shop_images\/shopping-cart-head.jpg",
+          "image": "shopify://shop_images/shopping-cart-head.jpg",
           "parallax": false,
           "color": "#000000",
           "overlay": 54,
@@ -1655,8 +1641,7 @@
         "blocks": {
           "main-wishlist-0": {
             "type": "layout",
-            "settings": {
-            }
+            "settings": {}
           }
         },
         "block_order": [
@@ -1702,8 +1687,7 @@
         "blocks": {
           "main-compare-0": {
             "type": "basic",
-            "settings": {
-            }
+            "settings": {}
           },
           "main-compare-1": {
             "type": "availability",
@@ -1807,7 +1791,7 @@
             "type": "base",
             "settings": {
               "title": "base",
-              "url": "\/",
+              "url": "/",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -1855,7 +1839,7 @@
           "bg_hc": "#000000",
           "cl_hc": "#ffffff",
           "source": "2",
-          "txt": "<p>Welcome to our store!<\/p>",
+          "txt": "<p>Welcome to our store!</p>",
           "h_navmb": 62,
           "sticky_header": true,
           "scroll_header": true,
@@ -1871,13 +1855,11 @@
       },
       "popups": {
         "type": "popups",
-        "settings": {
-        }
+        "settings": {}
       },
       "custom_color": {
         "type": "custom_color",
-        "settings": {
-        }
+        "settings": {}
       },
       "main-qs": {
         "type": "main-qs",
@@ -1974,7 +1956,7 @@
           "clnavtr_hover": "#ffffff",
           "clseatr": "#56cfe1",
           "source": "2",
-          "txt": "<p>Welcome to our store!<\/p>"
+          "txt": "<p>Welcome to our store!</p>"
         }
       },
       "header-categories-menu": {
@@ -2022,7 +2004,7 @@
             "type": "base",
             "settings": {
               "title": "base",
-              "url": "\/",
+              "url": "/",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -2087,7 +2069,7 @@
           "fw_nav": 400,
           "ls_nav": 0,
           "txt_cat": "SHOP BY CATEGORY",
-          "text": "<i class=\"las la-phone fs__14\"><\/i> +01 23456789 <i class=\"las la-envelope fs__14 ml__15\"><\/i> <a class=\"cg\" href=\"mailto:kalles@domain.com\">kalles@domain.com<\/a>",
+          "text": "<i class=\"las la-phone fs__14\"></i> +01 23456789 <i class=\"las la-envelope fs__14 ml__15\"></i> <a class=\"cg\" href=\"mailto:kalles@domain.com\">kalles@domain.com</a>",
           "shop_cat": true
         }
       },
@@ -2134,7 +2116,7 @@
             "type": "lv0_base",
             "settings": {
               "title": "base",
-              "url": "\/",
+              "url": "/",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -2160,7 +2142,7 @@
             "type": "base",
             "settings": {
               "title": "Home",
-              "url": "\/",
+              "url": "/",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -2173,7 +2155,7 @@
             "type": "mega",
             "settings": {
               "title": "Rings",
-              "url": "shopify:\/\/collections\/rings",
+              "url": "shopify://collections/rings",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -2192,7 +2174,7 @@
             "type": "mega",
             "settings": {
               "title": "Earrings",
-              "url": "shopify:\/\/collections\/earrings",
+              "url": "shopify://collections/earrings",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -2211,7 +2193,7 @@
             "type": "mega",
             "settings": {
               "title": "Bracelets & Bangles",
-              "url": "shopify:\/\/collections\/bracelets-bengals",
+              "url": "shopify://collections/bracelets-bengals",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -2230,7 +2212,7 @@
             "type": "mega",
             "settings": {
               "title": "Necklaces & Pendant",
-              "url": "shopify:\/\/collections\/necklace",
+              "url": "shopify://collections/necklace",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -2269,7 +2251,7 @@
             "disabled": true,
             "settings": {
               "title": "Shop All",
-              "url": "shopify:\/\/collections",
+              "url": "shopify://collections",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -2328,24 +2310,254 @@
           "clnavtr": "#ffffff",
           "clnavtr_hover": "#ffffff",
           "source": "3",
-          "txt": "<p>Welcome to our store!<\/p>",
+          "txt": "<p>Welcome to our store!</p>",
           "fm_nav": "1",
           "fs_nav": 14,
           "fw_nav": 400,
           "ls_nav": 0
         }
-      }
-    },
-    "content_for_index": [
-
-    ],
-    "blocks": {
-      "9144908965052497053": {
-        "type": "shopify:\/\/apps\/related-products-also-bought\/blocks\/app-embed\/75cf2d86-3988-45e7-8f28-ada23c99704f",
-        "disabled": false,
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "footer-0": {
+            "type": "bl_col",
+            "settings": {
+              "col_heading": "",
+              "menu": "",
+              "menu_style": "1",
+              "col_dk": "3",
+              "col_tb": "6",
+              "col_mb": "12",
+              "content_align": "text-md-start",
+              "padding_inner": "",
+              "col_heading_mobile": "",
+              "content_align_mb": "text-start",
+              "padding_inner_mb": ""
+            }
+          },
+          "footer-1": {
+            "type": "custom_text",
+            "settings": {
+              "text": "kalles",
+              "remove_br_tag": false,
+              "fontf": "inherit",
+              "text_cl": "#000000",
+              "text_fs": 30,
+              "text_lh": 0,
+              "text_fw": 700,
+              "text_ls": 0,
+              "font_italic": false,
+              "text_shadow": false,
+              "text_mgb": 35,
+              "hidden_mobile": false,
+              "text_fs_mb": 16,
+              "text_lh_mb": 0,
+              "text_ls_mb": 0,
+              "text_mgb_mobile": 10
+            }
+          },
+          "footer-2": {
+            "type": "html",
+            "settings": {
+              "html_content": "<p>184 Main Rd E, St Albans VIC 3021, Australia</p> <p>contact@company.com</p> <p>+001 2233 456</p>",
+              "hidden_mobile": false
+            }
+          },
+          "footer-3": {
+            "type": "cus_socials",
+            "settings": {
+              "title": "",
+              "social_mode": "1",
+              "social_style": "3",
+              "social_size": "small",
+              "bd_radius": 0,
+              "use_color_set": false,
+              "icon_cl": "#878787",
+              "bg_cl": "#222222",
+              "space_h_item": "5",
+              "space_v_item": "5",
+              "space_h_item_mb": "2",
+              "space_v_item_mb": "2"
+            }
+          },
+          "footer-4": {
+            "type": "bl_col",
+            "settings": {
+              "col_heading": "",
+              "menu": "",
+              "menu_style": "1",
+              "col_dk": "2",
+              "col_tb": "6",
+              "col_mb": "12",
+              "content_align": "text-md-start",
+              "padding_inner": "",
+              "col_heading_mobile": "",
+              "content_align_mb": "text-start",
+              "padding_inner_mb": ""
+            }
+          },
+          "footer-5": {
+            "type": "cus_menu",
+            "settings": {
+              "menu": "main-menu",
+              "menu_style": "1"
+            }
+          },
+          "footer-6": {
+            "type": "bl_col",
+            "settings": {
+              "col_heading": "",
+              "menu": "",
+              "menu_style": "1",
+              "col_dk": "2",
+              "col_tb": "6",
+              "col_mb": "12",
+              "content_align": "text-md-start",
+              "padding_inner": "",
+              "col_heading_mobile": "",
+              "content_align_mb": "text-start",
+              "padding_inner_mb": ""
+            }
+          },
+          "footer-7": {
+            "type": "cus_menu",
+            "settings": {
+              "menu": "main-menu",
+              "menu_style": "1"
+            }
+          },
+          "footer-8": {
+            "type": "bl_col",
+            "settings": {
+              "col_heading": "",
+              "menu": "",
+              "menu_style": "1",
+              "col_dk": "2",
+              "col_tb": "6",
+              "col_mb": "12",
+              "content_align": "text-md-start",
+              "padding_inner": "",
+              "col_heading_mobile": "",
+              "content_align_mb": "text-start",
+              "padding_inner_mb": ""
+            }
+          },
+          "footer-9": {
+            "type": "cus_menu",
+            "settings": {
+              "menu": "main-menu",
+              "menu_style": "1"
+            }
+          },
+          "footer-10": {
+            "type": "bl_col",
+            "settings": {
+              "col_heading": "Newsletter Signup",
+              "menu": "",
+              "menu_style": "1",
+              "col_dk": "3",
+              "col_tb": "6",
+              "col_mb": "12",
+              "content_align": "text-md-start",
+              "padding_inner": "",
+              "col_heading_mobile": "",
+              "content_align_mb": "text-start",
+              "padding_inner_mb": ""
+            }
+          },
+          "footer-11": {
+            "type": "custom_text",
+            "settings": {
+              "text": "Subscribe to our newsletter and get 10% off your first purchase",
+              "remove_br_tag": false,
+              "fontf": "inherit",
+              "text_cl": "#878787",
+              "text_fs": 14,
+              "text_lh": 24,
+              "text_fw": 400,
+              "text_ls": 0,
+              "font_italic": false,
+              "text_shadow": false,
+              "text_mgb": 18,
+              "hidden_mobile": false,
+              "text_fs_mb": 16,
+              "text_lh_mb": 0,
+              "text_ls_mb": 0,
+              "text_mgb_mobile": 10
+            }
+          },
+          "footer-12": {
+            "type": "newsletter",
+            "settings": {
+              "form_width": 0,
+              "form_width_mb": 0,
+              "newl_des": "1",
+              "news_align": "center",
+              "newl_size": "small",
+              "btn_icon": false,
+              "input_cl": "#878787",
+              "border_cl": "#000000",
+              "btn_cl": "#ffffff",
+              "btn_bg_cl": "#222222",
+              "btn_hover_cl": "#ffffff",
+              "btn_hover_bg_cl": "#56cfe1",
+              "hidden_mobile": false,
+              "mgb": 15,
+              "mgb_mb": 10
+            }
+          }
+        },
+        "block_order": [
+          "footer-0",
+          "footer-1",
+          "footer-2",
+          "footer-3",
+          "footer-4",
+          "footer-5",
+          "footer-6",
+          "footer-7",
+          "footer-8",
+          "footer-9",
+          "footer-10",
+          "footer-11",
+          "footer-12"
+        ],
         "settings": {
+          "sticky": false,
+          "collapse": false,
+          "border_top": false,
+          "border_pos": "in",
+          "space_h_item": "30",
+          "space_v_item": "30",
+          "space_h_item_mb": "10",
+          "space_v_item_mb": "10",
+          "heading_fontf": "inherit",
+          "heading_fs": 16,
+          "heading_lh": 22,
+          "heading_fw": 500,
+          "heading_ls": 0,
+          "mgb": 30,
+          "mgb_mb": 20,
+          "text_fs": 14,
+          "text_fw": 400,
+          "heading_cl": "#222222",
+          "text_cl": "#878787",
+          "link_cl": "#878787",
+          "link_hover_cl": "#222222",
+          "border_cl": "#e6e6e6",
+          "layout": "container-wrap",
+          "cl_bg": "",
+          "cl_bg_gradient": "",
+          "mg": "",
+          "pd": "",
+          "mg_tb": "",
+          "pd_tb": "",
+          "mg_mb": "",
+          "pd_mb": ""
         }
       }
-    }
+    },
+    "content_for_index": []
   }
 }

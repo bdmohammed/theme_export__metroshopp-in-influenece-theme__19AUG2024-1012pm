@@ -8,9 +8,13 @@
     assign _share_permalink = product.url | default: article.url | default: page.url
     assign _share_permalink2 = shop.url | append: _share_permalink
     assign permalinkURL = share_permalink | default: _share_permalink2
+    assign _share_permalink = product.url | default: article.url | default: page.url
+    assign _share_permalink2 = shop.url | append: _share_permalink
+    assign permalinkURL = share_permalink | default: _share_permalink2
     unless share_title
       assign share_title = product.title | default: article.title | default: page.title | default: shop.name
     endunless
+    assign permaTitle = share_title | url_param_escape
     assign permaTitle = share_title | url_param_escape
     unless share_image
       assign share_image = product.featured_image | default: article.image | default: settings.share_image | default: page_image | default: settings.logo
@@ -37,6 +41,7 @@
           data-no-instant
           rel="noopener noreferrer nofollow"
           href="https://www.facebook.com/sharer/sharer.php?u={{ permalinkURL }}"
+          href="https://www.facebook.com/sharer/sharer.php?u={{ permalinkURL }}"
           target="{{target}}"
           class="facebook"
           data-tooltip="{{class_tooltip}}"
@@ -52,6 +57,7 @@
           data-no-instant
           rel="noopener noreferrer nofollow"
           href="http://twitter.com/share?text={{ permaTitle }}&amp;url={{ permalinkURL }}"
+          href="http://twitter.com/share?text={{ permaTitle }}&amp;url={{ permalinkURL }}"
           target="{{target}}"
           class="twitter"
           data-tooltip="{{class_tooltip}}"
@@ -61,12 +67,14 @@
       </div>
     {%- endif -%}
     {%- if permaImage != blank -%}
+    {%- if permaImage != blank -%}
       {%- if settings.share_pinterest -%}
         <div class="col-item col-auto">
           <a
             title="{{ 'socials.share_pr' | t | escape }}"
             data-no-instant
             rel="noopener noreferrer nofollow"
+            href="http://pinterest.com/pin/create/button/?url={{ permalinkURL }}&amp;media=http:{{permaImage}}&amp;description={{ permaTitle }}"
             href="http://pinterest.com/pin/create/button/?url={{ permalinkURL }}&amp;media=http:{{permaImage}}&amp;description={{ permaTitle }}"
             target="{{target}}"
             class="pinterest"
@@ -82,6 +90,8 @@
             title="{{ 'socials.share_tu' | t | escape }}"
             data-no-instant
             rel="noopener noreferrer nofollow"
+            data-content="http:{{permaImage}}"
+            href="//instagram.com/yamunajigold"
             data-content="http:{{permaImage}}"
             href="//instagram.com/yamunajigold"
             target="{{target}}"
@@ -102,6 +112,7 @@
           target="{{target}}"
           class="telegram"
           href="https://telegram.me/share/url?url={{ permalinkURL }}"
+          href="https://telegram.me/share/url?url={{ permalinkURL }}"
           data-tooltip="{{class_tooltip}}"
         >
           {%- render 'icon_socials', icon_name: 'telegram' -%}
@@ -114,6 +125,7 @@
           title="{{ 'socials.share_em' | t | escape }}"
           data-no-instant
           rel="noopener noreferrer nofollow"
+          href="mailto:?subject={{ permaTitle }}&amp;body={{ permalinkURL }}"
           href="mailto:?subject={{ permaTitle }}&amp;body={{ permalinkURL }}"
           target="{{target}}"
           class="email"
@@ -131,6 +143,7 @@
           rel="nofollow"
           target="{{target}}"
           class="whatsapp"
+          href="https://wa.me/?text={{ permaTitle }}&#x20;{{ permalinkURL }}"
           href="https://wa.me/?text={{ permaTitle }}&#x20;{{ permalinkURL }}"
           data-tooltip="{{class_tooltip}}"
         >
