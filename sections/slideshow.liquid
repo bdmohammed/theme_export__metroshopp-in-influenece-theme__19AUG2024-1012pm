@@ -119,8 +119,8 @@
         >
           {%- if image -%}
             {{
-              mb_image
-              | image_url: width: mb_image.width, height: mb_image.height
+              image
+              | image_url: width: image.width, height: image.height
               | image_tag:
               class: "lz--fadeIn img-as-bg slide-{{bk_stts.animate_slide
             -}}
