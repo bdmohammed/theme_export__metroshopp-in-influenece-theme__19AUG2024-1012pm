@@ -15,8 +15,8 @@
         "image_parent_w6imV4": {
           "type": "image_parent",
           "settings": {
-            "image": "shopify://shop_images/slider-01_1.jpg",
-            "image_mb": "shopify://shop_images/slider-01_1.jpg",
+            "image": "shopify://shop_images/slider-01.jpg",
+            "image_mb": "shopify://shop_images/slider-01.jpg",
             "image_position": "8",
             "cl_img": "",
             "link_img1": "shopify://collections",
@@ -48,44 +48,8 @@
             "animation_delay": 40
           }
         },
-        "image_parent_qpKMqy": {
-          "type": "image_parent",
-          "disabled": true,
-          "settings": {
-            "image_position": "8",
-            "cl_img": "",
-            "link_img1": "",
-            "open_link": "_blank",
-            "animate_slide": "none",
-            "text_align": "center",
-            "text_align_mb": "center",
-            "content_width": "auto",
-            "cv_pos": 50,
-            "ch_pos": 50,
-            "cv_pos_mb": 50,
-            "ch_pos_mb": 50,
-            "bg_overlay": "#000000",
-            "bg_opacity": 0,
-            "bg_content_cl": "#ffffff",
-            "bg_content_op": 0,
-            "content_pd_tb": 15,
-            "content_pd_lr": 15,
-            "content_pd_tb_mb": 10,
-            "content_pd_lr_mb": 10,
-            "border_bl": false,
-            "br_color": "#222222",
-            "br_bg": "#ffffff",
-            "br_opacity": 50,
-            "br_style": "solid",
-            "br_pd": 20,
-            "br_pd_mb": 10,
-            "time_animation": 1,
-            "animation_delay": 40
-          }
-        },
         "custom_text_bCpt8U": {
           "type": "custom_text",
-          "disabled": true,
           "settings": {
             "text": "Summer 2022",
             "remove_br_tag": false,
@@ -108,7 +72,6 @@
         },
         "custom_text_zGpYY9": {
           "type": "custom_text",
-          "disabled": true,
           "settings": {
             "text": "New Arrival Collection",
             "remove_br_tag": false,
@@ -423,7 +386,6 @@
       },
       "block_order": [
         "image_parent_w6imV4",
-        "image_parent_qpKMqy",
         "custom_text_bCpt8U",
         "custom_text_zGpYY9",
         "custom_button_XyPjrc",
