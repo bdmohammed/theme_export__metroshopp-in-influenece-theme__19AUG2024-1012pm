@@ -406,7 +406,7 @@
     window.T4Srequest = {
       design_mode: {{ admin_sp }},
       page_type: '{{ page_type }}',
-      path: '\/',
+      path: '/',
     };
 
     window.T4Sroutes = {
@@ -417,7 +417,7 @@
       cart_url: '{{ routes.cart_url }}',
       cart_add_url: '{{ routes.cart_add_url }}',
       cart_change_url: '{{ routes.cart_change_url }}',
-      cart_update_url: '{{ routes.cart_update_url }}'
+      cart_update_url: '{{ routes.cart_update_url }}',
     };
     
     window.T4sFunc = {
@@ -425,55 +425,56 @@
     };
 
     window.T4SProductStrings = {
-      pleaseChooseOptions: `{{ 'products.product.Please_choose_pr_options' | t }}`,
-      addToCart: `{{ 'products.product.add_to_cart' | t }}`,
-      selectOption: `{{ 'products.product_card.select_option' | t }}`,
-      quickShop: `{{ 'products.product_card.quick_shop' | t }}`,
-      soldOut: `{{ 'products.product.sold_out' | t }}`,
-      readMore: `{{ 'products.product_card.read_more' | t }}`,
-      preOrder: `{{ 'products.product.pre_order' | t }}`,
-      preView: `{{ 'products.product_card.view' | t }}`,
-      unavailable: `{{ 'products.product.unavailable' | t }}`,
-      replace_qs_atc: `Replace item`,
-      replace_qs_pre: `Replace item`,
-      badgeNew: `{{ 'products.badge.new' | t }}`,
-      badgeSale: `{{ 'products.badge.on_sale' | t }}`,
-      badgepreOrder: `{{ 'products.badge.pre_order' | t }}`,
-      badgeSoldout: `{{ 'products.badge.sold_out' | t }}`,
-      badgeSavePercent: `{{ 'products.badge.save_amoun_html' | t: saved_amount:'[sale]' }}`,
-      badgeSaveFixed: `{{ 'products.badge.save_amount_fixed_html' | t: saved_amount:'[sale]' }}`,
-      badgeSavePercent2: `{{ 'products.badge.save_amount_2_html' | t: saved_amount:'[sale]' }}`,
-      badgeSaveFixed2: `{{ 'products.badge.save_amount_fixed_2_html' | t: saved_amount:'[sale]' }}`,
-      swatch_limit: `{{ 'products.product_card.swatch_limit' | t }}`,
-      swatch_limit_less: `{{ 'products.product_card.swatch_limit_less' | t }}`,
-      compare: `{{ 'products.product.compare' | t }}`,
-      added_text_cp: `{{ 'products.product.added_text_compare' | t }}`, 
-      add_to_wishlist: `{{ 'products.product.add_to_wishlist' | t }}`,
-      remove_wishlist: `{{ 'products.product.remove_wishlist' | t }}`,
-      browse_wishlist: `{{ 'products.product.browse_wishlist' | t }}`,
+      pleaseChooseOptions: '{{ 'products.product.Please_choose_pr_options' | t }}',
+      addToCart: '{{ 'products.product.add_to_cart' | t }}',
+      selectOption: '{{ 'products.product_card.select_option' | t }}',
+      quickShop: '{{ 'products.product_card.quick_shop' | t }}',
+      soldOut: '{{ 'products.product.sold_out' | t }}',
+      readMore: '{{ 'products.product_card.read_more' | t }}',
+      preOrder: '{{ 'products.product.pre_order' | t }}',
+      preView: '{{ 'products.product_card.view' | t }}',
+      unavailable: '{{ 'products.product.unavailable' | t }}',
+      replace_qs_atc: 'Replace item',
+      replace_qs_pre: 'Replace item',
+      badgeNew: '{{ 'products.badge.new' | t }}',
+      badgeSale: '{{ 'products.badge.on_sale' | t }}',
+      badgepreOrder: '{{ 'products.badge.pre_order' | t }}',
+      badgeSoldout: '{{ 'products.badge.sold_out' | t }}',
+      badgeSavePercent: '{{ 'products.badge.save_amoun_html' | t: saved_amount:'[sale]' }}',
+      badgeSaveFixed: '{{ 'products.badge.save_amount_fixed_html' | t: saved_amount:'[sale]' }}',
+      badgeSavePercent2: '{{ 'products.badge.save_amount_2_html' | t: saved_amount:'[sale]' }}',
+      badgeSaveFixed2: '{{ 'products.badge.save_amount_fixed_2_html' | t: saved_amount:'[sale]' }}',
+      swatch_limit: '{{ 'products.product_card.swatch_limit' | t }}',
+      swatch_limit_less: '{{ 'products.product_card.swatch_limit_less' | t }}',
+      compare: '{{ 'products.product.compare' | t }}',
+      added_text_cp: '{{ 'products.product.added_text_compare' | t }}', 
+      add_to_wishlist: '{{ 'products.product.add_to_wishlist' | t }}',
+      remove_wishlist: '{{ 'products.product.remove_wishlist' | t }}',
+      browse_wishlist: '{{ 'products.product.browse_wishlist' | t }}',
       order_dayNames  : {{ 'products.product_single.order_dayNames' | t  | json }},
-      order_monthNames: {{ 'products.product_single.order_monthNames' | t  | json }}
-    }
+      order_monthNames: {{ 'products.product_single.order_monthNames' | t  | json }},
+    };
+
     window.T4Sstrings = {
-      mfp_close: `{{ 'general.popup.close_esc' | t }}`,
-      mfp_loading: `{{ 'general.popup.loading' | t }}`,
-      pswp_facebook: `{{ 'general.popup.pswp_facebook' | t }}`,
-      pswp_twitter: `{{ 'general.popup.pswp_twitter' | t }}`,
-      pswp_pinterest: `{{ 'general.popup.pswp_pinterest' | t }}`,
-      error_exist: `{{ 'sections.newsletter_form.error_exist' | t }}`,
-      agree_checkout: `{{ 'cart.general.agree_checkout' | t }}`,
-      notice_stock_msg: `{{'products.product.notice_only_stock' | t: max: '[max]' }}`,
-      frm_contact_ask_success: `{{'templates.contact.form.post_success' | t }}`,
-      frm_notify_stock_success: `{{'products.notify_stock.success' | t }}`,
-      frm_newsletter_popup_success: `{{'sections.newsletter_form.confirmation' | t}}`,
-      copy_tooltipText: `Copy to clipboard`,
-      copied_tooltipText: `Copied`,
-      item_cart: [`items`, `item`, `items`],
-      item_compare: [`products`, `product`, `products`],
-      recipientFormExpanded: `Gift card recipient form expanded`,
-      recipientFormCollapsed: `Gift card recipient form collapsed`,
-      btn_next: `Next`,
-      btn_prev: `Prev`,
+      mfp_close: '{{ 'general.popup.close_esc' | t }}',
+      mfp_loading: '{{ 'general.popup.loading' | t }}',
+      pswp_facebook: '{{ 'general.popup.pswp_facebook' | t }}',
+      pswp_twitter: '{{ 'general.popup.pswp_twitter' | t }}',
+      pswp_pinterest: '{{ 'general.popup.pswp_pinterest' | t }}',
+      error_exist: '{{ 'sections.newsletter_form.error_exist' | t }}',
+      agree_checkout: '{{ 'cart.general.agree_checkout' | t }}',
+      notice_stock_msg: '{{'products.product.notice_only_stock' | t: max: '[max]' }}',
+      frm_contact_ask_success: '{{'templates.contact.form.post_success' | t }}',
+      frm_notify_stock_success: '{{'products.notify_stock.success' | t }}',
+      frm_newsletter_popup_success: '{{'sections.newsletter_form.confirmation' | t}}',
+      copy_tooltipText: 'Copy to clipboard',
+      copied_tooltipText: 'Copied',
+      item_cart: ['items', 'item', 'items'],
+      item_compare: ['products', 'product', 'products'],
+      recipientFormExpanded: 'Gift card recipient form expanded',
+      recipientFormCollapsed: 'Gift card recipient form collapsed',
+      btn_next: 'Next',
+      btn_prev: 'Prev',
     };
     
     window.T4Sconfigs = {
@@ -521,7 +522,7 @@
       sw_item_style: '{{ settings.swatch_item_style }}',
       show_qty: {{ settings.show_qty }},
       pr_curent: '{{ settings.pr_curent }}',
-      enableAjaxATC: {{ settings.enable_ajax_arc }},
+      enableAjaxATC: {{ settings.enable_ajax_arc | default: false }},
       enableAjaxCart: {{ settings.enable_ajax_cart }},
       app_review: {{ settings.app_review }},
       enableConfetti: true,
@@ -551,7 +552,7 @@
       cp_icon_added : {{'<svg class="svg-cp is-ic--added" viewBox="0 0 24 24"><use href="#icon-cp-added"></use></svg>' | json }},
       wis_icon : {{'<svg class="svg-wis" viewBox="0 0 24 24"><use href="#icon-wis"></use></svg>' | json }},
       wis_icon_added: {{'<svg class="svg-wis is-ic--added" viewBox="0 0 24 24"><use href="#icon-wis-added"></use></svg>' | json }},
-      wis_icon_remove: {{'<svg class="svg-wis is-ic--remove" viewBox="0 0 24 24"><use href="#icon-wis-remove"></use></svg>' | json }}
+      wis_icon_remove: {{'<svg class="svg-wis is-ic--remove" viewBox="0 0 24 24"><use href="#icon-wis-remove"></use></svg>' | json }},
     };
 
     !(function () {
