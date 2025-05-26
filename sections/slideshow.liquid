@@ -120,11 +120,11 @@
           {%- if image -%}
             {%- if forloop.first -%}
               {%- assign class_img_first = 'lazyload lz--fadeIn img-as-bg d-md-none' | append: class_img -%}
-              {{
+              <!-- {{
                 mb_image
                 | image_url: width: 800
                 | image_tag: class: class_img_first, loading: lazy, widths: '375, 575, 750'
-              }}
+              }} -->
               <img
                 class="lazyload lz--fadeIn img-as-bg d-none d-md-block slide-{{bk_stts.animate_slide}}"
                 data-src="{{ image | image_url: '1x1' }}"
