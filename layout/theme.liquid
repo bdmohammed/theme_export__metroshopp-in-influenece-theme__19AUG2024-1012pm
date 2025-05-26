@@ -83,7 +83,7 @@
       {% render 'tiny-script-control' %}
     {%- endif -%}
 
-    {%- unless settings.body_font.system? -%}
+    {%- unless settings.body_font and settings.body_font != blank and settings.body_font.system? == false -%}
       <link
         rel="preload"
         as="font"
@@ -92,7 +92,10 @@
         crossorigin
       >
     {%- endunless -%}
-    {%- unless settings.headings_font.system? -%}
+    {%- unless settings.headings_font
+      and settings.headings_font != blank
+      and settings.headings_font.system? == false
+    -%}
       <link rel="preload" as="font" href="{{ settings.headings_font | font_url }}" type="font/woff2" crossorigin>
     {%- endunless -%}
 
