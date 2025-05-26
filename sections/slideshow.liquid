@@ -114,64 +114,78 @@
       >
         <div
           class="slideshow-inner relative overflow-hidden ratio ratio_hasmb"
-          {{ attr_img }}style="--aspect-ratioapt:{{ratio | default:1.7777 }};--aspect-ratioaptmb:{{ratiomb  | default:1.7777 }};"
+          {{ attr_img }}
+          style="--aspect-ratioapt:{{ratio | default:1.7777 }};--aspect-ratioaptmb:{{ratiomb  | default:1.7777 }};"
         >
           {% capture class_img %} slide-{{bk_stts.animate_slide}}{% endcapture %}
           {%- if image -%}
-            {%- if forloop.first -%}
-              {%- assign class_img_first = 'lazyload lz--fadeIn img-as-bg d-md-none' | append: class_img -%}
-              {{
-                mb_image
-                | image_url: width: 800
-                | image_tag: class: class_img_first, loading: lazy, widths: '375, 575, 750'
-              }}
-              <img
-                class="lazyload lz--fadeIn img-as-bg d-none d-md-block slide-{{bk_stts.animate_slide}}"
-                data-src="{{ image | image_url: width: 1400 }}"
-                data-widths="[800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400, 3800, 4100]"
-                data-optimumx="1.5"
-                data-sizes="auto"
-                src="{% render 'img_svg',w:image.width,h:image.height %}"
-                width="{{ image.width }}"
-                height="{{ image.height }}"
-                alt="{{ image.alt | escape }}"
-              >
-              <span
-                class="lazyload-loader is-bg-img d-none d-md-block"
-                style="background: url({{ image | image_url: width: 1400 }})"
-              ></span>
-            {%- else -%}
-              <img
-                class="lazyload lz--fadeIn img-as-bg d-md-none slide-{{bk_stts.animate_slide}}"
-                data-src="{{ mb_image | image_url: width: 1400 }}"
-                data-widths="[375, 575, 750]"
-                data-optimumx="1.5"
-                data-sizes="auto"
-                src="{% render 'img_svg',w:mb_image.width,h:mb_image.height %}"
-                width="{{ mb_image.width }}"
-                height="{{ mb_image.height }}"
-                alt="{{ mb_image.alt | escape }}"
-              >
-              <span
-                class="lazyload-loader is-bg-img d-md-none"
-                style="background: url({{ mb_image | image_url: width: 1400 }})"
-              ></span>
-              <img
-                class="lazyload lz--fadeIn img-as-bg d-none d-md-block slide-{{bk_stts.animate_slide}}"
-                data-src="{{ image | asset_url | image_url: width: 1400 }}"
-                data-widths="[800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400, 3800, 4100]"
-                data-optimumx="1.5"
-                data-sizes="auto"
-                src="{% render 'img_svg',w:image.width,h:image.height %}"
-                width="{{ image.width }}"
-                height="{{ image.height }}"
-                alt="{{ image.alt | escape }}"
-              >
-              <span
-                class="lazyload-loader is-bg-img d-none d-md-block"
-                style="background: url({{ image | image_url: '1x1' }})"
-              ></span>
-            {%- endif -%}
+            {%- assign class_img_first = 'lazyload lz--fadeIn img-as-bg d-md-none' | append: class_img -%}
+            {{
+              mb_image
+              | image_url: width: mb_image.width, height: mb_image.height
+              | image_tag:
+                class: class_img_first,
+                loading: 'eager',
+                widths: '375, 575, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400, 3800, 4100',
+                sizes: '100vw',
+                fetchpriority: 'high'
+            }}
+            {% comment %}
+              {%- if forloop.first -%}
+                {%- assign class_img_first = 'lazyload lz--fadeIn img-as-bg d-md-none' | append: class_img -%}
+                {{
+                  mb_image
+                  | image_url: width: 800
+                  | image_tag: class: class_img_first, loading: lazy, widths: '375, 575, 750'
+                }}
+                <img
+                  class="lazyload lz--fadeIn img-as-bg d-none d-md-block slide-{{bk_stts.animate_slide}}"
+                  data-src="{{ image | image_url: width: 1400 }}"
+                  data-widths="[800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400, 3800, 4100]"
+                  data-optimumx="1.5"
+                  data-sizes="auto"
+                  src="{% render 'img_svg',w:image.width,h:image.height %}"
+                  width="{{ image.width }}"
+                  height="{{ image.height }}"
+                  alt="{{ image.alt | escape }}"
+                >
+                <span
+                  class="lazyload-loader is-bg-img d-none d-md-block"
+                  style="background: url({{ image | image_url: width: 1400 }})"
+                ></span>
+              {%- else -%}
+                <img
+                  class="lazyload lz--fadeIn img-as-bg d-md-none slide-{{bk_stts.animate_slide}}"
+                  data-src="{{ mb_image | image_url: width: 1400 }}"
+                  data-widths="[375, 575, 750]"
+                  data-optimumx="1.5"
+                  data-sizes="auto"
+                  src="{% render 'img_svg',w:mb_image.width,h:mb_image.height %}"
+                  width="{{ mb_image.width }}"
+                  height="{{ mb_image.height }}"
+                  alt="{{ mb_image.alt | escape }}"
+                >
+                <span
+                  class="lazyload-loader is-bg-img d-md-none"
+                  style="background: url({{ mb_image | image_url: width: 1400 }})"
+                ></span>
+                <img
+                  class="lazyload lz--fadeIn img-as-bg d-none d-md-block slide-{{bk_stts.animate_slide}}"
+                  data-src="{{ image | asset_url | image_url: width: 1400 }}"
+                  data-widths="[800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400, 3800, 4100]"
+                  data-optimumx="1.5"
+                  data-sizes="auto"
+                  src="{% render 'img_svg',w:image.width,h:image.height %}"
+                  width="{{ image.width }}"
+                  height="{{ image.height }}"
+                  alt="{{ image.alt | escape }}"
+                >
+                <span
+                  class="lazyload-loader is-bg-img d-none d-md-block"
+                  style="background: url({{ image | image_url: '1x1' }})"
+                ></span>
+              {%- endif -%}
+            {% endcomment %}
           {%- else -%}
             {%- capture current -%}{% cycle 1, 2 %}{%- endcapture -%}
             {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg svg-bg1' }}
