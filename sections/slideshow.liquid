@@ -46,25 +46,6 @@
     render 'se_cus_css', code_cus_css: se_stts.code_cus_css, se_class: se_class
   endif
 -%}
-{%- capture data_flickity -%}
-{
-    "cellAlign": "center",
-    "freeScroll": 0, 
-    "contain": 1,
-    "dragThreshold": 15,
-    "percentPosition": 1,
-    "imagesLoaded": 0,
-    "lazyload": 0,
-    "arrowIcon":"{{arrow_icon}}", 
-    "id": "{{sid}}", 
-    "prevNextButtons": {{se_stts.nav_btn}},
-    "pageDots": {{se_stts.nav_dot}},
-    "pauseAutoPlayOnHover": {{se_stts.au_hover}},
-    "wrapAround": {{se_stts.loop}},
-    "autoPlay": {{se_stts.au_time | times:1000}},
-    "adaptiveHeight": {% if se_height != 'ratio_fh' or se_height != 'ratioadapt_f'  %}true{% else %}false{% endif %}
-}
-{%- endcapture -%}
 {%- if se_height != 'ratio_fh' -%}
   {%- capture append_style -%}
         --aspect-ratio-cusdt : {{se_stts.height_dk}}px;
@@ -80,7 +61,25 @@
   {{- html_layout[0] -}}
   <div
     class="slideshow row row-cols-1 ts-gx-0 flicky-slider position_8 cover {{se_height}} slide-eff-{{slide_eff}} scuspx1_{{se_stts.custom_mb}} scuspx2_{{se_stts.custom_tb}} scuspx3_{{se_stts.custom_dk}}{% if se_stts.nav_btn == true %}  slider-btn-style-{{se_stts.btn_owl}} slider-btn-{{se_stts.btn_shape}} slider-btn-{{se_stts.btn_size}} slider-btn-cl-{{se_stts.btn_cl}} slider-btn-vi-{{se_stts.btn_vi}} slider-btn-hidden-mobile-{{se_stts.btn_hidden_mobile}} {% endif %}{% if se_stts.nav_dot %} dots-style-{{se_stts.dot_owl}} dots-cl-{{se_stts.dots_cl}} dots-round-{{se_stts.dots_round}} dots-hidden-mobile-{{se_stts.dots_hidden_mobile}} {% endif %} flickity"
-    data-flickity-js="{{data_flickity}}"
+    data-flickity-js='
+      {
+          "cellAlign": "center",
+          "freeScroll": 0,
+          "contain": 1,
+          "dragThreshold": 15,
+          "percentPosition": 1,
+          "imagesLoaded": 0,
+          "lazyload": 0,
+          "arrowIcon":"{{arrow_icon}}",
+          "id": "{{sid}}",
+          "prevNextButtons": {{se_stts.nav_btn}},
+          "pageDots": {{se_stts.nav_dot}},
+          "pauseAutoPlayOnHover": {{se_stts.au_hover}},
+          "wrapAround": {{se_stts.loop}},
+          "autoPlay": {{se_stts.au_time | times:1000}},
+          "adaptiveHeight": {% if se_height != 'ratio_fh' or se_height != 'ratioadapt_f'  %}true{% else %}false{% endif %}
+      }
+    '
     style="--space-dots: {{se_stts.dots_space}}px;--flickity-btn-pos: 30px;--flickity-btn-pos-mb: 30px;"
   >
     {%- for block in arr_blocks_img -%}
