@@ -50,8 +50,8 @@
 {
     "cellAlign": "center",
     "freeScroll": 0, 
-    "contain" : 1,
-    "dragThreshold" : 15,
+    "contain": 1,
+    "dragThreshold": 15,
     "percentPosition": 1,
     "imagesLoaded": 0,
     "lazyload": 0,
@@ -59,10 +59,10 @@
     "id": "{{sid}}", 
     "prevNextButtons": {{se_stts.nav_btn}},
     "pageDots": {{se_stts.nav_dot}},
-    "pauseAutoPlayOnHover":{{se_stts.au_hover}},
+    "pauseAutoPlayOnHover": {{se_stts.au_hover}},
     "wrapAround": {{se_stts.loop}},
-    "autoPlay":{{se_stts.au_time | times:1000}},
-    "adaptiveHeight":{% if se_height != 'ratio_fh' or se_height != 'ratioadapt_f'  %}true{% else %}false{% endif %}
+    "autoPlay": {{se_stts.au_time | times:1000}},
+    "adaptiveHeight": {% if se_height != 'ratio_fh' or se_height != 'ratioadapt_f'  %}true{% else %}false{% endif %}
 }
 {%- endcapture -%}
 {%- if se_height != 'ratio_fh' -%}
