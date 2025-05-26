@@ -183,7 +183,6 @@
         },
         "custom_text_jyUAVi": {
           "type": "custom_text",
-          "disabled": true,
           "settings": {
             "text": "Text",
             "remove_br_tag": false,
@@ -206,7 +205,6 @@
         },
         "custom_button_rptHiw": {
           "type": "custom_button",
-          "disabled": true,
           "settings": {
             "button_text": "Button label",
             "button_link": "",
@@ -236,94 +234,17 @@
             "animation": "none"
           }
         },
-        "custom_text_UVKBH8": {
-          "type": "custom_text",
-          "disabled": true,
-          "settings": {
-            "text": "Summer 2022",
-            "remove_br_tag": false,
-            "fontf": "inherit",
-            "text_cl": "#ffffff",
-            "text_fs": 16,
-            "text_lh": 0,
-            "text_fw": 400,
-            "text_ls": 1,
-            "text_mgb": 15,
-            "font_italic": false,
-            "text_shadow": false,
-            "hidden_mobile": false,
-            "text_fs_mb": 16,
-            "text_lh_mb": 0,
-            "text_ls_mb": 0,
-            "text_mgb_mobile": 10,
-            "animation": "none"
-          }
-        },
-        "custom_text_WWzGwR": {
-          "type": "custom_text",
-          "disabled": true,
-          "settings": {
-            "text": "Lookbook Collection",
-            "remove_br_tag": false,
-            "fontf": "inherit",
-            "text_cl": "#ffffff",
-            "text_fs": 70,
-            "text_lh": 70,
-            "text_fw": 300,
-            "text_ls": 0,
-            "text_mgb": 25,
-            "font_italic": false,
-            "text_shadow": false,
-            "hidden_mobile": false,
-            "text_fs_mb": 16,
-            "text_lh_mb": 0,
-            "text_ls_mb": 0,
-            "text_mgb_mobile": 10,
-            "animation": "none"
-          }
-        },
-        "custom_button_nECfUK": {
-          "type": "custom_button",
-          "disabled": true,
-          "settings": {
-            "button_text": "Button label",
-            "button_link": "",
-            "target_link": "_self",
-            "fontf": "inherit",
-            "button_icon_w": 0,
-            "button_style": "default",
-            "button_effect": "default",
-            "pri_cl": "#222222",
-            "second_cl": "",
-            "pri_cl_hover": "#56cfe1",
-            "second_cl_hover": "#ffffff",
-            "fsbutton": 14,
-            "fwbutton": 400,
-            "button_ls": 0,
-            "button_mh": 42,
-            "button_bdr": 0,
-            "button_pd_lr": 20,
-            "button_mgb": 0,
-            "hidden_mobile": false,
-            "button_icon_w_mb": 0,
-            "fsbutton_mb": 10,
-            "button_mh_mb": 36,
-            "button_pd_lr_mb": 15,
-            "button_ls_mb": 0,
-            "button_mgb_mb": 0,
-            "animation": "none"
-          }
-        },
-        "image_parent_3CYHAn": {
+        "image_parent_UGnwgx": {
           "type": "image_parent",
-          "disabled": true,
           "settings": {
+            "image": "shopify://shop_images/slide3.jpg",
+            "image_mb": "shopify://shop_images/slide3.jpg",
             "image_position": "8",
             "cl_img": "",
             "link_img1": "",
             "open_link": "_blank",
             "animate_slide": "none",
-            "text_align": "start",
+            "text_align": "center",
             "text_align_mb": "center",
             "content_width": "auto",
             "cv_pos": 50,
@@ -348,6 +269,81 @@
             "time_animation": 1,
             "animation_delay": 40
           }
+        },
+        "custom_text_UVKBH8": {
+          "type": "custom_text",
+          "settings": {
+            "text": "Summer 2022",
+            "remove_br_tag": false,
+            "fontf": "inherit",
+            "text_cl": "#ffffff",
+            "text_fs": 16,
+            "text_lh": 0,
+            "text_fw": 400,
+            "text_ls": 1,
+            "text_mgb": 15,
+            "font_italic": false,
+            "text_shadow": false,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 0,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10,
+            "animation": "none"
+          }
+        },
+        "custom_text_WWzGwR": {
+          "type": "custom_text",
+          "settings": {
+            "text": "Lookbook Collection",
+            "remove_br_tag": false,
+            "fontf": "inherit",
+            "text_cl": "#ffffff",
+            "text_fs": 70,
+            "text_lh": 70,
+            "text_fw": 300,
+            "text_ls": 0,
+            "text_mgb": 25,
+            "font_italic": false,
+            "text_shadow": false,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 0,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10,
+            "animation": "none"
+          }
+        },
+        "custom_button_nECfUK": {
+          "type": "custom_button",
+          "settings": {
+            "button_text": "Button label",
+            "button_link": "",
+            "target_link": "_self",
+            "fontf": "inherit",
+            "button_icon_w": 0,
+            "button_style": "default",
+            "button_effect": "default",
+            "pri_cl": "#222222",
+            "second_cl": "",
+            "pri_cl_hover": "#56cfe1",
+            "second_cl_hover": "#ffffff",
+            "fsbutton": 14,
+            "fwbutton": 400,
+            "button_ls": 0,
+            "button_mh": 42,
+            "button_bdr": 0,
+            "button_pd_lr": 20,
+            "button_mgb": 0,
+            "hidden_mobile": false,
+            "button_icon_w_mb": 0,
+            "fsbutton_mb": 10,
+            "button_mh_mb": 36,
+            "button_pd_lr_mb": 15,
+            "button_ls_mb": 0,
+            "button_mgb_mb": 0,
+            "animation": "none"
+          }
         }
       },
       "block_order": [
@@ -359,10 +355,10 @@
         "custom_text_6kVzaK",
         "custom_text_jyUAVi",
         "custom_button_rptHiw",
+        "image_parent_UGnwgx",
         "custom_text_UVKBH8",
         "custom_text_WWzGwR",
-        "custom_button_nECfUK",
-        "image_parent_3CYHAn"
+        "custom_button_nECfUK"
       ],
       "name": "Slideshow",
       "settings": {
