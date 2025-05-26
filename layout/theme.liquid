@@ -83,7 +83,7 @@
       {% render 'tiny-script-control' %}
     {%- endif -%}
     <script>
-      console.log('{{ settings.body_font | json }}');
+      console.log('{{ settings | json }}');
     </script>
     {%- unless settings.body_font and settings.body_font != blank and settings.body_font.system? == false -%}
       <link
