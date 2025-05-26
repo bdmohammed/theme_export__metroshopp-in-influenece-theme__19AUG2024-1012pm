@@ -82,21 +82,20 @@
     {%- else -%}
       {% render 'tiny-script-control' %}
     {%- endif -%}
-    <script>
-      console.log('{{ settings | json }}');
-    </script>
-    {%- if settings.body_font and settings.body_font != blank and settings.body_font.system? == false -%}
-      <link
-        rel="preload"
-        as="font"
-        href="{{ settings.body_font | font_url }}"
-        type="font/woff2"
-        crossorigin
-      >
-    {%- endif -%}
-    {%- if settings.headings_font and settings.headings_font != blank and settings.headings_font.system? == false -%}
-      <link rel="preload" as="font" href="{{ settings.headings_font | font_url }}" type="font/woff2" crossorigin>
-    {%- endif -%}
+    {% comment %}
+      {%- if settings.body_font and settings.body_font != blank and settings.body_font.system? == false -%}
+        <link
+          rel="preload"
+          as="font"
+          href="{{ settings.body_font | font_url }}"
+          type="font/woff2"
+          crossorigin
+        >
+      {%- endif -%}
+      {%- if settings.headings_font and settings.headings_font != blank and settings.headings_font.system? == false -%}
+        <link rel="preload" as="font" href="{{ settings.headings_font | font_url }}" type="font/woff2" crossorigin>
+      {%- endif -%}
+    {% endcomment %}
 
     {%- liquid
       render 'seo-title'
