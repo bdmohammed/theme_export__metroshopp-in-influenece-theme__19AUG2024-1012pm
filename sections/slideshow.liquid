@@ -127,7 +127,7 @@
               }} -->
               <img
                 class="lazyload lz--fadeIn img-as-bg d-none d-md-block slide-{{bk_stts.animate_slide}}"
-                data-src="{{ image | image_url }}"
+                data-src="{{ image | image_url: width: 1, height: 1 }}"
                 data-widths="[800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400, 3800, 4100]"
                 data-optimumx="1.5"
                 data-sizes="auto"
@@ -138,12 +138,12 @@
               >
               <span
                 class="lazyload-loader is-bg-img d-none d-md-block"
-                style="background: url({{ image | image_url: '1x1' }})"
+                style="background: url({{ image | image_url: width: 1, height: 1 }})"
               ></span>
             {%- else -%}
               <img
                 class="lazyload lz--fadeIn img-as-bg d-md-none slide-{{bk_stts.animate_slide}}"
-                data-src="{{ mb_image | image_url: '1x1' }}"
+                data-src="{{ mb_image | image_url: width: 1, height: 1 }}"
                 data-widths="[375, 575, 750]"
                 data-optimumx="1.5"
                 data-sizes="auto"
