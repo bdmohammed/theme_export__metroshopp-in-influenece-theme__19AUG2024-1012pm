@@ -85,7 +85,7 @@
     <script>
       console.log('{{ settings | json }}');
     </script>
-    {%- unless settings.body_font and settings.body_font != blank and settings.body_font.system? == false -%}
+    {%- if settings.body_font and settings.body_font != blank and settings.body_font.system? == false -%}
       <link
         rel="preload"
         as="font"
@@ -93,13 +93,10 @@
         type="font/woff2"
         crossorigin
       >
-    {%- endunless -%}
-    {%- unless settings.headings_font
-      and settings.headings_font != blank
-      and settings.headings_font.system? == false
-    -%}
+    {%- endif -%}
+    {%- if settings.headings_font and settings.headings_font != blank and settings.headings_font.system? == false -%}
       <link rel="preload" as="font" href="{{ settings.headings_font | font_url }}" type="font/woff2" crossorigin>
-    {%- endunless -%}
+    {%- endif -%}
 
     {%- liquid
       render 'seo-title'
