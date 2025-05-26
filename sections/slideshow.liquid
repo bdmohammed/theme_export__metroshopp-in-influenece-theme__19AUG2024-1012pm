@@ -117,18 +117,16 @@
           {{ attr_img }}
           style="--aspect-ratioapt:{{ratio | default:1.7777 }};--aspect-ratioaptmb:{{ratiomb  | default:1.7777 }};"
         >
-          {% capture class_img %} slide-{{bk_stts.animate_slide}}{% endcapture %}
           {%- if image -%}
-            {%- assign class_img_first = 'lz--fadeIn img-as-bg' | append: class_img -%}
             {{
               mb_image
               | image_url: width: mb_image.width, height: mb_image.height
               | image_tag:
-              class: class_img_first,
-              loading: 'eager',
-              widths: '375, 575, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400, 3800, 4100',
-              sizes: '100vw',
-              fetchpriority: {%- if forloop.first -%}'high'{%- else -%}'auto'{%- endif -%}
+              class: "lz--fadeIn img-as-bg slide-{{bk_stts.animate_slide
+            -}}
+            ", loading: 'eager', widths: '375, 575, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400,
+            3800, 4100', sizes: '100vw', fetchpriority:
+            {%- if forloop.first -%}'high'{%- else -%}'auto'{%- endif -%}
             }}
             {% comment %}
               {%- if forloop.first -%}
