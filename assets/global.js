@@ -7009,9 +7009,9 @@ var LtrT4s = !RtlT4s;
             const size = cell.element.getBoundingClientRect().x - dimension;
 
             if (
-              (size + cell.size.outerWidth > t &&
-                size + cell.size.outerWidth < e) ||
-              (size > t && size < e)
+              (size + cell.size.outerWidth > dimension &&
+                size + cell.size.outerWidth < offsetWidth) ||
+              (size > dimension && size < offsetWidth)
             ) {
               this.maxVisibilityHeight = Math.max(
                 cell.size.outerHeight,
