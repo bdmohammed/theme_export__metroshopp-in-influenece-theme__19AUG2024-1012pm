@@ -80,7 +80,7 @@
   {{- html_layout[0] -}}
   <div
     class="slideshow row row-cols-1 ts-gx-0 flicky-slider position_8 cover {{se_height}} slide-eff-{{slide_eff}} scuspx1_{{se_stts.custom_mb}} scuspx2_{{se_stts.custom_tb}} scuspx3_{{se_stts.custom_dk}}{% if se_stts.nav_btn == true %}  slider-btn-style-{{se_stts.btn_owl}} slider-btn-{{se_stts.btn_shape}} slider-btn-{{se_stts.btn_size}} slider-btn-cl-{{se_stts.btn_cl}} slider-btn-vi-{{se_stts.btn_vi}} slider-btn-hidden-mobile-{{se_stts.btn_hidden_mobile}} {% endif %}{% if se_stts.nav_dot %} dots-style-{{se_stts.dot_owl}} dots-cl-{{se_stts.dots_cl}} dots-round-{{se_stts.dots_round}} dots-hidden-mobile-{{se_stts.dots_hidden_mobile}} {% endif %} flickity"
-    data-flickity-js="{{data_flickity}}"
+    data-flickity-js="{{data_flickity | json}}"
     style="--space-dots: {{se_stts.dots_space}}px;--flickity-btn-pos: 30px;--flickity-btn-pos-mb: 30px;"
   >
     {%- for block in arr_blocks_img -%}
