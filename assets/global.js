@@ -10964,27 +10964,6 @@ window.CookiesT4 = window.Cookies.noConflict();
   })();
 })(window.jQuery || window.$);
 
-// Check if revealInView is enabled and prefers-reduced-motion is no-preference
-if (
-  window.T4Sconfigs.revealInView &&
-  window.matchMedia('(prefers-reduced-motion: no-preference)').matches
-) {
-  documentElement.classList.add('hdt-reveal-in-view');
-
-  // Initialize the reveal function on DOMContentLoaded
-  window.addEventListener('DOMContentLoaded', () => window.T4SThemeSP.Reveal());
-
-  // Handle Shopify design mode events
-  if (Shopify.designMode) {
-    document.addEventListener('shopify:section:load', (event) =>
-      window.T4SThemeSP.Reveal(event.target, true)
-    );
-    document.addEventListener('shopify:section:reorder', () =>
-      window.T4SThemeSP.Reveal(document, true)
-    );
-  }
-}
-
 // jQuery document ready function
 $(document).ready(($) => {
   $('html').addClass(
