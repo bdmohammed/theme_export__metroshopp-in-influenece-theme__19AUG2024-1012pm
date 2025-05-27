@@ -175,7 +175,7 @@
             "type": "announcement",
             "settings": {
               "link": "",
-              "content": "<p>&lt;p&gt;Today deal sale off &lt;strong&gt;70%&lt;/strong&gt;. End in &lt;strong&gt;[countdown]&lt;/strong&gt;.&lt;a href='[redirect_link]' title='Sale'&gt;Hurry Up&lt;/a&gt;[icon_arrow]&lt;/p&gt;</p>",
+              "content": "<p>&lt;p&gt;Today deal sale off &lt;strong&gt;70%&lt;/strong&gt;. End in &lt;strong&gt;[countdown]&lt;/strong&gt;.&lt;a href='[redirect_link]' title='Sale'&gt;Hurry Up&lt;/a&gt;[icon_arrow]&lt;/p&gt;<br/><br/></p>",
               "redirect_link": "/",
               "countdown": "2022/09/19",
               "txt_day": "days",
@@ -186,7 +186,7 @@
             "type": "announcement",
             "settings": {
               "link": "",
-              "content": "<p>Limited Offer : Get 10% off   [icon_arrow] <strong>Code: SPECIAL10</strong></p>",
+              "content": "<p>&lt;p&gt;Today deal sale off &lt;strong&gt;70%&lt;/strong&gt;. End in &lt;strong&gt;[countdown]&lt;/strong&gt;.&lt;a href='[redirect_link]' title='Sale'&gt;Hurry Up&lt;/a&gt;[icon_arrow]&lt;/p&gt;</p>",
               "redirect_link": "/",
               "countdown": "2022/09/19",
               "txt_day": "days",
