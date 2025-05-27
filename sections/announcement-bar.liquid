@@ -1,9 +1,157 @@
+<!-- sections/announcement-bar.liquid -->
 {%- if section.settings.show_announcement -%}
+  {{ 'pre_flickity.css' | asset_url | stylesheet_tag }}
+
   {%- liquid
     assign se_stts = section.settings
     assign label = 'sections.announcement.label' | t
     assign bg_op = se_stts.bg_op | divided_by: 100.0
   -%}
+  {%- style -%}
+    .announcement-bar {
+      background-color: {{ se_stts.bg | color_modify: 'alpha', bg_op }};
+      min-height:{{se_stts.height}}px;
+      font-size:{{se_stts.fontsize}}px;
+    }
+    .announcement-bar__wrap,.announcement-bar__wrap a {
+      color:{{se_stts.cl}};
+    }
+    .announcement-bar__wrap {
+      padding: 5px 10px;
+      min-height:{{se_stts.height}}px;
+    }
+    .announcement-bar__item p a {
+      z-index: 5;
+      position: relative;
+    }
+    .announcement-bar__item p {
+      margin-bottom:0;
+    }
+    .announcement-bar__item strong {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .announcement-bar .slide-eff-translate .announcement-bar__item p {
+      transform: translateY(50px);
+      opacity: 0;
+      transition: opacity .8s,transform .8s;
+      will-change: transform,opacity;
+      -webkit-backface-visibility: hidden;
+    }
+    .announcement-bar .slide-eff-translate .announcement-bar__item.is-selected p {
+      transform: none;
+      opacity: 1;
+    }
+    .announcement-bar__close {
+      color:{{se_stts.cl_btn}};
+      padding: 0;
+      background-color: transparent;
+      line-height: 1;
+      transition: .2s;
+      font-size: {{se_stts.fontsize}}px;
+    }
+    .announcement-bar__close:hover,
+    .announcement-bar__close:focus {
+      background-color: transparent !important;
+      opacity: .7;
+      color: {{se_stts.cl_btn}} !important;
+    }
+    .announcement-bar .col-auto {
+      line-height: 1;
+    }
+    .announcement-bar__item p a:hover {
+      opacity: .7;
+    }
+    .announcement-bar.type-close-1 .iconsvg-close {
+      width: 9px;
+      height: 9px;
+      stroke-width: 2px;
+    }
+    .announcement-bar:not(.type-close-1) .iconsvg-close {
+      width: 15px;
+      height: 15px;
+      stroke-width: 1.5px;
+    }
+    .announcement-bar.type-close-2 .announcement-bar__close {
+      font-size:0 !important;
+    }
+    .announcement-bar.type-close-3 .iconsvg-close {
+      display: none !important;
+    }
+    .announcement-bar__close.opacity-0 {
+      opacity: 0 !important;
+    }
+    svg.icon-arrow {
+      width: 12px;
+      display: inline-block;
+    }
+    .announcement-bar__item .icon-arrow {
+      -webkit-transition: .2s ease-in-out;
+      transition: -webkit-transform .2s ease-in-out,transform .2s ease-in-out;
+    }
+    .announcement-bar__item:hover .icon-arrow {
+      transform: translateX(0.25rem);
+    }
+    .announcement-bar .countdown-enabled {
+      display: inline-block;
+    }
+    .announcement-bar--marquee .announcement-bar__item {
+      vertical-align: middle;
+    }
+
+    .announcement-bar-desgign-marquee {
+      --spacing-item-marquee: 20px;
+    }
+
+    .announcement-bar-desgign-marquee .container, .announcement-bar-desgign-marquee .announcement-bar__wrap {
+      padding-inline-start:0;
+      padding-inline-end:0;
+    }
+
+    .announcement-bar-desgign-marquee .announcement-bar__close {
+      padding-inline-start:10px;
+    }
+
+    .announcement-bar-desgign-marquee .announcement-bar__item {
+      padding-inline-start:calc(var(--spacing-item-marquee) / 2);
+      padding-inline-end: calc(var(--spacing-item-marquee) / 2);
+    }
+
+    .announcement---marquee-icon span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      display: block;
+    }
+
+    .announcement-bar--marquee-content {
+        gap: var(--spacing-item-marquee);
+      }
+
+      @media(min-width: 1025px) {
+        .announcement-bar-desgign-marquee {
+          --spacing-item-marquee: 30px;
+        }
+      }
+
+      @media (-moz-touch-enabled: 0), (hover: hover) and (min-width: 1025px) {
+        .announcement-bar__item:hover .icon-arrow {
+          transform: translateX(0.25rem);
+      }
+
+      .announcement-bar__close:hover {
+        background-color: transparent !important;
+        opacity: .7;
+        color: #ffffff !important;
+      }
+
+      .announcement-bar__item p a:hover {
+        opacity: .7
+      }
+    }
+  {%- endstyle -%}
+
   {%- capture cap_btn -%}
     {%- if se_stts.close != '0' -%}
       <div class="col-item col-auto d-none d-md-block">
@@ -17,8 +165,6 @@
     {%- endif -%}
   {%- endcapture -%}
 
-  {{ 'pre_flickity.css' | asset_url | stylesheet_tag }}
-
   <svg class="d-none">
     <symbol id="icon-{{section.id}}" viewBox="0 0 14 10" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor"></path></symbol>
   </svg>
@@ -26,7 +172,7 @@
 
   <div
     aria-hidden="false"
-    class="announcement-bar relative overflow-hidden type-close-{{se_stts.close}}"
+    class="announcement-bar announcement-bar-desgign-slider relative overflow-hidden type-close-{{se_stts.close}}"
     data-ver="{{se_stts.version}}_nt"
     data-date="{{se_stts.date}}"
     aria-label="{{ 'sections.announcement.label' | t }}"
@@ -37,23 +183,31 @@
 
         {%- if section.blocks.size > 0 -%}
           <div
-            class="announcement-bar__wrap col col-item d-flex align-items-center text-center row row-cols-1 ts-g-0 flickity{% if se_stts.effect == '1' %} slide-eff-fade{% endif %}"
+            class="announcement-bar__wrap announcement-bar-slider col col-item d-flex align-items-center text-center row row-cols-1 ts-g-0 flickity{% if se_stts.effect == '1' %} slide-eff-fade{% endif %}"
             data-flickity-js='{ "cellAlign": "center","imagesLoaded": 0,"lazyLoad": 0,"freeScroll": 0,"wrapAround": true,"autoPlay" : {{ se_stts.au_time | times: 1000 }},"pauseAutoPlayOnHover" : true, "prevNextButtons": false,"pageDots": false, "contain" : 1,"adaptiveHeight" : 1,"dragThreshold" : 5,"percentPosition": 1 }'
           >
             {%- for block in section.blocks -%}
               {%- assign bk_stts = block.settings -%}
-              {%- capture cap_date %}{% assign se_dayx = bk_stts.dayx %}<span data-refresh-owl data-countdown-ts data-loop="{% if se_dayx > 0 %}true{% else %}false{% endif %}" data-date="{{bk_stts.countdown}}" data-dayl="{{se_dayx}}">%D {{bk_stts.txt_day}} %H:%M:%S</span>{% endcapture -%}
+              {%- capture cap_date %}
+                {% assign se_dayx = bk_stts.dayx %}
+                <span data-refresh-owl data-countdown-ts data-loop="{% if se_dayx > 0 %}true{% else %}false{% endif %}" data-date="{{bk_stts.countdown}}" data-dayl="{{se_dayx}}">%D {{bk_stts.txt_day}} %H:%M:%S</span>
+              {% endcapture -%}
 
               <div
                 id="b_{{block.id}}"
                 {{ block.shopify_attributes }}
                 data-select-flickity
-                class="col-item announcement-bar__item relative overflow-hidden"
+                class="col-item announcement-bar__item relative overflow-hidden rte--list"
               >
                 {%- if bk_stts.link != blank -%}
                   <a href="{{bk_stts.link}}" aria-label="{{label}}" class="full-width-link"></a>
                 {%- endif -%}
-                {{- bk_stts.content | replace: '[countdown]', cap_date | replace: '[icon_arrow]', cap_arrow -}}
+                {{-
+                  bk_stts.content
+                  | replace: '[countdown]', cap_date
+                  | replace: 'redirect_link', section.settings.redirect_link
+                  | replace: '[icon_arrow]', cap_arrow
+                -}}
               </div>
             {%- endfor -%}
           </div>
@@ -96,83 +250,10 @@
   </script>
 {%- endif -%}
 
-<style>
-  .announcement-bar {
-    background-color: {{ se_stts.bg | color_modify: 'alpha', bg_op }};
-    min-height:{{se_stts.height}}px;
-    font-size:{{se_stts.fontsize}}px;
-  }
-  .announcement-bar__wrap,.announcement-bar__wrap a {
-    color:{{se_stts.cl}};
-  }
-  .announcement-bar__wrap {
-    padding: 5px 10px;
-    min-height:{{se_stts.height}}px;
-  }
-  .announcement-bar__item p a {
-    z-index: 5;position: relative;
-  }
-  .announcement-bar__item p {
-    margin-bottom:0;
-  }
-  .announcement-bar__item strong {
-    font-size: 14px;
-    font-weight: 600;
-  }
-  .announcement-bar__close {
-    color:{{se_stts.cl_btn}};
-    padding: 0;
-    background-color: transparent;
-    line-height: 1;
-    transition: .2s;
-    font-size: {{se_stts.fontsize}}px;
-  }
-  .announcement-bar__close:hover,
-  .announcement-bar__close:focus {
-    background-color: transparent !important;
-    opacity: .7;
-    color: {{se_stts.cl_btn}} !important;
-  }
-  .announcement-bar .col-auto {
-    line-height: 1;
-  }
-  .announcement-bar__item p a:hover {
-    opacity: .7;
-  }
-  .announcement-bar.type-close-1 .iconsvg-close {
-    width: 9px;
-    height: 9px;
-    stroke-width: 2px;
-  }
-  .announcement-bar.type-close-2 .announcement-bar__close {
-    font-size:0 !important;
-  }
-  .announcement-bar.type-close-3 .iconsvg-close {
-    display: none !important;
-  }
-  .announcement-bar__close.opacity-0 {
-    opacity: 0 !important;
-  }
-  svg.icon-arrow {
-    width: 12px;
-    display: inline-block;
-  }
-  .announcement-bar__item .icon-arrow {
-    -webkit-transition: .2s ease-in-out;
-    transition: -webkit-transform .2s ease-in-out,transform .2s ease-in-out;
-  }
-  .announcement-bar__item:hover .icon-arrow {
-     transform: translateX(0.25rem);
-  }
-  .announcement-bar .countdown-enabled {
-    display: inline-block;
-  }
-</style>
-
 {% schema %}
 {
   "name": "Announcement bar",
-  "class": "t4-section bk_flickity tp_cd",
+  "class": "ts-section t4-section-announcement-bar bk_flickity tp_cd tp_marquee",
   "settings": [
     {
       "type": "checkbox",
@@ -323,8 +404,15 @@
           "type": "richtext",
           "id": "content",
           "label": "Banner content",
-          "default": "<p>Today deal sale off 70%. End in [countdown]. Hurry Up!! [icon_arrow]</p>",
-          "info": "Place here text you want to see in the header banner. You can use shortocdes: [countdown], [icon_arrow]"
+          "default": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>.<a href='[redirect_link]' title='Sale'>Hurry Up</a>[icon_arrow]</p>",
+          "info": "Place here text you want to see in the header banner. You can use shortocdes: [countdown], [redirect_link], [icon_arrow]"
+        },
+        {
+          "type": "url",
+          "id": "redirect_link",
+          "label": "Redirect Link",
+          "default": "/",
+          "info": "Use shortocdes: [redirect_link]"
         },
         {
           "type": "text",

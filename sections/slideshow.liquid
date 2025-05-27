@@ -118,13 +118,22 @@
           style="--aspect-ratioapt:{{ratio | default:1.7777 }};--aspect-ratioaptmb:{{ratiomb  | default:1.7777 }};"
         >
           {%- if image -%}
+            {%- if forloop.first -%}
+              {%- assign fetch_priority = 'high' -%}
+            {%- else -%}
+              {%- assign fetch_priority = 'auto' -%}
+            {%- endif -%}
+            {%- capture class_img -%}'-lz--fadeIn img-as-bg slide-{{bk_stts.animate_slide}}'{%- endcapture -%}
             {{
               image
               | image_url: width: image.width, height: image.height
               | image_tag:
-              loading: 'eager', widths: '375, 575, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400,
-              3800, 4100', sizes: '100vw', fetchpriority:
-              {%- if forloop.first -%}'high'{%- else -%}'auto'{%- endif -%}
+                class: class_img,
+                loading: 'eager',
+                widths: '375, 575, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400,
+            3800, 4100',
+                sizes: '100vw',
+                fetchpriority: fetch_priority
             }}
             {% comment %}
               {%- if forloop.first -%}
