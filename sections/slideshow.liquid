@@ -118,16 +118,14 @@
           style="--aspect-ratioapt:{{ratio | default:1.7777 }};--aspect-ratioaptmb:{{ratiomb  | default:1.7777 }};"
         >
           {%- if image -%}
-            {% comment %}
-              {{
-                image
-                | image_url: width: image.width, height: image.height
-                | image_tag:
-                loading: 'eager', widths: '375, 575, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400,
-                3800, 4100', sizes: '100vw', fetchpriority:
-                {%- if forloop.first -%}'high'{%- else -%}'auto'{%- endif -%}
-              }}
-            {% endcomment %}
+            {{
+              image
+              | image_url: width: image.width, height: image.height
+              | image_tag:
+              loading: 'eager', widths: '375, 575, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400,
+              3800, 4100', sizes: '100vw', fetchpriority:
+              {%- if forloop.first -%}'high'{%- else -%}'auto'{%- endif -%}
+            }}
             {% comment %}
               {%- if forloop.first -%}
                 {%- assign class_img_first = 'lazyload lz--fadeIn img-as-bg d-md-none' | append: class_img -%}
