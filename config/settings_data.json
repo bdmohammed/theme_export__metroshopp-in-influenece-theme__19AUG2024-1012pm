@@ -255,7 +255,6 @@
           },
           "top-bar-2": {
             "type": "cur",
-            "disabled": true,
             "settings": {
               "show_currency": true,
               "show_language": true,
