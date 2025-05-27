@@ -175,8 +175,7 @@
             "type": "announcement",
             "settings": {
               "link": "",
-              "content": "<p>&lt;p&gt;Today deal sale off &lt;strong&gt;70%&lt;/strong&gt;. End in &lt;strong&gt;[countdown]&lt;/strong&gt;.&lt;a href='[redirect_link]' title='Sale'&gt;Hurry Up&lt;/a&gt;[icon_arrow]&lt;/p&gt;<br/><br/></p>",
-              "redirect_link": "/",
+              "content": "<p>Today deal sale off <strong>70%</strong>. End in<strong>[countdown]</strong>.&lt;a href='[redirect_link]' title='Sale'&gt;Hurry Up&lt;/a&gt;[icon_arrow]<br/><br/></p>",
               "countdown": "2022/09/19",
               "txt_day": "days",
               "dayx": 0
@@ -187,7 +186,6 @@
             "settings": {
               "link": "",
               "content": "<p>&lt;p&gt;Today deal sale off &lt;strong&gt;70%&lt;/strong&gt;. End in &lt;strong&gt;[countdown]&lt;/strong&gt;.&lt;a href='[redirect_link]' title='Sale'&gt;Hurry Up&lt;/a&gt;[icon_arrow]&lt;/p&gt;</p>",
-              "redirect_link": "/",
               "countdown": "2022/09/19",
               "txt_day": "days",
               "dayx": 0
