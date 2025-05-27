@@ -1,4 +1,4 @@
-.flagst4.lazyloaded:before {
+.flags.lazyloaded:before {
   background-image: url(currency_flags.png?19041994);
   background-repeat: no-repeat;
   border-radius: 0;
@@ -11,1361 +11,1361 @@
   overflow: hidden
 }
 
-.languages .flagst4.lazyloaded:before {
+.languages .flags.lazyloaded:before {
   display: none
 }
 
-.flagst4-ZMW:before {
+.flags-ZMW:before {
   background-position: -45px -5px
 }
 
-.flagst4-YER:before {
+.flags-YER:before {
   background-position: -85px -5px
 }
 
-.flagst4-VEF:before {
+.flags-VEF:before {
   background-position: -165px -5px
 }
 
-.flagst4-VUV:before {
+.flags-VUV:before {
   background-position: -245px -5px
 }
 
-.flagst4-UZS:before {
+.flags-UZS:before {
   background-position: -285px -5px
 }
 
-.flagst4-UYU:before {
+.flags-UYU:before {
   background-position: -325px -5px
 }
 
-.flagst4-AED:before {
+.flags-AED:before {
   background-position: -445px -5px
 }
 
-.flagst4-UAH:before {
+.flags-UAH:before {
   background-position: -5px -35px
 }
 
-.flagst4-UGX:before {
+.flags-UGX:before {
   background-position: -45px -35px
 }
 
-.flagst4-TMT:before {
+.flags-TMT:before {
   background-position: -125px -35px
 }
 
-.flagst4-TRY:before {
+.flags-TRY:before {
   background-position: -165px -35px
 }
 
-.flagst4-TND:before {
+.flags-TND:before {
   background-position: -205px -35px
 }
 
-.flagst4-TTD:before {
+.flags-TTD:before {
   background-position: -245px -35px
 }
 
-.flagst4-TOP:before {
+.flags-TOP:before {
   background-position: -285px -35px
 }
 
-.flagst4-THB:before {
+.flags-THB:before {
   background-position: -365px -35px
 }
 
-.flagst4-TZS:before {
+.flags-TZS:before {
   background-position: -405px -35px
 }
 
-.flagst4-TJS:before {
+.flags-TJS:before {
   background-position: -445px -35px
 }
 
-.flagst4-TWD:before {
+.flags-TWD:before {
   background-position: -5px -65px
 }
 
-.flagst4-SYP:before {
+.flags-SYP:before {
   background-position: -45px -65px
 }
 
-.flagst4-CHF:before {
+.flags-CHF:before {
   background-position: -85px -65px
 }
 
-.flagst4-SEK:before {
+.flags-SEK:before {
   background-position: -125px -65px
 }
 
-.flagst4-SZL:before {
+.flags-SZL:before {
   background-position: -165px -65px
 }
 
-.flagst4-SRD:before {
+.flags-SRD:before {
   background-position: -205px -65px
 }
 
-.flagst4-SDG:before {
+.flags-SDG:before {
   background-position: -245px -65px
 }
 
-.flagst4-LKR:before {
+.flags-LKR:before {
   background-position: -285px -65px
 }
 
-.flagst4-ZAR:before {
+.flags-ZAR:before {
   background-position: -405px -65px
 }
 
-.flagst4-SOS:before {
+.flags-SOS:before {
   background-position: -445px -65px
 }
 
-.flagst4-SBD:before {
+.flags-SBD:before {
   background-position: -5px -95px
 }
 
-.flagst4-SLL:before {
+.flags-SLL:before {
   background-position: -165px -95px
 }
 
-.flagst4-SCR:before {
+.flags-SCR:before {
   background-position: -205px -95px
 }
 
-.flagst4-RSD:before {
+.flags-RSD:before {
   background-position: -245px -95px
 }
 
-.flagst4-SAR:before {
+.flags-SAR:before {
   background-position: -325px -95px
 }
 
-.flagst4-STD:before {
+.flags-STD:before {
   background-position: -365px -95px
 }
 
-.flagst4-WST:before {
+.flags-WST:before {
   background-position: -445px -95px
 }
 
-.flagst4-XCD:before {
+.flags-XCD:before {
   background-position: -5px -125px
 }
 
-.flagst4-RWF:before {
+.flags-RWF:before {
   background-position: -125px -125px
 }
 
-.flagst4-RUB:before {
+.flags-RUB:before {
   background-position: -165px -125px
 }
 
-.flagst4-RON:before {
+.flags-RON:before {
   background-position: -205px -125px
 }
 
-.flagst4-QAR:before {
+.flags-QAR:before {
   background-position: -245px -125px
 }
 
-.flagst4-PLN:before {
+.flags-PLN:before {
   background-position: -325px -125px
 }
 
-.flagst4-PHP:before {
+.flags-PHP:before {
   background-position: -365px -125px
 }
 
-.flagst4-PEN:before {
+.flags-PEN:before {
   background-position: -405px -125px
 }
 
-.flagst4-PYG:before {
+.flags-PYG:before {
   background-position: -445px -125px
 }
 
-.flagst4-PGK:before {
+.flags-PGK:before {
   background-position: -5px -155px
 }
 
-.flagst4-PAB:before {
+.flags-PAB:before {
   background-position: -45px -155px
 }
 
-.flagst4-PKR:before {
+.flags-PKR:before {
   background-position: -125px -155px
 }
 
-.flagst4-OMR:before {
+.flags-OMR:before {
   background-position: -165px -155px
 }
 
-.flagst4-NOK:before {
+.flags-NOK:before {
   background-position: -205px -155px
 }
 
-.flagst4-NGN:before {
+.flags-NGN:before {
   background-position: -245px -155px
 }
 
-.flagst4-NIO:before {
+.flags-NIO:before {
   background-position: -325px -155px
 }
 
-.flagst4-NPR:before {
+.flags-NPR:before {
   background-position: -445px -155px
 }
 
-.flagst4-NAD:before {
+.flags-NAD:before {
   background-position: -45px -185px
 }
 
-.flagst4-MMK:before {
+.flags-MMK:before {
   background-position: -85px -185px
 }
 
-.flagst4-MZN:before {
+.flags-MZN:before {
   background-position: -125px -185px
 }
 
-.flagst4-MAD:before {
+.flags-MAD:before {
   background-position: -165px -185px
 }
 
-.flagst4-MNT:before {
+.flags-MNT:before {
   background-position: -245px -185px
 }
 
-.flagst4-MDL:before {
+.flags-MDL:before {
   background-position: -325px -185px
 }
 
-.flagst4-MXN:before {
+.flags-MXN:before {
   background-position: -405px -185px
 }
 
-.flagst4-MUR:before {
+.flags-MUR:before {
   background-position: -445px -185px
 }
 
-.flagst4-MRO:before {
+.flags-MRO:before {
   background-position: -5px -215px
 }
 
-.flagst4-MVR:before {
+.flags-MVR:before {
   background-position: -165px -215px
 }
 
-.flagst4-MYR:before {
+.flags-MYR:before {
   background-position: -205px -215px
 }
 
-.flagst4-MWK:before {
+.flags-MWK:before {
   background-position: -245px -215px
 }
 
-.flagst4-MGA:before {
+.flags-MGA:before {
   background-position: -285px -215px
 }
 
-.flagst4-MKD:before {
+.flags-MKD:before {
   background-position: -325px -215px
 }
 
-.flagst4-LTL:before {
+.flags-LTL:before {
   background-position: -405px -215px
 }
 
-.flagst4-LYD:before {
+.flags-LYD:before {
   background-position: -5px -245px
 }
 
-.flagst4-LRD:before {
+.flags-LRD:before {
   background-position: -45px -245px
 }
 
-.flagst4-LSL:before {
+.flags-LSL:before {
   background-position: -85px -245px
 }
 
-.flagst4-LBP:before {
+.flags-LBP:before {
   background-position: -125px -245px
 }
 
-.flagst4-LVL:before {
+.flags-LVL:before {
   background-position: -165px -245px
 }
 
-.flagst4-LAK:before {
+.flags-LAK:before {
   background-position: -205px -245px
 }
 
-.flagst4-KGS:before {
+.flags-KGS:before {
   background-position: -245px -245px
 }
 
-.flagst4-KWD:before {
+.flags-KWD:before {
   background-position: -285px -245px
 }
 
-.flagst4-KRW:before {
+.flags-KRW:before {
   background-position: -365px -245px
 }
 
-.flagst4-KPW:before {
+.flags-KPW:before {
   background-position: -405px -245px
 }
 
-.flagst4-KES:before {
+.flags-KES:before {
   background-position: -5px -275px
 }
 
-.flagst4-KZT:before {
+.flags-KZT:before {
   background-position: -45px -275px
 }
 
-.flagst4-JOD:before {
+.flags-JOD:before {
   background-position: -85px -275px
 }
 
-.flagst4-JMD:before {
+.flags-JMD:before {
   background-position: -165px -275px
 }
 
-.flagst4-ILS:before {
+.flags-ILS:before {
   background-position: -245px -275px
 }
 
-.flagst4-IQD:before {
+.flags-IQD:before {
   background-position: -325px -275px
 }
 
-.flagst4-IRR:before {
+.flags-IRR:before {
   background-position: -365px -275px
 }
 
-.flagst4-IDR:before {
+.flags-IDR:before {
   background-position: -405px -275px
 }
 
-.flagst4-INR:before {
+.flags-INR:before {
   background-position: -445px -275px
 }
 
-.flagst4-ISK:before {
+.flags-ISK:before {
   background-position: -5px -305px
 }
 
-.flagst4-HUF:before {
+.flags-HUF:before {
   background-position: -45px -305px
 }
 
-.flagst4-HNL:before {
+.flags-HNL:before {
   background-position: -85px -305px
 }
 
-.flagst4-HTG:before {
+.flags-HTG:before {
   background-position: -125px -305px
 }
 
-.flagst4-GYD:before {
+.flags-GYD:before {
   background-position: -165px -305px
 }
 
-.flagst4-GNF:before {
+.flags-GNF:before {
   background-position: -205px -305px
 }
 
-.flagst4-GTQ:before {
+.flags-GTQ:before {
   background-position: -285px -305px
 }
 
-.flagst4-GHS:before {
+.flags-GHS:before {
   background-position: -405px -305px
 }
 
-.flagst4-GEL:before {
+.flags-GEL:before {
   background-position: -5px -335px
 }
 
-.flagst4-GMD:before {
+.flags-GMD:before {
   background-position: -45px -335px
 }
 
-.flagst4-XAF:before {
+.flags-XAF:before {
   background-position: -85px -335px
 }
 
-.flagst4-FJD:before {
+.flags-FJD:before {
   background-position: -205px -335px
 }
 
-.flagst4-ETB:before {
+.flags-ETB:before {
   background-position: -245px -335px
 }
 
-.flagst4-ERN:before {
+.flags-ERN:before {
   background-position: -325px -335px
 }
 
-.flagst4-SVC:before {
+.flags-SVC:before {
   background-position: -405px -335px
 }
 
-.flagst4-EGP:before {
+.flags-EGP:before {
   background-position: -445px -335px
 }
 
-.flagst4-DOP:before {
+.flags-DOP:before {
   background-position: -85px -365px
 }
 
-.flagst4-DJF:before {
+.flags-DJF:before {
   background-position: -165px -365px
 }
 
-.flagst4-CZK:before {
+.flags-CZK:before {
   background-position: -245px -365px
 }
 
-.flagst4-CUC:before,
-.flagst4-CUP:before {
+.flags-CUC:before,
+.flags-CUP:before {
   background-position: -325px -365px
 }
 
-.flagst4-HRK:before {
+.flags-HRK:before {
   background-position: -365px -365px
 }
 
-.flagst4-CRC:before {
+.flags-CRC:before {
   background-position: -445px -365px
 }
 
-.flagst4-CDF:before {
+.flags-CDF:before {
   background-position: -45px -395px
 }
 
-.flagst4-KMF:before {
+.flags-KMF:before {
   background-position: -85px -395px
 }
 
-.flagst4-COP:before {
+.flags-COP:before {
   background-position: -125px -395px
 }
 
-.flagst4-CNY:before {
+.flags-CNY:before {
   background-position: -165px -395px
 }
 
-.flagst4-CLP:before {
+.flags-CLP:before {
   background-position: -205px -395px
 }
 
-.flagst4-CVE:before {
+.flags-CVE:before {
   background-position: -325px -395px
 }
 
-.flagst4-KHR:before {
+.flags-KHR:before {
   background-position: -445px -395px
 }
 
-.flagst4-BIF:before {
+.flags-BIF:before {
   background-position: -5px -425px
 }
 
-.flagst4-XOF:before {
+.flags-XOF:before {
   background-position: -45px -425px
 }
 
-.flagst4-BGN:before {
+.flags-BGN:before {
   background-position: -85px -425px
 }
 
-.flagst4-BND:before {
+.flags-BND:before {
   background-position: -125px -425px
 }
 
-.flagst4-BRL:before {
+.flags-BRL:before {
   background-position: -165px -425px
 }
 
-.flagst4-BWP:before {
+.flags-BWP:before {
   background-position: -205px -425px
 }
 
-.flagst4-BAM:before {
+.flags-BAM:before {
   background-position: -245px -425px
 }
 
-.flagst4-BOB:before {
+.flags-BOB:before {
   background-position: -285px -425px
 }
 
-.flagst4-BTN:before {
+.flags-BTN:before {
   background-position: -325px -425px
 }
 
-.flagst4-BZD:before {
+.flags-BZD:before {
   background-position: -405px -425px
 }
 
-.flagst4-BYN:before {
+.flags-BYN:before {
   background-position: -5px -455px
 }
 
-.flagst4-BBD:before {
+.flags-BBD:before {
   background-position: -45px -455px
 }
 
-.flagst4-BDT:before {
+.flags-BDT:before {
   background-position: -85px -455px
 }
 
-.flagst4-BHD:before {
+.flags-BHD:before {
   background-position: -125px -455px
 }
 
-.flagst4-BSD:before {
+.flags-BSD:before {
   background-position: -165px -455px
 }
 
-.flagst4-AZN:before {
+.flags-AZN:before {
   background-position: -205px -455px
 }
 
-.flagst4-AMD:before {
+.flags-AMD:before {
   background-position: -325px -455px
 }
 
-.flagst4-ARS:before {
+.flags-ARS:before {
   background-position: -365px -455px
 }
 
-.flagst4-DZD:before {
+.flags-DZD:before {
   background-position: -5px -485px
 }
 
-.flagst4-ALL:before {
+.flags-ALL:before {
   background-position: -45px -485px
 }
 
-.flagst4-AFN:before {
+.flags-AFN:before {
   background-position: -85px -485px
 }
 
-.flagst4-BMD:before {
+.flags-BMD:before {
   background-position: -125px -485px
 }
 
-.flagst4-XPT:before {
+.flags-XPT:before {
   background-position: -205px -485px
 }
 
-.flagst4-XAU:before {
+.flags-XAU:before {
   background-position: -245px -485px
 }
 
-.flagst4-XAG:before {
+.flags-XAG:before {
   background-position: -285px -485px
 }
 
-.flagst4-XPF:before {
+.flags-XPF:before {
   background-position: -325px -485px
 }
 
-.flagst4-AWG:before {
+.flags-AWG:before {
   background-position: -405px -485px
 }
 
-.flagst4-AOA:before {
+.flags-AOA:before {
   background-position: -445px -485px
 }
 
-.flagst4-SHP:before {
+.flags-SHP:before {
   background-position: -485px -5px
 }
 
-.flagst4-MOP:before {
+.flags-MOP:before {
   background-position: -485px -35px
 }
 
-.flagst4-JEP:before {
+.flags-JEP:before {
   background-position: -485px -65px
 }
 
-.flagst4-IMP:before {
+.flags-IMP:before {
   background-position: -485px -95px
 }
 
-.flagst4-IMF:before {
+.flags-IMF:before {
   background-position: -485px -125px
 }
 
-.flagst4-GGP:before {
+.flags-GGP:before {
   background-position: -485px -185px
 }
 
-.flagst4-GIP:before {
+.flags-GIP:before {
   background-position: -485px -215px
 }
 
-.flagst4-FKP:before {
+.flags-FKP:before {
   background-position: -485px -245px
 }
 
-.flagst4-ANG:before {
+.flags-ANG:before {
   background-position: -485px -275px
 }
 
-.flagst4-KYD:before {
+.flags-KYD:before {
   background-position: -485px -305px
 }
 
-.flagst4-BTC:before {
+.flags-BTC:before {
   background-position: -485px -335px
 }
 
-[data-flagst4=sm].lazyloaded:before {
+[data-flags=sm].lazyloaded:before {
   background-image: url(currency_flags_sm.png?19041994);
   width: 15px;
   height: 10px
 }
 
-[data-flagst4=sm].flagst4-ZMW:before {
+[data-flags=sm].flags-ZMW:before {
   background-position: -15px 0
 }
 
-[data-flagst4=sm].flagst4-YER:before {
+[data-flags=sm].flags-YER:before {
   background-position: -30px 0
 }
 
-[data-flagst4=sm].flagst4-VND:before {
+[data-flags=sm].flags-VND:before {
   background-position: -45px 0
 }
 
-[data-flagst4=sm].flagst4-VEF:before {
+[data-flags=sm].flags-VEF:before {
   background-position: -60px 0
 }
 
-[data-flagst4=sm].flagst4-VUV:before {
+[data-flags=sm].flags-VUV:before {
   background-position: -90px 0
 }
 
-[data-flagst4=sm].flagst4-UZS:before {
+[data-flags=sm].flags-UZS:before {
   background-position: -105px 0
 }
 
-[data-flagst4=sm].flagst4-UYU:before {
+[data-flags=sm].flags-UYU:before {
   background-position: -120px 0
 }
 
-[data-flagst4=sm].flagst4-GBP:before {
+[data-flags=sm].flags-GBP:before {
   background-position: -150px 0
 }
 
-[data-flagst4=sm].flagst4-AED:before {
+[data-flags=sm].flags-AED:before {
   background-position: -165px 0
 }
 
-[data-flagst4=sm].flagst4-UAH:before {
+[data-flags=sm].flags-UAH:before {
   background-position: 0 -10px
 }
 
-[data-flagst4=sm].flagst4-UGX:before {
+[data-flags=sm].flags-UGX:before {
   background-position: -15px -10px
 }
 
-[data-flagst4=sm].flagst4-TMT:before {
+[data-flags=sm].flags-TMT:before {
   background-position: -45px -10px
 }
 
-[data-flagst4=sm].flagst4-TRY:before {
+[data-flags=sm].flags-TRY:before {
   background-position: -60px -10px
 }
 
-[data-flagst4=sm].flagst4-TND:before {
+[data-flags=sm].flags-TND:before {
   background-position: -75px -10px
 }
 
-[data-flagst4=sm].flagst4-TTD:before {
+[data-flags=sm].flags-TTD:before {
   background-position: -90px -10px
 }
 
-[data-flagst4=sm].flagst4-TOP:before {
+[data-flags=sm].flags-TOP:before {
   background-position: -105px -10px
 }
 
-[data-flagst4=sm].flagst4-Togo:before {
+[data-flags=sm].flags-Togo:before {
   background-position: -120px -10px
 }
 
-[data-flagst4=sm].flagst4-THB:before {
+[data-flags=sm].flags-THB:before {
   background-position: -135px -10px
 }
 
-[data-flagst4=sm].flagst4-TZS:before {
+[data-flags=sm].flags-TZS:before {
   background-position: -150px -10px
 }
 
-[data-flagst4=sm].flagst4-TJS:before {
+[data-flags=sm].flags-TJS:before {
   background-position: -165px -10px
 }
 
-[data-flagst4=sm].flagst4-TWD:before {
+[data-flags=sm].flags-TWD:before {
   background-position: 0 -20px
 }
 
-[data-flagst4=sm].flagst4-SYP:before {
+[data-flags=sm].flags-SYP:before {
   background-position: -15px -20px
 }
 
-[data-flagst4=sm].flagst4-CHF:before {
+[data-flags=sm].flags-CHF:before {
   background-position: -30px -20px
 }
 
-[data-flagst4=sm].flagst4-SEK:before {
+[data-flags=sm].flags-SEK:before {
   background-position: -45px -20px
 }
 
-[data-flagst4=sm].flagst4-SZL:before {
+[data-flags=sm].flags-SZL:before {
   background-position: -60px -20px
 }
 
-[data-flagst4=sm].flagst4-SRD:before {
+[data-flags=sm].flags-SRD:before {
   background-position: -75px -20px
 }
 
-[data-flagst4=sm].flagst4-SDG:before {
+[data-flags=sm].flags-SDG:before {
   background-position: -90px -20px
 }
 
-[data-flagst4=sm].flagst4-LKR:before {
+[data-flags=sm].flags-LKR:before {
   background-position: -105px -20px
 }
 
-[data-flagst4=sm].flagst4-ZAR:before {
+[data-flags=sm].flags-ZAR:before {
   background-position: -150px -20px
 }
 
-[data-flagst4=sm].flagst4-SOS:before {
+[data-flags=sm].flags-SOS:before {
   background-position: -165px -20px
 }
 
-[data-flagst4=sm].flagst4-SBD:before {
+[data-flags=sm].flags-SBD:before {
   background-position: 0 -30px
 }
 
-[data-flagst4=sm].flagst4-SGD:before {
+[data-flags=sm].flags-SGD:before {
   background-position: -45px -30px
 }
 
-[data-flagst4=sm].flagst4-SLL:before {
+[data-flags=sm].flags-SLL:before {
   background-position: -60px -30px
 }
 
-[data-flagst4=sm].flagst4-SCR:before {
+[data-flags=sm].flags-SCR:before {
   background-position: -75px -30px
 }
 
-[data-flagst4=sm].flagst4-RSD:before {
+[data-flags=sm].flags-RSD:before {
   background-position: -90px -30px
 }
 
-[data-flagst4=sm].flagst4-SAR:before {
+[data-flags=sm].flags-SAR:before {
   background-position: -120px -30px
 }
 
-[data-flagst4=sm].flagst4-STD:before {
+[data-flags=sm].flags-STD:before {
   background-position: -135px -30px
 }
 
-[data-flagst4=sm].flagst4-WST:before {
+[data-flags=sm].flags-WST:before {
   background-position: -165px -30px
 }
 
-[data-flagst4=sm].flagst4-XCD:before {
+[data-flags=sm].flags-XCD:before {
   background-position: 0 -40px
 }
 
-[data-flagst4=sm].flagst4-RWF:before {
+[data-flags=sm].flags-RWF:before {
   background-position: -45px -40px
 }
 
-[data-flagst4=sm].flagst4-RUB:before {
+[data-flags=sm].flags-RUB:before {
   background-position: -60px -40px
 }
 
-[data-flagst4=sm].flagst4-RON:before {
+[data-flags=sm].flags-RON:before {
   background-position: -75px -40px
 }
 
-[data-flagst4=sm].flagst4-QAR:before {
+[data-flags=sm].flags-QAR:before {
   background-position: -90px -40px
 }
 
-[data-flagst4=sm].flagst4-PLN:before {
+[data-flags=sm].flags-PLN:before {
   background-position: -120px -40px
 }
 
-[data-flagst4=sm].flagst4-PHP:before {
+[data-flags=sm].flags-PHP:before {
   background-position: -135px -40px
 }
 
-[data-flagst4=sm].flagst4-PEN:before {
+[data-flags=sm].flags-PEN:before {
   background-position: -150px -40px
 }
 
-[data-flagst4=sm].flagst4-PYG:before {
+[data-flags=sm].flags-PYG:before {
   background-position: -165px -40px
 }
 
-[data-flagst4=sm].flagst4-PGK:before {
+[data-flags=sm].flags-PGK:before {
   background-position: 0 -50px
 }
 
-[data-flagst4=sm].flagst4-PAB:before {
+[data-flags=sm].flags-PAB:before {
   background-position: -15px -50px
 }
 
-[data-flagst4=sm].flagst4-PKR:before {
+[data-flags=sm].flags-PKR:before {
   background-position: -45px -50px
 }
 
-[data-flagst4=sm].flagst4-OMR:before {
+[data-flags=sm].flags-OMR:before {
   background-position: -60px -50px
 }
 
-[data-flagst4=sm].flagst4-NOK:before {
+[data-flags=sm].flags-NOK:before {
   background-position: -75px -50px
 }
 
-[data-flagst4=sm].flagst4-NGN:before {
+[data-flags=sm].flags-NGN:before {
   background-position: -90px -50px
 }
 
-[data-flagst4=sm].flagst4-NIO:before {
+[data-flags=sm].flags-NIO:before {
   background-position: -120px -50px
 }
 
-[data-flagst4=sm].flagst4-NZD:before {
+[data-flags=sm].flags-NZD:before {
   background-position: -135px -50px
 }
 
-[data-flagst4=sm].flagst4-NPR:before {
+[data-flags=sm].flags-NPR:before {
   background-position: -165px -50px
 }
 
-[data-flagst4=sm].flagst4-NAD:before {
+[data-flags=sm].flags-NAD:before {
   background-position: -15px -60px
 }
 
-[data-flagst4=sm].flagst4-MMK:before {
+[data-flags=sm].flags-MMK:before {
   background-position: -30px -60px
 }
 
-[data-flagst4=sm].flagst4-MZN:before {
+[data-flags=sm].flags-MZN:before {
   background-position: -45px -60px
 }
 
-[data-flagst4=sm].flagst4-MAD:before {
+[data-flags=sm].flags-MAD:before {
   background-position: -60px -60px
 }
 
-[data-flagst4=sm].flagst4-MNT:before {
+[data-flags=sm].flags-MNT:before {
   background-position: -90px -60px
 }
 
-[data-flagst4=sm].flagst4-MDL:before {
+[data-flags=sm].flags-MDL:before {
   background-position: -120px -60px
 }
 
-[data-flagst4=sm].flagst4-MXN:before {
+[data-flags=sm].flags-MXN:before {
   background-position: -150px -60px
 }
 
-[data-flagst4=sm].flagst4-MUR:before {
+[data-flags=sm].flags-MUR:before {
   background-position: -165px -60px
 }
 
-[data-flagst4=sm].flagst4-MRO:before {
+[data-flags=sm].flags-MRO:before {
   background-position: 0 -70px
 }
 
-[data-flagst4=sm].flagst4-MVR:before {
+[data-flags=sm].flags-MVR:before {
   background-position: -60px -70px
 }
 
-[data-flagst4=sm].flagst4-MYR:before {
+[data-flags=sm].flags-MYR:before {
   background-position: -75px -70px
 }
 
-[data-flagst4=sm].flagst4-MWK:before {
+[data-flags=sm].flags-MWK:before {
   background-position: -90px -70px
 }
 
-[data-flagst4=sm].flagst4-MGA:before {
+[data-flags=sm].flags-MGA:before {
   background-position: -105px -70px
 }
 
-[data-flagst4=sm].flagst4-MKD:before {
+[data-flags=sm].flags-MKD:before {
   background-position: -120px -70px
 }
 
-[data-flagst4=sm].flagst4-LTL:before {
+[data-flags=sm].flags-LTL:before {
   background-position: -150px -70px
 }
 
-[data-flagst4=sm].flagst4-LYD:before {
+[data-flags=sm].flags-LYD:before {
   background-position: 0 -80px
 }
 
-[data-flagst4=sm].flagst4-LRD:before {
+[data-flags=sm].flags-LRD:before {
   background-position: -15px -80px
 }
 
-[data-flagst4=sm].flagst4-LSL:before {
+[data-flags=sm].flags-LSL:before {
   background-position: -30px -80px
 }
 
-[data-flagst4=sm].flagst4-LBP:before {
+[data-flags=sm].flags-LBP:before {
   background-position: -45px -80px
 }
 
-[data-flagst4=sm].flagst4-LVL:before {
+[data-flags=sm].flags-LVL:before {
   background-position: -60px -80px
 }
 
-[data-flagst4=sm].flagst4-LAK:before {
+[data-flags=sm].flags-LAK:before {
   background-position: -75px -80px
 }
 
-[data-flagst4=sm].flagst4-KGS:before {
+[data-flags=sm].flags-KGS:before {
   background-position: -90px -80px
 }
 
-[data-flagst4=sm].flagst4-KWD:before {
+[data-flags=sm].flags-KWD:before {
   background-position: -105px -80px
 }
 
-[data-flagst4=sm].flagst4-KRW:before {
+[data-flags=sm].flags-KRW:before {
   background-position: -135px -80px
 }
 
-[data-flagst4=sm].flagst4-KPW:before {
+[data-flags=sm].flags-KPW:before {
   background-position: -150px -80px
 }
 
-[data-flagst4=sm].flagst4-KES:before {
+[data-flags=sm].flags-KES:before {
   background-position: 0 -90px
 }
 
-[data-flagst4=sm].flagst4-KZT:before {
+[data-flags=sm].flags-KZT:before {
   background-position: -15px -90px
 }
 
-[data-flagst4=sm].flagst4-JOD:before {
+[data-flags=sm].flags-JOD:before {
   background-position: -30px -90px
 }
 
-[data-flagst4=sm].flagst4-JPY:before {
+[data-flags=sm].flags-JPY:before {
   background-position: -45px -90px
 }
 
-[data-flagst4=sm].flagst4-JMD:before {
+[data-flags=sm].flags-JMD:before {
   background-position: -60px -90px
 }
 
-[data-flagst4=sm].flagst4-ILS:before {
+[data-flags=sm].flags-ILS:before {
   background-position: -90px -90px
 }
 
-[data-flagst4=sm].flagst4-IQD:before {
+[data-flags=sm].flags-IQD:before {
   background-position: -120px -90px
 }
 
-[data-flagst4=sm].flagst4-IRR:before {
+[data-flags=sm].flags-IRR:before {
   background-position: -135px -90px
 }
 
-[data-flagst4=sm].flagst4-IDR:before {
+[data-flags=sm].flags-IDR:before {
   background-position: -150px -90px
 }
 
-[data-flagst4=sm].flagst4-INR:before {
+[data-flags=sm].flags-INR:before {
   background-position: -165px -90px
 }
 
-[data-flagst4=sm].flagst4-ISK:before {
+[data-flags=sm].flags-ISK:before {
   background-position: 0 -100px
 }
 
-[data-flagst4=sm].flagst4-HUF:before {
+[data-flags=sm].flags-HUF:before {
   background-position: -15px -100px
 }
 
-[data-flagst4=sm].flagst4-HNL:before {
+[data-flags=sm].flags-HNL:before {
   background-position: -30px -100px
 }
 
-[data-flagst4=sm].flagst4-HTG:before {
+[data-flags=sm].flags-HTG:before {
   background-position: -45px -100px
 }
 
-[data-flagst4=sm].flagst4-GYD:before {
+[data-flags=sm].flags-GYD:before {
   background-position: -60px -100px
 }
 
-[data-flagst4=sm].flagst4-GNF:before {
+[data-flags=sm].flags-GNF:before {
   background-position: -75px -100px
 }
 
-[data-flagst4=sm].flagst4-GTQ:before {
+[data-flags=sm].flags-GTQ:before {
   background-position: -105px -100px
 }
 
-[data-flagst4=sm].flagst4-GHS:before {
+[data-flags=sm].flags-GHS:before {
   background-position: -150px -100px
 }
 
-[data-flagst4=sm].flagst4-GEL:before {
+[data-flags=sm].flags-GEL:before {
   background-position: 0 -110px
 }
 
-[data-flagst4=sm].flagst4-GMD:before {
+[data-flags=sm].flags-GMD:before {
   background-position: -15px -110px
 }
 
-[data-flagst4=sm].flagst4-XAF:before {
+[data-flags=sm].flags-XAF:before {
   background-position: -30px -110px
 }
 
-[data-flagst4=sm].flagst4-FJD:before {
+[data-flags=sm].flags-FJD:before {
   background-position: -75px -110px
 }
 
-[data-flagst4=sm].flagst4-ETB:before {
+[data-flags=sm].flags-ETB:before {
   background-position: -90px -110px
 }
 
-[data-flagst4=sm].flagst4-ERN:before {
+[data-flags=sm].flags-ERN:before {
   background-position: -120px -110px
 }
 
-[data-flagst4=sm].flagst4-SVC:before {
+[data-flags=sm].flags-SVC:before {
   background-position: -150px -110px
 }
 
-[data-flagst4=sm].flagst4-EGP:before {
+[data-flags=sm].flags-EGP:before {
   background-position: -165px -110px
 }
 
-[data-flagst4=sm].flagst4-DOP:before {
+[data-flags=sm].flags-DOP:before {
   background-position: -30px -120px
 }
 
-[data-flagst4=sm].flagst4-DJF:before {
+[data-flags=sm].flags-DJF:before {
   background-position: -60px -120px
 }
 
-[data-flagst4=sm].flagst4-DKK:before {
+[data-flags=sm].flags-DKK:before {
   background-position: -75px -120px
 }
 
-[data-flagst4=sm].flagst4-CZK:before {
+[data-flags=sm].flags-CZK:before {
   background-position: -90px -120px
 }
 
-[data-flagst4=sm].flagst4-CUC:before,
-[data-flagst4=sm].flagst4-CUP:before {
+[data-flags=sm].flags-CUC:before,
+[data-flags=sm].flags-CUP:before {
   background-position: -120px -120px
 }
 
-[data-flagst4=sm].flagst4-HRK:before {
+[data-flags=sm].flags-HRK:before {
   background-position: -135px -120px
 }
 
-[data-flagst4=sm].flagst4-CRC:before {
+[data-flags=sm].flags-CRC:before {
   background-position: -165px -120px
 }
 
-[data-flagst4=sm].flagst4-CDF:before {
+[data-flags=sm].flags-CDF:before {
   background-position: -15px -130px
 }
 
-[data-flagst4=sm].flagst4-KMF:before {
+[data-flags=sm].flags-KMF:before {
   background-position: -30px -130px
 }
 
-[data-flagst4=sm].flagst4-COP:before {
+[data-flags=sm].flags-COP:before {
   background-position: -45px -130px
 }
 
-[data-flagst4=sm].flagst4-CNY:before {
+[data-flags=sm].flags-CNY:before {
   background-position: -60px -130px
 }
 
-[data-flagst4=sm].flagst4-CLP:before {
+[data-flags=sm].flags-CLP:before {
   background-position: -75px -130px
 }
 
-[data-flagst4=sm].flagst4-CVE:before {
+[data-flags=sm].flags-CVE:before {
   background-position: -120px -130px
 }
 
-[data-flagst4=sm].flagst4-CAD:before {
+[data-flags=sm].flags-CAD:before {
   background-position: -135px -130px
 }
 
-[data-flagst4=sm].flagst4-KHR:before {
+[data-flags=sm].flags-KHR:before {
   background-position: -165px -130px
 }
 
-[data-flagst4=sm].flagst4-BIF:before {
+[data-flags=sm].flags-BIF:before {
   background-position: 0 -140px
 }
 
-[data-flagst4=sm].flagst4-XOF:before {
+[data-flags=sm].flags-XOF:before {
   background-position: -15px -140px
 }
 
-[data-flagst4=sm].flagst4-BGN:before {
+[data-flags=sm].flags-BGN:before {
   background-position: -30px -140px
 }
 
-[data-flagst4=sm].flagst4-BND:before {
+[data-flags=sm].flags-BND:before {
   background-position: -45px -140px
 }
 
-[data-flagst4=sm].flagst4-BRL:before {
+[data-flags=sm].flags-BRL:before {
   background-position: -60px -140px
 }
 
-[data-flagst4=sm].flagst4-BWP:before {
+[data-flags=sm].flags-BWP:before {
   background-position: -75px -140px
 }
 
-[data-flagst4=sm].flagst4-BAM:before {
+[data-flags=sm].flags-BAM:before {
   background-position: -90px -140px
 }
 
-[data-flagst4=sm].flagst4-BOB:before {
+[data-flags=sm].flags-BOB:before {
   background-position: -105px -140px
 }
 
-[data-flagst4=sm].flagst4-BTN:before {
+[data-flags=sm].flags-BTN:before {
   background-position: -120px -140px
 }
 
-[data-flagst4=sm].flagst4-BZD:before {
+[data-flags=sm].flags-BZD:before {
   background-position: -150px -140px
 }
 
-[data-flagst4=sm].flagst4-BYN:before {
+[data-flags=sm].flags-BYN:before {
   background-position: 0 -150px
 }
 
-[data-flagst4=sm].flagst4-BBD:before {
+[data-flags=sm].flags-BBD:before {
   background-position: -15px -150px
 }
 
-[data-flagst4=sm].flagst4-BDT:before {
+[data-flags=sm].flags-BDT:before {
   background-position: -30px -150px
 }
 
-[data-flagst4=sm].flagst4-BHD:before {
+[data-flags=sm].flags-BHD:before {
   background-position: -45px -150px
 }
 
-[data-flagst4=sm].flagst4-BSD:before {
+[data-flags=sm].flags-BSD:before {
   background-position: -60px -150px
 }
 
-[data-flagst4=sm].flagst4-AZN:before {
+[data-flags=sm].flags-AZN:before {
   background-position: -75px -150px
 }
 
-[data-flagst4=sm].flagst4-AUD:before {
+[data-flags=sm].flags-AUD:before {
   background-position: -105px -150px
 }
 
-[data-flagst4=sm].flagst4-AMD:before {
+[data-flags=sm].flags-AMD:before {
   background-position: -120px -150px
 }
 
-[data-flagst4=sm].flagst4-ARS:before {
+[data-flags=sm].flags-ARS:before {
   background-position: -135px -150px
 }
 
-[data-flagst4=sm].flagst4-DZD:before {
+[data-flags=sm].flags-DZD:before {
   background-position: 0 -160px
 }
 
-[data-flagst4=sm].flagst4-ALL:before {
+[data-flags=sm].flags-ALL:before {
   background-position: -15px -160px
 }
 
-[data-flagst4=sm].flagst4-AFN:before {
+[data-flags=sm].flags-AFN:before {
   background-position: -30px -160px
 }
 
-[data-flagst4=sm].flagst4-BMD:before {
+[data-flags=sm].flags-BMD:before {
   background-position: -45px -160px
 }
 
-[data-flagst4=sm].flagst4-EUR:before {
+[data-flags=sm].flags-EUR:before {
   background-position: -60px -160px
 }
 
-[data-flagst4=sm].flagst4-USD:before {
+[data-flags=sm].flags-USD:before {
   background-position: -75px -160px
 }
 
-[data-flagst4=sm].flagst4-XPT:before {
+[data-flags=sm].flags-XPT:before {
   background-position: -90px -160px
 }
 
-[data-flagst4=sm].flagst4-XAU:before {
+[data-flags=sm].flags-XAU:before {
   background-position: -105px -160px
 }
 
-[data-flagst4=sm].flagst4-XAG:before {
+[data-flags=sm].flags-XAG:before {
   background-position: -120px -160px
 }
 
-[data-flagst4=sm].flagst4-XPF:before {
+[data-flags=sm].flags-XPF:before {
   background-position: -135px -160px
 }
 
-[data-flagst4=sm].flagst4-AWG:before {
+[data-flags=sm].flags-AWG:before {
   background-position: -165px -160px
 }
 
-[data-flagst4=sm].flagst4-AOA:before {
+[data-flags=sm].flags-AOA:before {
   background-position: 0 -170px
 }
 
-[data-flagst4=sm].flagst4-SHP:before {
+[data-flags=sm].flags-SHP:before {
   background-position: -15px -170px
 }
 
-[data-flagst4=sm].flagst4-MOP:before {
+[data-flags=sm].flags-MOP:before {
   background-position: -30px -170px
 }
 
-[data-flagst4=sm].flagst4-JEP:before {
+[data-flags=sm].flags-JEP:before {
   background-position: -45px -170px
 }
 
-[data-flagst4=sm].flagst4-IMP:before {
+[data-flags=sm].flags-IMP:before {
   background-position: -60px -170px
 }
 
-[data-flagst4=sm].flagst4-IMF:before {
+[data-flags=sm].flags-IMF:before {
   background-position: -75px -170px
 }
 
-[data-flagst4=sm].flagst4-HKD:before {
+[data-flags=sm].flags-HKD:before {
   background-position: -90px -170px
 }
 
-[data-flagst4=sm].flagst4-GGP:before {
+[data-flags=sm].flags-GGP:before {
   background-position: -105px -170px
 }
 
-[data-flagst4=sm].flagst4-GIP:before {
+[data-flags=sm].flags-GIP:before {
   background-position: -120px -170px
 }
 
-[data-flagst4=sm].flagst4-FKP:before {
+[data-flags=sm].flags-FKP:before {
   background-position: -135px -170px
 }
 
-[data-flagst4=sm].flagst4-ANG:before {
+[data-flags=sm].flags-ANG:before {
   background-position: -150px -170px
 }
 
-[data-flagst4=sm].flagst4-KYD:before {
+[data-flags=sm].flags-KYD:before {
   background-position: -165px -170px
 }
 
-[data-flagst4=sm].flagst4-BTC:before {
+[data-flags=sm].flags-BTC:before {
   background-position: -180px 0
 }
 
-.flagst4-AUD:before,
-.flagst4-CAD:before,
-.flagst4-DKK:before,
-.flagst4-EUR:before,
-.flagst4-GBP:before,
-.flagst4-HKD:before,
-.flagst4-JPY:before,
-.flagst4-NZD:before,
-.flagst4-SGD:before,
-.flagst4-USD:before,
-.flagst4-VND:before {
+.flags-AUD:before,
+.flags-CAD:before,
+.flags-DKK:before,
+.flags-EUR:before,
+.flags-GBP:before,
+.flags-HKD:before,
+.flags-JPY:before,
+.flags-NZD:before,
+.flags-SGD:before,
+.flags-USD:before,
+.flags-VND:before {
   background-position: center !important;
   width: 30px !important;
   height: 22.5px !important
 }
 
-[data-flagst4=sm].flagst4-AUD:before,
-[data-flagst4=sm].flagst4-CAD:before,
-[data-flagst4=sm].flagst4-DKK:before,
-[data-flagst4=sm].flagst4-EUR:before,
-[data-flagst4=sm].flagst4-GBP:before,
-[data-flagst4=sm].flagst4-HKD:before,
-[data-flagst4=sm].flagst4-JPY:before,
-[data-flagst4=sm].flagst4-NZD:before,
-[data-flagst4=sm].flagst4-SGD:before,
-[data-flagst4=sm].flagst4-USD:before,
-[data-flagst4=sm].flagst4-VND:before {
+[data-flags=sm].flags-AUD:before,
+[data-flags=sm].flags-CAD:before,
+[data-flags=sm].flags-DKK:before,
+[data-flags=sm].flags-EUR:before,
+[data-flags=sm].flags-GBP:before,
+[data-flags=sm].flags-HKD:before,
+[data-flags=sm].flags-JPY:before,
+[data-flags=sm].flags-NZD:before,
+[data-flags=sm].flags-SGD:before,
+[data-flags=sm].flags-USD:before,
+[data-flags=sm].flags-VND:before {
   width: 16px !important;
   height: 12px !important
 }
 
-.flagst4-VND.lazyloaded:before {
+.flags-VND.lazyloaded:before {
   background-image: url(vnd.svg?19041994)
 }
 
-.flagst4-USD.lazyloaded:before {
+.flags-USD.lazyloaded:before {
   background-image: url(usd.svg?19041994)
 }
 
-.flagst4-AUD.lazyloaded:before {
+.flags-AUD.lazyloaded:before {
   background-image: url(aud.svg?19041994)
 }
 
-.flagst4-GBP.lazyloaded:before {
+.flags-GBP.lazyloaded:before {
   background-image: url(gbp.svg?19041994)
 }
 
-.flagst4-CAD.lazyloaded:before {
+.flags-CAD.lazyloaded:before {
   background-image: url(cad.svg?19041994)
 }
 
-.flagst4-DKK.lazyloaded:before {
+.flags-DKK.lazyloaded:before {
   background-image: url(dkk.svg?19041994)
 }
 
-.flagst4-EUR.lazyloaded:before {
+.flags-EUR.lazyloaded:before {
   background-image: url(eur.svg?19041994)
 }
 
-.flagst4-HKD.lazyloaded:before {
+.flags-HKD.lazyloaded:before {
   background-image: url(hkd.svg?19041994)
 }
 
-.flagst4-JPY.lazyloaded:before {
+.flags-JPY.lazyloaded:before {
   background-image: url(jpy.svg?19041994)
 }
 
-.flagst4-NZD.lazyloaded:before {
+.flags-NZD.lazyloaded:before {
   background-image: url(nzd.svg?19041994)
 }
 
-.flagst4-SGD.lazyloaded:before {
+.flags-SGD.lazyloaded:before {
   background-image: url(sgd.svg?19041994)
 }

@@ -175,7 +175,7 @@
             "type": "announcement",
             "settings": {
               "link": "",
-              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href='[redirect_link]' title='Sale'>Hurry Up</a> [icon_arrow]</p>",
+              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href='/' title='Sale'>Hurry Up</a> [icon_arrow]</p>",
               "countdown": "2022/09/19",
               "txt_day": "days",
               "dayx": 0
@@ -185,7 +185,7 @@
             "type": "announcement",
             "settings": {
               "link": "",
-              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href='[redirect_link]' title='Sale'>Hurry Up</a> [icon_arrow]</p>",
+              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href='/' title='Sale'>Hurry Up</a> [icon_arrow]</p>",
               "countdown": "2022/04/19",
               "txt_day": "days",
               "dayx": 0
@@ -195,7 +195,7 @@
             "type": "announcement",
             "settings": {
               "link": "",
-              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href='[redirect_link]' title='Sale'>Hurry Up</a> [icon_arrow]</p>",
+              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href='/' title='Sale'>Hurry Up</a> [icon_arrow]</p>",
               "countdown": "2022/09/19",
               "txt_day": "days",
               "dayx": 0

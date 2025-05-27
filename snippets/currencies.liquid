@@ -1,6 +1,6 @@
 {%- liquid
   if settings.flag_currency
-    assign fl = 'flagst4'
+    assign fl = 'flags'
   endif
   assign sz = settings.size_currency
   assign cart_iso_code = cart.currency.iso_code
@@ -14,9 +14,9 @@
     <div data-currency-wrap class="top-bar__currencies d-inline-block">
       <button data-dropdown-open data-position="bottom-end" data-id="dropdown_currencies{{sid}}">
         <span
-          data-flagst4="{{sz}}"
+          data-flags="{{sz}}"
           data-current
-          class="d-inline-block {{fl}} lazyload flagst4-{{cart_iso_code}}"
+          class="d-inline-block {{fl}} lazyload flags-{{cart_iso_code}}"
         >
           {{- links_cur.first.title | default: cart_iso_code -}}
         </span>
@@ -30,11 +30,12 @@
           {%- assign iso_code = link_cur.url | remove: '#' | remove: ' ' -%}
           <button
             type="button"
-            data-flagst4="{{sz}}"
+            data-flags="{{sz}}"
             data-currency-item
             data-dropdown-off
-            class="currency-item {{fl}} lazyload flagst4-{{iso_code}}{% if iso_code == cart_iso_code %} is--selected{% endif %}"
+            class="currency-item {{fl}} lazyload flags-{{iso_code}}{% if iso_code == cart_iso_code %} is--selected{% endif %}"
             data-iso="{{iso_code}}"
+            data-country="{{iso_code}}"
           >
             {{ link_cur.title }}
           </button>
@@ -45,9 +46,9 @@
     <div data-currency-wrap class="top-bar__currencies d-inline-block">
       <button data-dropdown-open data-position="bottom-end" data-id="dropdown_currencies{{sid}}">
         <span
-          data-flagst4="{{sz}}"
+          data-flags="{{sz}}"
           data-current
-          class="d-inline-block {{fl}} lazyload flagst4-{{cart_iso_code}}"
+          class="d-inline-block {{fl}} lazyload flags-{{cart_iso_code}}"
         >
           {{- cart_iso_code -}}
         </span>
@@ -61,11 +62,12 @@
           {%- assign iso_code = currency.iso_code -%}
           <button
             type="button"
-            data-flagst4="{{sz}}"
+            data-flags="{{sz}}"
             data-currency-item
             data-dropdown-off
-            class="currency-item {{fl}} lazyload flagst4-{{iso_code}}{% if iso_code == cart_iso_code %} is--selected{% endif %}"
+            class="currency-item {{fl}} lazyload flags-{{iso_code}}{% if iso_code == cart_iso_code %} is--selected{% endif %}"
             data-iso="{{iso_code}}"
+            data-country="{{iso_code}}"
           >
             {{ iso_code }}
           </button>
@@ -78,7 +80,7 @@
   {%- assign supported_codes = settings.supported_currencies | split: '|' -%}
   <div data-currency-wrap class="top-bar__currencies d-inline-block">
     <button data-dropdown-open data-position="bottom-end" data-id="dropdown_currencies{{sid}}">
-      <span data-flagst4="{{sz}}" data-current class="d-inline-block {{fl}} lazyload flagst4-{{cart_iso_code}}">
+      <span data-flags="{{sz}}" data-current class="d-inline-block {{fl}} lazyload flags-{{cart_iso_code}}">
         {{- cart_iso_code -}}
       </span>
       <svg class="ion-select-arrow " role="presentation" viewBox="0 0 19 12">
@@ -89,7 +91,7 @@
       <div class="drop-arrow"></div>
       <button
         type="button"
-        data-flagst4="{{sz}}"
+        data-flags="{{sz}}"
         data-currency-item
         data-dropdown-off
         class="currency-item {{fl}} lazyload d-none"
@@ -101,10 +103,10 @@
         {%- assign name_money = array_money | last | strip -%}
         <button
           type="button"
-          data-flagst4="{{sz}}"
+          data-flags="{{sz}}"
           data-currency-item
           data-dropdown-off
-          class="currency-item {{fl}} lazyload flagst4-{{data_currency}}{% if data_currency == cart_iso_code %} is--selected{% endif %}"
+          class="currency-item {{fl}} lazyload flags-{{data_currency}}{% if data_currency == cart_iso_code %} is--selected{% endif %}"
           data-currency="{{data_currency}}"
         >
           {{ name_money }}

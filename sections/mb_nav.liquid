@@ -16,7 +16,7 @@
         {%- when 'cur' -%}
           {%- liquid
             if settings.flag_currency
-              assign fl = 'flagst4'
+              assign fl = 'flags'
             endif
             assign sz = settings.size_currency
             assign cart_iso_code = cart.currency.iso_code
@@ -36,8 +36,8 @@
                 <a rel="nofollow" data-no-instant href="/"
                   ><span
                     data-current
-                    data-flagst4="{{sz}}"
-                    class="currencies__current d-inline-block {{fl}} lazyload flagst4-{{cart_iso_code}}"
+                    data-flags="{{sz}}"
+                    class="currencies__current d-inline-block {{fl}} lazyload flags-{{cart_iso_code}}"
                   >
                     {{- links_cur.first.title | default: cart_iso_code -}}</span
                   ><span class="mb-nav__icon"></span
@@ -47,9 +47,9 @@
                     {%- assign iso_code = link_cur.url | remove: '#' | remove: ' ' -%}
                     <li>
                       <a
-                        data-flagst4="{{sz}}"
+                        data-flags="{{sz}}"
                         data-currency-item
-                        class="currency-item {{fl}} lazyload flagst4-{{iso_code}}{% if iso_code == cart_iso_code %} is--selected{% endif %}"
+                        class="currency-item {{fl}} lazyload flags-{{iso_code}}{% if iso_code == cart_iso_code %} is--selected{% endif %}"
                         href="/"
                         data-no-instant
                         rel="nofollow"
@@ -71,8 +71,8 @@
                 <a rel="nofollow" data-no-instant href="/"
                   ><span
                     data-current
-                    data-flagst4="{{sz}}"
-                    class="currencies__current d-inline-block {{fl}} lazyload flagst4-{{cart_iso_code}}"
+                    data-flags="{{sz}}"
+                    class="currencies__current d-inline-block {{fl}} lazyload flags-{{cart_iso_code}}"
                   >
                     {{- cart_iso_code -}}</span
                   ><span class="mb-nav__icon"></span
@@ -82,9 +82,9 @@
                     {%- assign iso_code = currency.iso_code -%}
                     <li>
                       <a
-                        data-flagst4="{{sz}}"
+                        data-flags="{{sz}}"
                         data-currency-item
-                        class="currency-item {{fl}} lazyload flagst4-{{iso_code}}{% if iso_code == cart_iso_code %} is--selected{% endif %}"
+                        class="currency-item {{fl}} lazyload flags-{{iso_code}}{% if iso_code == cart_iso_code %} is--selected{% endif %}"
                         href="/"
                         data-no-instant
                         rel="nofollow"
@@ -108,9 +108,9 @@
             >
               <a rel="nofollow" data-no-instant href="/"
                 ><span
-                  data-flagst4="{{sz}}"
+                  data-flags="{{sz}}"
                   data-current
-                  class="currencies__current d-inline-block {{fl}} lazyload flagst4-{{cart_iso_code}}"
+                  class="currencies__current d-inline-block {{fl}} lazyload flags-{{cart_iso_code}}"
                 >
                   {{- cart_iso_code -}}</span
                 ><span class="mb-nav__icon"></span
@@ -118,7 +118,7 @@
               <ul class="sub-menu">
                 <li>
                   <a
-                    data-flagst4="{{sz}}"
+                    data-flags="{{sz}}"
                     data-currency-item
                     class="currency-item {{fl}} lazyload d-none"
                     href="/"
@@ -133,9 +133,9 @@
                   {%- assign name_money = array_money | last | strip -%}
                   <li>
                     <a
-                      data-flagst4="{{sz}}"
+                      data-flags="{{sz}}"
                       data-currency-item
-                      class="currency-item {{fl}} lazyload flagst4-{{data_currency}}{% if data_currency == cart_iso_code %} is--selected{% endif %}"
+                      class="currency-item {{fl}} lazyload flags-{{data_currency}}{% if data_currency == cart_iso_code %} is--selected{% endif %}"
                       href="/"
                       data-no-instant
                       rel="nofollow"
