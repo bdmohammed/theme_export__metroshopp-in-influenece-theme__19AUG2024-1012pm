@@ -122,11 +122,9 @@
               image
               | image_url: width: image.width, height: image.height
               | image_tag:
-              class: "lz--fadeIn img-as-bg slide-{{bk_stts.animate_slide
-            -}}
-            ", loading: 'eager', widths: '375, 575, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400,
-            3800, 4100', sizes: '100vw', fetchpriority:
-            {%- if forloop.first -%}'high'{%- else -%}'auto'{%- endif -%}
+              loading: 'eager', widths: '375, 575, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500, 3000, 3400,
+              3800, 4100', sizes: '100vw', fetchpriority:
+              {%- if forloop.first -%}'high'{%- else -%}'auto'{%- endif -%}
             }}
             {% comment %}
               {%- if forloop.first -%}
@@ -190,12 +188,19 @@
           {%- endif -%}
 
           {%- capture append_bg_content_style -%}
-                                    --bg-content:{{bg_content}};
-                                    --content-pd:{{bk_stts.content_pd_tb}}px {{bk_stts.content_pd_lr}}px;
-                                    --content-pd-mb:{{bk_stts.content_pd_tb_mb}}px {{bk_stts.content_pd_lr_mb}}px;
-                              {%- endcapture -%}
+            --bg-content:{{bg_content}};
+            --content-pd:{{bk_stts.content_pd_tb}}px {{bk_stts.content_pd_lr}}px;
+            --content-pd-mb:{{bk_stts.content_pd_tb_mb}}px {{bk_stts.content_pd_lr_mb}}px;
+          {%- endcapture -%}
+
           {%- if bk_stts.border_bl -%}
-            {%- capture append_bg_border_style -%}--br-color:{{bk_stts.br_color}};--br-style:{{bk_stts.br_style}};--br-pd:{{bk_stts.br_pd}}px;--br-pd-mb:{{bk_stts.br_pd_mb}}px;--border-bg:{{br_bg}};{%- endcapture -%}
+            {%- capture append_bg_border_style -%}
+              --br-color:{{bk_stts.br_color}};
+              --br-style:{{bk_stts.br_style}};
+              --br-pd:{{bk_stts.br_pd}}px;
+              --br-pd-mb:{{bk_stts.br_pd_mb}}px;
+              --border-bg:{{br_bg}};
+            {%- endcapture -%}
           {%- endif -%}
           <div class="content-wrap pointer-events-none full-width-link z-100">
             <div
