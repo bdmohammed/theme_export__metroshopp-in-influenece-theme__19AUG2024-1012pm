@@ -202,14 +202,12 @@
                 {%- if bk_stts.link != blank -%}
                   <a href="{{bk_stts.link}}" aria-label="{{label}}" class="full-width-link"></a>
                 {%- endif -%}
-                <p>
-                  {{-
-                    bk_stts.content
-                    | replace: '[countdown]', cap_date
-                    | replace: '[redirect_link]', bk_stts.link
-                    | replace: '[icon_arrow]', cap_arrow
-                  -}}
-                </p>
+                {{-
+                  bk_stts.content
+                  | replace: '[countdown]', cap_date
+                  | replace: '[redirect_link]', bk_stts.link
+                  | replace: '[icon_arrow]', cap_arrow
+                -}}
               </div>
             {%- endfor -%}
           </div>
@@ -406,7 +404,7 @@
           "type": "richtext",
           "id": "content",
           "label": "Banner content",
-          "default": "Today deal sale off 70%. End in [countdown].<a href='[redirect_link]' title='Sale'>Hurry Up</a>[icon_arrow]",
+          "default": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>.<a href='[redirect_link]' title='Sale'>Hurry Up</a>[icon_arrow]</p>",
           "info": "Place here text you want to see in the header banner. You can use shortocdes: [countdown], [redirect_link], [icon_arrow]"
         },
         {
