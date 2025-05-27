@@ -123,7 +123,7 @@
             {%- else -%}
               {%- assign fetch_priority = 'auto' -%}
             {%- endif -%}
-            {%- capture class_img -%}'lazyload lz--fadeIn img-as-bg slide-{{bk_stts.animate_slide}}'{%- endcapture -%}
+            {%- capture class_img -%}'-lz--fadeIn img-as-bg slide-{{bk_stts.animate_slide}}'{%- endcapture -%}
             {{
               image
               | image_url: width: image.width, height: image.height
