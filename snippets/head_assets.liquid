@@ -163,7 +163,7 @@
   }
 
   html {
-    font-size: 62.5%;
+    font-size: 62.5% !important;
     height: 100%;
   }
 
@@ -173,7 +173,9 @@
     font-size: {{settings.bd_fsize}}px;
     letter-spacing: {{settings.bd_lspacing}};
     color: var(--text-color);
-    font-family: var(--font-body-family);
+    font-family: var(--font-body-family), var(--font-family-1), var(--font-family-2), var(--font-family-3), system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
     line-height: {{settings.bd_lheight}};
     font-weight: {{settings.bd_fweight}};
     -webkit-font-smoothing: auto;
@@ -214,41 +216,41 @@
   textarea {
     border-color: var(--border-color);
   }
-  .ts_as_button,
+  .as_button,
   button,
-  input[type="button"]:not(.ts-btn),
+  input[type="button"]:not(.btn),
   input[type="reset"],
-  input[type="submit"]:not(.ts-btn) {
+  input[type="submit"]:not(.btn) {
     font-family: var(--font-button-family);
     color: var(--button-color);
     background-color: var(--button-background);
     border-color: var(--button-background);
   }
-  .ts_as_button:hover,
+  .as_button:hover,
   button:hover,
-  input[type="button"]:not(.ts-btn):hover,
+  input[type="button"]:not(.btn):hover,
   input[type="reset"]:hover,
-  input[type="submit"]:not(.ts-btn):hover  {
+  input[type="submit"]:not(.btn):hover  {
     color: var(--button-color-hover);
     background-color: var(--button-background-hover);
     border-color: var(--button-background-hover);
   }
 
-  .ts-cp,.ts-color-accent { color : var(--accent-color) } {%- comment -%}color accent, primary{%- endcomment -%}
-  .ts-ct,.ts-color-text { color : var(--text-color) } {%- comment -%}color body text{%- endcomment -%}
-  .ts-ch,.s-color-heading { color : var(--heading-color) } {%- comment -%}color heading{%- endcomment -%}
-  .ts-csecondary { color : var(--secondary-color ) }
+  .cp,.color-accent { color : var(--accent-color) } {%- comment -%}color accent, primary{%- endcomment -%}
+  .ct,.color-text { color : var(--text-color) } {%- comment -%}color body text{%- endcomment -%}
+  .ch,.s-color-heading { color : var(--heading-color) } {%- comment -%}color heading{%- endcomment -%}
+  .csecondary { color : var(--secondary-color ) }
 
-  .ts-fnt-fm-1 {
+  .fnt-fm-1 {
     font-family: var(--font-family-1) !important;
   }
-  .ts-fnt-fm-2 {
+  .fnt-fm-2 {
     font-family: var(--font-family-2) !important;
   }
-  .ts-fnt-fm-3 {
+  .fnt-fm-3 {
     font-family: var(--font-family-3) !important;
   }
-  .ts-cr {
+  .cr {
       color: var(--ts-highlight-color);
   }
   .price__sale {
@@ -292,6 +294,78 @@
       display: none;
     }
   }
+  @media (prefers-reduced-motion: no-preference) {
+                :root {
+                    --duration-extra-long: .6s;
+                    --ease-out-slow: cubic-bezier(0, 0, .3, 1);
+                    --animation-slide-in: revealSlideIn var(--duration-extra-long) var(--ease-out-slow) forwards;
+                    --animation-fade-in: reveaFadeIn var(--duration-extra-long) var(--ease-out-slow);
+                }
+
+                .hdt-reveal-in-view :where([hdt-reveal="fade-in"], [hdt-reveal="slide-in"]):not([animationend]) {
+                    opacity: .01;
+                }
+
+                .hdt-reveal-in-view [hdt-reveal="slide-in"]:not([animationend]) {
+                    transform: translateY(2rem);
+                }
+
+                .hdt-reveal-in-view [hdt-reveal="fade-in"]:not(.hdt-reveal--offscreen, [animationend]) {
+                    opacity: 1;
+                    animation: var(--animation-fade-in);
+                }
+
+                .hdt-reveal-in-view [hdt-reveal="slide-in"]:not(.hdt-reveal--offscreen, [animationend]) {
+                    animation: var(--animation-slide-in);
+                    animation-delay: calc(var(--animation-order, 0) * 75ms);
+                }
+
+                .hdt-reveal-in-view .flickity:not(.flickity-enabled) [hdt-reveal="fade-in"], .hdt-reveal-in-view .flickity:not(.flickity-enabled) [hdt-reveal="slide-in"] {
+                    animation-iteration-count: 0;
+                }
+
+                .hdt-reveal-in-view .flickity.enabled:not(.flickity-enabled) [hdt-reveal="fade-in"], .hdt-reveal-in-view .flickity.enabled:not(.flickity-enabled) [hdt-reveal="slide-in"] {
+                    animation-iteration-count: 1;
+                }
+
+                @media (min-width: 768px) {
+                    .hdt-reveal-in-view .flickity.carousel-disable-md:not(.flickity-enabled) [hdt-reveal="fade-in"], .hdt-reveal-in-view .flickity.carousel-disable-md:not(.flickity-enabled) [hdt-reveal="slide-in"] {
+                        animation-iteration-count: 1;
+                    }
+                }
+
+                .hdt-reveal-in-view :where([hdt-reveal="fade-in"].hdt-reveal--design-mode, [hdt-reveal="slide-in"].hdt-reveal--design-mode, [hdt-reveal]:not(.hdt-reveal--offscreen).hdt-reveal--cancel):not([animationend]) {
+                    opacity: 1;
+                    animation: none;
+                    transition: none;
+                }
+
+                .hdt-reveal-in-view [hdt-reveal="slide-in"]:not([animationend]).hdt-reveal--design-mode {
+                    transform: translateY(0);
+                }
+
+                @keyframes revealSlideIn {
+                    from {
+                        transform: translateY(2rem);
+                        opacity: 0.01;
+                    }
+
+                    to {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+                }
+
+                @keyframes reveaFadeIn {
+                    from {
+                        opacity: 0.01;
+                    }
+
+                    to {
+                        opacity: 1;
+                    }
+                }
+            }
   {%- if settings.body_bg_image != blank and settings.general_layout == 'boxed' -%}
   body {
     background-repeat: {{settings.body_bg_repeat}};
@@ -299,28 +373,71 @@
     background-attachment: {{settings.body_bg_attachment}};
     background-position: {{settings.body_bg_position }};
   }
+
   {%- endif -%}
 {%- endstyle -%}
 
+/*
 <script>
   document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
   {%- comment -%}// We do a quick detection of some features (we could use Modernizr but for so little...){%- endcomment -%}
   (function() { document.documentElement.className += ((window.CSS && window.CSS.supports('(position: sticky) or (position: -webkit-sticky)')) ? ' p-sticky' : ' p-no-sticky'); document.documentElement.className += (window.matchMedia('(-moz-touch-enabled: 1), (hover: none)')).matches ? ' no-p-hover' : ' p-no-hover'; {% comment -%} This code is done to force reload the page when the back button is hit (which allows to fix stale data on cart, for instance){% endcomment %}window.onpageshow = function() { if (performance.navigation.type === 2) {document.dispatchEvent(new CustomEvent('cart:refresh'))} }; }());{%- if admin_sp -%}var VGhlbWVOYW1lVDQ = 'a2FsbGVz', cHVyY2hh = {{settings[cHVyY2hh] | default:'' | base64_encode | json}}, U2hvcE1lb1Q0 = {{shop.email|default:'no_email' | base64_encode | json}};{%- endif -%}
+</script>
+*/
+
+<script>
+  const RevealT4s = (function () {
+    const e = 'hdt-reveal',
+      n = e + '--offscreen',
+      t = e + '--cancel',
+      s = (e) => {
+        const n = e.target;
+        n.isAnimationend && (n.setAttribute('animationend', ''), n.removeEventListener('animationend', s));
+      };
+    function o(e, o) {
+      e.forEach((e, r) => {
+        const i = e.target;
+        i.setAttribute('observed', ''),
+          e.isIntersecting
+            ? ((i.isUnobserve = !0), i.classList.contains(n) && i.classList.remove(n), o.unobserve(i))
+            : i.isUnobserve || (i.classList.add(n), i.classList.remove(t)),
+          (i.isAnimationend = !0),
+          i.addEventListener('animationend', s);
+      });
+    }
+    return function (n = document, t = !1) {
+      const s = Array.from(n.querySelectorAll(`[${e}]:not([observed])`));
+      if (0 === s.length) return;
+      if (t)
+        return void s.forEach((n) => {
+          n.classList.add(e + '--design-mode');
+        });
+      const r = new IntersectionObserver(o, {
+        rootMargin: '0px 0px -50px 0px',
+      });
+      s.forEach((e) => r.observe(e));
+    };
+  })();
+  window.matchMedia('(prefers-reduced-motion: no-preference)').matches &&
+    (window.addEventListener('DOMContentLoaded', () => RevealT4s()),
+    Shopify.designMode &&
+      (document.addEventListener('shopify:section:load', (e) => RevealT4s(e.target, !0)),
+      document.addEventListener('shopify:section:reorder', () => RevealT4s(document, !0))));
 </script>
 
 {%- if settings.catalog_mode -%}
   <style>
     button[data-atc-form],
     a[data-atc-selector],
-    .ts-product-atc-qty,
-    .ts-payment-button,
+    .product-atc-qty,
+    .payment-button,
     form[action='/cart/add'] .shopify-payment-button,
-    .ts-quantity-wrapper.ts-product-form__qty,
-    .ts-mini_cart__edit,
-    .ts-page_cart__edit {
+    .quantity-wrapper.product-form__qty,
+    .mini_cart__edit,
+    .page_cart__edit {
       display: none !important;
     }
-    .ts-quantity-wrapper.ts-product-form__qty + * {
+    .quantity-wrapper.product-form__qty + * {
       margin-left: 0 !important;
     }
   </style>
@@ -343,7 +460,7 @@
 {%- endif -%}
 {%- if settings.falling_snow -%}
   <style>
-    #ts-snow_ef {
+    #snow_ef {
     display:block;
     height: 100%;
     width: 100%;
@@ -609,35 +726,37 @@
     })();
 
 
-    var isBehaviorSmooth =
+  const isBehaviorSmooth =
     'scrollBehavior' in document.documentElement.style &&
     getComputedStyle(document.documentElement).scrollBehavior === 'smooth';
-  var XMLHttpRequest = window.XMLHttpRequest,
-    documentElement = document.documentElement;
-  documentElement.className = documentElement.className.replace('no-js', 'js');
+  const XMLHttpRequest = window.XMLHttpRequest,
+    documentElementTs = document.documentElement;
+  documentElementTs.className = documentElementTs.className.replace('no-js', 'js');
   function loadImage(_this) {
     _this.classList.add('lazyloaded');
   }
-  !(function () {
-    var matchMediaHover = window.matchMedia('(-moz-touch-enabled: 1), (hover: none)').matches;
-    documentElement.className +=
+  (function () {
+    const matchMediaHoverTs = window.matchMedia('(-moz-touch-enabled: 1), (hover: none)').matches;
+    documentElementTs.className +=
       window.CSS && window.CSS.supports('(position: sticky) or (position: -webkit-sticky)')
-        ? ' sticky'
-        : ' no-sticky';
-    documentElement.className += matchMediaHover ? ' no-hover' : ' hover';
+        ? ' p-sticky'
+        : ' p-no-sticky';
+    documentElementTs.className += matchMediaHoverTs ? ' p-no-hover' : ' p-hover';
     window.onpageshow = function () {
       if (performance.navigation.type === 2) {
         document.dispatchEvent(new CustomEvent('cart:refresh'));
       }
     };
-    if (!matchMediaHover && window.width > 1024) {
+    if (!matchMediaHoverTs && window.width > 1024) {
       document.addEventListener(
         'mousemove',
         function (evt) {
-          documentElement.classList.replace('no-hover', 'hover');
+          documentElementTs.classList.replace('p-no-hover', 'p-hover');
           document.dispatchEvent(new CustomEvent('theme:hover'));
         },
-        { once: true }
+        {
+          once: true,
+        }
       );
     }
   })();
@@ -662,3 +781,5 @@
       document.addEventListener("contextmenu", function(event) { if ((event.target || event.srcElement).style.backgroundImage) { event.preventDefault(); } });
   {%- endif -%}
 </script>
+
+{{ 'ecomrise-colors.css' | asset_url | stylesheet_tag }}

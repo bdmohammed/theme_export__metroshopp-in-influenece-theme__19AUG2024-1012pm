@@ -13,7 +13,7 @@
   endif
 -%}
 <html
-  class="p-theme wrapper__{{settings.general_layout}} rtl_{{isRTL}} swatch_color_style_{{settings.swatch_color_style}} pr_border_style_{{settings.pr_border_style}} pr_img_effect_{{settings.pr_img_effect}} enable_eff_img1_{{settings.enable_eff_img1}} badge_shape_{{settings.badge_shape}} css_for_wis_app_{{settings.enable_css_wis}} {% if settings.use_cus_lz and settings.cus_lz %} lzcus-true{% endif %} shadow_round_img_{{settings.enable_shadow_round_img}} header__{{settings.header_design}} is-remove-unavai-{{settings.variant_remove}} compare_{{settings.enable_compe}} cart-count-{{ cart.item_count }} pr-ellipsis-{{ settings.enable_text_ellipsis }} no-js"
+  class="p-theme wrapper__{{settings.general_layout}} hdt-reveal-in-view rtl_{{isRTL}} swatch_color_style_{{settings.swatch_color_style}} pr_border_style_{{settings.pr_border_style}} pr_img_effect_{{settings.pr_img_effect}} enable_eff_img1_{{settings.enable_eff_img1}} badge_shape_{{settings.badge_shape}} css_for_wis_app_{{settings.enable_css_wis}} {% if settings.use_cus_lz and settings.cus_lz %} lzcus-true{% endif %} shadow_round_img_{{settings.enable_shadow_round_img}} header__{{settings.header_design}} is-remove-unavai-{{settings.variant_remove}} compare_{{settings.enable_compe}} cart-count-{{ cart.item_count }} pr-ellipsis-{{ settings.enable_text_ellipsis }} no-js"
   lang="{{ request.locale.iso_code }}"
   {% if isRTL %}
     dir="rtl"
@@ -114,7 +114,6 @@
       data-bgset="{{ body_img | image_url: '1x1' }}" data-optimumx="1.5" data-sizes="auto"
     {% endif -%}
   >
-    <a class="skip-to-content-link visually-hidden" href="#MainContent">{{ 'accessibility.skip_to_text' | t }}</a>
     <div class="close-overlay opacity-0"></div>
 
     <div class="website-wrapper">
