@@ -38,23 +38,39 @@
        {%- endif -%}
        {%- assign bg_op = se_stts.bg_op | divided_by: 100.0 -%}
        .top-bar {
-         --tb-color: {{se_stts.cl}}; --tb-background: {{ se_stts.bg | color_modify: 'alpha', bg_op }};
-         --tb-border-w: {%- if se_stts.show_border %}1px{% else %}0px{% endif -%}; --tb-border: {{ se_stts.bd_cl }};
-         --tb-color-a-hover: {{se_stts.cl_a_hover}};
+          --tb-color: {{se_stts.cl}};
+          --tb-background: {{ se_stts.bg | color_modify: 'alpha', bg_op }};
+          --tb-border-w: {%- if se_stts.show_border %}1px{% else %}0px{% endif -%};
+          --tb-border: {{ se_stts.bd_cl }};
+          --tb-color-a-hover: {{se_stts.cl_a_hover}};
+          font-size:{{se_stts.fontsize}}px;
+          background-color: var(--tb-background);
+          border-bottom: var(--tb-border-w) solid var(--tb-border);
+          color:var(--tb-color);
        }
-       .top-bar {
-         font-size:{{se_stts.fontsize}}px;
-         background-color: var(--tb-background);
-         border-bottom: var(--tb-border-w) solid var(--tb-border);
-         color:var(--tb-color)
+       .top-bar__wrap {
+          padding: 10px 0;
+          min-height:{{se_stts.height}}px;
+        }
+       .top-bar a {
+          color:var(--tb-color);
+        }
+       .top-bar .top-bar-text__item a {
+          color: var(--tb-color-link);
+        }
+       .top-bar a:hover {
+          color:var(--tb-color-a-hover);
        }
-       .top-bar__wrap { padding: 10px 0; min-height:{{se_stts.height}}px; }
-       .top-bar a { color:var(--tb-color) }
-       .top-bar .top-bar-text__item a { color: var(--tb-color-link); }
-       .top-bar a:hover { color:var(--tb-color-a-hover) }
-       .top-bar-text__item strong { font-weight: var(--tb-fw-bold); color: var(--tb-color-bold); }
-       .top-bar-text__item p {margin-bottom:0}
-       .top-bar .ml__15 { margin-left: 15px; }
+       .top-bar-text__item strong {
+          font-weight: var(--tb-fw-bold);
+          color: var(--tb-color-bold);
+       }
+       .top-bar-text__item p {
+          margin-bottom:0;
+        }
+       .top-bar .ml__15 {
+          margin-left: 15px;
+        }
        .rtl_true .top-bar .ml__15 { margin-left: 0;margin-right: 15px; }
        .top-bar__html i {font-size: 16px;vertical-align: middle;}
        .top-bar__html svg,.top-bar__location svg {width: 16px;height: 16px;vertical-align: middle;display: inline-block;}
@@ -467,8 +483,7 @@
           "min": 0,
           "max": 30,
           "step": 0.5,
-          "label": "Autoplay Speed in second.",
-          "label": "Set is '0' to disable autoplay.",
+          "label": "Autoplay Speed in second. Set is '0' to disable autoplay.",
           "unit": "sec",
           "default": 3.5
         },
