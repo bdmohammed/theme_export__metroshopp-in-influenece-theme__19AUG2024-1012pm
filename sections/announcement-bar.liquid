@@ -59,9 +59,6 @@
     .announcement-bar .col-auto {
       line-height: 1;
     }
-    .announcement-bar__item p a:hover {
-      opacity: .7;
-    }
     .announcement-bar.type-close-1 .iconsvg-close {
       width: 9px;
       height: 9px;
@@ -88,9 +85,6 @@
     .announcement-bar__item .icon-arrow {
       -webkit-transition: .2s ease-in-out;
       transition: -webkit-transform .2s ease-in-out,transform .2s ease-in-out;
-    }
-    .announcement-bar__item:hover .icon-arrow {
-      transform: translateX(0.25rem);
     }
     .announcement-bar .countdown-enabled {
       display: inline-block;
@@ -215,7 +209,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       try {
-        const theme = window.T4Sconfigs?.theme || '';
+        const theme = Shopify?.theme?.name ?? '';
         if (document.cookie.indexOf(`announcement_${theme}_{{ settings.version }}_nt`) > -1) {
           const announcementSection = document.getElementById('shopify-section-announcement-bar');
           if (announcementSection) {
@@ -248,7 +242,7 @@
 {% schema %}
 {
   "name": "Announcement bar",
-  "class": "ts-section t4-section-announcement-bar bk_flickity tp_cd tp_marquee",
+  "class": "section section-announcement-bar bk_flickity tp_cd tp_marquee",
   "settings": [
     {
       "type": "checkbox",
