@@ -205,7 +205,7 @@
                 {{-
                   bk_stts.content
                   | replace: '[countdown]', cap_date
-                  | replace: '[redirect_link]', section.settings.redirect_link
+                  | replace: '[redirect_link]', bk_stts.link
                   | replace: '[icon_arrow]', cap_arrow
                 -}}
               </div>
@@ -406,13 +406,6 @@
           "label": "Banner content",
           "default": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>.<a href='[redirect_link]' title='Sale'>Hurry Up</a>[icon_arrow]</p>",
           "info": "Place here text you want to see in the header banner. You can use shortocdes: [countdown], [redirect_link], [icon_arrow]"
-        },
-        {
-          "type": "url",
-          "id": "redirect_link",
-          "label": "Redirect Link",
-          "default": "/",
-          "info": "Use shortocdes: [redirect_link]"
         },
         {
           "type": "text",
