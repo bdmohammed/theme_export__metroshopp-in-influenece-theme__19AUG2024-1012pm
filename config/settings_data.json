@@ -181,6 +181,16 @@
               "dayx": 0
             }
           },
+          "announcement_Ldeen6": {
+            "type": "announcement",
+            "settings": {
+              "link": "",
+              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>.<a href='[redirect_link]' title='Sale'>Hurry Up</a>[icon_arrow]</p>",
+              "countdown": "2022/04/19",
+              "txt_day": "days",
+              "dayx": 0
+            }
+          },
           "announcement-bar-1": {
             "type": "announcement",
             "settings": {
@@ -194,6 +204,7 @@
         },
         "block_order": [
           "announcement-bar-0",
+          "announcement_Ldeen6",
           "announcement-bar-1"
         ],
         "settings": {
