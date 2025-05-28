@@ -377,13 +377,13 @@
   {%- endif -%}
 {%- endstyle -%}
 
-/*
-<script>
-  document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
-  {%- comment -%}// We do a quick detection of some features (we could use Modernizr but for so little...){%- endcomment -%}
-  (function() { document.documentElement.className += ((window.CSS && window.CSS.supports('(position: sticky) or (position: -webkit-sticky)')) ? ' p-sticky' : ' p-no-sticky'); document.documentElement.className += (window.matchMedia('(-moz-touch-enabled: 1), (hover: none)')).matches ? ' no-p-hover' : ' p-no-hover'; {% comment -%} This code is done to force reload the page when the back button is hit (which allows to fix stale data on cart, for instance){% endcomment %}window.onpageshow = function() { if (performance.navigation.type === 2) {document.dispatchEvent(new CustomEvent('cart:refresh'))} }; }());{%- if admin_sp -%}var VGhlbWVOYW1lVDQ = 'a2FsbGVz', cHVyY2hh = {{settings[cHVyY2hh] | default:'' | base64_encode | json}}, U2hvcE1lb1Q0 = {{shop.email|default:'no_email' | base64_encode | json}};{%- endif -%}
-</script>
-*/
+{% comment %}
+  <script>
+    document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    {%- comment -%}// We do a quick detection of some features (we could use Modernizr but for so little...){%- endcomment -%}
+    (function() { document.documentElement.className += ((window.CSS && window.CSS.supports('(position: sticky) or (position: -webkit-sticky)')) ? ' p-sticky' : ' p-no-sticky'); document.documentElement.className += (window.matchMedia('(-moz-touch-enabled: 1), (hover: none)')).matches ? ' no-p-hover' : ' p-no-hover'; {% comment -%} This code is done to force reload the page when the back button is hit (which allows to fix stale data on cart, for instance){% endcomment %}window.onpageshow = function() { if (performance.navigation.type === 2) {document.dispatchEvent(new CustomEvent('cart:refresh'))} }; }());{%- if admin_sp -%}var VGhlbWVOYW1lVDQ = 'a2FsbGVz', cHVyY2hh = {{settings[cHVyY2hh] | default:'' | base64_encode | json}}, U2hvcE1lb1Q0 = {{shop.email|default:'no_email' | base64_encode | json}};{%- endif -%}
+  </script>
+{% endcomment %}
 
 <script>
   const RevealT4s = (function () {
