@@ -5,7 +5,7 @@
 }
 
 .flickity-enabled {
-  display: block !important;
+  display: block;
   position: relative;
   -webkit-tap-highlight-color: transparent
 }
