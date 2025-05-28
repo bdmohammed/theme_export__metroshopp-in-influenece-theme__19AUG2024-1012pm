@@ -177,7 +177,7 @@
 
         {%- if section.blocks.size > 0 -%}
           <div
-            class="announcement-bar__wrap announcement-bar-slider col col-item d-flex align-items-center text-center row row-cols-1 ts-g-0 flickity{% if se_stts.effect == '1' %} slide-eff-fade{% endif %}"
+            class="announcement-bar__wrap announcement-bar-slider col col-item !d-flex align-items-center text-center row row-cols-1 ts-g-0 flickity{% if se_stts.effect == '1' %} slide-eff-fade{% endif %}"
             data-flickity-js='{ "cellAlign": "center","imagesLoaded": 0,"lazyLoad": 0,"freeScroll": 0,"wrapAround": true,"autoPlay" : {{ se_stts.au_time | times: 1000 }},"pauseAutoPlayOnHover" : true, "prevNextButtons": false,"pageDots": false, "contain" : 1,"adaptiveHeight" : 1,"dragThreshold" : 5,"percentPosition": 1 }'
           >
             {%- for block in section.blocks -%}
