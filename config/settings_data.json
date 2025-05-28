@@ -121,7 +121,7 @@
           },
           "announcement-bar-1": {
             "type": "announcement",
-            "disabled": false,
+            "disabled": true,
             "settings": {
               "link": "",
               "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href='/' title='Sale'>Hurry Up</a> [icon_arrow]</p>",
@@ -132,18 +132,7 @@
           },
           "announcement-bar-2": {
             "type": "announcement",
-            "disabled": false,
-            "settings": {
-              "link": "",
-              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href='/' title='Sale'>Hurry Up</a> [icon_arrow]</p>",
-              "countdown": "2022/04/19",
-              "txt_day": "days",
-              "dayx": 0
-            }
-          },
-          "announcement-bar-3": {
-            "type": "announcement",
-            "disabled": false,
+            "disabled": true,
             "settings": {
               "link": "",
               "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href='/' title='Sale'>Hurry Up</a> [icon_arrow]</p>",
@@ -157,7 +146,6 @@
           "announcement-bar-0",
           "announcement-bar-1",
           "announcement-bar-2",
-          "announcement-bar-3",
         ],
         "settings": {
           "show_announcement": true,
