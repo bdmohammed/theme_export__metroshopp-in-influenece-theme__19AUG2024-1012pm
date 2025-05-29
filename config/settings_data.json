@@ -42,12 +42,34 @@
               "txt_day": "days",
               "dayx": 0
             }
+          },
+          "announcement_7UXyMg": {
+            "type": "announcement",
+            "settings": {
+              "link": "",
+              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href='/' title='Sale'>Hurry Up</a> [icon_arrow]</p>",
+              "countdown": "2022/04/19",
+              "txt_day": "days",
+              "dayx": 0
+            }
+          },
+          "announcement_Q3iwPB": {
+            "type": "announcement",
+            "settings": {
+              "link": "",
+              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href=\"/\" title=\"Sale\">Hurry Up</a> [icon_arrow]</p>",
+              "countdown": "2022/04/19",
+              "txt_day": "days",
+              "dayx": 0
+            }
           }
         },
         "block_order": [
           "announcement-bar-0",
           "announcement-bar-1",
-          "announcement-bar-2"
+          "announcement-bar-2",
+          "announcement_7UXyMg",
+          "announcement_Q3iwPB"
         ],
         "settings": {
           "show_announcement": true,
@@ -71,7 +93,7 @@
             "type": "html",
             "settings": {
               "html": "<i class=\"pegk pe-7s-call\"></i> +01 23456789 <i class=\"pegk pe-7s-mail ml__15\"></i> <a class=\"cg\" href=\"mailto:kalles@domain.com\">kalles@domain.com</a>",
-              "hide": false,
+              "hide": true,
               "text_align": "start",
               "col": "4"
             }
@@ -79,8 +101,8 @@
           "top-bar-1": {
             "type": "text",
             "settings": {
-              "text": "<p>Summer sale discount off 50% Shop Now</p>",
-              "countdown": "2022/04/19",
+              "text": "<p>Summer sale discount off <strong>50%</strong>! Shop Now</p>",
+              "countdown": "2026/04/19",
               "txt_day": "days",
               "dayx": 0,
               "effect": "1",
