@@ -18,6 +18,11 @@
           data-current
           class="d-inline-block {{fl}} lazyload flags-{{cart_iso_code}}"
         >
+          {{
+            image
+            | image_url: width: '30', height: '23', format: 'webp'
+            | image_tag: loading: 'lazy', widths: '30', sizes: '100vw', fetchpriority: 'auto'
+          }}
           {{- links_cur.first.title | default: cart_iso_code -}}
         </span>
         <svg class="ion-select-arrow " role="presentation" viewBox="0 0 19 12">
