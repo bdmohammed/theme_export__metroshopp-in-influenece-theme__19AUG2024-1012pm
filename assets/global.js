@@ -6697,7 +6697,7 @@ var LtrT4s = !RtlT4s;
         target.appendChild(elementsArray.shift());
       }
     };
-
+    
     class Flickityt4s {
       static alignment = {
         center: {
@@ -6730,13 +6730,14 @@ var LtrT4s = !RtlT4s;
         guid: 0,
       };
       static guid = 0;
-      static instances = {};
       static selectedSlide = {};
       static createMethods = [];
       static cell = [];
       static slides = [];
       static Cell = Cell;
       static Slide = Slide;
+
+      instances = {};
 
       constructor(element, options = {}) {
         const queryElement = utils.getQueryElement(element);
