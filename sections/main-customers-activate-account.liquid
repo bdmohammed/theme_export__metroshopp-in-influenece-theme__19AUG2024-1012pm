@@ -27,17 +27,18 @@
 
   <p class="activate_account_subtext">{{ 'customer.activate_account.subtext' | t }}</p>
 
-  {%- form 'activate_customer_password'
-    , class: 'w-100' -%}
+  {%- form 'activate_customer_password', class: 'w-full' -%}
     {%- if form.errors -%}
       <h2
         class="form__message"
         tabindex="-1"
-        autofocus>
+        autofocus
+      >
         <svg
           aria-hidden="true"
           focusable="false"
-          role="presentation">
+          role="presentation"
+        >
           <use href="#icon-error" />
         </svg>
         {{ 'templates.contact.form.error_heading' | t }}
@@ -66,10 +67,11 @@
         id="password"
         autocomplete="new-password"
         {% if form.errors contains 'password' %}
-        aria-invalid="true"
-        aria-describedby="password-error"
+          aria-invalid="true"
+          aria-describedby="password-error"
         {% endif %}
-        placeholder="{{ 'customer.reset_password.password' | t }}">
+        placeholder="{{ 'customer.reset_password.password' | t }}"
+      >
       <label for="password">
         {{ 'customer.reset_password.password' | t }}
       </label>
@@ -79,10 +81,12 @@
         <svg
           aria-hidden="true"
           focusable="false"
-          role="presentation">
+          role="presentation"
+        >
           <use href="#icon-error" />
         </svg>
-        {{ form.errors.translated_fields['password'] | capitalize }} {{ form.errors.messages['password'] }}
+        {{ form.errors.translated_fields.password | capitalize }}
+        {{ form.errors.messages.password }}
       </small>
     {%- endif -%}
 
@@ -95,9 +99,10 @@
         autocomplete="new-password"
         placeholder="{{ 'customer.activate_account.password_confirm' | t }}"
         {% if form.errors contains 'password' %}
-        aria-invalid="true"
-        aria-describedby="password_confirmation-error"
-        {% endif %}>
+          aria-invalid="true"
+          aria-describedby="password_confirmation-error"
+        {% endif %}
+      >
       <label for="password_confirmation">
         {{ 'customer.activate_account.password_confirm' | t }}
       </label>
@@ -107,23 +112,23 @@
         <svg
           aria-hidden="true"
           focusable="false"
-          role="presentation">
+          role="presentation"
+        >
           <use href="#icon-error" />
         </svg>
-        {{ form.errors.translated_fields['password_confirmation'] | capitalize }} {{ form.errors.messages['password_confirmation'] }}
+        {{ form.errors.translated_fields.password_confirmation | capitalize }}
+        {{ form.errors.messages.password_confirmation }}
       </small>
     {%- endif -%}
 
     <button class="btn_submmit btn_black mb_20">{{ 'customer.reset_password.submit' | t }}</button>
-
   {%- endform -%}
-
 </div>
 
 {%- schema -%}
-  {
-    "name": "Register",
-    "tag": "section",
-    "class": "section section-customers container"
-  }
-{% endschema %}
+{
+  "name": "Register",
+  "tag": "section",
+  "class": "section section-customers container"
+}
+{%- endschema -%}

@@ -916,7 +916,7 @@
                           data-src="{{ image | image_url: '1x1' }}"
                           data-widths="[60, 90, 180, 320, 640]"
                           data-sizes="auto"
-                          class="w-100 lazyload lz--fadeIn"
+                          class="w-full lazyload lz--fadeIn"
                           alt="{{ pr_vendor | escape }}"
 
                         ><span class="lazyload-loader"></span
@@ -968,7 +968,7 @@
                       {%- assign image = bk_stts.img -%}
                       {%- if bk_stts.icon == '3' and image != blank -%}
                         <img
-                          class="lazyload w-100 ani-{{bk_stts.ani}}"
+                          class="lazyload w-full ani-{{bk_stts.ani}}"
                           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                           data-src="{{ image | image_url: '50x' }}"
                           alt="{{image.alt}}"
@@ -1001,7 +1001,7 @@
                       {%- assign image = bk_stts.img -%}
                       {%- if bk_stts.icon == '3' and image != blank -%}
                         <img
-                          class="lazyload w-100 ani-{{bk_stts.ani}}"
+                          class="lazyload w-full ani-{{bk_stts.ani}}"
                           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                           data-src="{{ image | image_url: '50x' }}"
                           alt="{{image.alt}}"
@@ -1038,7 +1038,7 @@
                       {%- assign image = bk_stts.img -%}
                       {%- if bk_stts.icon == '3' and image != blank -%}
                         <img
-                          class="lazyload w-100 ani-{{bk_stts.ani}}"
+                          class="lazyload w-full ani-{{bk_stts.ani}}"
                           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                           data-src="{{ image | image_url: '50x' }}"
                           alt="{{image.alt}}"
@@ -1100,7 +1100,7 @@
                           {%- assign image = bk_stts.img -%}
                           {%- if bk_stts.icon == '3' and image != blank -%}
                             <img
-                              class="lazyload w-100 ani-{{bk_stts.ani}}"
+                              class="lazyload w-full ani-{{bk_stts.ani}}"
                               src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                               data-src="{{ image | image_url: '50x' }}"
                               alt="{{image.alt}}"
@@ -1182,7 +1182,7 @@
                         {%- assign image = bk_stts.img -%}
                         {%- if bk_stts.icon == '3' and image != blank -%}
                           <img
-                            class="lazyload w-100 ani-{{bk_stts.ani}}"
+                            class="lazyload w-full ani-{{bk_stts.ani}}"
                             src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                             data-src="{{ image | image_url: '50x' }}"
                             alt="{{image.alt}}"

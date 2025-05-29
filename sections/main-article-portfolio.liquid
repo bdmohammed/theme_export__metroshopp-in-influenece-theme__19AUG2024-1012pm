@@ -367,7 +367,7 @@
                           </div>
                         </a>
                       {%- endif -%}
-                      <div class="portfolio-info absolute w-100 text-center">
+                      <div class="portfolio-info absolute w-full text-center">
                         <h4 class="post-title">
                           <a href="{{article.url}}" class="post-text-color">{{ article.title }}</a>
                         </h4>
@@ -539,7 +539,7 @@
                 {%- endif -%}
                 <input
                   type="submit"
-                  class="btn btn-base btn-style-{{bk_stts.button_style}} btn-size-{{bk_stts.btn_size}} btn-color-{{bk_stts.btn_cl}}{% if bk_stts.enable_full_btn %} w-100 justify-content-center{% endif %} btn-effect-fade cursor-pointer"
+                  class="btn btn-base btn-style-{{bk_stts.button_style}} btn-size-{{bk_stts.btn_size}} btn-color-{{bk_stts.btn_cl}}{% if bk_stts.enable_full_btn %} w-full justify-content-center{% endif %} btn-effect-fade cursor-pointer"
                   value="{{ 'blogs.comments.post' | t }}"
                 >
               {%- endform -%}

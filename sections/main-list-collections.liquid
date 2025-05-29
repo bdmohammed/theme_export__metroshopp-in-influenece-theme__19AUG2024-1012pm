@@ -72,7 +72,7 @@
     {%- endif -%}
     {%- if se_stts.display_type == 'all' -%}
       {%- if paginate.previous.is_link and isLoadmore -%}
-        <div data-wrap-lm-prev class="pagination-wrapper text-center w-100">
+        <div data-wrap-lm-prev class="pagination-wrapper text-center w-full">
           {%- if paginate.previous.is_link -%}
             <a
               data-load-more
@@ -108,7 +108,7 @@
         <div
           data-contentlm-replace
           class="
-                        box_cl_grid nt_cats_holder row justify-content-center collection-border-{{se_stts.border}} {{se_stts.image_ratio}} {{se_stts.image_position}} {{se_stts.image_size}} row-cols-lg-{{se_stts.col_dk}} row-cols-md-{{se_stts.col_tb}} row-cols-{{se_stts.col_mb}} ts-gx-md-{{se_stts.space_h_item}} ts-gy-md-{{se_stts.space_v_item}} ts-gx-{{se_stts.space_h_item_mb}} ts-gy-{{se_stts.space_v_item_mb}}
+                                    box_cl_grid nt_cats_holder row justify-content-center collection-border-{{se_stts.border}} {{se_stts.image_ratio}} {{se_stts.image_position}} {{se_stts.image_size}} row-cols-lg-{{se_stts.col_dk}} row-cols-md-{{se_stts.col_tb}} row-cols-{{se_stts.col_mb}} ts-gx-md-{{se_stts.space_h_item}} ts-gy-md-{{se_stts.space_v_item}} ts-gx-{{se_stts.space_h_item_mb}} ts-gy-{{se_stts.space_v_item_mb}}
           "
         >
       {%- elsif layout_des == '2' -%}
@@ -146,7 +146,7 @@
             {%- render 'pagination', paginate: paginate, anchor: '' -%}
 
           {%- elsif paginate.next.is_link -%}
-            <div class="pagination-wrapper text-center w-100">
+            <div class="pagination-wrapper text-center w-full">
               {%- if enable_bar_lm -%}
                 <div data-wrap-lm-bar class="lm-bar btn-color-{{se_stts.btns_cl}}">
                   {%- assign current_pr_size = index | plus: paginate.current_offset -%}
@@ -209,7 +209,7 @@
         <div
           data-contentlm-replace
           class="
-                        box_cl_grid nt_cats_holder row  justify-content-center collection-border-{{se_stts.border}} {{se_stts.image_ratio}} {{se_stts.image_position}} {{se_stts.image_size}} row-cols-lg-{{se_stts.col_dk}} row-cols-md-{{se_stts.col_tb}} row-cols-{{se_stts.col_mb}} ts-gx-md-{{se_stts.space_h_item}} ts-gy-md-{{se_stts.space_v_item}} ts-gx-{{se_stts.space_h_item_mb}} ts-gy-{{se_stts.space_v_item_mb}}
+                                    box_cl_grid nt_cats_holder row  justify-content-center collection-border-{{se_stts.border}} {{se_stts.image_ratio}} {{se_stts.image_position}} {{se_stts.image_size}} row-cols-lg-{{se_stts.col_dk}} row-cols-md-{{se_stts.col_tb}} row-cols-{{se_stts.col_mb}} ts-gx-md-{{se_stts.space_h_item}} ts-gy-md-{{se_stts.space_v_item}} ts-gx-{{se_stts.space_h_item_mb}} ts-gy-{{se_stts.space_v_item_mb}}
           "
         >
       {%- else -%}

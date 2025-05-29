@@ -364,7 +364,7 @@
               href="{{external_link | escape}}"
               rel="nofollow"
               target="_blank"
-              class="product-form__submit truncate is--btn-external btn btn-base btn-style-{{bk_stts.button_style}} btn-color-{{bk_stts.button_color}} w-100 justify-content-center {% if bk_stts.button_style == 'default' or bk_stts.button_style == 'outline'%} btn-effect-{{bk_stts.button_effect}} {% endif %}"
+              class="product-form__submit truncate is--btn-external btn btn-base btn-style-{{bk_stts.button_style}} btn-color-{{bk_stts.button_color}} w-full justify-content-center {% if bk_stts.button_style == 'default' or bk_stts.button_style == 'outline'%} btn-effect-{{bk_stts.button_effect}} {% endif %}"
             >
               {{- external_title -}}
             </a>
@@ -413,7 +413,13 @@
                   class="quantity-selector is--plus"
                   aria-label="{{ 'products.product.increase_quantity' | t }}"
                 >
-                  <svg focusable="false" aria-hidden="true" class="icon icon--plus" viewBox="0 0 10 10" role="presentation">
+                  <svg
+                    focusable="false"
+                    aria-hidden="true"
+                    class="icon icon--plus"
+                    viewBox="0 0 10 10"
+                    role="presentation"
+                  >
                     <path d="M6 4h4v2H6v4H4V6H0V4h4V0h2v4z" fill="currentColor" fill-rule="evenodd"></path>
                   </svg>
                 </button>
@@ -430,7 +436,7 @@
               type="submit"
               name="add"
               data-atc-form
-              class="product-form__submit btn btn-base btn-style-{{bk_stts.button_style}} btn-color-{{bk_stts.button_color}} w-100 justify-content-center {% if bk_stts.button_style == 'default' or bk_stts.button_style == 'outline'%} btn-effect-{{bk_stts.button_effect}} {% endif %} btn-loading__svg"
+              class="product-form__submit btn btn-base btn-style-{{bk_stts.button_style}} btn-color-{{bk_stts.button_color}} w-full justify-content-center {% if bk_stts.button_style == 'default' or bk_stts.button_style == 'outline'%} btn-effect-{{bk_stts.button_effect}} {% endif %} btn-loading__svg"
               {% unless current_variant.available %}
                 aria-disabled="true"
               {% endunless -%}

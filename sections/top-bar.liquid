@@ -199,7 +199,7 @@
 
   <div data-topbar-options='{ "isTransparent": {{topbar_transparent}} }' id="top-bar-main" class="top-bar">
     <div class="container">
-      <div class="row top-bar__wrap align-items-center">
+      <div class="ts-gx-3rem ts-gy-0 row top-bar__wrap align-items-center">
         {%- if section.blocks.size > 0 -%}
           {%- for block in section.blocks -%}
             {% assign bk_stts = block.settings %}
@@ -313,7 +313,7 @@
   </script>
 {%- endif -%}
 
-<div id="hsticky__sentinel" class="opacity-0 pointer-events-none absolute w-100"></div>
+<div id="hsticky__sentinel" class="opacity-0 pointer-events-none absolute w-full"></div>
 <style>
   #hsticky__sentinel {
     height: 1px;
@@ -324,8 +324,8 @@
 {%- schema -%}
 {
   "name": "Top bar",
-  "class": "t4-section tp_flickity tp_cd relative",
-  "max_blocks": 3,
+  "class": "section tp_flickity tp_cd relative",
+  "max_blocks": 4,
   "settings": [
     {
       "type": "checkbox",
@@ -956,7 +956,7 @@
       {
         "type": "html",
         "settings": {
-          "html": "<i class=\"pegk pe-7s-call\"><\/i> +01 23456789 <i class=\"pegk pe-7s-mail ml__15\"><\/i> <a class=\"cg\" href=\"mailto:kalles@domain.com\">kalles@domain.com<\/a>"
+          "html": "<i class=\"pegk pe-7s-call\"><\/i> <a class=\"cg\" href=\"tel:+01 23456789\">+01 23456789<\/a> <i class=\"pegk pe-7s-mail ml__15\"><\/i> <a class=\"cg\" href=\"mailto:kalles@domain.com\">kalles@domain.com<\/a>"
         }
       },
       {

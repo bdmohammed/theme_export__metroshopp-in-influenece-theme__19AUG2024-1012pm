@@ -54,7 +54,7 @@
           {%- endif -%}
           style="--bg-cl:{{bk_stts.bg_cl}};--pd: {{pd_item[0] | default: 0}} {{pd_item[1] | default: 0}} {{pd_item[2] | default: 0}} {{pd_item[3] | default: 0}};--pd-mb: {{pd_item_mb[0] | default: 0}} {{pd_item_mb[1] | default: 0}} {{pd_item_mb[2] | default: 0}} {{pd_item_mb[3] | default: 0}};"
         >
-          <div class="w-100">
+          <div class="w-full">
             {%- for block in se_blocks offset: index2 -%}
               {%- assign index2 = index2 | plus: 1 -%}
               {%- assign bk_stts = block.settings -%}

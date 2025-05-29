@@ -203,7 +203,7 @@
             {%- if use_pagination == 'default' -%}
               {%- render 'pagination', paginate: paginate, anchor: '' -%}
             {%- elsif paginate.next.is_link -%}
-              <div data-wrap-lm class="pagination-wrapper w-100">
+              <div data-wrap-lm class="pagination-wrapper w-full">
                 {%- if enable_bar_lm -%}
                   <div data-wrap-lm-bar class="lm-bar btn-color-{{se_stts.btns_cl}}">
                     {%- assign current_pr_size = search.results.size | plus: paginate.current_offset -%}

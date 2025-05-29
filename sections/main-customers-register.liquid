@@ -4,10 +4,12 @@
   href="{{ 'custom-effect.css' | asset_url }}"
   rel="stylesheet"
   media="print"
-  onload="this.media='all'">
+  onload="this.media='all'"
+>
 {%- liquid
   assign sid = section.id
-  assign se_stts = section.settings-%}
+  assign se_stts = section.settings
+-%}
 
 <div class="customer is--register text-{{se_stts.content_align}}">
   <svg style="display: none">
@@ -34,18 +36,18 @@
     </symbol>
   </svg>
 
-  {%- form 'create_customer'
-    , novalidate: 'novalidate'
-    , class: 'w-100' -%}
+  {%- form 'create_customer', novalidate: 'novalidate', class: 'w-full' -%}
     {%- if form.errors -%}
       <h2
         class="form__message"
         tabindex="-1"
-        autofocus>
+        autofocus
+      >
         <svg
           aria-hidden="true"
           focusable="false"
-          role="presentation">
+          role="presentation"
+        >
           <use href="#icon-error" />
         </svg>
         {{ 'customer.form.error_heading' | t }}
@@ -72,10 +74,11 @@
         name="customer[first_name]"
         id="RegisterForm-FirstName"
         {% if form.first_name %}
-        value="{{ form.first_name }}"
+          value="{{ form.first_name }}"
         {% endif %}
         autocomplete="given-name"
-        placeholder="{{ 'customer.register.first_name' | t }}">
+        placeholder="{{ 'customer.register.first_name' | t }}"
+      >
       <label for="RegisterForm-FirstName">
         {{ 'customer.register.first_name' | t }}
       </label>
@@ -87,10 +90,11 @@
         name="customer[last_name]"
         id="RegisterForm-LastName"
         {% if form.last_name %}
-        value="{{ form.last_name }}"
+          value="{{ form.last_name }}"
         {% endif %}
         autocomplete="family-name"
-        placeholder="{{ 'customer.register.last_name' | t }}">
+        placeholder="{{ 'customer.register.last_name' | t }}"
+      >
       <label for="RegisterForm-LastName">
         {{ 'customer.register.last_name' | t }}
       </label>
@@ -102,17 +106,18 @@
         name="customer[email]"
         id="RegisterForm-email"
         {% if form.email %}
-        value="{{ form.email }}"
+          value="{{ form.email }}"
         {% endif %}
         spellcheck="false"
         autocapitalize="off"
         autocomplete="email"
         aria-required="true"
         {% if form.errors contains 'email' %}
-        aria-invalid="true"
-        aria-describedby="RegisterForm-email-error"
+          aria-invalid="true"
+          aria-describedby="RegisterForm-email-error"
         {% endif %}
-        placeholder="{{ 'customer.register.email' | t }}">
+        placeholder="{{ 'customer.register.email' | t }}"
+      >
       <label for="RegisterForm-email">
         {{ 'customer.register.email' | t }}
         <span class="required">*</span>
@@ -123,10 +128,12 @@
         <svg
           aria-hidden="true"
           focusable="false"
-          role="presentation">
+          role="presentation"
+        >
           <use href="#icon-error" />
         </svg>
-        {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.
+        {{ form.errors.translated_fields.email | capitalize }}
+        {{ form.errors.messages.email }}.
       </span>
     {%- endif -%}
     <div class="field relative mb_30">
@@ -137,10 +144,11 @@
         id="RegisterForm-password"
         aria-required="true"
         {% if form.errors contains 'password' %}
-        aria-invalid="true"
-        aria-describedby="RegisterForm-password-error"
+          aria-invalid="true"
+          aria-describedby="RegisterForm-password-error"
         {% endif %}
-        placeholder="{{ 'customer.register.password' | t }}">
+        placeholder="{{ 'customer.register.password' | t }}"
+      >
       <label for="RegisterForm-password">
         {{ 'customer.register.password' | t }}
         <span class="required">*</span>
@@ -151,209 +159,210 @@
         <svg
           aria-hidden="true"
           focusable="false"
-          role="presentation">
+          role="presentation"
+        >
           <use href="#icon-error" />
         </svg>
-        {{ form.errors.translated_fields['password'] | capitalize }} {{ form.errors.messages['password'] }}.
+        {{ form.errors.translated_fields.password | capitalize }}
+        {{ form.errors.messages.password }}.
       </span>
     {%- endif -%}
     <div class="field mb_20">
-      <button class="btn_submmit btn btn-base btn-{{se_stts.btn_width}}-width btn-style-{{se_stts.button_style}} btn-size-{{se_stts.btns_size}} btn-color-{{se_stts.btns_cl}} {% if se_stts.button_style == 'default' or se_stts.button_style == 'outline'%}btn-effect-{{se_stts.button_effect}}{% endif %}">{{ 'customer.register.submit' | t }}</button>
+      <button class="btn_submmit btn btn-base btn-{{se_stts.btn_width}}-width btn-style-{{se_stts.button_style}} btn-size-{{se_stts.btns_size}} btn-color-{{se_stts.btns_cl}} {% if se_stts.button_style == 'default' or se_stts.button_style == 'outline'%}btn-effect-{{se_stts.button_effect}}{% endif %}">
+        {{ 'customer.register.submit' | t }}
+      </button>
     </div>
-    <a class="d-inline-block" href="{{ routes.account_login_url }}">
-      {{ 'customer.register.login_here' | t }}</a>
-
+    <a class="d-inline-block" href="{{ routes.account_login_url }}"> {{ 'customer.register.login_here' | t }}</a>
   {%- endform -%}
-
 </div>
 
 {%- schema -%}
-  {
-    "name": "Register",
-    "tag": "section",
-    "class": "section section-customers container",
-    "settings": [
-      {
-        "type": "header",
-        "content": "+ General options"
-      },
-      {
-        "type": "select",
-        "id": "content_align",
-        "label": "Content align",
-        "default": "start",
-        "options": [
-          {
-            "value": "start",
-            "label": "Default"
-          },
-          {
-            "value": "center",
-            "label": "Center"
-          }
-        ]
-      },
-      {
-        "type": "header",
-        "content": "+ Button options"
-      },
-      {
-        "type": "select",
-        "id": "btn_width",
-        "label": "Button width",
-        "default": "full",
-        "options": [
-          {
-            "value": "default",
-            "label": "Default"
-          },
-          {
-            "value": "full",
-            "label": "Full width"
-          }
-        ]
-      },
-      {
-        "type": "select",
-        "id": "button_style",
-        "label": "Button style",
-        "options": [
-          {
-            "label": "Default",
-            "value": "default"
-          },
-          {
-            "label": "Outline",
-            "value": "outline"
-          },
-          {
-            "label": "Bordered bottom",
-            "value": "bordered"
-          },
-          {
-            "label": "Link",
-            "value": "link"
-          }
-        ]
-      },
-      {
-        "type": "select",
-        "id": "btns_size",
-        "label": "Button size",
-        "default": "medium",
-        "options": [
-          {
-            "label": "Small",
-            "value": "small"
-          },
-          {
-            "label": "Extra small",
-            "value": "extra-small"
-          },
-          {
-            "label": "Medium",
-            "value": "medium"
-          },
-          {
-            "label": "Extra medium",
-            "value": "extra-medium"
-          },
-          {
-            "label": "Large",
-            "value": "large"
-          },
-          {
-            "label": "Extra large",
-            "value": "extra-large"
-          }
-        ]
-      },
-      {
-        "type": "select",
-        "id": "btns_cl",
-        "label": "Button color",
-        "default": "dark",
-        "options": [
-          {
-            "value": "light",
-            "label": "Light"
-          },
-          {
-            "value": "dark",
-            "label": "Dark"
-          },
-          {
-            "value": "primary",
-            "label": "Primary"
-          },
-          {
-            "value": "custom1",
-            "label": "Custom color 1"
-          },
-          {
-            "value": "custom2",
-            "label": "Custom color 2"
-          }
-        ]
-      },
-      {
-        "type": "select",
-        "id": "button_effect",
-        "label": "Button hover effect",
-        "default": "default",
-        "info": "Only working button style default, outline",
-        "options": [
-          {
-            "label": "Default",
-            "value": "default"
-          },
-          {
-            "label": "Fade",
-            "value": "fade"
-          },
-          {
-            "label": "Rectangle out",
-            "value": "rectangle-out"
-          },
-          {
-            "label": "Sweep to right",
-            "value": "sweep-to-right"
-          },
-          {
-            "label": "Sweep to left",
-            "value": "sweep-to-left"
-          },
-          {
-            "label": "Sweep to bottom",
-            "value": "sweep-to-bottom"
-          },
-          {
-            "label": "Sweep to top",
-            "value": "sweep-to-top"
-          },
-          {
-            "label": "Shutter out horizontal",
-            "value": "shutter-out-horizontal"
-          },
-          {
-            "label": "Outline",
-            "value": "outline"
-          },
-          {
-            "label": "Shadow",
-            "value": "shadow"
-          },
-          {
-            "label": "Overlay run (Only working with button default)",
-            "value": "overlay-run"
-          }
-        ]
-      }
-    ],
-    "presets": [
-      {
-        "name": "Login"
-      }
-    ]
-  }
-{% endschema %}
+{
+  "name": "Register",
+  "tag": "section",
+  "class": "section section-customers container",
+  "settings": [
+    {
+      "type": "header",
+      "content": "+ General options"
+    },
+    {
+      "type": "select",
+      "id": "content_align",
+      "label": "Content align",
+      "default": "start",
+      "options": [
+        {
+          "value": "start",
+          "label": "Default"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "+ Button options"
+    },
+    {
+      "type": "select",
+      "id": "btn_width",
+      "label": "Button width",
+      "default": "full",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "full",
+          "label": "Full width"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        {
+          "label": "Default",
+          "value": "default"
+        },
+        {
+          "label": "Outline",
+          "value": "outline"
+        },
+        {
+          "label": "Bordered bottom",
+          "value": "bordered"
+        },
+        {
+          "label": "Link",
+          "value": "link"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "btns_size",
+      "label": "Button size",
+      "default": "medium",
+      "options": [
+        {
+          "label": "Small",
+          "value": "small"
+        },
+        {
+          "label": "Extra small",
+          "value": "extra-small"
+        },
+        {
+          "label": "Medium",
+          "value": "medium"
+        },
+        {
+          "label": "Extra medium",
+          "value": "extra-medium"
+        },
+        {
+          "label": "Large",
+          "value": "large"
+        },
+        {
+          "label": "Extra large",
+          "value": "extra-large"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "btns_cl",
+      "label": "Button color",
+      "default": "dark",
+      "options": [
+        {
+          "value": "light",
+          "label": "Light"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "custom1",
+          "label": "Custom color 1"
+        },
+        {
+          "value": "custom2",
+          "label": "Custom color 2"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_effect",
+      "label": "Button hover effect",
+      "default": "default",
+      "info": "Only working button style default, outline",
+      "options": [
+        {
+          "label": "Default",
+          "value": "default"
+        },
+        {
+          "label": "Fade",
+          "value": "fade"
+        },
+        {
+          "label": "Rectangle out",
+          "value": "rectangle-out"
+        },
+        {
+          "label": "Sweep to right",
+          "value": "sweep-to-right"
+        },
+        {
+          "label": "Sweep to left",
+          "value": "sweep-to-left"
+        },
+        {
+          "label": "Sweep to bottom",
+          "value": "sweep-to-bottom"
+        },
+        {
+          "label": "Sweep to top",
+          "value": "sweep-to-top"
+        },
+        {
+          "label": "Shutter out horizontal",
+          "value": "shutter-out-horizontal"
+        },
+        {
+          "label": "Outline",
+          "value": "outline"
+        },
+        {
+          "label": "Shadow",
+          "value": "shadow"
+        },
+        {
+          "label": "Overlay run (Only working with button default)",
+          "value": "overlay-run"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Login"
+    }
+  ]
+}
+{%- endschema -%}

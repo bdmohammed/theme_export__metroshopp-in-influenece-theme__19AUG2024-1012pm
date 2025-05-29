@@ -369,7 +369,7 @@
               {{ block.shopify_attributes }}
               href="{{cart_url}}"
               data-loading-bar
-              class="btn__cart btn btn-base btn-style-{{button_style}} btn-color-{{bk_stts.btn_cl}} {% if button_style == 'default' or button_style == 'outline'%}btn-effect-{{bk_stts.button_effect}}{% endif %} w-100 justify-content-center truncate"
+              class="btn__cart btn btn-base btn-style-{{button_style}} btn-color-{{bk_stts.btn_cl}} {% if button_style == 'default' or button_style == 'outline'%}btn-effect-{{bk_stts.button_effect}}{% endif %} w-full justify-content-center truncate"
             >
               {{- 'cart.mini_cart.view' | t }}
               {%- if bk_stts.btn_icon -%}
@@ -399,7 +399,7 @@
               data-loading-bar
               data-confirm="{{ck_lumise}}"
               name="checkout"
-              class="btn__checkout btn btn-base btn-style-{{button_style}} btn-color-{{bk_stts.btn_cl}} {% if button_style == 'default' or button_style == 'outline'%}btn-effect-{{bk_stts.button_effect}}{% endif %} w-100 justify-content-center truncate"
+              class="btn__checkout btn btn-base btn-style-{{button_style}} btn-color-{{bk_stts.btn_cl}} {% if button_style == 'default' or button_style == 'outline'%}btn-effect-{{bk_stts.button_effect}}{% endif %} w-full justify-content-center truncate"
             >
               {{ 'cart.mini_cart.checkout' | t }}
               {%- if bk_stts.btn_icon -%}
@@ -428,7 +428,7 @@
             <div class="cat__imgtrust ratioadapt" {{ block.shopify_attributes }}>
               <div class="ratio relative overflow-hidden" style="--aspect-ratioapt:{{image.aspect_ratio |default: 1}};">
                 <img
-                  class="w-100 lazyload"
+                  class="w-full lazyload"
                   data-src="{{ image | image_url: '1x1' }}"
                   data-widths="[100,200,400,600]"
                   data-optimumx="2"

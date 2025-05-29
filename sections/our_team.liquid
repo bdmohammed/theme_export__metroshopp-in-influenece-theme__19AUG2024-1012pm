@@ -63,7 +63,7 @@
                             <h4 class="member-name">{{bk_stts.name}}</h4>
                             <span>{{bk_stts.position}}</span>
                         </div>
-                        <div class="member-socials absolute w-100">
+                        <div class="member-socials absolute w-full">
                             {%- for social_link in socials -%}
                                 {% if bk_stts[social_link] != blank -%}
                                     <a href="{{ bk_stts[social_link] | escape }}" target="_blank">{%- render 'icon_socials',icon_name:socials_icon[forloop.index0] -%} </a>

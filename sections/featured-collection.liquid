@@ -143,7 +143,7 @@
     <div class="prs-footer has-btn-{{use_pagination}} {{se_stts.btn_pos}}">
       {%- if isLoadmore -%} 
           {%- if paginate.next.is_link -%}
-            <div data-wrap-lm class="pagination-wrapper w-100">
+            <div data-wrap-lm class="pagination-wrapper w-full">
              {%- if enable_bar_lm -%}
              <div data-wrap-lm-bar class="lm-bar btn-color-{{se_stts.btns_cl}}">
                {%- assign current_pr_size = collection.products.size | plus:paginate.current_offset -%}

@@ -924,7 +924,7 @@
                     data-src="{{ image | image_url: '1x1' }}"
                     data-widths="[60, 90, 180, 320, 640]"
                     data-sizes="auto"
-                    class="w-100 lazyload lz--fadeIn"
+                    class="w-full lazyload lz--fadeIn"
                     alt="{{ pr_vendor | escape }}"
 
                   ><span class="lazyload-loader"></span><span class="visually-hidden">{{ pr_vendor | escape }}</span>
@@ -975,7 +975,7 @@
                 {%- assign image = bk_stts.img -%}
                 {%- if bk_stts.icon == '3' and image != blank -%}
                   <img
-                    class="lazyload w-100 ani-{{bk_stts.ani}}"
+                    class="lazyload w-full ani-{{bk_stts.ani}}"
                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                     data-src="{{ image | image_url: '50x' }}"
                     alt="{{image.alt}}"
@@ -1008,7 +1008,7 @@
                 {%- assign image = bk_stts.img -%}
                 {%- if bk_stts.icon == '3' and image != blank -%}
                   <img
-                    class="lazyload w-100 ani-{{bk_stts.ani}}"
+                    class="lazyload w-full ani-{{bk_stts.ani}}"
                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                     data-src="{{ image | image_url: '50x' }}"
                     alt="{{image.alt}}"
@@ -1045,7 +1045,7 @@
                 {%- assign image = bk_stts.img -%}
                 {%- if bk_stts.icon == '3' and image != blank -%}
                   <img
-                    class="lazyload w-100 ani-{{bk_stts.ani}}"
+                    class="lazyload w-full ani-{{bk_stts.ani}}"
                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                     data-src="{{ image | image_url: '50x' }}"
                     alt="{{image.alt}}"
@@ -1107,7 +1107,7 @@
                     {%- assign image = bk_stts.img -%}
                     {%- if bk_stts.icon == '3' and image != blank -%}
                       <img
-                        class="lazyload w-100 ani-{{bk_stts.ani}}"
+                        class="lazyload w-full ani-{{bk_stts.ani}}"
                         src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                         data-src="{{ image | image_url: '50x' }}"
                         alt="{{image.alt}}"
@@ -1191,7 +1191,7 @@
                   {%- assign image = bk_stts.img -%}
                   {%- if bk_stts.icon == '3' and image != blank -%}
                     <img
-                      class="lazyload w-100 ani-{{bk_stts.ani}}"
+                      class="lazyload w-full ani-{{bk_stts.ani}}"
                       src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                       data-src="{{ image | image_url: '50x' }}"
                       alt="{{image.alt}}"
@@ -1477,7 +1477,7 @@
                     type="submit"
                     name="add"
                     data-atc-form
-                    class="product-form__submit btn btn-base btn-style-default btn-color-primary w-100 justify-content-center  btn-effect-sweep-to-bottom btn-loading__svg"
+                    class="product-form__submit btn btn-base btn-style-default btn-color-primary w-full justify-content-center  btn-effect-sweep-to-bottom btn-loading__svg"
                   >
                     <span class="btn-atc_text">Add to cart</span>
                     <span class="loading__spinner" hidden>

@@ -627,7 +627,7 @@
           {%- if bk_stts.date_of_birth -%}
             <div class="row ts-g-10 age_date_of_birth">
               <div class="col-12 col-md-4 col-item">
-                <select name="agemonth" class="w-100" id="agemonth">
+                <select name="agemonth" class="w-full" id="agemonth">
                   <option value="12">{{ bk_stts.month }}</option>
                   {%- for i in (1..12) -%}
                     {%- assign month_i = 'month' | append: i %}
@@ -636,7 +636,7 @@
                 </select>
               </div>
               <div class="col-12 col-md-4 col-item">
-                <select name="ageday" class="w-100" id="ageday">
+                <select name="ageday" class="w-full" id="ageday">
                   <option value="28">{{ bk_stts.day }}</option>
                   {%- for i in (1..31) %}
                     <option value="{{i}}">{{ i }}</option>
@@ -646,7 +646,7 @@
               <div class="col-12 col-md-4 col-item">
                 {%- assign now_year = 'now' | date: '%Y' | plus: 0 -%}
                 {%- assign calc_year = now_year | minus: age_limit | plus: 1 -%}
-                <select name="ageyear" class="w-100" id="ageyear">
+                <select name="ageyear" class="w-full" id="ageyear">
                   <option value="{{now_year}}">{{ bk_stts.year }}</option>
                   {%- for i in (1910..calc_year) reversed %}
                     <option value="{{i}}">{{ i }}</option>
