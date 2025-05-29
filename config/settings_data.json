@@ -122,11 +122,11 @@
             "settings": {
               "show_currency": true,
               "show_language": true,
-              "use_location": false,
+              "use_location": true,
               "txt_location": "Location",
-              "url_location": "",
+              "url_location": "shopify://pages/contact",
               "open_link": "_self",
-              "hide": false,
+              "hide": true,
               "text_align": "start",
               "col": "4"
             }
