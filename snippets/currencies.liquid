@@ -155,20 +155,12 @@
           data-flags="{{sz}}"
           data-currency-item
           data-dropdown-off
-          class="currency-item {{fl}} lazyload flags-{{data_currency}}{% if data_currency == cart_iso_code %} is--selected{% endif %}"
-          data-currency="{{data_currency}}"
+          class="currency-item {{fl}} lazyload flags-{{name_money}}{% if name_money == cart_iso_code %} is--selected{% endif %}"
+          data-currency="{{name_money}}"
         >
-          {{ name_money }}
+          {{ code }}
         </button>
       {%- endfor -%}
     </div>
   </div>
 {%- endif -%}
-
-{% for country in localization.available_countries -%}
-  {{ country }}
-{%- endfor %}
-
-<script>
-  console.log('Currencies snippet loaded', {{ localization | json }});
-</script>
