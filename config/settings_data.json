@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "currency_type": "1",
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
