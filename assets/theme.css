@@ -11424,7 +11424,7 @@ em {
 
 /* helper class */
 .dn,
-[data-countdown]:not(.countdown-enabled),
+[data-countdown-ts]:not(.countdown-enabled),
 .countdown-enabled.expired_cdt4 {
   display: none;
 }

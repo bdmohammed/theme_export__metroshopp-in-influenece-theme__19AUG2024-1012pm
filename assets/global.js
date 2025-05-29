@@ -6746,11 +6746,11 @@ var LtrT4s = !RtlT4s;
         }
         this.element = queryElement;
         if (this.element.flickityt4sGUID) {
-          const instance = Flickityt4s.instances[this.element.flickityt4sGUID];
-          return instance ? instance.option(options) : instance;
+          const instance = this.instances[this.element.flickityt4sGUID];
+          instance?.option(options);
+          return instance;
         }
 
-        // jQuery support
         this.$element = jQuary(this.element);
 
         // Default options
@@ -6786,15 +6786,11 @@ var LtrT4s = !RtlT4s;
       _create() {
         this.guid = ++Flickityt4s.guid;
         this.element.flickityt4sGUID = this.guid;
-        Flickityt4s.instances[this.guid] = this;
-
-        // Initialize properties
+        this.instances[this.guid] = this;
         this.selectedIndex = 0;
         this.restingFrames = 0;
         this.x = 0;
         this.velocity = 0;
-
-        // Create viewport and slider
         this.originSide = window.RtlT4s ? 'right' : 'left';
         this.viewport = document.createElement('div');
         this.viewport.className = 'flickity-viewport';
@@ -6804,9 +6800,9 @@ var LtrT4s = !RtlT4s;
         if (this.options.resize || this.options.watchCSS) {
           global.addEventListener('resize', this);
         }
-        for (const i in this.element.flickityt4sGUID) {
+        for (const id in this.element.flickityt4sGUID) {
           if (this.options.on) {
-            this.on(i, this.options.on[i]);
+            this.on(id, this.options.on[id]);
           }
         }
 
@@ -6816,7 +6812,7 @@ var LtrT4s = !RtlT4s;
 
       _createSlider() {
         this.slider = document.createElement('div');
-        this.slider.className = 'flickity-slider';
+        this.slider.className = 'flickity-slider d-flex justify-content-center align-items-center';
         this.slider.style[this.originSide] = 0;
       }
 
@@ -6943,12 +6939,6 @@ var LtrT4s = !RtlT4s;
       _init() {
         this.positionCells();
         this.positionSliderAtSelected();
-      }
-
-      getSize() {
-        this.size = getSize(this.element);
-        this.setCellAlign();
-        this.cursorPosition = this.size.innerWidth * this.cellAlign;
       }
 
       setCellAlign() {
@@ -7450,7 +7440,7 @@ var LtrT4s = !RtlT4s;
         if (!this.isActive) {
           this.isActive = true;
           this.element.classList.add('flickity-enabled');
-          if (RtlT4s) {
+          if (window.RtlT4s) {
             this.element.classList.add('flickity-rtl');
           }
 
