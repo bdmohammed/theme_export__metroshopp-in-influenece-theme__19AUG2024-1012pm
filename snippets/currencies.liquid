@@ -166,5 +166,5 @@
 {%- endif -%}
 
 <script>
-  console.log('Currencies snippet loaded', {{ shop.enabled_currencies.size }});
+  console.log('Currencies snippet loaded', {{ shop.enabled_currencies[0] | json}});
 </script>
