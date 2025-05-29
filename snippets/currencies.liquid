@@ -165,10 +165,6 @@
   </div>
 {%- endif -%}
 
-{% for country in localization.available_countries -%}
-  {{ country }}
-{%- endfor %}
-
 <script>
-  console.log('Currencies snippet loaded', {{ localization.available_countries | json}});
+  console.log('Currencies snippet loaded', {{ shop.enabled_currencies | json}});
 </script>
