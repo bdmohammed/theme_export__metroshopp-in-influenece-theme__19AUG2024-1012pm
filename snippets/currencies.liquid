@@ -144,7 +144,7 @@
           type="button"
           data-currency-item
           data-dropdown-off
-          class="currency-item flags-{{ name_money }} {% if name_money == cart_iso_code | downcase %} is--selected{% endif %}"
+          class="currency-item flags-{{ name_money }} {% if name_money == cart_iso_code %} is--selected{% endif %}"
           data-currency="{{ name_money }}"
           data-country="{{ country_name }}"
         >
