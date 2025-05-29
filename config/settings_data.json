@@ -51,7 +51,7 @@
         ],
         "settings": {
           "show_announcement": true,
-          "effect": "0",
+          "effect": "1",
           "au_time": 3.5,
           "height": 45,
           "fontsize": 12,
