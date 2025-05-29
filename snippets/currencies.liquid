@@ -170,5 +170,5 @@
 {%- endfor %}
 
 <script>
-  console.log('Currencies snippet loaded', {{ localization.market }});
+  console.log('Currencies snippet loaded', {{ localization.market.handle | json}});
 </script>
