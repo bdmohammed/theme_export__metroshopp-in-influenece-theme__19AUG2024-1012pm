@@ -126,7 +126,7 @@
               "txt_location": "Location",
               "url_location": "shopify://pages/contact",
               "open_link": "_self",
-              "hide": true,
+              "hide": false,
               "text_align": "start",
               "col": "4"
             }
