@@ -18,29 +18,27 @@
             "settings": {
               "link": "shopify://collections/frontpage",
               "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href=\"/\" title=\"Sale\">Hurry Up</a> [icon_arrow]</p>",
-              "countdown": "2022/04/19",
+              "countdown": "2026/04/19",
               "txt_day": "days",
               "dayx": 0
             }
           },
           "announcement-bar-1": {
             "type": "announcement",
-            "disabled": true,
             "settings": {
-              "link": "",
-              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href='/' title='Sale'>Hurry Up</a> [icon_arrow]</p>",
-              "countdown": "2022/04/19",
+              "link": "shopify://collections/all",
+              "content": "<p>Today deal sale off 1<strong>0%</strong>. End in <strong>[countdown]</strong>. <a href=\"/\" title=\"Sale\">Hurry Up</a> [icon_arrow]</p>",
+              "countdown": "2026/01/19",
               "txt_day": "days",
               "dayx": 0
             }
           },
           "announcement-bar-2": {
             "type": "announcement",
-            "disabled": true,
             "settings": {
-              "link": "",
-              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href='/' title='Sale'>Hurry Up</a> [icon_arrow]</p>",
-              "countdown": "2022/04/19",
+              "link": "shopify://pages/contact",
+              "content": "<p>COD</p>",
+              "countdown": "2030/04/19",
               "txt_day": "days",
               "dayx": 0
             }
@@ -53,7 +51,7 @@
         ],
         "settings": {
           "show_announcement": true,
-          "effect": "1",
+          "effect": "0",
           "au_time": 3.5,
           "height": 45,
           "fontsize": 12,
