@@ -119,46 +119,43 @@
 {%- elsif settings.currency_type == '2' -%}
   {%- assign supported_codes = settings.supported_currencies | split: '|' -%}
   <div data-currency-wrap class="top-bar__currencies d-inline-block">
-    <button data-dropdown-open data-position="bottom-end" data-id="dropdown_currencies{{sid}}">
-      <span data-flags="{{sz}}" data-current class="d-inline-block {{fl}} lazyload flags-{{cart_iso_code}}">
+    <button data-dropdown-open data-position="bottom-end" data-id="dropdown_currencies{{ sid }}">
+      <span data-current class="d-inline-block flags-{{ cart_iso_code | downcase }}">
         <img
-          src="{{ shopify_cdn_url | append: 'us.svg?width=30' }}"
-          alt="United States"
-          srcset="{{ shopify_cdn_url | append: 'us.svg?width=30' }} 30w"
+          src="https://cdn.shopify.com/static/images/flags/{{ cart_iso_code | downcase }}.svg?width=30"
+          alt="{{ cart_iso_code | upcase }}"
           width="30"
           height="23"
           loading="lazy"
-          data-img-current
         >
-        {{- cart_iso_code -}}
+        {{ cart_iso_code | upcase }}
       </span>
       <svg class="ion-select-arrow" role="presentation" viewBox="0 0 19 12">
         <polyline fill="none" stroke="currentColor" points="17 2 9.5 10 2 2" fill-rule="evenodd" stroke-width="2" stroke-linecap="square"></polyline>
       </svg>
     </button>
-    <div data-dropdown-wrapper class="dropdown__wrapper" id="dropdown_currencies{{sid}}">
+    <div data-dropdown-wrapper class="dropdown__wrapper" id="dropdown_currencies{{ sid }}">
       <div class="drop-arrow"></div>
-      <button
-        type="button"
-        data-flags="{{sz}}"
-        data-currency-item
-        data-dropdown-off
-        class="currency-item {{fl}} lazyload d-none"
-        data-currency-temp
-      ></button>
       {%- for code in supported_codes -%}
         {%- assign array_money = code | split: '-' -%}
-        {%- assign data_currency = array_money | first | upcase | strip | remove: ' ' -%}
-        {%- assign name_money = array_money | last | strip -%}
+        {%- assign country_name = array_money | first | upcase | strip | remove: ' ' -%}
+        {%- assign name_money = array_money | last | strip | downcase -%}
         <button
           type="button"
-          data-flags="{{sz}}"
           data-currency-item
           data-dropdown-off
-          class="currency-item {{fl}} lazyload flags-{{name_money}}{% if name_money == cart_iso_code %} is--selected{% endif %}"
-          data-currency="{{name_money}}"
+          class="currency-item flags-{{ name_money }} {% if name_money == cart_iso_code | downcase %} is--selected{% endif %}"
+          data-currency="{{ name_money }}"
+          data-country="{{ country_name }}"
         >
-          {{ code }}
+          <img
+            src="https://cdn.shopify.com/static/images/flags/{{ name_money }}.svg?width=30"
+            alt="{{ name_money | upcase }}"
+            width="30"
+            height="23"
+            loading="lazy"
+          >
+          {{ name_money | upcase }}
         </button>
       {%- endfor -%}
     </div>
