@@ -4,7 +4,7 @@
   endif
   assign sz = settings.size_currency
   assign cart_iso_code = cart.currency.iso_code
-  assign shopify_cdn_url = '//cdn.shopify.com/static/images/flags/'
+  assign shopify_cdn_url = 'https://cdn.shopify.com/static/images/flags/'
 -%}
 
 {%- if settings.flag_currency %}
@@ -73,13 +73,13 @@
           class="d-inline-block {{fl}} lazyload flags-{{cart_iso_code}}"
         >
           <img
-            src="//cdn.shopify.com/static/images/flags/us.svg?width=30"
+            src="{{ shopify_cdn_url | append: 'us.svg?width=30' }}"
             alt="United States"
-            srcset="//cdn.shopify.com/static/images/flags/us.svg?width=30 30w"
+            srcset="{{ shopify_cdn_url | append: 'us.svg?width=30' }} 30w"
             width="30"
             height="23"
             loading="lazy"
-            data-img-current=""
+            data-img-current
           >
           {{- cart_iso_code -}}
         </span>
@@ -122,13 +122,12 @@
     <button data-dropdown-open data-position="bottom-end" data-id="dropdown_currencies{{sid}}">
       <span data-flags="{{sz}}" data-current class="d-inline-block {{fl}} lazyload flags-{{cart_iso_code}}">
         <img
-          src="{{ 'flag-' | append: localization.language.iso_code | append: '.svg?w=30' | asset_url }}"
-          alt="{{ cart_iso_code }}"
-          srcset="{{ 'flag-' | append: localization.language.iso_code | append: '.svg?w=30'  | asset_url }}"
+          src="{{ shopify_cdn_url | append: 'us.svg?width=30' }}"
+          alt="United States"
+          srcset="{{ shopify_cdn_url | append: 'us.svg?width=30' }} 30w"
           width="30"
           height="23"
           loading="lazy"
-          fetchpriority="auto"
           data-img-current
         >
         {{- cart_iso_code -}}
