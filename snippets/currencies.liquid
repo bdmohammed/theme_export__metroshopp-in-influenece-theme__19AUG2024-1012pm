@@ -6,7 +6,10 @@
   assign cart_iso_code = cart.currency.iso_code
 -%}
 
-{%- if settings.flag_currency %}{{ 'currencies.css' | asset_url | stylesheet_tag }}{% endif -%}
+{%- if settings.flag_currency %}
+  {{ 'currencies.css' | asset_url | stylesheet_tag }}
+{% endif -%}
+
 {%- if shop.enabled_currencies.size > 1 and settings.currency_type == '1' -%}
   {%- if linklists['currency-the4'].links.size > 0 -%}
     {%- assign ck_iso_code = '#' | append: cart_iso_code -%}
@@ -18,11 +21,16 @@
           data-current
           class="d-inline-block {{fl}} lazyload flags-{{cart_iso_code}}"
         >
-          {{
-            image
-            | image_url: width: '30', height: '23', format: 'webp'
-            | image_tag: loading: 'lazy', widths: '30', sizes: '100vw', fetchpriority: 'auto'
-          }}
+          <img
+            src="{{ 'flag-' | append: localization.language.iso_code | append: '.svg' | asset_url }}"
+            alt="{{ cart_iso_code }}"
+            srcset="{{ 'flag-' | append: localization.language.iso_code | append: '.svg' | asset_url }} 1x"
+            width="30"
+            height="23"
+            loading="lazy"
+            fetchpriority="auto"
+            data-img-current
+          >
           {{- links_cur.first.title | default: cart_iso_code -}}
         </span>
         <svg class="ion-select-arrow " role="presentation" viewBox="0 0 19 12">
@@ -42,6 +50,16 @@
             data-iso="{{iso_code}}"
             data-country="{{iso_code}}"
           >
+            <img
+              src="{{ 'flag-' | append: localization.language.iso_code | append: '.svg' | asset_url }}"
+              alt="{{ cart_iso_code }}"
+              srcset="{{ 'flag-' | append: localization.language.iso_code | append: '.svg' | asset_url }} 1x"
+              width="30"
+              height="23"
+              loading="lazy"
+              fetchpriority="auto"
+              data-img-current
+            >
             {{ link_cur.title }}
           </button>
         {%- endfor -%}
@@ -55,6 +73,16 @@
           data-current
           class="d-inline-block {{fl}} lazyload flags-{{cart_iso_code}}"
         >
+          <img
+            src="{{ 'flag-' | append: localization.language.iso_code | append: '.svg' | asset_url }}"
+            alt="{{ cart_iso_code }}"
+            srcset="{{ 'flag-' | append: localization.language.iso_code | append: '.svg' | asset_url }} 1x"
+            width="30"
+            height="23"
+            loading="lazy"
+            fetchpriority="auto"
+            data-img-current
+          >
           {{- cart_iso_code -}}
         </span>
         <svg class="ion-select-arrow " role="presentation" viewBox="0 0 19 12">
@@ -74,6 +102,16 @@
             data-iso="{{iso_code}}"
             data-country="{{iso_code}}"
           >
+            <img
+              src="{{ 'flag-' | append: localization.language.iso_code | append: '.svg' | asset_url }}"
+              alt="{{ cart_iso_code }}"
+              srcset="{{ 'flag-' | append: localization.language.iso_code | append: '.svg' | asset_url }} 1x"
+              width="30"
+              height="23"
+              loading="lazy"
+              fetchpriority="auto"
+              data-img-current
+            >
             {{ iso_code }}
           </button>
         {%- endfor -%}
@@ -86,6 +124,16 @@
   <div data-currency-wrap class="top-bar__currencies d-inline-block">
     <button data-dropdown-open data-position="bottom-end" data-id="dropdown_currencies{{sid}}">
       <span data-flags="{{sz}}" data-current class="d-inline-block {{fl}} lazyload flags-{{cart_iso_code}}">
+        <img
+          src="{{ 'flag-' | append: localization.language.iso_code | append: '.svg' | asset_url }}"
+          alt="{{ cart_iso_code }}"
+          srcset="{{ 'flag-' | append: localization.language.iso_code | append: '.svg' | asset_url }} 1x"
+          width="30"
+          height="23"
+          loading="lazy"
+          fetchpriority="auto"
+          data-img-current
+        >
         {{- cart_iso_code -}}
       </span>
       <svg class="ion-select-arrow " role="presentation" viewBox="0 0 19 12">
