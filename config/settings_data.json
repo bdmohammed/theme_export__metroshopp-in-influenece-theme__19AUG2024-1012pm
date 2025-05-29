@@ -10,6 +10,7 @@
 {
   "current": {
     "currency_type": "2",
+    "supported_currencies": "Canada - CAD $ | France - EUR € | Germany - EUR € | Japan - JPY ¥ | New zealand - NZD $ | United kingdom - GBP £ | United states - USD $ | Vietnam - VND ₫",
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
