@@ -143,7 +143,7 @@
           height="23"
           loading="lazy"
         >
-        {{ cart_iso_code | upcase }}
+        <span data-current>{{ cart_iso_code | upcase }}</span>
       </span>
       <svg class="ion-select-arrow" role="presentation" viewBox="0 0 19 12">
         <polyline fill="none" stroke="currentColor" points="17 2 9.5 10 2 2" fill-rule="evenodd" stroke-width="2" stroke-linecap="square"></polyline>
@@ -597,9 +597,9 @@
             data-flags="{{ sz }}"
             data-currency-item
             data-dropdown-off
-            class="currency-item {% if currency_code == cart_iso_code %} is--selected{% endif %}"
+            class="currency-item {{ fl }} {% if currency_code == cart_iso_code %} is--selected{% endif %}"
             data-iso="{{ currency_code }}"
-            data-country="{{ country_iso }}"
+            data-country="{{ country_iso | upcase }}"
           >
             {%- if country_iso != '' -%}
               <img
