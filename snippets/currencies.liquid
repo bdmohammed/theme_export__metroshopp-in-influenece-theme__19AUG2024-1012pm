@@ -144,11 +144,445 @@
       <div class="drop-arrow"></div>
       <div class="dropdown__list">
         {%- for code in supported_codes -%}
-          {%- assign array_money = code | split: '-' -%}
-          {%- assign data_currency = array_money | first | upcase | strip | remove: ' ' -%}
-          {%- assign name_money = array_money | last | strip | split: ' ' -%}
-          {%- assign country_iso_code = name_money | first | strip -%}
-          {%- assign currency_symbol = name_money | last | strip -%}
+          {% comment %}
+            {%- assign array_money = code | split: '-' -%}
+            {%- assign data_currency = array_money | first | upcase | strip | remove: ' ' -%}
+            {%- assign name_money = array_money | last | strip | split: ' ' -%}
+            {%- assign country_iso_code = name_money | first | strip -%}
+            {%- assign currency_symbol = name_money | last | strip -%}
+
+            <button
+              type="button"
+              data-flags="{{ sz }}"
+              data-currency-item
+              data-dropdown-off
+              class="currency-item {% if currency_code == cart_iso_code %} is--selected{% endif %}"
+              data-iso="{{ country_iso_code }}"
+              data-country="{{ country_iso_code | handleize | downcase | slice: 0, 2 }}"
+            >
+              <img
+                src="https://cdn.shopify.com/static/images/flags/{{ country_iso_code | handleize | downcase | slice: 0, 2 }}.svg?width=30"
+                srcset="https://cdn.shopify.com/static/images/flags/{{ country_iso_code | handleize | downcase | slice: 0, 2 }}.svg?width=30 30w"
+                alt="{{ data_currency }}"
+                width="30"
+                height="23"
+                loading="lazy"
+              >
+              <span>
+                {{- data_currency }} - {{ country_iso_code }}
+                {{ currency_symbol -}}
+              </span>
+            </button>
+          {% endcomment %}
+
+          {%- assign parts = code | split: '-', 2 -%}
+          {%- assign country_full = parts[0] | strip -%}
+          {%- assign currency_data = parts[1] | strip -%}
+          {%- assign currency_parts = currency_data | split: ' ' -%}
+          {%- assign currency_code = currency_parts[0] | upcase -%}
+          {%- assign currency_symbol = currency_parts | slice: 1, currency_parts.size | join: ' ' | strip -%}
+
+          {%- comment %} Convert to lowercase for case-insensitive matching {%- endcomment %}
+          {%- assign country_key = country_full | downcase -%}
+          {%- assign country_iso = '' -%}
+
+          {%- comment %} Comprehensive country to ISO mapping {%- endcomment %}
+          {%- case country_key -%}
+            {%- when 'afghanistan' -%}
+              {%- assign country_iso = 'af' -%}
+            {%- when 'albania' -%}
+              {%- assign country_iso = 'al' -%}
+            {%- when 'algeria' -%}
+              {%- assign country_iso = 'dz' -%}
+            {%- when 'andorra' -%}
+              {%- assign country_iso = 'ad' -%}
+            {%- when 'angola' -%}
+              {%- assign country_iso = 'ao' -%}
+            {%- when 'antigua and barbuda' -%}
+              {%- assign country_iso = 'ag' -%}
+            {%- when 'argentina' -%}
+              {%- assign country_iso = 'ar' -%}
+            {%- when 'armenia' -%}
+              {%- assign country_iso = 'am' -%}
+            {%- when 'australia' -%}
+              {%- assign country_iso = 'au' -%}
+            {%- when 'austria' -%}
+              {%- assign country_iso = 'at' -%}
+            {%- when 'azerbaijan' -%}
+              {%- assign country_iso = 'az' -%}
+            {%- when 'bahamas' -%}
+              {%- assign country_iso = 'bs' -%}
+            {%- when 'bahrain' -%}
+              {%- assign country_iso = 'bh' -%}
+            {%- when 'bangladesh' -%}
+              {%- assign country_iso = 'bd' -%}
+            {%- when 'barbados' -%}
+              {%- assign country_iso = 'bb' -%}
+            {%- when 'belarus' -%}
+              {%- assign country_iso = 'by' -%}
+            {%- when 'belgium' -%}
+              {%- assign country_iso = 'be' -%}
+            {%- when 'belize' -%}
+              {%- assign country_iso = 'bz' -%}
+            {%- when 'benin' -%}
+              {%- assign country_iso = 'bj' -%}
+            {%- when 'bhutan' -%}
+              {%- assign country_iso = 'bt' -%}
+            {%- when 'bolivia' -%}
+              {%- assign country_iso = 'bo' -%}
+            {%- when 'bosnia and herzegovina' -%}
+              {%- assign country_iso = 'ba' -%}
+            {%- when 'botswana' -%}
+              {%- assign country_iso = 'bw' -%}
+            {%- when 'brazil' -%}
+              {%- assign country_iso = 'br' -%}
+            {%- when 'brunei' -%}
+              {%- assign country_iso = 'bn' -%}
+            {%- when 'bulgaria' -%}
+              {%- assign country_iso = 'bg' -%}
+            {%- when 'burkina faso' -%}
+              {%- assign country_iso = 'bf' -%}
+            {%- when 'burundi' -%}
+              {%- assign country_iso = 'bi' -%}
+            {%- when 'cabo verde' -%}
+              {%- assign country_iso = 'cv' -%}
+            {%- when 'cambodia' -%}
+              {%- assign country_iso = 'kh' -%}
+            {%- when 'cameroon' -%}
+              {%- assign country_iso = 'cm' -%}
+            {%- when 'canada' -%}
+              {%- assign country_iso = 'ca' -%}
+            {%- when 'central african republic' -%}
+              {%- assign country_iso = 'cf' -%}
+            {%- when 'chad' -%}
+              {%- assign country_iso = 'td' -%}
+            {%- when 'chile' -%}
+              {%- assign country_iso = 'cl' -%}
+            {%- when 'china' -%}
+              {%- assign country_iso = 'cn' -%}
+            {%- when 'colombia' -%}
+              {%- assign country_iso = 'co' -%}
+            {%- when 'comoros' -%}
+              {%- assign country_iso = 'km' -%}
+            {%- when 'congo' -%}
+              {%- assign country_iso = 'cg' -%}
+            {%- when 'costa rica' -%}
+              {%- assign country_iso = 'cr' -%}
+            {%- when 'croatia' -%}
+              {%- assign country_iso = 'hr' -%}
+            {%- when 'cuba' -%}
+              {%- assign country_iso = 'cu' -%}
+            {%- when 'cyprus' -%}
+              {%- assign country_iso = 'cy' -%}
+            {%- when 'czech republic' -%}
+              {%- assign country_iso = 'cz' -%}
+            {%- when 'denmark' -%}
+              {%- assign country_iso = 'dk' -%}
+            {%- when 'djibouti' -%}
+              {%- assign country_iso = 'dj' -%}
+            {%- when 'dominica' -%}
+              {%- assign country_iso = 'dm' -%}
+            {%- when 'dominican republic' -%}
+              {%- assign country_iso = 'do' -%}
+            {%- when 'ecuador' -%}
+              {%- assign country_iso = 'ec' -%}
+            {%- when 'egypt' -%}
+              {%- assign country_iso = 'eg' -%}
+            {%- when 'el salvador' -%}
+              {%- assign country_iso = 'sv' -%}
+            {%- when 'equatorial guinea' -%}
+              {%- assign country_iso = 'gq' -%}
+            {%- when 'eritrea' -%}
+              {%- assign country_iso = 'er' -%}
+            {%- when 'estonia' -%}
+              {%- assign country_iso = 'ee' -%}
+            {%- when 'eswatini' -%}
+              {%- assign country_iso = 'sz' -%}
+            {%- when 'ethiopia' -%}
+              {%- assign country_iso = 'et' -%}
+            {%- when 'fiji' -%}
+              {%- assign country_iso = 'fj' -%}
+            {%- when 'finland' -%}
+              {%- assign country_iso = 'fi' -%}
+            {%- when 'france' -%}
+              {%- assign country_iso = 'fr' -%}
+            {%- when 'gabon' -%}
+              {%- assign country_iso = 'ga' -%}
+            {%- when 'gambia' -%}
+              {%- assign country_iso = 'gm' -%}
+            {%- when 'georgia' -%}
+              {%- assign country_iso = 'ge' -%}
+            {%- when 'germany' -%}
+              {%- assign country_iso = 'de' -%}
+            {%- when 'ghana' -%}
+              {%- assign country_iso = 'gh' -%}
+            {%- when 'greece' -%}
+              {%- assign country_iso = 'gr' -%}
+            {%- when 'grenada' -%}
+              {%- assign country_iso = 'gd' -%}
+            {%- when 'guatemala' -%}
+              {%- assign country_iso = 'gt' -%}
+            {%- when 'guinea' -%}
+              {%- assign country_iso = 'gn' -%}
+            {%- when 'guinea-bissau' -%}
+              {%- assign country_iso = 'gw' -%}
+            {%- when 'guyana' -%}
+              {%- assign country_iso = 'gy' -%}
+            {%- when 'haiti' -%}
+              {%- assign country_iso = 'ht' -%}
+            {%- when 'honduras' -%}
+              {%- assign country_iso = 'hn' -%}
+            {%- when 'hungary' -%}
+              {%- assign country_iso = 'hu' -%}
+            {%- when 'iceland' -%}
+              {%- assign country_iso = 'is' -%}
+            {%- when 'india' -%}
+              {%- assign country_iso = 'in' -%}
+            {%- when 'indonesia' -%}
+              {%- assign country_iso = 'id' -%}
+            {%- when 'iran' -%}
+              {%- assign country_iso = 'ir' -%}
+            {%- when 'iraq' -%}
+              {%- assign country_iso = 'iq' -%}
+            {%- when 'ireland' -%}
+              {%- assign country_iso = 'ie' -%}
+            {%- when 'israel' -%}
+              {%- assign country_iso = 'il' -%}
+            {%- when 'italy' -%}
+              {%- assign country_iso = 'it' -%}
+            {%- when 'jamaica' -%}
+              {%- assign country_iso = 'jm' -%}
+            {%- when 'japan' -%}
+              {%- assign country_iso = 'jp' -%}
+            {%- when 'jordan' -%}
+              {%- assign country_iso = 'jo' -%}
+            {%- when 'kazakhstan' -%}
+              {%- assign country_iso = 'kz' -%}
+            {%- when 'kenya' -%}
+              {%- assign country_iso = 'ke' -%}
+            {%- when 'kiribati' -%}
+              {%- assign country_iso = 'ki' -%}
+            {%- when 'kuwait' -%}
+              {%- assign country_iso = 'kw' -%}
+            {%- when 'kyrgyzstan' -%}
+              {%- assign country_iso = 'kg' -%}
+            {%- when 'laos' -%}
+              {%- assign country_iso = 'la' -%}
+            {%- when 'latvia' -%}
+              {%- assign country_iso = 'lv' -%}
+            {%- when 'lebanon' -%}
+              {%- assign country_iso = 'lb' -%}
+            {%- when 'lesotho' -%}
+              {%- assign country_iso = 'ls' -%}
+            {%- when 'liberia' -%}
+              {%- assign country_iso = 'lr' -%}
+            {%- when 'libya' -%}
+              {%- assign country_iso = 'ly' -%}
+            {%- when 'liechtenstein' -%}
+              {%- assign country_iso = 'li' -%}
+            {%- when 'lithuania' -%}
+              {%- assign country_iso = 'lt' -%}
+            {%- when 'luxembourg' -%}
+              {%- assign country_iso = 'lu' -%}
+            {%- when 'madagascar' -%}
+              {%- assign country_iso = 'mg' -%}
+            {%- when 'malawi' -%}
+              {%- assign country_iso = 'mw' -%}
+            {%- when 'malaysia' -%}
+              {%- assign country_iso = 'my' -%}
+            {%- when 'maldives' -%}
+              {%- assign country_iso = 'mv' -%}
+            {%- when 'mali' -%}
+              {%- assign country_iso = 'ml' -%}
+            {%- when 'malta' -%}
+              {%- assign country_iso = 'mt' -%}
+            {%- when 'marshall islands' -%}
+              {%- assign country_iso = 'mh' -%}
+            {%- when 'mauritania' -%}
+              {%- assign country_iso = 'mr' -%}
+            {%- when 'mauritius' -%}
+              {%- assign country_iso = 'mu' -%}
+            {%- when 'mexico' -%}
+              {%- assign country_iso = 'mx' -%}
+            {%- when 'micronesia' -%}
+              {%- assign country_iso = 'fm' -%}
+            {%- when 'moldova' -%}
+              {%- assign country_iso = 'md' -%}
+            {%- when 'monaco' -%}
+              {%- assign country_iso = 'mc' -%}
+            {%- when 'mongolia' -%}
+              {%- assign country_iso = 'mn' -%}
+            {%- when 'montenegro' -%}
+              {%- assign country_iso = 'me' -%}
+            {%- when 'morocco' -%}
+              {%- assign country_iso = 'ma' -%}
+            {%- when 'mozambique' -%}
+              {%- assign country_iso = 'mz' -%}
+            {%- when 'myanmar' -%}
+              {%- assign country_iso = 'mm' -%}
+            {%- when 'namibia' -%}
+              {%- assign country_iso = 'na' -%}
+            {%- when 'nauru' -%}
+              {%- assign country_iso = 'nr' -%}
+            {%- when 'nepal' -%}
+              {%- assign country_iso = 'np' -%}
+            {%- when 'netherlands' -%}
+              {%- assign country_iso = 'nl' -%}
+            {%- when 'new zealand' -%}
+              {%- assign country_iso = 'nz' -%}
+            {%- when 'nicaragua' -%}
+              {%- assign country_iso = 'ni' -%}
+            {%- when 'niger' -%}
+              {%- assign country_iso = 'ne' -%}
+            {%- when 'nigeria' -%}
+              {%- assign country_iso = 'ng' -%}
+            {%- when 'north korea' -%}
+              {%- assign country_iso = 'kp' -%}
+            {%- when 'north macedonia' -%}
+              {%- assign country_iso = 'mk' -%}
+            {%- when 'norway' -%}
+              {%- assign country_iso = 'no' -%}
+            {%- when 'oman' -%}
+              {%- assign country_iso = 'om' -%}
+            {%- when 'pakistan' -%}
+              {%- assign country_iso = 'pk' -%}
+            {%- when 'palau' -%}
+              {%- assign country_iso = 'pw' -%}
+            {%- when 'panama' -%}
+              {%- assign country_iso = 'pa' -%}
+            {%- when 'papua new guinea' -%}
+              {%- assign country_iso = 'pg' -%}
+            {%- when 'paraguay' -%}
+              {%- assign country_iso = 'py' -%}
+            {%- when 'peru' -%}
+              {%- assign country_iso = 'pe' -%}
+            {%- when 'philippines' -%}
+              {%- assign country_iso = 'ph' -%}
+            {%- when 'poland' -%}
+              {%- assign country_iso = 'pl' -%}
+            {%- when 'portugal' -%}
+              {%- assign country_iso = 'pt' -%}
+            {%- when 'qatar' -%}
+              {%- assign country_iso = 'qa' -%}
+            {%- when 'romania' -%}
+              {%- assign country_iso = 'ro' -%}
+            {%- when 'russia' -%}
+              {%- assign country_iso = 'ru' -%}
+            {%- when 'rwanda' -%}
+              {%- assign country_iso = 'rw' -%}
+            {%- when 'saint kitts and nevis' -%}
+              {%- assign country_iso = 'kn' -%}
+            {%- when 'saint lucia' -%}
+              {%- assign country_iso = 'lc' -%}
+            {%- when 'saint vincent and the grenadines' -%}
+              {%- assign country_iso = 'vc' -%}
+            {%- when 'samoa' -%}
+              {%- assign country_iso = 'ws' -%}
+            {%- when 'san marino' -%}
+              {%- assign country_iso = 'sm' -%}
+            {%- when 'sao tome and principe' -%}
+              {%- assign country_iso = 'st' -%}
+            {%- when 'saudi arabia' -%}
+              {%- assign country_iso = 'sa' -%}
+            {%- when 'senegal' -%}
+              {%- assign country_iso = 'sn' -%}
+            {%- when 'serbia' -%}
+              {%- assign country_iso = 'rs' -%}
+            {%- when 'seychelles' -%}
+              {%- assign country_iso = 'sc' -%}
+            {%- when 'sierra leone' -%}
+              {%- assign country_iso = 'sl' -%}
+            {%- when 'singapore' -%}
+              {%- assign country_iso = 'sg' -%}
+            {%- when 'slovakia' -%}
+              {%- assign country_iso = 'sk' -%}
+            {%- when 'slovenia' -%}
+              {%- assign country_iso = 'si' -%}
+            {%- when 'solomon islands' -%}
+              {%- assign country_iso = 'sb' -%}
+            {%- when 'somalia' -%}
+              {%- assign country_iso = 'so' -%}
+            {%- when 'south africa' -%}
+              {%- assign country_iso = 'za' -%}
+            {%- when 'south korea' -%}
+              {%- assign country_iso = 'kr' -%}
+            {%- when 'south sudan' -%}
+              {%- assign country_iso = 'ss' -%}
+            {%- when 'spain' -%}
+              {%- assign country_iso = 'es' -%}
+            {%- when 'sri lanka' -%}
+              {%- assign country_iso = 'lk' -%}
+            {%- when 'sudan' -%}
+              {%- assign country_iso = 'sd' -%}
+            {%- when 'suriname' -%}
+              {%- assign country_iso = 'sr' -%}
+            {%- when 'sweden' -%}
+              {%- assign country_iso = 'se' -%}
+            {%- when 'switzerland' -%}
+              {%- assign country_iso = 'ch' -%}
+            {%- when 'syria' -%}
+              {%- assign country_iso = 'sy' -%}
+            {%- when 'taiwan' -%}
+              {%- assign country_iso = 'tw' -%}
+            {%- when 'tajikistan' -%}
+              {%- assign country_iso = 'tj' -%}
+            {%- when 'tanzania' -%}
+              {%- assign country_iso = 'tz' -%}
+            {%- when 'thailand' -%}
+              {%- assign country_iso = 'th' -%}
+            {%- when 'timor-leste' -%}
+              {%- assign country_iso = 'tl' -%}
+            {%- when 'togo' -%}
+              {%- assign country_iso = 'tg' -%}
+            {%- when 'tonga' -%}
+              {%- assign country_iso = 'to' -%}
+            {%- when 'trinidad and tobago' -%}
+              {%- assign country_iso = 'tt' -%}
+            {%- when 'tunisia' -%}
+              {%- assign country_iso = 'tn' -%}
+            {%- when 'turkey' -%}
+              {%- assign country_iso = 'tr' -%}
+            {%- when 'turkmenistan' -%}
+              {%- assign country_iso = 'tm' -%}
+            {%- when 'tuvalu' -%}
+              {%- assign country_iso = 'tv' -%}
+            {%- when 'uganda' -%}
+              {%- assign country_iso = 'ug' -%}
+            {%- when 'ukraine' -%}
+              {%- assign country_iso = 'ua' -%}
+            {%- when 'united arab emirates' -%}
+              {%- assign country_iso = 'ae' -%}
+            {%- when 'united kingdom' -%}
+              {%- assign country_iso = 'gb' -%}
+            {%- when 'united states' -%}
+              {%- assign country_iso = 'us' -%}
+            {%- when 'uruguay' -%}
+              {%- assign country_iso = 'uy' -%}
+            {%- when 'uzbekistan' -%}
+              {%- assign country_iso = 'uz' -%}
+            {%- when 'vanuatu' -%}
+              {%- assign country_iso = 'vu' -%}
+            {%- when 'vatican city' -%}
+              {%- assign country_iso = 'va' -%}
+            {%- when 'venezuela' -%}
+              {%- assign country_iso = 've' -%}
+            {%- when 'vietnam' -%}
+              {%- assign country_iso = 'vn' -%}
+            {%- when 'yemen' -%}
+              {%- assign country_iso = 'ye' -%}
+            {%- when 'zambia' -%}
+              {%- assign country_iso = 'zm' -%}
+            {%- when 'zimbabwe' -%}
+              {%- assign country_iso = 'zw' -%}
+            {%- else -%}
+              {%- comment %} Fallback for unmapped countries {%- endcomment %}
+              {%- assign country_iso = country_full | handleize | downcase | slice: 0, 2 -%}
+          {%- endcase -%}
+
+          {%- comment %} Validate and use fallback if needed {%- endcomment %}
+          {%- unless valid_flag_codes contains country_iso -%}
+            {%- assign country_iso = '' -%}
+          {%- endunless -%}
 
           <button
             type="button"
@@ -156,19 +590,21 @@
             data-currency-item
             data-dropdown-off
             class="currency-item {% if currency_code == cart_iso_code %} is--selected{% endif %}"
-            data-iso="{{ country_iso_code }}"
-            data-country="{{ country_iso_code | handleize | downcase | slice: 0, 2 }}"
+            data-iso="{{ currency_code }}"
+            data-country="{{ country_iso }}"
           >
-            <img
-              src="https://cdn.shopify.com/static/images/flags/{{ country_iso_code | handleize | downcase | slice: 0, 2 }}.svg?width=30"
-              srcset="https://cdn.shopify.com/static/images/flags/{{ country_iso_code | handleize | downcase | slice: 0, 2 }}.svg?width=30 30w"
-              alt="{{ data_currency }}"
-              width="30"
-              height="23"
-              loading="lazy"
-            >
+            {%- if country_iso != '' -%}
+              <img
+                src="https://cdn.shopify.com/static/images/flags/{{ country_iso }}.svg?width=30"
+                srcset="https://cdn.shopify.com/static/images/flags/{{ country_iso }}.svg?width=30 30w"
+                alt="{{ currency_code }}"
+                width="30"
+                height="23"
+                loading="lazy"
+              >
+            {%- endif -%}
             <span>
-              {{- data_currency }} - {{ country_iso_code }}
+              {{- currency_code }} - {{ country_full }}
               {{ currency_symbol -}}
             </span>
           </button>
