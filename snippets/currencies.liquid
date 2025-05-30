@@ -118,7 +118,7 @@
 
 {%- elsif settings.currency_type == '2' -%}
   {%- assign supported_codes = settings.supported_currencies | split: '|' -%}
-  <div data-currency-wrap class="top-bar__currencies d-inline-block">
+  <div data-currency-wrap class="dropdown top-bar__currencies d-inline-block">
     <button data-dropdown-open data-position="bottom-end" data-id="dropdown_currencies{{ sid }}">
       <span data-current class="d-inline-block flags-{{ cart_iso_code | downcase }}">
         <img
