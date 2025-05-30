@@ -205,7 +205,7 @@
             {% assign bk_stts = block.settings %}
             <div
               id="b_{{block.id}}"
-              class="top-bar__{{block.type}} col-item col-12 text-center col-lg-{{bk_stts.col}} text-lg-{{bk_stts.text_align}} {% if bk_stts.hide %} d-none d-md-block{% endif %}"
+              class="top-bar__{{block.type}} col-item col-12 text-center col-lg-{{bk_stts.col}} text-lg-{{bk_stts.text_align}} {% if bk_stts.hide %}d-none d-md-none{% endif %}"
             >
               {%- case block.type -%}
                 {%- when 'cur' -%}
