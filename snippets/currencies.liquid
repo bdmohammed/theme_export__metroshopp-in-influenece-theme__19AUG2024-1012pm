@@ -153,8 +153,8 @@
             data-country="{{ country_iso_code }}"
           >
             <img
-              src="https://cdn.shopify.com/static/images/flags/{{ country_iso_code }}.svg?width=30"
-              srcset="https://cdn.shopify.com/static/images/flags/{{ country_iso_code }}.svg?width=30 30w"
+              src="https://cdn.shopify.com/static/images/flags/{{ country_iso_code | downcase }}.svg?width=30"
+              srcset="https://cdn.shopify.com/static/images/flags/{{ country_iso_code | downcase }}.svg?width=30 30w"
               alt="{{ country_name }}"
               width="30"
               height="23"
