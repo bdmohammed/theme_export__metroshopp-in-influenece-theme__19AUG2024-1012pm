@@ -147,7 +147,7 @@
           {%- assign array_money = code | split: '-' -%}
           {%- assign data_currency = array_money | first | upcase | strip | remove: ' ' -%}
           {%- assign name_money = array_money | last | strip | split: ' ' -%}
-          {%- assign country_iso_code = name_money | first | strip | downcase -%}
+          {%- assign country_iso_code = name_money | first | strip -%}
           {%- assign currency_symbol = name_money | last | strip -%}
 
           <button
@@ -160,8 +160,8 @@
             data-country="{{ country_iso_code }}"
           >
             <img
-              src="https://cdn.shopify.com/static/images/flags/{{ country_iso_code | handleize | slice: 0, 2 }}.svg?width=30"
-              srcset="https://cdn.shopify.com/static/images/flags/{{ country_iso_code | handleize | slice: 0, 2 }}.svg?width=30 30w"
+              src="https://cdn.shopify.com/static/images/flags/{{ country_iso_code | handleize | downcase | slice: 0, 2 }}.svg?width=30"
+              srcset="https://cdn.shopify.com/static/images/flags/{{ country_iso_code | handleize | downcase | slice: 0, 2 }}.svg?width=30 30w"
               alt="{{ data_currency }}"
               width="30"
               height="23"
