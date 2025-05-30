@@ -139,17 +139,18 @@
       <div class="dropdown__list">
         {%- for code in supported_codes -%}
           {%- assign array_money = code | split: '-' -%}
-          {%- assign country_name = array_money[0] | strip | remove: ' ' -%}
-          {%- assign country_iso_code = array_money[1] | strip | remove: ' ' -%}
-          {%- assign currency_code = array_money[2] | strip | remove: ' ' -%}
-          {%- assign currency_symbol = array_money[3] | strip | downcase -%}
+          {%- assign country_name = array_money[0] | strip -%}
+          {%- assign country_iso_code = array_money[1] | strip -%}
+          {%- assign currency_code = array_money[2] | strip -%}
+          {%- assign currency_symbol = array_money[3] | strip -%}
           <button
             type="button"
+            data-flags="{{ sz }}"
             data-currency-item
             data-dropdown-off
-            class="currency-item flags-{{ currency_code }} {% if currency_code == cart_iso_code %} is--selected{% endif %}"
-            data-currency="{{ currency_code }}"
-            data-country="{{ country_name }}"
+            class="currency-item {% if currency_code == cart_iso_code %} is--selected{% endif %}"
+            data-iso="{{ currency_code }}"
+            data-country="{{ country_iso_code }}"
           >
             <img
               src="https://cdn.shopify.com/static/images/flags/{{ country_iso_code }}.svg?width=30"
