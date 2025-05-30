@@ -175,12 +175,12 @@
             </button>
           {% endcomment %}
 
-          {%- assign parts = code | split: '-', 2 -%}
-          {%- assign country_full = parts[0] | strip -%}
-          {%- assign currency_data = parts[1] | strip -%}
+          {%- assign parts = code | split: '-' -%}
+          {%- assign country_full = parts | first | strip -%}
+          {%- assign currency_data = parts | last | strip -%}
           {%- assign currency_parts = currency_data | split: ' ' -%}
-          {%- assign currency_code = currency_parts[0] | upcase -%}
-          {%- assign currency_symbol = currency_parts | slice: 1, currency_parts.size | join: ' ' | strip -%}
+          {%- assign currency_code = currency_parts | first | upcase -%}
+          {%- assign currency_symbol = currency_parts | last | strip -%}
 
           {%- comment %} Convert to lowercase for case-insensitive matching {%- endcomment %}
           {%- assign country_key = country_full | downcase -%}
@@ -578,11 +578,6 @@
               {%- comment %} Fallback for unmapped countries {%- endcomment %}
               {%- assign country_iso = country_full | handleize | downcase | slice: 0, 2 -%}
           {%- endcase -%}
-
-          {%- comment %} Validate and use fallback if needed {%- endcomment %}
-          {%- unless valid_flag_codes contains country_iso -%}
-            {%- assign country_iso = '' -%}
-          {%- endunless -%}
 
           <button
             type="button"
