@@ -12,6 +12,10 @@
   {{ 'currencies.css' | asset_url | stylesheet_tag }}
 {% endif -%}
 
+{% for link in linklists.['currency-the4'].links -%}
+  {{ link.title | link_to: link.url }}
+{%- endfor %}
+
 {%- if shop.enabled_currencies.size > 1 and settings.currency_type == '1' -%}
   {%- if linklists['currency-the4'].links.size > 0 -%}
     {%- assign ck_iso_code = '#' | append: cart_iso_code -%}
