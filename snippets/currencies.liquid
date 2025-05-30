@@ -156,7 +156,7 @@
             data-currency-item
             data-dropdown-off
             class="currency-item {% if currency_code == cart_iso_code %} is--selected{% endif %}"
-            data-iso="{{ currency_code }}"
+            data-iso="{{ country_iso_code }}"
             data-country="{{ country_iso_code }}"
           >
             <img
@@ -168,7 +168,7 @@
               loading="lazy"
             >
             <span>
-              {{- data_currency }} - {{ currency_code }}
+              {{- data_currency }} - {{ country_iso_code }}
               {{ currency_symbol -}}
             </span>
           </button>
