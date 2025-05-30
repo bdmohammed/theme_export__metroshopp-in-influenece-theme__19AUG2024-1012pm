@@ -1617,8 +1617,8 @@
         "type": "textarea",
         "id": "supported_currencies",
         "label": "t:settings_schema.language_and_currency.settings.Th4_currency.supported_currencies.label",
-        "default": "EUR - EUR | USD - USD | GBP - GBP",
-        "placeholder": "EUR - Euro | USD - US Dollar | GBP - British Pound",
+        "default": "Canada - CA - CAD - $ | France - FR - EUR - € | Germany - DE - EUR - € | Japan - JP - JPY - ¥ | New zealand - NZ - NZD - $ | United kingdom - UK - GBP - £ | United states - US - USD - $ | Vietnam - VN - VND - ₫",
+        "placeholder": "Country_name - Country_iso_code - Currency_code - Currency_symbol | Country_name - Country_iso_code - Currency_code - Currency_symbol",
         "info": "t:settings_schema.language_and_currency.settings.Th4_currency.supported_currencies.info"
       },
       {
