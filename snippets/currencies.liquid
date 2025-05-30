@@ -138,9 +138,9 @@
       <div class="drop-arrow"></div>
       {%- for code in supported_codes -%}
         {%- assign array_money = code | split: '-' -%}
-        {%- assign country_name = array_money[0] | upcase | strip | remove: ' ' -%}
-        {%- assign country_iso_code = array_money[1] | upcase | strip | remove: ' ' -%}
-        {%- assign currency_code = array_money[2] | upcase | strip | remove: ' ' -%}
+        {%- assign country_name = array_money[0] | strip | remove: ' ' -%}
+        {%- assign country_iso_code = array_money[1] | strip | remove: ' ' -%}
+        {%- assign currency_code = array_money[2] | strip | remove: ' ' -%}
         {%- assign currency_symbol = array_money[3] | strip | downcase -%}
         <button
           type="button"
