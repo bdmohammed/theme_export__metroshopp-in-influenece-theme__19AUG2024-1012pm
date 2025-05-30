@@ -136,27 +136,56 @@
     </button>
     <div data-dropdown-wrapper class="dropdown__wrapper" id="dropdown_currencies{{ sid }}">
       <div class="drop-arrow"></div>
-      {%- for code in supported_codes -%}
-        {%- assign array_money = code | split: '-' -%}
-        {%- assign country_name = array_money | first | upcase | strip | remove: ' ' -%}
-        {%- assign name_money = array_money | last | strip | downcase -%}
-        <button
-          type="button"
-          data-currency-item
-          data-dropdown-off
-          class="currency-item flags-{{ name_money }} {% if name_money == cart_iso_code %} is--selected{% endif %}"
-          data-currency="{{ name_money }}"
-          data-country="{{ country_name }}"
-        >
-          <img
-            src="https://cdn.shopify.com/static/images/flags/{{ name_money }}.svg?width=30"
-            alt="{{ name_money | upcase }}"
-            width="30"
-            height="23"
-            loading="lazy"
+      {% comment %}
+        {%- for code in supported_codes -%}
+          {%- assign array_money = code | split: '-' -%}
+          {%- assign country_name = array_money | first | upcase | strip | remove: ' ' -%}
+          {%- assign name_money = array_money | last | strip | downcase -%}
+          <button
+            type="button"
+            data-currency-item
+            data-dropdown-off
+            class="currency-item flags-{{ name_money }} {% if name_money == cart_iso_code %} is--selected{% endif %}"
+            data-currency="{{ name_money }}"
+            data-country="{{ country_name }}"
           >
-          {{ name_money | upcase }}
-        </button>
+            <img
+              src="https://cdn.shopify.com/static/images/flags/{{ name_money }}.svg?width=30"
+              alt="{{ name_money | upcase }}"
+              width="30"
+              height="23"
+              loading="lazy"
+            >
+            {{ name_money | upcase }}
+          </button>
+        {%- endfor -%}
+      {% endcomment %}
+      {%- for localization in localization.available_countries -%}
+        {%- if localization.currency.iso_code != blank -%}
+          <button
+            type="button"
+            data-flagst4s="sm"
+            data-currency-item=""
+            data-dropdown-off=""
+            class="t4s-currency-item flagst4s{% if localization.iso_code == localization.country.iso_code %} is--selected{% endif %}"
+            data-iso="{{ localization.currency.iso_code }}"
+            data-country="{{ localization.iso_code }}"
+          >
+            <img
+              src="//cdn.shopify.com/static/images/flags/{{ localization.iso_code | downcase }}.svg?width=30"
+              alt="{{ localization.name }}"
+              srcset="//cdn.shopify.com/static/images/flags/{{ localization.iso_code | downcase }}.svg?width=30 30w"
+              width="30"
+              height="23"
+              loading="lazy"
+            >
+
+            <span>
+              {{- localization.name }} - {{ localization.currency.iso_code }}
+              {{ localization.currency.symbol -}}
+            </span>
+          </button>
+        {%- endif -%}
       {%- endfor -%}
     </div>
   </div>
