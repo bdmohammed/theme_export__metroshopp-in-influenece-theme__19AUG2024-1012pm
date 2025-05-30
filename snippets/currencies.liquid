@@ -164,8 +164,8 @@
 
 <p>The customer is connecting from: {{ localization.country.iso_code }}</p>
 <script>
-  console.log('localization.available_countries', {{ localization.available_countries }});
+  console.log('localization.available_countries', {{ localization.available_countries | json}});
   console.log('localization.country', {{ localization.country }});
-  console.log('localization.market', {{ localization.market }});
+  console.log('localization.market', {{ localization.market | json }});
   console.log('localization.currency', {{ localization.currency }});
 </script>
