@@ -104,7 +104,7 @@
           "top-bar-1": {
             "type": "text",
             "settings": {
-              "text": "<p>Summer sale discount off <strong>50%</strong>! Shop Now</p>",
+              "text": "<p>Summer sale discount off <strong>50%</strong>! <a href=\"/collections\" title=\"All collections\">Shop Now</a></p>",
               "countdown": "2026/04/19",
               "txt_day": "days",
               "dayx": 0,
