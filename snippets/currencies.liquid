@@ -134,7 +134,11 @@
         <polyline fill="none" stroke="currentColor" points="17 2 9.5 10 2 2" fill-rule="evenodd" stroke-width="2" stroke-linecap="square"></polyline>
       </svg>
     </button>
-    <div data-dropdown-wrapper class="dropdown__wrapper" id="dropdown_currencies{{ sid }}">
+    <div
+      data-dropdown-wrapper
+      class="dropdown__wrapper t4s-dropdown__wrapper currency_type_1 current-scrollbar is-style-mb--false"
+      id="dropdown_currencies-{{ sid }}"
+    >
       <div class="drop-arrow"></div>
       <div class="dropdown__list">
         {%- for code in supported_codes -%}
