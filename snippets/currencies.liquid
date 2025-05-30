@@ -126,7 +126,19 @@
         <img
           src="https://cdn.shopify.com/static/images/flags/{{ cart_iso_code | downcase | handleize | slice: 0, 2 }}.svg?width=30"
           srcset="https://cdn.shopify.com/static/images/flags/{{ cart_iso_code | downcase | handleize | slice: 0, 2 }}.svg?width=30 30w"
-          alt="{{ cart_country_name }}"
+          alt="
+            {{ cart_country_name |  remove: ' Dollars' | remove: ' Dollar'
+            | remove: ' Euro' | remove: ' Euros'
+            | remove: ' Pound' | remove: ' Pounds'
+            | remove: ' Yen' | remove: ' Yuan'
+            | remove: ' Peso' | remove: ' Pesos'
+            | remove: ' Franc' | remove: ' Francs'
+            | remove: ' Krona' | remove: ' Kronor'
+            | remove: ' Krone' | remove: ' Kroner'
+            | remove: ' Rupee' | remove: ' Rupees'
+            | remove: ' Baht' | remove: ' Ringgit'
+            | strip }}
+          "
           width="30"
           height="23"
           loading="lazy"
