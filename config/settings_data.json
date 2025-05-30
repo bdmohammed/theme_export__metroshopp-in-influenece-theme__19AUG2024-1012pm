@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "link_color_hover": "#56cfe1",
     "currency_type": "2",
     "supported_currencies": "Canada - CA - CAD - $ | France - FR - EUR - € | Germany - DE - EUR - € | Japan - JP - JPY - ¥ | New zealand - NZ - NZD - $ | United kingdom - UK - GBP - £ | United states - US - USD - $ | Vietnam - VN - VND - ₫",
     "sections": {
