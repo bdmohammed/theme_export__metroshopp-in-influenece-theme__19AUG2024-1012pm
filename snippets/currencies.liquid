@@ -136,34 +136,36 @@
     </button>
     <div data-dropdown-wrapper class="dropdown__wrapper" id="dropdown_currencies{{ sid }}">
       <div class="drop-arrow"></div>
-      {%- for code in supported_codes -%}
-        {%- assign array_money = code | split: '-' -%}
-        {%- assign country_name = array_money[0] | strip | remove: ' ' -%}
-        {%- assign country_iso_code = array_money[1] | strip | remove: ' ' -%}
-        {%- assign currency_code = array_money[2] | strip | remove: ' ' -%}
-        {%- assign currency_symbol = array_money[3] | strip | downcase -%}
-        <button
-          type="button"
-          data-currency-item
-          data-dropdown-off
-          class="currency-item flags-{{ currency_code }} {% if currency_code == cart_iso_code %} is--selected{% endif %}"
-          data-currency="{{ currency_code }}"
-          data-country="{{ country_name }}"
-        >
-          <img
-            src="https://cdn.shopify.com/static/images/flags/{{ country_iso_code }}.svg?width=30"
-            srcset="https://cdn.shopify.com/static/images/flags/{{ country_iso_code }}.svg?width=30 30w"
-            alt="{{ country_name }}"
-            width="30"
-            height="23"
-            loading="lazy"
+      <div class="dropdown__list">
+        {%- for code in supported_codes -%}
+          {%- assign array_money = code | split: '-' -%}
+          {%- assign country_name = array_money[0] | strip | remove: ' ' -%}
+          {%- assign country_iso_code = array_money[1] | strip | remove: ' ' -%}
+          {%- assign currency_code = array_money[2] | strip | remove: ' ' -%}
+          {%- assign currency_symbol = array_money[3] | strip | downcase -%}
+          <button
+            type="button"
+            data-currency-item
+            data-dropdown-off
+            class="currency-item flags-{{ currency_code }} {% if currency_code == cart_iso_code %} is--selected{% endif %}"
+            data-currency="{{ currency_code }}"
+            data-country="{{ country_name }}"
           >
-          <span>
-            {{- country_name }} - {{ currency_code }}
-            {{ currency_symbol -}}
-          </span>
-        </button>
-      {%- endfor -%}
+            <img
+              src="https://cdn.shopify.com/static/images/flags/{{ country_iso_code }}.svg?width=30"
+              srcset="https://cdn.shopify.com/static/images/flags/{{ country_iso_code }}.svg?width=30 30w"
+              alt="{{ country_name }}"
+              width="30"
+              height="23"
+              loading="lazy"
+            >
+            <span>
+              {{- country_name }} - {{ currency_code }}
+              {{ currency_symbol -}}
+            </span>
+          </button>
+        {%- endfor -%}
+      </div>
       {% comment %}
         {%- for localization in localization.available_countries -%}
           {%- if localization.currency.iso_code != blank -%}
