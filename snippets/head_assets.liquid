@@ -92,11 +92,11 @@
      {% comment %} --font-button-family : {% if settings.fnt_fm_button == '1' %}{{ ts_font_fm1 }}{% elsif settings.fnt_fm_button == '2' %}{{ ts_font_fm2 }}{% else %}{{ ts_font_fm3 }}{% endif %};{% endcomment %}
 
       --ts-success-color       : #428445;
-      --ts-success-color-rgb   : {{ '#428445' | color_to_rgb | remove:'rgb(' |remove:')' }};
+      --ts-success-color-rgb   : {{ '#428445' | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
       --ts-warning-color       : #e0b252;
-      --ts-warning-color-rgb   : {{ '#e0b252' | color_to_rgb | remove:'rgb(' |remove:')' }};
+      --ts-warning-color-rgb   : {{ '#e0b252' | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
       --ts-error-color         : #EB001B;
-      --ts-error-color-rgb     : {{ '#EB001B' | color_to_rgb | remove:'rgb(' |remove:')' }};
+      --ts-error-color-rgb     : {{ '#EB001B' | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
       --ts-light-color         : #ffffff;
       --ts-dark-color          : #222222;
       --ts-highlight-color     : #ec0101;
@@ -104,7 +104,7 @@
       --ts-tooltip-color       : {{ settings.cl_tooltip }};
       --loading-bar-color       : {{ settings.loading_bar_color }};
       --primary-sw-color        : {{settings.sw_primary}};
-      --primary-sw-color-rgb    : {{settings.sw_primary | color_to_rgb | remove:'rgb(' |remove:')' }};
+      --primary-sw-color-rgb    : {{settings.sw_primary | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
       --border-sw-color         : {{settings.sw_border}};
       --secondary-sw-color      : {{settings.sw_secondary}};
       --primary-price-color     : {{settings.price_primary}};
@@ -112,18 +112,18 @@
 
       --ts-body-background     : {{ settings.body_bg }};
       --text-color              : {{ settings.text_color }};
-      --text-color-rgb          : {{ settings.text_color | color_to_rgb | remove:'rgb(' |remove:')' }};
+      --text-color-rgb          : {{ settings.text_color | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
       --heading-color           : {{ settings.heading_color }};
       --accent-color            : {{ settings.accent_color }};
-      --accent-color-rgb        : {{ settings.accent_color | color_to_rgb | remove:'rgb(' |remove:')' }};
+      --accent-color-rgb        : {{ settings.accent_color | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
       --accent-color-darken     : {{ settings.accent_color | color_darken: 15 }};
       --accent-color-hover      : var(--accent-color-darken);
       --secondary-color         : {{ settings.secondary_color }};
-      --secondary-color-rgb     : {{ settings.secondary_color | color_to_rgb | remove:'rgb(' |remove:')' }};
+      --secondary-color-rgb     : {{ settings.secondary_color | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
       --link-color              : {{ settings.link_color }};
       --link-color-hover        : {{ settings.link_color_hover }};
       --border-color            : {{ settings.border_color }};
-      --border-color-rgb        : {{ settings.border_color | color_to_rgb | remove:'rgb(' |remove:')' }};
+      --border-color-rgb        : {{ settings.border_color | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
       --border-primary-color    : {{ settings.border_primary_color }};
       --button-background       : {{ settings.btn_bg }};
       --button-color            : {{ settings.btn_color }};

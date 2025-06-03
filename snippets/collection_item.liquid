@@ -17,7 +17,7 @@
           {%- if image != blank -%}
             <img
               class="lazyload lz--fadeIn obj-eff"
-              data-src="{{ image | image_url: '1x1' }}"
+              data-src="{{ image | image_url: width: 1 }}"
               data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
               data-optimumx="2"
               data-sizes="auto"
@@ -28,14 +28,14 @@
             >
             <span
               class="lazyload-loader is-bg-img"
-              style="background: url({{ image | image_url: '1x1' }});"
+              style="background: url({{ image | image_url: width: 1 }});"
             ></span>
           {%- elsif collection != blank -%}
             {%- assign image = collection.image -%}
             {% if image != blank %}
               <img
                 class="lazyload lz--fadeIn obj-eff"
-                data-src="{{ image | image_url: '1x1' }}"
+                data-src="{{ image | image_url: width: 1 }}"
                 data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
                 data-optimumx="2"
                 data-sizes="auto"
@@ -46,7 +46,7 @@
               >
               <span
                 class="lazyload-loader is-bg-img"
-                style="background: url({{ image | image_url: '1x1' }});"
+                style="background: url({{ image | image_url: width: 1 }});"
               ></span>
             {% else %}
               {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg obj-eff' }}

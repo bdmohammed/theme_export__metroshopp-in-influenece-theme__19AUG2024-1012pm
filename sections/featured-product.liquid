@@ -231,7 +231,7 @@
 <div
   class="product-featured product-media__{{media_layout}} product-thumb-size__{{se_stts.thumb_lr_size}} section-inner {{se_class}} nt_se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}"
   {% if stt_image_bg != blank and stt_layout != 'se-container' %}
-    data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+    data-bgset="{{ stt_image_bg | image_url: width: 1 }}" data-sizes="auto" data-optimumx="1.5"
   {% endif %}
   {% render 'section_style', se_stts: se_stts -%}
 >
@@ -240,7 +240,7 @@
     <div
       class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}"
       {% if stt_image_bg != blank %}
-        data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+        data-bgset="{{ stt_image_bg | image_url: width: 1 }}" data-sizes="auto" data-optimumx="1.5"
       {% endif %}
     >
   {% endif -%}
@@ -282,7 +282,7 @@
                     <img
                       data-master="{{image | asset_url | image_url: 'master'}}"
                       class="lazyload lz--fadeIn"
-                      data-src="{{ image | asset_url | image_url: '1x1' }}"
+                      data-src="{{ image | asset_url | image_url: width: 1 }}"
                       data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
                       data-optimumx="1.5"
                       data-sizes="auto"
@@ -761,7 +761,7 @@
                         width="{{image.width}}"
                         height="{{image.height}}"
                         src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20{{image.width}}%20{{image.height}}%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3C%2Fsvg%3E"
-                        data-src="{{ image | image_url: '1x1' }}"
+                        data-src="{{ image | image_url: width: 1 }}"
                         data-widths="[60, 90, 180, 320, 640]"
                         data-sizes="auto"
                         class="w-full lazyload lz--fadeIn"
@@ -779,7 +779,7 @@
                 {%- capture html_trust -%}
                       {%- assign image = bk_stts.image -%}
                       {%- if bk_stts.source == '1' and image != blank  -%}
-                          <img style="--max-w-img:{{bk_stts.wimg}}%" width="{{image.width}}" height="{{image.height}}" class="img-tr__img lazyload" src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20{{image.width}}%20{{image.height}}%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3C%2Fsvg%3E" data-src="{{ image | image_url: '1x1' }}" data-widths="[90, 120, 150, 180, 360, 480, 600, 750, 940]" data-sizes="auto" alt="{{image.alt}}">
+                          <img style="--max-w-img:{{bk_stts.wimg}}%" width="{{image.width}}" height="{{image.height}}" class="img-tr__img lazyload" src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20{{image.width}}%20{{image.height}}%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3C%2Fsvg%3E" data-src="{{ image | image_url: width: 1 }}" data-widths="[90, 120, 150, 180, 360, 480, 600, 750, 940]" data-sizes="auto" alt="{{image.alt}}">
                       {%- else bk_stts.svg -%}
                           {%- assign isStyleSvg = true -%}
                           {%- assign svg_height = bk_stts.height -%}

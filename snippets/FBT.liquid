@@ -37,7 +37,7 @@
                 assign price = current_variant.price
                 assign compare_pr = current_variant.compare_at_price | default: price
                 assign image = current_variant.featured_image | default: product.featured_image
-                assign img_url = image | image_url: '1x1'
+                assign img_url = image | image_url: width: 1
               -%}
 
               <li class="fbt__img fbt_img-0 relative" data-groups-img="{% increment indexData %}">
@@ -67,7 +67,7 @@
                   assign price = price | plus: cu_pr
                   assign compare_pr = compare_pr | plus: cp_pr
                   assign image = current_variant_item.featured_image | default: item.featured_image
-                  assign img_url = image | image_url: '1x1'
+                  assign img_url = image | image_url: width: 1
                 -%}
 
                 <li class="fbt__img fbt_img{% decrement index %} relative" data-groups-img="{% increment indexData %}">
@@ -175,7 +175,7 @@
               >
                 {%- for variant in available_v -%}
                   <option
-                    data-img="{{variant.image | default:featured_image | image_url: '1x1'}}"
+                    data-img="{{variant.image | default:featured_image | image_url: width: 1}}"
                     data-cpprice="{{variant.compare_at_price |default:variant.price}}"
                     data-price="{{variant.price}}"
                     data-max="{% if variant.inventory_management == blank or variant.inventory_policy == 'continue' %}9999{% else %}{{ variant.inventory_quantity |default:9999 }}{% endif %}"
@@ -249,7 +249,7 @@
                 >
                   {%- for variant in available_v -%}
                     <option
-                      data-img="{{variant.image | default:featured_image | image_url: '1x1'}}"
+                      data-img="{{variant.image | default:featured_image | image_url: width: 1}}"
                       data-cpprice="{{variant.compare_at_price |default:variant.price}}"
                       data-price="{{variant.price}}"
                       data-max="{% if variant.inventory_management == blank or variant.inventory_policy == 'continue' %}9999{% else %}{{ variant.inventory_quantity |default:9999 }}{% endif %}"

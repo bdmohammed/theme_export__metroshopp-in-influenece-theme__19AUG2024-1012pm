@@ -56,9 +56,9 @@
             <div class="col-item ins-item" id="b_{{block.id}}" data-select-flickity {{ block.shopify_attributes }}>    
                 <div class="ins-wrap relative overflow-hidden">         
                     <{{ARRhtml[0]}} {{ARRhtml[1]}}href="{{url}}" {{ARRhtml[2]}}target="_blank"> 
-                        <div class="ratio" {{bk_stts.url}} style="background: url({{ image | image_url: '1x1' }});--aspect-ratioapt: {{image.aspect_ratio | default: 1.7776}}; --br-rdu: {{se_stts.image_bdr}}%;">
+                        <div class="ratio" {{bk_stts.url}} style="background: url({{ image | image_url: width: 1 }});--aspect-ratioapt: {{image.aspect_ratio | default: 1.7776}}; --br-rdu: {{se_stts.image_bdr}}%;">
                             {%- if image != blank -%}
-                                <img class="lazyload lz--fadeIn" data-src="{{ image | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src=" {%- render 'img_svg',w:image.width,h:image.height -%} " width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
+                                <img class="lazyload lz--fadeIn" data-src="{{ image | image_url: width: 1 }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src=" {%- render 'img_svg',w:image.width,h:image.height -%} " width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
                             {%- else -%}
                                 {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }} 
                             {%- endif -%} 

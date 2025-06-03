@@ -119,7 +119,7 @@
               <div class="col-item ratio" style="--aspect-ratioapt: {{image.aspect_ratio | default: 1.2}}">
                 <img
                   class="lazyload lz--fadeIn obj-eff"
-                  data-src="{{ image | image_url: '1x1' }}"
+                  data-src="{{ image | image_url: width: 1 }}"
                   data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
                   data-optimumx="2"
                   data-sizes="auto"
@@ -130,7 +130,7 @@
                 >
                 <span
                   class="lazyload-loader is-bg-img"
-                  style="background: url({{ image | image_url: '1x1' }});"
+                  style="background: url({{ image | image_url: width: 1 }});"
                 ></span>
               </div>
             {% endif %}
@@ -611,9 +611,9 @@
           class="popup__age_wrap mfp-with-anim mfp-hide text-center{% if image != blank %} lazyload{% endif %}"
           data-stt='{ "day_next": {{bk_stts.day_next}},"date_of_birth":{{bk_stts.date_of_birth}},"age_limit":{{bk_stts.age_limit}} }'
           {% if image != blank %}
-            {%- assign ratio = image.aspect_ratio %} data-bgset="{{ image | image_url: '1x1' }}" data-optimumx="2"
+            {%- assign ratio = image.aspect_ratio %} data-bgset="{{ image | image_url: width: 1 }}" data-optimumx="2"
             data-parent-fit="width" data-ratio="{{image.aspect_ratio}}" data-sizes="auto"
-            style="background-image: url({{ image | image_url: '1x1' }})"
+            style="background-image: url({{ image | image_url: width: 1 }})"
           {% endif %}
         >
           <div class="age_verify_txt">

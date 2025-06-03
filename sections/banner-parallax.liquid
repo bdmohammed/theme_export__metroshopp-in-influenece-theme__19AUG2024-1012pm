@@ -47,7 +47,7 @@
   data-ts-animate
   class="section-inner se_{{sid}} {{stt_layout}} position_{{image_position}} {{se_height}} cuspx1_{{se_stts.custom_mb}} cuspx2_{{se_stts.custom_tb}} cuspx3_{{se_stts.custom_dk}} {% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}"
   {% if stt_image_bg != blank and stt_layout != 'se-container' %}
-    data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+    data-bgset="{{ stt_image_bg | image_url: width: 1 }}" data-sizes="auto" data-optimumx="1.5"
   {% endif %}
   data-speed="0.2"
   {% render 'section_style', se_stts: se_stts, append_style: append_style -%}
@@ -57,7 +57,7 @@
     <div
       class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload lz--fadeIn{% endif %}"
       {% if stt_image_bg != blank %}
-        data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto" data-optimumx="1.5"
+        data-bgset="{{ stt_image_bg | image_url: width: 1 }}" data-sizes="auto" data-optimumx="1.5"
       {% endif %}
     >
   {% endif -%}
@@ -65,8 +65,8 @@
     data-parallax-{{ IsParallax }}
     class="ratio bg parallax parallax-bg lazyload "
     {% if image_parallax != blank %}
-      data-bgset="{{ image_parallax | image_url: '1x1' }}"
-      style="background-image: url({{ image_parallax | image_url: '1x1' }})"
+      data-bgset="{{ image_parallax | image_url: width: 1 }}"
+      style="background-image: url({{ image_parallax | image_url: width: 1 }})"
     {% endif %}
     data-sizes="auto"
     data-optimumx="1.5"
@@ -142,7 +142,7 @@
                 >
                   <img
                     class="lazyload lz--fadeIn"
-                    data-src="{{ image | image_url: '1x1' }}"
+                    data-src="{{ image | image_url: width: 1 }}"
                     data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
                     data-optimumx="2"
                     data-sizes="auto"
@@ -153,7 +153,7 @@
                   >
                   <span
                     class="lazyload-loader is-bg-img"
-                    style="background: url({{ image | image_url: '1x1' }});"
+                    style="background: url({{ image | image_url: width: 1 }});"
                   ></span>
                 </div>
               {%- endif -%}

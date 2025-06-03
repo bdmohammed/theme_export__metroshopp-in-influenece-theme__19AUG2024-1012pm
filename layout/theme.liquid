@@ -118,7 +118,7 @@
   <body
     class="template-{{ request.page_type | handle }} {{class_lazy}}"
     {% if body_img != blank %}
-      data-bgset="{{ body_img | image_url: '1x1' }}" data-optimumx="1.5" data-sizes="auto"
+      data-bgset="{{ body_img | image_url: width: 1 }}" data-optimumx="1.5" data-sizes="auto"
     {% endif -%}
   >
     <div class="close-overlay opacity-0"></div>

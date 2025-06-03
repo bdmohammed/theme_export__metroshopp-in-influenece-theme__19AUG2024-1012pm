@@ -20,14 +20,14 @@
               width="120"
               height="{{ 120 | divided_by: image.aspect_ratio | ceil }}"
               src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20120%20{{120 | divided_by: image.aspect_ratio | ceil}}%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3C%2Fsvg%3E"
-              data-src="{{ image | image_url: '1x1' }}"
+              data-src="{{ image | image_url: width: 1 }}"
               data-widths="[120, 240]"
               data-sizes="auto"
               alt="{{ image.alt | escape }}"
             >
             <span
               class="lazyload-loader is-bg-img"
-              style="background: url({{ image | image_url: '1x1' }});"
+              style="background: url({{ image | image_url: width: 1 }});"
             ></span>
           {%- endif -%}
           <div class="cart-ld__bar pointer-events-none dn" hidden>

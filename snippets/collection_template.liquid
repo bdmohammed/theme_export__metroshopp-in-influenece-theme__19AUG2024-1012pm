@@ -20,13 +20,13 @@
       <a class="cat_item_link img-wrap d-block" href="{{ collection_link }}" target="{{open_link}}">
         <div
           class="ratio ratio_hasmb"
-          style="background: url({{ image | image_url: '1x1' }});--aspect-ratioapt: {{html[4]}}/{{html[5]}};--aspect-ratioapttb: {{html[6]}}/{{html[7]}};--aspect-ratioaptmb: {{html[8]}}/{{html[9]}};"
+          style="background: url({{ image | image_url: width: 1 }});--aspect-ratioapt: {{html[4]}}/{{html[5]}};--aspect-ratioapttb: {{html[6]}}/{{html[7]}};--aspect-ratioaptmb: {{html[8]}}/{{html[9]}};"
           data-cacl-slide
         >
           {%- if image != blank -%}
             <img
               class="lazyload lz--fadeIn obj-eff"
-              data-src="{{ image | image_url: '1x1' }}"
+              data-src="{{ image | image_url: width: 1 }}"
               data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
               data-optimumx="2"
               data-sizes="auto"
@@ -37,14 +37,14 @@
             >
             <span
               class="lazyload-loader is-bg-img"
-              style="background: url({{ image | image_url: '1x1' }});"
+              style="background: url({{ image | image_url: width: 1 }});"
             ></span>
           {%- elsif collection != blank -%}
             {%- assign image = collection.image -%}
             {% if image != blank %}
               <img
                 class="lazyload lz--fadeIn obj-eff"
-                data-src="{{ image | image_url: '1x1' }}"
+                data-src="{{ image | image_url: width: 1 }}"
                 data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
                 data-optimumx="2"
                 data-sizes="auto"
@@ -55,7 +55,7 @@
               >
               <span
                 class="lazyload-loader is-bg-img"
-                style="background: url({{ image | image_url: '1x1' }});"
+                style="background: url({{ image | image_url: width: 1 }});"
               ></span>
             {% else %}
               {%- assign txt = html[4] | append: 'x' | append: html[5] -%}

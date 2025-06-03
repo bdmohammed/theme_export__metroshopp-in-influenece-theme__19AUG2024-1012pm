@@ -46,10 +46,10 @@
     {{ 'pre_flickity.css' | asset_url | stylesheet_tag }}
     {{ 'slider-settings.css' | asset_url | stylesheet_tag }}
 {%- endif -%}
-<div class="section-inner {{se_class}} nt_se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank and stt_layout != 'se-container' %} data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %} {% render 'section_style',se_stts:se_stts -%} >
+<div class="section-inner {{se_class}} nt_se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank and stt_layout != 'se-container' %} data-bgset="{{ stt_image_bg | image_url: width: 1 }}" data-sizes="auto"  data-optimumx="1.5"{% endif %} {% render 'section_style',se_stts:se_stts -%} >
     {{-html_layout[0]-}}
     {%- if stt_layout == 'se-container' -%}
-      <div class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank %} data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %}>{% endif -%}
+      <div class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank %} data-bgset="{{ stt_image_bg | image_url: width: 1 }}" data-sizes="auto"  data-optimumx="1.5"{% endif %}>{% endif -%}
     {%- render 'section_tophead',se_stts:se_stts -%}
     {% if se_stts.layout_des == "1" %}
         <div {{click_image}} data-ts-thumb-{{nav_thumbs}} class="ratioadapt align-items-center row row-cols-lg-{{col_dk}} row-cols-md-{{col_tb}} row-cols-{{col_mb}} ts-gx-md-{{space_item}} ts-gy-md-{{space_item}} ts-gx-{{space_item_mb}} ts-gy-{{space_item_mb}}" id="b_{{block.id}}" data-select-flickity {{ block.shopify_attributes }}>
@@ -74,8 +74,8 @@
                     <{{ARRhtml[0]}} {{ARRhtml[1]}}href="{{url}}" {{ARRhtml[2]}}target="{{open_link}}" class="eff eff-{{b_effect}} eff-img-{{img_effect}}" {{click_image}}--open>                 
                         {%- if image != blank -%}
                             <div class="ratio" style="--aspect-ratioapt:{{image.aspect_ratio}};--max-width:{{image.width}}px">
-                                <img class="lazyload obj-eff w-full" data-pswp-src="{{ image | image_url: 'master' }}" data-pswp-w="{{image.width}}" data-pswp-h="{{ image.height}}"  data-src="{{ image | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}" >
-                                <span class="lazyload-loader is-bg-img" style="background: url({{ image | image_url: '1x1' }});"></span>
+                                <img class="lazyload obj-eff w-full" data-pswp-src="{{ image | image_url: 'master' }}" data-pswp-w="{{image.width}}" data-pswp-h="{{ image.height}}"  data-src="{{ image | image_url: width: 1 }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}" >
+                                <span class="lazyload-loader is-bg-img" style="background: url({{ image | image_url: width: 1 }});"></span>
                             </div>
                         {%- else -%}
                             <div class="ratio" style="--aspect-ratioapt:1.77776">{{ 'logo' | placeholder_svg_tag: 'placeholder-svg obj-eff' }} </div>

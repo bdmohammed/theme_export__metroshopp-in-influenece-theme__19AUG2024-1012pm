@@ -24,10 +24,10 @@
     assign ARRhtml2 = 'div,data-' | split:','
     assign source = se_stts.source
 -%}
-<div class="section-inner {{se_class}} nt_se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank and stt_layout != 'se-container' %} data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %} {% render 'section_style',se_stts:se_stts -%} >
+<div class="section-inner {{se_class}} nt_se_{{sid}} {{stt_layout}}{% if stt_image_bg != blank and stt_layout != 'se-container' %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank and stt_layout != 'se-container' %} data-bgset="{{ stt_image_bg | image_url: width: 1 }}" data-sizes="auto"  data-optimumx="1.5"{% endif %} {% render 'section_style',se_stts:se_stts -%} >
     {{-html_layout[0]-}}
     {%- if stt_layout == 'se-container' -%}
-    <div class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank %} data-bgset="{{ stt_image_bg | image_url: '1x1' }}" data-sizes="auto"  data-optimumx="1.5"{% endif %}>{% endif -%}
+    <div class="container-inner{% if stt_image_bg != blank %} has-imgbg lazyload{% endif %}" {% if stt_image_bg != blank %} data-bgset="{{ stt_image_bg | image_url: width: 1 }}" data-sizes="auto"  data-optimumx="1.5"{% endif %}>{% endif -%}
     {%- render 'section_tophead',se_stts:se_stts -%}
     {% if se_stts.layout_des == "1" %}
         <div class="row align-items-center row justify-content-center row-cols-lg-{{se_stts.col_dk}} row-cols-md-{{se_stts.col_tb}} row-cols-{{se_stts.col_mb}} ts-gx-md-{{se_stts.space_h_item}} ts-gy-md-{{se_stts.space_v_item}} ts-gx-{{se_stts.space_h_item_mb}} ts-gy-{{se_stts.space_v_item_mb}} iconbox-border__{{se_stts.enable_border}} iconbox-shadow__{{se_stts.enable_shadow}}">
@@ -56,8 +56,8 @@
                                     {%- assign image = bk_stts.image_icon -%}
                                     {%- if image != blank -%}
                                         <div class="iconbox-icon iconbox-icon__image relative" style="--max-width:{{image.width}}px;--width:{{bk_stts.icon_image_width}}px;">
-                                            <img class="lazyload" data-src="{{ image | image_url: '1x1' }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
-                                            <span class="lazyload-loader is-bg-img" style="background: url({{image | image_url: '1x1'}});"></span> 
+                                            <img class="lazyload" data-src="{{ image | image_url: width: 1 }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg',w:image.width,h:image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
+                                            <span class="lazyload-loader is-bg-img" style="background: url({{image | image_url: width: 1}});"></span> 
                                         </div>
                                     {%- endif  -%}
                                 {%- else -%}

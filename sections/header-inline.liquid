@@ -13,7 +13,7 @@
   {%- assign opnav  = se_stts.opnav | divided_by: 100.0 -%}
   .header__wrapper {
     --h-text-color: {{ se_stts.clnav }};
-    --h-text-color-rgb: {{ se_stts.clnav | color_to_rgb | remove:'rgb(' |remove:')' }};
+    --h-text-color-rgb: {{ se_stts.clnav | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
     --h-text-color-hover: {{ se_stts.clnav_hover }};
     --h-bg-color: {{ se_stts.bgnav | color_modify: 'alpha', opnav }};
     background-color: var(--h-bg-color);
@@ -40,7 +40,7 @@
 {%- assign opnavtr  = se_stts.opnavtr | divided_by: 100.0 -%}
 .header__wrapper {
   --h-text-color: {{ se_stts.clnavtr }};
-  --h-text-color-rgb: {{ se_stts.clnavtr | color_to_rgb | remove:'rgb(' |remove:')' }};
+  --h-text-color-rgb: {{ se_stts.clnavtr | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
   --h-text-color-hover: {{ se_stts.clnavtr_hover }};
   --h-bg-color: {{ se_stts.bgnavtr | color_modify: 'alpha', opnavtr }};
 }
@@ -69,7 +69,7 @@
   {%- assign opnavst  = se_stts.opnavst | divided_by: 100.0 -%}
   .is-header--stuck .header__wrapper {
     --h-text-color: {{ se_stts.clnavst }};
-    --h-text-color-rgb: {{ se_stts.clnavst | color_to_rgb | remove:'rgb(' |remove:')' }};
+    --h-text-color-rgb: {{ se_stts.clnavst | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
     --h-text-color-hover: {{ se_stts.clnavst_hover }};
     --h-bg-color: {{ se_stts.bgnavst | color_modify: 'alpha', opnavst }};
   }
@@ -203,7 +203,7 @@
 <div
   data-header-options='{ "isTransparent": {{h_transparent}},"isSticky": {{se_stts.sticky_header}},"hideScroldown": {{se_stts.scroll_header}} }'
   class="header__wrapper relative header-layout_{{se_stts.layout}} {% if h__bgimg != blank %} lazyload header__bgimg"
-  data-bgset="{{ h__bgimg | image_url: '1x1' }}"
+  data-bgset="{{ h__bgimg | image_url: width: 1 }}"
   data-ratio="{{h__bgimg.aspect_ratio}}"
   data-sizes="auto"
   {% else %}

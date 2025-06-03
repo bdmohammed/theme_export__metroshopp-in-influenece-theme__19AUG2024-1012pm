@@ -114,7 +114,7 @@
             <div class="pr-choose__img ratio relative overflow-hidden">
               <img
                 class="pr-choose__img-main lazyload lz--fadeIn"
-                data-src="{{ image | image_url: '1x1' }}"
+                data-src="{{ image | image_url: width: 1 }}"
                 data-widths="[102,204]"
                 data-optimumx="2"
                 data-sizes="auto"
@@ -127,7 +127,7 @@
                 {%- assign image = pr_imgs[1] -%}
                 <img
                   class="pr-choose__img-hover pointer-events-none absolute ts-t-0 ts-t-0 ts-t-0 ts-t-0 opacity-0 lazyload lz--fadeIn"
-                  data-src="{{ image | image_url: '1x1' }}"
+                  data-src="{{ image | image_url: width: 1 }}"
                   data-widths="[102,204]"
                   data-optimumx="2"
                   data-sizes="auto"

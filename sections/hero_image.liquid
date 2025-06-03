@@ -63,13 +63,13 @@
     <div class="col-item hero-image-item">
       <div
         class="hero-inner relative overflow-hidden cover ratio position_{{se_stts.image_position}}"
-        style="background: url({{ image | image_url: '1x1' }});"
+        style="background: url({{ image | image_url: width: 1 }});"
       >
         {%- if image != blank -%}
           <div
             class="hero-block bg lz--fadeIn {% if se_stts.parallax %}parallax parallax-bg{%- assign parallax = true -%}{% endif %} lazyload"
             data-parallax-ts{{ se_stts.parallax }}
-            data-bgset="{{ image | image_url: '1x1' }}"
+            data-bgset="{{ image | image_url: width: 1 }}"
             data-sizes="auto"
             data-optimumx="1.5"
           ></div>
@@ -120,7 +120,7 @@
                     >
                       <img
                         class="lazyload lz--fadeIn"
-                        data-src="{{ image | image_url: '1x1' }}"
+                        data-src="{{ image | image_url: width: 1 }}"
                         data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
                         data-optimumx="2"
                         data-sizes="auto"

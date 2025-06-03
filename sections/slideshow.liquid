@@ -187,7 +187,7 @@
                 >
                 <span
                   class="lazyload-loader is-bg-img d-none d-md-block"
-                  style="background: url({{ image | image_url: '1x1' }})"
+                  style="background: url({{ image | image_url: width: 1 }})"
                 ></span>
               {%- endif -%}
             {% endcomment %}
@@ -262,7 +262,7 @@
                       >
                         <img
                           class="lazyload lz--fadeIn"
-                          data-src="{{ image | image_url: '1x1' }}"
+                          data-src="{{ image | image_url: width: 1 }}"
                           data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]"
                           data-optimumx="2"
                           data-sizes="auto"
