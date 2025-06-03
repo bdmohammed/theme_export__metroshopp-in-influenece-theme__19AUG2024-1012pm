@@ -1,108 +1,128 @@
 {%- liquid
   assign fl = ''
+  if settings.flag_currency
+    assign fl = 'flags'
+  endif
   assign current_locale = request.locale
   assign current_locale_iso_code = current_locale.iso_code
 -%}
-<style>
-  .flags > img {
-    margin-inline-end: 7px;
-    border-radius: 2px;
-    height: 15px;
-    width: auto;
-  }
-
-  .flags [data-current] {
-    display: inline-block;
-  }
-
-  .flags [data-img-current] {
-    margin-inline-end: 3px;
-    margin-bottom: 2px;
-  }
-
-  [data-flags='sm'] img[data-img-current] {
-    height: 12px;
-    width: auto;
-  }
-
-  [data-flags='md'] img {
-    height: 18.5px;
-    width: auto;
-    margin-inline-end: 7px;
-  }
-
-  .flags[data-flags='md'] [data-img-current] {
-    height: 15.5px;
-  }
-</style>
-
-{%- if linklists['languages-the4'].links.size > 0 -%}
-  {%- assign ck_iso_code = '#' | append: current_locale_iso_code -%}
-  {%- assign links_cur = linklists['currency-the4'].links | where: 'url', ck_iso_code -%}
-  <div data-locale-wrap class="top-bar__languages d-inline-block">
-    <button data-dropdown-open data-position="bottom-end" data-id="dropdown_languages{{sid}}">
-      <span
-        data-flags="{{sz}}"
-        data-current
-        class="d-inline-block {{fl}} lazyload flags-{{current_locale_iso_code}}"
-      >
-        {{- links_cur.first.title | default: current_locale_iso_code -}}
-      </span>
-      <svg class="ion-select-arrow " role="presentation" viewBox="0 0 19 12">
-        <polyline fill="none" stroke="currentColor" points="17 2 9.5 10 2 2" fill-rule="evenodd" stroke-width="2" stroke-linecap="square"></polyline>
-      </svg>
-    </button>
-    <div data-dropdown-wrapper class="dropdown__wrapper" id="dropdown_languages{{sid}}">
-      <div class="drop-arrow"></div>
-      {%- for link_cur in linklists['languages-the4'].links -%}
-        {%- assign iso_code = link_cur.url | remove: '#' | remove: ' ' -%}
-        <button
-          type="button"
+{%- unless is_fixed -%}
+  {%- if linklists['languages-the4'].links.size > 0 -%}
+    {%- assign ck_iso_code = '#' | append: current_locale_iso_code -%}
+    {%- assign links_cur = linklists['currency-the4'].links | where: 'url', ck_iso_code -%}
+    <div data-locale-wrap class="top-bar__languages d-inline-block">
+      <button data-dropdown-open data-position="bottom-end" data-id="dropdown_languages{{sid}}">
+        <span
           data-flags="{{sz}}"
-          data-locale-item
-          data-dropdown-off
-          class="lang-item {{fl}} lazyload flags-{{iso_code}}{% if iso_code == current_locale_iso_code %} is--selected{% endif %}"
-          data-iso="{{iso_code}}"
+          data-current
+          class="d-inline-block {{fl}} lazyloaded flags-{{current_locale_iso_code}}"
         >
-          {{ link_cur.title }}
-        </button>
-      {%- endfor -%}
+          {{- links_cur.first.title | default: current_locale_iso_code -}}
+        </span>
+        <svg class="ion-select-arrow " role="presentation" viewBox="0 0 19 12">
+          <polyline fill="none" stroke="currentColor" points="17 2 9.5 10 2 2" fill-rule="evenodd" stroke-width="2" stroke-linecap="square"></polyline>
+        </svg>
+      </button>
+      <div data-dropdown-wrapper class="dropdown__wrapper" id="dropdown_languages{{sid}}">
+        <div class="drop-arrow"></div>
+        {%- for link_cur in linklists['languages-the4'].links -%}
+          {%- assign iso_code = link_cur.url | remove: '#' | remove: ' ' -%}
+          <button
+            type="button"
+            data-flags="{{sz}}"
+            data-locale-item
+            data-dropdown-off
+            class="lang-item {{fl}} lazyload flags-{{iso_code}}{% if iso_code == current_locale_iso_code %} is--selected{% endif %}"
+            data-iso="{{iso_code}}"
+          >
+            {{ link_cur.title }}
+          </button>
+        {%- endfor -%}
+      </div>
     </div>
-  </div>
+  {%- else -%}
+    <div data-locale-wrap class="top-bar__languages d-inline-block">
+      <button data-dropdown-open data-position="bottom-end" data-id="dropdown_languages{{sid}}">
+        <span
+          data-flags="{{sz}}"
+          data-current
+          class="d-inline-block lazyloaded flags-{{current_locale_iso_code}}"
+        >
+          {{- current_locale.endonym_name -}}
+        </span>
+        <svg class="ion-select-arrow " role="presentation" viewBox="0 0 19 12">
+          <polyline fill="none" stroke="currentColor" points="17 2 9.5 10 2 2" fill-rule="evenodd" stroke-width="2" stroke-linecap="square"></polyline>
+        </svg>
+      </button>
+      <div
+        data-dropdown-wrapper
+        class="dropdown__wrapper current-scrollbar is-style-mb--false"
+        id="dropdown_languages{{sid}}"
+      >
+        <div class="drop-arrow"></div>
+        {%- for locale in shop.published_locales -%}
+          {%- assign iso_code = locale.iso_code -%}
+          <button
+            type="button"
+            data-flags="{{sz}}"
+            data-locale-item
+            data-dropdown-off
+            class="lang-item lazyloaded flags-{{iso_code}} text-uppercase {% if iso_code == current_locale_iso_code %} is--selected{% endif %}"
+            data-iso="{{iso_code}}"
+            data-language="English"
+          >
+            {{ locale.endonym_name }}
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
 {%- else -%}
-  <div data-locale-wrap class="top-bar__languages d-inline-block">
-    <button data-dropdown-open data-position="bottom-end" data-id="dropdown_languages{{sid}}">
+  {{ 'currency-lang_drawer.css' | asset_url | stylesheet_tag }}
+  <div data-locale-wrap data-lang-pos="{{settings.lang_pos}}">
+    <button data-drawer-options='{ "id":"#drawer-languages-fixed" }' class="btn-languages-sidebar">
       <span
-        data-flags="{{sz}}"
+        data-flags="{{ sz }}"
         data-current
-        class="d-inline-block {{fl}} lazyload flags-{{current_locale_iso_code}}"
+        class="d-inline-block {{ fl }} lazyload flags-{{ current_locale_iso_code }}"
       >
-        {{- current_locale.endonym_name -}}
+        {%- if show_short_label -%}
+          {{- current_locale_iso_code | upcase -}}
+        {%- else -%}
+          {{- current_locale.endonym_name -}}
+        {%- endif -%}
       </span>
       <svg class="ion-select-arrow " role="presentation" viewBox="0 0 19 12">
         <polyline fill="none" stroke="currentColor" points="17 2 9.5 10 2 2" fill-rule="evenodd" stroke-width="2" stroke-linecap="square"></polyline>
       </svg>
     </button>
-    <div
-      data-dropdown-wrapper
-      class="dropdown__wrapper current-scrollbar is-style-mb--false"
-      id="dropdown_languages{{sid}}"
-    >
-      <div class="drop-arrow"></div>
-      {%- for locale in shop.published_locales -%}
-        {%- assign iso_code = locale.iso_code -%}
-        <button
-          type="button"
-          data-flags="{{sz}}"
-          data-locale-item
-          data-dropdown-off
-          class="lang-item {{fl}} lazyload flags-{{iso_code}} text-uppercase {% if iso_code == current_locale_iso_code %} is--selected{% endif %}"
-          data-iso="{{iso_code}}"
-          data-language="English"
-        >
-          {{ locale.endonym_name }}
+    <div id="drawer-languages-fixed" class="drawer drawer__right" aria-hidden="true">
+      <div class="drawer__header">
+        <span>{{ 'general.sidebar.language' | t }}</span>
+        <button class="drawer__close" data-drawer-close aria-label="{{'general.sidebar.close' | t}}">
+          <svg class="iconsvg-close" role="presentation" viewBox="0 0 16 14">
+            <path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path>
+          </svg>
         </button>
-      {%- endfor -%}
+      </div>
+      <div class="drawer__content">
+        <div class="drawer__main current-scrollbar">
+          {%- for locale in shop.published_locales -%}
+            {%- assign iso_code = locale.iso_code -%}
+            <button
+              type="button"
+              data-flags="{{ sz }}"
+              data-locale-item
+              data-drawer-close
+              class="lang-item {{ fl }} lazyload flags-{{ iso_code }}{% if iso_code == current_locale_iso_code %} is--selected{% endif %}"
+              data-iso="{{ iso_code }}"
+            >
+              {% if show_short_label %}{{ iso_code | upcase }}{% else %}{{ locale.endonym_name }}{% endif %}
+            </button>
+          {%- endfor -%}
+        </div>
+      </div>
     </div>
   </div>
-{%- endif -%}
+{%- endunless -%}
