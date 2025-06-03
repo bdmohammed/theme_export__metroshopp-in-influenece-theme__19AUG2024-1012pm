@@ -259,6 +259,17 @@
       },
       "mega-menu": {
         "type": "mega-menu",
+        "blocks": {
+          "mega_8Dwe3x": {
+            "type": "mega",
+            "settings": {
+              "id": 1
+            }
+          }
+        },
+        "block_order": [
+          "mega_8Dwe3x"
+        ],
         "settings": {}
       },
       "footer": {
