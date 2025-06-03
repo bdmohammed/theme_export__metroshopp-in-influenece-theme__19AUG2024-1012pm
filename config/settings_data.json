@@ -165,8 +165,8 @@
           "header-inline-0": {
             "type": "mega",
             "settings": {
-              "title": "mega",
-              "url": "",
+              "title": "Collection 1",
+              "url": "shopify://collections",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -259,6 +259,17 @@
       },
       "mega-menu": {
         "type": "mega-menu",
+        "blocks": {
+          "mega_8Dwe3x": {
+            "type": "mega",
+            "settings": {
+              "id": 1
+            }
+          }
+        },
+        "block_order": [
+          "mega_8Dwe3x"
+        ],
         "settings": {}
       },
       "footer": {
