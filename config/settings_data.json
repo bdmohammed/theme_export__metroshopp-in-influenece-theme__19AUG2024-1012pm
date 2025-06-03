@@ -116,7 +116,7 @@
               "cl_a_tr": "#ffffff",
               "cl_bold_tr": "#ec0101",
               "hide": false,
-              "text_align": "start",
+              "text_align": "center",
               "col": "4"
             }
           },
@@ -130,7 +130,7 @@
               "url_location": "shopify://pages/contact",
               "open_link": "_self",
               "hide": false,
-              "text_align": "start",
+              "text_align": "end",
               "col": "4"
             }
           }
