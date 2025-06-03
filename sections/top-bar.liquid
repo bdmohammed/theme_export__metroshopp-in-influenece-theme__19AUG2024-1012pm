@@ -229,12 +229,12 @@
 
                   {%- if bk_stts.show_language and shop.published_locales.size > 1 -%}
                     <link rel="stylesheet" href="{{ 'base_drop.css' | asset_url }}" media="all">
-                    {%- render 'languages', sid: sid, is_fixed: true -%}
+                    {%- render 'languages', sid: sid -%}
                   {%- endif -%}
 
                   {%- if bk_stts.show_currency -%}
                     <link rel="stylesheet" href="{{ 'base_drop.css' | asset_url }}" media="all">
-                    {%- render 'currencies', sid: sid, is_fixed: true -%}
+                    {%- render 'currencies', sid: sid -%}
                   {%- endif -%}
 
                 {%- when 'text' -%}
