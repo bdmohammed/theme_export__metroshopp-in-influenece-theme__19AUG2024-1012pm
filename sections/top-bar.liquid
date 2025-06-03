@@ -205,7 +205,7 @@
             {% assign bk_stts = block.settings %}
             <div
               id="b_{{block.id}}"
-              class="top-bar__{{block.type}} col-item col-12 text-center col-lg-{{bk_stts.col}} text-lg-{{bk_stts.text_align}} {% if bk_stts.hide %}d-none d-md-none{% endif %} d-lg-block"
+              class="top-bar__{{block.type}} col-item col-12 text-center col-lg-{{bk_stts.col}} text-lg-{{bk_stts.text_align}} {% if bk_stts.hide %}d-none d-md-none{% endif %} {% if block.type == 'cur' %}!d-lg-block{% endif %} "
             >
               {%- case block.type -%}
                 {%- when 'cur' -%}
@@ -594,7 +594,6 @@
           "min": 0,
           "max": 30,
           "step": 0.5,
-          "label": "Autoplay Speed in second. Set is '0' to disable autoplay.",
           "label": "Autoplay Speed in second. Set is '0' to disable autoplay.",
           "unit": "sec",
           "default": 3.5
