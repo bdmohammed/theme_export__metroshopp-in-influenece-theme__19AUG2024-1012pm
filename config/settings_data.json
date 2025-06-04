@@ -212,12 +212,30 @@
               "lb": "",
               "lb_cl": ""
             }
+          },
+          "drop_8zb9tH": {
+            "type": "drop",
+            "settings": {
+              "title": "Dropdown",
+              "url": "shopify://pages/contact",
+              "open_link": "_self",
+              "menu": "",
+              "icon": "",
+              "cus_cl": false,
+              "cl": "#ec0101",
+              "lb": "",
+              "lb_cl": "",
+              "lazy_mn": true,
+              "pos_sub": "bottom",
+              "pos": "left"
+            }
           }
         },
         "block_order": [
           "header-inline-0",
           "header-inline-1",
-          "header-inline-2"
+          "header-inline-2",
+          "drop_8zb9tH"
         ],
         "settings": {
           "layout": "logo_left",
