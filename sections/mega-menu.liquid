@@ -341,7 +341,10 @@
                     {% for collection in collections %}
                       {% capture collection_data %} {{ collection.handle }} {% endcapture %}
                       {% if link_data == collection_data %}
-                        <img src="{{ collection | image_url: '40x40' }}" alt="{{ collection.image.alt }}">
+                        <img
+                          src="{{ collection | image_url: width: '40', height: '40' }}"
+                          alt="{{ collection.image.alt }}"
+                        >
                       {% endif %}
                     {% endfor %}
                   </div>

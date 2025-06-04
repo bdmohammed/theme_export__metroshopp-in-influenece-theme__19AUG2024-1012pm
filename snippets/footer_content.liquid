@@ -52,7 +52,7 @@
           <img
             class="lazyload"
             src="https://cdn.shopify.com/s/assets/payment_icons/generic-dfdcaf09b6731ca14dd7441354c0ad8bc934184eb15ae1fda6a6b9e307675485.svg"
-            data-src="{{ image | image_url: '100x' }}"
+            data-src="{{ image | image_url: width: '100' }}"
             alt="{{image.alt | escape}}"
           >
         {%- else -%}
