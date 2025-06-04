@@ -1351,6 +1351,56 @@
       "custom_color": {
         "type": "custom_color",
         "settings": {}
+      },
+      "extras": {
+        "type": "extras",
+        "blocks": {
+          "inactive_tab_DXFQHQ": {
+            "type": "inactive_tab",
+            "settings": {
+              "message": "🔥 Don't forget this...; 🔥 Come back!",
+              "delay": 1000
+            }
+          },
+          "shop_protect_6APxRQ": {
+            "type": "shop_protect",
+            "settings": {
+              "disable_img_copy": true,
+              "disable_img_drag": true,
+              "disable_text_copy": true,
+              "disable_best_seller": false
+            }
+          },
+          "favicon_count_nUBrCp": {
+            "type": "favicon_count",
+            "settings": {
+              "bgColor": "#34c134",
+              "textColor": "#ffffff",
+              "type": "circle",
+              "position": "down",
+              "animation": "slide"
+            }
+          },
+          "snow_efff_VJgfBT": {
+            "type": "snow_efff",
+            "settings": {
+              "speed": 10,
+              "opacity": 1
+            }
+          },
+          "catalog_mode_QyJ8Ye": {
+            "type": "catalog_mode",
+            "settings": {}
+          }
+        },
+        "block_order": [
+          "inactive_tab_DXFQHQ",
+          "shop_protect_6APxRQ",
+          "favicon_count_nUBrCp",
+          "snow_efff_VJgfBT",
+          "catalog_mode_QyJ8Ye"
+        ],
+        "settings": {}
       }
     },
     "content_for_index": []
