@@ -10347,8 +10347,7 @@ window.T4SThemeSP.Wishlist = (() => {
       r(),
       j &&
         ('' == N.toString() || z) &&
-        (e('.products-wishlist').fadeTo(300, 0),
-        (window.location.href = O));
+        (e('.products-wishlist').fadeTo(300, 0), (window.location.href = O));
   }
 
   // Handle adding to wishlist in local storage mode
