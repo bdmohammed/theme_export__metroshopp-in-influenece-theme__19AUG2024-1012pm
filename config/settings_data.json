@@ -212,12 +212,30 @@
               "lb": "",
               "lb_cl": ""
             }
+          },
+          "drop_8zb9tH": {
+            "type": "drop",
+            "settings": {
+              "title": "Dropdown",
+              "url": "shopify://pages/contact",
+              "open_link": "_self",
+              "menu": "",
+              "icon": "",
+              "cus_cl": false,
+              "cl": "#ec0101",
+              "lb": "",
+              "lb_cl": "",
+              "lazy_mn": true,
+              "pos_sub": "bottom",
+              "pos": "left"
+            }
           }
         },
         "block_order": [
           "header-inline-0",
           "header-inline-1",
-          "header-inline-2"
+          "header-inline-2",
+          "drop_8zb9tH"
         ],
         "settings": {
           "layout": "logo_left",
@@ -265,10 +283,37 @@
             "settings": {
               "id": 1
             }
+          },
+          "pr_7yjXwE": {
+            "type": "pr",
+            "settings": {
+              "collection": "frontpage",
+              "product_des": "1",
+              "show_vendor": false,
+              "use_cdt": false,
+              "image_ratio": "rationt",
+              "image_size": "cover",
+              "image_position": "8",
+              "content_align": "default",
+              "limit": 8,
+              "col_dk": "3",
+              "space_h_item": "30",
+              "space_v_item": "30",
+              "layout_des": "2",
+              "nav_btn": false,
+              "btn_vi": "hover",
+              "btn_owl": "default",
+              "btn_shape": "none",
+              "btn_cl": "dark",
+              "btn_size": "small",
+              "btn_hidden_mobile": true,
+              "col": "4"
+            }
           }
         },
         "block_order": [
-          "mega_8Dwe3x"
+          "mega_8Dwe3x",
+          "pr_7yjXwE"
         ],
         "settings": {}
       },
