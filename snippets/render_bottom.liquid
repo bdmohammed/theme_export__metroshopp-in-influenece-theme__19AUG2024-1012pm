@@ -401,6 +401,10 @@
   endif
   section 'toolbar_mobile'
   section 'back_top'
+  if admin_sp
+    section 'popups'
+  endif
+  section 'extras'
   if template.suffix != 'config' and admin_sp
     section 'title_config'
     section 'pr_item_config'

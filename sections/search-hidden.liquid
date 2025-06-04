@@ -1,126 +1,196 @@
 {%- liquid
-   assign results_count = search.results_count
-   assign collection = collections[settings.search_prs_suggest]
-   assign limit = 5 
-   assign show_search_suggest = settings.show_search_suggest
-   assign on_sale_txt = 'products.product.on_sale' | t
-   assign save_js = 'products.product.save_js' | t: saved_amount:'saved_amount'
-   assign checkCat = true
-   if shop.types[0] == blank and shop.types.size == 1 
-   assign checkCat = false 
-   endif 
-   if settings.within_cat and collection
-      assign isHasCollection = true
-   else  
-      assign isHasCollection = false
-   endif
-   assign placeholder_img = settings.placeholder_img
-   assign price_varies_style = settings.price_varies_style
-   
-   assign search_terms = search.terms
-   assign key_terms = current_terms
-   if search_terms contains 'product_type:'
-     assign arr_terms = search_terms |remove:'product_type:' |split:' AND '
-     assign product_type = arr_terms[0] | strip
-     assign search_terms = arr_terms[1] | strip
-     if search_terms == blank
-       assign key_terms = key_terms | remove:' AND '
-   	   assign search_terms = product_type
-     endif
-   endif
+  assign results_count = search.results_count
+  assign collection = collections[settings.search_prs_suggest]
+  assign limit = 5
+  assign show_search_suggest = settings.show_search_suggest
+  assign on_sale_txt = 'products.product.on_sale' | t
+  assign save_js = 'products.product.save_js' | t: saved_amount: 'saved_amount'
+  assign checkCat = true
+  if shop.types[0] == blank and shop.types.size == 1
+    assign checkCat = false
+  endif
+  if settings.within_cat and collection
+    assign isHasCollection = true
+  else
+    assign isHasCollection = false
+  endif
+  assign placeholder_img = settings.placeholder_img
+  assign price_varies_style = settings.price_varies_style
+
+  assign search_terms = search.terms
+  assign key_terms = current_terms
+  if search_terms contains 'product_type:'
+    assign arr_terms = search_terms | remove: 'product_type:' | split: ' AND '
+    assign product_type = arr_terms[0] | strip
+    assign search_terms = arr_terms[1] | strip
+    if search_terms == blank
+      assign key_terms = key_terms | remove: ' AND '
+      assign search_terms = product_type
+    endif
+  endif
 -%}
 
 <link rel="stylesheet" href="{{ 'drawer.css' | asset_url }}" media="all">
 <link rel="stylesheet" href="{{ 'search-hidden.css' | asset_url }}" media="all">
-<divv data-predictive-search data-sid="search-hidden" id="search-hidden" class="drawer drawer__right" aria-hidden="true">
-   <div class="drawer__header">
-      <span class="is--login" aria-hidden="false">{{ 'search.general.title' | t }}</span>
-      <button class="drawer__close" data-drawer-close aria-label="{{ 'search.general.close_search' | t }}"><svg class="iconsvg-close" role="presentation" viewBox="0 0 16 14"><path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path></svg></button>
-   </div>
-   <form data-frm-search action="{{ routes.search_url }}" method="get" class="mini-search__frm relative" role="search">
-      <input type="hidden" name="type" value="product">
-      <input type="hidden" name="options[unavailable_products]" value="{{settings.unavailable_prs}}">
-      <input type="hidden" name="options[prefix]" value="last">
+<div data-predictive-search data-sid="search-hidden" id="search-hidden" class="drawer drawer__right" aria-hidden="true">
+  <div class="drawer__header">
+    <span class="is--login" aria-hidden="false">{{ 'search.general.title' | t }}</span>
+    <button class="drawer__close" data-drawer-close aria-label="{{ 'search.general.close_search' | t }}">
+      <svg class="iconsvg-close" role="presentation" viewBox="0 0 16 14">
+        <path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path>
+      </svg>
+    </button>
+  </div>
+  <form data-frm-search action="{{ routes.search_url }}" method="get" class="mini-search__frm relative" role="search">
+    <input type="hidden" name="type" value="product">
+    <input type="hidden" name="options[unavailable_products]" value="{{settings.unavailable_prs}}">
+    <input type="hidden" name="options[prefix]" value="last">
 
-      {%- if settings.filter_type_search and shop.types.size > 0 and checkCat -%}
-        <div data-cat-search class="mini-search__cat">
-            <select data-name="product_type">
-              <option value="*">{{ 'search.general.all_categories' | t }}</option>
-              {%- for product_type in shop.types -%}{%- if product_type == blank %}{% continue-%}{% endif -%}<option value="{{product_type}}">{{product_type}}</option>{%- endfor -%}
-            </select>
-        </div>
-      {%- endif -%} 
-      <div class="mini-search__btns relative overflow-hidden">
-         <input data-input-search class="mini-search__input" autocomplete="off" type="text" name="q" placeholder="{{ 'search.general.placeholder' | t }}">
-         <button data-submit-search class="mini-search__submit btn-loading__svg{% if settings.ajax_search %} pointer-events-none{% endif %}" type="submit">
-            <svg class="btn-op0" viewBox="0 0 18 19" width="16"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.03 11.68A5.784 5.784 0 112.85 3.5a5.784 5.784 0 018.18 8.18zm.26 1.12a6.78 6.78 0 11.72-.7l5.4 5.4a.5.5 0 11-.71.7l-5.41-5.4z" fill="currentColor"></path></svg>
-            <div class="loading__spinner dn">
-               <svg width="16" height="16" aria-hidden="true" focusable="false" role="presentation" class="svg__spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle></svg>
-            </div>
-         </button>
+    {%- if settings.filter_type_search and shop.types.size > 0 and checkCat -%}
+      <div data-cat-search class="mini-search__cat">
+        <select data-name="product_type">
+          <option value="*">{{ 'search.general.all_categories' | t }}</option>
+          {%- for product_type in shop.types -%}
+            {%- if product_type == blank %}{% continue -%}{% endif -%}
+            <option value="{{product_type}}">{{ product_type }}</option>
+          {%- endfor -%}
+        </select>
       </div>
+    {%- endif -%}
+    <div class="mini-search__btns relative overflow-hidden">
+      <input
+        data-input-search
+        class="mini-search__input"
+        autocomplete="off"
+        type="text"
+        name="q"
+        placeholder="{{ 'search.general.placeholder' | t }}"
+      >
+      <button
+        data-submit-search
+        class="mini-search__submit btn-loading__svg{% if settings.ajax_search %} pointer-events-none{% endif %}"
+        type="submit"
+      >
+        <svg class="btn-op0" viewBox="0 0 18 19" width="16">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.03 11.68A5.784 5.784 0 112.85 3.5a5.784 5.784 0 018.18 8.18zm.26 1.12a6.78 6.78 0 11.72-.7l5.4 5.4a.5.5 0 11-.71.7l-5.41-5.4z" fill="currentColor"></path>
+        </svg>
+        <div class="loading__spinner dn">
+          <svg
+            width="16"
+            height="16"
+            aria-hidden="true"
+            focusable="false"
+            role="presentation"
+            class="svg__spinner"
+            viewBox="0 0 66 66"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+          </svg>
+        </div>
+      </button>
+    </div>
 
-      {%- assign list_hotkey = settings.list_hotkey -%}
-      {%- if settings.show_search_hotkey and list_hotkey != blank -%}
-        {%- capture link_suggest -%}
+    {%- assign list_hotkey = settings.list_hotkey -%}
+    {%- if settings.show_search_hotkey and list_hotkey != blank -%}
+      {%- capture link_suggest -%}
         {{ routes.search_url }}?type=product&options%5Bunavailable_products%5D={{settings.unavailable_prs}}&options%5Bprefix%5D=last&q=
         {%- endcapture -%}
-        {%- assign arr_keys = list_hotkey  | replace: ' ,', ',' | replace: ', ', ',' | split:',' -%}
-        {%- assign arr_keys2 = arr_keys | join:',|nt'  | split:'|nt' -%}
+      {%- assign arr_keys = list_hotkey | replace: ' ,', ',' | replace: ', ', ',' | split: ',' -%}
+      {%- assign arr_keys2 = arr_keys | join: ',|nt' | split: '|nt' -%}
 
-         <div data-listKey class="mini-search__keys">
-            <span class="mini-search__label">{{'search.general.quick_search' | t}}</span>
-            <ul class="mini-search__listKey d-inline-block">
-               {%- for key in arr_keys %}{% assign key_strip = key | strip -%}
-               <li class="d-inline-block"><a data-key='{{key_strip | escape }}' href="{{link_suggest}}{{key | strip | url_encode }}">{{arr_keys2[forloop.index0]}} </a></li>
-               {% endfor -%}
-            </ul>
-         </div>
-     {%- endif -%}
-   </form>
-   {%- if results_count > 1 -%}<div data-title-search class="mini-search__title">{{ 'search.general.heading.other' | t }}</div>
-   {%- elsif results_count == 1 or  results_count == 0 -%}<div data-title-search class="mini-search__title">{{ 'search.general.heading.one' | t }}</div>
-   {%- elsif predictive_search == blank and collection != blank and show_search_suggest-%}<div data-title-search class="mini-search__title">{{ 'search.general.suggest' | t }}</div>
-   {%- else -%}<div data-title-search class="mini-search__title" style="display:none"></div>
-   {%- endif -%}
-   <div class="drawer__content">
-      <div class="drawer__main">
-         <div data-ts-scroll-me class="drawer__scroll current-scrollbar">
-
-            <div data-skeleton-search class="skeleton_wrap dn">
-               {%- for i in (1..4) -%}
-               <div class="row space-item-inner">
-                  <div class="col-auto col-item widget_img_pr"><div class="skeleton_img"></div></div>
-                  <div class="col col-item widget_if_pr"><div class="skeleton_txt1"></div><div class="skeleton_txt2"></div></div>
-               </div>
-               {%- endfor -%}
-            </div>
-            <div data-results-search class="mini-search__content ratioadapt">
-              {%- if results_count == 0 -%}{{ 'search.general.no_product_results' | t }}
-              {%- elsif results_count > 0 -%}
-                    {%- for product in search.results limit:limit -%}
-                        {%- render 'pr-sidebar-loop',imgatt:"",product:product,pr_url:product.url,placeholder_img:placeholder_img,price_varies_style:price_varies_style -%} 
-                    {%- endfor -%}
-
-                {%- elsif predictive_search == blank and collection != blank and show_search_suggest -%}
-                    {%- for product in collection.products limit:limit -%}
-                        {%- render 'pr-sidebar-loop',imgatt:"",product:product,pr_url:product.url,placeholder_img:placeholder_img,price_varies_style:price_varies_style -%} 
-                    {%- endfor -%}
-                {%- endif -%}
-            </div>
-         </div>
+      <div data-listKey class="mini-search__keys">
+        <span class="mini-search__label">{{ 'search.general.quick_search' | t }}</span>
+        <ul class="mini-search__listKey d-inline-block">
+          {%- for key in arr_keys -%}
+            {%- assign key_strip = key | strip -%}
+            <li class="d-inline-block">
+              <a data-key="{{key_strip | escape }}" href="{{link_suggest}}{{key | strip | url_encode }}">
+                {{- arr_keys2[forloop.index0] }}
+              </a>
+            </li>
+          {% endfor -%}
+        </ul>
       </div>
-      {%- if results_count >= 0 -%}
-            <div data-viewAll-search class="drawer__bottom">
-               <a href="{{ routes.search_url }}?type=product&options%5Bunavailable_products%5D={{settings.unavailable_prs}}&options%5Bprefix%5D=last&q={{key_terms | url_escape}}" class="mini-search__viewAll d-block" tabindex="-1">{{ 'search.search_for' | t: terms: search_terms }} <svg width="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M 18.71875 6.78125 L 17.28125 8.21875 L 24.0625 15 L 4 15 L 4 17 L 24.0625 17 L 17.28125 23.78125 L 18.71875 25.21875 L 27.21875 16.71875 L 27.90625 16 L 27.21875 15.28125 Z"/></svg></a>
+    {%- endif -%}
+  </form>
+  {%- if results_count > 1 -%}
+    <div data-title-search class="mini-search__title">{{ 'search.general.heading.other' | t }}</div>
+  {%- elsif results_count == 1 or results_count == 0 -%}
+    <div data-title-search class="mini-search__title">{{ 'search.general.heading.one' | t }}</div>
+  {%- elsif predictive_search == blank and collection != blank and show_search_suggest -%}
+    <div data-title-search class="mini-search__title">{{ 'search.general.suggest' | t }}</div>
+  {%- else -%}
+    <div data-title-search class="mini-search__title" style="display:none"></div>
+  {%- endif -%}
+  <div class="drawer__content">
+    <div class="drawer__main">
+      <div data-ts-scroll-me class="drawer__scroll current-scrollbar">
+        <div data-skeleton-search class="skeleton_wrap dn">
+          {%- for i in (1..4) -%}
+            <div class="row space-item-inner">
+              <div class="col-auto col-item widget_img_pr"><div class="skeleton_img"></div></div>
+              <div class="col col-item widget_if_pr">
+                <div class="skeleton_txt1"></div>
+                <div class="skeleton_txt2"></div>
+              </div>
             </div>
-      {%- elsif collection != blank -%}
-         {%- if collection.all_products_count > limit -%}
-            <div data-viewAll-search class="drawer__bottom">
-               <a href="{{collection.url}}" class="mini-search__viewAll d-block">{{ 'search.pagination.view_all' | t }} <svg width="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M 18.71875 6.78125 L 17.28125 8.21875 L 24.0625 15 L 4 15 L 4 17 L 24.0625 17 L 17.28125 23.78125 L 18.71875 25.21875 L 27.21875 16.71875 L 27.90625 16 L 27.21875 15.28125 Z"/></svg></a>
-            </div>
-         {%- endif -%}
-      {%- else -%}<div data-viewAll-search class="drawer__bottom" style="display:none"></div>
+          {%- endfor -%}
+        </div>
+        <div data-results-search class="mini-search__content ratioadapt">
+          {%- if results_count == 0 -%}
+            {{ 'search.general.no_product_results' | t }}
+          {%- elsif results_count > 0 -%}
+            {%- for product in search.results limit: limit -%}
+              {%- render 'pr-sidebar-loop',
+                imgatt: '',
+                product: product,
+                pr_url: product.url,
+                placeholder_img: placeholder_img,
+                price_varies_style: price_varies_style
+              -%}
+            {%- endfor -%}
+
+          {%- elsif predictive_search == blank and collection != blank and show_search_suggest -%}
+            {%- for product in collection.products limit: limit -%}
+              {%- render 'pr-sidebar-loop',
+                imgatt: '',
+                product: product,
+                pr_url: product.url,
+                placeholder_img: placeholder_img,
+                price_varies_style: price_varies_style
+              -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    {%- if results_count >= 0 -%}
+      <div data-viewAll-search class="drawer__bottom">
+        <a
+          href="{{ routes.search_url }}?type=product&options%5Bunavailable_products%5D={{settings.unavailable_prs}}&options%5Bprefix%5D=last&q={{key_terms | url_escape}}"
+          class="mini-search__viewAll d-block"
+          tabindex="-1"
+        >
+          {{- 'search.search_for' | t: terms: search_terms }}
+          <svg width="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+            <path d="M 18.71875 6.78125 L 17.28125 8.21875 L 24.0625 15 L 4 15 L 4 17 L 24.0625 17 L 17.28125 23.78125 L 18.71875 25.21875 L 27.21875 16.71875 L 27.90625 16 L 27.21875 15.28125 Z"/>
+          </svg>
+        </a>
+      </div>
+    {%- elsif collection != blank -%}
+      {%- if collection.all_products_count > limit -%}
+        <div data-viewAll-search class="drawer__bottom">
+          <a href="{{collection.url}}" class="mini-search__viewAll d-block">
+            {{- 'search.pagination.view_all' | t }}
+            <svg width="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+              <path d="M 18.71875 6.78125 L 17.28125 8.21875 L 24.0625 15 L 4 15 L 4 17 L 24.0625 17 L 17.28125 23.78125 L 18.71875 25.21875 L 27.21875 16.71875 L 27.90625 16 L 27.21875 15.28125 Z"/>
+            </svg>
+          </a>
+        </div>
       {%- endif -%}
-   </div>
+    {%- else -%}
+      <div data-viewAll-search class="drawer__bottom" style="display:none"></div>
+    {%- endif -%}
+  </div>
 </div>
