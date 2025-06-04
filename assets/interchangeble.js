@@ -8100,7 +8100,7 @@ var T4SThemeSPHeader = class {
             .removeClass(this.hoverActionClass);
 
           // Set up a click listener to remove the hover-active class when clicking outside
-          $document.on('click.menuIntent', function (event) {
+          $document.on('click.menuIntent', (event) => {
             const clickedElement = event.target;
 
             // Check if the click is outside the active menu items
