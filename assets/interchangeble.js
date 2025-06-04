@@ -8111,7 +8111,7 @@ var T4SThemeSPHeader = class {
                 .parents('li')
                 .is(`.${this.hoverActionClass}`)
             ) {
-              mainMenu
+              this.menuNavigation
                 .find(`.${this.hoverActionClass}`)
                 .removeClass(this.hoverActionClass);
               $document.off('click.menuIntent');
