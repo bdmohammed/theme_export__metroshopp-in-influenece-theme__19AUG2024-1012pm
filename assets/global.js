@@ -1220,8 +1220,8 @@ var LtrT4s = !RtlT4s;
     s
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("isotopet4s-layout/js/item", ["outlayer/outlayer"], e) : "object" == typeof module && module.exports ? module.exports = e(require("outlayer")) : (t.isotopet4s = t.isotopet4s || {},
-    t.isotopet4s.Item = e(t.Outlayer))
+    "function" == typeof define && define.amd ? define("isotopet4s-layout/js/item", ["outlayer/outlayer"], e) : "object" == typeof module && module.exports ? module.exports = e(require("outlayer")) : (t.isotope = t.isotope || {},
+    t.isotope.Item = e(t.Outlayer))
 })(window, function(t) {
     "use strict";
     function e() {
@@ -1260,12 +1260,12 @@ var LtrT4s = !RtlT4s;
     e
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("isotopet4s-layout/js/layout-mode", ["get-size/get-size", "outlayer/outlayer"], e) : "object" == typeof module && module.exports ? module.exports = e(require("get-size"), require("outlayer")) : (t.isotopet4s = t.isotopet4s || {},
-    t.isotopet4s.LayoutMode = e(t.getSize, t.Outlayer))
+    "function" == typeof define && define.amd ? define("isotopet4s-layout/js/layout-mode", ["get-size/get-size", "outlayer/outlayer"], e) : "object" == typeof module && module.exports ? module.exports = e(require("get-size"), require("outlayer")) : (t.isotope = t.isotope || {},
+    t.isotope.LayoutMode = e(t.getSize, t.Outlayer))
 })(window, function(t, e) {
     "use strict";
     function i(t) {
-        this.isotopet4s = t,
+        this.isotope = t,
         t && (this.options = t.options[this.namespace],
         this.element = t.element,
         this.items = t.filteredItems,
@@ -1274,16 +1274,16 @@ var LtrT4s = !RtlT4s;
     var n = i.prototype;
     return ["_resetLayout", "_getItemLayoutPosition", "_manageStamp", "_getContainerSize", "_getElementOffset", "needsResizeLayout", "_getOption"].forEach(function(t) {
         n[t] = function() {
-            return e.prototype[t].apply(this.isotopet4s, arguments)
+            return e.prototype[t].apply(this.isotope, arguments)
         }
     }),
     n.needsVerticalResizeLayout = function() {
-        var e = t(this.isotopet4s.element);
-        return this.isotopet4s.size && e && e.innerHeight != this.isotopet4s.size.innerHeight
+        var e = t(this.isotope.element);
+        return this.isotope.size && e && e.innerHeight != this.isotope.size.innerHeight
     }
     ,
     n._getMeasurement = function() {
-        this.isotopet4s._getMeasurement.apply(this, arguments)
+        this.isotope._getMeasurement.apply(this, arguments)
     }
     ,
     n.getColumnWidth = function() {
@@ -1300,22 +1300,22 @@ var LtrT4s = !RtlT4s;
         if (this._getMeasurement(i, n),
         !this[i]) {
             var o = this.getFirstItemSize();
-            this[i] = o && o[n] || this.isotopet4s.size["inner" + e]
+            this[i] = o && o[n] || this.isotope.size["inner" + e]
         }
     }
     ,
     n.getFirstItemSize = function() {
-        var e = this.isotopet4s.filteredItems[0];
+        var e = this.isotope.filteredItems[0];
         return e && e.element && t(e.element)
     }
     ,
     n.layout = function() {
-        this.isotopet4s.layout.apply(this.isotopet4s, arguments)
+        this.isotope.layout.apply(this.isotope, arguments)
     }
     ,
     n.getSize = function() {
-        this.isotopet4s.getSize(),
-        this.size = this.isotopet4s.size
+        this.isotope.getSize(),
+        this.size = this.isotope.size
     }
     ,
     i.modes = {},
@@ -1458,7 +1458,7 @@ var LtrT4s = !RtlT4s;
     i
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("isotopet4s-layout/js/layout-modes/masonry", ["../layout-mode", "masonry-layout/masonry"], e) : "object" == typeof module && module.exports ? module.exports = e(require("../layout-mode"), require("masonry-layout")) : e(t.isotopet4s.LayoutMode, t.Masonry)
+    "function" == typeof define && define.amd ? define("isotopet4s-layout/js/layout-modes/masonry", ["../layout-mode", "masonry-layout/masonry"], e) : "object" == typeof module && module.exports ? module.exports = e(require("../layout-mode"), require("masonry-layout")) : e(t.isotope.LayoutMode, t.Masonry)
 })(window, function(t, e) {
     "use strict";
     var i = t.create("masonry")
@@ -1472,19 +1472,19 @@ var LtrT4s = !RtlT4s;
         o[s] || (n[s] = e.prototype[s]);
     var r = n.measureColumns;
     n.measureColumns = function() {
-        this.items = this.isotopet4s.filteredItems,
+        this.items = this.isotope.filteredItems,
         r.call(this)
     }
     ;
     var a = n._getOption;
     return n._getOption = function(t) {
-        return "fitWidth" == t ? void 0 !== this.options.isFitWidth ? this.options.isFitWidth : this.options.fitWidth : a.apply(this.isotopet4s, arguments)
+        return "fitWidth" == t ? void 0 !== this.options.isFitWidth ? this.options.isFitWidth : this.options.fitWidth : a.apply(this.isotope, arguments)
     }
     ,
     i
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("isotopet4s-layout/js/layout-modes/fit-rows", ["../layout-mode"], e) : "object" == typeof exports ? module.exports = e(require("../layout-mode")) : e(t.isotopet4s.LayoutMode)
+    "function" == typeof define && define.amd ? define("isotopet4s-layout/js/layout-modes/fit-rows", ["../layout-mode"], e) : "object" == typeof exports ? module.exports = e(require("../layout-mode")) : e(t.isotope.LayoutMode)
 })(window, function(t) {
     "use strict";
     var e = t.create("fitRows")
@@ -1499,7 +1499,7 @@ var LtrT4s = !RtlT4s;
     i._getItemLayoutPosition = function(t) {
         t.getSize();
         var e = t.size.outerWidth + this.gutter
-          , i = this.isotopet4s.size.innerWidth + this.gutter;
+          , i = this.isotope.size.innerWidth + this.gutter;
         0 !== this.x && e + this.x > i && (this.x = 0,
         this.y = this.maxY);
         var n = {
@@ -1520,7 +1520,7 @@ var LtrT4s = !RtlT4s;
     e
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("isotopet4s-layout/js/layout-modes/vertical", ["../layout-mode"], e) : "object" == typeof module && module.exports ? module.exports = e(require("../layout-mode")) : e(t.isotopet4s.LayoutMode)
+    "function" == typeof define && define.amd ? define("isotopet4s-layout/js/layout-modes/vertical", ["../layout-mode"], e) : "object" == typeof module && module.exports ? module.exports = e(require("../layout-mode")) : e(t.isotope.LayoutMode)
 })(window, function(t) {
     "use strict";
     var e = t.create("vertical", {
@@ -1533,7 +1533,7 @@ var LtrT4s = !RtlT4s;
     ,
     i._getItemLayoutPosition = function(t) {
         t.getSize();
-        var e = (this.isotopet4s.size.innerWidth - t.size.outerWidth) * this.options.horizontalAlignment
+        var e = (this.isotope.size.innerWidth - t.size.outerWidth) * this.options.horizontalAlignment
           , i = this.y;
         return this.y += t.size.outerHeight,
         {
@@ -1553,7 +1553,7 @@ var LtrT4s = !RtlT4s;
 (function(t, e) {
     "function" == typeof define && define.amd ? define(["outlayer/outlayer", "get-size/get-size", "desandro-matches-selector/matches-selector", "fizzy-ui-utils/utils", "isotopet4s-layout/js/item", "isotopet4s-layout/js/layout-mode", "isotopet4s-layout/js/layout-modes/masonry", "isotopet4s-layout/js/layout-modes/fit-rows", "isotopet4s-layout/js/layout-modes/vertical"], function(i, n, o, s, r, a) {
         return e(t, i, n, o, s, r, a)
-    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("outlayer"), require("get-size"), require("desandro-matches-selector"), require("fizzy-ui-utils"), require("isotopet4s-layout/js/item"), require("isotopet4s-layout/js/layout-mode"), require("isotopet4s-layout/js/layout-modes/masonry"), require("isotopet4s-layout/js/layout-modes/fit-rows"), require("isotopet4s-layout/js/layout-modes/vertical")) : t.isotopet4s = e(t, t.Outlayer, t.getSize, t.matchesSelector, t.fizzyUIUtils, t.isotopet4s.Item, t.isotopet4s.LayoutMode)
+    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("outlayer"), require("get-size"), require("desandro-matches-selector"), require("fizzy-ui-utils"), require("isotopet4s-layout/js/item"), require("isotopet4s-layout/js/layout-mode"), require("isotopet4s-layout/js/layout-modes/masonry"), require("isotopet4s-layout/js/layout-modes/fit-rows"), require("isotopet4s-layout/js/layout-modes/vertical")) : t.isotope = e(t, t.Outlayer, t.getSize, t.matchesSelector, t.fizzyUIUtils, t.isotope.Item, t.isotope.LayoutMode)
 })(window, function(t, e, i, n, o, s, r) {
     var a = t.jQuery
       , l = String.prototype.trim ? function(t) {
@@ -1562,7 +1562,7 @@ var LtrT4s = !RtlT4s;
     : function(t) {
         return t.replace(/^\s+|\s+$/g, "")
     }
-      , u = e.create("isotopet4s", {
+      , u = e.create("isotope", {
         layoutMode: "masonry",
         isjQuery_T4NTFiltering: !0,
         sortAscending: !0
@@ -2501,7 +2501,7 @@ var LtrT4s = !RtlT4s;
     s
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define(["isotopet4s-layout/js/layout-mode", "packery/js/packery"], e) : "object" == typeof module && module.exports ? module.exports = e(require("isotopet4s-layout/js/layout-mode"), require("packery")) : e(t.isotopet4s.LayoutMode, t.Packery)
+    "function" == typeof define && define.amd ? define(["isotopet4s-layout/js/layout-mode", "packery/js/packery"], e) : "object" == typeof module && module.exports ? module.exports = e(require("isotopet4s-layout/js/layout-mode"), require("packery")) : e(t.isotope.LayoutMode, t.Packery)
 })(window, function(t, e) {
     var i = t.create("packery")
       , n = i.prototype
@@ -2531,7 +2531,7 @@ var LtrT4s = !RtlT4s;
     ;
     var u = n._getOption;
     return n._getOption = function(t) {
-        return "horizontal" == t ? void 0 !== this.options.isHorizontal ? this.options.isHorizontal : this.options.horizontal : u.apply(this.isotopet4s, arguments)
+        return "horizontal" == t ? void 0 !== this.options.isHorizontal ? this.options.isHorizontal : this.options.horizontal : u.apply(this.isotope, arguments)
     }
     ,
     i
