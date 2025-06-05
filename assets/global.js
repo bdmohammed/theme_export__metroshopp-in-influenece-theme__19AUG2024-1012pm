@@ -140,11 +140,11 @@ var LtrT4s = !RtlT4s;
 (function(t, e) {
     "function" == typeof define && define.amd ? define("jQuery_T4NT-bridget/jQuery_T4NT-bridget", ["jQuery_T4NT"], function(i) {
         return e(t, i)
-    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("jQuery_T4NT")) : t.jQuery_T4NTBridget = e(t, t.jQuery_T4NT)
+    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("jQuery_T4NT")) : t.jQuery_T4NTBridget = e(t, t.jQuery)
 })(window, function(t, e) {
     "use strict";
     function i(i, s, a) {
-        (a = a || e || t.jQuery_T4NT) && (s.prototype.option || (s.prototype.option = function(t) {
+        (a = a || e || t.jQuery) && (s.prototype.option || (s.prototype.option = function(t) {
             a.isPlainObject(t) && (this.options = a.extend(!0, this.options, t))
         }
         ),
@@ -187,7 +187,7 @@ var LtrT4s = !RtlT4s;
         s.error(t)
     }
     ;
-    return n(e || t.jQuery_T4NT),
+    return n(e || t.jQuery),
     i
 });
 (function(t, e) {
@@ -438,7 +438,7 @@ var LtrT4s = !RtlT4s;
               , l = document.querySelectorAll(".js-" + s)
               , u = i.makeArray(a).concat(i.makeArray(l))
               , c = r + "-options"
-              , h = t.jQuery_T4NT;
+              , h = t.jQuery;
             u.forEach(function(t) {
                 var i, s = t.getAttribute(r) || t.getAttribute(c);
                 try {
@@ -804,7 +804,7 @@ var LtrT4s = !RtlT4s;
         e
     }
     var a = t.console
-      , l = t.jQuery_T4NT
+      , l = t.jQuery
       , u = function() {}
       , c = 0
       , h = {};
@@ -1555,7 +1555,7 @@ var LtrT4s = !RtlT4s;
         return e(t, i, n, o, s, r, a)
     }) : "object" == typeof module && module.exports ? module.exports = e(t, require("outlayer"), require("get-size"), require("desandro-matches-selector"), require("fizzy-ui-utils"), require("isotopet4s-layout/js/item"), require("isotopet4s-layout/js/layout-mode"), require("isotopet4s-layout/js/layout-modes/masonry"), require("isotopet4s-layout/js/layout-modes/fit-rows"), require("isotopet4s-layout/js/layout-modes/vertical")) : t.isotopet4s = e(t, t.Outlayer, t.getSize, t.matchesSelector, t.fizzyUIUtils, t.isotopet4s.Item, t.isotopet4s.LayoutMode)
 })(window, function(t, e, i, n, o, s, r) {
-    var a = t.jQuery_T4NT
+    var a = t.jQuery
       , l = String.prototype.trim ? function(t) {
         return t.trim()
     }
@@ -2539,11 +2539,11 @@ var LtrT4s = !RtlT4s;
 (function(t, e) {
     "function" == typeof define && define.amd ? define("jquery-bridget/jquery-bridget", ["jquery"], function(i) {
         return e(t, i)
-    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("jquery")) : t.jQuery_T4NTBridget = e(t, t.jQuery_T4NT)
+    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("jquery")) : t.jQuery_T4NTBridget = e(t, t.jQuery)
 })(window, function(t, e) {
     "use strict";
     function i(i, s, a) {
-        (a = a || e || t.jQuery_T4NT) && (s.prototype.option || (s.prototype.option = function(t) {
+        (a = a || e || t.jQuery) && (s.prototype.option || (s.prototype.option = function(t) {
             a.isPlainObject(t) && (this.options = a.extend(!0, this.options, t))
         }
         ),
@@ -2586,7 +2586,7 @@ var LtrT4s = !RtlT4s;
         s.error(t)
     }
     ;
-    return n(e || t.jQuery_T4NT),
+    return n(e || t.jQuery),
     i
 });
 (function(t, e) {
@@ -2835,7 +2835,7 @@ var LtrT4s = !RtlT4s;
               , l = document.querySelectorAll(".js-" + s)
               , u = i.makeArray(a).concat(i.makeArray(l))
               , c = r + "-options"
-              , h = t.jQuery_T4NT;
+              , h = t.jQuery;
             u.forEach(function(t) {
                 var i, s = t.getAttribute(r) || t.getAttribute(c);
                 try {
@@ -3132,7 +3132,7 @@ var LtrT4s = !RtlT4s;
         } else
             h && h.error("Bad element for Flickityt4s: " + (i || t))
     }
-    var u = t.jQuery_T4NT
+    var u = t.jQuery
       , c = t.getComputedStyle
       , h = t.console
       , d = 0
