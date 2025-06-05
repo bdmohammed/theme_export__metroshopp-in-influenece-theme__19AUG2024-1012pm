@@ -2852,7 +2852,7 @@ var LtrT4s = !RtlT4s;
     i
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("flickityt4s/js/cell", ["get-size/get-size"], function(i) {
+    "function" == typeof define && define.amd ? define("flickity/js/cell", ["get-size/get-size"], function(i) {
         return e(t, i)
     }) : "object" == typeof module && module.exports ? module.exports = e(t, require("get-size")) : (t.Flickityt4s = t.Flickityt4s || {},
     t.Flickityt4s.Cell = e(t, t.getSize))
@@ -2923,7 +2923,7 @@ var LtrT4s = !RtlT4s;
     i
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("flickityt4s/js/slide", e) : "object" == typeof module && module.exports ? module.exports = e() : (t.Flickityt4s = t.Flickityt4s || {},
+    "function" == typeof define && define.amd ? define("flickity/js/slide", e) : "object" == typeof module && module.exports ? module.exports = e() : (t.Flickityt4s = t.Flickityt4s || {},
     t.Flickityt4s.Slide = e())
 })(window, function() {
     "use strict";
@@ -2979,7 +2979,7 @@ var LtrT4s = !RtlT4s;
     t
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("flickityt4s/js/animate", ["fizzy-ui-utils/utils"], function(i) {
+    "function" == typeof define && define.amd ? define("flickity/js/animate", ["fizzy-ui-utils/utils"], function(i) {
         return e(t, i)
     }) : "object" == typeof module && module.exports ? module.exports = e(t, require("fizzy-ui-utils")) : (t.Flickityt4s = t.Flickityt4s || {},
     t.Flickityt4s.animatePrototype = e(t, t.fizzyUIUtils))
@@ -3090,7 +3090,7 @@ var LtrT4s = !RtlT4s;
 });
 (function(t, e) {
     if ("function" == typeof define && define.amd)
-        define("flickityt4s/js/flickityt4s", ["ev-emitter/ev-emitter", "get-size/get-size", "fizzy-ui-utils/utils", "./cell", "./slide", "./animate"], function(i, n, o, s, r, a) {
+        define("flickity/js/flickity", ["ev-emitter/ev-emitter", "get-size/get-size", "fizzy-ui-utils/utils", "./cell", "./slide", "./animate"], function(i, n, o, s, r, a) {
             return e(t, i, n, o, s, r, a)
         });
     else if ("object" == typeof module && module.exports)
@@ -3164,7 +3164,7 @@ var LtrT4s = !RtlT4s;
         this.velocity = 0,
         this.originSide = RtlT4s ? "right" : "left",
         this.viewport = document.createElement("div"),
-        this.viewport.className = "flickityt4s-viewport",
+        this.viewport.className = "flickity-viewport",
         this._createSlider(),
         (this.options.resize || this.options.watchCSS) && t.addEventListener("resize", this),
         this.options.on) {
@@ -3183,8 +3183,8 @@ var LtrT4s = !RtlT4s;
     ,
     p.activate = function() {
         this.isActive || (this.isActive = !0,
-        this.element.classList.add("flickityt4s-enabled"),
-        RtlT4s && this.element.classList.add("flickityt4s-rtl"),
+        this.element.classList.add("flickity-enabled"),
+        RtlT4s && this.element.classList.add("flickity-rtl"),
         this.getSize(),
         a(this._filterFindCellElements(this.element.children), this.slider),
         this.viewport.appendChild(this.slider),
@@ -3200,7 +3200,7 @@ var LtrT4s = !RtlT4s;
     ,
     p._createSlider = function() {
         var t = document.createElement("div");
-        t.className = "flickityt4s-slider",
+        t.className = "flickity-slider",
         t.style[this.originSide] = 0,
         this.slider = t
     }
@@ -3412,7 +3412,7 @@ var LtrT4s = !RtlT4s;
         var n = e ? [e].concat(i) : i;
         if (this.emitEvent(t, n),
         u && this.$element) {
-            var o = t += this.options.namespaceJQueryEvents ? ".flickityt4s" : "";
+            var o = t += this.options.namespaceJQueryEvents ? ".flickity" : "";
             if (e) {
                 var s = new u.Event(e);
                 s.type = t,
@@ -3525,7 +3525,7 @@ var LtrT4s = !RtlT4s;
     }
     ,
     p.getParentCell = function(t) {
-        return this.getCell(t) || (t = n.getParent(t, ".flickityt4s-slider > *"),
+        return this.getCell(t) || (t = n.getParent(t, ".flickity-slider > *"),
         this.getCell(t))
     }
     ,
@@ -3585,7 +3585,7 @@ var LtrT4s = !RtlT4s;
     }
     ,
     p.watchCSS = function() {
-        this.options.watchCSS && (-1 != c(this.element, ":after").content.indexOf("flickityt4s") ? this.activate() : this.deactivate())
+        this.options.watchCSS && (-1 != c(this.element, ":after").content.indexOf("flickity") ? this.activate() : this.deactivate())
     }
     ,
     p.onkeydown = function(t) {
@@ -3617,8 +3617,8 @@ var LtrT4s = !RtlT4s;
     }
     ,
     p.deactivate = function() {
-        this.isActive && (this.element.classList.remove("flickityt4s-enabled"),
-        this.element.classList.remove("flickityt4s-rtl"),
+        this.isActive && (this.element.classList.remove("flickity-enabled"),
+        this.element.classList.remove("flickity-rtl"),
         this.unselectSelectedSlide(),
         this.cells.forEach(function(t) {
             t.destroy()
@@ -3636,7 +3636,7 @@ var LtrT4s = !RtlT4s;
         t.removeEventListener("resize", this),
         this.allOff(),
         this.emitEvent("destroy"),
-        u && this.$element && u.removeData(this.element, "flickityt4s"),
+        u && this.$element && u.removeData(this.element, "flickity"),
         delete this.element.flickityt4sGUID,
         delete f[this.guid]
     }
@@ -3647,8 +3647,8 @@ var LtrT4s = !RtlT4s;
         return e && f[e]
     }
     ,
-    n.htmlInit(l, "flickityt4s"),
-    u && u.bridget && u.bridget("flickityt4s", l),
+    n.htmlInit(l, "flickity"),
+    u && u.bridget && u.bridget("flickity", l),
     l.setJQuery = function(t) {
         u = t
     }
@@ -3965,9 +3965,9 @@ var LtrT4s = !RtlT4s;
     i
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("flickityt4s/js/drag", ["./flickityt4s", "unidragger/unidragger", "fizzy-ui-utils/utils"], function(i, n, o) {
+    "function" == typeof define && define.amd ? define("flickity/js/drag", ["./flickity", "unidragger/unidragger", "fizzy-ui-utils/utils"], function(i, n, o) {
         return e(t, i, n, o)
-    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickityt4s"), require("unidragger"), require("fizzy-ui-utils")) : t.Flickityt4s = e(t, t.Flickityt4s, t.Unidragger, t.fizzyUIUtils)
+    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickity"), require("unidragger"), require("fizzy-ui-utils")) : t.Flickityt4s = e(t, t.Flickityt4s, t.Unidragger, t.fizzyUIUtils)
 })(window, function(t, e, i, n) {
     function o() {
         return {
@@ -4183,9 +4183,9 @@ var LtrT4s = !RtlT4s;
     e
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("flickityt4s/js/prev-next-button", ["./flickityt4s", "unipointer/unipointer", "fizzy-ui-utils/utils"], function(i, n, o) {
+    "function" == typeof define && define.amd ? define("flickity/js/prev-next-button", ["./flickity", "unipointer/unipointer", "fizzy-ui-utils/utils"], function(i, n, o) {
         return e(t, i, n, o)
-    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickityt4s"), require("unipointer"), require("fizzy-ui-utils")) : e(t, t.Flickityt4s, t.Unipointer, t.fizzyUIUtils)
+    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickity"), require("unipointer"), require("fizzy-ui-utils")) : e(t, t.Flickityt4s, t.Unipointer, t.fizzyUIUtils)
 })(window, function(t, e, i, n) {
     "use strict";
     function o(t, e) {
@@ -4200,7 +4200,7 @@ var LtrT4s = !RtlT4s;
         var t = this.parent.options.rightToLeft ? 1 : -1;
         this.isLeft = this.direction == t;
         var e = this.element = document.createElement("button");
-        e.className = "flickityt4s-button flickityt4s-prev-next-button",
+        e.className = "flickity-button flickity-prev-next-button",
         e.className += this.isPrevious ? " previous" : " next",
         e.setAttribute("type", "button"),
         this.disable(),
@@ -4225,7 +4225,7 @@ var LtrT4s = !RtlT4s;
     ,
     o.prototype.createSVG = function() {
         var t = document.createElementNS(s, "svg");
-        t.setAttribute("class", "flickityt4s-button-icon"),
+        t.setAttribute("class", "flickity-button-icon"),
         t.setAttribute("viewBox", "0 0 100 100");
         var e = document.createElementNS(s, "path")
           , i = function(t) {
@@ -4312,9 +4312,9 @@ var LtrT4s = !RtlT4s;
     e
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("flickityt4s/js/page-dots", ["./flickityt4s", "unipointer/unipointer", "fizzy-ui-utils/utils"], function(i, n, o) {
+    "function" == typeof define && define.amd ? define("flickity/js/page-dots", ["./flickity", "unipointer/unipointer", "fizzy-ui-utils/utils"], function(i, n, o) {
         return e(t, i, n, o)
-    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickityt4s"), require("unipointer"), require("fizzy-ui-utils")) : e(t, t.Flickityt4s, t.Unipointer, t.fizzyUIUtils)
+    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickity"), require("unipointer"), require("fizzy-ui-utils")) : e(t, t.Flickityt4s, t.Unipointer, t.fizzyUIUtils)
 })(window, function(t, e, i, n) {
     function o(t) {
         this.parent = t,
@@ -4322,7 +4322,7 @@ var LtrT4s = !RtlT4s;
     }
     (o.prototype = Object.create(i.prototype))._create = function() {
         this.holder = document.createElement("ol"),
-        this.holder.className = "flickityt4s-page-dots",
+        this.holder.className = "flickity-page-dots",
         this.dots = [],
         this.handleClick = this.onClick.bind(this),
         this.on("pointerDown", this.parent.childUIPointerDown.bind(this.parent))
@@ -4421,9 +4421,9 @@ var LtrT4s = !RtlT4s;
     e
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("flickityt4s/js/player", ["ev-emitter/ev-emitter", "fizzy-ui-utils/utils", "./flickityt4s"], function(t, i, n) {
+    "function" == typeof define && define.amd ? define("flickity/js/player", ["ev-emitter/ev-emitter", "fizzy-ui-utils/utils", "./flickity"], function(t, i, n) {
         return e(t, i, n)
-    }) : "object" == typeof module && module.exports ? module.exports = e(require("ev-emitter"), require("fizzy-ui-utils"), require("./flickityt4s")) : e(t.EvEmitter, t.fizzyUIUtils, t.Flickityt4s)
+    }) : "object" == typeof module && module.exports ? module.exports = e(require("ev-emitter"), require("fizzy-ui-utils"), require("./flickity")) : e(t.EvEmitter, t.fizzyUIUtils, t.Flickityt4s)
 })(window, function(t, e, i) {
     function n(t) {
         this.parent = t,
@@ -4531,9 +4531,9 @@ var LtrT4s = !RtlT4s;
     i
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("flickityt4s/js/add-remove-cell", ["./flickityt4s", "fizzy-ui-utils/utils"], function(i, n) {
+    "function" == typeof define && define.amd ? define("flickity/js/add-remove-cell", ["./flickity", "fizzy-ui-utils/utils"], function(i, n) {
         return e(t, i, n)
-    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickityt4s"), require("fizzy-ui-utils")) : e(t, t.Flickityt4s, t.fizzyUIUtils)
+    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickity"), require("fizzy-ui-utils")) : e(t, t.Flickityt4s, t.fizzyUIUtils)
 })(window, function(t, e, i) {
     var n = e.prototype;
     return n.insert = function(t, e) {
@@ -4616,12 +4616,12 @@ var LtrT4s = !RtlT4s;
     e
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("flickityt4s/js/index", ["./flickityt4s", "./drag", "./prev-next-button", "./page-dots", "./player", "./add-remove-cell", "./lazyload"], e) : "object" == typeof module && module.exports && (module.exports = e(require("./flickityt4s"), require("./drag"), require("./prev-next-button"), require("./page-dots"), require("./player"), require("./add-remove-cell"), require("./lazyload")))
+    "function" == typeof define && define.amd ? define("flickity/js/index", ["./flickity", "./drag", "./prev-next-button", "./page-dots", "./player", "./add-remove-cell", "./lazyload"], e) : "object" == typeof module && module.exports && (module.exports = e(require("./flickity"), require("./drag"), require("./prev-next-button"), require("./page-dots"), require("./player"), require("./add-remove-cell"), require("./lazyload")))
 })(window, function(t) {
     return t
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("flickityt4s-as-nav-for/as-nav-for", ["flickityt4s/js/index", "fizzy-ui-utils/utils"], e) : "object" == typeof module && module.exports ? module.exports = e(require("flickityt4s"), require("fizzy-ui-utils")) : t.Flickityt4s = e(t.Flickityt4s, t.fizzyUIUtils)
+    "function" == typeof define && define.amd ? define("flickity-as-nav-for/as-nav-for", ["flickity/js/index", "fizzy-ui-utils/utils"], e) : "object" == typeof module && module.exports ? module.exports = e(require("flickity"), require("fizzy-ui-utils")) : t.Flickityt4s = e(t.Flickityt4s, t.fizzyUIUtils)
 })(window, function(t, e) {
     t.createMethods.push("_createAsNavFor");
     var i = t.prototype;
@@ -4702,7 +4702,7 @@ var LtrT4s = !RtlT4s;
     t
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define(["flickityt4s/js/index", "fizzy-ui-utils/utils"], e) : "object" == typeof module && module.exports ? module.exports = e(require("flickityt4s"), require("fizzy-ui-utils")) : e(t.Flickityt4s, t.fizzyUIUtils)
+    "function" == typeof define && define.amd ? define(["flickity/js/index", "fizzy-ui-utils/utils"], e) : "object" == typeof module && module.exports ? module.exports = e(require("flickity"), require("fizzy-ui-utils")) : e(t.Flickityt4s, t.fizzyUIUtils)
 })(this, function(t, e) {
     var i = t.Slide
       , n = i.prototype.updateTarget;
@@ -4845,7 +4845,7 @@ var LtrT4s = !RtlT4s;
     t
 }),
 function(t, e) {
-    "function" == typeof define && define.amd ? define(["flickityt4s/js/index", "fizzy-ui-utils/utils"], e) : "object" == typeof module && module.exports ? module.exports = e(require("flickityt4s"), require("fizzy-ui-utils")) : t.Flickityt4s = e(t.Flickityt4s, t.fizzyUIUtils)
+    "function" == typeof define && define.amd ? define(["flickity/js/index", "fizzy-ui-utils/utils"], e) : "object" == typeof module && module.exports ? module.exports = e(require("flickity"), require("fizzy-ui-utils")) : t.Flickityt4s = e(t.Flickityt4s, t.fizzyUIUtils)
 }(window, function(t, e) {
     "use strict";
     return t.createMethods.push("_createSync"),
@@ -4876,7 +4876,7 @@ function(t, e) {
         var i = this;
         this.on("select", e),
         this.syncers[t.guid] = {
-            flickityt4s: t,
+            flickity: t,
             listener: e
         }
     }
@@ -4902,7 +4902,7 @@ function(t, e) {
     t.prototype.unsyncAll = function() {
         for (var t in this.syncers) {
             var e = this.syncers[t];
-            this._unsync(e.flickityt4s)
+            this._unsync(e.flickity)
         }
     }
     ,
@@ -10545,7 +10545,7 @@ function(t, e) {
 //   const isCommonJS = typeof module === 'object' && module.exports;
 
 //   if (isAMD) {
-//     define('flickityt4s/js/cell', ['get-size/get-size'], (getSize) => {
+//     define('flickity/js/cell', ['get-size/get-size'], (getSize) => {
 //       return factory(global, getSize);
 //     });
 //   } else if (isCommonJS) {
@@ -10640,7 +10640,7 @@ function(t, e) {
 //   const isCommonJS = typeof module === 'object' && module.exports;
 
 //   if (isAMD) {
-//     define('flickityt4s/js/slide', factory);
+//     define('flickity/js/slide', factory);
 //   } else if (isCommonJS) {
 //     module.exports = factory();
 //   } else {
@@ -10709,7 +10709,7 @@ function(t, e) {
 //   const isCommonJS = typeof module === 'object' && module.exports;
 
 //   if (isAMD) {
-//     define('flickityt4s/js/animate', ['fizzy-ui-utils/utils'], factory);
+//     define('flickity/js/animate', ['fizzy-ui-utils/utils'], factory);
 //   } else if (isCommonJS) {
 //     module.exports = factory(global, require('fizzy-ui-utils'));
 //   } else {
@@ -11449,7 +11449,7 @@ function(t, e) {
 //   'use strict';
 
 //   if (typeof define === 'function' && define.amd) {
-//     define('flickityt4s/js/flickityt4s', [
+//     define('flickity/js/flickity', [
 //       'ev-emitter/ev-emitter',
 //       'get-size/get-size',
 //       'fizzy-ui-utils/utils',
@@ -12311,8 +12311,8 @@ function(t, e) {
 // (function (t, e) {
 //   'function' == typeof define && define.amd
 //     ? define(
-//         'flickityt4s/js/drag',
-//         ['./flickityt4s', 'unidragger/unidragger', 'fizzy-ui-utils/utils'],
+//         'flickity/js/drag',
+//         ['./flickity', 'unidragger/unidragger', 'fizzy-ui-utils/utils'],
 //         function (i, n, o) {
 //           return e(t, i, n, o);
 //         }
@@ -12320,7 +12320,7 @@ function(t, e) {
 //     : 'object' == typeof module && module.exports
 //     ? (module.exports = e(
 //         t,
-//         require('./flickityt4s'),
+//         require('./flickity'),
 //         require('unidragger'),
 //         require('fizzy-ui-utils')
 //       ))
@@ -12539,8 +12539,8 @@ function(t, e) {
 //   'use strict';
 
 //   if (typeof define === 'function' && define.amd) {
-//     define('flickityt4s/js/prev-next-button', [
-//       './flickityt4s',
+//     define('flickity/js/prev-next-button', [
+//       './flickity',
 //       'unipointer/unipointer',
 //       'fizzy-ui-utils/utils',
 //     ], (flickity, unipointer, utils) =>
@@ -12548,7 +12548,7 @@ function(t, e) {
 //   } else if (typeof module === 'object' && module.exports) {
 //     module.exports = factory(
 //       window,
-//       require('./flickityt4s'),
+//       require('./flickity'),
 //       require('unipointer'),
 //       require('fizzy-ui-utils')
 //     );
@@ -12729,8 +12729,8 @@ function(t, e) {
 // (function (window, factory) {
 //   'use strict';
 //   if (typeof define === 'function' && define.amd) {
-//     define('flickityt4s/js/page-dots', [
-//       './flickityt4s',
+//     define('flickity/js/page-dots', [
+//       './flickity',
 //       'unipointer/unipointer',
 //       'fizzy-ui-utils/utils',
 //     ], (flickity, unipointer, utils) =>
@@ -12738,7 +12738,7 @@ function(t, e) {
 //   } else if (typeof module === 'object' && module.exports) {
 //     module.exports = factory(
 //       window,
-//       require('./flickityt4s'),
+//       require('./flickity'),
 //       require('unipointer'),
 //       require('fizzy-ui-utils')
 //     );
@@ -12880,16 +12880,16 @@ function(t, e) {
 //   'use strict';
 
 //   if (typeof define === 'function' && define.amd) {
-//     define('flickityt4s/js/player', [
+//     define('flickity/js/player', [
 //       'ev-emitter/ev-emitter',
 //       'fizzy-ui-utils/utils',
-//       './flickityt4s',
+//       './flickity',
 //     ], (evEmitter, utils, flickity) => factory(evEmitter, utils, flickity));
 //   } else if (typeof module === 'object' && module.exports) {
 //     module.exports = factory(
 //       require('ev-emitter'),
 //       require('fizzy-ui-utils'),
-//       require('./flickityt4s')
+//       require('./flickity')
 //     );
 //   } else {
 //     factory(window.EvEmitter, window.fizzyUIUtils, window.Flickityt4s);
@@ -13033,14 +13033,14 @@ function(t, e) {
 //   'use strict';
 
 //   if (typeof define === 'function' && define.amd) {
-//     define('flickityt4s/js/add-remove-cell', [
-//       './flickityt4s',
+//     define('flickity/js/add-remove-cell', [
+//       './flickity',
 //       'fizzy-ui-utils/utils',
 //     ], (flickity, utils) => factory(window, flickity, utils));
 //   } else if (typeof module === 'object' && module.exports) {
 //     module.exports = factory(
 //       window,
-//       require('./flickityt4s'),
+//       require('./flickity'),
 //       require('fizzy-ui-utils')
 //     );
 //   } else {
@@ -13141,8 +13141,8 @@ function(t, e) {
 //   'use strict';
 
 //   if (typeof define === 'function' && define.amd) {
-//     define('flickityt4s/js/index', [
-//       './flickityt4s',
+//     define('flickity/js/index', [
+//       './flickity',
 //       './drag',
 //       './prev-next-button',
 //       './page-dots',
@@ -13152,7 +13152,7 @@ function(t, e) {
 //     ], factory);
 //   } else if (typeof module === 'object' && module.exports) {
 //     module.exports = factory(
-//       require('./flickityt4s'),
+//       require('./flickity'),
 //       require('./drag'),
 //       require('./prev-next-button'),
 //       require('./page-dots'),
@@ -13169,12 +13169,12 @@ function(t, e) {
 //   'use strict';
 
 //   if (typeof define === 'function' && define.amd) {
-//     define('flickityt4s-as-nav-for/as-nav-for', [
-//       'flickityt4s/js/index',
+//     define('flickity-as-nav-for/as-nav-for', [
+//       'flickity/js/index',
 //       'fizzy-ui-utils/utils',
 //     ], factory);
 //   } else if (typeof module === 'object' && module.exports) {
-//     module.exports = factory(require('flickityt4s'), require('fizzy-ui-utils'));
+//     module.exports = factory(require('flickity'), require('fizzy-ui-utils'));
 //   } else {
 //     window.Flickityt4s = factory(window.Flickityt4s, window.fizzyUIUtils);
 //   }
@@ -13275,9 +13275,9 @@ function(t, e) {
 //   'use strict';
 
 //   if (typeof define === 'function' && define.amd) {
-//     define(['flickityt4s/js/index', 'fizzy-ui-utils/utils'], factory);
+//     define(['flickity/js/index', 'fizzy-ui-utils/utils'], factory);
 //   } else if (typeof module === 'object' && module.exports) {
-//     module.exports = factory(require('flickityt4s'), require('fizzy-ui-utils'));
+//     module.exports = factory(require('flickity'), require('fizzy-ui-utils'));
 //   } else {
 //     factory(global.Flickityt4s, global.fizzyUIUtils);
 //   }
@@ -13467,9 +13467,9 @@ function(t, e) {
 //   'use strict';
 
 //   if (typeof define === 'function' && define.amd) {
-//     define(['flickityt4s/js/index', 'fizzy-ui-utils/utils'], factory);
+//     define(['flickity/js/index', 'fizzy-ui-utils/utils'], factory);
 //   } else if (typeof module === 'object' && module.exports) {
-//     module.exports = factory(require('flickityt4s'), require('fizzy-ui-utils'));
+//     module.exports = factory(require('flickity'), require('fizzy-ui-utils'));
 //   } else {
 //     global.Flickityt4s = factory(global.Flickityt4s, global.fizzyUIUtils);
 //   }
@@ -13511,7 +13511,7 @@ function(t, e) {
 
 //     this.on('select', selectListener);
 //     this.syncers[companion.guid] = {
-//       flickityt4s: companion,
+//       flickity: companion,
 //       listener: selectListener,
 //     };
 //   };
@@ -13540,8 +13540,8 @@ function(t, e) {
 //   Flickity.prototype.unsyncAll = function () {
 //     for (const key in this.syncers) {
 //       if (Object.prototype.hasOwnProperty.call(this.syncers, key)) {
-//         const { flickityt4s } = this.syncers[key];
-//         this._unsync(flickityt4s);
+//         const { flickity } = this.syncers[key];
+//         this._unsync(flickity);
 //       }
 //     }
 //   };
@@ -14301,7 +14301,7 @@ window.CookiesT4 = Cookies.noConflict();
 
   //    function initEach() {
   //    	return false;
-  //    	var $Flickityt4s = $('.flickityt4s:not(.flickityt4s-later):not(.flickityt4s-enabled)');
+  //    	var $Flickityt4s = $('.flickity:not(.flickity-later):not(.flickity-enabled)');
   //    	if ($Flickityt4s.length == 0) return;
 
   // $Flickityt4s.each(function() {
@@ -14314,7 +14314,7 @@ window.CookiesT4 = Cookies.noConflict();
   // if (windowWidth <= 1024 && _this.hasClass('disable-owl-mb-true') || _this.length == 0) return;
 
   // var $carousel    = _this,
-  // option           = JSON.parse($carousel.attr("data-flickityt4s-js") || '{}'),
+  // option           = JSON.parse($carousel.attr("data-flickity-js") || '{}'),
   // Isthumb          = option.isThum || false,
   // IsthumbVertical  = option.IsthumbVertical || false,
   // IdSlider         = option.t4sid || '19041994',
@@ -14332,7 +14332,7 @@ window.CookiesT4 = Cookies.noConflict();
   //       option.rightToLeft = isThemeRTL;
 
   // // bind event listener first
-  // $carousel.on( 'ready.flickityt4s', function() {
+  // $carousel.on( 'ready.flickity', function() {
   //   //console.log('Flickity ready');
   //   $document.trigger('T4sFlickityEnabled');
   //   if ($carousel.hasClass('slide-ani-distortion')) {
@@ -14341,9 +14341,9 @@ window.CookiesT4 = Cookies.noConflict();
   // });
 
   // // initialize Flickity
-  //     $carousel.flickityt4s(option);
+  //     $carousel.flickity(option);
 
-  //     var flkty = $carousel.data('flickityt4s');
+  //     var flkty = $carousel.data('flickity');
   // setTimeout(function() {
   // 	$carousel.addClass('t4s-enabled');
   // }, 100);
@@ -14351,7 +14351,7 @@ window.CookiesT4 = Cookies.noConflict();
   //       // custom thums
   //       if (Isthumb || IsthumbVertical) {
   //        $carouselNav.on( 'click', '.t4s-carousel__nav--item', function( event ) {
-  //           $carousel.flickityt4s( 'select', $(this).index() );
+  //           $carousel.flickity( 'select', $(this).index() );
   //        });
   //       }
 
@@ -14359,17 +14359,17 @@ window.CookiesT4 = Cookies.noConflict();
   //       if ($nextButton.length || $cellButtonGroup.length) {
   //      // previous
   //      $previousButton.on( 'click', function() {
-  //         $carousel.flickityt4s('previous');
+  //         $carousel.flickity('previous');
   //      });
 
   //      // next
   //      $nextButton.on( 'click', function() {
-  //         $carousel.flickityt4s('next');
+  //         $carousel.flickity('next');
   //      });
 
   //        // update selected cellButtons
-  //        $carousel.on( 'select.flickityt4s', function() {
-  //            //console.log('select.flickityt4s')
+  //        $carousel.on( 'select.flickity', function() {
+  //            //console.log('select.flickity')
   //            // update dot selected
   //            $cellButtons.filter('.is-selected').removeClass('is-selected');
   //            $cellButtons.eq( flkty.selectedIndex ).addClass('is-selected');
@@ -14389,7 +14389,7 @@ window.CookiesT4 = Cookies.noConflict();
 
   //        // select cell on button click
   //        $cellButtonGroup.on( 'click', '.btn_dott4s', function() {
-  //            $carousel.flickityt4s( 'select', $(this).index() );
+  //            $carousel.flickity( 'select', $(this).index() );
   //        });
 
   //       } // end if
@@ -14407,7 +14407,7 @@ window.CookiesT4 = Cookies.noConflict();
   //          var $imgs =  $carousel.find(img_str);
   //          if ($imgs.length == 0) return
 
-  // 	$carousel.on('scroll.flickityt4s', function(event, progress) {
+  // 	$carousel.on('scroll.flickity', function(event, progress) {
 
   // 		flkty.slides.forEach(function(e, i) {
   // 			var img = $imgs[i];
@@ -14470,7 +14470,7 @@ window.CookiesT4 = Cookies.noConflict();
   // 	  return str.length < max ? pad("0" + str, max) : str;
   // 	}
   //        updateStatus();
-  // 	$carousel.on( 'select.flickityt4s', updateStatus );
+  // 	$carousel.on( 'select.flickity', updateStatus );
 
   // }
 
