@@ -1404,5 +1404,11 @@
       }
     },
     "content_for_index": []
+  },
+  "platform_customizations": {
+    "custom_css": [
+      "#mybtn {display: none;}",
+      ".gokwik-checkout {margin-bottom: 5px;}"
+    ]
   }
 }
