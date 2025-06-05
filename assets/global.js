@@ -16716,7 +16716,7 @@ window.$(document).ready(($) => {
   // });
   //setTimeout(function(){ $('.img_first_js').addClass('lazyloadt4s') }, 1000);
   // T4SThemeSP.preventOverflow();
-  $html.addClass(`browser-${window.jscd.browser} platform-${window.jscd.os}`);
+  window.$('html').addClass(`browser-${window.jscd.browser} platform-${window.jscd.os}`);
   window.T4SThemeSP.fullHeightFirtSe();
   window.T4SThemeSP.initVarHeight();
   window.T4SThemeSP.initMarquee3k();
@@ -16763,6 +16763,6 @@ window.$(document).ready(($) => {
 
 //done
 // Handle window resize event
-$window.on('resize', () => {
+window.$(window).on('resize', () => {
   window.T4SThemeSP.AccordionMobileInt();
 });
