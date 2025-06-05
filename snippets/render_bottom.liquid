@@ -4,7 +4,9 @@
   assign enable_quickview = settings.enable_quickview
   assign enable_quickshop = settings.enable_quickshop
 -%}
-
+<script>
+  console.log('admin_sp', {{ request.design_mode }}, {{request.page_type }});
+</script>
 <svg aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" class="d-none">
   <defs>
     <symbol id="svg-slider-btn___prev-1" viewBox="0 0 28 20">
