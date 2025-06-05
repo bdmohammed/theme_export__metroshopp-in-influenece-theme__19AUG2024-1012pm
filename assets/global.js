@@ -14934,7 +14934,7 @@ var CookiesT4 = Cookies.noConflict();
       this.el = element;
       this.$el = window.$(element);
       this.UID = window.T4SThemeSP.getUID();
-      this.eventNamespace.resize = `resize.carousel${this.UID}`;
+      this.eventNameSpaces.resize = `resize.carousel${this.UID}`;
       const dataOptions = JSON.parse(this.$el.attr('data-flickity-js') || '{}');
       this.args = { ...this.defaultOptions, ...dataOptions };
 
