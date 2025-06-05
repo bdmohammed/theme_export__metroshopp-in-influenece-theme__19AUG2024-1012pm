@@ -1,5 +1,3 @@
-const { event } = require('jquery');
-
 window.T4SThemeSP = {};
 var isStorageSpSession = false;
 var isStorageSpSessionAll = false;
