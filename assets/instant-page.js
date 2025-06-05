@@ -33,14 +33,13 @@
   // Check intensity levels for prefetching
   if ('instantIntensity' in document.body.dataset) {
     const intensity = document.body.dataset.instantIntensity;
-    if (intensity && intensity.startsWith('mousedown')) {
+    if (intensity?.startsWith('mousedown')) {
       enableMousedownPrefetch = true;
       if (intensity === 'mousedown-only') mousedownOnly = true;
-    } else if (intensity && intensity.startsWith('viewport')) {
+    } else if (intensity?.startsWith('viewport')) {
       const isLowDataConnection =
         navigator.connection?.saveData ||
-        (navigator.connection?.effectiveType &&
-          navigator.connection.effectiveType.includes('2g'));
+        (navigator.connection?.effectiveType?.includes('2g'));
 
       if (!isLowDataConnection) {
         const isSmallViewport =
@@ -176,8 +175,7 @@
 
   function shouldPrefetch(link) {
     return (
-      link &&
-      link.href &&
+      link?.href &&
       (!allowInstantWhitelist || 'instant' in link.dataset) &&
       (allowExternalLinksPrefetch ||
         link.origin === location.origin ||

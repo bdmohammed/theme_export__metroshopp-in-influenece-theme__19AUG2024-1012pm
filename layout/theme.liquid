@@ -148,5 +148,33 @@
     -%}
 
     {{ shop.metafields.loox.global_html_body }}
+    {% comment %} {%- include 'smile-initializer' -%} {% endcomment %}
+    {% comment %} {%- include 'snapmint-script' -%} {% endcomment %}
+    {% comment %} {% include 'social-login' %} {% endcomment %}
+    {% comment %} {% render 'theme-preload' %} {% endcomment %}
+    <!-- Back in Stock helper snippet -->
+    {% comment %} {% render 'back-in-stock-helper' %} {% endcomment %}
+    <!-- This line added automatically by JSON-LD for SEO. -->
+    {% include 'jsonld-for-seo' %}
+
+    {% comment %}
+      <script>
+        var site_nav_link_burger = true;
+        document.addEventListener('DOMContentLoaded', function () {
+          var icon_menu = document.querySelector('[data-menu-drawer]');
+          icon_menu.addEventListener('click', function () {
+            if (site_nav_link_burger) {
+              event.preventDefault();
+              site_nav_link_burger = false;
+            }
+          });
+        });
+      </script>
+    {% endcomment %}
+    {% comment %} {{ 'wnw-optimization-3.0.js' | asset_url | script_tag }} {% endcomment %}
+
+    {% comment %}
+      {%- render 'footer-app-block' -%}
+    {% endcomment %}
   </body>
 </html>

@@ -1,9 +1,18 @@
 .bg_color_white-cream.lazyloaded {
-  background-image: url(https://demo-kalles-4-1.myshopify.com//cdn/shop/files/color1.jpg?crop=center&height=100&v=1652945022&width=100)
+  background-image: url(/cdn/shop/files/color1.jpg?crop=center&height=100&v=1652945022&width=100)
 }
 
 .bg_color_heart-dotted.lazyloaded {
-  background-image: url(https://demo-kalles-4-1.myshopify.com//cdn/shop/files/color2.jpg?crop=center&height=100&v=1652945014&width=100)
+  background-image: url(/cdn/shop/files/color2.jpg?crop=center&height=100&v=1652945014&width=100)
+}
+
+/*! Code css #custom_color */
+.bg_color_white-cream.lazyloaded {
+  background-image: url(/cdn/shop/files/color1.jpg?crop=center&height=100&v=1652945022&width=100)
+}
+
+.bg_color_heart-dotted.lazyloaded {
+  background-image: url(/cdn/shop/files/color2.jpg?crop=center&height=100&v=1652945014&width=100)
 }
 
 .lb_menu_hot {
@@ -46,3 +55,5 @@
 .bg_color_pink-mystic {
   --ts-bg-color: #ecdcea
 }
+
+/*# sourceMappingURL=/cdn/shop/t/2/assets/colors.css.map?v=126270505717274623721692063409 */

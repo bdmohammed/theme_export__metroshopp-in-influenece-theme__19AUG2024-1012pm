@@ -1,0 +1,25 @@
+<!-- Begin Shopify–payment-cart JavaScript -->
+<script type="lazyload2">
+     var mid = 2071;
+  //1. Add this if need to show popup on cart page
+        var snapCartPrice = {{ cart.total_price | json }}
+    //This will be the element class name where we want to insert the UI
+        var snapCartElName = ''
+
+
+    //2. Add this if need to show popup on sidebar cart
+        var snapCartPrice = {{ cart.total_price | json }}
+    //This will be the element class name where we want to insert the UI
+        var snapCart = '#CartFooter'
+
+    //3. Add this if need to show popup on product page
+        var snapProdDetail = {{ product | json }}
+    //This will be the element class name where we want to insert the UI
+    var snapProdElName = '.product-main-section'
+
+    //targeted price
+    var productTargetedPrice = '.product__price'
+    var productTargetedPriceVariant = '.product__price'
+</script>
+<script type="lazyload2" data-src="https://assets.snapmint.com/assets/merchant/2071/snm_shopify_popup_min.js"></script>
+<!-- End Shopify-payment JavaScript -->

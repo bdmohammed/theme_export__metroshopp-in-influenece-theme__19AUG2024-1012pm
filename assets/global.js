@@ -1220,7 +1220,7 @@ var LtrT4s = !RtlT4s;
     s
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("isotopet4s-layout/js/item", ["outlayer/outlayer"], e) : "object" == typeof module && module.exports ? module.exports = e(require("outlayer")) : (t.isotope = t.isotope || {},
+    "function" == typeof define && define.amd ? define("isotope-layout/js/item", ["outlayer/outlayer"], e) : "object" == typeof module && module.exports ? module.exports = e(require("outlayer")) : (t.isotope = t.isotope || {},
     t.isotope.Item = e(t.Outlayer))
 })(window, function(t) {
     "use strict";
@@ -1260,7 +1260,7 @@ var LtrT4s = !RtlT4s;
     e
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("isotopet4s-layout/js/layout-mode", ["get-size/get-size", "outlayer/outlayer"], e) : "object" == typeof module && module.exports ? module.exports = e(require("get-size"), require("outlayer")) : (t.isotope = t.isotope || {},
+    "function" == typeof define && define.amd ? define("isotope-layout/js/layout-mode", ["get-size/get-size", "outlayer/outlayer"], e) : "object" == typeof module && module.exports ? module.exports = e(require("get-size"), require("outlayer")) : (t.isotope = t.isotope || {},
     t.isotope.LayoutMode = e(t.getSize, t.Outlayer))
 })(window, function(t, e) {
     "use strict";
@@ -1458,7 +1458,7 @@ var LtrT4s = !RtlT4s;
     i
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("isotopet4s-layout/js/layout-modes/masonry", ["../layout-mode", "masonry-layout/masonry"], e) : "object" == typeof module && module.exports ? module.exports = e(require("../layout-mode"), require("masonry-layout")) : e(t.isotope.LayoutMode, t.Masonry)
+    "function" == typeof define && define.amd ? define("isotope-layout/js/layout-modes/masonry", ["../layout-mode", "masonry-layout/masonry"], e) : "object" == typeof module && module.exports ? module.exports = e(require("../layout-mode"), require("masonry-layout")) : e(t.isotope.LayoutMode, t.Masonry)
 })(window, function(t, e) {
     "use strict";
     var i = t.create("masonry")
@@ -1484,7 +1484,7 @@ var LtrT4s = !RtlT4s;
     i
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("isotopet4s-layout/js/layout-modes/fit-rows", ["../layout-mode"], e) : "object" == typeof exports ? module.exports = e(require("../layout-mode")) : e(t.isotope.LayoutMode)
+    "function" == typeof define && define.amd ? define("isotope-layout/js/layout-modes/fit-rows", ["../layout-mode"], e) : "object" == typeof exports ? module.exports = e(require("../layout-mode")) : e(t.isotope.LayoutMode)
 })(window, function(t) {
     "use strict";
     var e = t.create("fitRows")
@@ -1520,7 +1520,7 @@ var LtrT4s = !RtlT4s;
     e
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("isotopet4s-layout/js/layout-modes/vertical", ["../layout-mode"], e) : "object" == typeof module && module.exports ? module.exports = e(require("../layout-mode")) : e(t.isotope.LayoutMode)
+    "function" == typeof define && define.amd ? define("isotope-layout/js/layout-modes/vertical", ["../layout-mode"], e) : "object" == typeof module && module.exports ? module.exports = e(require("../layout-mode")) : e(t.isotope.LayoutMode)
 })(window, function(t) {
     "use strict";
     var e = t.create("vertical", {
@@ -1551,9 +1551,9 @@ var LtrT4s = !RtlT4s;
     e
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define(["outlayer/outlayer", "get-size/get-size", "desandro-matches-selector/matches-selector", "fizzy-ui-utils/utils", "isotopet4s-layout/js/item", "isotopet4s-layout/js/layout-mode", "isotopet4s-layout/js/layout-modes/masonry", "isotopet4s-layout/js/layout-modes/fit-rows", "isotopet4s-layout/js/layout-modes/vertical"], function(i, n, o, s, r, a) {
+    "function" == typeof define && define.amd ? define(["outlayer/outlayer", "get-size/get-size", "desandro-matches-selector/matches-selector", "fizzy-ui-utils/utils", "isotope-layout/js/item", "isotope-layout/js/layout-mode", "isotope-layout/js/layout-modes/masonry", "isotope-layout/js/layout-modes/fit-rows", "isotope-layout/js/layout-modes/vertical"], function(i, n, o, s, r, a) {
         return e(t, i, n, o, s, r, a)
-    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("outlayer"), require("get-size"), require("desandro-matches-selector"), require("fizzy-ui-utils"), require("isotopet4s-layout/js/item"), require("isotopet4s-layout/js/layout-mode"), require("isotopet4s-layout/js/layout-modes/masonry"), require("isotopet4s-layout/js/layout-modes/fit-rows"), require("isotopet4s-layout/js/layout-modes/vertical")) : t.isotope = e(t, t.Outlayer, t.getSize, t.matchesSelector, t.fizzyUIUtils, t.isotope.Item, t.isotope.LayoutMode)
+    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("outlayer"), require("get-size"), require("desandro-matches-selector"), require("fizzy-ui-utils"), require("isotope-layout/js/item"), require("isotope-layout/js/layout-mode"), require("isotope-layout/js/layout-modes/masonry"), require("isotope-layout/js/layout-modes/fit-rows"), require("isotope-layout/js/layout-modes/vertical")) : t.isotope = e(t, t.Outlayer, t.getSize, t.matchesSelector, t.fizzyUIUtils, t.isotope.Item, t.isotope.LayoutMode)
 })(window, function(t, e, i, n, o, s, r) {
     var a = t.jQuery
       , l = String.prototype.trim ? function(t) {
@@ -2501,7 +2501,7 @@ var LtrT4s = !RtlT4s;
     s
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define(["isotopet4s-layout/js/layout-mode", "packery/js/packery"], e) : "object" == typeof module && module.exports ? module.exports = e(require("isotopet4s-layout/js/layout-mode"), require("packery")) : e(t.isotope.LayoutMode, t.Packery)
+    "function" == typeof define && define.amd ? define(["isotope-layout/js/layout-mode", "packery/js/packery"], e) : "object" == typeof module && module.exports ? module.exports = e(require("isotope-layout/js/layout-mode"), require("packery")) : e(t.isotope.LayoutMode, t.Packery)
 })(window, function(t, e) {
     var i = t.create("packery")
       , n = i.prototype
@@ -2854,8 +2854,8 @@ var LtrT4s = !RtlT4s;
 (function(t, e) {
     "function" == typeof define && define.amd ? define("flickity/js/cell", ["get-size/get-size"], function(i) {
         return e(t, i)
-    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("get-size")) : (t.Flickityt4s = t.Flickityt4s || {},
-    t.Flickityt4s.Cell = e(t, t.getSize))
+    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("get-size")) : (t.Flickity = t.Flickity || {},
+    t.Flickity.Cell = e(t, t.getSize))
 })(window, function(t, e) {
     function i(t, e) {
         this.element = t,
@@ -2923,8 +2923,8 @@ var LtrT4s = !RtlT4s;
     i
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("flickity/js/slide", e) : "object" == typeof module && module.exports ? module.exports = e() : (t.Flickityt4s = t.Flickityt4s || {},
-    t.Flickityt4s.Slide = e())
+    "function" == typeof define && define.amd ? define("flickity/js/slide", e) : "object" == typeof module && module.exports ? module.exports = e() : (t.Flickity = t.Flickity || {},
+    t.Flickity.Slide = e())
 })(window, function() {
     "use strict";
     function t(t) {
@@ -2981,8 +2981,8 @@ var LtrT4s = !RtlT4s;
 (function(t, e) {
     "function" == typeof define && define.amd ? define("flickity/js/animate", ["fizzy-ui-utils/utils"], function(i) {
         return e(t, i)
-    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("fizzy-ui-utils")) : (t.Flickityt4s = t.Flickityt4s || {},
-    t.Flickityt4s.animatePrototype = e(t, t.fizzyUIUtils))
+    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("fizzy-ui-utils")) : (t.Flickity = t.Flickity || {},
+    t.Flickity.animatePrototype = e(t, t.fizzyUIUtils))
 })(window, function(t, e) {
     return {
         startAnimation: function() {
@@ -3096,8 +3096,8 @@ var LtrT4s = !RtlT4s;
     else if ("object" == typeof module && module.exports)
         module.exports = e(t, require("ev-emitter"), require("get-size"), require("fizzy-ui-utils"), require("./cell"), require("./slide"), require("./animate"));
     else {
-        var i = t.Flickityt4s;
-        t.Flickityt4s = e(t, t.EvEmitter, t.getSize, t.fizzyUIUtils, i.Cell, i.Slide, i.animatePrototype)
+        var i = t.Flickity;
+        t.Flickity = e(t, t.EvEmitter, t.getSize, t.fizzyUIUtils, i.Cell, i.Slide, i.animatePrototype)
     }
 })(window, function(t, e, i, n, o, s, r) {
     function a(t, e) {
@@ -3108,8 +3108,8 @@ var LtrT4s = !RtlT4s;
         var i = n.getQueryElement(t);
         if (i) {
             if (this.element = i,
-            this.element.flickityt4sGUID) {
-                var o = f[this.element.flickityt4sGUID];
+            this.element.flickityGUID) {
+                var o = f[this.element.flickityGUID];
                 return o && o.option(e),
                 o
             }
@@ -3130,7 +3130,7 @@ var LtrT4s = !RtlT4s;
             this.option(e),
             this._create()
         } else
-            h && h.error("Bad element for Flickityt4s: " + (i || t))
+            h && h.error("Bad element for Flickity: " + (i || t))
     }
     var u = t.jQuery
       , c = t.getComputedStyle
@@ -3156,7 +3156,7 @@ var LtrT4s = !RtlT4s;
     n.extend(p, e.prototype),
     p._create = function() {
         var e = this.guid = ++d;
-        for (var i in this.element.flickityt4sGUID = e,
+        for (var i in this.element.flickityGUID = e,
         f[e] = this,
         this.selectedIndex = 0,
         this.restingFrames = 0,
@@ -3359,8 +3359,8 @@ var LtrT4s = !RtlT4s;
                 var o = this.cells[n]
                   , s = o.element.getBoundingClientRect().x - t;
                 s + o.size.innerWidth > t && s + o.size.innerWidth < e || s > t && s < e ? (this.maxVisibilityHeight = Math.max(o.size.outerHeight, this.maxVisibilityHeight),
-                o.element.classList.add("is-t4s-visible"),
-                o.element.removeAttribute("aria-hidden")) : (o.element.classList.remove("is-t4s-visible"),
+                o.element.classList.add("is-visible"),
+                o.element.removeAttribute("aria-hidden")) : (o.element.classList.remove("is-visible"),
                 o.element.setAttribute("aria-hidden", !0))
             }
     }
@@ -3637,13 +3637,13 @@ var LtrT4s = !RtlT4s;
         this.allOff(),
         this.emitEvent("destroy"),
         u && this.$element && u.removeData(this.element, "flickity"),
-        delete this.element.flickityt4sGUID,
+        delete this.element.flickityGUID,
         delete f[this.guid]
     }
     ,
     n.extend(p, r),
     l.data = function(t) {
-        var e = (t = n.getQueryElement(t)) && t.flickityt4sGUID;
+        var e = (t = n.getQueryElement(t)) && t.flickityGUID;
         return e && f[e]
     }
     ,
@@ -3967,7 +3967,7 @@ var LtrT4s = !RtlT4s;
 (function(t, e) {
     "function" == typeof define && define.amd ? define("flickity/js/drag", ["./flickity", "unidragger/unidragger", "fizzy-ui-utils/utils"], function(i, n, o) {
         return e(t, i, n, o)
-    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickity"), require("unidragger"), require("fizzy-ui-utils")) : t.Flickityt4s = e(t, t.Flickityt4s, t.Unidragger, t.fizzyUIUtils)
+    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickity"), require("unidragger"), require("fizzy-ui-utils")) : t.Flickity = e(t, t.Flickity, t.Unidragger, t.fizzyUIUtils)
 })(window, function(t, e, i, n) {
     function o() {
         return {
@@ -4185,7 +4185,7 @@ var LtrT4s = !RtlT4s;
 (function(t, e) {
     "function" == typeof define && define.amd ? define("flickity/js/prev-next-button", ["./flickity", "unipointer/unipointer", "fizzy-ui-utils/utils"], function(i, n, o) {
         return e(t, i, n, o)
-    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickity"), require("unipointer"), require("fizzy-ui-utils")) : e(t, t.Flickityt4s, t.Unipointer, t.fizzyUIUtils)
+    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickity"), require("unipointer"), require("fizzy-ui-utils")) : e(t, t.Flickity, t.Unipointer, t.fizzyUIUtils)
 })(window, function(t, e, i, n) {
     "use strict";
     function o(t, e) {
@@ -4259,7 +4259,7 @@ var LtrT4s = !RtlT4s;
     ,
     o.prototype.update = function() {
         var t = this.isPrevious ? "prev_" : "next_";
-        this.parent.element.classList.remove("flickityt4s_" + t + "disable", "flickityt4s_" + t + "enable");
+        this.parent.element.classList.remove("flickity_" + t + "disable", "flickity_" + t + "enable");
         var e = this.parent.slides;
         if (this.parent.options.wrapAround && e.length > 1)
             this.enable();
@@ -4268,7 +4268,7 @@ var LtrT4s = !RtlT4s;
               , n = this.isPrevious ? 0 : i
               , o = this.parent.selectedIndex == n ? "disable" : "enable";
             this[o](),
-            this.parent.element.classList.add("flickityt4s_" + t + o)
+            this.parent.element.classList.add("flickity_" + t + o)
         }
     }
     ,
@@ -4314,7 +4314,7 @@ var LtrT4s = !RtlT4s;
 (function(t, e) {
     "function" == typeof define && define.amd ? define("flickity/js/page-dots", ["./flickity", "unipointer/unipointer", "fizzy-ui-utils/utils"], function(i, n, o) {
         return e(t, i, n, o)
-    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickity"), require("unipointer"), require("fizzy-ui-utils")) : e(t, t.Flickityt4s, t.Unipointer, t.fizzyUIUtils)
+    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickity"), require("unipointer"), require("fizzy-ui-utils")) : e(t, t.Flickity, t.Unipointer, t.fizzyUIUtils)
 })(window, function(t, e, i, n) {
     function o(t) {
         this.parent = t,
@@ -4423,7 +4423,7 @@ var LtrT4s = !RtlT4s;
 (function(t, e) {
     "function" == typeof define && define.amd ? define("flickity/js/player", ["ev-emitter/ev-emitter", "fizzy-ui-utils/utils", "./flickity"], function(t, i, n) {
         return e(t, i, n)
-    }) : "object" == typeof module && module.exports ? module.exports = e(require("ev-emitter"), require("fizzy-ui-utils"), require("./flickity")) : e(t.EvEmitter, t.fizzyUIUtils, t.Flickityt4s)
+    }) : "object" == typeof module && module.exports ? module.exports = e(require("ev-emitter"), require("fizzy-ui-utils"), require("./flickity")) : e(t.EvEmitter, t.fizzyUIUtils, t.Flickity)
 })(window, function(t, e, i) {
     function n(t) {
         this.parent = t,
@@ -4533,7 +4533,7 @@ var LtrT4s = !RtlT4s;
 (function(t, e) {
     "function" == typeof define && define.amd ? define("flickity/js/add-remove-cell", ["./flickity", "fizzy-ui-utils/utils"], function(i, n) {
         return e(t, i, n)
-    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickity"), require("fizzy-ui-utils")) : e(t, t.Flickityt4s, t.fizzyUIUtils)
+    }) : "object" == typeof module && module.exports ? module.exports = e(t, require("./flickity"), require("fizzy-ui-utils")) : e(t, t.Flickity, t.fizzyUIUtils)
 })(window, function(t, e, i) {
     var n = e.prototype;
     return n.insert = function(t, e) {
@@ -4621,7 +4621,7 @@ var LtrT4s = !RtlT4s;
     return t
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define("flickity-as-nav-for/as-nav-for", ["flickity/js/index", "fizzy-ui-utils/utils"], e) : "object" == typeof module && module.exports ? module.exports = e(require("flickity"), require("fizzy-ui-utils")) : t.Flickityt4s = e(t.Flickityt4s, t.fizzyUIUtils)
+    "function" == typeof define && define.amd ? define("flickity-as-nav-for/as-nav-for", ["flickity/js/index", "fizzy-ui-utils/utils"], e) : "object" == typeof module && module.exports ? module.exports = e(require("flickity"), require("fizzy-ui-utils")) : t.Flickity = e(t.Flickity, t.fizzyUIUtils)
 })(window, function(t, e) {
     t.createMethods.push("_createAsNavFor");
     var i = t.prototype;
@@ -4702,7 +4702,7 @@ var LtrT4s = !RtlT4s;
     t
 });
 (function(t, e) {
-    "function" == typeof define && define.amd ? define(["flickity/js/index", "fizzy-ui-utils/utils"], e) : "object" == typeof module && module.exports ? module.exports = e(require("flickity"), require("fizzy-ui-utils")) : e(t.Flickityt4s, t.fizzyUIUtils)
+    "function" == typeof define && define.amd ? define(["flickity/js/index", "fizzy-ui-utils/utils"], e) : "object" == typeof module && module.exports ? module.exports = e(require("flickity"), require("fizzy-ui-utils")) : e(t.Flickity, t.fizzyUIUtils)
 })(this, function(t, e) {
     var i = t.Slide
       , n = i.prototype.updateTarget;
@@ -4845,7 +4845,7 @@ var LtrT4s = !RtlT4s;
     t
 }),
 function(t, e) {
-    "function" == typeof define && define.amd ? define(["flickity/js/index", "fizzy-ui-utils/utils"], e) : "object" == typeof module && module.exports ? module.exports = e(require("flickity"), require("fizzy-ui-utils")) : t.Flickityt4s = e(t.Flickityt4s, t.fizzyUIUtils)
+    "function" == typeof define && define.amd ? define(["flickity/js/index", "fizzy-ui-utils/utils"], e) : "object" == typeof module && module.exports ? module.exports = e(require("flickity"), require("fizzy-ui-utils")) : t.Flickity = e(t.Flickity, t.fizzyUIUtils)
 }(window, function(t, e) {
     "use strict";
     return t.createMethods.push("_createSync"),
@@ -7001,7 +7001,7 @@ function(t, e) {
 //   'use strict';
 
 //   if (typeof define === 'function' && define.amd) {
-//     define('isotopet4s-layout/js/item', ['outlayer/outlayer'], e);
+//     define('isotope-layout/js/item', ['outlayer/outlayer'], e);
 //   } else if (typeof module === 'object' && module.exports) {
 //     module.exports = e(require('outlayer'));
 //   } else {
@@ -7052,7 +7052,7 @@ function(t, e) {
 //   'use strict';
 
 //   if (typeof define === 'function' && define.amd) {
-//     define('isotopet4s-layout/js/layout-mode', [
+//     define('isotope-layout/js/layout-mode', [
 //       'get-size/get-size',
 //       'outlayer/outlayer',
 //     ], factory);
@@ -7399,7 +7399,7 @@ function(t, e) {
 //   'use strict';
 
 //   if (typeof define === 'function' && define.amd) {
-//     define('isotopet4s-layout/js/layout-modes/masonry', [
+//     define('isotope-layout/js/layout-modes/masonry', [
 //       '../layout-mode',
 //       'masonry-layout/masonry',
 //     ], factory);
@@ -7456,7 +7456,7 @@ function(t, e) {
 //   'use strict';
 
 //   if (typeof define === 'function' && define.amd) {
-//     define('isotopet4s-layout/js/layout-modes/fit-rows', [
+//     define('isotope-layout/js/layout-modes/fit-rows', [
 //       '../layout-mode',
 //     ], factory);
 //   } else if (typeof exports === 'object') {
@@ -7515,7 +7515,7 @@ function(t, e) {
 //   'use strict';
 
 //   if (typeof define === 'function' && define.amd) {
-//     define('isotopet4s-layout/js/layout-modes/vertical', [
+//     define('isotope-layout/js/layout-modes/vertical', [
 //       '../layout-mode',
 //     ], factory);
 //   } else if (typeof module === 'object') {
@@ -8990,11 +8990,11 @@ function(t, e) {
 //           'get-size/get-size',
 //           'desandro-matches-selector/matches-selector',
 //           'fizzy-ui-utils/utils',
-//           'isotopet4s-layout/js/item',
-//           'isotopet4s-layout/js/layout-mode',
-//           'isotopet4s-layout/js/layout-modes/masonry',
-//           'isotopet4s-layout/js/layout-modes/fit-rows',
-//           'isotopet4s-layout/js/layout-modes/vertical',
+//           'isotope-layout/js/item',
+//           'isotope-layout/js/layout-mode',
+//           'isotope-layout/js/layout-modes/masonry',
+//           'isotope-layout/js/layout-modes/fit-rows',
+//           'isotope-layout/js/layout-modes/vertical',
 //         ],
 //         function (i, n, o, s, r, a) {
 //           return e(t, i, n, o, s, r, a);
@@ -9007,11 +9007,11 @@ function(t, e) {
 //         require('get-size'),
 //         require('desandro-matches-selector'),
 //         require('fizzy-ui-utils'),
-//         require('isotopet4s-layout/js/item'),
-//         require('isotopet4s-layout/js/layout-mode'),
-//         require('isotopet4s-layout/js/layout-modes/masonry'),
-//         require('isotopet4s-layout/js/layout-modes/fit-rows'),
-//         require('isotopet4s-layout/js/layout-modes/vertical')
+//         require('isotope-layout/js/item'),
+//         require('isotope-layout/js/layout-mode'),
+//         require('isotope-layout/js/layout-modes/masonry'),
+//         require('isotope-layout/js/layout-modes/fit-rows'),
+//         require('isotope-layout/js/layout-modes/vertical')
 //       ))
 //     : (t.isotope = e(
 //         t,
@@ -10000,10 +10000,10 @@ function(t, e) {
 //   const isCommonJS = typeof module === 'object' && module.exports;
 
 //   if (isAMD) {
-//     define(['isotopet4s-layout/js/layout-mode', 'packery/js/packery'], factory);
+//     define(['isotope-layout/js/layout-mode', 'packery/js/packery'], factory);
 //   } else if (isCommonJS) {
 //     module.exports = factory(
-//       require('isotopet4s-layout/js/layout-mode'),
+//       require('isotope-layout/js/layout-mode'),
 //       require('packery')
 //     );
 //   } else {
@@ -10551,8 +10551,8 @@ function(t, e) {
 //   } else if (isCommonJS) {
 //     module.exports = factory(global, require('get-size'));
 //   } else {
-//     global.Flickityt4s = global.Flickityt4s || {};
-//     global.Flickityt4s.Cell = factory(global, global.getSize);
+//     global.Flickity = global.Flickity || {};
+//     global.Flickity.Cell = factory(global, global.getSize);
 //   }
 // })(window, function (global, getSize) {
 //   'use strict';
@@ -10644,8 +10644,8 @@ function(t, e) {
 //   } else if (isCommonJS) {
 //     module.exports = factory();
 //   } else {
-//     global.Flickityt4s = global.Flickityt4s || {};
-//     global.Flickityt4s.Slide = factory();
+//     global.Flickity = global.Flickity || {};
+//     global.Flickity.Slide = factory();
 //   }
 // })(window, function () {
 //   'use strict';
@@ -10713,8 +10713,8 @@ function(t, e) {
 //   } else if (isCommonJS) {
 //     module.exports = factory(global, require('fizzy-ui-utils'));
 //   } else {
-//     global.Flickityt4s = global.Flickityt4s || {};
-//     global.Flickityt4s.animatePrototype = factory(global, global.fizzyUIUtils);
+//     global.Flickity = global.Flickity || {};
+//     global.Flickity.animatePrototype = factory(global, global.fizzyUIUtils);
 //   }
 // })(window, function (t, fizzyUIUtils) {
 //   'use strict';
@@ -11468,17 +11468,17 @@ function(t, e) {
 //       require('./animate')
 //     );
 //   } else {
-//     const Flickityt4s = factory(
+//     const Flickity = factory(
 //       window.jQuary || window.$,
 //       global,
 //       global.EvEmitter,
 //       global.getSize,
 //       global.fizzyUIUtils,
-//       global.Flickityt4s.Cell,
-//       global.Flickityt4s.Slide,
-//       global.Flickityt4s.animatePrototype
+//       global.Flickity.Cell,
+//       global.Flickity.Slide,
+//       global.Flickity.animatePrototype
 //     );
-//     global.Flickityt4s = Flickityt4s;
+//     global.Flickity = Flickity;
 //   }
 // })(
 //   window,
@@ -11493,7 +11493,7 @@ function(t, e) {
 //       }
 //     };
 
-//     class Flickityt4s {
+//     class Flickity {
 //       static alignment = {
 //         center: {
 //           left: 0.5,
@@ -11541,8 +11541,8 @@ function(t, e) {
 //           return;
 //         }
 //         this.element = queryElement;
-//         if (this.element.flickityt4sGUID) {
-//           const instance = this.instances[this.element.flickityt4sGUID];
+//         if (this.element.flickityGUID) {
+//           const instance = this.instances[this.element.flickityGUID];
 //           instance?.option(options);
 //           return instance;
 //         }
@@ -11550,7 +11550,7 @@ function(t, e) {
 //         this.$element = jQuary(this.element);
 
 //         // Default options
-//         this.options = utils.extend({}, Flickityt4s.defaults);
+//         this.options = utils.extend({}, Flickity.defaults);
 //         options.originwrapAround = options.wrapAround;
 //         options.rightToLeft =
 //           document.documentElement.getAttribute('dir') === 'rtl';
@@ -11580,8 +11580,8 @@ function(t, e) {
 //       }
 
 //       _create() {
-//         this.guid = ++Flickityt4s.guid;
-//         this.element.flickityt4sGUID = this.guid;
+//         this.guid = ++Flickity.guid;
+//         this.element.flickityGUID = this.guid;
 //         this.instances[this.guid] = this;
 //         this.selectedIndex = 0;
 //         this.restingFrames = 0;
@@ -11596,13 +11596,13 @@ function(t, e) {
 //         if (this.options.resize || this.options.watchCSS) {
 //           global.addEventListener('resize', this);
 //         }
-//         for (const id in this.element.flickityt4sGUID) {
+//         for (const id in this.element.flickityGUID) {
 //           if (this.options.on) {
 //             this.on(id, this.options.on[id]);
 //           }
 //         }
 
-//         Flickityt4s.createMethods.forEach((t) => this[t]());
+//         Flickity.createMethods.forEach((t) => this[t]());
 //         this.options.watchCSS ? this.watchCSS() : this.activate();
 //       }
 
@@ -12222,14 +12222,14 @@ function(t, e) {
 //         this.allOff();
 //         this.emitEvent('destroy');
 //         this.$element && jquery.removeData(this.element, 'flickity');
-//         delete this.element.flickityt4sGUID;
+//         delete this.element.flickityGUID;
 //         delete this.instances[this.guid]; // Assuming an instances object to track Flickity instances
 //       }
 
 //       data(elem) {
 //         const element = utils.getQueryElement(elem);
-//         return element && element.flickityt4sGUID
-//           ? this.instances[element.flickityt4sGUID]
+//         return element && element.flickityGUID
+//           ? this.instances[element.flickityGUID]
 //           : null;
 //       }
 
@@ -12296,15 +12296,15 @@ function(t, e) {
 //       }
 //     }
 
-//     utils.extend(Flickityt4s.prototype, EvEmitter.prototype);
-//     utils.extend(Flickityt4s.prototype, Animate);
-//     utils.htmlInit(Flickityt4s, 'flickity');
+//     utils.extend(Flickity.prototype, EvEmitter.prototype);
+//     utils.extend(Flickity.prototype, Animate);
+//     utils.htmlInit(Flickity, 'flickity');
 
 //     if (jQuary && jQuary.bridget) {
-//       jQuary.bridget('flickity', Flickityt4s);
+//       jQuary.bridget('flickity', Flickity);
 //     }
 
-//     return Flickityt4s;
+//     return Flickity;
 //   }
 // );
 
@@ -12324,7 +12324,7 @@ function(t, e) {
 //         require('unidragger'),
 //         require('fizzy-ui-utils')
 //       ))
-//     : (t.Flickityt4s = e(t, t.Flickityt4s, t.Unidragger, t.fizzyUIUtils));
+//     : (t.Flickity = e(t, t.Flickity, t.Unidragger, t.fizzyUIUtils));
 // })(window, function (t, e, i, n) {
 //   function o() {
 //     return {
@@ -12553,7 +12553,7 @@ function(t, e) {
 //       require('fizzy-ui-utils')
 //     );
 //   } else {
-//     factory(window, window.Flickityt4s, window.Unipointer, window.fizzyUIUtils);
+//     factory(window, window.Flickity, window.Unipointer, window.fizzyUIUtils);
 //   }
 // })(window, (window, Flickity, Unipointer, utils) => {
 //   'use strict';
@@ -12743,7 +12743,7 @@ function(t, e) {
 //       require('fizzy-ui-utils')
 //     );
 //   } else {
-//     factory(window, window.Flickityt4s, window.Unipointer, window.fizzyUIUtils);
+//     factory(window, window.Flickity, window.Unipointer, window.fizzyUIUtils);
 //   }
 // })(window, (window, Flickity, Unipointer, utils) => {
 //   'use strict';
@@ -12892,7 +12892,7 @@ function(t, e) {
 //       require('./flickity')
 //     );
 //   } else {
-//     factory(window.EvEmitter, window.fizzyUIUtils, window.Flickityt4s);
+//     factory(window.EvEmitter, window.fizzyUIUtils, window.Flickity);
 //   }
 // })(window, (EvEmitter, utils, Flickity) => {
 //   'use strict';
@@ -13044,7 +13044,7 @@ function(t, e) {
 //       require('fizzy-ui-utils')
 //     );
 //   } else {
-//     factory(window, window.Flickityt4s, window.fizzyUIUtils);
+//     factory(window, window.Flickity, window.fizzyUIUtils);
 //   }
 // })(window, (window, Flickity, utils) => {
 //   'use strict';
@@ -13176,7 +13176,7 @@ function(t, e) {
 //   } else if (typeof module === 'object' && module.exports) {
 //     module.exports = factory(require('flickity'), require('fizzy-ui-utils'));
 //   } else {
-//     window.Flickityt4s = factory(window.Flickityt4s, window.fizzyUIUtils);
+//     window.Flickity = factory(window.Flickity, window.fizzyUIUtils);
 //   }
 // })(window, (Flickity, fizzyUIUtils) => {
 //   'use strict';
@@ -13279,7 +13279,7 @@ function(t, e) {
 //   } else if (typeof module === 'object' && module.exports) {
 //     module.exports = factory(require('flickity'), require('fizzy-ui-utils'));
 //   } else {
-//     factory(global.Flickityt4s, global.fizzyUIUtils);
+//     factory(global.Flickity, global.fizzyUIUtils);
 //   }
 // })(window, (Flickity, fizzyUIUtils) => {
 //   'use strict';
@@ -13471,7 +13471,7 @@ function(t, e) {
 //   } else if (typeof module === 'object' && module.exports) {
 //     module.exports = factory(require('flickity'), require('fizzy-ui-utils'));
 //   } else {
-//     global.Flickityt4s = factory(global.Flickityt4s, global.fizzyUIUtils);
+//     global.Flickity = factory(global.Flickity, global.fizzyUIUtils);
 //   }
 // })(window, (Flickity, fizzyUIUtils) => {
 //   'use strict';
@@ -14297,14 +14297,14 @@ window.CookiesT4 = Cookies.noConflict();
    */
   // https://codepen.io/sarus/pen/rNmLBKe
   // https://flickity.metafizzy.co/options.html#selectedattraction-friction
-  // T4SThemeSP.Flickityt4s = (function () {
+  // T4SThemeSP.Flickity = (function () {
 
   //    function initEach() {
   //    	return false;
-  //    	var $Flickityt4s = $('.flickity:not(.flickity-later):not(.flickity-enabled)');
-  //    	if ($Flickityt4s.length == 0) return;
+  //    	var $Flickity = $('.flickity:not(.flickity-later):not(.flickity-enabled)');
+  //    	if ($Flickity.length == 0) return;
 
-  // $Flickityt4s.each(function() {
+  // $Flickity.each(function() {
   // 	init($(this));
   // });
   //    }
@@ -15498,10 +15498,10 @@ window.CookiesT4 = Cookies.noConflict();
     // update button next prev when trigger carousel
     _updateBtnTab() {
       const $prevButton = window.$(
-        `#btn-tab-smart__prev--${this.args.t4sidTab}`
+        `#btn-tab-smart__prev--${this.args.idTab}`
       );
       const $nextButton = window.$(
-        `#btn-tab-smart__next--${this.args.t4sidTab}`
+        `#btn-tab-smart__next--${this.args.idTab}`
       );
 
       if ($nextButton.length == 0) return;
@@ -15662,13 +15662,13 @@ window.CookiesT4 = Cookies.noConflict();
   /**
    *-------------------------------------------------------------------------------------------------------------------------------------------
    * isotope js
-   * T4SThemeSP.Isotopet4s.init
+   * T4SThemeSP.Isotope.init
    *-------------------------------------------------------------------------------------------------------------------------------------------
    */
   // https://isotope.metafizzy.co/events.html#isotope-events
   //done
   // Isotope functionality
-  window.T4SThemeSP.Isotopet4s = (() => {
+  window.T4SThemeSP.Isotope = (() => {
     const initIsotope = (element) => {
       element.removeClass('isotope-later');
       const isotopeOptions = JSON.parse(
@@ -16534,7 +16534,7 @@ window.$(document).ready(($) => {
   window.T4SThemeSP.initVarHeight();
   window.T4SThemeSP.initMarquee3k();
   window.T4SThemeSP.initCarousel();
-  window.T4SThemeSP.Isotopet4s.initEach();
+  window.T4SThemeSP.Isotope.initEach();
   window.T4SThemeSP.announcement();
   window.T4SThemeSP.T4SWrappTable();
   window.T4SThemeSP.CartAttrHidden();

@@ -387,7 +387,7 @@
     const storedTime = isStorageSpSession
       ? parseInt(sessionStorage.getItem(timeSearchKey) || 0)
       : 0;
-    const $hiddenSearchContainer = $('#search-hidden');
+    const $hiddenSearchContainer = window.$('#search-hidden');
 
     // Check if the session time is valid
     if (storedTime > 0 && storedTime >= Date.now()) {
