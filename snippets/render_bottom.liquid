@@ -357,6 +357,12 @@
   if shop.published_locales.size > 1
     assign locale_selector = true
   endif
+  if settings.lang_pos != '0' and locale_selector
+    render 'languages', is_fixed: true
+  endif
+  if settings.currency_pos != '0' and currency_selector or settings.currency_type == '2'
+    render 'currencies', is_fixed: true
+  endif
 -%}
 
 {%- if currency_selector or locale_selector -%}
@@ -397,6 +403,9 @@
     if page_type == 'collection' or page_type == 'search'
       section 'facets'
     endif
+    if page_type == 'collection'
+      section 'facets_tags'
+    endif
   endif
   section 'toolbar_mobile'
   section 'back_top'
@@ -413,7 +422,6 @@
     section 'slider_config'
   endif
   if admin_sp
-    section 'popups'
     section 'custom_color'
   endif
 -%}
