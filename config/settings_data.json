@@ -1000,6 +1000,18 @@
       },
       "extras": {
         "type": "extras",
+        "blocks": {
+          "inactive_tab_fzdJCR": {
+            "type": "inactive_tab",
+            "settings": {
+              "message": "🔥 Don't forget this...; 🔥 Come back!",
+              "delay": 1000
+            }
+          }
+        },
+        "block_order": [
+          "inactive_tab_fzdJCR"
+        ],
         "settings": {}
       },
       "title_config": {
