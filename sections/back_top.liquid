@@ -8,38 +8,52 @@
 -%}
 
 {%- if se_stts.enable_backtop -%}
-  <link
-    rel="stylesheet"
-    href="{{ 'back-to-top.css' | asset_url }}"
-    media="print"
-    onload="this.media='all'"
-  >
+  <link rel="stylesheet" href="{{ 'back-to-top.css' | asset_url }}">
   <a
     id="backToTop"
-    class="back-to-top back-to-top__design{{se_stts.backtop_des}} fixed"
+    class="back-to-top back-to-top__design{{se_stts.backtop_des}} fixed progress_bar_{{ se_stts.enable_progress_bar }}"
     data-hidden-mobile="{{se_stts.enable_hidden_mobile}}"
     data-scrollTop="{{vertical_offset_for_trigger}}"
     rel="nofollow"
     href="#"
     aria-label="{{'general.aria.back_to_top' | t}}"
+    style="--border-w:2px;--cricle-normal:{{ se_stts.border_cl }};--cricle-active:{{ se_stts.border_cl_active }};"
   >
-    <span>
+    {%- if se_stts.enable_progress_bar -%}
+      <div class="circle-css" style="--border-w:2px;">
+        <div class="circle--inner">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            viewBox="9.98 12.06 12.05 6.79"
+            width="22"
+            height="22"
+          >
+            <path d="M16.767 12.809l-0.754-0.754-6.035 6.035 0.754 0.754 5.281-5.281 5.256 5.256 0.754-0.754-3.013-3.013z" fill="currentColor"></path>
+          </svg>
+        </div>
+        <div class="circle--bg"></div>
+      </div>
+    {%- else -%}
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="ml__15"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        version="1.1"
+        viewBox="9.98 12.06 12.05 6.79"
+        width="22"
+        height="22"
       >
-        <path d="M16.767 12.809l-0.754-0.754-6.035 6.035 0.754 0.754 5.281-5.281 5.256 5.256 0.754-0.754-3.013-3.013z" fill="currentColor" />
+        <path d="M16.767 12.809l-0.754-0.754-6.035 6.035 0.754 0.754 5.281-5.281 5.256 5.256 0.754-0.754-3.013-3.013z" fill="currentColor"></path>
       </svg>
-    </span>
+    {%- endif -%}
   </a>
 {%- endif -%}
 
 {%- schema -%}
 {
   "name": "Back to top",
+  "class": "section-admn2-fixed",
   "settings": [
     {
       "type": "checkbox",
@@ -68,6 +82,28 @@
           "label": "Design 2"
         }
       ]
+    },
+    {
+      "type": "header",
+      "content": "+ Progress bar options"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_progress_bar",
+      "label": "Enable progress bar",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "border_cl",
+      "label": "Progress bar color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "border_cl_active",
+      "label": "Progress bar active color",
+      "default": "#000000"
     }
   ]
 }
