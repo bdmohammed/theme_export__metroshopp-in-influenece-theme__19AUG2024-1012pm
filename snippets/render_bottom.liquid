@@ -419,8 +419,8 @@
   if settings.falling_snow
     echo '<div id="snow_ef" class="dn"></div>'
   endif
-  include 'search-hidden'
 -%}
+{%- render 'smile-initializer' -%}
 <template id="style-popup">
   {%- if enable_quickview -%}
     {{ 'pre_flickity.css' | asset_url | stylesheet_tag }}
