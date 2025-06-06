@@ -420,7 +420,7 @@
     echo '<div id="snow_ef" class="dn"></div>'
   endif
 -%}
-{%- render 'smile-initializer' -%}
+{% render 'search-hidden' %}
 <template id="style-popup">
   {%- if enable_quickview -%}
     {{ 'pre_flickity.css' | asset_url | stylesheet_tag }}

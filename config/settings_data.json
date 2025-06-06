@@ -1390,7 +1390,7 @@
         ],
         "settings": {}
       },
-      "search-hidden": { "type": "search-hidden", "settings": {} }
+      // "search-hidden": { "type": "search-hidden", "settings": {} }
     },
     "content_for_index": []
   },
