@@ -9,49 +9,11 @@
  */
 {
   "current": {
-    "home_keywords": "housequip shopify, Fastest, Ajax Shop, Minimal, Lazyload",
-    "shop_author": "bdmohammed",
-    "use_rtl": "0",
-    "platform_email": "3",
-    "klaviyo_list_id": "XANCCq",
-    "link_color_hover": "#56cfe1",
-    "currency_type": "1",
-    "supported_currencies": "Canada - CAD $ | France - EUR € | Germany - EUR € | Japan - JPY ¥ | New zealand - NZD $ | United kingdom - GBP £ | United states - USD $ | Vietnam - VND ₫",
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
         "blocks": {
           "announcement-bar-0": {
-            "type": "announcement",
-            "settings": {
-              "link": "shopify://collections/frontpage",
-              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href=\"/\" title=\"Sale\">Hurry Up</a> [icon_arrow]</p>",
-              "countdown": "2026/04/19",
-              "txt_day": "days",
-              "dayx": 0
-            }
-          },
-          "announcement-bar-1": {
-            "type": "announcement",
-            "settings": {
-              "link": "shopify://collections/all",
-              "content": "<p>Today deal sale off 1<strong>0%</strong>. End in <strong>[countdown]</strong>. <a href=\"/\" title=\"Sale\">Hurry Up</a> [icon_arrow]</p>",
-              "countdown": "2026/01/19",
-              "txt_day": "days",
-              "dayx": 0
-            }
-          },
-          "announcement-bar-2": {
-            "type": "announcement",
-            "settings": {
-              "link": "shopify://pages/contact",
-              "content": "<p>COD</p>",
-              "countdown": "2030/04/19",
-              "txt_day": "days",
-              "dayx": 0
-            }
-          },
-          "announcement_7UXyMg": {
             "type": "announcement",
             "settings": {
               "link": "",
@@ -61,11 +23,21 @@
               "dayx": 0
             }
           },
-          "announcement_Q3iwPB": {
+          "announcement-bar-1": {
             "type": "announcement",
             "settings": {
               "link": "",
-              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href=\"/\" title=\"Sale\">Hurry Up</a> [icon_arrow]</p>",
+              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href='/' title='Sale'>Hurry Up</a> [icon_arrow]</p>",
+              "countdown": "2022/04/19",
+              "txt_day": "days",
+              "dayx": 0
+            }
+          },
+          "announcement-bar-2": {
+            "type": "announcement",
+            "settings": {
+              "link": "",
+              "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. <a href='/' title='Sale'>Hurry Up</a> [icon_arrow]</p>",
               "countdown": "2022/04/19",
               "txt_day": "days",
               "dayx": 0
@@ -75,15 +47,13 @@
         "block_order": [
           "announcement-bar-0",
           "announcement-bar-1",
-          "announcement-bar-2",
-          "announcement_7UXyMg",
-          "announcement_Q3iwPB"
+          "announcement-bar-2"
         ],
         "settings": {
           "show_announcement": true,
           "effect": "1",
           "au_time": 3.5,
-          "height": 45,
+          "height": 41,
           "fontsize": 12,
           "cl": "#ffffff",
           "bg": "#e91e63",
@@ -100,8 +70,8 @@
           "top-bar-0": {
             "type": "html",
             "settings": {
-              "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewbox=\"0 0 32 32\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n   <path d=\"M23.407 30.394c-2.431 0-8.341-3.109-13.303-9.783-4.641-6.242-6.898-10.751-6.898-13.785 0-2.389 1.65-3.529 2.536-4.142l0.219-0.153c0.979-0.7 2.502-0.927 3.086-0.927 1.024 0 1.455 0.599 1.716 1.121 0.222 0.442 2.061 4.39 2.247 4.881 0.286 0.755 0.192 1.855-0.692 2.488l-0.155 0.108c-0.439 0.304-1.255 0.869-1.368 1.557-0.055 0.334 0.057 0.684 0.342 1.068 1.423 1.918 5.968 7.55 6.787 8.314 0.642 0.6 1.455 0.685 2.009 0.218 0.573-0.483 0.828-0.768 0.83-0.772l0.059-0.057c0.048-0.041 0.496-0.396 1.228-0.396 0.528 0 1.065 0.182 1.596 0.541 1.378 0.931 4.487 3.011 4.487 3.011l0.050 0.038c0.398 0.341 0.973 1.323 0.302 2.601-0.695 1.327-2.85 4.066-5.079 4.066zM9.046 2.672c-0.505 0-1.746 0.213-2.466 0.728l-0.232 0.162c-0.827 0.572-2.076 1.435-2.076 3.265 0 2.797 2.188 7.098 6.687 13.149 4.914 6.609 10.532 9.353 12.447 9.353 1.629 0 3.497-2.276 4.135-3.494 0.392-0.748 0.071-1.17-0.040-1.284-0.36-0.241-3.164-2.117-4.453-2.988-0.351-0.238-0.688-0.358-0.999-0.358-0.283 0-0.469 0.1-0.532 0.14-0.104 0.111-0.39 0.405-0.899 0.833-0.951 0.801-2.398 0.704-3.424-0.254-0.923-0.862-5.585-6.666-6.916-8.459-0.46-0.62-0.641-1.252-0.538-1.877 0.187-1.133 1.245-1.866 1.813-2.26l0.142-0.099c0.508-0.363 0.4-1.020 0.316-1.242-0.157-0.414-1.973-4.322-2.203-4.781-0.188-0.376-0.336-0.533-0.764-0.533z\" fill=\"currentColor\"></path>\n</svg>\n<a class=\"ct\" href=\"tel:%20+0123456789\" aria-describedby=\"a11y-external-message\"> +01 23456789</a> \n<svg class=\"ml__15\" xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewbox=\"0 0 32 32\" xmlns:xlink=\"http://www.w3.org/1999/xlink \">\n   <path d=\"M28.244 7.47h-25.572v17.060h26.656v-17.060h-1.084zM27.177 8.536l-10.298 10.298c-0.47 0.47-1.289 0.47-1.759 0l-10.3-10.298h22.356zM3.738 8.961l6.923 6.922-6.923 6.923v-13.846zM4.589 23.464l6.827-6.826 2.951 2.95c0.436 0.436 1.016 0.677 1.633 0.677s1.197-0.241 1.633-0.677l2.951-2.951 6.826 6.826h-22.822zM28.262 22.807l-6.923-6.924 6.923-6.924v13.848z\" fill=\"currentColor\"></path>\n</svg> \n<a class=\"ct\" href=\"mailto:kalles@domain.com\" aria-describedby=\"a11y-external-message\">Kalles@domain.com</a>",
-              "hide": true,
+              "html": "<i class=\"pegk pe-7s-call\"></i> <a class=\"cg\" href=\"tel:+01%2023456789\">+01 23456789</a> <i class=\"pegk pe-7s-mail ml__15\"></i> <a class=\"cg\" href=\"mailto:kalles@domain.com\">kalles@domain.com</a>",
+              "hide": false,
               "text_align": "start",
               "col": "4"
             }
@@ -109,8 +79,8 @@
           "top-bar-1": {
             "type": "text",
             "settings": {
-              "text": "<p>Summer sale discount off <strong>50%</strong>! <a href=\"/collections\" title=\"All collections\">Shop Now</a></p>",
-              "countdown": "2026/04/19",
+              "text": "<p>Summer sale discount off 50% Shop Now</p>",
+              "countdown": "2022/04/19",
               "txt_day": "days",
               "dayx": 0,
               "effect": "1",
@@ -121,7 +91,7 @@
               "cl_a_tr": "#ffffff",
               "cl_bold_tr": "#ec0101",
               "hide": false,
-              "text_align": "center",
+              "text_align": "start",
               "col": "4"
             }
           },
@@ -130,17 +100,21 @@
             "settings": {
               "show_currency": true,
               "show_language": true,
-              "use_location": true,
+              "use_location": false,
               "txt_location": "Location",
-              "url_location": "shopify://pages/contact",
+              "url_location": "",
               "open_link": "_self",
               "hide": false,
-              "text_align": "end",
+              "text_align": "start",
               "col": "4"
             }
           }
         },
-        "block_order": ["top-bar-0", "top-bar-1", "top-bar-2"],
+        "block_order": [
+          "top-bar-0",
+          "top-bar-1",
+          "top-bar-2"
+        ],
         "settings": {
           "show_topbar": true,
           "topbar_transparent": false,
@@ -166,8 +140,8 @@
           "header-inline-0": {
             "type": "mega",
             "settings": {
-              "title": "Collection 1",
-              "url": "shopify://collections",
+              "title": "mega",
+              "url": "",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -213,30 +187,12 @@
               "lb": "",
               "lb_cl": ""
             }
-          },
-          "drop_8zb9tH": {
-            "type": "drop",
-            "settings": {
-              "title": "Dropdown",
-              "url": "shopify://pages/contact",
-              "open_link": "_self",
-              "menu": "",
-              "icon": "",
-              "cus_cl": false,
-              "cl": "#ec0101",
-              "lb": "",
-              "lb_cl": "",
-              "lazy_mn": true,
-              "pos_sub": "bottom",
-              "pos": "left"
-            }
           }
         },
         "block_order": [
           "header-inline-0",
           "header-inline-1",
-          "header-inline-2",
-          "drop_8zb9tH"
+          "header-inline-2"
         ],
         "settings": {
           "layout": "logo_left",
@@ -278,41 +234,6 @@
       },
       "mega-menu": {
         "type": "mega-menu",
-        "blocks": {
-          "mega_8Dwe3x": {
-            "type": "mega",
-            "settings": {
-              "id": 1
-            }
-          },
-          "pr_7yjXwE": {
-            "type": "pr",
-            "settings": {
-              "collection": "frontpage",
-              "product_des": "1",
-              "show_vendor": false,
-              "use_cdt": false,
-              "image_ratio": "rationt",
-              "image_size": "cover",
-              "image_position": "8",
-              "content_align": "default",
-              "limit": 8,
-              "col_dk": "3",
-              "space_h_item": "30",
-              "space_v_item": "30",
-              "layout_des": "2",
-              "nav_btn": false,
-              "btn_vi": "hover",
-              "btn_owl": "default",
-              "btn_shape": "none",
-              "btn_cl": "dark",
-              "btn_size": "small",
-              "btn_hidden_mobile": true,
-              "col": "4"
-            }
-          }
-        },
-        "block_order": ["mega_8Dwe3x", "pr_7yjXwE"],
         "settings": {}
       },
       "footer": {
@@ -998,7 +919,11 @@
             }
           }
         },
-        "block_order": ["main-qs-0", "main-qs-1", "main-qs-2"],
+        "block_order": [
+          "main-qs-0",
+          "main-qs-1",
+          "main-qs-2"
+        ],
         "settings": {
           "demo_pr": ""
         }
@@ -1069,6 +994,14 @@
           "backtop_des": "1"
         }
       },
+      "popups": {
+        "type": "popups",
+        "settings": {}
+      },
+      "extras": {
+        "type": "extras",
+        "settings": {}
+      },
       "title_config": {
         "type": "title_config",
         "blocks": {
@@ -1106,7 +1039,10 @@
             }
           }
         },
-        "block_order": ["title_config-0", "title_config-1"],
+        "block_order": [
+          "title_config-0",
+          "title_config-1"
+        ],
         "settings": {
           "design_heading": "1",
           "heading_align": "text-center",
@@ -1312,7 +1248,10 @@
             }
           }
         },
-        "block_order": ["btn_config-0", "btn_config-1"],
+        "block_order": [
+          "btn_config-0",
+          "btn_config-1"
+        ],
         "settings": {
           "fnt_fm_button": "--font-family-1",
           "btn_fw": 600,
@@ -1322,6 +1261,30 @@
       },
       "slider_config": {
         "type": "slider_config",
+        "blocks": {
+          "custom1_86G4BQ": {
+            "type": "custom1",
+            "settings": {
+              "btn_color_primary": "#abb1b4",
+              "btn_color_second": "#ffffff",
+              "btn_color_primary_hover": "#56cfe1",
+              "btn_color_second_hover": "#ffffff"
+            }
+          },
+          "custom2_cRf4Ck": {
+            "type": "custom2",
+            "settings": {
+              "btn_color_primary": "#109533",
+              "btn_color_second": "#ffffff",
+              "btn_color_primary_hover": "#ff4e00",
+              "btn_color_second_hover": "#ffffff"
+            }
+          }
+        },
+        "block_order": [
+          "custom1_86G4BQ",
+          "custom2_cRf4Ck"
+        ],
         "settings": {
           "btn_vi": "hover",
           "btn_owl": "default",
@@ -1332,72 +1295,11 @@
           "dots_space": 10
         }
       },
-      "popups": {
-        "type": "popups",
-        "settings": {}
-      },
       "custom_color": {
         "type": "custom_color",
         "settings": {}
-      },
-      "extras": {
-        "type": "extras",
-        "blocks": {
-          "inactive_tab_DXFQHQ": {
-            "type": "inactive_tab",
-            "settings": {
-              "message": "🔥 Don't forget this...; 🔥 Come back!",
-              "delay": 1000
-            }
-          },
-          "shop_protect_6APxRQ": {
-            "type": "shop_protect",
-            "settings": {
-              "disable_img_copy": true,
-              "disable_img_drag": true,
-              "disable_text_copy": true,
-              "disable_best_seller": false
-            }
-          },
-          "favicon_count_nUBrCp": {
-            "type": "favicon_count",
-            "settings": {
-              "bgColor": "#34c134",
-              "textColor": "#ffffff",
-              "type": "circle",
-              "position": "down",
-              "animation": "slide"
-            }
-          },
-          "snow_efff_VJgfBT": {
-            "type": "snow_efff",
-            "settings": {
-              "speed": 10,
-              "opacity": 1
-            }
-          },
-          "catalog_mode_QyJ8Ye": {
-            "type": "catalog_mode",
-            "settings": {}
-          }
-        },
-        "block_order": [
-          "inactive_tab_DXFQHQ",
-          "shop_protect_6APxRQ",
-          "favicon_count_nUBrCp",
-          "snow_efff_VJgfBT",
-          "catalog_mode_QyJ8Ye"
-        ],
-        "settings": {}
-      },
-      // "search-hidden": { "type": "search-hidden", "settings": {} }
+      }
     },
     "content_for_index": []
-  },
-  "platform_customizations": {
-    "custom_css": [
-      "#mybtn {display: none;}",
-      ".gokwik-checkout {margin-bottom: 5px;}"
-    ]
   }
 }
