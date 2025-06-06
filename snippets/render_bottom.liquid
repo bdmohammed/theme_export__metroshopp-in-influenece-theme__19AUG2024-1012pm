@@ -416,11 +416,29 @@
     section 'popups'
     section 'custom_color'
   endif
+-%}
+<div id="snow_ef" class="dn"></div>
+<div id="assets-pre" class="d-none"></div>
+<div id="append-component" class="d-none"></div>
+{% comment %}
   if settings.falling_snow
     echo '<div id="snow_ef" class="dn"></div>'
   endif
--%}
+{% endcomment %}
+
+{%- unless customer or settings.login_side == false or request.page_type contains 'customers' -%}
+  <link href="{{ 'login-sidebar.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
+  <div id="login-sidebar" class="drawer drawer__right" aria-hidden="true">
+    <div class="skeleton-element ske-h-50 ske-mt-20 ske-mrl-20 ske-shine"></div>
+    <div class="skeleton-element ske-h-50 ske-mrl-20"></div>
+    <div class="skeleton-element ske-h-50 ske-mrl-20"></div>
+    <div class="skeleton-element ske-h-20 ske-mrl-20"></div>
+    <div class="skeleton-element ske-h-50 ske-mrl-20 ske-shine"></div>
+    <div class="skeleton-element ske-h-50 ske-mrl-20 ske-shine"></div>
+  </div>
+{%- endunless -%}
 {% render 'search-hidden' %}
+
 <template id="style-popup">
   {%- if enable_quickview -%}
     {{ 'pre_flickity.css' | asset_url | stylesheet_tag }}
@@ -429,19 +447,28 @@
   {%- endif -%}
   {%- if enable_quickshop %}{{ 'qs-product.css' | asset_url | stylesheet_tag }}{% endif -%}
 </template>
-{{ 'mega-menu.css' | asset_url | stylesheet_tag }}
-{% comment %} <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}" media="print" onload="this.media='all'"> {% endcomment %}
+
+{% comment %} {{ 'mega-menu.css' | asset_url | stylesheet_tag }} {% endcomment %}
+<link
+  rel="stylesheet"
+  href="{{ 'theme.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'"
+>
 {{ 'drawer.css' | asset_url | stylesheet_tag }}
 <link
   rel="stylesheet"
   href="{{ 'line-awesome.css' | asset_url }}"
-  media="all"
+  media="print"
   onload="this.media='all'"
 >
+
 {%- if settings.colors_css -%}
   <link rel="stylesheet" href="{{ 'colors.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
+
 {% comment %} {%- if settings.custom_css %}{{- 'custom.css' | asset_url | stylesheet_tag: preload: true -}}{% endif -%} {% endcomment %}
+
 {%- if admin_sp %}
   <style>
     .section-admn-fixed {
