@@ -17,8 +17,8 @@
 // });
 
 document.ready(function (t) {
-  window.$(document).on('mouseover', '.incards', function (e) {
-    window.$(this).children('.hover-content').addClass('active'); //Add an active class to the anchor
+  window.$(document).on("mouseover", ".incards", function (e) {
+    window.$(this).children(".hover-content").addClass("active"); //Add an active class to the anchor
   });
 });
 

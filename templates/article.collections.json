@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "article_header": {
       "type": "article-main-header",
@@ -27,11 +27,7 @@
           "settings": {}
         }
       },
-      "block_order": [
-        "article_image",
-        "article_subtitle",
-        "article_title"
-      ],
+      "block_order": ["article_image", "article_subtitle", "article_title"],
       "settings": {
         "overlap_heading": true,
         "section_color_scheme": "general"
@@ -87,10 +83,7 @@
           }
         }
       },
-      "block_order": [
-        "article_comments",
-        "article_form"
-      ],
+      "block_order": ["article_comments", "article_form"],
       "settings": {
         "section_color_scheme": "general"
       }
@@ -111,10 +104,7 @@
           }
         }
       },
-      "block_order": [
-        "1650016471f04104cb-0",
-        "1650016471f04104cb-1"
-      ],
+      "block_order": ["1650016471f04104cb-0", "1650016471f04104cb-1"],
       "settings": {
         "section_heading": "",
         "section_color_scheme": "accent-3"

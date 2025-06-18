@@ -7,11 +7,10 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "parent": "product.json",
   "context": {
     "market": "in"
   },
-  "sections": {
-  }
+  "sections": {}
 }

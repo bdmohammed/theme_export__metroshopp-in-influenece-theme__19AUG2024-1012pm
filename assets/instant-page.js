@@ -1,19 +1,19 @@
 (() => {
   let prefetchTimeout, lastEventTime;
   const prefetchUrls = new Set();
-  const linkElement = document.createElement('link');
+  const linkElement = document.createElement("link");
   const supportsPrefetch =
-    linkElement.relList?.supports?.('prefetch') &&
+    linkElement.relList?.supports?.("prefetch") &&
     window.IntersectionObserver &&
-    'isIntersecting' in IntersectionObserverEntry.prototype;
+    "isIntersecting" in IntersectionObserverEntry.prototype;
 
   const allowQueryStringPrefetch =
-    'instantAllowQueryString' in document.body.dataset;
+    "instantAllowQueryString" in document.body.dataset;
   const allowExternalLinksPrefetch =
-    'instantAllowExternalLinks' in document.body.dataset;
-  const allowInstantWhitelist = 'instantWhitelist' in document.body.dataset;
+    "instantAllowExternalLinks" in document.body.dataset;
+  const allowInstantWhitelist = "instantWhitelist" in document.body.dataset;
   const allowMousedownShortcut =
-    'instantMousedownShortcut' in document.body.dataset;
+    "instantMousedownShortcut" in document.body.dataset;
   const delayThreshold = 1111;
   let prefetchDelay = 65;
   let enableMousedownPrefetch = false;
@@ -22,24 +22,24 @@
 
   // Disable instant prefetch for certain links (e.g., logout or cart actions)
   const excludedLinks = document.querySelectorAll(
-    'a[href*="logout"], a[href*="/cart/add/"]'
+    'a[href*="logout"], a[href*="/cart/add/"]',
   );
   if (excludedLinks) {
     excludedLinks.forEach((link) => {
-      link.setAttribute('data-no-instant', '');
+      link.setAttribute("data-no-instant", "");
     });
   }
 
   // Check intensity levels for prefetching
-  if ('instantIntensity' in document.body.dataset) {
+  if ("instantIntensity" in document.body.dataset) {
     const intensity = document.body.dataset.instantIntensity;
-    if (intensity?.startsWith('mousedown')) {
+    if (intensity?.startsWith("mousedown")) {
       enableMousedownPrefetch = true;
-      if (intensity === 'mousedown-only') mousedownOnly = true;
-    } else if (intensity?.startsWith('viewport')) {
+      if (intensity === "mousedown-only") mousedownOnly = true;
+    } else if (intensity?.startsWith("viewport")) {
       const isLowDataConnection =
         navigator.connection?.saveData ||
-        (navigator.connection?.effectiveType?.includes('2g'));
+        navigator.connection?.effectiveType?.includes("2g");
 
       if (!isLowDataConnection) {
         const isSmallViewport =
@@ -48,8 +48,8 @@
           450000;
 
         enableViewportPrefetch =
-          (intensity === 'viewport' && isSmallViewport) ||
-          intensity === 'viewport-all';
+          (intensity === "viewport" && isSmallViewport) ||
+          intensity === "viewport-all";
       }
     } else {
       const parsedDelay = parseInt(intensity, 10);
@@ -63,14 +63,14 @@
     // Touch start event for mobile
     if (!mousedownOnly) {
       document.addEventListener(
-        'touchstart',
+        "touchstart",
         (event) => {
           lastEventTime = performance.now();
-          const link = event.target.closest('a');
+          const link = event.target.closest("a");
           if (!shouldPrefetch(link)) return;
           prefetch(link.href);
         },
-        eventOptions
+        eventOptions,
       );
     }
 
@@ -78,26 +78,26 @@
     if (enableMousedownPrefetch) {
       if (!allowMousedownShortcut) {
         document.addEventListener(
-          'mousedown',
+          "mousedown",
           (event) => {
-            const link = event.target.closest('a');
+            const link = event.target.closest("a");
             if (!shouldPrefetch(link)) return;
             prefetch(link.href);
           },
-          eventOptions
+          eventOptions,
         );
       }
     } else {
       // Mouseover event for hover prefetching
       document.addEventListener(
-        'mouseover',
+        "mouseover",
         (event) => {
           if (performance.now() - lastEventTime < delayThreshold) return;
           if (!event.target) return;
-          const link = event.target.closest('a');
+          const link = event.target.closest("a");
           if (!shouldPrefetch(link)) return;
 
-          link.addEventListener('mouseout', clearPrefetchTimeout, {
+          link.addEventListener("mouseout", clearPrefetchTimeout, {
             passive: true,
           });
 
@@ -106,30 +106,30 @@
             prefetchTimeout = undefined;
           }, prefetchDelay);
         },
-        eventOptions
+        eventOptions,
       );
     }
 
     // Mousedown shortcut event handling
     if (allowMousedownShortcut) {
       document.addEventListener(
-        'mousedown',
+        "mousedown",
         (event) => {
           if (performance.now() - lastEventTime < delayThreshold) return;
           if (!event.target) return;
-          const link = event.target.closest('a');
+          const link = event.target.closest("a");
           if (event.which > 1 || event.metaKey || event.ctrlKey) return;
           if (!link) return;
 
           link.addEventListener(
-            'click',
+            "click",
             (e) => {
               if (e.detail !== 1337) e.preventDefault();
             },
-            { capture: true, passive: false, once: true }
+            { capture: true, passive: false, once: true },
           );
 
-          const simulatedClick = new MouseEvent('click', {
+          const simulatedClick = new MouseEvent("click", {
             view: window,
             bubbles: true,
             cancelable: false,
@@ -137,7 +137,7 @@
           });
           link.dispatchEvent(simulatedClick);
         },
-        eventOptions
+        eventOptions,
       );
     }
 
@@ -156,7 +156,7 @@
           });
         });
 
-        document.querySelectorAll('a').forEach((link) => {
+        document.querySelectorAll("a").forEach((link) => {
           if (shouldPrefetch(link)) observer.observe(link);
         });
       });
@@ -165,7 +165,7 @@
 
   function clearPrefetchTimeout(event) {
     if (
-      event.relatedTarget?.closest('a') !== event.target.closest('a') &&
+      event.relatedTarget?.closest("a") !== event.target.closest("a") &&
       prefetchTimeout
     ) {
       clearTimeout(prefetchTimeout);
@@ -176,26 +176,26 @@
   function shouldPrefetch(link) {
     return (
       link?.href &&
-      (!allowInstantWhitelist || 'instant' in link.dataset) &&
+      (!allowInstantWhitelist || "instant" in link.dataset) &&
       (allowExternalLinksPrefetch ||
         link.origin === location.origin ||
-        'instant' in link.dataset) &&
-      ['http:', 'https:'].includes(link.protocol) &&
-      (link.protocol !== 'http:' || location.protocol !== 'https:') &&
-      (allowQueryStringPrefetch || !link.search || 'instant' in link.dataset) &&
+        "instant" in link.dataset) &&
+      ["http:", "https:"].includes(link.protocol) &&
+      (link.protocol !== "http:" || location.protocol !== "https:") &&
+      (allowQueryStringPrefetch || !link.search || "instant" in link.dataset) &&
       !(
         (link.hash &&
           link.pathname + link.search ===
             location.pathname + location.search) ||
-        'noInstant' in link.dataset
+        "noInstant" in link.dataset
       )
     );
   }
 
   function prefetch(url) {
     if (!prefetchUrls.has(url)) {
-      const linkElement = document.createElement('link');
-      linkElement.rel = 'prefetch';
+      const linkElement = document.createElement("link");
+      linkElement.rel = "prefetch";
       linkElement.href = url;
       document.head.appendChild(linkElement);
       prefetchUrls.add(url);

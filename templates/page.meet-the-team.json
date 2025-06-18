@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "image-with-text-overlay-00": {
       "type": "section-image-with-text-overlay",
@@ -26,9 +26,7 @@
           }
         }
       },
-      "block_order": [
-        "fdaafd23-3e07-439b-baca-9035ded3ff8e"
-      ],
+      "block_order": ["fdaafd23-3e07-439b-baca-9035ded3ff8e"],
       "settings": {
         "desktop_height": "xs",
         "mobile_height": "xs",
@@ -95,10 +93,7 @@
           "settings": {}
         }
       },
-      "block_order": [
-        "1649749059b2fecb14-1",
-        "1649749059b2fecb14-2"
-      ],
+      "block_order": ["1649749059b2fecb14-1", "1649749059b2fecb14-2"],
       "settings": {
         "section_width": "narrow",
         "horizontal_alignment": "text-left items-start",
@@ -160,10 +155,7 @@
           "settings": {}
         }
       },
-      "block_order": [
-        "1649627570b641a362-0",
-        "1649627570b641a362-1"
-      ],
+      "block_order": ["1649627570b641a362-0", "1649627570b641a362-1"],
       "settings": {
         "subheading": "",
         "heading": "",

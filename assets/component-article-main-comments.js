@@ -1,5 +1,5 @@
 /*!
- * 
+ *
  * ------
  * Note: customizing files reduces the store's ability to auto-update the theme.
  *
@@ -18,42 +18,61 @@
  * ------
  *
  */
-/******/ (() => { // webpackBootstrap
-var __webpack_exports__ = {};
-class CommentPagination extends HTMLElement {
-	constructor() {
-    super();
+/******/ (() => {
+  // webpackBootstrap
+  var __webpack_exports__ = {};
+  class CommentPagination extends HTMLElement {
+    constructor() {
+      super();
 
-    this.prevBtn = this.querySelector('[data-armada-selector="previous_comment"]');
-    this.nextBtn = this.querySelector('[data-armada-selector="next_comment"]');
-    this.sectionId = 'section-article-comments';
-    this.selector = '[data-armada-selector="comment_wrapper"]';
+      this.prevBtn = this.querySelector(
+        '[data-armada-selector="previous_comment"]',
+      );
+      this.nextBtn = this.querySelector(
+        '[data-armada-selector="next_comment"]',
+      );
+      this.sectionId = "section-article-comments";
+      this.selector = '[data-armada-selector="comment_wrapper"]';
+    }
+
+    connectedCallback() {
+      this.setListeners();
+    }
+
+    setListeners() {
+      ["click", "keypress"].forEach((ev) => {
+        if (this.prevBtn)
+          this.prevBtn.addEventListener(ev, this.fetchPrevComments.bind(this));
+        if (this.nextBtn)
+          this.nextBtn.addEventListener(ev, this.fetchNextComments.bind(this));
+      });
+    }
+
+    fetchPrevComments() {
+      window.eight.sectionsEngine.sectionRenderingEngine.fetchSection(
+        this.prevBtn.dataset.prevUrl,
+        [this.sectionId],
+        [this.parentElement],
+        [this.selector],
+        this.showContent.bind(this),
+      );
+    }
+
+    fetchNextComments() {
+      window.eight.sectionsEngine.sectionRenderingEngine.fetchSection(
+        this.nextBtn.dataset.nextUrl,
+        [this.sectionId],
+        [this.parentElement],
+        [this.selector],
+        this.showContent.bind(this),
+      );
+    }
+
+    showContent(data) {
+      if (!data) return;
+    }
   }
 
-  connectedCallback() {
-    this.setListeners();
-  }
-
-  setListeners() {
-    ['click', 'keypress'].forEach(ev => {
-      if (this.prevBtn) this.prevBtn.addEventListener(ev, this.fetchPrevComments.bind(this));
-      if (this.nextBtn) this.nextBtn.addEventListener(ev, this.fetchNextComments.bind(this));
-    });
-  }
-
-  fetchPrevComments() {
-    window.eight.sectionsEngine.sectionRenderingEngine.fetchSection(this.prevBtn.dataset.prevUrl, [this.sectionId], [this.parentElement], [this.selector], this.showContent.bind(this));
-  }
-
-  fetchNextComments() {
-    window.eight.sectionsEngine.sectionRenderingEngine.fetchSection(this.nextBtn.dataset.nextUrl, [this.sectionId], [this.parentElement], [this.selector], this.showContent.bind(this));
-  }
-
-  showContent(data) {
-    if (!data) return;
-  }
-}
-
-window.customElements.define('article-comments', CommentPagination);
-/******/ })()
-;
+  window.customElements.define("article-comments", CommentPagination);
+  /******/
+})();

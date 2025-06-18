@@ -19,43 +19,42 @@
  *
  */
 
-
 /******/ (() => {
   // webpackBootstrap
   /******/ var __webpack_modules__ = {
     /***/ 877: /***/ (module) => {
       module.exports = {
-        sm: '640px',
+        sm: "640px",
         // => @media (min-width: 640px) { ... }
 
-        md: '769px',
+        md: "769px",
         // => @media (min-width: 769px) { ... }
 
-        lg: '1024px',
+        lg: "1024px",
         // => @media (min-width: 1024px) { ... }
 
-        xl: '1280px',
+        xl: "1280px",
         // => @media (min-width: 1280px) { ... }
 
-        '2xl': '1536px',
+        "2xl": "1536px",
         // => @media (min-width: 1536px) { ... }
 
-        'upto-sm': { max: '639px' },
+        "upto-sm": { max: "639px" },
         // => @media (max-width: 639px) { ... }
 
-        'upto-md': { max: '768px' },
+        "upto-md": { max: "768px" },
         // => @media (max-width: 768px) { ... }
 
-        'upto-lg': { max: '1023px' },
+        "upto-lg": { max: "1023px" },
         // => @media (max-width: 1023px) { ... }
 
-        'upto-xl': { max: '1279px' },
+        "upto-xl": { max: "1279px" },
         // => @media (max-width: 1279px) { ... }
 
-        'upto-2xl': { max: '1535px' },
+        "upto-2xl": { max: "1535px" },
         // => @media (max-width: 1535px) { ... }
 
-        'no-touch-hover': { raw: '(hover: hover)' },
+        "no-touch-hover": { raw: "(hover: hover)" },
         // => @media (hover: hover) { ... }
       };
 
@@ -67,11 +66,11 @@
         true ? (module.exports = t()) : 0;
       })(self, function () {
         return (() => {
-          'use strict';
+          "use strict";
           var e = {};
           return (
             ((e, t) => {
-              Object.defineProperty(t, '__esModule', { value: !0 }),
+              Object.defineProperty(t, "__esModule", { value: !0 }),
                 (t.getCurrentBreakpoint = t.getBreakpointValue = void 0),
                 (t.getBreakpointValue = (e) => {
                   var t, i;
@@ -88,8 +87,8 @@
                     return parseInt(
                       window.eight.tailwind.screens[e].slice(
                         0,
-                        window.eight.tailwind.screens[e].indexOf('px')
-                      )
+                        window.eight.tailwind.screens[e].indexOf("px"),
+                      ),
                     );
                 }),
                 (t.getCurrentBreakpoint = () => {
@@ -107,7 +106,7 @@
                   let [n] = Object.keys(window.eight.tailwind.screens),
                     o = 0;
                   const r = Object.keys(window.eight.tailwind.screens).filter(
-                    (e) => 'string' == typeof window.eight.tailwind.screens[e]
+                    (e) => "string" == typeof window.eight.tailwind.screens[e],
                   );
                   for (const e of r) {
                     const i = t.getBreakpointValue(e);
@@ -129,52 +128,52 @@
         true ? (module.exports = t()) : 0;
       })(self, function () {
         return (() => {
-          'use strict';
+          "use strict";
           var e = {
               533: (e, t) => {
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.EVENTS = void 0),
                   (t.EVENTS = {
-                    'ARMADA:LOADED': 'ARMADA:LOADED',
-                    'ARMADA:NOTIFICATIONS:EVENT': 'ARMADA:NOTIFICATIONS:EVENT',
-                    'ARMADA:LOAD:SCRIPT': 'ARMADA:LOAD:SCRIPT',
-                    'ARMADA:LOAD:CART': 'ARMADA:LOAD:CART',
-                    'ARMADA:LOAD:PRODUCTS': 'ARMADA:LOAD:PRODUCTS',
-                    'ARMADA:ANALYTICS:DISPATCH': 'ARMADA:ANALYTICS:DISPATCH',
-                    'ARMADA:LAZY:CONTENT': 'ARMADA:LAZY:CONTENT',
-                    'ARMADA:LAZY:SECTION': 'ARMADA:LAZY:SECTION',
-                    'ARMADA:CART:ADD': 'ARMADA:CART:ADD',
-                    'ARMADA:CART:ERROR': 'ARMADA:CART:ERROR',
-                    'ARMADA:CART:GET': 'ARMADA:CART:GET',
-                    'ARMADA:CART:CHANGE': 'ARMADA:CART:CHANGE',
-                    'ARMADA:CART:CLEAR': 'ARMADA:CART:CLEAR',
-                    'ARMADA:CART:UPDATE': 'ARMADA:CART:UPDATE',
-                    'ARMADA:CART:COUNT:CHANGE': 'ARMADA:CART:COUNT:CHANGE',
-                    'ARMADA:VARIANT:CHANGE': 'ARMADA:VARIANT:CHANGE',
-                    'ARMADA:QUANTITY:CHANGE': 'ARMADA:QUANTITY:CHANGE',
-                    'ARMADA:SLIDER:CHANGE': 'ARMADA:SLIDER:CHANGE',
-                    'ARMADA:PRODUCTCARD:VARIANT:CHANGE':
-                      'ARMADA:PRODUCTCARD:VARIANT:CHANGE',
-                    'ARMADA:NAVIGATION:DROPDOWN:CLOSE':
-                      'ARMADA:NAVIGATION:DROPDOWN:CLOSE',
-                    'ARMADA:NAVIGATION:MOBILE:OPEN':
-                      'ARMADA:NAVIGATION:MOBILE:OPEN',
-                    'ARMADA:NAVIGATION:MOBILE:CLOSE':
-                      'ARMADA:NAVIGATION:MOBILE:CLOSE',
-                    'ARMADA:PROGRESSBAR:PAUSE': 'ARMADA:PROGRESSBAR:PAUSE',
-                    'ARMADA:PROGRESSBAR:PLAY': 'ARMADA:PROGRESSBAR:PLAY',
-                    'ARMADA:MODAL:OPEN': 'ARMADA:MODAL:OPEN',
-                    'ARMADA:MODAL:CLOSE:ALL': 'ARMADA:MODAL:CLOSE:ALL',
-                    'ARMADA:SECTION:FETCH': 'ARMADA:SECTION:FETCH',
-                    'ARMADA:SEARCH:TOGGLE': 'ARMADA:SEARCH:TOGGLE',
-                    'ARMADA:NOTIFICATIONS:LOADED':
-                      'ARMADA:NOTIFICATIONS:LOADED',
-                    'ARMADA:ANIMATION:ANIMATE': 'ARMADA:ANIMATION:ANIMATE',
-                    'ARMADA:ANIMATION:RESET': 'ARMADA:ANIMATION:RESET',
-                    'ARMADA:TRANSLATION:SYNC': 'ARMADA:TRANSLATION:SYNC',
-                    'ARMADA:FORM:SUBMIT': 'ARMADA:FORM:SUBMIT',
-                    'ARMADA:MEDIA:LOADED': 'ARMADA:MEDIA:LOADED',
-                    'ARMADA:MEDIA:CHANGED': 'ARMADA:MEDIA:CHANGED',
+                    "ARMADA:LOADED": "ARMADA:LOADED",
+                    "ARMADA:NOTIFICATIONS:EVENT": "ARMADA:NOTIFICATIONS:EVENT",
+                    "ARMADA:LOAD:SCRIPT": "ARMADA:LOAD:SCRIPT",
+                    "ARMADA:LOAD:CART": "ARMADA:LOAD:CART",
+                    "ARMADA:LOAD:PRODUCTS": "ARMADA:LOAD:PRODUCTS",
+                    "ARMADA:ANALYTICS:DISPATCH": "ARMADA:ANALYTICS:DISPATCH",
+                    "ARMADA:LAZY:CONTENT": "ARMADA:LAZY:CONTENT",
+                    "ARMADA:LAZY:SECTION": "ARMADA:LAZY:SECTION",
+                    "ARMADA:CART:ADD": "ARMADA:CART:ADD",
+                    "ARMADA:CART:ERROR": "ARMADA:CART:ERROR",
+                    "ARMADA:CART:GET": "ARMADA:CART:GET",
+                    "ARMADA:CART:CHANGE": "ARMADA:CART:CHANGE",
+                    "ARMADA:CART:CLEAR": "ARMADA:CART:CLEAR",
+                    "ARMADA:CART:UPDATE": "ARMADA:CART:UPDATE",
+                    "ARMADA:CART:COUNT:CHANGE": "ARMADA:CART:COUNT:CHANGE",
+                    "ARMADA:VARIANT:CHANGE": "ARMADA:VARIANT:CHANGE",
+                    "ARMADA:QUANTITY:CHANGE": "ARMADA:QUANTITY:CHANGE",
+                    "ARMADA:SLIDER:CHANGE": "ARMADA:SLIDER:CHANGE",
+                    "ARMADA:PRODUCTCARD:VARIANT:CHANGE":
+                      "ARMADA:PRODUCTCARD:VARIANT:CHANGE",
+                    "ARMADA:NAVIGATION:DROPDOWN:CLOSE":
+                      "ARMADA:NAVIGATION:DROPDOWN:CLOSE",
+                    "ARMADA:NAVIGATION:MOBILE:OPEN":
+                      "ARMADA:NAVIGATION:MOBILE:OPEN",
+                    "ARMADA:NAVIGATION:MOBILE:CLOSE":
+                      "ARMADA:NAVIGATION:MOBILE:CLOSE",
+                    "ARMADA:PROGRESSBAR:PAUSE": "ARMADA:PROGRESSBAR:PAUSE",
+                    "ARMADA:PROGRESSBAR:PLAY": "ARMADA:PROGRESSBAR:PLAY",
+                    "ARMADA:MODAL:OPEN": "ARMADA:MODAL:OPEN",
+                    "ARMADA:MODAL:CLOSE:ALL": "ARMADA:MODAL:CLOSE:ALL",
+                    "ARMADA:SECTION:FETCH": "ARMADA:SECTION:FETCH",
+                    "ARMADA:SEARCH:TOGGLE": "ARMADA:SEARCH:TOGGLE",
+                    "ARMADA:NOTIFICATIONS:LOADED":
+                      "ARMADA:NOTIFICATIONS:LOADED",
+                    "ARMADA:ANIMATION:ANIMATE": "ARMADA:ANIMATION:ANIMATE",
+                    "ARMADA:ANIMATION:RESET": "ARMADA:ANIMATION:RESET",
+                    "ARMADA:TRANSLATION:SYNC": "ARMADA:TRANSLATION:SYNC",
+                    "ARMADA:FORM:SUBMIT": "ARMADA:FORM:SUBMIT",
+                    "ARMADA:MEDIA:LOADED": "ARMADA:MEDIA:LOADED",
+                    "ARMADA:MEDIA:CHANGED": "ARMADA:MEDIA:CHANGED",
                   }),
                   (t.default = t.EVENTS);
               },
@@ -184,11 +183,11 @@
                   function (e) {
                     return e && e.__esModule ? e : { default: e };
                   };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.CONSTANTS = void 0);
                 const r = i(n(533));
                 (t.CONSTANTS = {
-                  nameSpace: 'eight',
+                  nameSpace: "eight",
                   events: Object.assign({}, r.default),
                 }),
                   (t.default = t.CONSTANTS);
@@ -199,7 +198,7 @@
                   function (e) {
                     return e && e.__esModule ? e : { default: e };
                   };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.cartEngine = void 0);
                 const r = i(n(293)),
                   o = i(n(400)),
@@ -252,32 +251,32 @@
                     function (e) {
                       return e && e.__esModule ? e : { default: e };
                     };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.addToCart = void 0);
                 const o = r(n(892)),
                   a = r(n(857));
-                (t.addToCart = (e, t = 'items', n, r) =>
+                (t.addToCart = (e, t = "items", n, r) =>
                   i(void 0, void 0, void 0, function* () {
                     try {
                       const i = yield fetch(
                         `${window.Shopify.routes.root}cart/add.js`,
                         {
-                          method: 'POST',
+                          method: "POST",
                           headers:
-                            'items' === t
-                              ? { 'Content-Type': 'application/json' }
+                            "items" === t
+                              ? { "Content-Type": "application/json" }
                               : {},
-                          body: 'items' === t ? JSON.stringify(e) : e,
-                        }
+                          body: "items" === t ? JSON.stringify(e) : e,
+                        },
                       );
                       if (200 === i.status) {
                         const r = yield i.json(),
                           s =
-                            'items' === t
+                            "items" === t
                               ? e.items[0].quantity
-                              : 'no quantity provided';
+                              : "no quantity provided";
                         return (
-                          o.default('ARMADA:CART:ADD', {
+                          o.default("ARMADA:CART:ADD", {
                             response: r,
                             quantity: s,
                           }),
@@ -289,14 +288,14 @@
                       {
                         const e = { error: !0, data: yield i.json() };
                         return (
-                          o.default('ARMADA:CART:ERROR', { error: e }),
+                          o.default("ARMADA:CART:ERROR", { error: e }),
                           r && r(e),
                           e
                         );
                       }
                     } catch (e) {
                       console.error(e.message),
-                        o.default('ARMADA:CART:ERROR', { error: e }),
+                        o.default("ARMADA:CART:ERROR", { error: e }),
                         r && r({ error: !0, status: 500, message: e.message });
                     }
                   })),
@@ -340,7 +339,7 @@
                     function (e) {
                       return e && e.__esModule ? e : { default: e };
                     };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.changeCart = void 0);
                 const o = r(n(892)),
                   a = r(n(857));
@@ -350,14 +349,14 @@
                       const i = yield fetch(
                         `${window.Shopify.routes.root}cart/change.js`,
                         {
-                          method: 'POST',
-                          headers: { 'Content-Type': 'application/json' },
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
                           body: JSON.stringify(e),
-                        }
+                        },
                       );
                       if (200 === i.status) {
                         const e = yield i.json();
-                        o.default('ARMADA:CART:CHANGE', { response: e }),
+                        o.default("ARMADA:CART:CHANGE", { response: e }),
                           a.default(),
                           n && n(e);
                         const { sections: r } = e;
@@ -365,7 +364,7 @@
                           for (let e in r) {
                             const n = new DOMParser().parseFromString(
                               r[e],
-                              'text/html'
+                              "text/html",
                             );
                             t.map((e) => {
                               const t = document.querySelector(e),
@@ -378,7 +377,7 @@
                       {
                         const e = { error: !0, data: yield i.json() };
                         return (
-                          o.default('ARMADA:CART:ERROR', { error: e }),
+                          o.default("ARMADA:CART:ERROR", { error: e }),
                           r && r(e),
                           e
                         );
@@ -428,7 +427,7 @@
                     function (e) {
                       return e && e.__esModule ? e : { default: e };
                     };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.clearCart = void 0);
                 const o = r(n(892)),
                   a = r(n(857));
@@ -436,12 +435,12 @@
                   i(void 0, void 0, void 0, function* () {
                     try {
                       const t = yield fetch(
-                        `${window.Shopify.routes.root}cart/clear.js`
+                        `${window.Shopify.routes.root}cart/clear.js`,
                       );
                       if (200 === t.status) {
                         const n = yield t.json();
                         return (
-                          o.default('ARMADA:CART:CLEAR', { response: n }),
+                          o.default("ARMADA:CART:CLEAR", { response: n }),
                           a.default(),
                           e && e(n),
                           n
@@ -449,7 +448,7 @@
                       }
                       {
                         const e = { error: !0, data: yield t.json() };
-                        return o.default('ARMADA:CART:ERROR', { error: e }), e;
+                        return o.default("ARMADA:CART:ERROR", { error: e }), e;
                       }
                     } catch (e) {
                       console.error(e.message);
@@ -495,28 +494,28 @@
                     function (e) {
                       return e && e.__esModule ? e : { default: e };
                     };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.getCart = void 0);
                 const o = r(n(892));
                 (t.getCart = (e) =>
                   i(void 0, void 0, void 0, function* () {
                     try {
                       const t = yield fetch(
-                        `${window.Shopify.routes.root}cart.js`
+                        `${window.Shopify.routes.root}cart.js`,
                       );
                       if (200 === t.status) {
                         const n = yield t.json();
-                        o.default('ARMADA:CART:GET', { response: n });
+                        o.default("ARMADA:CART:GET", { response: n });
                         const { item_count: i } = n;
                         return (
-                          o.default('ARMADA:CART:COUNT:CHANGE', { count: i }),
+                          o.default("ARMADA:CART:COUNT:CHANGE", { count: i }),
                           e && e(n),
                           n
                         );
                       }
                       {
                         const e = { error: !0, data: yield t.json() };
-                        return o.default('ARMADA:CART:ERROR', { error: e }), e;
+                        return o.default("ARMADA:CART:ERROR", { error: e }), e;
                       }
                     } catch (e) {
                       console.error(e.message);
@@ -562,7 +561,7 @@
                     function (e) {
                       return e && e.__esModule ? e : { default: e };
                     };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.globalCart = void 0);
                 const o = r(n(857)),
                   a = r(n(892)),
@@ -575,8 +574,8 @@
                       this.init();
                   }
                   setListeners() {
-                    document.addEventListener('ARMADA:CART:GET', (e) =>
-                      this.update(e)
+                    document.addEventListener("ARMADA:CART:GET", (e) =>
+                      this.update(e),
                     );
                   }
                   init() {
@@ -606,12 +605,12 @@
                           return (
                             (this.cart = Object.assign({}, e)),
                             this.setHighest(),
-                            a.default(s.default['ARMADA:LOAD:CART']),
+                            a.default(s.default["ARMADA:LOAD:CART"]),
                             this.setListeners(),
                             this.cart
                           );
                         } catch (e) {
-                          console.log('Armada globalCart error:', e);
+                          console.log("Armada globalCart error:", e);
                         }
                     });
                   }
@@ -632,7 +631,7 @@
                     0 === this.cart.items.length
                       ? (this.highest = {})
                       : (this.highest = this.cart.items.reduce((e, t) =>
-                          e.price > t.price ? e : t
+                          e.price > t.price ? e : t,
                         ));
                   }
                 }
@@ -676,28 +675,28 @@
                     function (e) {
                       return e && e.__esModule ? e : { default: e };
                     };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.updateCart = void 0);
                 const o = r(n(892)),
                   a = r(n(857));
-                (t.updateCart = (e, t = 'updates', n, r) =>
+                (t.updateCart = (e, t = "updates", n, r) =>
                   i(void 0, void 0, void 0, function* () {
                     try {
                       const i = yield fetch(
                         `${window.Shopify.routes.root}update.js`,
                         {
-                          method: 'POST',
+                          method: "POST",
                           headers:
-                            'updates' === t
-                              ? { 'Content-Type': 'application/json' }
+                            "updates" === t
+                              ? { "Content-Type": "application/json" }
                               : {},
-                          body: 'updates' === t ? JSON.stringify(e) : e,
-                        }
+                          body: "updates" === t ? JSON.stringify(e) : e,
+                        },
                       );
                       if (200 === i.status) {
                         const e = yield i.json();
                         return (
-                          o.default('ARMADA:CART:UPDATE', { response: e }),
+                          o.default("ARMADA:CART:UPDATE", { response: e }),
                           a.default(),
                           n && n(e),
                           e
@@ -706,7 +705,7 @@
                       {
                         const e = { error: !0, data: yield i.json() };
                         return (
-                          o.default('ARMADA:CART:ERROR', { error: e }),
+                          o.default("ARMADA:CART:ERROR", { error: e }),
                           r && r(e),
                           e
                         );
@@ -719,7 +718,7 @@
                   (t.default = t.updateCart);
               },
               892: (e, t) => {
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.emit = void 0),
                   (t.emit = (e, t) => {
                     try {
@@ -737,7 +736,7 @@
                   function (e) {
                     return e && e.__esModule ? e : { default: e };
                   };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.eventsEngine = void 0);
                 const r = i(n(892)),
                   o = n(803),
@@ -763,13 +762,13 @@
                   function (e) {
                     return e && e.__esModule ? e : { default: e };
                   };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.animate = void 0);
                 const r = n(533),
                   o = i(n(892));
                 (t.animate = (e) => {
-                  if (!e) return console.error('Missing animation element');
-                  o.default(r.EVENTS['ARMADA:ANIMATION:ANIMATE'], e);
+                  if (!e) return console.error("Missing animation element");
+                  o.default(r.EVENTS["ARMADA:ANIMATION:ANIMATE"], e);
                 }),
                   (t.default = t.animate);
               },
@@ -779,16 +778,16 @@
                   function (e) {
                     return e && e.__esModule ? e : { default: e };
                   };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.changeQuantity = void 0);
                 const r = n(533),
                   o = i(n(892));
                 t.changeQuantity = (e) => {
                   const { quantity: t } = e;
-                  if (void 0 === t) return console.error('Missing quantity');
+                  if (void 0 === t) return console.error("Missing quantity");
                   o.default(
-                    r.EVENTS['ARMADA:QUANTITY:CHANGE'],
-                    Object.assign({}, e)
+                    r.EVENTS["ARMADA:QUANTITY:CHANGE"],
+                    Object.assign({}, e),
                   );
                 };
               },
@@ -798,30 +797,30 @@
                   function (e) {
                     return e && e.__esModule ? e : { default: e };
                   };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.changeVariant = void 0);
                 const r = n(533),
                   o = i(n(892));
                 t.changeVariant = (e, t, n, i) => {
                   if (!e || !t)
-                    return console.error('Missing product or variant id');
+                    return console.error("Missing product or variant id");
                   if (
-                    (o.default(r.EVENTS['ARMADA:VARIANT:CHANGE'], {
+                    (o.default(r.EVENTS["ARMADA:VARIANT:CHANGE"], {
                       productId: e,
                       variantId: t,
                       variant: n,
                       scopeId: i,
                     }),
-                    'URLSearchParams' in window && a())
+                    "URLSearchParams" in window && a())
                   ) {
                     let e = new URLSearchParams(window.location.search);
-                    e.set('variant', t);
-                    var s = window.location.pathname + '?' + e.toString();
-                    history.replaceState(null, '', s);
+                    e.set("variant", t);
+                    var s = window.location.pathname + "?" + e.toString();
+                    history.replaceState(null, "", s);
                   }
                 };
                 const a = () =>
-                  !!document.querySelector('body.template-product');
+                  !!document.querySelector("body.template-product");
                 t.default = t.changeVariant;
               },
               223: function (e, t, n) {
@@ -830,13 +829,13 @@
                   function (e) {
                     return e && e.__esModule ? e : { default: e };
                   };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.openModal = void 0);
                 const r = n(533),
                   o = i(n(892));
                 (t.openModal = (e) => {
-                  if (!e) return console.error('Missing modal id');
-                  o.default(r.EVENTS['ARMADA:MODAL:OPEN'], e);
+                  if (!e) return console.error("Missing modal id");
+                  o.default(r.EVENTS["ARMADA:MODAL:OPEN"], e);
                 }),
                   (t.default = t.openModal);
               },
@@ -846,13 +845,13 @@
                   function (e) {
                     return e && e.__esModule ? e : { default: e };
                   };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.resetAnimation = void 0);
                 const r = n(533),
                   o = i(n(892));
                 (t.resetAnimation = (e) => {
-                  if (!e) return console.error('Missing animation element');
-                  o.default(r.EVENTS['ARMADA:ANIMATION:RESET'], e);
+                  if (!e) return console.error("Missing animation element");
+                  o.default(r.EVENTS["ARMADA:ANIMATION:RESET"], e);
                 }),
                   (t.default = t.resetAnimation);
               },
@@ -862,7 +861,7 @@
                   function (e) {
                     return e && e.__esModule ? e : { default: e };
                   };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.useNotifications = void 0);
                 const r = i(n(924));
                 function o(e) {
@@ -876,7 +875,7 @@
                   function (e) {
                     return e && e.__esModule ? e : { default: e };
                   };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.listEngine = void 0);
                 const r = i(n(892));
                 class o {
@@ -886,13 +885,13 @@
                   addToList(e) {
                     const t = e.id
                       ? e.id
-                      : '' + (Date.now() - this.list.length);
+                      : "" + (Date.now() - this.list.length);
                     return (
                       this.list.push(Object.assign({}, e, { id: t })),
                       this.eventKey &&
                         r.default(this.eventKey, {
                           list: this.list,
-                          type: 'add',
+                          type: "add",
                           id: t,
                         }),
                       this.list
@@ -904,7 +903,7 @@
                       this.eventKey &&
                         r.default(this.eventKey, {
                           list: this.list,
-                          type: 'remove',
+                          type: "remove",
                           id: e,
                         });
                   }
@@ -914,7 +913,7 @@
                       this.eventKey &&
                         r.default(this.eventKey, {
                           list: this.list,
-                          type: 'clear_errors',
+                          type: "clear_errors",
                         }),
                       this.list
                     );
@@ -925,7 +924,7 @@
                       this.eventKey &&
                         r.default(this.eventKey, {
                           list: this.list,
-                          type: 'clear',
+                          type: "clear",
                         }),
                       this.list
                     );
@@ -934,7 +933,7 @@
                 (t.listEngine = o), (t.default = o);
               },
               374: (e, t, n) => {
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.productEngine = void 0);
                 const i = n(754),
                   r = n(821),
@@ -948,7 +947,7 @@
                 };
               },
               11: (e, t) => {
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.findVariant = void 0),
                   (t.findVariant = (e, t) => {
                     if (!e) return;
@@ -974,13 +973,13 @@
                         });
                     });
                     const r = Object.keys(i).find(
-                      (e) => JSON.stringify(i[e]) === JSON.stringify(t)
+                      (e) => JSON.stringify(i[e]) === JSON.stringify(t),
                     );
                     return !!r && e.variants.find((e) => e.id.toString() === r);
                   });
               },
               821: (e, t) => {
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.firstAvailableVariant = void 0),
                   (t.firstAvailableVariant = (e) => {
                     if (!(null == e ? void 0 : e.variants)) return;
@@ -988,48 +987,48 @@
                   });
               },
               754: (e, t) => {
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.formatMoney = void 0),
                   (t.formatMoney = (e, t) => {
-                    'string' == typeof e && (e = e.replace('.', ''));
-                    let n = '';
+                    "string" == typeof e && (e = e.replace(".", ""));
+                    let n = "";
                     const i = /\{\{\s*(\w+)\s*\}\}/,
-                      r = t || '${{amount}}';
-                    function o(e, t = 2, n = ',', i = '.') {
-                      if (('number' == typeof e && isNaN(e)) || null == e)
-                        return '0';
-                      'string' == typeof e && (e = Number(e));
-                      const r = (e = (e / 100).toFixed(t)).split('.');
+                      r = t || "${{amount}}";
+                    function o(e, t = 2, n = ",", i = ".") {
+                      if (("number" == typeof e && isNaN(e)) || null == e)
+                        return "0";
+                      "string" == typeof e && (e = Number(e));
+                      const r = (e = (e / 100).toFixed(t)).split(".");
                       return (
                         r[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, `$1${n}`) +
-                        (r[1] ? i + r[1] : '')
+                        (r[1] ? i + r[1] : "")
                       ).toString();
                     }
                     switch (r.match(i)[1]) {
-                      case 'amount':
+                      case "amount":
                         n = o(e, 2);
                         break;
-                      case 'amount_no_decimals':
+                      case "amount_no_decimals":
                         n = o(e, 0);
                         break;
-                      case 'amount_with_comma_separator':
-                        n = o(e, 2, '.', ',');
+                      case "amount_with_comma_separator":
+                        n = o(e, 2, ".", ",");
                         break;
-                      case 'amount_no_decimals_with_comma_separator':
-                        n = o(e, 0, '.', ',');
+                      case "amount_no_decimals_with_comma_separator":
+                        n = o(e, 0, ".", ",");
                     }
                     return r.replace(i, n);
                   });
               },
               497: (e, t) => {
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.hasVariants = void 0),
                   (t.hasVariants = (e) =>
                     !!(null == e ? void 0 : e.variants) &&
                     null !== e.variants[0].public_title);
               },
               31: (e, t) => {
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.armadaElementRegistry = void 0);
                 class n {
                   constructor() {
@@ -1043,12 +1042,12 @@
                       ? Object.assign(
                           {},
                           Object.assign({}, this.registry[e.key]),
-                          { duplicateRegister: !0 }
+                          { duplicateRegister: !0 },
                         )
                       : ((this.registry[e.key] = Object.assign(
                           {},
                           Object.assign({}, e),
-                          { loaded: !0, duplicateRegister: !1 }
+                          { loaded: !0, duplicateRegister: !1 },
                         )),
                         this.registry[e.key]);
                   }
@@ -1064,26 +1063,26 @@
                   function (e) {
                     return e && e.__esModule ? e : { default: e };
                   };
-                Object.defineProperty(t, '__esModule', { value: !0 });
+                Object.defineProperty(t, "__esModule", { value: !0 });
                 const r = i(n(299));
                 t.default = () => {
                   class e extends HTMLElement {
                     constructor() {
-                      super(), (this.style.display = 'none');
+                      super(), (this.style.display = "none");
                     }
                     connectedCallback() {
                       r.default(this.init.bind(this));
                     }
                     init() {
-                      this.querySelectorAll('[data-armada-load-key]').forEach(
+                      this.querySelectorAll("[data-armada-load-key]").forEach(
                         (e) => {
                           const t = e.dataset.armadaLoadKey;
                           if (
                             !window.eight.armada.elementRegistry.checkScriptLoaded(
-                              t
+                              t,
                             )
                           ) {
-                            const t = document.createElement('script'),
+                            const t = document.createElement("script"),
                               { src: n, defer: i, async: r, type: o } = e;
                             (t.src = n),
                               (t.defer = i),
@@ -1091,12 +1090,12 @@
                               (t.type = o),
                               this.appendChild(t);
                           }
-                        }
+                        },
                       );
                     }
                   }
                   return (
-                    window.customElements.define('safe-load-scripts', e), !0
+                    window.customElements.define("safe-load-scripts", e), !0
                   );
                 };
               },
@@ -1106,7 +1105,7 @@
                   function (e) {
                     return e && e.__esModule ? e : { default: e };
                   };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.sectionRenderingEngine = void 0);
                 const r = i(n(433)),
                   o = i(n(498));
@@ -1117,28 +1116,28 @@
                   (t.default = t.sectionRenderingEngine);
               },
               498: (e, t) => {
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.fetchRoute = void 0),
                   (t.fetchRoute = (e, t, n) => {
                     e && t
                       ? fetch(`${e}`)
                           .then((e) => {
                             if (e.ok) return e.text();
-                            throw new Error('Something went wrong');
+                            throw new Error("Something went wrong");
                           })
                           .then((e) => {
                             t
                               ? ((t.innerHTML = e),
-                                'function' == typeof n && n(e))
+                                "function" == typeof n && n(e))
                               : console.error(
-                                  'FETCH ROUTE: No element provided.'
+                                  "FETCH ROUTE: No element provided.",
                                 );
                           })
                           .catch((e) => {
                             console.error(e);
                           })
                       : console.error(
-                          'FETCH ROUTE: Missing url route path or target'
+                          "FETCH ROUTE: Missing url route path or target",
                         );
                   }),
                   (t.default = t.fetchRoute);
@@ -1149,15 +1148,15 @@
                   function (e) {
                     return e && e.__esModule ? e : { default: e };
                   };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.fetchSection = void 0);
                 const r = i(n(892));
                 (t.fetchSection = (e, t, n, i, o) => {
                   if (!e || !t)
                     return void console.error(
-                      'Please provide a valid url and section id.'
+                      "Please provide a valid url and section id.",
                     );
-                  const a = e.includes('?');
+                  const a = e.includes("?");
                   e = a ? `${e}&` : `${e}?`;
                   const s = t.map((t) => fetch(`${e}section_id=${t}`));
                   Promise.all(s)
@@ -1165,28 +1164,28 @@
                       Promise.all(
                         e.map(function (e) {
                           if (e.ok) return e.text();
-                          throw new Error('Something went wrong');
-                        })
-                      )
+                          throw new Error("Something went wrong");
+                        }),
+                      ),
                     )
                     .then((a) => {
                       n.forEach((e, t) => {
                         if (e) {
                           const n = i[t]
                             ? new DOMParser()
-                                .parseFromString(`${a}`, 'text/html')
+                                .parseFromString(`${a}`, "text/html")
                                 .querySelector(i[t]).innerHTML
                             : null;
                           e.innerHTML = n || a;
-                        } else console.warn('No element provided.');
+                        } else console.warn("No element provided.");
                       }),
-                        r.default('ARMADA:SECTION:FETCH', {
+                        r.default("ARMADA:SECTION:FETCH", {
                           url: e,
                           section_ids: t,
                           els: n,
                           selectors: i,
                         }),
-                        'function' == typeof o && o(a);
+                        "function" == typeof o && o(a);
                     })
                     .catch((e) => {
                       console.error(e);
@@ -1200,7 +1199,7 @@
                   function (e) {
                     return e && e.__esModule ? e : { default: e };
                   };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.useTranslations = void 0);
                 const r = i(n(751));
                 function o() {
@@ -1209,7 +1208,7 @@
                 (t.useTranslations = o), (t.default = o);
               },
               751: (e, t) => {
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.translationEngine = void 0);
                 class n {
                   constructor() {
@@ -1218,7 +1217,7 @@
                   storeLocaleJson(e) {
                     (this.strings = e),
                       window.eight.eventsEngine.emit(
-                        `${window.eight.constants.events['ARMADA:TRANSLATION:SYNC']}`
+                        `${window.eight.constants.events["ARMADA:TRANSLATION:SYNC"]}`,
                       );
                   }
                 }
@@ -1230,7 +1229,7 @@
                   function (e) {
                     return e && e.__esModule ? e : { default: e };
                   };
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.initArmada = void 0);
                 const r = n(591),
                   o = i(n(467)),
@@ -1254,17 +1253,17 @@
                     }),
                     productEngine: a.productEngine,
                     eventsEngine: u.eventsEngine,
-                    notifications: d.default('ARMADA:NOTIFICATIONS:EVENT'),
+                    notifications: d.default("ARMADA:NOTIFICATIONS:EVENT"),
                     hooks: { useNotifications: d.default },
                     sectionsEngine: { sectionRenderingEngine: A.default },
                     translationEngine: c.default(),
                     tailwind: {
                       screens: {
-                        sm: '640px',
-                        md: '769px',
-                        lg: '1024px',
-                        xl: '1280px',
-                        '2xl': '1536px',
+                        sm: "640px",
+                        md: "769px",
+                        lg: "1024px",
+                        xl: "1280px",
+                        "2xl": "1536px",
                       },
                     },
                     safeJSONParse: h.default,
@@ -1291,21 +1290,21 @@
                           Object.assign({}, window[p]),
                           Object.assign({}, n),
                           Object.assign({}, e),
-                          Object.assign({}, i)
+                          Object.assign({}, i),
                         )
                       : Object.assign(
                           {},
                           Object.assign({}, n),
                           Object.assign({}, e),
-                          Object.assign({}, i)
+                          Object.assign({}, i),
                         )),
-                    l.default(f.default['ARMADA:LOADED'])
+                    l.default(f.default["ARMADA:LOADED"])
                   );
                 }),
                   (t.default = t.initArmada);
               },
               299: (e, t) => {
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.isArmadaLoaded = void 0),
                   (t.isArmadaLoaded = (e) => {
                     var t, n;
@@ -1319,15 +1318,15 @@
                         ? void 0
                         : n.loaded);
                     if (!e) return i;
-                    i ? e() : document.addEventListener('ARMADA:LOADED', e);
+                    i ? e() : document.addEventListener("ARMADA:LOADED", e);
                   }),
                   (t.default = t.isArmadaLoaded);
               },
               893: (e, t) => {
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.safeJSONParse = void 0),
                   (t.safeJSONParse = (e) => {
-                    if ('string' != typeof e) return !1;
+                    if ("string" != typeof e) return !1;
                     try {
                       return JSON.parse(e);
                     } catch (e) {
@@ -1337,9 +1336,9 @@
                   (t.default = t.safeJSONParse);
               },
               412: (e, t) => {
-                Object.defineProperty(t, '__esModule', { value: !0 }),
+                Object.defineProperty(t, "__esModule", { value: !0 }),
                   (t.ARMADA_VERSION = void 0),
-                  (t.ARMADA_VERSION = '0.1.270');
+                  (t.ARMADA_VERSION = "0.1.270");
               },
             },
             t = {};
@@ -1381,7 +1380,7 @@
     /******/ __webpack_modules__[moduleId](
       module,
       module.exports,
-      __webpack_require__
+      __webpack_require__,
     );
     /******/
     /******/ // Return the exports of the module
@@ -1396,7 +1395,7 @@
     /******/ __webpack_require__.n = (module) => {
       /******/ var getter =
         module && module.__esModule
-          ? /******/ () => module['default']
+          ? /******/ () => module["default"]
           : /******/ () => module;
       /******/ __webpack_require__.d(getter, { a: getter });
       /******/ return getter;
@@ -1438,13 +1437,13 @@
   var __webpack_exports__ = {};
   // This entry need to be wrapped in an IIFE because it need to be in strict mode.
   (() => {
-    'use strict';
+    "use strict";
 
     // EXTERNAL MODULE: ./node_modules/@weareeight/armada/dist/utils/initArmada.js
     var initArmada = __webpack_require__(679);
     // EXTERNAL MODULE: ./node_modules/@weareeight/armada/dist/utils/getCurrentBreakpoint.js
     var getCurrentBreakpoint = __webpack_require__(682); // CONCATENATED MODULE: ./src/scripts/version.ts
-    const THEME_VERSION = '3.1.0';
+    const THEME_VERSION = "3.1.0";
 
     // EXTERNAL MODULE: ./.tailwind/screens.js
     var screens = __webpack_require__(877);

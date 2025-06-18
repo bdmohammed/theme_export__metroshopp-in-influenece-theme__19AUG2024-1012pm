@@ -1,26 +1,23 @@
 /** @type {require('stylelint').Config} */
 export default {
-  extends: [
-    "stylelint-config-recommended",
-    "stylelint-prettier/recommended"
-  ],
+  extends: ["stylelint-config-recommended", "stylelint-prettier/recommended"],
   overrides: [
     {
-      "files": ["*.css"],
-      "rules": {
+      files: ["*.css"],
+      rules: {
         "length-zero-no-unit": true,
-        "comment-whitespace-inside": "always"
-      }
+        "comment-whitespace-inside": "always",
+      },
     },
     {
-      "files": ["*.liquid", "*.html"],
-      "customSyntax": "postcss-html",
-      "rules": {
+      files: ["*.liquid", "*.html"],
+      customSyntax: "postcss-html",
+      rules: {
         "no-empty-source": null,
         "no-missing-end-of-source-newline": null,
-        "length-zero-no-unit": true
-      }
-    }
+        "length-zero-no-unit": true,
+      },
+    },
   ],
   rules: {
     "selector-class-pattern": null,
@@ -31,7 +28,7 @@ export default {
     "property-no-unknown": [
       true,
       {
-        "ignoreProperties": [
+        ignoreProperties: [
           "-webkit-appearance",
           "-moz-appearance",
           "-ms-appearance",
@@ -39,20 +36,20 @@ export default {
           "-moz-transform",
           "-ms-transform",
           "scroll-snap-type",
-          "scroll-behavior"
-        ]
-      }
+          "scroll-behavior",
+        ],
+      },
     ],
     "selector-pseudo-element-no-unknown": [
       true,
       {
-        "ignorePseudoElements": [
+        ignorePseudoElements: [
           "v-deep",
           "-webkit-input-placeholder",
           "-moz-placeholder",
-          "-ms-input-placeholder"
-        ]
-      }
+          "-ms-input-placeholder",
+        ],
+      },
     ],
     "no-duplicate-selectors": true,
     "declaration-block-no-redundant-longhand-properties": true,
@@ -62,25 +59,21 @@ export default {
     "property-no-vendor-prefix": [
       true,
       {
-        "ignoreProperties": [
+        ignoreProperties: [
           "appearance",
           "transform",
           "transition",
           "animation",
-          "user-select"
-        ]
-      }
+          "user-select",
+        ],
+      },
     ],
     "selector-no-vendor-prefix": true,
     "value-no-vendor-prefix": [
       true,
       {
-        "ignoreValues": [
-          "grab",
-          "grabbing",
-          "pinch-zoom"
-        ]
-      }
+        ignoreValues: ["grab", "grabbing", "pinch-zoom"],
+      },
     ],
     "function-url-quotes": "never",
     "max-nesting-depth": [4, "warn"],
@@ -94,52 +87,49 @@ export default {
     "at-rule-no-unknown": [
       true,
       {
-        "ignoreAtRules": [
+        ignoreAtRules: [
           "tailwind",
           "apply",
           "variants",
           "responsive",
           "screen",
-          "layer"
-        ]
-      }
+          "layer",
+        ],
+      },
     ],
     "function-no-unknown": [
       true,
       {
-        "ignoreFunctions": [
-          "theme",
-          "screen"
-        ]
-      }
+        ignoreFunctions: ["theme", "screen"],
+      },
     ],
     "selector-pseudo-class-no-unknown": [
       true,
       {
-        "ignorePseudoClasses": ["global"]
-      }
+        ignorePseudoClasses: ["global"],
+      },
     ],
     "no-duplicate-at-import-rules": true,
     "rule-empty-line-before": [
       "always-multi-line",
       {
-        "except": ["first-nested"],
-        "ignore": ["after-comment", "inside-block"]
-      }
+        except: ["first-nested"],
+        ignore: ["after-comment", "inside-block"],
+      },
     ],
     "at-rule-empty-line-before": [
       "always",
       {
-        "except": ["blockless-after-same-name-blockless", "first-nested"],
-        "ignore": ["after-comment"]
-      }
+        except: ["blockless-after-same-name-blockless", "first-nested"],
+        ignore: ["after-comment"],
+      },
     ],
     "declaration-empty-line-before": [
       "always",
       {
-        "ignore": ["after-declaration", "first-nested"],
-        "ignoreAtRules": ["import", "media", "supports"]
-      }
+        ignore: ["after-declaration", "first-nested"],
+        ignoreAtRules: ["import", "media", "supports"],
+      },
     ],
   },
   ignoreFiles: [

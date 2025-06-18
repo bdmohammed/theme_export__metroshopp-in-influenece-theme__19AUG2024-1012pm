@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "wrapper": "div.collection-template-wrapper",
   "sections": {
     "collection_header": {
@@ -74,10 +74,5 @@
       }
     }
   },
-  "order": [
-    "collection_header",
-    "collection_description",
-    "filters",
-    "main"
-  ]
+  "order": ["collection_header", "collection_description", "filters", "main"]
 }

@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "type": "header",
   "name": "Header",
   "sections": {
@@ -26,9 +26,7 @@
           }
         }
       },
-      "block_order": [
-        "announcement_LjNtRD"
-      ],
+      "block_order": ["announcement_LjNtRD"],
       "settings": {
         "background_color": "#e91e63",
         "text_color": "#ffffff",
@@ -56,9 +54,7 @@
           }
         }
       },
-      "block_order": [
-        "currency_JUhhYj"
-      ],
+      "block_order": ["currency_JUhhYj"],
       "settings": {
         "is_transparent": false,
         "phone_number": "+01 23456789",
@@ -143,10 +139,7 @@
           }
         }
       },
-      "block_order": [
-        "engine-quick-search-0",
-        "engine-quick-search-1"
-      ],
+      "block_order": ["engine-quick-search-0", "engine-quick-search-1"],
       "disabled": true,
       "settings": {}
     }

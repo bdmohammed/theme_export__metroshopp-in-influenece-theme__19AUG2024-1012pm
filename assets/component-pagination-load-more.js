@@ -1,5 +1,5 @@
 /*!
- * 
+ *
  * ------
  * Note: customizing files reduces the store's ability to auto-update the theme.
  *
@@ -18,141 +18,212 @@
  * ------
  *
  */
-/******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({
+/******/ (() => {
+  // webpackBootstrap
+  /******/ var __webpack_modules__ = {
+    /***/ 845: /***/ (module) => {
+      !(function (e, d) {
+        true ? (module.exports = d()) : 0;
+      })(self, function () {
+        return (() => {
+          "use strict";
+          var e = {};
+          return (
+            ((e, d) => {
+              Object.defineProperty(d, "__esModule", { value: !0 }),
+                (d.isArmadaLoaded = void 0),
+                (d.isArmadaLoaded = (e) => {
+                  var d, o;
+                  const a =
+                    !0 ===
+                    (null ===
+                      (o =
+                        null === (d = window.eight) || void 0 === d
+                          ? void 0
+                          : d.armada) || void 0 === o
+                      ? void 0
+                      : o.loaded);
+                  if (!e) return a;
+                  a ? e() : document.addEventListener("ARMADA:LOADED", e);
+                }),
+                (d.default = d.isArmadaLoaded);
+            })(0, e),
+            e
+          );
+        })();
+      });
 
-/***/ 845:
-/***/ ((module) => {
+      /***/
+    },
 
-!function(e,d){ true?module.exports=d():0}(self,(function(){return(()=>{"use strict";var e={};return((e,d)=>{Object.defineProperty(d,"__esModule",{value:!0}),d.isArmadaLoaded=void 0,d.isArmadaLoaded=e=>{var d,o;const a=!0===(null===(o=null===(d=window.eight)||void 0===d?void 0:d.armada)||void 0===o?void 0:o.loaded);if(!e)return a;a?e():document.addEventListener("ARMADA:LOADED",e)},d.default=d.isArmadaLoaded})(0,e),e})()}));
-
-/***/ })
-
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
-(() => {
-"use strict";
-/* harmony import */ var _weareeight_armada_dist_utils_isArmadaLoaded__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(845);
-/* harmony import */ var _weareeight_armada_dist_utils_isArmadaLoaded__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_weareeight_armada_dist_utils_isArmadaLoaded__WEBPACK_IMPORTED_MODULE_0__);
-
-
-class LoadMore extends HTMLElement {
-  constructor() {
-    super()
-
-    this.loadMoreBtn = this.querySelector('button');
-    this.onLoadMore = this.handleLoadMore.bind(this);
+    /******/
+  };
+  /************************************************************************/
+  /******/ // The module cache
+  /******/ var __webpack_module_cache__ = {};
+  /******/
+  /******/ // The require function
+  /******/ function __webpack_require__(moduleId) {
+    /******/ // Check if module is in cache
+    /******/ var cachedModule = __webpack_module_cache__[moduleId];
+    /******/ if (cachedModule !== undefined) {
+      /******/ return cachedModule.exports;
+      /******/
+    }
+    /******/ // Create a new module (and put it into the cache)
+    /******/ var module = (__webpack_module_cache__[moduleId] = {
+      /******/ // no module.id needed
+      /******/ // no module.loaded needed
+      /******/ exports: {},
+      /******/
+    });
+    /******/
+    /******/ // Execute the module function
+    /******/ __webpack_modules__[moduleId](
+      module,
+      module.exports,
+      __webpack_require__,
+    );
+    /******/
+    /******/ // Return the exports of the module
+    /******/ return module.exports;
+    /******/
   }
+  /******/
+  /************************************************************************/
+  /******/ /* webpack/runtime/compat get default export */
+  /******/ (() => {
+    /******/ // getDefaultExport function for compatibility with non-harmony modules
+    /******/ __webpack_require__.n = (module) => {
+      /******/ var getter =
+        module && module.__esModule
+          ? /******/ () => module["default"]
+          : /******/ () => module;
+      /******/ __webpack_require__.d(getter, { a: getter });
+      /******/ return getter;
+      /******/
+    };
+    /******/
+  })();
+  /******/
+  /******/ /* webpack/runtime/define property getters */
+  /******/ (() => {
+    /******/ // define getter functions for harmony exports
+    /******/ __webpack_require__.d = (exports, definition) => {
+      /******/ for (var key in definition) {
+        /******/ if (
+          __webpack_require__.o(definition, key) &&
+          !__webpack_require__.o(exports, key)
+        ) {
+          /******/ Object.defineProperty(exports, key, {
+            enumerable: true,
+            get: definition[key],
+          });
+          /******/
+        }
+        /******/
+      }
+      /******/
+    };
+    /******/
+  })();
+  /******/
+  /******/ /* webpack/runtime/hasOwnProperty shorthand */
+  /******/ (() => {
+    /******/ __webpack_require__.o = (obj, prop) =>
+      Object.prototype.hasOwnProperty.call(obj, prop);
+    /******/
+  })();
+  /******/
+  /************************************************************************/
+  var __webpack_exports__ = {};
+  // This entry need to be wrapped in an IIFE because it need to be in strict mode.
+  (() => {
+    "use strict";
+    /* harmony import */ var _weareeight_armada_dist_utils_isArmadaLoaded__WEBPACK_IMPORTED_MODULE_0__ =
+      __webpack_require__(845);
+    /* harmony import */ var _weareeight_armada_dist_utils_isArmadaLoaded__WEBPACK_IMPORTED_MODULE_0___default =
+      /*#__PURE__*/ __webpack_require__.n(
+        _weareeight_armada_dist_utils_isArmadaLoaded__WEBPACK_IMPORTED_MODULE_0__,
+      );
 
-  connectedCallback() {
-    (0,_weareeight_armada_dist_utils_isArmadaLoaded__WEBPACK_IMPORTED_MODULE_0__.isArmadaLoaded)(this.init.bind(this));
-  }
+    class LoadMore extends HTMLElement {
+      constructor() {
+        super();
 
-  init() {
-    // If there are more pages, load their content
-    if (this.dataset.armadaPaginateNext) {
-      this.loadMoreBtn.addEventListener('click', this.onLoadMore, true);
+        this.loadMoreBtn = this.querySelector("button");
+        this.onLoadMore = this.handleLoadMore.bind(this);
+      }
+
+      connectedCallback() {
+        (0,
+        _weareeight_armada_dist_utils_isArmadaLoaded__WEBPACK_IMPORTED_MODULE_0__.isArmadaLoaded)(
+          this.init.bind(this),
+        );
+      }
+
+      init() {
+        // If there are more pages, load their content
+        if (this.dataset.armadaPaginateNext) {
+          this.loadMoreBtn.addEventListener("click", this.onLoadMore, true);
+        }
+
+        window.eight.armada.elementRegistry.register({
+          key: "pagination-load-more",
+          assetPath: "/assets/component-pagination-load-more.min.js",
+        });
+      }
+
+      handleLoadMore() {
+        this.loadMoreBtn.removeEventListener("click", this.onLoadMore, true);
+        this.changeButtonState(
+          this.loadMoreBtn.querySelector("[data-armada-button-load-icon]"),
+          this.loadMoreBtn.querySelector("[data-armada-button-text]"),
+        );
+        window.eight.sectionsEngine.sectionRenderingEngine.fetchSection(
+          this.dataset.armadaPaginateNext,
+          [this.dataset.sectionId],
+          [this],
+          [""],
+          this.loadNewContent.bind(this),
+        );
+      }
+
+      changeButtonState(icon, text) {
+        // Hide the button text and show the loading icon
+        if (!text || !icon) return;
+        text.classList.add("invisible");
+        icon.classList.remove("hidden");
+      }
+
+      loadNewContent(data) {
+        // Remove the load more button when new content loads
+        this.remove();
+
+        const html = new DOMParser().parseFromString(data, "text/html");
+        const gridSelector = '[data-armada-selector="collection-grid-main"]';
+        const btnSelector = "load-more-pagination";
+
+        // Add next page items to the current page
+        const outerElement = document.querySelector(gridSelector);
+        const destination =
+          document.querySelector(gridSelector).firstElementChild;
+        const gridItems =
+          html.querySelector(gridSelector).firstElementChild.childNodes;
+        const loadMoreButton = html.querySelector(btnSelector);
+
+        if (gridItems && destination) destination.append(...gridItems);
+        if (loadMoreButton && outerElement)
+          outerElement.appendChild(loadMoreButton);
+
+        // Reload animations
+        const animComponent = destination.closest("loadin-animation");
+        if (animComponent) animComponent.setAttribute("reload", true);
+      }
     }
 
-    window.eight.armada.elementRegistry.register({key: 'pagination-load-more', assetPath: '/assets/component-pagination-load-more.min.js'});
-  }
+    customElements.define("load-more-pagination", LoadMore);
+  })();
 
-  handleLoadMore() {
-    this.loadMoreBtn.removeEventListener('click', this.onLoadMore, true);
-    this.changeButtonState(this.loadMoreBtn.querySelector('[data-armada-button-load-icon]'), this.loadMoreBtn.querySelector('[data-armada-button-text]'));
-    window.eight.sectionsEngine.sectionRenderingEngine.fetchSection(this.dataset.armadaPaginateNext, [this.dataset.sectionId], [this], [''], this.loadNewContent.bind(this));
-  }
-
-  changeButtonState(icon, text) {
-    // Hide the button text and show the loading icon
-    if (!text || !icon) return;
-    text.classList.add('invisible');
-    icon.classList.remove('hidden');
-  }
-
-  loadNewContent(data) {
-    // Remove the load more button when new content loads
-    this.remove();
-
-    const html = new DOMParser().parseFromString(data, 'text/html');
-    const gridSelector = '[data-armada-selector="collection-grid-main"]';
-    const btnSelector = 'load-more-pagination';
-
-    // Add next page items to the current page
-    const outerElement = document.querySelector(gridSelector);
-    const destination = document.querySelector(gridSelector).firstElementChild;
-    const gridItems = html.querySelector(gridSelector).firstElementChild.childNodes;
-    const loadMoreButton = html.querySelector(btnSelector);
-
-    if (gridItems && destination) destination.append(...gridItems);
-    if (loadMoreButton && outerElement) outerElement.appendChild(loadMoreButton);
-
-    // Reload animations
-    const animComponent = destination.closest('loadin-animation');
-    if (animComponent) animComponent.setAttribute('reload', true);
-  }
-}
-
-customElements.define('load-more-pagination', LoadMore);
-
+  /******/
 })();
-
-/******/ })()
-;

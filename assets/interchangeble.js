@@ -1,41 +1,41 @@
-var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
-  return JSON.parse(jsonString || defaultString || '{}');
+var parseJsonOrDefault = (jsonString, defaultString = "{}") => {
+  return JSON.parse(jsonString || defaultString || "{}");
 };
 
 ((global, factory) => {
-  if (typeof exports === 'object' && typeof module !== 'undefined') {
+  if (typeof exports === "object" && typeof module !== "undefined") {
     // CommonJS module (e.g., Node.js)
     factory(exports);
-  } else if (typeof define === 'function' && define.amd) {
+  } else if (typeof define === "function" && define.amd) {
     // AMD module (e.g., RequireJS)
-    define(['exports'], factory);
+    define(["exports"], factory);
   } else {
     // Browser global (globalThis or self)
     factory((global.FloatingUIT4sCore = {}));
   }
 })(window, (floatingUIT4sCore) => {
-  'use strict';
+  "use strict";
   const replacements = {
-    left: 'right',
-    right: 'left',
-    bottom: 'top',
-    top: 'bottom',
+    left: "right",
+    right: "left",
+    bottom: "top",
+    top: "bottom",
   };
-  const alignmentReplacements = { start: 'end', end: 'start' };
-  const boundaries = ['top', 'right', 'bottom', 'left'];
+  const alignmentReplacements = { start: "end", end: "start" };
+  const boundaries = ["top", "right", "bottom", "left"];
 
   const defaultAllowedPlacements = boundaries.reduce(
     (acc, edge) => acc.concat(edge, `${edge}-start`, `${edge}-end`),
-    []
+    [],
   );
-  const getPosition = (direction) => direction.split('-')[0];
+  const getPosition = (direction) => direction.split("-")[0];
 
-  const getAlignment = (direction) => direction.split('-')[1];
+  const getAlignment = (direction) => direction.split("-")[1];
 
   const getAxis = (direction) =>
-    ['top', 'bottom'].includes(getPosition(direction)) ? 'x' : 'y';
+    ["top", "bottom"].includes(getPosition(direction)) ? "x" : "y";
 
-  const getDimension = (axis) => (axis === 'y' ? 'height' : 'width');
+  const getDimension = (axis) => (axis === "y" ? "height" : "width");
 
   const calculatePosition = (elements, placement, rtl) => {
     const { reference: ref, floating: float } = elements;
@@ -44,20 +44,20 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     const axis = getAxis(placement);
     const dimension = getDimension(axis);
     const offset = ref[dimension] / 2 - float[dimension] / 2;
-    const isXAxis = axis === 'x';
+    const isXAxis = axis === "x";
 
     let position;
     switch (getPosition(placement)) {
-      case 'top':
+      case "top":
         position = { x: centerX, y: ref.y - float.height };
         break;
-      case 'bottom':
+      case "bottom":
         position = { x: centerX, y: ref.y + ref.height };
         break;
-      case 'right':
+      case "right":
         position = { x: ref.x + ref.width, y: centerY };
         break;
-      case 'left':
+      case "left":
         position = { x: ref.x - float.width, y: centerY };
         break;
       default:
@@ -65,10 +65,10 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     }
 
     switch (getAlignment(placement)) {
-      case 'start':
+      case "start":
         position[axis] -= offset * (rtl && isXAxis ? -1 : 1);
         break;
-      case 'end':
+      case "end":
         position[axis] += offset * (rtl && isXAxis ? -1 : 1);
     }
 
@@ -76,7 +76,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
   };
 
   const normalizePadding = (padding) =>
-    typeof padding !== 'number'
+    typeof padding !== "number"
       ? { top: 0, right: 0, bottom: 0, left: 0, ...padding }
       : { top: padding, right: padding, bottom: padding, left: padding };
 
@@ -91,9 +91,9 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
   const calculateOffsets = async (config, options = {}) => {
     const { x, y, platform, rects, elements, strategy } = config;
     const {
-      boundary = 'clippingAncestors',
-      rootBoundary = 'viewport',
-      elementContext = 'floating',
+      boundary = "clippingAncestors",
+      rootBoundary = "viewport",
+      elementContext = "floating",
       altBoundary = false,
       padding = 0,
     } = options;
@@ -102,14 +102,14 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     const targetElement =
       elements[
         altBoundary
-          ? elementContext === 'floating'
-            ? 'reference'
-            : 'floating'
+          ? elementContext === "floating"
+            ? "reference"
+            : "floating"
           : elementContext
       ];
     const isElement = await platform.isElement(targetElement);
     const documentElement = await platform.getDocumentElement(
-      elements.floating
+      elements.floating,
     );
     const clippingRect = getExtendedRect(
       await platform.getClippingRect({
@@ -119,20 +119,20 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             : targetElement.contextElement || documentElement,
         boundary,
         rootBoundary,
-      })
+      }),
     );
 
     const offsetParentRect = getExtendedRect(
       (await platform.convertOffsetParentRelativeRectToViewportRelativeRect)
         ? await platform.convertOffsetParentRelativeRectToViewportRelativeRect({
             rect:
-              elementContext === 'floating'
+              elementContext === "floating"
                 ? { ...rects.floating, x, y }
                 : rects.reference,
             offsetParent: await platform.getOffsetParent(elements.floating),
             strategy,
           })
-        : rects[elementContext]
+        : rects[elementContext],
     );
 
     return {
@@ -156,13 +156,13 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     const dimension = getDimension(axis);
 
     let mainAxis =
-      axis === 'x'
-        ? alignment === (rtl ? 'end' : 'start')
-          ? 'right'
-          : 'left'
-        : alignment === 'start'
-        ? 'bottom'
-        : 'top';
+      axis === "x"
+        ? alignment === (rtl ? "end" : "start")
+          ? "right"
+          : "left"
+        : alignment === "start"
+          ? "bottom"
+          : "top";
 
     if (rects.reference[dimension] > rects.floating[dimension]) {
       mainAxis = replaceDirection(mainAxis);
@@ -187,13 +187,13 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
   const hasOverflow = (rect) =>
     boundaries.some((boundary) => rect[boundary] >= 0);
 
-  const getOppositeAxis = (axis) => (axis === 'x' ? 'y' : 'x');
+  const getOppositeAxis = (axis) => (axis === "x" ? "y" : "x");
 
   // Helper function to filter and sort placements based on alignment and auto-alignment
   function filterAndSortPlacements(
     alignment,
     autoAlignment,
-    allowedPlacements
+    allowedPlacements,
   ) {
     // This function likely filters the allowed placements based on alignment and returns them in a sorted order
     return alignment
@@ -207,12 +207,12 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             (p) =>
               !alignment ||
               getAlignment(p) === alignment ||
-              (!!autoAlignment && flipAlignment(p) !== p)
+              (!!autoAlignment && flipAlignment(p) !== p),
           );
   }
 
   floatingUIT4sCore.arrow = (options = {}) => ({
-    name: 'arrow',
+    name: "arrow",
     options: options,
     async fn(context) {
       // Destructure the relevant properties from the options and context
@@ -238,8 +238,8 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       const arrowDimensions = await platform.getDimensions(arrowElement);
 
       // Define the "start" and "end" properties for the current axis
-      const start = mainAxis === 'y' ? 'top' : 'left';
-      const end = mainAxis === 'y' ? 'bottom' : 'right';
+      const start = mainAxis === "y" ? "top" : "left";
+      const end = mainAxis === "y" ? "bottom" : "right";
 
       // Calculate the distances between the reference and floating elements
       const startDistance =
@@ -252,7 +252,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       // Get the offset parent of the arrow element, if available
       const offsetParent = await platform.getOffsetParent?.(arrowElement);
       const offsetParentSize = offsetParent
-        ? mainAxis === 'y'
+        ? mainAxis === "y"
           ? offsetParent.clientHeight || 0
           : offsetParent.clientWidth || 0
         : 0;
@@ -269,7 +269,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       const arrowOffset = clamp(
         startPadding,
         offsetParentSize / 2 - arrowDimensions[crossAxis] / 2 + centerOffset,
-        endPadding
+        endPadding,
       );
 
       return {
@@ -283,7 +283,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
 
   floatingUIT4sCore.autoPlacement = (options = {}) => {
     return {
-      name: 'autoPlacement',
+      name: "autoPlacement",
       options: options,
       async fn(context) {
         const { x, y, rects, middlewareData, placement, platform, elements } =
@@ -300,7 +300,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         const placements = filterAndSortPlacements(
           alignment,
           autoAlignment,
-          allowedPlacements
+          allowedPlacements,
         );
 
         // Run the function (probably to check space availability or detect overflows)
@@ -314,7 +314,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         const { main, cross } = calculateOffsets(
           currentPlacement,
           rects,
-          await platform.isRTL?.(elements.floating)
+          await platform.isRTL?.(elements.floating),
         );
 
         // If the current placement has changed, reset the placement
@@ -367,7 +367,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
 
         // Find a placement with no overflow
         const bestPlacement = sortedOverflows.find((entry) =>
-          entry.overflows.every((overflow) => overflow <= 0)
+          entry.overflows.every((overflow) => overflow <= 0),
         )?.placement;
 
         // If a suitable placement is found, reset with it; otherwise, use the best available option
@@ -382,8 +382,8 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
 
   floatingUIT4sCore.computePosition = async (reference, floating, options) => {
     const {
-      placement = 'bottom',
-      strategy = 'absolute',
+      placement = "bottom",
+      strategy = "absolute",
       middleware = [],
       platform,
     } = options;
@@ -424,7 +424,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       };
 
       if (result.reset) {
-        if (typeof result.reset === 'object') {
+        if (typeof result.reset === "object") {
           if (result.reset.placement) finalPlacement = result.reset.placement;
           if (result.reset.rects) {
             rects =
@@ -451,7 +451,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
   // Flip middleware
   floatingUIT4sCore.flip = (options = {}) => {
     return {
-      name: 'flip',
+      name: "flip",
       options,
       async fn(data) {
         const {
@@ -467,7 +467,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           mainAxis = true,
           crossAxis = true,
           fallbackPlacements,
-          fallbackStrategy = 'bestFit',
+          fallbackStrategy = "bestFit",
           canFlipAlignment = true,
           ...restOptions
         } = options;
@@ -494,7 +494,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           const { main, cross } = computeAutoPlacement(
             placement,
             rects,
-            await platform?.isRTL?.(elements.floating)
+            await platform?.isRTL?.(elements.floating),
           );
           overflowChecks.push(b[main], b[cross]);
         }
@@ -519,10 +519,10 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             };
           }
 
-          let finalPlacement = 'bottom';
+          let finalPlacement = "bottom";
 
           switch (fallbackStrategy) {
-            case 'bestFit': {
+            case "bestFit": {
               const bestPlacement = overflowArray.slice().sort((a, b) => {
                 const aOverflowSum = a.overflows
                   .filter((o) => o > 0)
@@ -538,7 +538,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               }
               break;
             }
-            case 'initialPlacement':
+            case "initialPlacement":
               finalPlacement = initialPlacement;
               break;
           }
@@ -557,24 +557,24 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
 
   // Hide middleware
   floatingUIT4sCore.hide = (options = {}) => {
-    const { strategy = 'referenceHidden', ...restOptions } = options;
+    const { strategy = "referenceHidden", ...restOptions } = options;
 
     return {
-      name: 'hide',
+      name: "hide",
       async fn(data) {
         const { rects } = data;
 
         switch (strategy) {
-          case 'referenceHidden':
+          case "referenceHidden":
             const referenceHiddenOffsets = shrinkRect(
               await calculateOffsets(
                 data,
                 {
                   ...restOptions,
-                  elementContext: 'reference',
+                  elementContext: "reference",
                 },
-                rects.reference
-              )
+                rects.reference,
+              ),
             );
             return {
               data: {
@@ -583,7 +583,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               },
             };
 
-          case 'escaped':
+          case "escaped":
             const escapedOffsets = shrinkRect(
               await calculateOffsets(
                 data,
@@ -591,8 +591,8 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                   ...restOptions,
                   altBoundary: true,
                 },
-                rects.floating
-              )
+                rects.floating,
+              ),
             );
             return {
               data: {
@@ -611,7 +611,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
   // Inline middleware
   floatingUIT4sCore.inline = (options = {}) => {
     return {
-      name: 'inline',
+      name: "inline",
       options,
       async fn(data) {
         const { placement, elements, rects, platform, strategy } = data;
@@ -624,10 +624,10 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                 {
                   rect: rects.reference,
                   offsetParent: await platform.getOffsetParent?.(
-                    elements.floating
+                    elements.floating,
                   ),
                   strategy,
-                }
+                },
               )
             : rects.reference;
 
@@ -652,7 +652,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                         x > rect.left - paddingValues.left &&
                         x < rect.right + paddingValues.right &&
                         y > rect.top - paddingValues.top &&
-                        y < rect.bottom + paddingValues.bottom
+                        y < rect.bottom + paddingValues.bottom,
                     );
                     return matchingRect ?? referenceRect;
                   }
@@ -662,7 +662,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                     if (getAxis(placement)) {
                       const firstRect = clientRects[0];
                       const lastRect = clientRects[clientRects.length - 1];
-                      const isTop = getPosition(placement) === 'top';
+                      const isTop = getPosition(placement) === "top";
 
                       const top = firstRect.top;
                       const bottom = lastRect.bottom;
@@ -681,16 +681,18 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                       };
                     }
 
-                    const isLeft = getPosition(placement) === 'left';
+                    const isLeft = getPosition(placement) === "left";
                     const rightMost = Math.max(
-                      ...clientRects.map((rect) => rect.right)
+                      ...clientRects.map((rect) => rect.right),
                     );
                     const leftMost = Math.min(
-                      ...clientRects.map((rect) => rect.left)
+                      ...clientRects.map((rect) => rect.left),
                     );
 
                     const alignedRects = clientRects.filter((rect) =>
-                      isLeft ? rect.left === leftMost : rect.right === rightMost
+                      isLeft
+                        ? rect.left === leftMost
+                        : rect.right === rightMost,
                     );
                     const top = alignedRects[0].top;
                     const bottom = alignedRects[alignedRects.length - 1].bottom;
@@ -737,16 +739,16 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
 
       // Determine the offset
       const offsetValue =
-        typeof offset === 'function' ? offset({ ...rects, placement }) : offset;
+        typeof offset === "function" ? offset({ ...rects, placement }) : offset;
 
       const offsetConfig =
-        typeof offsetValue === 'number'
+        typeof offsetValue === "number"
           ? { mainAxis: offsetValue, crossAxis: 0 }
           : { mainAxis: 0, crossAxis: 0, ...offsetValue };
 
       // Limit shifts in the main axis
       if (mainAxis) {
-        const sizeKey = mainAxisDirection === 'y' ? 'height' : 'width';
+        const sizeKey = mainAxisDirection === "y" ? "height" : "width";
         const minLimit =
           rects.reference[mainAxisDirection] -
           rects.floating[sizeKey] +
@@ -765,8 +767,8 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
 
       // Limit shifts in the cross axis
       if (crossAxis) {
-        const sizeKey = mainAxisDirection === 'y' ? 'width' : 'height';
-        const isTopOrLeft = ['top', 'left'].includes(getPosition(placement));
+        const sizeKey = mainAxisDirection === "y" ? "width" : "height";
+        const isTopOrLeft = ["top", "left"].includes(getPosition(placement));
 
         const minCrossLimit =
           rects.reference[crossAxisDirection] -
@@ -797,7 +799,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
   // Offset middleware
   floatingUIT4sCore.offset = (offsetValue = 0) => {
     return {
-      name: 'offset',
+      name: "offset",
       options: offsetValue,
       async fn(context) {
         const { x, y, placement, rects, platform, elements } = context;
@@ -807,17 +809,17 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           placement,
           rects,
           offsetValue,
-          isRTL = false
+          isRTL = false,
         ) => {
           const basePlacement = getPosition(placement);
           const variation = getAlignment(placement);
           const isHorizontal = getAxis(placement);
-          const directionMultiplier = ['left', 'top'].includes(basePlacement)
+          const directionMultiplier = ["left", "top"].includes(basePlacement)
             ? -1
             : 1;
 
           let variationMultiplier = 1;
-          if (variation === 'end') {
+          if (variation === "end") {
             variationMultiplier = -1;
           }
 
@@ -827,11 +829,11 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           }
 
           const offsetObj =
-            typeof offsetValue === 'function'
+            typeof offsetValue === "function"
               ? calculatePosition({ ...rects, placement })
               : offsetValue;
           const { mainAxis = 0, crossAxis = 0 } =
-            typeof offsetObj === 'number'
+            typeof offsetObj === "number"
               ? { mainAxis: offsetObj, crossAxis: 0 }
               : { ...offsetObj };
 
@@ -851,7 +853,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           placement,
           rects,
           offsetValue,
-          await platform.isRTL?.(elements.floating) // Checking if layout is RTL
+          await platform.isRTL?.(elements.floating), // Checking if layout is RTL
         );
 
         return {
@@ -867,7 +869,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
 
   // Shift middleware
   floatingUIT4sCore.shift = (options = {}) => ({
-    name: 'shift',
+    name: "shift",
     options,
     async fn(data) {
       const { x, y, placement } = data;
@@ -885,16 +887,16 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
 
       if (mainAxis) {
         position[axis] = clamp(
-          position[axis] + bounds['y' === g ? 'top' : 'left'],
+          position[axis] + bounds["y" === g ? "top" : "left"],
           position[axis],
-          position[axis] - bounds['y' === axis ? 'bottom' : 'right']
+          position[axis] - bounds["y" === axis ? "bottom" : "right"],
         );
       }
       if (crossAxis) {
         position[dimension] = clamp(
-          position[dimension] + bounds['y' === v ? 'top' : 'left'],
+          position[dimension] + bounds["y" === v ? "top" : "left"],
           position[dimension],
-          position[dimension] - bounds[e]
+          position[dimension] - bounds[e],
         );
       }
 
@@ -909,7 +911,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
   // Size middleware
   floatingUIT4sCore.size = (options = {}) => {
     return {
-      name: 'size',
+      name: "size",
       options,
       async fn(data) {
         const { placement, rects, platform, elements } = data;
@@ -921,18 +923,18 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         const alignment = getAlignment(placement);
 
         let mainAxis, crossAxis;
-        if (placementDirection === 'top' || placementDirection === 'bottom') {
+        if (placementDirection === "top" || placementDirection === "bottom") {
           mainAxis = placementDirection;
           crossAxis =
             alignment ===
             ((await (platform.isRTL?.(elements.floating) || false))
-              ? 'start'
-              : 'end')
-              ? 'left'
-              : 'right';
+              ? "start"
+              : "end")
+              ? "left"
+              : "right";
         } else {
           crossAxis = placementDirection;
-          mainAxis = alignment === 'end' ? 'top' : 'bottom';
+          mainAxis = alignment === "end" ? "top" : "bottom";
         }
 
         // Calculate the offsets for the floating element
@@ -945,7 +947,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         const newSize = {
           height:
             rects.floating.height -
-            (['left', 'right'].includes(placement)
+            (["left", "right"].includes(placement)
               ? 2 *
                 (offsetTop || offsetBottom
                   ? offsetTop + offsetBottom
@@ -953,7 +955,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               : dimensions[mainAxis]),
           width:
             rects.floating.width -
-            (['top', 'bottom'].includes(placement)
+            (["top", "bottom"].includes(placement)
               ? 2 *
                 (offsetLeft || offsetRight
                   ? offsetLeft + offsetRight
@@ -970,26 +972,26 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     };
   };
 
-  Object.defineProperty(floatingUIT4sCore, '__esModule', {
+  Object.defineProperty(floatingUIT4sCore, "__esModule", {
     value: true,
   });
 });
 
 !((e, t) => {
-  'object' == typeof exports && 'undefined' != typeof module
-    ? t(exports, require('@floating-ui/core'))
-    : 'function' == typeof define && define.amd
-    ? define(['exports', '@floating-ui/core'], t)
-    : t(
-        ((e =
-          'undefined' != typeof globalThis
-            ? globalThis
-            : e || self).FloatingUIT4sDOM = {}),
-        e.FloatingUIT4sCore
-      );
+  "object" == typeof exports && "undefined" != typeof module
+    ? t(exports, require("@floating-ui/core"))
+    : "function" == typeof define && define.amd
+      ? define(["exports", "@floating-ui/core"], t)
+      : t(
+          ((e =
+            "undefined" != typeof globalThis
+              ? globalThis
+              : e || self).FloatingUIT4sDOM = {}),
+          e.FloatingUIT4sCore,
+        );
 })(window, (floatingUIT4sDOM, floatingUIT4sCore) => {
   function isWindow(obj) {
-    return '[object Window]' === (null == obj ? undefined : obj.toString());
+    return "[object Window]" === (null == obj ? undefined : obj.toString());
   }
 
   function getWindow(obj) {
@@ -1007,10 +1009,10 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
 
   function getNodeName(element) {
     return isWindow(element)
-      ? ''
+      ? ""
       : element
-      ? (element.nodeName || '').toLowerCase()
-      : '';
+        ? (element.nodeName || "").toLowerCase()
+        : "";
   }
 
   function isHTMLElement(element) {
@@ -1035,24 +1037,24 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       overflowY: overflowYValue,
     } = getComputedStyle(element);
     return /auto|scroll|overlay|hidden/.test(
-      overflowValue + overflowYValue + overflowXValue
+      overflowValue + overflowYValue + overflowXValue,
     );
   }
 
   function isTableElement(element) {
-    return ['table', 'td', 'th'].includes(getNodeName(element));
+    return ["table", "td", "th"].includes(getNodeName(element));
   }
 
   function isScrollable(element) {
-    const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
+    const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
     const style = getComputedStyle(element);
     return (
-      'none' !== style.transform ||
-      'none' !== style.perspective ||
-      'paint' === style.contain ||
-      ['transform', 'perspective'].includes(style.willChange) ||
-      (isFirefox && 'filter' === style.willChange) ||
-      (isFirefox && !!style.filter && 'none' !== style.filter)
+      "none" !== style.transform ||
+      "none" !== style.perspective ||
+      "paint" === style.contain ||
+      ["transform", "perspective"].includes(style.willChange) ||
+      (isFirefox && "filter" === style.willChange) ||
+      (isFirefox && !!style.filter && "none" !== style.filter)
     );
   }
 
@@ -1112,11 +1114,11 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
   }
 
   function isHTMLTag(element) {
-    return getNodeName(element) === 'html';
+    return getNodeName(element) === "html";
   }
 
   function isBodyTag(element) {
-    return getNodeName(element) === 'body';
+    return getNodeName(element) === "body";
   }
   // Gets the closest parent or fallback node
   function getClosestParent(element) {
@@ -1131,7 +1133,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
   // Gets offset parent for an element
   function getOffsetParent(element) {
     return isHTMLElement(element) &&
-      getComputedStyle(element).position !== 'fixed'
+      getComputedStyle(element).position !== "fixed"
       ? element.offsetParent
       : null;
   }
@@ -1144,7 +1146,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     while (
       offsetParent &&
       isTableElement(offsetParent) &&
-      getComputedStyle(offsetParent).position === 'static'
+      getComputedStyle(offsetParent).position === "static"
     ) {
       offsetParent = getOffsetParent(offsetParent);
     }
@@ -1152,10 +1154,10 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     // Return the document if the offset parent is either <html> or a statically positioned <body>
     if (
       offsetParent &&
-      ['html', 'body'].includes(
+      ["html", "body"].includes(
         getNodeName(offsetParent) &&
-          getComputedStyle(offsetParent).position === 'static' &&
-          !isScrollable(offsetParent)
+          getComputedStyle(offsetParent).position === "static" &&
+          !isScrollable(offsetParent),
       )
     ) {
       return doc;
@@ -1169,7 +1171,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
 
         while (
           isShadowRoot(parent) &&
-          !['html', 'body'].includes(getNodeName(parent))
+          !["html", "body"].includes(getNodeName(parent))
         ) {
           if (isScrollable(parent)) return parent;
           parent = parent.parentNode;
@@ -1199,7 +1201,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     // Find the ancestor element of `element` that should be used for scrolling
     const scrollElement = (function findScrollAncestor(el) {
       // Base cases: If it's <html>, <body>, or the document root, return the document's body
-      if (['html', 'body', '#document'].includes(getNodeName(el))) {
+      if (["html", "body", "#document"].includes(getNodeName(el))) {
         return el.ownerDocument.body;
       }
       // Otherwise, check if it is a standard HTML element and scrollable
@@ -1229,14 +1231,14 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     return isDocumentBody
       ? combinedAncestors
       : combinedAncestors.concat(
-          getAncestorScrollElements(getClosestParent(scrollElements))
+          getAncestorScrollElements(getClosestParent(scrollElements)),
         );
   }
 
   // Calculates the clipping rect of an element
   function getClippingRect(element, referenceFrame) {
     // Check if the reference frame is the viewport
-    return referenceFrame === 'viewport'
+    return referenceFrame === "viewport"
       ? floatingUIT4sCore.rectToClientRect(
           ((el) => {
             const globalWindow = getWindow(el);
@@ -1257,7 +1259,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               if (
                 Math.abs(
                   globalWindow.innerWidth / visualViewport.scale -
-                    visualViewport.width
+                    visualViewport.width,
                 ) < 0.01
               ) {
                 offsetX = visualViewport.offsetLeft;
@@ -1272,71 +1274,71 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               x: offsetX,
               y: offsetY,
             };
-          })(element)
+          })(element),
         )
       : // If referenceFrame is an element, calculate its bounding rectangle
-      isElement(referenceFrame)
-      ? (function (refEl) {
-          const rect = getBoundingClientRect(refEl),
-            topOffset = rect.top + refEl.clientTop,
-            leftOffset = rect.left + refEl.clientLeft;
-
-          return {
-            top: topOffset,
-            left: leftOffset,
-            x: leftOffset,
-            y: topOffset,
-            right: leftOffset + refEl.clientWidth,
-            bottom: topOffset + refEl.clientHeight,
-            width: refEl.clientWidth,
-            height: refEl.clientHeight,
-          };
-        })(referenceFrame)
-      : // Fallback: calculate based on scrolling positions and dimensions of element's scroll context
-        floatingUIT4sCore.rectToClientRect(
-          (function (scrollElement) {
-            var body;
-            const documentElement = getDocumentElement(scrollElement),
-              scrollContext = getScrollOffsets(scrollElement),
-              bodyElement = (body = scrollElement.ownerDocument)
-                ? body.body
-                : null,
-              maxWidth = Math.max(
-                documentElement.scrollWidth,
-                documentElement.clientWidth,
-                bodyElement ? bodyElement.scrollWidth : 0,
-                bodyElement ? bodyElement.clientWidth : 0
-              ),
-              maxHeight = Math.max(
-                documentElement.scrollHeight,
-                documentElement.clientHeight,
-                bodyElement ? bodyElement.scrollHeight : 0,
-                bodyElement ? bodyElement.clientHeight : 0
-              );
-            let scrollX =
-              -scrollContext.scrollLeft + calculateLeftOffset(scrollElement);
-            const scrollY = -scrollContext.scrollTop;
-
-            // Adjust for RTL layouts
-            if (
-              getComputedStyle(bodyElement || documentElement).direction ===
-              'rtl'
-            ) {
-              scrollX +=
-                Math.max(
-                  documentElement.clientWidth,
-                  bodyElement ? bodyElement.clientWidth : 0
-                ) - maxWidth;
-            }
+        isElement(referenceFrame)
+        ? (function (refEl) {
+            const rect = getBoundingClientRect(refEl),
+              topOffset = rect.top + refEl.clientTop,
+              leftOffset = rect.left + refEl.clientLeft;
 
             return {
-              width: maxWidth,
-              height: maxHeight,
-              x: scrollX,
-              y: scrollY,
+              top: topOffset,
+              left: leftOffset,
+              x: leftOffset,
+              y: topOffset,
+              right: leftOffset + refEl.clientWidth,
+              bottom: topOffset + refEl.clientHeight,
+              width: refEl.clientWidth,
+              height: refEl.clientHeight,
             };
-          })(getDocumentElement(element))
-        );
+          })(referenceFrame)
+        : // Fallback: calculate based on scrolling positions and dimensions of element's scroll context
+          floatingUIT4sCore.rectToClientRect(
+            (function (scrollElement) {
+              var body;
+              const documentElement = getDocumentElement(scrollElement),
+                scrollContext = getScrollOffsets(scrollElement),
+                bodyElement = (body = scrollElement.ownerDocument)
+                  ? body.body
+                  : null,
+                maxWidth = Math.max(
+                  documentElement.scrollWidth,
+                  documentElement.clientWidth,
+                  bodyElement ? bodyElement.scrollWidth : 0,
+                  bodyElement ? bodyElement.clientWidth : 0,
+                ),
+                maxHeight = Math.max(
+                  documentElement.scrollHeight,
+                  documentElement.clientHeight,
+                  bodyElement ? bodyElement.scrollHeight : 0,
+                  bodyElement ? bodyElement.clientHeight : 0,
+                );
+              let scrollX =
+                -scrollContext.scrollLeft + calculateLeftOffset(scrollElement);
+              const scrollY = -scrollContext.scrollTop;
+
+              // Adjust for RTL layouts
+              if (
+                getComputedStyle(bodyElement || documentElement).direction ===
+                "rtl"
+              ) {
+                scrollX +=
+                  Math.max(
+                    documentElement.clientWidth,
+                    bodyElement ? bodyElement.clientWidth : 0,
+                  ) - maxWidth;
+              }
+
+              return {
+                width: maxWidth,
+                height: maxHeight,
+                x: scrollX,
+                y: scrollY,
+              };
+            })(getDocumentElement(element)),
+          );
   }
 
   function isAncestorOf(element, targetElement) {
@@ -1354,7 +1356,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
   function getFilteredElements(element) {
     const allDescendants = getAncestorScrollElements(getClosestParent(element));
     const targetElement =
-      ['absolute', 'fixed'].includes(getComputedStyle(element).position) &&
+      ["absolute", "fixed"].includes(getComputedStyle(element).position) &&
       isHTMLElement(element)
         ? calculateOffsetParent(element)
         : element;
@@ -1364,7 +1366,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           (descendant) =>
             isElement(descendant) &&
             isAncestorOf(element, targetElement) &&
-            'body' !== getNodeName(element)
+            "body" !== getNodeName(element),
         )
       : [];
   }
@@ -1378,7 +1380,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
 
     // Determine boundaries based on boundary type and root boundary
     const boundaries = [
-      ...('clippingAncestors' === boundaryType
+      ...("clippingAncestors" === boundaryType
         ? getFilteredElements(targetElement)
         : [].concat(boundaryType)),
       rootBoundary,
@@ -1393,24 +1395,24 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
 
         accumulatedBoundary.top = Math.min(
           boundaryRect.top,
-          accumulatedBoundary.top
+          accumulatedBoundary.top,
         );
         accumulatedBoundary.right = Math.max(
           boundaryRect.right,
-          accumulatedBoundary.right
+          accumulatedBoundary.right,
         );
         accumulatedBoundary.bottom = Math.max(
           boundaryRect.bottom,
-          accumulatedBoundary.bottom
+          accumulatedBoundary.bottom,
         );
         accumulatedBoundary.left = Math.min(
           boundaryRect.left,
-          accumulatedBoundary.left
+          accumulatedBoundary.left,
         );
 
         return accumulatedBoundary;
       },
-      getClippingRect(targetElement, initialBoundary)
+      getClippingRect(targetElement, initialBoundary),
     );
 
     // Return final boundary dimensions and position
@@ -1436,7 +1438,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             Math.round(rect.width) !== el.offsetWidth ||
             Math.round(rect.height) !== el.offsetHeight
           );
-        })(offsetParent)
+        })(offsetParent),
     );
 
     // Initialize scroll offsets and position adjustments
@@ -1446,9 +1448,9 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     // Calculate scroll offsets if necessary based on positioning and offset parent
     if (
       isOffsetParentScrollable ||
-      (!isOffsetParentScrollable && positioningStrategy !== 'fixed')
+      (!isOffsetParentScrollable && positioningStrategy !== "fixed")
     ) {
-      if (getNodeName(offsetParent) !== 'body' || hasOverflow(rootDocument)) {
+      if (getNodeName(offsetParent) !== "body" || hasOverflow(rootDocument)) {
         scrollOffsets = getScrollOffsets(offsetParent);
       }
 
@@ -1493,8 +1495,8 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       // Calculate scroll offsets if the element is not fixed or if the offset parent is scrollable
       if (
         (isOffsetParentScrollable ||
-          (!isOffsetParentScrollable && positioningStrategy !== 'fixed')) &&
-        ('body' !== getNodeName(offsetParent) || hasOverflow(rootDocument))
+          (!isOffsetParentScrollable && positioningStrategy !== "fixed")) &&
+        ("body" !== getNodeName(offsetParent) || hasOverflow(rootDocument))
       ) {
         scrollOffsets = getScrollOffsets(offsetParent);
       }
@@ -1523,13 +1525,13 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         reference: calculateAdjustedRect(
           reference,
           calculateOffsetParent(floating),
-          strategy
+          strategy,
         ),
         floating: { ...getElementDimensions(floating), x: 0, y: 0 },
       };
     },
     getClientRects: (element) => Array.from(element.getClientRects()),
-    isRTL: (element) => getComputedStyle(element).direction === 'rtl',
+    isRTL: (element) => getComputedStyle(element).direction === "rtl",
   };
 
   // Utility to auto-update an element's position
@@ -1557,8 +1559,8 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     // Add scroll and resize event listeners
     observers.forEach((observer) => {
       if (shouldObserveScroll)
-        observer.addEventListener('scroll', callback, { passive: true });
-      if (shouldObserveResize) observer.addEventListener('resize', callback);
+        observer.addEventListener("scroll", callback, { passive: true });
+      if (shouldObserveResize) observer.addEventListener("resize", callback);
     });
 
     let resizeObserver = null;
@@ -1594,9 +1596,9 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       stopped = true;
       observers.forEach((observer) => {
         if (shouldObserveScroll)
-          observer.removeEventListener('scroll', callback);
+          observer.removeEventListener("scroll", callback);
         if (shouldObserveResize)
-          observer.removeEventListener('resize', callback);
+          observer.removeEventListener("resize", callback);
       });
       resizeObserver?.disconnect();
       resizeObserver = null;
@@ -1604,61 +1606,61 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     };
   };
 
-  Object.defineProperty(floatingUIT4sDOM, 'arrow', {
+  Object.defineProperty(floatingUIT4sDOM, "arrow", {
     enumerable: true,
     get: function () {
       return floatingUIT4sCore.arrow;
     },
   });
-  Object.defineProperty(floatingUIT4sDOM, 'autoPlacement', {
+  Object.defineProperty(floatingUIT4sDOM, "autoPlacement", {
     enumerable: true,
     get: function () {
       return floatingUIT4sCore.autoPlacement;
     },
   });
-  Object.defineProperty(floatingUIT4sDOM, 'detectOverflow', {
+  Object.defineProperty(floatingUIT4sDOM, "detectOverflow", {
     enumerable: true,
     get: function () {
       return floatingUIT4sCore.detectOverflow;
     },
   });
-  Object.defineProperty(floatingUIT4sDOM, 'flip', {
+  Object.defineProperty(floatingUIT4sDOM, "flip", {
     enumerable: true,
     get: function () {
       return floatingUIT4sCore.flip;
     },
   });
-  Object.defineProperty(floatingUIT4sDOM, 'hide', {
+  Object.defineProperty(floatingUIT4sDOM, "hide", {
     enumerable: true,
     get: function () {
       return floatingUIT4sCore.hide;
     },
   });
-  Object.defineProperty(floatingUIT4sDOM, 'inline', {
+  Object.defineProperty(floatingUIT4sDOM, "inline", {
     enumerable: true,
     get: function () {
       return floatingUIT4sCore.inline;
     },
   });
-  Object.defineProperty(floatingUIT4sDOM, 'limitShift', {
+  Object.defineProperty(floatingUIT4sDOM, "limitShift", {
     enumerable: true,
     get: function () {
       return floatingUIT4sCore.limitShift;
     },
   });
-  Object.defineProperty(floatingUIT4sDOM, 'offset', {
+  Object.defineProperty(floatingUIT4sDOM, "offset", {
     enumerable: true,
     get: function () {
       return floatingUIT4sCore.offset;
     },
   });
-  Object.defineProperty(floatingUIT4sDOM, 'shift', {
+  Object.defineProperty(floatingUIT4sDOM, "shift", {
     enumerable: true,
     get: function () {
       return floatingUIT4sCore.shift;
     },
   });
-  Object.defineProperty(floatingUIT4sDOM, 'size', {
+  Object.defineProperty(floatingUIT4sDOM, "size", {
     enumerable: true,
     get: function () {
       return floatingUIT4sCore.size;
@@ -1671,20 +1673,20 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       ...i,
     });
   floatingUIT4sDOM.getOverflowAncestors = getAncestorScrollElements;
-  Object.defineProperty(floatingUIT4sDOM, '__esModule', { value: true });
+  Object.defineProperty(floatingUIT4sDOM, "__esModule", { value: true });
 });
 
 !(function (e) {
-  'use strict';
-  'function' == typeof define && define.amd
-    ? define(['jQuery_T4NT'], e)
-    : 'object' == typeof module && module.exports
-    ? (module.exports = window.jQuery(require('jQuery_T4NT')))
-    : (window.$ || window.jQuery) &&
-      !(window.$ || window.jQuery).fn.hoverIntent &&
-      e(window.$ || window.jQuery);
+  "use strict";
+  "function" == typeof define && define.amd
+    ? define(["jQuery_T4NT"], e)
+    : "object" == typeof module && module.exports
+      ? (module.exports = window.jQuery(require("jQuery_T4NT")))
+      : (window.$ || window.jQuery) &&
+        !(window.$ || window.jQuery).fn.hoverIntent &&
+        e(window.$ || window.jQuery);
 })(function (jQuery) {
-  'use strict';
+  "use strict";
 
   function handleMouseMove(event) {
     mouseX = event.pageX;
@@ -1692,7 +1694,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
   }
 
   function isFunction(fn) {
-    return typeof fn === 'function';
+    return typeof fn === "function";
   }
 
   let mouseX, mouseY;
@@ -1751,8 +1753,8 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     const eventHandler = (event) => {
       const eventCopy = jQuery.extend({}, event);
       const $element = window.jQuery(event.currentTarget);
-      const hoverData = $element.data('hoverIntent') || {};
-      $element.data('hoverIntent', hoverData);
+      const hoverData = $element.data("hoverIntent") || {};
+      $element.data("hoverIntent", hoverData);
 
       const instance =
         hoverData[instanceId] || (hoverData[instanceId] = { id: instanceId });
@@ -1761,9 +1763,9 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         (instance.timeoutId = clearTimeout(instance.timeoutId));
 
       const hoverEvent = (instance.event =
-        'mousemove.hoverIntent.hoverIntent' + instanceId);
+        "mousemove.hoverIntent.hoverIntent" + instanceId);
 
-      if (event.type === 'mouseenter') {
+      if (event.type === "mouseenter") {
         if (instance.isActive) return;
 
         instance.pX = eventCopy.pageX;
@@ -1789,35 +1791,35 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
 
     return options.instance.on(
       {
-        'mouseenter.hoverIntent': eventHandler,
-        'mouseleave.hoverIntent': eventHandler,
+        "mouseenter.hoverIntent": eventHandler,
+        "mouseleave.hoverIntent": eventHandler,
       },
-      settings.selector
+      settings.selector,
     );
   };
 });
 
 !(function (e, t) {
-  'function' == typeof define && define.amd
+  "function" == typeof define && define.amd
     ? define(t)
-    : 'object' == typeof exports
-    ? (module.exports = t())
-    : (e.PhotoSwipe = t());
+    : "object" == typeof exports
+      ? (module.exports = t())
+      : (e.PhotoSwipe = t());
 })(window, function () {
-  'use strict';
+  "use strict";
   return function (e, t, n, i) {
     var o = {
       features: null,
       bind: function (e, t, n, i) {
-        var o = (i ? 'remove' : 'add') + 'EventListener';
-        t = t.split(' ');
+        var o = (i ? "remove" : "add") + "EventListener";
+        t = t.split(" ");
         for (var a = 0; a < t.length; a++) t[a] && e[o](t[a], n, !1);
       },
       isArray: function (e) {
         return e instanceof Array;
       },
       createEl: function (e, t) {
-        var n = document.createElement(t || 'div');
+        var n = document.createElement(t || "div");
         return e && (n.className = e), n;
       },
       getScrollY: function () {
@@ -1828,18 +1830,18 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         o.bind(e, t, n, !0);
       },
       removeClass: function (e, t) {
-        var n = new RegExp('(\\s|^)' + t + '(\\s|$)');
+        var n = new RegExp("(\\s|^)" + t + "(\\s|$)");
         e.className = e.className
-          .replace(n, ' ')
-          .replace(/^\s\s*/, '')
-          .replace(/\s\s*$/, '');
+          .replace(n, " ")
+          .replace(/^\s\s*/, "")
+          .replace(/\s\s*$/, "");
       },
       addClass: function (e, t) {
-        o.hasClass(e, t) || (e.className += (e.className ? ' ' : '') + t);
+        o.hasClass(e, t) || (e.className += (e.className ? " " : "") + t);
       },
       hasClass: function (e, t) {
         return (
-          e.className && new RegExp('(^|\\s)' + t + '(\\s|$)').test(e.className)
+          e.className && new RegExp("(^|\\s)" + t + "(\\s|$)").test(e.className)
         );
       },
       getChildByClass: function (e, t) {
@@ -1877,11 +1879,11 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       detectFeatures: function () {
         if (o.features) return o.features;
         var e = o.createEl().style,
-          t = '',
+          t = "",
           n = {};
         if (
           ((n.oldIE = document.all && !document.addEventListener),
-          (n.touch = 'ontouchstart' in window),
+          (n.touch = "ontouchstart" in window),
           window.requestAnimationFrame &&
             ((n.raf = window.requestAnimationFrame),
             (n.caf = window.cancelAnimationFrame)),
@@ -1907,8 +1909,8 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         for (
           var l,
             c,
-            d = ['transform', 'perspective', 'animationName'],
-            u = ['', 'webkit', 'Moz', 'ms', 'O'],
+            d = ["transform", "perspective", "animationName"],
+            u = ["", "webkit", "Moz", "ms", "O"],
             p = 0;
           p < 4;
           p++
@@ -1921,11 +1923,11 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           t &&
             !n.raf &&
             ((t = t.toLowerCase()),
-            (n.raf = window[t + 'RequestAnimationFrame']),
+            (n.raf = window[t + "RequestAnimationFrame"]),
             n.raf &&
               (n.caf =
-                window[t + 'CancelAnimationFrame'] ||
-                window[t + 'CancelRequestAnimationFrame']));
+                window[t + "CancelAnimationFrame"] ||
+                window[t + "CancelRequestAnimationFrame"]));
         }
         if (!n.raf) {
           var f = 0;
@@ -1944,7 +1946,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         return (
           (n.svg =
             !!document.createElementNS &&
-            !!document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+            !!document.createElementNS("http://www.w3.org/2000/svg", "svg")
               .createSVGRect),
           (o.features = n),
           n
@@ -1954,10 +1956,10 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     o.detectFeatures(),
       o.features.oldIE &&
         (o.bind = function (e, t, n, i) {
-          t = t.split(' ');
+          t = t.split(" ");
           for (
             var o,
-              a = (i ? 'detach' : 'attach') + 'Event',
+              a = (i ? "detach" : "attach") + "Event",
               s = function () {
                 n.handleEvent.call(n);
               },
@@ -1966,12 +1968,12 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             r++
           )
             if ((o = t[r]))
-              if ('object' == typeof n && n.handleEvent) {
+              if ("object" == typeof n && n.handleEvent) {
                 if (i) {
-                  if (!n['oldIE' + o]) return !1;
-                } else n['oldIE' + o] = s;
-                e[a]('on' + o, n['oldIE' + o]);
-              } else e[a]('on' + o, n);
+                  if (!n["oldIE" + o]) return !1;
+                } else n["oldIE" + o] = s;
+                e[a]("on" + o, n["oldIE" + o]);
+              } else e[a]("on" + o, n);
         });
     var a = this,
       s = {
@@ -1993,14 +1995,14 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         mainScrollEndFriction: 0.35,
         panEndFriction: 0.35,
         isClickableElement: function (e) {
-          return 'A' === e.tagName;
+          return "A" === e.tagName;
         },
         getDoubleTapZoom: function (e, t) {
           return e ? 1 : t.initialZoomLevel < 0.7 ? 1 : 1.33;
         },
         maxSpreadZoom: 1.33,
         modal: !0,
-        scaleMode: 'fit',
+        scaleMode: "fit",
       };
     o.extend(s, i);
     var r,
@@ -2112,7 +2114,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       De = function (e, t, n, i, o) {
         (!we || (o && o !== a.currItem)) &&
           (i /= o ? o.fitRatio : a.currItem.fitRatio),
-          (e[I] = T + t + 'px, ' + n + 'px' + y + ' scale(' + i + ')');
+          (e[I] = T + t + "px, " + n + "px" + y + " scale(" + i + ")");
       },
       Ae = function (e) {
         ne &&
@@ -2129,11 +2131,11 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             e.initialPosition.x,
             e.initialPosition.y,
             e.initialZoomLevel,
-            e
+            e,
           );
       },
       Ee = function (e, t) {
-        t[I] = T + e + 'px, 0px' + y;
+        t[I] = T + e + "px, 0px" + y;
       },
       Re = function (e, t) {
         if (!s.loop && t) {
@@ -2157,10 +2159,10 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       Le = null,
       Fe = function () {
         Le &&
-          (o.unbind(document, 'mousemove', Fe),
-          o.addClass(e, 'pswp--has_mouse'),
+          (o.unbind(document, "mousemove", Fe),
+          o.addClass(e, "pswp--has_mouse"),
           (s.mouseUsed = !0),
-          Pe('mouseUsed')),
+          Pe("mouseUsed")),
           (Le = setTimeout(function () {
             Le = null;
           }, 100));
@@ -2184,13 +2186,13 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               : n[e] < t.max[e] && ((n[e] = t.max[e]), !0));
       },
       je = function (e) {
-        var t = '';
+        var t = "";
         s.escKey && 27 === e.keyCode
-          ? (t = 'close')
+          ? (t = "close")
           : s.arrowKeys &&
             (37 === e.keyCode
-              ? (t = 'prev')
-              : 39 === e.keyCode && (t = 'next')),
+              ? (t = "prev")
+              : 39 === e.keyCode && (t = "next")),
           t &&
             (e.ctrlKey ||
               e.altKey ||
@@ -2249,7 +2251,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           return J;
         },
         setScrollOffset: function (e, t) {
-          (he.x = e), ($ = he.y = t), Pe('updateScrollOffset', he);
+          (he.x = e), ($ = he.y = t), Pe("updateScrollOffset", he);
         },
         applyZoomPan: function (e, t, n, i) {
           (pe.x = t), (pe.y = n), (g = e), Ae(i);
@@ -2259,7 +2261,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             var n;
             (a.framework = o),
               (a.template = e),
-              (a.bg = o.getChildByClass(e, 'pswp__bg')),
+              (a.bg = o.getChildByClass(e, "pswp__bg")),
               (R = e.className),
               (r = !0),
               (L = o.detectFeatures()),
@@ -2267,10 +2269,10 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               (E = L.caf),
               (I = L.transform),
               (N = L.oldIE),
-              (a.scrollWrap = o.getChildByClass(e, 'pswp__scroll-wrap')),
+              (a.scrollWrap = o.getChildByClass(e, "pswp__scroll-wrap")),
               (a.container = o.getChildByClass(
                 a.scrollWrap,
-                'pswp__container'
+                "pswp__container",
               )),
               (u = a.container.style),
               (a.itemHolders = b =
@@ -2291,29 +2293,29 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                     index: -1,
                   },
                 ]),
-              (b[0].el.style.display = b[2].el.style.display = 'none'),
+              (b[0].el.style.display = b[2].el.style.display = "none"),
               (function () {
                 if (I) {
                   var t = L.perspective && !A;
                   return (
-                    (T = 'translate' + (t ? '3d(' : '(')),
-                    void (y = L.perspective ? ', 0px)' : ')')
+                    (T = "translate" + (t ? "3d(" : "(")),
+                    void (y = L.perspective ? ", 0px)" : ")")
                   );
                 }
-                (I = 'left'),
-                  o.addClass(e, 'pswp--ie'),
+                (I = "left"),
+                  o.addClass(e, "pswp--ie"),
                   (Ee = function (e, t) {
-                    t.left = e + 'px';
+                    t.left = e + "px";
                   }),
                   (Me = function (e) {
                     var t = e.fitRatio > 1 ? 1 : e.fitRatio,
                       n = e.container.style,
                       i = t * e.w,
                       o = t * e.h;
-                    (n.width = i + 'px'),
-                      (n.height = o + 'px'),
-                      (n.left = e.initialPosition.x + 'px'),
-                      (n.top = e.initialPosition.y + 'px');
+                    (n.width = i + "px"),
+                      (n.height = o + "px"),
+                      (n.left = e.initialPosition.x + "px"),
+                      (n.top = e.initialPosition.y + "px");
                   }),
                   (Ae = function () {
                     if (ne) {
@@ -2322,10 +2324,10 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                         n = t.fitRatio > 1 ? 1 : t.fitRatio,
                         i = n * t.w,
                         o = n * t.h;
-                      (e.width = i + 'px'),
-                        (e.height = o + 'px'),
-                        (e.left = pe.x + 'px'),
-                        (e.top = pe.y + 'px');
+                      (e.width = i + "px"),
+                        (e.height = o + "px"),
+                        (e.left = pe.x + "px"),
+                        (e.top = pe.y + "px");
                     }
                   });
               })(),
@@ -2349,27 +2351,27 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               n < ye.length;
               n++
             )
-              a['init' + ye[n]]();
+              a["init" + ye[n]]();
             t && (a.ui = new t(a, o)).init(),
-              Pe('firstUpdate'),
+              Pe("firstUpdate"),
               (d = d || s.index || 0),
               (isNaN(d) || d < 0 || d >= Wt()) && (d = 0),
               (a.currItem = Ht(d)),
               (L.isOldIOSPhone || L.isOldAndroid) && (Te = !1),
-              e.setAttribute('aria-hidden', 'false'),
+              e.setAttribute("aria-hidden", "false"),
               s.modal &&
                 (Te
-                  ? (e.style.position = 'fixed')
-                  : ((e.style.position = 'absolute'),
-                    (e.style.top = o.getScrollY() + 'px'))),
-              void 0 === $ && (Pe('initialLayout'), ($ = O = o.getScrollY()));
-            var c = 'pswp--open ';
+                  ? (e.style.position = "fixed")
+                  : ((e.style.position = "absolute"),
+                    (e.style.top = o.getScrollY() + "px"))),
+              void 0 === $ && (Pe("initialLayout"), ($ = O = o.getScrollY()));
+            var c = "pswp--open ";
             for (
-              s.mainClass && (c += s.mainClass + ' '),
-                s.showHideOpacity && (c += 'pswp--animate_opacity '),
-                c += A ? 'pswp--touch' : 'pswp--notouch',
-                c += L.animationName ? ' pswp--css_animation' : '',
-                c += L.svg ? ' pswp--svg' : '',
+              s.mainClass && (c += s.mainClass + " "),
+                s.showHideOpacity && (c += "pswp--animate_opacity "),
+                c += A ? "pswp--touch" : "pswp--notouch",
+                c += L.animationName ? " pswp--css_animation" : "",
+                c += L.svg ? " pswp--svg" : "",
                 o.addClass(e, c),
                 a.updateSize(),
                 p = -1,
@@ -2380,20 +2382,20 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             )
               Ee((n + p) * ge.x, b[n].el.style);
             N || o.bind(a.scrollWrap, f, a),
-              _e('initialZoomInEnd', function () {
+              _e("initialZoomInEnd", function () {
                 a.setContent(b[0], d - 1),
                   a.setContent(b[2], d + 1),
-                  (b[0].el.style.display = b[2].el.style.display = 'block'),
+                  (b[0].el.style.display = b[2].el.style.display = "block"),
                   s.focus && e.focus(),
-                  o.bind(document, 'keydown', a),
-                  L.transform && o.bind(a.scrollWrap, 'click', a),
-                  s.mouseUsed || o.bind(document, 'mousemove', Fe),
-                  o.bind(window, 'resize scroll orientationchange', a),
-                  Pe('bindEvents');
+                  o.bind(document, "keydown", a),
+                  L.transform && o.bind(a.scrollWrap, "click", a),
+                  s.mouseUsed || o.bind(document, "mousemove", Fe),
+                  o.bind(window, "resize scroll orientationchange", a),
+                  Pe("bindEvents");
               }),
               a.setContent(b[1], d),
               a.updateCurrItem(),
-              Pe('afterInit'),
+              Pe("afterInit"),
               Te ||
                 (S = setInterval(function () {
                   Ze ||
@@ -2402,32 +2404,32 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                     g !== a.currItem.initialZoomLevel ||
                     a.updateSize();
                 }, 1e3)),
-              o.addClass(e, 'pswp--visible');
+              o.addClass(e, "pswp--visible");
           }
         },
         close: function () {
           r &&
             ((r = !1),
             (l = !0),
-            Pe('close'),
-            o.unbind(window, 'resize scroll orientationchange', a),
-            o.unbind(window, 'scroll', h.scroll),
-            o.unbind(document, 'keydown', a),
-            o.unbind(document, 'mousemove', Fe),
-            L.transform && o.unbind(a.scrollWrap, 'click', a),
+            Pe("close"),
+            o.unbind(window, "resize scroll orientationchange", a),
+            o.unbind(window, "scroll", h.scroll),
+            o.unbind(document, "keydown", a),
+            o.unbind(document, "mousemove", Fe),
+            L.transform && o.unbind(a.scrollWrap, "click", a),
             G && o.unbind(window, m, a),
             clearTimeout(F),
-            Pe('unbindEvents'),
+            Pe("unbindEvents"),
             zt(a.currItem, null, !0, a.destroy));
         },
         destroy: function () {
-          Pe('destroy'),
+          Pe("destroy"),
             Lt && clearTimeout(Lt),
-            e.setAttribute('aria-hidden', 'true'),
+            e.setAttribute("aria-hidden", "true"),
             (e.className = R),
             S && clearInterval(S),
             o.unbind(a.scrollWrap, f, a),
-            o.unbind(window, 'scroll', a),
+            o.unbind(window, "scroll", a),
             ht(),
             Ye(),
             (Ce = null);
@@ -2461,15 +2463,15 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           a.goTo(d - 1);
         },
         updateCurrZoomItem: function (e) {
-          if ((e && Pe('beforeChange', 0), b[1].el.children.length)) {
+          if ((e && Pe("beforeChange", 0), b[1].el.children.length)) {
             var t = b[1].el.children[0];
-            ne = o.hasClass(t, 'pswp__zoom-wrap') ? t.style : null;
+            ne = o.hasClass(t, "pswp__zoom-wrap") ? t.style : null;
           } else ne = null;
           (te = a.currItem.bounds),
             (v = g = a.currItem.initialZoomLevel),
             (pe.x = te.center.x),
             (pe.y = te.center.y),
-            e && Pe('afterChange');
+            e && Pe("afterChange");
         },
         invalidateCurrItems: function () {
           w = !0;
@@ -2482,7 +2484,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             if (!(e && n < 2)) {
               (a.currItem = Ht(d)),
                 (we = !1),
-                Pe('beforeChange', ve),
+                Pe("beforeChange", ve),
                 n >= 3 && ((p += ve + (ve > 0 ? -3 : 3)), (n = 3));
               for (var i = 0; i < n; i++)
                 ve > 0
@@ -2500,7 +2502,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                 var o = Ht(x);
                 o.initialZoomLevel !== g && (Kt(o, me), Jt(o), Me(o));
               }
-              (ve = 0), a.updateCurrZoomItem(), (x = d), Pe('afterChange');
+              (ve = 0), a.updateCurrZoomItem(), (x = d), Pe("afterChange");
             }
           }
         },
@@ -2508,13 +2510,13 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           if (!Te && s.modal) {
             var n = o.getScrollY();
             if (
-              ($ !== n && ((e.style.top = n + 'px'), ($ = n)),
+              ($ !== n && ((e.style.top = n + "px"), ($ = n)),
               !t && Se.x === window.innerWidth && Se.y === window.innerHeight)
             )
               return;
             (Se.x = window.innerWidth),
               (Se.y = window.innerHeight),
-              (e.style.height = Se.y + 'px');
+              (e.style.height = Se.y + "px");
           }
           if (
             ((me.x = a.scrollWrap.clientWidth),
@@ -2523,7 +2525,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             (ge.x = me.x + Math.round(me.x * s.spacing)),
             (ge.y = me.y),
             Re(ge.x * fe),
-            Pe('beforeResize'),
+            Pe("beforeResize"),
             void 0 !== p)
           ) {
             for (var i, r, l, c = 0; c < 3; c++)
@@ -2543,7 +2545,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           (v = g = a.currItem.initialZoomLevel),
             (te = a.currItem.bounds) &&
               ((pe.x = te.center.x), (pe.y = te.center.y), Ae(!0)),
-            Pe('resize');
+            Pe("resize");
         },
         zoomTo: function (e, t, n, i, a) {
           t &&
@@ -2553,7 +2555,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             Ne(ue, pe));
           var s = Ue(e, !1),
             r = {};
-          We('x', s, r, e), We('y', s, r, e);
+          We("x", s, r, e), We("y", s, r, e);
           var l = g,
             c = {
               x: pe.x,
@@ -2569,7 +2571,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               a && a(t),
               Ae(1 === t);
           };
-          n ? Xe('customZoomTo', 0, 1, n, i || o.easing.sine.inOut, d) : d(1);
+          n ? Xe("customZoomTo", 0, 1, n, i || o.easing.sine.inOut, d) : d(1);
         },
       },
       Qe = {},
@@ -2616,8 +2618,8 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         return (
           !(!e || e === document) &&
           !(
-            e.getAttribute('class') &&
-            e.getAttribute('class').indexOf('pswp__scroll-wrap') > -1
+            e.getAttribute("class") &&
+            e.getAttribute("class").indexOf("pswp__scroll-wrap") > -1
           ) &&
           (t(e) ? e : vt(e.parentNode, t))
         );
@@ -2626,7 +2628,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       yt = function (e, t) {
         return (
           (Tt.prevent = !vt(e.target, s.isClickableElement)),
-          Pe('preventDragEvent', e, t, Tt),
+          Pe("preventDragEvent", e, t, Tt),
           Tt.prevent
         );
       },
@@ -2651,12 +2653,15 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               ot.forEach(function (e) {
                 0 === ce ? (_t[0] = e) : 1 === ce && (_t[1] = e), ce++;
               }))
-            : e.type.indexOf('touch') > -1
-            ? e.touches &&
-              e.touches.length > 0 &&
-              ((_t[0] = St(e.touches[0], xt)),
-              e.touches.length > 1 && (_t[1] = St(e.touches[1], Ct)))
-            : ((xt.x = e.pageX), (xt.y = e.pageY), (xt.id = ''), (_t[0] = xt)),
+            : e.type.indexOf("touch") > -1
+              ? e.touches &&
+                e.touches.length > 0 &&
+                ((_t[0] = St(e.touches[0], xt)),
+                e.touches.length > 1 && (_t[1] = St(e.touches[1], Ct)))
+              : ((xt.x = e.pageX),
+                (xt.y = e.pageY),
+                (xt.id = ""),
+                (_t[0] = xt)),
           _t
         );
       },
@@ -2674,8 +2679,8 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           (l = pe[e] + t[e] * n),
           (!s.allowPanToNext && g !== a.currItem.initialZoomLevel) ||
           (ne
-            ? 'h' !== oe ||
-              'x' !== e ||
+            ? "h" !== oe ||
+              "x" !== e ||
               Z ||
               (c
                 ? (l > te.min[e] &&
@@ -2693,7 +2698,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                     ? ((r = d), u > 0 && d < at.x && (r = at.x))
                     : te.min.x !== te.max.x && (o = l)))
             : (r = d),
-          'x' !== e)
+          "x" !== e)
             ? void (ie || Y || (g > a.currItem.fitRatio && (pe[e] += t[e] * n)))
             : (void 0 !== r && (Re(r, !0), (Y = r !== at.x)),
               te.min.x !== te.max.x &&
@@ -2702,11 +2707,11 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         );
       },
       It = function (e) {
-        if (!('mousedown' === e.type && e.button > 0)) {
+        if (!("mousedown" === e.type && e.button > 0)) {
           if (Bt) return void e.preventDefault();
-          if (!z || 'mousedown' !== e.type) {
-            if ((yt(e, !0) && e.preventDefault(), Pe('pointerDown'), D)) {
-              var t = o.arraySearch(ot, e.pointerId, 'id');
+          if (!z || "mousedown" !== e.type) {
+            if ((yt(e, !0) && e.preventDefault(), Pe("pointerDown"), D)) {
+              var t = o.arraySearch(ot, e.pointerId, "id");
               t < 0 && (t = ot.length),
                 (ot[t] = {
                   x: e.pageX,
@@ -2723,7 +2728,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                 o.bind(window, m, a),
                 (W = le = se = j = Y = K = q = Z = !1),
                 (oe = null),
-                Pe('firstTouchStart', n),
+                Pe("firstTouchStart", n),
                 Ne(ue, pe),
                 (de.x = de.y = 0),
                 Ne(nt, n[0]),
@@ -2759,7 +2764,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       },
       Dt = function (e) {
         if ((e.preventDefault(), D)) {
-          var t = o.arraySearch(ot, e.pointerId, 'id');
+          var t = o.arraySearch(ot, e.pointerId, "id");
           if (t > -1) {
             var n = ot[t];
             (n.x = e.pageX), (n.y = e.pageY);
@@ -2768,10 +2773,10 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         if (G) {
           var i = Pt(e);
           if (oe || K || J) X = i;
-          else if (ut.x !== ge.x * fe) oe = 'h';
+          else if (ut.x !== ge.x * fe) oe = "h";
           else {
             var a = Math.abs(i[0].x - nt.x) - Math.abs(i[0].y - nt.y);
-            Math.abs(a) >= 10 && ((oe = a > 0 ? 'h' : 'v'), (X = i));
+            Math.abs(a) >= 10 && ((oe = a > 0 ? "h" : "v"), (X = i));
           }
         }
       },
@@ -2795,7 +2800,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                   })(X[1], et))
               )
                 return;
-              Ne(et, X[1]), Z || ((Z = !0), Pe('zoomGestureStarted'));
+              Ne(et, X[1]), Z || ((Z = !0), Pe("zoomGestureStarted"));
               var t = ft(Qe, et),
                 n = Nt(t);
               n >
@@ -2807,7 +2812,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               if (n < o)
                 if (s.pinchToClose && !le && v <= a.currItem.initialZoomLevel) {
                   var l = 1 - (o - n) / (o / 1.2);
-                  Ie(l), Pe('onPinchClose', l), (se = !0);
+                  Ie(l), Pe("onPinchClose", l), (se = !0);
                 } else (i = (o - n) / o) > 1 && (i = 1), (n = o - i * (o / 3));
               else
                 n > r &&
@@ -2818,8 +2823,8 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                 (de.x += ct.x - mt.x),
                 (de.y += ct.y - mt.y),
                 Ne(mt, ct),
-                (pe.x = Oe('x', n)),
-                (pe.y = Oe('y', n)),
+                (pe.x = Oe("x", n)),
+                (pe.y = Oe("y", n)),
                 (W = n > g),
                 (g = n),
                 Ae();
@@ -2836,14 +2841,14 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               )
                 return;
               if (
-                'v' === oe &&
+                "v" === oe &&
                 s.closeOnVerticalDrag &&
-                'fit' === s.scaleMode &&
+                "fit" === s.scaleMode &&
                 g === a.currItem.initialZoomLevel
               ) {
                 (de.y += tt.y), (pe.y += tt.y);
                 var c = bt();
-                return (j = !0), Pe('onVerticalDrag', c), Ie(c), void Ae();
+                return (j = !0), Pe("onVerticalDrag", c), Ie(c), void Ae();
               }
               (function (e, t, n) {
                 if (e - B > 50) {
@@ -2853,58 +2858,58 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               })(ke(), Qe.x, Qe.y),
                 (K = !0),
                 (te = a.currItem.bounds),
-                kt('x', tt) ||
-                  (kt('y', tt), $(window.jQuery || window.$)(pe), Ae());
+                kt("x", tt) ||
+                  (kt("y", tt), $(window.jQuery || window.$)(pe), Ae());
             }
         }
       },
       Mt = function (e) {
         if (L.isOldAndroid) {
-          if (z && 'mouseup' === e.type) return;
-          e.type.indexOf('touch') > -1 &&
+          if (z && "mouseup" === e.type) return;
+          e.type.indexOf("touch") > -1 &&
             (clearTimeout(z),
             (z = setTimeout(function () {
               z = 0;
             }, 600)));
         }
-        Pe('pointerUp'), yt(e, !1) && e.preventDefault();
+        Pe("pointerUp"), yt(e, !1) && e.preventDefault();
         var t;
         if (D) {
-          var n = o.arraySearch(ot, e.pointerId, 'id');
+          var n = o.arraySearch(ot, e.pointerId, "id");
           if (n > -1)
             if (((t = ot.splice(n, 1)[0]), navigator.msPointerEnabled)) {
               var i = {
-                4: 'mouse',
-                2: 'touch',
-                3: 'pen',
+                4: "mouse",
+                2: "touch",
+                3: "pen",
               };
               (t.type = i[e.pointerType]),
-                t.type || (t.type = e.pointerType || 'mouse');
-            } else t.type = e.pointerType || 'mouse';
+                t.type || (t.type = e.pointerType || "mouse");
+            } else t.type = e.pointerType || "mouse";
         }
         var r,
           l = Pt(e),
           c = l.length;
-        if (('mouseup' === e.type && (c = 0), 2 === c)) return (X = null), !0;
+        if (("mouseup" === e.type && (c = 0), 2 === c)) return (X = null), !0;
         1 === c && Ne(it, l[0]),
           0 !== c ||
             oe ||
             ie ||
             (t ||
-              ('mouseup' === e.type
+              ("mouseup" === e.type
                 ? (t = {
                     x: e.pageX,
                     y: e.pageY,
-                    type: 'mouse',
+                    type: "mouse",
                   })
                 : e.changedTouches &&
                   e.changedTouches[0] &&
                   (t = {
                     x: e.changedTouches[0].pageX,
                     y: e.changedTouches[0].pageY,
-                    type: 'touch',
+                    type: "touch",
                   })),
-            Pe('touchRelease', e, t));
+            Pe("touchRelease", e, t));
         var d = -1;
         if (
           (0 === c &&
@@ -2913,34 +2918,34 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             ht(),
             J ? (d = 0) : -1 !== dt && (d = ke() - dt)),
           (dt = 1 === c ? ke() : -1),
-          (r = -1 !== d && d < 150 ? 'zoom' : 'swipe'),
+          (r = -1 !== d && d < 150 ? "zoom" : "swipe"),
           J &&
             c < 2 &&
             ((J = !1),
-            1 === c && (r = 'zoomPointerUp'),
-            Pe('zoomGestureEnded')),
+            1 === c && (r = "zoomPointerUp"),
+            Pe("zoomGestureEnded")),
           (X = null),
           K || Z || ie || j)
         )
-          if ((Ye(), H || (H = Et()), H.calculateSwipeSpeed('x'), j))
+          if ((Ye(), H || (H = Et()), H.calculateSwipeSpeed("x"), j))
             if (bt() < s.verticalDragRange) a.close();
             else {
               var u = pe.y,
                 p = re;
-              Xe('verticalDrag', 0, 1, 300, o.easing.cubic.out, function (e) {
+              Xe("verticalDrag", 0, 1, 300, o.easing.cubic.out, function (e) {
                 (pe.y = (a.currItem.initialPosition.y - u) * e + u),
                   Ie((1 - p) * e + p),
                   Ae();
               }),
-                Pe('onVerticalDrag', 1);
+                Pe("onVerticalDrag", 1);
             }
           else {
             if ((Y || ie) && 0 === c) {
               if (Ot(r, H)) return;
-              r = 'zoomPointerUp';
+              r = "zoomPointerUp";
             }
             if (!ie)
-              return 'swipe' !== r
+              return "swipe" !== r
                 ? void $t()
                 : void (!Y && g > a.currItem.fitRatio && Rt(H));
           }
@@ -2986,14 +2991,14 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                     ((n.lastFlickSpeed[e] = 0),
                     (n.backAnimStarted[e] = !0),
                     Xe(
-                      'bounceZoomPan' + e,
+                      "bounceZoomPan" + e,
                       pe[e],
                       n.backAnimDestination[e],
                       t || 300,
                       o.easing.sine.out,
                       function (t) {
                         (pe[e] = t), Ae();
-                      }
+                      },
                     ))));
             },
             calculateAnimOffset: function (e) {
@@ -3004,7 +3009,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                     n.slowDownRatioReverse[e] -
                     (n.slowDownRatioReverse[e] * n.timeDiff) / 10)),
                 (n.speedDecelerationRatioAbs[e] = Math.abs(
-                  n.lastFlickSpeed[e] * n.speedDecelerationRatio[e]
+                  n.lastFlickSpeed[e] * n.speedDecelerationRatio[e],
                 )),
                 (n.distanceOffset[e] =
                   n.lastFlickSpeed[e] *
@@ -3019,11 +3024,11 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                 (n.now = ke()),
                 (n.timeDiff = n.now - n.lastNow),
                 (n.lastNow = n.now),
-                n.calculateAnimOffset('x'),
-                n.calculateAnimOffset('y'),
+                n.calculateAnimOffset("x"),
+                n.calculateAnimOffset("y"),
                 Ae(),
-                n.calculateOverBoundsAnimOffset('x'),
-                n.calculateOverBoundsAnimOffset('y'),
+                n.calculateOverBoundsAnimOffset("x"),
+                n.calculateOverBoundsAnimOffset("y"),
                 n.speedDecelerationRatioAbs.x < 0.05 &&
                   n.speedDecelerationRatioAbs.y < 0.05)
               )
@@ -3031,7 +3036,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                   (pe.x = Math.round(pe.x)),
                   (pe.y = Math.round(pe.y)),
                   Ae(),
-                  void Ke('zoomPan')
+                  void Ke("zoomPan")
                 );
             },
           };
@@ -3039,7 +3044,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       },
       Rt = function (e) {
         return (
-          e.calculateSwipeSpeed('y'),
+          e.calculateSwipeSpeed("y"),
           (te = a.currItem.bounds),
           (e.backAnimDestination = {}),
           (e.backAnimStarted = {}),
@@ -3047,17 +3052,17 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           Math.abs(e.lastFlickSpeed.y) <= 0.05
             ? ((e.speedDecelerationRatioAbs.x = e.speedDecelerationRatioAbs.y =
                 0),
-              e.calculateOverBoundsAnimOffset('x'),
-              e.calculateOverBoundsAnimOffset('y'),
+              e.calculateOverBoundsAnimOffset("x"),
+              e.calculateOverBoundsAnimOffset("y"),
               !0)
-            : (Ve('zoomPan'), (e.lastNow = ke()), void e.panAnimLoop())
+            : (Ve("zoomPan"), (e.lastNow = ke()), void e.panAnimLoop())
         );
       },
       Ot = function (e, t) {
         var n;
         ie || (lt = d);
         var i;
-        if ('swipe' === e) {
+        if ("swipe" === e) {
           var r = nt.x - it.x,
             l = t.lastFlickDist.x < 10;
           r > 30 && (l || t.lastFlickOffset.x > 20)
@@ -3084,13 +3089,13 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             : (u = 333),
           lt === d && (n = !1),
           (ie = !0),
-          Pe('mainScrollAnimStart'),
-          Xe('mainScroll', ut.x, p, u, o.easing.cubic.out, Re, function () {
+          Pe("mainScrollAnimStart"),
+          Xe("mainScroll", ut.x, p, u, o.easing.cubic.out, Re, function () {
             Ye(),
               (ie = !1),
               (lt = -1),
               (n || lt !== d) && a.updateCurrItem(),
-              Pe('mainScrollAnimComplete');
+              Pe("mainScrollAnimComplete");
           }),
           n && a.updateCurrItem(!0),
           n
@@ -3115,40 +3120,40 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             a.zoomTo(e, 0, 200, o.easing.cubic.out, i),
             !0);
       };
-    be('Gestures', {
+    be("Gestures", {
       publicMethods: {
         initGestures: function () {
           var e = function (e, t, n, i, o) {
-            (C = e + t), (_ = e + n), (P = e + i), (k = o ? e + o : '');
+            (C = e + t), (_ = e + n), (P = e + i), (k = o ? e + o : "");
           };
           (D = L.pointerEvent) && L.touch && (L.touch = !1),
             D
               ? navigator.msPointerEnabled
                 ? (window.jQuery || window.$)(
-                    'MSPointer',
-                    'Down',
-                    'Move',
-                    'Up',
-                    'Cancel'
+                    "MSPointer",
+                    "Down",
+                    "Move",
+                    "Up",
+                    "Cancel",
                   )
                 : (window.jQuery || window.$)(
-                    'pointer',
-                    'down',
-                    'move',
-                    'up',
-                    'cancel'
+                    "pointer",
+                    "down",
+                    "move",
+                    "up",
+                    "cancel",
                   )
               : L.touch
-              ? ((window.jQuery || window.$)(
-                  'touch',
-                  'start',
-                  'move',
-                  'end',
-                  'cancel'
-                ),
-                (A = !0))
-              : (window.jQuery || window.$)('mouse', 'down', 'move', 'up'),
-            (m = _ + ' ' + P + ' ' + k),
+                ? ((window.jQuery || window.$)(
+                    "touch",
+                    "start",
+                    "move",
+                    "end",
+                    "cancel",
+                  ),
+                  (A = !0))
+                : (window.jQuery || window.$)("mouse", "down", "move", "up"),
+            (m = _ + " " + P + " " + k),
             (f = C),
             D &&
               !A &&
@@ -3160,8 +3165,8 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             (h[P] = Mt),
             k && (h[k] = h[P]),
             L.touch &&
-              ((f += ' mousedown'),
-              (m += ' mousemove mouseup'),
+              ((f += " mousedown"),
+              (m += " mousemove mouseup"),
               (h.mousedown = h[C]),
               (h.mousemove = h[_]),
               (h.mouseup = h[P])),
@@ -3184,20 +3189,20 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           : (l = s.getThumbBoundsFn && s.getThumbBoundsFn(d));
         var u = i ? s.hideAnimationDuration : s.showAnimationDuration,
           p = function () {
-            Ke('initialZoom'),
+            Ke("initialZoom"),
               i
-                ? (a.template.removeAttribute('style'),
-                  a.bg.removeAttribute('style'))
+                ? (a.template.removeAttribute("style"),
+                  a.bg.removeAttribute("style"))
                 : (Ie(1),
-                  n && (n.style.display = 'block'),
-                  o.addClass(e, 'pswp--animated-in'),
-                  Pe('initialZoom' + (i ? 'OutEnd' : 'InEnd'))),
+                  n && (n.style.display = "block"),
+                  o.addClass(e, "pswp--animated-in"),
+                  Pe("initialZoom" + (i ? "OutEnd" : "InEnd"))),
               r && r(),
               (Bt = !1);
           };
         if (!u || !l || void 0 === l.x)
           return (
-            Pe('initialZoom' + (i ? 'Out' : 'In')),
+            Pe("initialZoom" + (i ? "Out" : "In")),
             (g = t.initialZoomLevel),
             Ne(pe, t.initialPosition),
             Ae(),
@@ -3212,27 +3217,27 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         !(function () {
           var n = c,
             r = !a.currItem.src || a.currItem.loadError || s.showHideOpacity;
-          t.miniImg && (t.miniImg.style.webkitBackfaceVisibility = 'hidden'),
+          t.miniImg && (t.miniImg.style.webkitBackfaceVisibility = "hidden"),
             i ||
               ((g = l.w / t.w),
               (pe.x = l.x),
               (pe.y = l.y - O),
-              (a[r ? 'template' : 'bg'].style.opacity = 0.001),
+              (a[r ? "template" : "bg"].style.opacity = 0.001),
               Ae()),
-            Ve('initialZoom'),
-            i && !n && o.removeClass(e, 'pswp--animated-in'),
+            Ve("initialZoom"),
+            i && !n && o.removeClass(e, "pswp--animated-in"),
             r &&
               (i
-                ? o[(n ? 'remove' : 'add') + 'Class'](
+                ? o[(n ? "remove" : "add") + "Class"](
                     e,
-                    'pswp--animate_opacity'
+                    "pswp--animate_opacity",
                   )
                 : setTimeout(function () {
-                    o.addClass(e, 'pswp--animate_opacity');
+                    o.addClass(e, "pswp--animate_opacity");
                   }, 30)),
             (Lt = setTimeout(
               function () {
-                if ((Pe('initialZoom' + (i ? 'Out' : 'In')), i)) {
+                if ((Pe("initialZoom" + (i ? "Out" : "In")), i)) {
                   var a = l.w / t.w,
                     s = {
                       x: pe.x,
@@ -3250,7 +3255,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                         r ? (e.style.opacity = 1 - t) : Ie(d - t * d);
                     };
                   n
-                    ? Xe('initialZoom', 0, 1, u, o.easing.cubic.out, m, p)
+                    ? Xe("initialZoom", 0, 1, u, o.easing.cubic.out, m, p)
                     : (m(1), (Lt = setTimeout(p, u + 20)));
                 } else
                   (g = t.initialZoomLevel),
@@ -3260,7 +3265,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                     r ? (e.style.opacity = 1) : Ie(1),
                     (Lt = setTimeout(p, u + 20));
               },
-              i ? 25 : 90
+              i ? 25 : 90,
             ));
         })();
       },
@@ -3286,7 +3291,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                   top: 0,
                   bottom: 0,
                 }),
-              Pe('parseVerticalMargin', e)),
+              Pe("parseVerticalMargin", e)),
             (Gt.x = t.x),
             (Gt.y = t.y - e.vGap.top - e.vGap.bottom),
             i)
@@ -3295,7 +3300,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               a = Gt.y / e.h;
             e.fitRatio = o < a ? o : a;
             var r = s.scaleMode;
-            'orig' === r ? (n = 1) : 'fit' === r && (n = e.fitRatio),
+            "orig" === r ? (n = 1) : "fit" === r && (n = e.fitRatio),
               n > 1 && (n = 1),
               (e.initialZoomLevel = n),
               e.bounds ||
@@ -3364,13 +3369,13 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                 t &&
                   t.loaded &&
                   t.placeholder &&
-                  ((t.placeholder.style.display = 'none'),
+                  ((t.placeholder.style.display = "none"),
                   (t.placeholder = null));
               }, 500)));
       },
       Yt = function (e) {
         (e.loading = !0), (e.loaded = !1);
-        var t = (e.img = o.createEl('pswp__img', 'img')),
+        var t = (e.img = o.createEl("pswp__img", "img")),
           n = function () {
             (e.loading = !1),
               (e.loaded = !0),
@@ -3390,8 +3395,8 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       Xt = function (e, t) {
         if (e.src && e.loadError && e.container)
           return (
-            t && (e.container.innerHTML = ''),
-            (e.container.innerHTML = s.errorMsg.replace('%url%', e.src)),
+            t && (e.container.innerHTML = ""),
+            (e.container.innerHTML = s.errorMsg.replace("%url%", e.src)),
             !0
           );
       },
@@ -3402,10 +3407,10 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             o = n ? e.h : Math.round(e.h * e.fitRatio);
           e.placeholder &&
             !e.loaded &&
-            ((e.placeholder.style.width = i + 'px'),
-            (e.placeholder.style.height = o + 'px')),
-            (t.style.width = i + 'px'),
-            (t.style.height = o + 'px');
+            ((e.placeholder.style.width = i + "px"),
+            (e.placeholder.style.height = o + "px")),
+            (t.style.width = i + "px"),
+            (t.style.height = o + "px");
         }
       },
       Qt = function () {
@@ -3416,14 +3421,14 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           qt = [];
         }
       };
-    be('Controller', {
+    be("Controller", {
       publicMethods: {
         lazyLoadItem: function (e) {
           e = xe(e);
           var t = Ht(e);
           t &&
             ((!t.loaded && !t.loading) || w) &&
-            (Pe('gettingData', e, t), t.src && Yt(t));
+            (Pe("gettingData", e, t), t.src && Yt(t));
         },
         initController: function () {
           o.extend(s, Zt, !0),
@@ -3432,7 +3437,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             (Wt = s.getNumItemsFn),
             (jt = s.loop),
             Wt() < 3 && (s.loop = !1),
-            _e('beforeChange', function (e) {
+            _e("beforeChange", function (e) {
               var t,
                 n = s.preload,
                 i = null === e || e >= 0,
@@ -3441,13 +3446,13 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               for (t = 1; t <= (i ? r : o); t++) a.lazyLoadItem(d + t);
               for (t = 1; t <= (i ? o : r); t++) a.lazyLoadItem(d - t);
             }),
-            _e('initialLayout', function () {
+            _e("initialLayout", function () {
               a.currItem.initialLayout =
                 s.getThumbBoundsFn && s.getThumbBoundsFn(d);
             }),
-            _e('mainScrollAnimComplete', Qt),
-            _e('initialZoomInEnd', Qt),
-            _e('destroy', function () {
+            _e("mainScrollAnimComplete", Qt),
+            _e("initialZoomInEnd", Qt),
+            _e("destroy", function () {
               for (var e, t = 0; t < Ft.length; t++)
                 (e = Ft[t]).container && (e.container = null),
                   e.placeholder && (e.placeholder = null),
@@ -3475,8 +3480,8 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           var i,
             l = a.getItemAt(t);
           if (l) {
-            Pe('gettingData', t, l), (e.index = t), (e.item = l);
-            var c = (l.container = o.createEl('pswp__zoom-wrap'));
+            Pe("gettingData", t, l), (e.index = t), (e.item = l);
+            var c = (l.container = o.createEl("pswp__zoom-wrap"));
             if (
               (!l.src &&
                 l.html &&
@@ -3489,7 +3494,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             )
               l.src &&
                 !l.loadError &&
-                ((i = o.createEl('pswp__img', 'img')),
+                ((i = o.createEl("pswp__img", "img")),
                 (i.style.opacity = 1),
                 (i.src = l.src),
                 Jt(l, i),
@@ -3509,29 +3514,29 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                       n.imageAppended
                         ? !Bt &&
                           n.placeholder &&
-                          ((n.placeholder.style.display = 'none'),
+                          ((n.placeholder.style.display = "none"),
                           (n.placeholder = null))
                         : L.transform && (ie || Bt)
-                        ? qt.push({
-                            item: n,
-                            baseDiv: c,
-                            img: n.img,
-                            index: t,
-                            holder: e,
-                            clearPlaceholder: !0,
-                          })
-                        : Vt(0, n, c, n.img, 0, !0);
+                          ? qt.push({
+                              item: n,
+                              baseDiv: c,
+                              img: n.img,
+                              index: t,
+                              holder: e,
+                              clearPlaceholder: !0,
+                            })
+                          : Vt(0, n, c, n.img, 0, !0);
                     }
                     (n.loadComplete = null),
                       (n.img = null),
-                      Pe('imageLoadComplete', t, n);
+                      Pe("imageLoadComplete", t, n);
                   }
                 }),
                 o.features.transform)
               ) {
-                var u = 'pswp__img pswp__img--placeholder';
-                u += l.msrc ? '' : ' pswp__img--placeholder--blank';
-                var p = o.createEl(u, l.msrc ? 'img' : '');
+                var u = "pswp__img pswp__img--placeholder";
+                u += l.msrc ? "" : " pswp__img--placeholder--blank";
+                var p = o.createEl(u, l.msrc ? "img" : "");
                 l.msrc && (p.src = l.msrc),
                   Jt(l, p),
                   c.appendChild(p),
@@ -3550,9 +3555,9 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                     : Vt(0, l, c, l.img, 0, !0));
             }
             Ut || t !== d ? Me(l) : ((ne = c.style), zt(l, i || l.img)),
-              (e.el.innerHTML = ''),
+              (e.el.innerHTML = ""),
               e.el.appendChild(c);
-          } else e.el.innerHTML = '';
+          } else e.el.innerHTML = "";
         },
         cleanSlide: function (e) {
           e.img && (e.img.onload = e.img.onerror = null),
@@ -3563,21 +3568,21 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     var en,
       tn = {},
       nn = function (e, t, n) {
-        var i = document.createEvent('CustomEvent'),
+        var i = document.createEvent("CustomEvent"),
           o = {
             origEvent: e,
             target: e.target,
             releasePoint: t,
-            pointerType: n || 'touch',
+            pointerType: n || "touch",
           };
-        i.initCustomEvent('pswpTap', !0, !0, o), e.target.dispatchEvent(i);
+        i.initCustomEvent("pswpTap", !0, !0, o), e.target.dispatchEvent(i);
       };
-    be('Tap', {
+    be("Tap", {
       publicMethods: {
         initTap: function () {
-          _e('firstTouchStart', a.onTapStart),
-            _e('touchRelease', a.onTapRelease),
-            _e('destroy', function () {
+          _e("firstTouchStart", a.onTapStart),
+            _e("touchRelease", a.onTapRelease),
+            _e("destroy", function () {
               (tn = {}), (en = null);
             });
         },
@@ -3595,11 +3600,11 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                 return Math.abs(e.x - t.x) < 25 && Math.abs(e.y - t.y) < 25;
               })(n, tn))
             )
-              return void Pe('doubleTap', n);
-            if ('mouse' === t.type) return void nn(e, t, 'mouse');
+              return void Pe("doubleTap", n);
+            if ("mouse" === t.type) return void nn(e, t, "mouse");
             if (
-              'BUTTON' === e.target.tagName.toUpperCase() ||
-              o.hasClass(e.target, 'pswp__single-tap')
+              "BUTTON" === e.target.tagName.toUpperCase() ||
+              o.hasClass(e.target, "pswp__single-tap")
             )
               return void nn(e, t);
             Ne(tn, n),
@@ -3611,44 +3616,44 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       },
     });
     var on;
-    be('DesktopZoom', {
+    be("DesktopZoom", {
       publicMethods: {
         initDesktopZoom: function () {
           N ||
             (A
-              ? _e('mouseUsed', function () {
+              ? _e("mouseUsed", function () {
                   a.setupDesktopZoom();
                 })
               : a.setupDesktopZoom(!0));
         },
         setupDesktopZoom: function (t) {
           on = {};
-          var n = 'wheel mousewheel DOMMouseScroll';
-          _e('bindEvents', function () {
+          var n = "wheel mousewheel DOMMouseScroll";
+          _e("bindEvents", function () {
             o.bind(e, n, a.handleMouseWheel);
           }),
-            _e('unbindEvents', function () {
+            _e("unbindEvents", function () {
               on && o.unbind(e, n, a.handleMouseWheel);
             }),
             (a.mouseZoomedIn = !1);
           var i,
             s = function () {
               a.mouseZoomedIn &&
-                (o.removeClass(e, 'pswp--zoomed-in'), (a.mouseZoomedIn = !1)),
+                (o.removeClass(e, "pswp--zoomed-in"), (a.mouseZoomedIn = !1)),
                 g < 1
-                  ? o.addClass(e, 'pswp--zoom-allowed')
-                  : o.removeClass(e, 'pswp--zoom-allowed'),
+                  ? o.addClass(e, "pswp--zoom-allowed")
+                  : o.removeClass(e, "pswp--zoom-allowed"),
                 r();
             },
             r = function () {
-              i && (o.removeClass(e, 'pswp--dragging'), (i = !1));
+              i && (o.removeClass(e, "pswp--dragging"), (i = !1));
             };
-          _e('resize', s),
-            _e('afterChange', s),
-            _e('pointerDown', function () {
-              a.mouseZoomedIn && ((i = !0), o.addClass(e, 'pswp--dragging'));
+          _e("resize", s),
+            _e("afterChange", s),
+            _e("pointerDown", function () {
+              a.mouseZoomedIn && ((i = !0), o.addClass(e, "pswp--dragging"));
             }),
-            _e('pointerUp', r),
+            _e("pointerUp", r),
             t || s();
         },
         handleMouseWheel: function (e) {
@@ -3660,17 +3665,17 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                   : I && Math.abs(e.deltaY) > 2 && ((c = !0), a.close())),
               !0
             );
-          if ((e.stopPropagation(), (on.x = 0), 'deltaX' in e))
+          if ((e.stopPropagation(), (on.x = 0), "deltaX" in e))
             1 === e.deltaMode
               ? ((on.x = 18 * e.deltaX), (on.y = 18 * e.deltaY))
               : ((on.x = e.deltaX), (on.y = e.deltaY));
-          else if ('wheelDelta' in e)
+          else if ("wheelDelta" in e)
             e.wheelDeltaX && (on.x = -0.16 * e.wheelDeltaX),
               e.wheelDeltaY
                 ? (on.y = -0.16 * e.wheelDeltaY)
                 : (on.y = -0.16 * e.wheelDelta);
           else {
-            if (!('detail' in e)) return;
+            if (!("detail" in e)) return;
             on.y = e.detail;
           }
           Ue(g, !0);
@@ -3693,7 +3698,7 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
             i = g === n;
           (a.mouseZoomedIn = !i),
             a.zoomTo(i ? a.currItem.initialZoomLevel : n, t, 333),
-            o[(i ? 'remove' : 'add') + 'Class'](e, 'pswp--zoomed-in');
+            o[(i ? "remove" : "add") + "Class"](e, "pswp--zoomed-in");
         },
       },
     });
@@ -3724,10 +3729,10 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           t = {};
         if (e.length < 5) return t;
         var n,
-          i = e.split('&');
+          i = e.split("&");
         for (n = 0; n < i.length; n++)
           if (i[n]) {
-            var o = i[n].split('=');
+            var o = i[n].split("=");
             o.length < 2 || (t[o[0]] = o[1]);
           }
         if (s.galleryPIDs) {
@@ -3746,23 +3751,23 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           ln ? clearTimeout(sn) : (ln = !0);
           var e = d + 1,
             t = Ht(d);
-          t.hasOwnProperty('pid') && (e = t.pid);
-          var n = un + '&gid=' + s.galleryUID + '&pid=' + e;
+          t.hasOwnProperty("pid") && (e = t.pid);
+          var n = un + "&gid=" + s.galleryUID + "&pid=" + e;
           pn || (-1 === hn.hash.indexOf(n) && (fn = !0));
-          var i = hn.href.split('#')[0] + '#' + n;
+          var i = hn.href.split("#")[0] + "#" + n;
           gn
-            ? '#' + n !== window.location.hash &&
-              history[pn ? 'replaceState' : 'pushState']('', document.title, i)
+            ? "#" + n !== window.location.hash &&
+              history[pn ? "replaceState" : "pushState"]("", document.title, i)
             : pn
-            ? hn.replace(i)
-            : (hn.hash = n),
+              ? hn.replace(i)
+              : (hn.hash = n),
             (pn = !0),
             (sn = setTimeout(function () {
               ln = !1;
             }, 60));
         }
       };
-    be('History', {
+    be("History", {
       publicMethods: {
         initHistory: function () {
           if ((o.extend(s, vn, !0), s.history)) {
@@ -3771,12 +3776,12 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
               (mn = !1),
               (pn = !1),
               (un = Tn()),
-              (gn = 'pushState' in history),
-              un.indexOf('gid=') > -1 &&
-                ((un = un.split('&gid=')[0]), (un = un.split('?gid=')[0])),
-              _e('afterChange', a.updateURL),
-              _e('unbindEvents', function () {
-                o.unbind(window, 'hashchange', a.onHashChange);
+              (gn = "pushState" in history),
+              un.indexOf("gid=") > -1 &&
+                ((un = un.split("&gid=")[0]), (un = un.split("?gid=")[0])),
+              _e("afterChange", a.updateURL),
+              _e("unbindEvents", function () {
+                o.unbind(window, "hashchange", a.onHashChange);
               });
             var e = function () {
               (dn = !0),
@@ -3784,31 +3789,31 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                   (fn
                     ? history.back()
                     : un
-                    ? (hn.hash = un)
-                    : gn
-                    ? history.pushState(
-                        '',
-                        document.title,
-                        hn.pathname + hn.search
-                      )
-                    : (hn.hash = '')),
+                      ? (hn.hash = un)
+                      : gn
+                        ? history.pushState(
+                            "",
+                            document.title,
+                            hn.pathname + hn.search,
+                          )
+                        : (hn.hash = "")),
                 yn();
             };
-            _e('unbindEvents', function () {
+            _e("unbindEvents", function () {
               c && (window.jQuery || window.$)();
             }),
-              _e('destroy', function () {
+              _e("destroy", function () {
                 dn || (window.jQuery || window.$)();
               }),
-              _e('firstUpdate', function () {
+              _e("firstUpdate", function () {
                 d = Sn().pid;
               });
-            var t = un.indexOf('pid=');
+            var t = un.indexOf("pid=");
             t > -1 &&
-              '&' === (un = un.substring(0, t)).slice(-1) &&
+              "&" === (un = un.substring(0, t)).slice(-1) &&
               (un = un.slice(0, -1)),
               setTimeout(function () {
-                r && o.bind(window, 'hashchange', a.onHashChange);
+                r && o.bind(window, "hashchange", a.onHashChange);
               }, 40);
           }
         },
@@ -3826,13 +3831,13 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
   };
 });
 !(function (e, t) {
-  'function' == typeof define && define.amd
+  "function" == typeof define && define.amd
     ? define(t)
-    : 'object' == typeof exports
-    ? (module.exports = t())
-    : (e.PhotoSwipeUI_Default = t());
+    : "object" == typeof exports
+      ? (module.exports = t())
+      : (e.PhotoSwipeUI_Default = t());
 })(window, function () {
-  'use strict';
+  "use strict";
   return function (e, t) {
     var n,
       i,
@@ -3860,16 +3865,16 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       _ = {
         barsSize: {
           top: 44,
-          bottom: 'auto',
+          bottom: "auto",
         },
-        closeElClasses: ['item', 'caption', 'zoom-wrap', 'ui', 'top-bar'],
+        closeElClasses: ["item", "caption", "zoom-wrap", "ui", "top-bar"],
         timeToIdle: 4e3,
         timeToIdleOutside: 1e3,
         loadingIndicatorDelay: 1e3,
         addCaptionHTMLFn: function (e, t) {
           return e.title
             ? ((t.children[0].innerHTML = e.title), !0)
-            : ((t.children[0].innerHTML = ''), !1);
+            : ((t.children[0].innerHTML = ""), !1);
         },
         closeEl: !0,
         captionEl: !0,
@@ -3884,37 +3889,37 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         clickToCloseNonZoomable: !0,
         shareButtons: [
           {
-            id: 'facebook',
-            label: 'Share on Facebook',
-            url: 'https://www.facebook.com/sharer/sharer.php?u={{url}}',
+            id: "facebook",
+            label: "Share on Facebook",
+            url: "https://www.facebook.com/sharer/sharer.php?u={{url}}",
           },
           {
-            id: 'twitter',
-            label: 'Tweet',
-            url: 'https://twitter.com/intent/tweet?text={{text}}&url={{url}}',
+            id: "twitter",
+            label: "Tweet",
+            url: "https://twitter.com/intent/tweet?text={{text}}&url={{url}}",
           },
           {
-            id: 'pinterest',
-            label: 'Pin it',
-            url: 'http://www.pinterest.com/pin/create/button/?url={{url}}&media={{image_url}}&description={{text}}',
+            id: "pinterest",
+            label: "Pin it",
+            url: "http://www.pinterest.com/pin/create/button/?url={{url}}&media={{image_url}}&description={{text}}",
           },
           {
-            id: 'download',
-            label: 'Download image',
-            url: '{{raw_image_url}}',
+            id: "download",
+            label: "Download image",
+            url: "{{raw_image_url}}",
             download: !0,
           },
         ],
         getImageURLForShare: function () {
-          return e.currItem.src || '';
+          return e.currItem.src || "";
         },
         getPageURLForShare: function () {
           return window.location.href;
         },
         getTextForShare: function () {
-          return e.currItem.title || '';
+          return e.currItem.title || "";
         },
-        indexIndicatorSep: ' / ',
+        indexIndicatorSep: " / ",
         fitControlsWidth: 1200,
       },
       P = function (e) {
@@ -3924,13 +3929,13 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         for (
           var n,
             i,
-            o = (e.target || e.srcElement).getAttribute('class') || '',
+            o = (e.target || e.srcElement).getAttribute("class") || "",
             a = 0;
           a < B.length;
           a++
         )
           (n = B[a]).onTap &&
-            o.indexOf('pswp__' + n.name) > -1 &&
+            o.indexOf("pswp__" + n.name) > -1 &&
             (n.onTap(), (i = !0));
         if (i) {
           e.stopPropagation && e.stopPropagation(), (v = !0);
@@ -3948,25 +3953,25 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         );
       },
       I = function (e, n, i) {
-        t[(i ? 'add' : 'remove') + 'Class'](e, 'pswp__' + n);
+        t[(i ? "add" : "remove") + "Class"](e, "pswp__" + n);
       },
       D = function () {
         var e = 1 === g.getNumItemsFn();
-        e !== h && (I(i, 'ui--one-slide', e), (h = e));
+        e !== h && (I(i, "ui--one-slide", e), (h = e));
       },
       A = function () {
-        I(l, 'share-modal--hidden', C);
+        I(l, "share-modal--hidden", C);
       },
       M = function () {
         return (
           (C = !C)
-            ? (t.removeClass(l, 'pswp__share-modal--fade-in'),
+            ? (t.removeClass(l, "pswp__share-modal--fade-in"),
               setTimeout(function () {
                 C && A();
               }, 300))
             : (A(),
               setTimeout(function () {
-                C || t.addClass(l, 'pswp__share-modal--fade-in');
+                C || t.addClass(l, "pswp__share-modal--fade-in");
               }, 30)),
           C || R(),
           !1
@@ -3975,15 +3980,15 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       E = function (t) {
         var n = (t = t || window.event).target || t.srcElement;
         return (
-          e.shout('shareLinkClick', t, n),
+          e.shout("shareLinkClick", t, n),
           !(
             !n.href ||
-            (!n.hasAttribute('download') &&
+            (!n.hasAttribute("download") &&
               (window.open(
                 n.href,
-                'pswp_share',
-                'scrollbars=yes,resizable=yes,toolbar=no,location=yes,width=550,height=420,top=100,left=' +
-                  (window.screen ? Math.round(screen.width / 2 - 275) : 100)
+                "pswp_share",
+                "scrollbars=yes,resizable=yes,toolbar=no,location=yes,width=550,height=420,top=100,left=" +
+                  (window.screen ? Math.round(screen.width / 2 - 275) : 100),
               ),
               C || M(),
               1))
@@ -3991,32 +3996,32 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
         );
       },
       R = function () {
-        for (var e, t, n, i, o, a = '', s = 0; s < g.shareButtons.length; s++)
+        for (var e, t, n, i, o, a = "", s = 0; s < g.shareButtons.length; s++)
           (e = g.shareButtons[s]),
             (n = g.getImageURLForShare(e)),
             (i = g.getPageURLForShare(e)),
             (o = g.getTextForShare(e)),
             (t = e.url
-              .replace('{{url}}', encodeURIComponent(i))
-              .replace('{{image_url}}', encodeURIComponent(n))
-              .replace('{{raw_image_url}}', n)
-              .replace('{{text}}', encodeURIComponent(o))),
+              .replace("{{url}}", encodeURIComponent(i))
+              .replace("{{image_url}}", encodeURIComponent(n))
+              .replace("{{raw_image_url}}", n)
+              .replace("{{text}}", encodeURIComponent(o))),
             (a +=
               '<a href="' +
               t +
               '" target="_blank" class="pswp__share--' +
               e.id +
               '"' +
-              (e.download ? 'download' : '') +
-              '>' +
+              (e.download ? "download" : "") +
+              ">" +
               e.label +
-              '</a>'),
+              "</a>"),
             g.parseShareButtonOut && (a = g.parseShareButtonOut(e, a));
         (l.children[0].innerHTML = a), (l.children[0].onclick = E);
       },
       O = function (e) {
         for (var n = 0; n < g.closeElClasses.length; n++)
-          if (t.hasClass(e, 'pswp__' + g.closeElClasses[n])) return !0;
+          if (t.hasClass(e, "pswp__" + g.closeElClasses[n])) return !0;
       },
       N = 0,
       $ = function () {
@@ -4024,47 +4029,47 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       },
       L = function (e) {
         var t = (e = e || window.event).relatedTarget || e.toElement;
-        (t && 'HTML' !== t.nodeName) ||
+        (t && "HTML" !== t.nodeName) ||
           (clearTimeout(S),
           (S = setTimeout(function () {
             w.setIdle(!0);
           }, g.timeToIdleOutside)));
       },
       F = function (e) {
-        m !== e && (I(p, 'preloader--active', !e), (m = e));
+        m !== e && (I(p, "preloader--active", !e), (m = e));
       },
       U = function (e) {
         var n = e.vGap;
         if (k()) {
           var s = g.barsSize;
-          if (g.captionEl && 'auto' === s.bottom)
+          if (g.captionEl && "auto" === s.bottom)
             if (
               (a ||
                 ((a = t.createEl(
-                  'pswp__caption pswp__caption--fake'
-                )).appendChild(t.createEl('pswp__caption__center')),
+                  "pswp__caption pswp__caption--fake",
+                )).appendChild(t.createEl("pswp__caption__center")),
                 i.insertBefore(a, o),
-                t.addClass(i, 'pswp__ui--fit')),
+                t.addClass(i, "pswp__ui--fit")),
               g.addCaptionHTMLFn(e, a, !0))
             ) {
               var r = a.clientHeight;
               n.bottom = parseInt(r, 10) || 44;
             } else n.bottom = s.top;
-          else n.bottom = 'auto' === s.bottom ? 0 : s.bottom;
+          else n.bottom = "auto" === s.bottom ? 0 : s.bottom;
           n.top = s.top;
         } else n.top = n.bottom = 0;
       },
       B = [
         {
-          name: 'caption',
-          option: 'captionEl',
+          name: "caption",
+          option: "captionEl",
           onInit: function (e) {
             o = e;
           },
         },
         {
-          name: 'share-modal',
-          option: 'shareEl',
+          name: "share-modal",
+          option: "shareEl",
           onInit: function (e) {
             l = e;
           },
@@ -4073,8 +4078,8 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           },
         },
         {
-          name: 'button--share',
-          option: 'shareEl',
+          name: "button--share",
+          option: "shareEl",
           onInit: function (e) {
             r = e;
           },
@@ -4083,42 +4088,42 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           },
         },
         {
-          name: 'button--zoom',
-          option: 'zoomEl',
+          name: "button--zoom",
+          option: "zoomEl",
           onTap: e.toggleDesktopZoom,
         },
         {
-          name: 'counter',
-          option: 'counterEl',
+          name: "counter",
+          option: "counterEl",
           onInit: function (e) {
             s = e;
           },
         },
         {
-          name: 'button--close',
-          option: 'closeEl',
+          name: "button--close",
+          option: "closeEl",
           onTap: e.close,
         },
         {
-          name: 'button--arrow--left',
-          option: 'arrowEl',
+          name: "button--arrow--left",
+          option: "arrowEl",
           onTap: e.prev,
         },
         {
-          name: 'button--arrow--right',
-          option: 'arrowEl',
+          name: "button--arrow--right",
+          option: "arrowEl",
           onTap: e.next,
         },
         {
-          name: 'button--fs',
-          option: 'fullscreenEl',
+          name: "button--fs",
+          option: "fullscreenEl",
           onTap: function () {
             n.isFullscreen() ? n.exit() : n.enter();
           },
         },
         {
-          name: 'preloader',
-          option: 'preloaderEl',
+          name: "preloader",
+          option: "preloaderEl",
           onInit: function (e) {
             p = e;
           },
@@ -4127,75 +4132,75 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
     (w.init = function () {
       t.extend(e.options, _, !0),
         (g = e.options),
-        (i = t.getChildByClass(e.scrollWrap, 'pswp__ui')),
+        (i = t.getChildByClass(e.scrollWrap, "pswp__ui")),
         (u = e.listen),
         (function () {
-          u('onVerticalDrag', function (e) {
+          u("onVerticalDrag", function (e) {
             x && e < 0.95
               ? w.hideControls()
               : !x && e >= 0.95 && w.showControls();
           });
           var e;
-          u('onPinchClose', function (t) {
+          u("onPinchClose", function (t) {
             x && t < 0.9
               ? (w.hideControls(), (e = !0))
               : e && !x && t > 0.9 && w.showControls();
           }),
-            u('zoomGestureEnded', function () {
+            u("zoomGestureEnded", function () {
               (e = !1) && !x && w.showControls();
             });
         })(),
-        u('beforeChange', w.update),
-        u('doubleTap', function (t) {
+        u("beforeChange", w.update),
+        u("doubleTap", function (t) {
           var n = e.currItem.initialZoomLevel;
           e.getZoomLevel() !== n
             ? e.zoomTo(n, t, 333)
             : e.zoomTo(g.getDoubleTapZoom(!1, e.currItem), t, 333);
         }),
-        u('preventDragEvent', function (e, t, n) {
+        u("preventDragEvent", function (e, t, n) {
           var i = e.target || e.srcElement;
           i &&
-            i.getAttribute('class') &&
-            e.type.indexOf('mouse') > -1 &&
-            (i.getAttribute('class').indexOf('__caption') > 0 ||
+            i.getAttribute("class") &&
+            e.type.indexOf("mouse") > -1 &&
+            (i.getAttribute("class").indexOf("__caption") > 0 ||
               /(SMALL|STRONG|EM)/i.test(i.tagName)) &&
             (n.prevent = !1);
         }),
-        u('bindEvents', function () {
-          t.bind(i, 'pswpTap click', P),
-            t.bind(e.scrollWrap, 'pswpTap', w.onGlobalTap),
+        u("bindEvents", function () {
+          t.bind(i, "pswpTap click", P),
+            t.bind(e.scrollWrap, "pswpTap", w.onGlobalTap),
             e.likelyTouchDevice ||
-              t.bind(e.scrollWrap, 'mouseover', w.onMouseOver);
+              t.bind(e.scrollWrap, "mouseover", w.onMouseOver);
         }),
-        u('unbindEvents', function () {
+        u("unbindEvents", function () {
           C || M(),
             y && clearInterval(y),
-            t.unbind(document, 'mouseout', L),
-            t.unbind(document, 'mousemove', $),
-            t.unbind(i, 'pswpTap click', P),
-            t.unbind(e.scrollWrap, 'pswpTap', w.onGlobalTap),
-            t.unbind(e.scrollWrap, 'mouseover', w.onMouseOver),
+            t.unbind(document, "mouseout", L),
+            t.unbind(document, "mousemove", $),
+            t.unbind(i, "pswpTap click", P),
+            t.unbind(e.scrollWrap, "pswpTap", w.onGlobalTap),
+            t.unbind(e.scrollWrap, "mouseover", w.onMouseOver),
             n &&
               (t.unbind(document, n.eventK, w.updateFullscreen),
               n.isFullscreen() && ((g.hideAnimationDuration = 0), n.exit()),
               (n = null));
         }),
-        u('destroy', function () {
+        u("destroy", function () {
           g.captionEl &&
-            (a && i.removeChild(a), t.removeClass(o, 'pswp__caption--empty')),
+            (a && i.removeChild(a), t.removeClass(o, "pswp__caption--empty")),
             l && (l.children[0].onclick = null),
-            t.removeClass(i, 'pswp__ui--over-close'),
-            t.addClass(i, 'pswp__ui--hidden'),
+            t.removeClass(i, "pswp__ui--over-close"),
+            t.addClass(i, "pswp__ui--hidden"),
             w.setIdle(!1);
         }),
-        g.showAnimationDuration || t.removeClass(i, 'pswp__ui--hidden'),
-        u('initialZoomIn', function () {
-          g.showAnimationDuration && t.removeClass(i, 'pswp__ui--hidden');
+        g.showAnimationDuration || t.removeClass(i, "pswp__ui--hidden"),
+        u("initialZoomIn", function () {
+          g.showAnimationDuration && t.removeClass(i, "pswp__ui--hidden");
         }),
-        u('initialZoomOut', function () {
-          t.addClass(i, 'pswp__ui--hidden');
+        u("initialZoomOut", function () {
+          t.addClass(i, "pswp__ui--hidden");
         }),
-        u('parseVerticalMargin', U),
+        u("parseVerticalMargin", U),
         (function () {
           var e,
             n,
@@ -4206,23 +4211,23 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                   (e = i[s]), (n = e.className);
                   for (var r = 0; r < B.length; r++)
                     (o = B[r]),
-                      n.indexOf('pswp__' + o.name) > -1 &&
+                      n.indexOf("pswp__" + o.name) > -1 &&
                         (g[o.option]
-                          ? (t.removeClass(e, 'pswp__element--disabled'),
+                          ? (t.removeClass(e, "pswp__element--disabled"),
                             o.onInit && o.onInit(e))
-                          : t.addClass(e, 'pswp__element--disabled'));
+                          : t.addClass(e, "pswp__element--disabled"));
                 }
             };
           a(i.children);
-          var s = t.getChildByClass(i, 'pswp__top-bar');
+          var s = t.getChildByClass(i, "pswp__top-bar");
           s && a(s.children);
         })(),
         g.shareEl && r && l && (C = !0),
         D(),
         g.timeToIdle &&
-          u('mouseUsed', function () {
-            t.bind(document, 'mousemove', $),
-              t.bind(document, 'mouseout', L),
+          u("mouseUsed", function () {
+            t.bind(document, "mousemove", $),
+              t.bind(document, "mouseout", L),
               (y = setInterval(function () {
                 2 == ++N && w.setIdle(!0);
               }, g.timeToIdle / 2));
@@ -4233,11 +4238,11 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           n
             ? (t.bind(document, n.eventK, w.updateFullscreen),
               w.updateFullscreen(),
-              t.addClass(e.template, 'pswp--supports-fs'))
-            : t.removeClass(e.template, 'pswp--supports-fs')),
+              t.addClass(e.template, "pswp--supports-fs"))
+            : t.removeClass(e.template, "pswp--supports-fs")),
         g.preloaderEl &&
           (F(!0),
-          u('beforeChange', function () {
+          u("beforeChange", function () {
             clearTimeout(f),
               (f = setTimeout(function () {
                 e.currItem && e.currItem.loading
@@ -4247,19 +4252,19 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
                   : F(!0);
               }, g.loadingIndicatorDelay));
           }),
-          u('imageLoadComplete', function (t, n) {
+          u("imageLoadComplete", function (t, n) {
             e.currItem === n && F(!0);
           }));
     }),
       (w.setIdle = function (e) {
-        (d = e), I(i, 'ui--idle', e);
+        (d = e), I(i, "ui--idle", e);
       }),
       (w.update = function () {
         x && e.currItem
           ? (w.updateIndexIndicator(),
             g.captionEl &&
               (g.addCaptionHTMLFn(e.currItem, o),
-              I(o, 'caption--empty', !e.currItem.title)),
+              I(o, "caption--empty", !e.currItem.title)),
             (b = !0))
           : (b = !1),
           C || M(),
@@ -4270,9 +4275,9 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
           setTimeout(function () {
             e.setScrollOffset(0, t.getScrollY());
           }, 50),
-          t[(n.isFullscreen() ? 'add' : 'remove') + 'Class'](
+          t[(n.isFullscreen() ? "add" : "remove") + "Class"](
             e.template,
-            'pswp--fs'
+            "pswp--fs",
           );
       }),
       (w.updateIndexIndicator = function () {
@@ -4283,27 +4288,27 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       (w.onGlobalTap = function (n) {
         var i = (n = n || window.event).target || n.srcElement;
         if (!v)
-          if (n.detail && 'mouse' === n.detail.pointerType) {
+          if (n.detail && "mouse" === n.detail.pointerType) {
             if (O(i)) return void e.close();
-            t.hasClass(i, 'pswp__img') &&
+            t.hasClass(i, "pswp__img") &&
               (1 === e.getZoomLevel() && e.getZoomLevel() <= e.currItem.fitRatio
                 ? g.clickToCloseNonZoomable && e.close()
                 : e.toggleDesktopZoom(n.detail.releasePoint));
           } else if (
             (g.tapToToggleControls && (x ? w.hideControls() : w.showControls()),
-            g.tapToClose && (t.hasClass(i, 'pswp__img') || O(i)))
+            g.tapToClose && (t.hasClass(i, "pswp__img") || O(i)))
           )
             return void e.close();
       }),
       (w.onMouseOver = function (e) {
         var t = (e = e || window.event).target || e.srcElement;
-        I(i, 'ui--over-close', O(t));
+        I(i, "ui--over-close", O(t));
       }),
       (w.hideControls = function () {
-        t.addClass(i, 'pswp__ui--hidden'), (x = !1);
+        t.addClass(i, "pswp__ui--hidden"), (x = !1);
       }),
       (w.showControls = function () {
-        (x = !0), b || w.update(), t.removeClass(i, 'pswp__ui--hidden');
+        (x = !0), b || w.update(), t.removeClass(i, "pswp__ui--hidden");
       }),
       (w.supportsFullscreen = function () {
         var e = document;
@@ -4317,42 +4322,42 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
       (w.getFullscreenAPI = function () {
         var t,
           n = document.documentElement,
-          i = 'fullscreenchange';
+          i = "fullscreenchange";
         return (
           n.requestFullscreen
             ? (t = {
-                enterK: 'requestFullscreen',
-                exitK: 'exitFullscreen',
-                elementK: 'fullscreenElement',
+                enterK: "requestFullscreen",
+                exitK: "exitFullscreen",
+                elementK: "fullscreenElement",
                 eventK: i,
               })
             : n.mozRequestFullScreen
-            ? (t = {
-                enterK: 'mozRequestFullScreen',
-                exitK: 'mozCancelFullScreen',
-                elementK: 'mozFullScreenElement',
-                eventK: 'moz' + i,
-              })
-            : n.webkitRequestFullscreen
-            ? (t = {
-                enterK: 'webkitRequestFullscreen',
-                exitK: 'webkitExitFullscreen',
-                elementK: 'webkitFullscreenElement',
-                eventK: 'webkit' + i,
-              })
-            : n.msRequestFullscreen &&
-              (t = {
-                enterK: 'msRequestFullscreen',
-                exitK: 'msExitFullscreen',
-                elementK: 'msFullscreenElement',
-                eventK: 'MSFullscreenChange',
-              }),
+              ? (t = {
+                  enterK: "mozRequestFullScreen",
+                  exitK: "mozCancelFullScreen",
+                  elementK: "mozFullScreenElement",
+                  eventK: "moz" + i,
+                })
+              : n.webkitRequestFullscreen
+                ? (t = {
+                    enterK: "webkitRequestFullscreen",
+                    exitK: "webkitExitFullscreen",
+                    elementK: "webkitFullscreenElement",
+                    eventK: "webkit" + i,
+                  })
+                : n.msRequestFullscreen &&
+                  (t = {
+                    enterK: "msRequestFullscreen",
+                    exitK: "msExitFullscreen",
+                    elementK: "msFullscreenElement",
+                    eventK: "MSFullscreenChange",
+                  }),
           t &&
             ((t.enter = function () {
               return (
                 (c = g.closeOnScroll),
                 (g.closeOnScroll = !1),
-                'webkitRequestFullscreen' !== this.enterK
+                "webkitRequestFullscreen" !== this.enterK
                   ? e.template[this.enterK]()
                   : void e.template[this.enterK](Element.ALLOW_KEYBOARD_INPUT)
               );
@@ -4370,37 +4375,37 @@ var parseJsonOrDefault = (jsonString, defaultString = '{}') => {
 });
 
 function parseJSON(e, t) {
-  return JSON.parse(e || t || '{}');
+  return JSON.parse(e || t || "{}");
 }
 
 var $window = window.jQuery(window);
 var $document = window.jQuery(document);
 var viewportWidth = $window.width();
-var $html = window.jQuery('html');
-var $body = window.jQuery('body');
+var $html = window.jQuery("html");
+var $body = window.jQuery("body");
 var isMobileViewport = viewportWidth < 768;
 var themeStrings = window.T4Sstrings;
-var closeOverlayButton = window.jQuery('.close-overlay');
-var lockScrollClass = 'lock-scroll';
-var scrollableElementsSelector = '[data-ts-scroll-me]';
+var closeOverlayButton = window.jQuery(".close-overlay");
+var lockScrollClass = "lock-scroll";
+var scrollableElementsSelector = "[data-ts-scroll-me]";
 var pageType = window.T4Srequest.page_type;
 var searchUrl = window.T4Sroutes.search_url;
 var cart_url = window.T4SThemeSP.cart_url;
 var platformEmail = window.T4Sconfigs.platform_email;
 var isConfettiEnabled = window.T4Sconfigs.enableConfetti;
 var cacheNameFirst = window.T4SThemeSP.cacheNameFirst;
-var ajaxCartChangeEvent = 'change:ajaxCart';
+var ajaxCartChangeEvent = "change:ajaxCart";
 var tooltipPositions =
-  'top-start, top, top-end, left-start, left, left-end, right-start, right, right-end, bottom-start, bottom, bottom-end'.split(
-    ', '
+  "top-start, top, top-end, left-start, left, left-end, right-start, right, right-end, bottom-start, bottom, bottom-end".split(
+    ", ",
   );
 var rtlDirectionMap = {
-  left: 'right',
-  'left-start': 'right-start',
-  'left-end': 'right-end',
-  right: 'left',
-  'right-start': 'left-start',
-  'right-end': 'left-end',
+  left: "right",
+  "left-start": "right-start",
+  "left-end": "right-end",
+  right: "left",
+  "right-start": "left-start",
+  "right-end": "left-end",
 };
 var getAdjustedPosition = function (e) {
   return isThemeRTL ? rtlDirectionMap[e] || e : e;
@@ -4413,19 +4418,19 @@ window.T4SThemeSP.Tooltip = () => {
           prefix += ~~(1e6 * Math.random());
         } while (document.getElementById(prefix));
         return prefix;
-      })('tooltip');
+      })("tooltip");
 
-    tooltipElement.attr('aria-describedby', uniqueTooltipId);
+    tooltipElement.attr("aria-describedby", uniqueTooltipId);
 
     function appendTooltip(content, id) {
       window.T4SThemeSP.$appendComponent.after(
-        i.replace('nt_txt_tt', content).replace('id_nt_tt', id)
+        i.replace("nt_txt_tt", content).replace("id_nt_tt", id),
       );
     }
 
     appendTooltip(tooltipContent, uniqueTooltipId);
 
-    var tooltipContainer = (window.jQuery || window.$)('#' + uniqueTooltipId);
+    var tooltipContainer = (window.jQuery || window.$)("#" + uniqueTooltipId);
 
     function positionTooltip(triggerEl, tooltipEl, arrowEl, position) {
       fastdomT4s.mutate(function () {
@@ -4433,31 +4438,31 @@ window.T4SThemeSP.Tooltip = () => {
           placement: position,
           middleware: [
             FloatingUIT4sDOM.offset(6),
-            FloatingUIT4sDOM.flip({ fallbackPlacements: ['top', 'bottom'] }),
+            FloatingUIT4sDOM.flip({ fallbackPlacements: ["top", "bottom"] }),
             FloatingUIT4sDOM.shift({ padding: 5 }),
             FloatingUIT4sDOM.arrow({ element: arrowEl }),
           ],
         }).then(({ x, y, placement, middlewareData }) => {
           Object.assign(tooltipEl.style, {
-            top: '0',
-            left: '0',
+            top: "0",
+            left: "0",
             transform: `translate3d(${Math.round(x)}px,${Math.round(y)}px,0)`,
           });
 
           const { x: arrowX, y: arrowY } = middlewareData.arrow,
             placementDirection = {
-              top: 'bottom',
-              right: 'left',
-              bottom: 'top',
-              left: 'right',
-            }[placement.split('-')[0]];
+              top: "bottom",
+              right: "left",
+              bottom: "top",
+              left: "right",
+            }[placement.split("-")[0]];
 
           Object.assign(arrowEl.style, {
-            left: arrowX !== null ? `${arrowX}px` : '',
-            top: arrowY !== null ? `${arrowY}px` : '',
-            right: '',
-            bottom: '',
-            [placementDirection]: '-4px',
+            left: arrowX !== null ? `${arrowX}px` : "",
+            top: arrowY !== null ? `${arrowY}px` : "",
+            right: "",
+            bottom: "",
+            [placementDirection]: "-4px",
           });
         });
       });
@@ -4466,15 +4471,16 @@ window.T4SThemeSP.Tooltip = () => {
     positionTooltip(
       triggerElement,
       tooltipContainer[0],
-      tooltipContainer.find('.tt-arrow')[0],
-      tooltipId
+      tooltipContainer.find(".tt-arrow")[0],
+      tooltipId,
     );
     tooltipContainer.addClass(tooltipVisibleClass);
   }
 
   function hideTooltip(triggerElement) {
     var tooltipContainer = (window.jQuery || window.$)(
-      '#' + (window.jQuery || window.$)(triggerElement).attr('aria-describedby')
+      "#" +
+        (window.jQuery || window.$)(triggerElement).attr("aria-describedby"),
     );
     tooltipContainer.removeClass(tooltipVisibleClass);
     tooltipContainer.remove();
@@ -4482,33 +4488,33 @@ window.T4SThemeSP.Tooltip = () => {
 
   var i =
       '<div class="tooltip" id="id_nt_tt" role="tooltip"><div class="tt-arrow"></div><div class="tooltip-inner">nt_txt_tt</div></div>',
-    tooltipVisibleClass = 'is--show',
+    tooltipVisibleClass = "is--show",
     extractTooltipContent = function (element) {
-      var content = element.find('.text-pr').text() || element.text();
+      var content = element.find(".text-pr").text() || element.text();
       if (
-        element.attr('title') &&
-        typeof element.attr('data-original-title') !== 'string'
+        element.attr("title") &&
+        typeof element.attr("data-original-title") !== "string"
       ) {
-        content = element.attr('title');
+        content = element.attr("title");
         element
-          .attr('data-original-title', element.attr('title') || '')
-          .attr('title', '');
+          .attr("data-original-title", element.attr("title") || "")
+          .attr("title", "");
       }
-      if (element.attr('data-ts-tooltip')) {
-        content = element.attr('data-ts-tooltip');
-      } else if (element.attr('data-original-title')) {
-        content = element.attr('data-original-title');
+      if (element.attr("data-ts-tooltip")) {
+        content = element.attr("data-ts-tooltip");
+      } else if (element.attr("data-original-title")) {
+        content = element.attr("data-original-title");
       }
       return content;
     };
 
-  $body.on('ts:hideTooltip', function () {
-    (window.jQuery || window.$)('.tooltip.is--show').remove();
+  $body.on("ts:hideTooltip", function () {
+    (window.jQuery || window.$)(".tooltip.is--show").remove();
   });
 
   if (!T4SThemeSP.isTouch) {
     const tooltipElements = (window.jQuery || window.$)(
-      '[data-tooltip]:not(.tooltip-actived)'
+      "[data-tooltip]:not(.tooltip-actived)",
     );
     if (tooltipElements.length !== 0) {
       tooltipElements
@@ -4519,42 +4525,42 @@ window.T4SThemeSP.Tooltip = () => {
           timeout: 100,
           over: (event) => {
             let element = (window.jQuery || window.$)(event.currentTarget),
-              tooltipData = element.attr('data-tooltip') || 'nt94';
+              tooltipData = element.attr("data-tooltip") || "nt94";
             if (T.indexOf(tooltipData) < 0) return;
 
             showTooltip(
               event.currentTarget,
               S(tooltipData),
-              extractTooltipContent(element)
+              extractTooltipContent(element),
             );
 
-            element.on('updateTooltip', (event) => {
+            element.on("updateTooltip", (event) => {
               hideTooltip(event.currentTarget);
               showTooltip(
                 event.currentTarget,
                 S(tooltipData),
-                extractTooltipContent(element)
+                extractTooltipContent(element),
               );
             });
 
-            element.on('destroyTooltip', () => {
+            element.on("destroyTooltip", () => {
               hideTooltip(event.currentTarget);
             });
           },
           out: (event) => {
             var tooltipData =
               (window.jQuery || window.$)(event.currentTarget).attr(
-                'data-tooltip'
-              ) || 'nt94';
+                "data-tooltip",
+              ) || "nt94";
             if (T.indexOf(tooltipData) < 0) return;
 
             hideTooltip(event.currentTarget);
             (window.jQuery || window.$)(event.currentTarget)
-              .off('updateTooltip')
-              .off('destroyTooltip');
+              .off("updateTooltip")
+              .off("destroyTooltip");
           },
         })
-        .addClass('tooltip-actived');
+        .addClass("tooltip-actived");
     }
   }
 };
@@ -4562,13 +4568,13 @@ window.T4SThemeSP.Tooltip = () => {
 // LookBook function
 window.T4SThemeSP.LookBook = () => {
   const stateClasses = {
-    loading: 'is--loading',
-    loaded: 'is--loaded',
-    clicked: 'is--clicked',
-    selected: 'is--selected',
-    opened: 'is--opened',
-    preload: 'is--preLoaded',
-    visible: 'is--visible is--pindop',
+    loading: "is--loading",
+    loaded: "is--loaded",
+    clicked: "is--clicked",
+    selected: "is--selected",
+    opened: "is--opened",
+    preload: "is--preLoaded",
+    visible: "is--visible is--pindop",
   };
 
   let sectionData = []; // Stores preloaded popup content
@@ -4580,12 +4586,12 @@ window.T4SThemeSP.LookBook = () => {
       if (triggerAnimation) openDropdown(element, sectionId);
     } else {
       // Fetches and inserts popup content dynamically if not preloaded
-      const sectionKey = sectionData[sectionId + element.data('sid')];
-      if (!element.is('[data-is-pr]')) {
+      const sectionKey = sectionData[sectionId + element.data("sid")];
+      if (!element.is("[data-is-pr]")) {
         element.addClass(stateClasses.loaded);
-        const templateHtml = window.$('#tem' + sectionId).html();
+        const templateHtml = window.$("#tem" + sectionId).html();
         window.T4SThemeSP.$appendComponent.after(
-          templateHtml.replace('id=""', 'id="' + sectionId + '"')
+          templateHtml.replace('id=""', 'id="' + sectionId + '"'),
         );
         if (triggerAnimation) openDropdown(element, sectionId);
         return;
@@ -4599,10 +4605,10 @@ window.T4SThemeSP.LookBook = () => {
         if (triggerAnimation) openDropdown(element, sectionId);
       } else {
         element.addClass(stateClasses.loading);
-        fetch(element.data('href') + '/?section_id=' + sectionId)
+        fetch(element.data("href") + "/?section_id=" + sectionId)
           .then((response) => response.text())
           .then((content) => {
-            content = content.split('[splitlz]')[1].replace('id_nt', sectionId);
+            content = content.split("[splitlz]")[1].replace("id_nt", sectionId);
             window.T4SThemeSP.$appendComponent.after(content);
             element
               .removeClass(stateClasses.loading)
@@ -4611,7 +4617,7 @@ window.T4SThemeSP.LookBook = () => {
             window.T4SThemeSP.Tooltip();
             if (triggerAnimation) openDropdown(element, sectionId);
             isPopupCached &&
-              (sectionData[sectionId + element.data('sid')] = content);
+              (sectionData[sectionId + element.data("sid")] = content);
           })
           .catch((error) => {
             element.removeClass(stateClasses.loading);
@@ -4627,21 +4633,21 @@ window.T4SThemeSP.LookBook = () => {
       $body.removeClass(lockScrollClass);
       window.T4SThemeSP.Helpers.disableBodyScroll(
         false,
-        scrollableElementsSelector
+        scrollableElementsSelector,
       );
     }
     window
       .$(`[data-pin-close],[data-pin-popup].${stateClasses.clicked}`)
-      .off('click.closePopup');
-    $document.off('click.closePopup').off('keyup.closePopup');
+      .off("click.closePopup");
+    $document.off("click.closePopup").off("keyup.closePopup");
     window
       .$(`[data-pin-wrapper].${stateClasses.opened}`)
       .removeClass(stateClasses.opened);
     window
       .$(`[data-pin-popup].${stateClasses.clicked}`)
       .removeClass(stateClasses.clicked);
-    $body.hasClass('is--opend-drawer')
-      ? closeOverlayButton.removeClass('is--pindop')
+    $body.hasClass("is--opend-drawer")
+      ? closeOverlayButton.removeClass("is--pindop")
       : closeOverlayButton.removeClass(stateClasses.visible);
   }
 
@@ -4650,104 +4656,104 @@ window.T4SThemeSP.LookBook = () => {
     $body.removeClass(lockScrollClass);
     window.T4SThemeSP.Helpers.disableBodyScroll(
       false,
-      scrollableElementsSelector
+      scrollableElementsSelector,
     );
     window
       .$(`[data-dropdown-close],[data-dropdown-open].${stateClasses.clicked}`)
-      .off('click.closeDrop');
-    $document.off('click.closeDrop').off('keyup.closeDrop');
+      .off("click.closeDrop");
+    $document.off("click.closeDrop").off("keyup.closeDrop");
     window
       .$(`[data-dropdown-wrapper].${stateClasses.opened}`)
       .removeClass(stateClasses.opened);
     window
       .$(`[data-dropdown-open].${stateClasses.clicked}`)
       .removeClass(stateClasses.clicked);
-    $body.hasClass('is--opend-drawer')
-      ? closeOverlayButton.removeClass('is--pindop')
+    $body.hasClass("is--opend-drawer")
+      ? closeOverlayButton.removeClass("is--pindop")
       : closeOverlayButton.removeClass(stateClasses.visible);
   }
 
-  function openDropdown(element, popupId, layoutType = 'lb') {
+  function openDropdown(element, popupId, layoutType = "lb") {
     // Opens a popup and positions it on screen
 
     if (isMobileViewport) {
       $body.addClass(lockScrollClass);
       window.T4SThemeSP.Helpers.disableBodyScroll(
         true,
-        scrollableElementsSelector
+        scrollableElementsSelector,
       );
     }
     const popupElement = window.$(`#${popupId}`);
     popupElement.addClass(stateClasses.opened);
-    popupElement.hasClass('is-style-mb--false') ||
+    popupElement.hasClass("is-style-mb--false") ||
       closeOverlayButton.addClass(stateClasses.visible);
 
     const popup = window.$(`#${popupId}`);
     const popupArrow = popup.find(`.${layoutType}-arrow`);
-    const position = element.data('position') || 'top';
+    const position = element.data("position") || "top";
 
-    if ($document.width() > 767 || popup.hasClass('is-style-mb--false')) {
+    if ($document.width() > 767 || popup.hasClass("is-style-mb--false")) {
       fastdom.mutate(() => {
         FloatingUIT4sDOM.computePosition(element[0], popup[0], {
           placement: getAdjustedPosition(position),
           middleware: [
             FloatingUIT4sDOM.offset(12),
-            FloatingUIT4sDOM.flip({ fallbackPlacements: ['top', 'bottom'] }),
+            FloatingUIT4sDOM.flip({ fallbackPlacements: ["top", "bottom"] }),
             FloatingUIT4sDOM.shift({ padding: 0 }),
             FloatingUIT4sDOM.arrow({ element: popupArrow[0] }),
           ],
         }).then(({ x, y, placement, middlewareData: arrowData }) => {
           Object.assign(popup[0].style, {
-            top: '0',
-            left: '0',
+            top: "0",
+            left: "0",
             transform: `translate3d(${Math.round(x)}px,${Math.round(y)}px,0)`,
           });
           const { x: arrowX, y: arrowY } = arrowData.arrow;
           const oppositePlacement = {
-            top: 'bottom',
-            right: 'left',
-            bottom: 'top',
-            left: 'right',
-          }[placement.split('-')[0]];
+            top: "bottom",
+            right: "left",
+            bottom: "top",
+            left: "right",
+          }[placement.split("-")[0]];
           Object.assign(popupArrow[0].style, {
-            left: arrowX != null ? `${arrowX}px` : '',
-            top: arrowY != null ? `${arrowY}px` : '',
-            [oppositePlacement]: '-6px',
+            left: arrowX != null ? `${arrowX}px` : "",
+            top: arrowY != null ? `${arrowY}px` : "",
+            [oppositePlacement]: "-6px",
           });
         });
       });
     }
 
-    if (layoutType == 'lb') {
-      $document.on('click.closelb', (event) => {
+    if (layoutType == "lb") {
+      $document.on("click.closelb", (event) => {
         const target = window.$(event.target);
         if (
-          target.closest('[data-pin-wrapper]').length > 0 ||
-          target.is('[data-pin-popup]')
+          target.closest("[data-pin-wrapper]").length > 0 ||
+          target.is("[data-pin-popup]")
         ) {
           closeLayout();
         }
       });
       window
         .$(
-          `#${popupId} [data-pin-close], [data-pin-popup].${stateClasses.clicked}`
+          `#${popupId} [data-pin-close], [data-pin-popup].${stateClasses.clicked}`,
         )
-        .on('click.closelb', function (event) {
+        .on("click.closelb", function (event) {
           event.preventDefault(), event.stopPropagation(), closeLayout();
         });
-      $document.on('keyup.closelb', function (event) {
+      $document.on("keyup.closelb", function (event) {
         if (27 === event.keyCode) {
           closeLayout();
         }
       });
     } else {
       // Event listeners to close popup
-      $document.on('click.closeDrop', (event) => {
+      $document.on("click.closeDrop", (event) => {
         const target = window.$(event.target);
         if (
-          target.closest('[data-pin-wrapper]').length > 0 ||
-          target.is('[data-dropdown-open]') ||
-          target.closest('[data-dropdown-open]').length > 0
+          target.closest("[data-pin-wrapper]").length > 0 ||
+          target.is("[data-dropdown-open]") ||
+          target.closest("[data-dropdown-open]").length > 0
         ) {
           closeLayout();
         }
@@ -4756,15 +4762,15 @@ window.T4SThemeSP.LookBook = () => {
 
     window
       .$(
-        `#${popupId} [data-pin-close], [data-dropdown-open].${stateClasses.clicked}`
+        `#${popupId} [data-pin-close], [data-dropdown-open].${stateClasses.clicked}`,
       )
-      .on('click.closeDrop', (event) => {
+      .on("click.closeDrop", (event) => {
         event.preventDefault();
         event.stopPropagation();
         closeLayout();
       });
 
-    $document.on('keyup.closePopup', (event) => {
+    $document.on("keyup.closePopup", (event) => {
       if (event.keyCode === 27) closeLayout(); // Close on "Escape" key
     });
   }
@@ -4772,12 +4778,12 @@ window.T4SThemeSP.LookBook = () => {
   function loadHoverEvents() {
     // Add a hover event for elements with data attributes that trigger popups
     $document.on(
-      'click',
+      "click",
       `[data-pin-popup]:not(.${stateClasses.clicked})`,
       (event) => {
         event.preventDefault();
         const element = window.$(event.currentTarget);
-        const sectionId = element.data('bid');
+        const sectionId = element.data("bid");
 
         closeDropdown();
 
@@ -4786,24 +4792,24 @@ window.T4SThemeSP.LookBook = () => {
 
         // Load popup content without opening it immediately
         loadPopupContent(element, sectionId, true);
-      }
+      },
     );
 
     window
       .$(
-        `[data-pin-popup][data-is-pr]:not(.${stateClasses.clicked}):not(.${stateClasses.opened})`
+        `[data-pin-popup][data-is-pr]:not(.${stateClasses.clicked}):not(.${stateClasses.opened})`,
       )
-      .on('mouseenter.pin', (event) => {
+      .on("mouseenter.pin", (event) => {
         const element = window.$(event.currentTarget);
-        const sectionId = element.data('bid');
+        const sectionId = element.data("bid");
         element.addClass(stateClasses.preload);
         loadPopupContent(element, sectionId);
-        element.off('touchstart.pin mouseenter.pin');
+        element.off("touchstart.pin mouseenter.pin");
       });
   }
 
   function setupDropdownItemSelection(id) {
-    window.$(`#${id}`).on('click.dopText', '[data-dropdown-item]', (event) => {
+    window.$(`#${id}`).on("click.dopText", "[data-dropdown-item]", (event) => {
       event.preventDefault();
       const element = window.$(event.currentTarget);
       element
@@ -4813,24 +4819,24 @@ window.T4SThemeSP.LookBook = () => {
       element.addClass(stateClasses.selected);
       window
         .$(
-          `[data-dropdown-open][data-id="${id}"]>span:not([data-not-change-txt])`
+          `[data-dropdown-open][data-id="${id}"]>span:not([data-not-change-txt])`,
         )
         .text(element.text());
-      window.$(`#${id}`).off('click.dopText');
-      element.trigger('change:drop', [element, element.data('value')]);
+      window.$(`#${id}`).off("click.dopText");
+      element.trigger("change:drop", [element, element.data("value")]);
       closeLayout();
     });
   }
   function loadDropdownEvents() {
     // Open dropdown on click
     $document.on(
-      'click',
+      "click",
       `[data-dropdown-open]:not(.${stateClasses.clicked})`,
       (event) => {
         event.preventDefault();
 
         const dropdownTrigger = $(event.currentTarget);
-        const dropdownId = dropdownTrigger.data('id');
+        const dropdownId = dropdownTrigger.data("id");
 
         // Close any other open dropdowns
         closeLayout();
@@ -4839,26 +4845,26 @@ window.T4SThemeSP.LookBook = () => {
         dropdownTrigger.addClass(stateClasses.clicked);
 
         // Open and position the dropdown
-        openDropdown(dropdownTrigger, dropdownId, 'drop');
+        openDropdown(dropdownTrigger, dropdownId, "drop");
 
         // Setup item selection within the dropdown
         setupDropdownItemSelection(dropdownId);
-      }
+      },
     );
 
     // Close dropdown on outside click or escape key
-    $document.on('click', '[data-dropdown-off]', (event) => {
+    $document.on("click", "[data-dropdown-off]", (event) => {
       const element = window.$(event.currentTarget);
       window
         .$(event.currentTarget)
-        .closest('[data-dropdown-wrapper]')
-        .find('[data-dropdown-open]>span')
+        .closest("[data-dropdown-wrapper]")
+        .find("[data-dropdown-open]>span")
         .text(element.text());
       closeLayout();
     });
 
     // Custom event listener for programmatically closing the dropdown
-    $document.on('dropdown:ts:close', function () {
+    $document.on("dropdown:ts:close", function () {
       closeLayout();
     });
   }
@@ -4868,7 +4874,7 @@ window.T4SThemeSP.LookBook = () => {
 };
 
 window.T4SThemeSP.Hover = () => {
-  var hoverElements = (window.jQuery || window.$)('[data-hover-ts]'); // Changed from 't' to 'hoverElements'
+  var hoverElements = (window.jQuery || window.$)("[data-hover-ts]"); // Changed from 't' to 'hoverElements'
 
   // Check if there are hover elements and if the viewport width is greater than or equal to 1025
   if (!(hoverElements.length === 0 || viewportWidth < 1025)) {
@@ -4878,28 +4884,28 @@ window.T4SThemeSP.Hover = () => {
         $currentElement = (window.jQuery || window.$)(currentElement);
 
       currentElement.hasHoverGroup =
-        currentElement.hasAttribute('data-has-group'); // Renamed 'i.ishasGroup' to 'currentElement.hasHoverGroup'
+        currentElement.hasAttribute("data-has-group"); // Renamed 'i.ishasGroup' to 'currentElement.hasHoverGroup'
 
       // Initialize hoverIntent
       $currentElement.hoverIntent({
         instance: $currentElement,
         sensitivity: 3,
-        interval: $currentElement.data('interval') || 35,
-        timeout: $currentElement.data('timeout') || 150,
+        interval: $currentElement.data("interval") || 35,
+        timeout: $currentElement.data("timeout") || 150,
         over: function (event) {
           if (currentElement.hasHoverGroup) {
             // If it has a group, remove hover class from siblings
-            $currentElement.siblings().removeClass('is--hover');
-            $currentElement.addClass('is--hover');
+            $currentElement.siblings().removeClass("is--hover");
+            $currentElement.addClass("is--hover");
           } else {
             // Otherwise, just add the hover class
-            $currentElement.addClass('is--hover');
+            $currentElement.addClass("is--hover");
           }
         },
         out: function () {
           // Remove hover class if not part of a group
           if (!currentElement.hasHoverGroup) {
-            $currentElement.removeClass('is--hover');
+            $currentElement.removeClass("is--hover");
           }
         },
       });
@@ -4909,16 +4915,16 @@ window.T4SThemeSP.Hover = () => {
 
 window.T4SThemeSP.ProductAjax = (() => {
   const disATCerror = window.T4Sconfigs.disATCerror;
-  const isLoadingClass = 'is--loading';
-  const ariaDisabledAttr = 'aria-disabled';
-  const validationErrorClass = 'is--field-emty is--animated ani-shake';
-  const validationEvent = 'change.required keyup.required';
-  const isCartDisabled = 'disable' === window.T4Sconfigs.cartType;
+  const isLoadingClass = "is--loading";
+  const ariaDisabledAttr = "aria-disabled";
+  const validationErrorClass = "is--field-emty is--animated ani-shake";
+  const validationEvent = "change.required keyup.required";
+  const isCartDisabled = "disable" === window.T4Sconfigs.cartType;
   const sectionsData =
-    pageType !== 'cart'
+    pageType !== "cart"
       ? isCartDisabled
-        ? 'cart_data'
-        : 'cart_data,mini_cart'
+        ? "cart_data"
+        : "cart_data,mini_cart"
       : `cart_data,${window.cartT4SectionID}`;
   const ajaxAddToCartEnabled = window.T4SThemeSP.enableAjaxATC;
   const ajaxCartEnabled = window.T4SThemeSP.enableAjaxCart;
@@ -4926,10 +4932,10 @@ window.T4SThemeSP.ProductAjax = (() => {
   const cartAddUrl = `${window.T4Sroutes.cart_add_url}.js`;
 
   // Helper for creating fetch options
-  const createRequestOptions = (responseType = 'json') => ({
-    method: 'POST',
+  const createRequestOptions = (responseType = "json") => ({
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Accept: `application/${responseType}`,
     },
   });
@@ -4943,25 +4949,25 @@ window.T4SThemeSP.ProductAjax = (() => {
 
   // Update cart item
   const updateCartItem = async (triggerElement, quantity) => {
-    const cartItem = triggerElement.closest('[data-cart-item]');
-    const cartWrapper = triggerElement.closest('[data-cart-wrapper]');
-    const loaderBar = cartItem.find('.cart-ld__bar');
-    const spinner = loaderBar.find('.cart-spinner');
+    const cartItem = triggerElement.closest("[data-cart-item]");
+    const cartWrapper = triggerElement.closest("[data-cart-wrapper]");
+    const loaderBar = cartItem.find(".cart-ld__bar");
+    const spinner = loaderBar.find(".cart-spinner");
 
-    cartWrapper.addClass('is--contentUpdate');
-    cartItem.addClass('is--update');
-    loaderBar.removeAttr('hidden');
-    spinner.removeAttr('hidden');
+    cartWrapper.addClass("is--contentUpdate");
+    cartItem.addClass("is--update");
+    loaderBar.removeAttr("hidden");
+    spinner.removeAttr("hidden");
 
-    $document.on('cart:updated', () => {
-      cartWrapper.removeClass('is--contentUpdate');
-      $document.off('cart:updated'), cartItem.removeClass('is--update');
-      loaderBar.attr('hidden', '');
-      spinner.attr('hidden', '');
+    $document.on("cart:updated", () => {
+      cartWrapper.removeClass("is--contentUpdate");
+      $document.off("cart:updated"), cartItem.removeClass("is--update");
+      loaderBar.attr("hidden", "");
+      spinner.attr("hidden", "");
     });
 
-    const requestOptions = createRequestOptions('javascript');
-    requestOptions.headers['X-Requested-With'] = 'XMLHttpRequest';
+    const requestOptions = createRequestOptions("javascript");
+    requestOptions.headers["X-Requested-With"] = "XMLHttpRequest";
     requestOptions.body = JSON.stringify({
       line: cartItem.indexOf() + 1,
       quantity,
@@ -4975,12 +4981,12 @@ window.T4SThemeSP.ProductAjax = (() => {
 
       if (data.status) {
         handleNotification(data.description);
-        $document.trigger('cart:updated', ['error']);
+        $document.trigger("cart:updated", ["error"]);
       } else {
         renderCartContents(data.sections);
       }
     } catch (error) {
-      $document.trigger('cart:updated');
+      $document.trigger("cart:updated");
       console.error(error);
     }
   };
@@ -4995,38 +5001,38 @@ window.T4SThemeSP.ProductAjax = (() => {
   };
 
   const processAddToCart = async (element) => {
-    element.addClass(isLoadingClass).attr('aria-disabled', true);
-    element.find('.loading-overlay__spinner').removeAttr('hidden');
-    element.find('.svg-spinner').removeAttr('hidden');
-    $document.on('cart:updated', (event, type = 'success') => {
+    element.addClass(isLoadingClass).attr("aria-disabled", true);
+    element.find(".loading-overlay__spinner").removeAttr("hidden");
+    element.find(".svg-spinner").removeAttr("hidden");
+    $document.on("cart:updated", (event, type = "success") => {
       element.removeClass(isLoadingClass).removeAttr(ariaDisabledAttr);
-      element.find('.loading-overlay__spinner').attr('hidden', '');
-      element.find('.svg-spinner').attr('hidden', '');
-      $document.off('cart:updated');
-      if ('success' == type) {
-        $body.trigger('modal:closed');
+      element.find(".loading-overlay__spinner").attr("hidden", "");
+      element.find(".svg-spinner").attr("hidden", "");
+      $document.off("cart:updated");
+      if ("success" == type) {
+        $body.trigger("modal:closed");
       }
     });
-    const requestOptions = createRequestOptions('javascript');
-    (requestOptions.headers['X-Requested-With'] = 'XMLHttpRequest'),
-      delete requestOptions.headers['Content-Type'];
-    const formData = new FormData(element.closest('form')[0]);
-    formData.append('sections', sectionsData.split(','));
-    formData.append('sections_url', window.location.pathname);
+    const requestOptions = createRequestOptions("javascript");
+    (requestOptions.headers["X-Requested-With"] = "XMLHttpRequest"),
+      delete requestOptions.headers["Content-Type"];
+    const formData = new FormData(element.closest("form")[0]);
+    formData.append("sections", sectionsData.split(","));
+    formData.append("sections_url", window.location.pathname);
     requestOptions.body = formData;
     try {
       const response = await fetch(cartAddUrl, requestOptions);
       const data = await response.json();
       if (data.status) {
         handleNotification(data.description);
-        $document.trigger('cart:updated', ['error']);
+        $document.trigger("cart:updated", ["error"]);
       } else {
         if (
           window.T4SThemeSP.isEditCartReplace &&
           data.variant_id != window.T4SThemeSP.iDVariantEdit
         ) {
-          const requestOptions = createRequestOptions('javascript');
-          requestOptions.headers['X-Requested-With'] = 'XMLHttpRequest';
+          const requestOptions = createRequestOptions("javascript");
+          requestOptions.headers["X-Requested-With"] = "XMLHttpRequest";
           requestOptions.body = JSON.stringify({
             id: `${T4SThemeSP.keyVariantEdit}`,
             quantity: 0,
@@ -5037,7 +5043,7 @@ window.T4SThemeSP.ProductAjax = (() => {
             if (data.status) {
               handleNotification(data.description);
             } else {
-              $document.trigger('add:cart:success').trigger('add:cart:upsell');
+              $document.trigger("add:cart:success").trigger("add:cart:upsell");
               window.T4SThemeSP.isATCSuccess = true;
               renderCartContents(data.sections);
             }
@@ -5045,25 +5051,25 @@ window.T4SThemeSP.ProductAjax = (() => {
             console.log(error);
           }
         } else {
-          $document.trigger('add:cart:success').trigger('add:cart:upsell');
+          $document.trigger("add:cart:success").trigger("add:cart:upsell");
           window.T4SThemeSP.isATCSuccess = true;
           renderCartContents(data.sections);
         }
       }
     } catch (err) {
-      $document.trigger('cart:updated');
-      console.log('error', err);
+      $document.trigger("cart:updated");
+      console.log("error", err);
     }
   };
 
   // Add to cart form handling
   const setupAddToCartForm = (formContainer) => {
-    const requiredFields = formContainer.find('[data-field-required]');
+    const requiredFields = formContainer.find("[data-field-required]");
     const hasProperties =
-      !!formContainer.hasClass('has--properties') && requiredFields.length > 0;
+      !!formContainer.hasClass("has--properties") && requiredFields.length > 0;
     let isFormInvalid = false;
 
-    formContainer.on('click', async (event) => {
+    formContainer.on("click", async (event) => {
       event.preventDefault();
       const addToCartButton = event.currentTarget.attr(ariaDisabledAttr);
 
@@ -5076,11 +5082,11 @@ window.T4SThemeSP.ProductAjax = (() => {
         isFormInvalid = false;
 
         requiredFields.forEach((field) => {
-          const propertyField = field.closest('[data-item-property-field]');
+          const propertyField = field.closest("[data-item-property-field]");
           const isEmpty =
-            propertyField.hasClass('is--type-radio') ||
-            propertyField.hasClass('is--type-checkbox')
-              ? propertyField.find('input[name]').is(':checked')
+            propertyField.hasClass("is--type-radio") ||
+            propertyField.hasClass("is--type-checkbox")
+              ? propertyField.find("input[name]").is(":checked")
               : !field.value.length;
 
           if (isEmpty) {
@@ -5092,18 +5098,18 @@ window.T4SThemeSP.ProductAjax = (() => {
         if (isFormInvalid) {
           setTimeout(() => {
             formContainer
-              .find('.is--animated.ani-shake')
-              .removeClass('is--animated ani-shake');
+              .find(".is--animated.ani-shake")
+              .removeClass("is--animated ani-shake");
           }, 999);
 
           requiredFields.off(validationEvent).on(validationEvent, (event) => {
             const propertyField = event.target.closest(
-              '[data-item-property-field]'
+              "[data-item-property-field]",
             );
             if (
-              propertyField.hasClass('is--type-radio') ||
-              propertyField.hasClass('is--type-checkbox')
-                ? propertyField.find('input[name]').is(':checked')
+              propertyField.hasClass("is--type-radio") ||
+              propertyField.hasClass("is--type-checkbox")
+                ? propertyField.find("input[name]").is(":checked")
                 : field.value.length > 0
             ) {
               propertyField.classList.remove(validationErrorClass);
@@ -5124,17 +5130,17 @@ window.T4SThemeSP.ProductAjax = (() => {
 
   const addToCart = async (element) => {
     element.addClass(isLoadingClass).attr(ariaDisabledAttr, true);
-    const requestOptions = createRequestOptions('javascript');
-    requestOptions.headers['X-Requested-With'] = 'XMLHttpRequest';
-    const variantId = element.attr('data-variant-id');
+    const requestOptions = createRequestOptions("javascript");
+    requestOptions.headers["X-Requested-With"] = "XMLHttpRequest";
+    const variantId = element.attr("data-variant-id");
     const quantity =
       parseInt(
         element
-          .prev('[data-quantity-wrapper]')
-          .find('[data-quantity-value]')
-          .val()
+          .prev("[data-quantity-wrapper]")
+          .find("[data-quantity-value]")
+          .val(),
       ) ||
-      element.data('qty') ||
+      element.data("qty") ||
       1;
     (variantId.body = JSON.stringify({
       items: [
@@ -5146,30 +5152,30 @@ window.T4SThemeSP.ProductAjax = (() => {
       sections: sectionsData,
       sections_url: window.location.pathname,
     })),
-      $document.on('cart:updated', () => {
+      $document.on("cart:updated", () => {
         element.removeClass(isLoadingClass).removeAttr(ariaDisabledAttr);
-        $document.off('cart:updated');
+        $document.off("cart:updated");
       });
     try {
       const response = await fetch(cartAddUrl, requestOptions);
       const data = await response.json();
       if (data.status) {
         handleNotification(data.description),
-          $document.trigger('cart:updated', ['error']);
+          $document.trigger("cart:updated", ["error"]);
       } else {
-        $document.trigger('add:cart:success').trigger('add:cart:upsell');
+        $document.trigger("add:cart:success").trigger("add:cart:upsell");
         window.T4SThemeSP.isATCSuccess = true;
         renderCartContents(data.sections);
       }
     } catch (err) {
-      $document.trigger('cart:updated');
+      $document.trigger("cart:updated");
       console.error(err);
     }
   };
 
   // Handle add to cart action
   const handleAddToCartAction = () => {
-    $body.on('click', '[data-action-atc]', async (event) => {
+    $body.on("click", "[data-action-atc]", async (event) => {
       if (ajaxAddToCartEnabled) {
         event.preventDefault();
         const button = window.jQuery(event.target);
@@ -5181,9 +5187,9 @@ window.T4SThemeSP.ProductAjax = (() => {
   // Initialize cart change listeners
   const initializeCartChangeListeners = () => {
     window
-      .jQuery('[data-cart-items]')
+      .jQuery("[data-cart-items]")
       .off(ajaxCartChangeEvent)
-      .on(ajaxCartChangeEvent, '[data-action-change]', (event) => {
+      .on(ajaxCartChangeEvent, "[data-action-change]", (event) => {
         const targetElement = window.jQuery(event.target);
         const input = targetElement.val() || 1;
 
@@ -5191,8 +5197,8 @@ window.T4SThemeSP.ProductAjax = (() => {
           updateCartItem(targetElement, input);
         }
       })
-      .off('click.remove')
-      .on('click.remove', '[data-cart-remove]', (event) => {
+      .off("click.remove")
+      .on("click.remove", "[data-cart-remove]", (event) => {
         if (ajaxCartEnabled) {
           event.preventDefault();
           const targetElement = window.jQuery(event.target);
@@ -5204,9 +5210,9 @@ window.T4SThemeSP.ProductAjax = (() => {
   // Public methods
   return {
     init: function () {
-      $document.on('submitAtc:ts', (event) => {
+      $document.on("submitAtc:ts", (event) => {
         setupAddToCartForm(
-          event.$container.find('[data-type="add-to-cart-form"]')
+          event.$container.find('[data-type="add-to-cart-form"]'),
         );
       });
 
@@ -5221,33 +5227,33 @@ window.T4SThemeSP.ProductAjax = (() => {
 window.T4SThemeSP.T4sQuantityAdjust = () => {
   const stockNoticeMessage = themeStrings.notice_stock_msg;
   const isStockDisabled = T4Sconfigs.disOnlyStock;
-  const currentQuantityAttr = 'data-current-qty';
+  const currentQuantityAttr = "data-current-qty";
 
   // Adds a method to String prototype to get the number of decimal places
   if (!String.prototype.getDecimals) {
     String.prototype.getDecimals = function () {
-      const match = ('' + this).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?/);
+      const match = ("" + this).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?/);
       return match
         ? Math.max(
             0,
-            (match[1] ? match[1].length : 0) - (match[2] ? +match[2] : 0)
+            (match[1] ? match[1].length : 0) - (match[2] ? +match[2] : 0),
           )
         : 0;
     };
   }
 
   const adjustQuantity = () => {
-    $body.on('change', '[data-quantity-value]', (event) => {
+    $body.on("change", "[data-quantity-value]", (event) => {
       const quantityInput = window.jQuery(event.currentTarget);
       const currentQuantity = quantityInput.val() || 1;
-      const maxQuantity = quantityInput.attr('max') || 9999;
-      const minQuantity = quantityInput.attr('min') || 1;
+      const maxQuantity = quantityInput.attr("max") || 9999;
+      const minQuantity = quantityInput.attr("min") || 1;
       const dataCurrentQty = quantityInput.attr(currentQuantityAttr) || 0.1;
-      const formGroup = quantityInput.closest('.fgr_frm');
+      const formGroup = quantityInput.closest(".fgr_frm");
 
       if (formGroup.length > 0) {
         subtt_price_group(formGroup);
-        $body.trigger('currency:update');
+        $body.trigger("currency:update");
       }
 
       if (parseInt(currentQuantity) > parseInt(maxQuantity)) {
@@ -5258,7 +5264,7 @@ window.T4SThemeSP.T4sQuantityAdjust = () => {
         }
         if (isStockDisabled) return;
         return window.T4SThemeSP.Notices(
-          stockNoticeMessage.replace('[max]', maxQuantity)
+          stockNoticeMessage.replace("[max]", maxQuantity),
         );
       }
 
@@ -5274,29 +5280,29 @@ window.T4SThemeSP.T4sQuantityAdjust = () => {
       quantityInput.attr(currentQuantityAttr, currentQuantity);
     });
 
-    $body.on('click', '[data-quantity-selector]', (event) => {
+    $body.on("click", "[data-quantity-selector]", (event) => {
       event.preventDefault();
       const button = window.jQuery(event.currentTarget);
       const quantityInput = button
-        .closest('[data-quantity-wrapper]')
-        .find('[data-quantity-value]');
+        .closest("[data-quantity-wrapper]")
+        .find("[data-quantity-value]");
       let quantityValue = parseFloat(quantityInput.val()) || 0;
-      const maxValue = parseFloat(quantityInput.attr('max')) || Infinity;
-      const minValue = parseFloat(quantityInput.attr('min')) || 0;
-      const stepValue = quantityInput.attr('step') || 1;
+      const maxValue = parseFloat(quantityInput.attr("max")) || Infinity;
+      const minValue = parseFloat(quantityInput.attr("min")) || 0;
+      const stepValue = quantityInput.attr("step") || 1;
 
       const incrementQuantity = () => {
         if (maxValue && quantityValue >= maxValue) {
           quantityInput.val(maxValue);
           if (isStockDisabled) return;
           return window.T4SThemeSP.Notices(
-            stockNoticeMessage.replace('[max]', maxValue)
+            stockNoticeMessage.replace("[max]", maxValue),
           );
         }
         quantityInput.val(
           (quantityValue + parseFloat(stepValue)).toFixed(
-            stepValue.getDecimals()
-          )
+            stepValue.getDecimals(),
+          ),
         );
       };
 
@@ -5306,19 +5312,19 @@ window.T4SThemeSP.T4sQuantityAdjust = () => {
         } else {
           quantityInput.val(
             (quantityValue - parseFloat(stepValue)).toFixed(
-              stepValue.getDecimals()
-            )
+              stepValue.getDecimals(),
+            ),
           );
         }
       };
 
-      if (button.is('[data-increase-qty]')) {
+      if (button.is("[data-increase-qty]")) {
         incrementQuantity();
       } else {
         decrementQuantity();
       }
 
-      quantityInput.trigger('change');
+      quantityInput.trigger("change");
     });
   };
 
@@ -5327,11 +5333,11 @@ window.T4SThemeSP.T4sQuantityAdjust = () => {
 
 var ProductItem = class {
   constructor() {
-    this.templateButtonsHTML = window.$('#btns_pr_temp').html();
-    this.tooltipDataAttribute = 'data-tooltip';
+    this.templateButtonsHTML = window.$("#btns_pr_temp").html();
+    this.tooltipDataAttribute = "data-tooltip";
     this.tooltipAttribute = `${this.tooltipDataAttribute}="`;
-    this.productId = 'id_nt_94';
-    this.handleId = 'handle_nt_94';
+    this.productId = "id_nt_94";
+    this.handleId = "handle_nt_94";
     this.config = window.T4Sconfigs;
     this.productStrings = window.T4SProductStrings;
     this.imgPath = this.config.img2;
@@ -5355,15 +5361,15 @@ var ProductItem = class {
     this.selectOptionText = this.productStrings.selectOption;
     this.quickShopText = this.productStrings.quickShop;
     this.previewText = this.productStrings.preView;
-    this.productTextSelector = '.text-pr';
-    this.svgIconSelector = '.svg-pr-icon use';
-    this.colorOptionsDataAttribute = 'data-color-options';
-    this.productSizeSelector = '.product-sizes';
-    this.loadingClass = 'is--loading';
-    this.openedClass = 'is--opended';
-    this.calculatedClass = 'is--calced';
-    this.limitClass = 'is--limit';
-    this.resizeObserverSelector = '[data-ts-resizeobserver]';
+    this.productTextSelector = ".text-pr";
+    this.svgIconSelector = ".svg-pr-icon use";
+    this.colorOptionsDataAttribute = "data-color-options";
+    this.productSizeSelector = ".product-sizes";
+    this.loadingClass = "is--loading";
+    this.openedClass = "is--opended";
+    this.calculatedClass = "is--calced";
+    this.limitClass = "is--limit";
+    this.resizeObserverSelector = "[data-ts-resizeobserver]";
     this.swatchStyle = this.config.sw_item_style;
     this.swatchLimitData = this.productStrings.swatch_limit;
     this.swatchLimitLessData = this.productStrings.swatch_limit_less;
@@ -5380,37 +5386,37 @@ var ProductItem = class {
       soldOut: this.productStrings.badgeSoldout,
       SavePercent: this.productStrings.badgeSavePercent,
     };
-    this.enabledInitProductsClass = 'initProducts__enabled';
+    this.enabledInitProductsClass = "initProducts__enabled";
 
     // Configure swatch limit
     if (this.swatchLimit) {
-      $html.addClass('pr-item-sw-limit');
+      $html.addClass("pr-item-sw-limit");
       if (this.swatchNum && this.swatchNum > 0) {
         this.maxSwatchCount = this.swatchNum;
       }
     }
 
-    this.collectionUrlDataAttribute = 'data-collection-url';
-    this.collectionUrlSelector = '[data-collection-url]';
-    this.hrefReplacedClass = 'is--href-replaced';
-    this.productHrefSelector = '[data-pr-href]:not(.is--href-replaced)';
-    this.productPath = '/products/';
+    this.collectionUrlDataAttribute = "data-collection-url";
+    this.collectionUrlSelector = "[data-collection-url]";
+    this.hrefReplacedClass = "is--href-replaced";
+    this.productHrefSelector = "[data-pr-href]:not(.is--href-replaced)";
+    this.productPath = "/products/";
     this.collectionData = [];
   }
 
   init() {
     this.updateCollection();
     this.productOptions = window.jQuery(
-      '[data-product-options]:not(.is--pr-created)'
+      "[data-product-options]:not(.is--pr-created)",
     );
 
     this.productOptions.each((_, product) => {
       const $product = window.jQuery(product);
       const productData = parseJsonOrDefault(
-        $product.attr('data-product-options')
+        $product.attr("data-product-options"),
       );
-      const imgLink = $product.find('[data-pr-href]').attr('href');
-      if (typeof productData.unQuickShopInline != 'boolean') {
+      const imgLink = $product.find("[data-pr-href]").attr("href");
+      if (typeof productData.unQuickShopInline != "boolean") {
         productData.unQuickShopInline = true;
       }
       const image2 = productData.image2;
@@ -5422,7 +5428,7 @@ var ProductItem = class {
       this.updateColorVariants($product, productData);
       this.recalculateSwatches();
       this.initializeQuickShopInline(product, $product, productData);
-      $product.addClass('is--pr-created');
+      $product.addClass("is--pr-created");
     });
 
     window.T4SThemeSP.Tooltip();
@@ -5441,13 +5447,13 @@ var ProductItem = class {
       return;
     }
 
-    const quickShopIndicator = productElement.find('[data-qs-inl]');
+    const quickShopIndicator = productElement.find("[data-qs-inl]");
 
     // Initialize Quick Shop if it's not already lazy-loaded
-    if (quickShopIndicator.hasClass('lazyloaded')) {
+    if (quickShopIndicator.hasClass("lazyloaded")) {
       new window.T4SThemeSP.Product(element);
     } else {
-      quickShopIndicator.one('lazyincluded', function () {
+      quickShopIndicator.one("lazyincluded", function () {
         new window.T4SThemeSP.Product(element);
       });
     }
@@ -5464,7 +5470,7 @@ var ProductItem = class {
           window.jQuery(selector).each((_, item) => {
             const colorContainer = window.jQuery(item);
             const totalItems =
-              colorContainer.find('.pr-color__item').length - 1;
+              colorContainer.find(".pr-color__item").length - 1;
             const excessItems = totalItems - this.swatchNum;
 
             fastdomT4s.mutate(() => {
@@ -5472,20 +5478,20 @@ var ProductItem = class {
                 .addClass(this.calculatedClass)
                 .removeClass(this.limitClass);
               colorContainer
-                .find('.is-color--limit')
-                .removeClass('is-color--limit');
+                .find(".is-color--limit")
+                .removeClass("is-color--limit");
 
               if (excessItems > 0) {
                 colorContainer.addClass(this.limitClass);
                 colorContainer
-                  .find('.pr-color__item')
+                  .find(".pr-color__item")
                   .eq(this.swatchNum - 1)
-                  .addClass('is-color--limit');
+                  .addClass("is-color--limit");
                 colorContainer
-                  .attr('data-limit', totalItems)
+                  .attr("data-limit", totalItems)
                   .attr(
-                    'style',
-                    `--text: "+${excessItems}"; --text2: "-${excessItems}"`
+                    "style",
+                    `--text: "+${excessItems}"; --text2: "-${excessItems}"`,
                   );
               }
             });
@@ -5495,11 +5501,11 @@ var ProductItem = class {
         fastdomT4s.measure(() => {
           window.jQuery(selector).each((_, item) => {
             const colorContainer = window.jQuery(item);
-            const items = colorContainer.find('.pr-color__item');
+            const items = colorContainer.find(".pr-color__item");
             const itemWidth = items.outerWidth(true);
             const totalItems = items.length - 1;
             const visibleItems = Math.floor(
-              colorContainer.outerWidth() / itemWidth
+              colorContainer.outerWidth() / itemWidth,
             );
             const excessItems = totalItems - visibleItems;
 
@@ -5508,21 +5514,21 @@ var ProductItem = class {
                 .addClass(this.calculatedClass)
                 .removeClass(this.limitClass);
               colorContainer
-                .find('.is-color--limit')
-                .removeClass('is-color--limit');
+                .find(".is-color--limit")
+                .removeClass("is-color--limit");
 
               if (excessItems > 0 && excessItems !== totalItems) {
                 const adjustedExcess = excessItems + 1;
                 colorContainer.addClass(this.limitClass);
                 colorContainer
-                  .find('.pr-color__item')
+                  .find(".pr-color__item")
                   .eq(visibleItems - 2)
-                  .addClass('is-color--limit');
+                  .addClass("is-color--limit");
                 colorContainer
-                  .attr('data-limit', visibleItems)
+                  .attr("data-limit", visibleItems)
                   .attr(
-                    'style',
-                    `--text: "+${adjustedExcess}"; --text2: "-${adjustedExcess}"`
+                    "style",
+                    `--text: "+${adjustedExcess}"; --text2: "-${adjustedExcess}"`,
                   );
               }
             });
@@ -5534,12 +5540,12 @@ var ProductItem = class {
 
   updateColorVariants(productContainer, productUrl) {
     const colorVariantElements = productContainer.find(
-      `[${this.colorOptionsDataAttribute}]`
+      `[${this.colorOptionsDataAttribute}]`,
     );
 
     if (colorVariantElements.length > 0) {
       const variantData = JSON.parse(
-        colorVariantElements.attr(this.colorOptionsDataAttribute) || '{}'
+        colorVariantElements.attr(this.colorOptionsDataAttribute) || "{}",
       );
       const {
         color_variants: colorVariants,
@@ -5552,7 +5558,7 @@ var ProductItem = class {
         img_ratios: imgRatios,
       } = variantData;
 
-      let colorHtml = '';
+      let colorHtml = "";
       const hasImgVariants = imgVariants.length > 0;
       const totalVariants = colorVariants.length;
       const isSomeSoldOut = totalVariants !== availableVariants.length;
@@ -5560,27 +5566,27 @@ var ProductItem = class {
       for (let index = 0; index < totalVariants; index++) {
         const colorName = colorVariants[index];
         const colorIndex = imgOptions.indexOf(colorName);
-        const imgVariant = hasImgVariants ? imgVariants[colorIndex] : 'nt94';
+        const imgVariant = hasImgVariants ? imgVariants[colorIndex] : "nt94";
         const lazyloadImage =
-          imgVariant !== 'nt94'
+          imgVariant !== "nt94"
             ? window.T4SThemeSP.Images.lazyloadImagePath(imgVariant)
-            : 'none';
+            : "none";
         const bgImageData =
-          imgVariant !== 'nt94' && this.swatchStyle === '2'
+          imgVariant !== "nt94" && this.swatchStyle === "2"
             ? `data-bg="${T4SThemeSP.Images.getNewImageUrl(imgVariant, 100)}"`
-            : '';
+            : "";
         const soldOutClass =
           isSomeSoldOut && availableVariants.indexOf(colorName) < 0
-            ? ' pr-color--sold-out'
-            : '';
+            ? " pr-color--sold-out"
+            : "";
 
         colorHtml += `
-                <span data-imgid="${imgIds[colorIndex] || '0'}" 
+                <span data-imgid="${imgIds[colorIndex] || "0"}" 
                       class="pr-color__item${soldOutClass}" 
                       data-vid="${variantIds[colorIndex]}" 
                       data-tooltip="top" 
                       data-img="${lazyloadImage}" 
-                      data-ratio="${imgRatios[colorIndex] || ''}">
+                      data-ratio="${imgRatios[colorIndex] || ""}">
                     <span class="pr-color__name">${colorName}</span>
                     <span class="pr-color__value bg_color_${
                       variantHandles[index]
@@ -5602,20 +5608,20 @@ var ProductItem = class {
       // Fetch product options if necessary
       if (productContainer.find(this.productSizeSelector).length > 0) {
         const productOptions = productContainer
-          .closest('[data-product-options]')
-          .data('product-options');
+          .closest("[data-product-options]")
+          .data("product-options");
 
         if (T4sFunc.psjson_lib[productOptions.id] === undefined) {
           $.ajax({
             url: `${Shopify.routes.root}products/${productOptions.handle}.js`,
-            type: 'GET',
-            dataType: 'json',
+            type: "GET",
+            dataType: "json",
           })
             .done((response) => {
               T4sFunc.psjson_lib[productOptions.id] = response;
             })
             .fail(() => {
-              console.error('Failed to fetch product options.');
+              console.error("Failed to fetch product options.");
             })
             .always(() => {
               // Any additional cleanup can go here if necessary
@@ -5627,7 +5633,7 @@ var ProductItem = class {
 
   initializeQuickShop() {
     const quickShopElement = window.jQuery(
-      `.product-quick-shop:not(.${this.enabledInitProductsClass})`
+      `.product-quick-shop:not(.${this.enabledInitProductsClass})`,
     );
     quickShopElement.addClass(this.enabledInitProductsClass);
 
@@ -5642,21 +5648,21 @@ var ProductItem = class {
     window.T4SThemeSP.Compare.updateAll();
     window.T4SThemeSP.ProductItem.reloadReview();
     window.T4SThemeSP.Tooltip();
-    $body.trigger('currency:update');
+    $body.trigger("currency:update");
   }
 
   initializeQuickView() {
-    const quickViewElement = window.jQuery('.product-quick-view');
+    const quickViewElement = window.jQuery(".product-quick-view");
     const featuredProducts = quickViewElement.find(
-      `[data-product-featured]:not(.${this.enabledInitProductsClass})`
+      `[data-product-featured]:not(.${this.enabledInitProductsClass})`,
     );
 
     featuredProducts.addClass(this.enabledInitProductsClass);
 
-    const mainMedia = quickViewElement.find('[data-main-media]');
+    const mainMedia = quickViewElement.find("[data-main-media]");
     if (
-      mainMedia.hasClass('flickity') &&
-      !mainMedia.hasClass('flickity-enabled')
+      mainMedia.hasClass("flickity") &&
+      !mainMedia.hasClass("flickity-enabled")
     ) {
       mainMedia[0].flickity = new window.T4SThemeSP.Carousel(mainMedia[0]);
     }
@@ -5673,33 +5679,33 @@ var ProductItem = class {
     window.T4SThemeSP.Compare.updateAll();
     window.T4SThemeSP.ProductItem.reloadReview();
     window.T4SThemeSP.Tooltip();
-    $body.trigger('currency:update');
+    $body.trigger("currency:update");
   }
 
   initQuickVS() {
     if (this.showQuantity) {
-      $html.addClass('pr-item-has-qty');
+      $html.addClass("pr-item-has-qty");
     }
 
     $body.on(
-      'click',
-      '[data-action-quickview], [data-action-quickshop]',
+      "click",
+      "[data-action-quickview], [data-action-quickshop]",
       (event) => {
         event.preventDefault();
         const clickedElement = window.jQuery(event.currentTarget);
 
         if (!clickedElement.hasClass(this.loadingClass)) {
-          const href = clickedElement.attr('href');
-          const isQuickView = clickedElement.is('[data-action-quickview]');
-          const actionType = isQuickView ? 'main-qv' : 'main-qs';
-          const openEvent = isQuickView ? 'opening-qv' : 'opening-qs';
-          const productId = clickedElement.data('id');
+          const href = clickedElement.attr("href");
+          const isQuickView = clickedElement.is("[data-action-quickview]");
+          const actionType = isQuickView ? "main-qv" : "main-qs";
+          const openEvent = isQuickView ? "opening-qv" : "opening-qs";
+          const productId = clickedElement.data("id");
           const popupContent = this.collectionData[actionType + productId];
 
           window.T4SThemeSP.isEditCartReplace =
-            '0' === clickedElement.data('edit');
+            "0" === clickedElement.data("edit");
           window.T4SThemeSP.iDVariantEdit = productId;
-          window.T4SThemeSP.keyVariantEdit = clickedElement.data('key');
+          window.T4SThemeSP.keyVariantEdit = clickedElement.data("key");
 
           if (popupContent) {
             window.T4SThemeSP.NTpopupInline(
@@ -5708,9 +5714,9 @@ var ProductItem = class {
               isQuickView
                 ? this.initializeQuickView.bind(this)
                 : this.initializeQuickShop.bind(this),
-              openEvent
+              openEvent,
             );
-            $html.trigger('modal:opened');
+            $html.trigger("modal:opened");
           } else {
             this.handleCartUpdate(
               clickedElement,
@@ -5718,11 +5724,11 @@ var ProductItem = class {
               href,
               actionType,
               openEvent,
-              isQuickView
+              isQuickView,
             );
           }
         }
-      }
+      },
     );
   }
 
@@ -5732,27 +5738,27 @@ var ProductItem = class {
     href,
     actionType,
     openEvent,
-    isQuickView
+    isQuickView,
   ) {
     if (window.T4SThemeSP.isEditCartReplace) {
-      const cartItem = clickedElement.closest('[data-cart-item]');
-      const cartWrapper = clickedElement.closest('[data-cart-wrapper]');
-      const loadingBar = cartItem.find('.cart-ld__bar');
-      const spinner = loadingBar.find('.cart-spinner');
+      const cartItem = clickedElement.closest("[data-cart-item]");
+      const cartWrapper = clickedElement.closest("[data-cart-wrapper]");
+      const loadingBar = cartItem.find(".cart-ld__bar");
+      const spinner = loadingBar.find(".cart-spinner");
 
-      cartWrapper.addClass('is--contentUpdate');
-      cartItem.addClass('is--update');
-      loadingBar.removeAttr('hidden');
-      spinner.removeAttr('hidden');
+      cartWrapper.addClass("is--contentUpdate");
+      cartItem.addClass("is--update");
+      loadingBar.removeAttr("hidden");
+      spinner.removeAttr("hidden");
 
-      $document.on('cart:updated', (event, status = 'success') => {
-        cartWrapper.removeClass('is--contentUpdate');
-        $document.off('cart:updated');
-        cartItem.removeClass('is--update');
-        loadingBar.attr('hidden', '');
-        spinner.attr('hidden', '');
-        if (status === 'success') {
-          $html.trigger('modal:closed');
+      $document.on("cart:updated", (event, status = "success") => {
+        cartWrapper.removeClass("is--contentUpdate");
+        $document.off("cart:updated");
+        cartItem.removeClass("is--update");
+        loadingBar.attr("hidden", "");
+        spinner.attr("hidden", "");
+        if (status === "success") {
+          $html.trigger("modal:closed");
         }
       });
     } else {
@@ -5761,16 +5767,16 @@ var ProductItem = class {
 
     fetch(
       `${href}${
-        href.includes('?') || href.includes('&') ? '&' : '/?'
-      }section_id=${actionType}`
+        href.includes("?") || href.includes("&") ? "&" : "/?"
+      }section_id=${actionType}`,
     )
       .then((response) => response.text())
       .then((content) => {
         clickedElement.removeClass(this.loadingClass);
-        $document.trigger('cart:updated');
+        $document.trigger("cart:updated");
 
         const htmlContent = IsDesignMode
-          ? window.jQuery(content).find('template').html()
+          ? window.jQuery(content).find("template").html()
           : window.jQuery(content).html();
         window.T4SThemeSP.NTpopupInline(
           htmlContent,
@@ -5778,116 +5784,116 @@ var ProductItem = class {
           isQuickView
             ? this.initializeQuickView.bind(this)
             : this.initializeQuickShop.bind(this),
-          openEvent
+          openEvent,
         );
-        $body.trigger('modal:opened');
+        $body.trigger("modal:opened");
         this.collectionData[actionType + productId] = htmlContent;
       })
       .catch((error) => {
         clickedElement.removeClass(this.loadingClass);
-        $document.trigger('cart:updated');
+        $document.trigger("cart:updated");
         console.error(error);
       });
   }
 
   updateQuickViewButtons(productContainer, productInfo, productLink) {
-    const quickViewElements = productContainer.find('[data-replace-quickview]');
+    const quickViewElements = productContainer.find("[data-replace-quickview]");
     let tooltipDataAttr =
-      quickViewElements.attr(this.tooltipDataAttribute) || '';
+      quickViewElements.attr(this.tooltipDataAttribute) || "";
     const productHandle = productInfo.id;
 
-    const compareElements = productContainer.find('[data-replace-compare]');
+    const compareElements = productContainer.find("[data-replace-compare]");
     let compareElementsAttr =
-      compareElements.attr(this.tooltipDataAttribute) || '';
-    const wishlistElements = productContainer.find('[data-replace-wishlist]');
+      compareElements.attr(this.tooltipDataAttribute) || "";
+    const wishlistElements = productContainer.find("[data-replace-wishlist]");
     let wishlistElementsAttr =
-      wishlistElements.attr(this.tooltipDataAttribute) || '';
-    let addToCartElements = productContainer.find('[data-replace-atc]');
+      wishlistElements.attr(this.tooltipDataAttribute) || "";
+    let addToCartElements = productContainer.find("[data-replace-atc]");
 
-    const hasQuantity = addToCartElements.is('[data-has-qty]');
+    const hasQuantity = addToCartElements.is("[data-has-qty]");
     let addToCartTooltip =
-      addToCartElements.attr(this.tooltipDataAttribute) || '';
+      addToCartElements.attr(this.tooltipDataAttribute) || "";
     const urlTemplate = this.templateButtonsHTML
       .replace(/#pr_url/g, productLink)
-      .split('[split_nt]');
+      .split("[split_nt]");
 
     // Update quick view buttons
     quickViewElements.each((_, element) => {
-      tooltipDataAttr = window.$(element).attr(this.tooltipDataAttribute) || '';
+      tooltipDataAttr = window.$(element).attr(this.tooltipDataAttribute) || "";
       window
         .$(element)
         .replaceWith(
           urlTemplate[0]
             .replace(
               this.tooltipAttribute,
-              `${this.tooltipAttribute}${tooltipDataAttr}`
+              `${this.tooltipAttribute}${tooltipDataAttr}`,
             )
-            .replace('id_nt_94', productHandle)
+            .replace("id_nt_94", productHandle),
         );
     });
 
     // Update compare buttons
     compareElements.each((_, element) => {
       compareElementsAttr =
-        window.$(element).attr(this.tooltipDataAttribute) || '';
+        window.$(element).attr(this.tooltipDataAttribute) || "";
       window
         .$(element)
         .replaceWith(
           urlTemplate[1]
             .replace(
               this.tooltipAttribute,
-              `${this.tooltipAttribute}${compareElementsAttr}`
+              `${this.tooltipAttribute}${compareElementsAttr}`,
             )
-            .replace('id_nt_94', productHandle)
-            .replace('handle_nt_94', productInfo.handle)
+            .replace("id_nt_94", productHandle)
+            .replace("handle_nt_94", productInfo.handle),
         );
     });
 
     // Update wishlist buttons
     wishlistElements.each((_, element) => {
       wishlistElementsAttr =
-        window.$(element).attr(this.tooltipDataAttribute) || '';
+        window.$(element).attr(this.tooltipDataAttribute) || "";
       window
         .$(element)
         .replaceWith(
           urlTemplate[2]
             .replace(
               this.tooltipAttribute,
-              `${this.tooltipAttribute}${wishlistElementsAttr}`
+              `${this.tooltipAttribute}${wishlistElementsAttr}`,
             )
-            .replace('id_nt_94', productHandle)
-            .replace('handle_nt_94', productInfo.handle)
+            .replace("id_nt_94", productHandle)
+            .replace("handle_nt_94", productInfo.handle),
         );
     });
 
     // Update add to cart buttons
     addToCartElements.each((_, element) => {
       addToCartTooltip =
-        addToCartElements.attr(this.tooltipDataAttribute) || '';
+        addToCartElements.attr(this.tooltipDataAttribute) || "";
       window
         .$(element)
         .replaceWith(
           urlTemplate[3]
             .replace(
               this.tooltipAttribute,
-              `${this.tooltipAttribute}${addToCartTooltip}`
+              `${this.tooltipAttribute}${addToCartTooltip}`,
             )
-            .replace('id_nt_94', productHandle)
+            .replace("id_nt_94", productHandle),
         );
     });
 
-    addToCartElements = productContainer.find('[data-atc-selector]');
+    addToCartElements = productContainer.find("[data-atc-selector]");
     const atcSelectorElements = addToCartElements.find(
-      this.productTextSelector
+      this.productTextSelector,
     );
     const svgIconElements = atcSelectorElements.find(this.svgIconSelector);
 
     // Handling external links
     if (productInfo.isExternal) {
       addToCartElements
-        .attr('href', productInfo.external_link)
-        .attr('target', '_blank');
-      atcSelectorElements.attr('href', '#icon-external');
+        .attr("href", productInfo.external_link)
+        .attr("target", "_blank");
+      atcSelectorElements.attr("href", "#icon-external");
       svgIconElements.text(productInfo.external_title);
     } else if (productInfo.available) {
       if (productInfo.isGrouped) {
@@ -5897,9 +5903,9 @@ var ProductItem = class {
           atcSelectorElements.text(this.preOrderText);
         }
         addToCartElements.attr({
-          'data-action-atc': '',
-          'data-variant-id': productInfo.VariantFirstID,
-          'data-qty': productInfo.cusQty || 1,
+          "data-action-atc": "",
+          "data-variant-id": productInfo.VariantFirstID,
+          "data-qty": productInfo.cusQty || 1,
         });
 
         if (this.showQuantity && hasQuantity && addToCartElements[0]) {
@@ -5908,27 +5914,27 @@ var ProductItem = class {
             .replace('max="9999"', `max="${productInfo.maxQuantity}"`)
             .replace('min="1"', `min="${productInfo.cusQty || 1}"`);
           addToCartElements.replaceWith(
-            `<div class="product-atc-qty">${quantityTemplate}${outerHTML}</div>`
+            `<div class="product-atc-qty">${quantityTemplate}${outerHTML}</div>`,
           );
         }
       } else if (this.enableQuickShop && productInfo.unQuickShopInline) {
-        addToCartElements.attr('data-action-quickshop', '');
+        addToCartElements.attr("data-action-quickshop", "");
         atcSelectorElements.text(this.quickShopText);
       } else {
         atcSelectorElements.text(this.selectOptionText);
       }
     } else {
       atcSelectorElements.text(this.readMoreText);
-      svgIconElements.attr('href', '#icon-link');
+      svgIconElements.attr("href", "#icon-link");
     }
 
     // Handling inline quick shop and button replacement
     if (!productInfo.unQuickShopInline) {
-      productContainer.one('replace:btnAtc', () => {
+      productContainer.one("replace:btnAtc", () => {
         addToCartElements.attr({
-          'data-action-atc': '',
-          'data-variant-id': productInfo.VariantFirstID,
-          'data-qty': productInfo.cusQty || 1,
+          "data-action-atc": "",
+          "data-variant-id": productInfo.VariantFirstID,
+          "data-qty": productInfo.cusQty || 1,
         });
 
         if (this.showQuantity && hasQuantity && addToCartElements[0]) {
@@ -5937,7 +5943,7 @@ var ProductItem = class {
             .replace('max="9999"', `max="${productInfo.maxQuantity}"`)
             .replace('min="1"', `min="${productInfo.cusQty || 1}"`);
           addToCartElements.replaceWith(
-            `<div class="product-atc-qty">${quantityTemplate}${outerHTML}</div>`
+            `<div class="product-atc-qty">${quantityTemplate}${outerHTML}</div>`,
           );
         }
       });
@@ -5961,11 +5967,11 @@ var ProductItem = class {
           .each((_, link) => {
             const href = window
               .jQuery(link)
-              .attr('href')
+              .attr("href")
               .split(this.productPath)[1];
             window
               .jQuery(link)
-              .attr('href', this.itemUrl + this.productPath + href)
+              .attr("href", this.itemUrl + this.productPath + href)
               .addClass(this.hrefReplacedClass);
           });
       });
@@ -5973,32 +5979,32 @@ var ProductItem = class {
   }
 
   shouldShowImage2(image2) {
-    return image2 && T4Sconfigs.img2 === '2';
+    return image2 && T4Sconfigs.img2 === "2";
   }
 
   createImageHtml($product, image2, altText) {
-    let imageTemplate = '';
-    if (this.showImage == '2' && $product) {
+    let imageTemplate = "";
+    if (this.showImage == "2" && $product) {
       imageTemplate = image2
-        .replace('image_src', image2)
-        .replace('image_alt', altText);
-      $product.find('.product-img').addClass('is-show-img2');
+        .replace("image_src", image2)
+        .replace("image_alt", altText);
+      $product.find(".product-img").addClass("is-show-img2");
     }
-    $product.find('[data-replace-img2]').replaceWith(imageTemplate);
+    $product.find("[data-replace-img2]").replaceWith(imageTemplate);
   }
 
   updateProductBadges(productContainer, productData) {
-    const badgeElements = productContainer.find('[data-product-badge]');
-    const badgeSortOrder = (badgeElements.attr('data-sort') || '')
-      .replace(/ /g, '')
-      .split(',');
-    let badgeHtml = '';
+    const badgeElements = productContainer.find("[data-product-badge]");
+    const badgeSortOrder = (badgeElements.attr("data-sort") || "")
+      .replace(/ /g, "")
+      .split(",");
+    let badgeHtml = "";
     const shouldShowBadges = !productData.unQuickShopInline;
 
     if (badgeSortOrder.length > 0 && badgeElements.length > 0) {
       for (const badgeType of badgeSortOrder) {
         switch (badgeType) {
-          case 'sale': {
+          case "sale": {
             const compareAtPrice = productData.compare_at_price;
             const currentPrice = productData.price;
 
@@ -6011,14 +6017,14 @@ var ProductItem = class {
             }
 
             let saleAmount;
-            if (this.saleLabelStyle === '2') {
+            if (this.saleLabelStyle === "2") {
               const discountPercentage =
                 (100 * (compareAtPrice - currentPrice)) / compareAtPrice;
               saleAmount = this.badges.SavePercent.replace(
-                '[sale]',
-                Math.round(discountPercentage)
+                "[sale]",
+                Math.round(discountPercentage),
               );
-            } else if (this.saleLabelStyle === '3') {
+            } else if (this.saleLabelStyle === "3") {
               const discountAmount = compareAtPrice - currentPrice;
               saleAmount =
                 window.T4SThemeSP.Currency.formatMoney(discountAmount);
@@ -6028,7 +6034,7 @@ var ProductItem = class {
             badgeHtml += `<span data-badge-sale class="badge-item badge-sale">${saleAmount}</span>`;
             break;
           }
-          case 'preOrder': {
+          case "preOrder": {
             if (!productData.isPreoder || !_) {
               if (shouldShowBadges) {
                 badgeHtml += `<span data-badge-preorder class="badge-item badge-preorder" hidden>${this.badges[badgeType]}</span>`;
@@ -6038,7 +6044,7 @@ var ProductItem = class {
             badgeHtml += `<span data-badge-preorder class="badge-item badge-preorder">${this.badges[badgeType]}</span>`;
             break;
           }
-          case 'new': {
+          case "new": {
             const timeSinceLaunch =
               this.currentTimestamp - productData.dateStart;
             const daysSinceLaunch = Math.floor(timeSinceLaunch / 3600 / 24);
@@ -6049,7 +6055,7 @@ var ProductItem = class {
             badgeHtml += `<span class="badge-item badge-new">${this.badges[badgeType]}</span>`;
             break;
           }
-          case 'soldout': {
+          case "soldout": {
             if (productData.available || !this.useSoldOutBadge) {
               if (shouldShowBadges) {
                 badgeHtml += `<span data-badge-soldout class="badge-item badge-soldout" hidden>${this.badges[badgeType]}</span>`;
@@ -6075,7 +6081,7 @@ var ProductItem = class {
   }
 
   createColorSwatch(color, handle, isSoldOut) {
-    const soldOutClass = isSoldOut ? 'pr-color--sold-out' : '';
+    const soldOutClass = isSoldOut ? "pr-color--sold-out" : "";
     return `
           <span data-imgid="0" class="pr-color__item ${soldOutClass}" data-vid="${handle}">
               <span class="pr-color__name">${color}</span>
@@ -6086,17 +6092,17 @@ var ProductItem = class {
 
   addBadges($product, productData) {
     const badgesHtml = this.createBadgesHtml(productData);
-    $product.find('[data-product-badge]').html(badgesHtml);
+    $product.find("[data-product-badge]").html(badgesHtml);
   }
 
   createBadgesHtml(productData) {
-    let badges = '';
+    let badges = "";
     // Implement logic for creating badge HTML based on productData
     return badges;
   }
   clickMoreSwatches() {
-    if (this.swatchLimit && this.swatchClick !== '2') {
-      $body.on('click', '.pr-color__item.is--colors-more > a', (event) => {
+    if (this.swatchLimit && this.swatchClick !== "2") {
+      $body.on("click", ".pr-color__item.is--colors-more > a", (event) => {
         event.preventDefault();
         const colorItemContainer = window
           .jQuery(event.currentTarget)
@@ -6119,61 +6125,61 @@ var ProductItem = class {
 
   handleSwatchSelection(selectedSwatch) {
     const productOptionsContainer = selectedSwatch.closest(
-      '[data-product-options]'
+      "[data-product-options]",
     );
-    const productOptionsData = productOptionsContainer.data('product-options');
+    const productOptionsData = productOptionsContainer.data("product-options");
 
     // Handle the case when the image ID is "0"
-    if (selectedSwatch.data('imgid') === '0') {
-      const imageSource = selectedSwatch.data('img');
-      const variantId = selectedSwatch.data('vid');
-      const imageElements = productOptionsContainer.find('[data-pr-img]');
-      const linkElement = productOptionsContainer.find('[data-pr-href]');
-      const href = linkElement.attr('href');
+    if (selectedSwatch.data("imgid") === "0") {
+      const imageSource = selectedSwatch.data("img");
+      const variantId = selectedSwatch.data("vid");
+      const imageElements = productOptionsContainer.find("[data-pr-img]");
+      const linkElement = productOptionsContainer.find("[data-pr-href]");
+      const href = linkElement.attr("href");
 
       // Update the selected color option
       selectedSwatch
-        .closest('[data-color-options]')
-        .find('.is-swatch--selected')
-        .removeClass('is-swatch--selected');
-      selectedSwatch.addClass('is-swatch--selected');
-      productOptionsContainer.addClass('colors-selected');
+        .closest("[data-color-options]")
+        .find(".is-swatch--selected")
+        .removeClass("is-swatch--selected");
+      selectedSwatch.addClass("is-swatch--selected");
+      productOptionsContainer.addClass("colors-selected");
 
       // Set the new image source
-      imageElements.attr('data-srcset', imageSource);
+      imageElements.attr("data-srcset", imageSource);
 
       // Update the href if necessary
-      if (this.currentProduct !== '1' && variantId !== undefined) {
+      if (this.currentProduct !== "1" && variantId !== undefined) {
         linkElement.attr(
-          'href',
+          "href",
           (() => {
             return /variant=/.test(href)
               ? href.replace(/(variant=)[^&]+/, `$1${variantId}`)
-              : href.includes('?')
-              ? `${href}&variant=${variantId}`
-              : `${href}?variant=${variantId}`;
-          })()
+              : href.includes("?")
+                ? `${href}&variant=${variantId}`
+                : `${href}?variant=${variantId}`;
+          })(),
         );
 
         // Update the available sizes if product options exist
         if (window.T4sFunc.psjson_lib[productOptionsData.id] !== undefined) {
           let sizeContainer = productOptionsContainer.find(
-            this.productSizeSelector
+            this.productSizeSelector,
           );
-          let sizeOptions = sizeContainer.find('>span');
+          let sizeOptions = sizeContainer.find(">span");
           let variants =
             window.T4sFunc.psjson_lib[productOptionsData.id].variants;
           let selectedVariant = variants.find(
-            (variant) => variant.id === variantId
+            (variant) => variant.id === variantId,
           );
           let sameColorVariants = variants.filter(
             (variant) =>
               variant[productOptionsData.index_color] ===
-              selectedVariant[productOptionsData.index_color]
+              selectedVariant[productOptionsData.index_color],
           );
 
           // Reset sold-out classes
-          sizeOptions.removeClass('product-sizes--sold-out');
+          sizeOptions.removeClass("product-sizes--sold-out");
           let availableCount = 0;
 
           // Update the availability of sizes
@@ -6181,24 +6187,24 @@ var ProductItem = class {
             if (variant.available) {
               availableCount++;
             } else {
-              sizeOptions.eq(index).addClass('product-sizes--sold-out');
+              sizeOptions.eq(index).addClass("product-sizes--sold-out");
             }
           });
 
-          sizeContainer.attr('data-size', availableCount);
+          sizeContainer.attr("data-size", availableCount);
         }
       }
     } else {
       // Handle the case when the image ID is not "0"
       let carousel = productOptionsContainer.find(
-        '.flickity-enabled[data-product-img-carousel]'
+        ".flickity-enabled[data-product-img-carousel]",
       );
       if (carousel.length === 0) return;
 
-      let imgId = selectedSwatch.data('imgid');
+      let imgId = selectedSwatch.data("imgid");
       carousel.flickity(
-        'select',
-        carousel.find(`[data-product-img-slide="${imgId}"]`).index()
+        "select",
+        carousel.find(`[data-product-img-slide="${imgId}"]`).index(),
       );
     }
   }
@@ -6206,7 +6212,7 @@ var ProductItem = class {
   swatchesClickHover() {
     if (window.T4SThemeSP.isTouch) {
       // Handle click events for touch devices
-      $body.on('click', this.colorItemSelector, (event) => {
+      $body.on("click", this.colorItemSelector, (event) => {
         this.handleSwatchSelection(window.jQuery(event.currentTarget));
       });
     } else {
@@ -6231,9 +6237,9 @@ var ProductItem = class {
     // Select products that need to be observed for resizing
     const unobservedProducts = window.jQuery(
       this.resizeObserverSelector +
-        '.flickity-enabled .product:not(.observered), ' +
+        ".flickity-enabled .product:not(.observered), " +
         this.resizeObserverSelector +
-        '.isotope-enabled .product:not(.observered)'
+        ".isotope-enabled .product:not(.observered)",
     );
 
     if (unobservedProducts.length > 0 && window.ResizeObserver) {
@@ -6242,22 +6248,22 @@ var ProductItem = class {
         entries.forEach((entry) => {
           const productElement = window.jQuery(entry.target);
           const closestContainer = productElement.is(
-            this.resizeObserverSelector
+            this.resizeObserverSelector,
           )
             ? productElement
             : productElement.closest(this.resizeObserverSelector);
 
           clearTimeout(resizeTimeout);
-          closestContainer.addClass('is---doing');
+          closestContainer.addClass("is---doing");
 
           // Delay the resize operation to optimize performance
           resizeTimeout = setTimeout(() => {
-            if (closestContainer.hasClass('flickity-enabled')) {
-              closestContainer.flickity('resize');
-            } else if (closestContainer.hasClass('isotope-enabled')) {
-              closestContainer.isotope('layout');
+            if (closestContainer.hasClass("flickity-enabled")) {
+              closestContainer.flickity("resize");
+            } else if (closestContainer.hasClass("isotope-enabled")) {
+              closestContainer.isotope("layout");
             }
-            closestContainer.removeClass('is---doing');
+            closestContainer.removeClass("is---doing");
           }, 28);
         });
       });
@@ -6266,12 +6272,12 @@ var ProductItem = class {
       unobservedProducts.each((_, element) => {
         const productElement = window.jQuery(element);
         resizeObserverInstance.observe(element);
-        productElement.addClass('observered');
+        productElement.addClass("observered");
 
         // Clean up when the product element is destroyed
-        productElement.one('destroy.observered', function () {
+        productElement.one("destroy.observered", function () {
           resizeObserverInstance.unobserve(element);
-          productElement.removeClass('observered');
+          productElement.removeClass("observered");
         });
       });
     }
@@ -6279,53 +6285,53 @@ var ProductItem = class {
 
   reloadReview() {
     // Check the review loading mode
-    if (this.appReviewConfig === '1') {
+    if (this.appReviewConfig === "1") {
       try {
         // Initialize and load reviews if SPR is available
-        if (window.SPR && window.jQuery('.spr-badge').length > 0) {
+        if (window.SPR && window.jQuery(".spr-badge").length > 0) {
           SPR.initDomEls();
           SPR.loadBadges();
         }
       } catch (error) {
-        console.error('Error loading SPR badges:', error);
+        console.error("Error loading SPR badges:", error);
       }
-    } else if (this.appReviewConfig === '8') {
+    } else if (this.appReviewConfig === "8") {
       // Handle Smartify reviews if applicable
-      if (typeof SMARTIFYAPPS !== 'undefined' && SMARTIFYAPPS.rv.installed) {
+      if (typeof SMARTIFYAPPS !== "undefined" && SMARTIFYAPPS.rv.installed) {
         SMARTIFYAPPS.rv.scmReviewsRate.actionCreateReviews();
       }
-      if (typeof airReviewDisplayManager !== 'undefined') {
+      if (typeof airReviewDisplayManager !== "undefined") {
         airReviewDisplayManager.initialize();
       }
-    } else if (this.appReviewConfig === '6') {
+    } else if (this.appReviewConfig === "6") {
       // Trigger custom event to reload reviews
-      $body.trigger('reloadReview.ts');
+      $body.trigger("reloadReview.ts");
     }
   }
 
   loadjsRevew() {
-    '6' == this.appReviewConfig && $script(window.T4Sconfigs.script12);
+    "6" == this.appReviewConfig && $script(window.T4Sconfigs.script12);
   }
 };
 
 window.T4SThemeSP.agreeForm = () => {
   let initialized = false;
-  const checkboxSelector = '[data-agree-checkbox]';
+  const checkboxSelector = "[data-agree-checkbox]";
 
   if (!initialized && document.querySelectorAll(checkboxSelector).length > 0) {
     initialized = true;
 
     // Click event for buttons
-    document.addEventListener('click', (event) => {
+    document.addEventListener("click", (event) => {
       const { target } = event;
       const isAgreeButton = target.matches(
-        '[data-agree-btn], [name="checkout"], [name="goto_pp"], [name="goto_gc"]'
+        '[data-agree-btn], [name="checkout"], [name="goto_pp"], [name="goto_gc"]',
       );
 
       if (isAgreeButton) {
-        const form = target.closest('form');
+        const form = target.closest("form");
         const checkbox = form.querySelector(
-          `input[type="checkbox"]${checkboxSelector}`
+          `input[type="checkbox"]${checkboxSelector}`,
         );
 
         if (form && checkbox) {
@@ -6341,34 +6347,34 @@ window.T4SThemeSP.agreeForm = () => {
     });
 
     // Click event for the checkbox
-    $body.on('click', (event) => {
-      window.$(event.currentTarget).closest('form');
+    $body.on("click", (event) => {
+      window.$(event.currentTarget).closest("form");
 
-      if (window.$(event.currentTarget).is(':checked')) {
-        $body.trigger('hide:t4:notice');
+      if (window.$(event.currentTarget).is(":checked")) {
+        $body.trigger("hide:t4:notice");
       }
     });
   }
 };
 
 window.T4SThemeSP.PhotoSwipe = (() => {
-  const g = '.pswp__ts';
-  const d = 'pswp__thumbnails';
-  const u = 'pswp_thumb_active';
+  const g = ".pswp__ts";
+  const d = "pswp__thumbnails";
+  const u = "pswp_thumb_active";
   let p = false;
   const m =
-    '[data-pswp-btn-triger], [data-ts-gallery--open]:not(.is-pswp-disable)';
-  const f = 'click.pswp';
-  const h = 'data-pswp-images-trigger';
-  const c = window.$('#photoswipe_template').html();
+    "[data-pswp-btn-triger], [data-ts-gallery--open]:not(.is-pswp-disable)";
+  const f = "click.pswp";
+  const h = "data-pswp-images-trigger";
+  const c = window.$("#photoswipe_template").html();
 
   const initializeGallery = () => {
     window
-      .$('[data-ts-gallery].flickity-enabled')
-      .on('dragEnd.flickity', () => {
+      .$("[data-ts-gallery].flickity-enabled")
+      .on("dragEnd.flickity", () => {
         p = true;
       })
-      .on('staticClick.flickity', () => {
+      .on("staticClick.flickity", () => {
         p = false;
       });
 
@@ -6381,33 +6387,33 @@ window.T4SThemeSP.PhotoSwipe = (() => {
 
   const handleGalleryClick = (event, target) => {
     let index = -1;
-    const isTriggerButton = target.is('[data-pswp-btn-triger]');
+    const isTriggerButton = target.is("[data-pswp-btn-triger]");
 
     if (isTriggerButton) {
-      const groupBtns = target.closest('[data-ts-group-btns]') || target;
+      const groupBtns = target.closest("[data-ts-group-btns]") || target;
       const hasTriggerAttribute = target[0].hasAttribute(
-        'data-pr-trigger-pswp'
+        "data-pr-trigger-pswp",
       );
-      const siblingGalleries = groupBtns.siblings('[data-ts-gallery]');
+      const siblingGalleries = groupBtns.siblings("[data-ts-gallery]");
 
       index = getIndexFromTrigger(
         event,
         siblingGalleries,
         hasTriggerAttribute
           ? '[data-media-type="image"]:not(.is--media-hide)'
-          : '[data-ts-gallery--item]'
+          : "[data-ts-gallery--item]",
       );
       p = false;
     } else {
-      const isMedia = target.hasClass('product__media');
+      const isMedia = target.hasClass("product__media");
       const gallerySelector = isMedia
         ? '[data-media-type="image"]:not(.is--media-hide)'
-        : '[data-ts-gallery--item]';
-      const galleryElement = target.closest('[data-ts-gallery]');
+        : "[data-ts-gallery--item]";
+      const galleryElement = target.closest("[data-ts-gallery]");
       const images = galleryElement.find(
         isMedia
           ? '[data-media-type="image"]:not(.is--media-hide) [data-master]'
-          : '[data-pswp-src]'
+          : "[data-pswp-src]",
       );
 
       if (images.length === 0 || p) {
@@ -6415,7 +6421,7 @@ window.T4SThemeSP.PhotoSwipe = (() => {
         return;
       }
 
-      const isThumbnail = galleryElement.is('data-ts-thumb-true');
+      const isThumbnail = galleryElement.is("data-ts-thumb-true");
       const items = extractGalleryItems(images);
 
       setupPhotoSwipe({
@@ -6423,10 +6429,10 @@ window.T4SThemeSP.PhotoSwipe = (() => {
         items,
         hasThumbnail: isThumbnail,
         galleryElement,
-        maxSpreadZoom: parseFloat(galleryElement.attr('data-maxSpreadZoom')),
-        fullscreenEl: galleryElement.attr('data-fullscreenEl'),
-        shareEl: galleryElement.attr('data-shareEl'),
-        counterEl: galleryElement.attr('data-counterEl'),
+        maxSpreadZoom: parseFloat(galleryElement.attr("data-maxSpreadZoom")),
+        fullscreenEl: galleryElement.attr("data-fullscreenEl"),
+        shareEl: galleryElement.attr("data-shareEl"),
+        counterEl: galleryElement.attr("data-counterEl"),
       });
     }
 
@@ -6438,36 +6444,36 @@ window.T4SThemeSP.PhotoSwipe = (() => {
     h.init();
     f.empty();
     clearTimeout(p);
-    s.trigger('NTpopupInline:offClose');
-    h.listen('close', function () {
+    s.trigger("NTpopupInline:offClose");
+    h.listen("close", function () {
       if (
         ((p = setTimeout(function () {
-          s.trigger('NTpopupInline:onClose');
+          s.trigger("NTpopupInline:onClose");
         }, 500)),
-        a.hasClass('flickity-enabled'))
+        a.hasClass("flickity-enabled"))
       ) {
         var n = e('[data-master="' + t.items[h.getCurrentIndex()].src + '"]')
-          .parents('[data-main-slide]')
+          .parents("[data-main-slide]")
           .index();
         -1 == n && (n = h.getCurrentIndex()),
-          a.flickity('selectCell', n, !1, !0);
+          a.flickity("selectCell", n, !1, !0);
       }
     }),
       t.HasThumb && updateThumbnails(i, n, f, h);
   };
 
   const getIndexFromTrigger = (event, siblingGalleries, hasTrigger) => {
-    if (siblingGalleries.hasClass('flickity-enabled')) {
+    if (siblingGalleries.hasClass("flickity-enabled")) {
       let index = 0;
       window.$.each(
-        siblingGalleries.find('[data-product-single-media-wrapper]'),
+        siblingGalleries.find("[data-product-single-media-wrapper]"),
         (index, element) => {
           const $element = window.$(element);
-          if ($element.hasClass('is-selected')) return false;
+          if ($element.hasClass("is-selected")) return false;
           if ($element.is(hasTrigger)) {
             index++;
           }
-        }
+        },
       );
       return index;
     }
@@ -6481,9 +6487,9 @@ window.T4SThemeSP.PhotoSwipe = (() => {
     elements.each((index, element) => {
       const $el = windiw.$(element);
       items.push({
-        src: $el.attr('data-pswp-src') || $el.attr('data-master'),
-        w: $el.attr('data-pswp-w') || $el.attr('width'),
-        h: $el.attr('data-pswp-h') || $el.attr('height'),
+        src: $el.attr("data-pswp-src") || $el.attr("data-master"),
+        w: $el.attr("data-pswp-w") || $el.attr("width"),
+        h: $el.attr("data-pswp-h") || $el.attr("height"),
       });
     });
     return items;
@@ -6520,17 +6526,17 @@ window.T4SThemeSP.PhotoSwipe = (() => {
       tapToToggleControls: true,
       shareButtons: [
         {
-          id: 'facebook',
+          id: "facebook",
           label: themeStrings.pswp_facebook,
           url: `https://www.facebook.com/sharer/sharer.php?u={{url}}`,
         },
         {
-          id: 'twitter',
+          id: "twitter",
           label: themeStrings.pswp_twitter,
           url: `https://twitter.com/intent/tweet?text={{text}}&url={{url}}`,
         },
         {
-          id: 'pinterest',
+          id: "pinterest",
           label: themeStrings.pswp_pinterest,
           url: `https://www.pinterest.com/pin/create/button/?url={{url}}&media={{image_url}}&description={{text}}`,
         },
@@ -6540,7 +6546,7 @@ window.T4SThemeSP.PhotoSwipe = (() => {
           ? galleryElement.find(`a[data-index="${index}"]`).parents(parents)
           : galleryElement.find(parents).eq(index);
         const rect = imageElement[0]
-          .getElementsByTagName('img')[0]
+          .getElementsByTagName("img")[0]
           .getBoundingClientRect();
         const yOffset =
           window.pageYOffset || document.documentElement.scrollTop;
@@ -6581,22 +6587,22 @@ window.T4SThemeSP.PhotoSwipe = (() => {
           index + 1
         }"><img loading="lazy" src="${
           photoSwipeInstance[index].src
-        }" alt="pswp-thumb-img"></div>`
+        }" alt="pswp-thumb-img"></div>`,
       );
     });
 
     i.find(
-      '.pswp_thumb_item[data-index="' + (o.getCurrentIndex() + 1) + '"]'
+      '.pswp_thumb_item[data-index="' + (o.getCurrentIndex() + 1) + '"]',
     ).addClass(u);
-    o.listen('beforeChange', function () {
+    o.listen("beforeChange", function () {
       var e = o.getCurrentIndex() + 1,
         t = i.find('.pswp_thumb_item[data-index="' + e + '"]');
       t.siblings().removeClass(u), t.addClass(u);
     });
 
-    o.listen('afterChange', function () {
+    o.listen("afterChange", function () {
       !(function (t) {
-        let n = e('.' + u)[0],
+        let n = e("." + u)[0],
           i = t,
           o = i[0],
           a = n.getBoundingClientRect(),
@@ -6606,32 +6612,32 @@ window.T4SThemeSP.PhotoSwipe = (() => {
               {
                 scrollLeft: n.offsetLeft + a.width - s.width + 10,
               },
-              200
+              200,
             )
           : n.offsetLeft < o.scrollLeft &&
             i.animate(
               {
                 scrollLeft: n.offsetLeft - 10,
               },
-              200
+              200,
             );
       })(i);
     });
-    i.find('.pswp_thumb_item').on('click', (event) => {
-      const t = window.$(event.currentTarget).data('index');
+    i.find(".pswp_thumb_item").on("click", (event) => {
+      const t = window.$(event.currentTarget).data("index");
       o.goTo(t - 1);
     });
   };
 
   const handleImageOpen = () => {
-    $document.on(f, '[data-ts-image-opend]', (event) => {
+    $document.on(f, "[data-ts-image-opend]", (event) => {
       event.preventDefault();
       const target = window.$(event.currentTarget);
       $body.find(g).remove();
       window.T4SThemeSP.$appendComponent.after(c);
       var n = window.$(g),
         i = n[0],
-        o = target.attr('data-pswp-class');
+        o = target.attr("data-pswp-class");
       o && n.addClass(o);
       var a = {
           history: false,
@@ -6652,9 +6658,9 @@ window.T4SThemeSP.PhotoSwipe = (() => {
           },
         },
         r = [],
-        l = target.attr('data-pswp-w'),
-        d = target.attr('data-pswp-h'),
-        u = target.attr('data-pswp-src');
+        l = target.attr("data-pswp-w"),
+        d = target.attr("data-pswp-h"),
+        u = target.attr("data-pswp-src");
       r.push({
         src: u,
         w: l,
@@ -6665,10 +6671,10 @@ window.T4SThemeSP.PhotoSwipe = (() => {
         m = new PhotoSwipe(i, PhotoSwipeUI_Default, r, a);
       m.init(),
         clearTimeout(p),
-        s.trigger('NTpopupInline:offClose'),
-        m.listen('close', function () {
+        s.trigger("NTpopupInline:offClose"),
+        m.listen("close", function () {
           p = setTimeout(function () {
-            s.trigger('NTpopupInline:onClose');
+            s.trigger("NTpopupInline:onClose");
           }, 500);
         });
     });
@@ -6676,9 +6682,9 @@ window.T4SThemeSP.PhotoSwipe = (() => {
 
   const openImageInPhotoSwipe = (target) => {
     const galleryElement = document.querySelector(g);
-    const imageSrc = target.getAttribute('data-pswp-src');
-    const imageWidth = target.getAttribute('data-pswp-w');
-    const imageHeight = target.getAttribute('data-pswp-h');
+    const imageSrc = target.getAttribute("data-pswp-src");
+    const imageWidth = target.getAttribute("data-pswp-w");
+    const imageHeight = target.getAttribute("data-pswp-h");
 
     const items = [
       {
@@ -6713,7 +6719,7 @@ window.T4SThemeSP.PhotoSwipe = (() => {
       galleryElement,
       PhotoSwipeUI_Default,
       items,
-      options
+      options,
     );
     photoSwipeInstance.init();
   };
@@ -6745,23 +6751,23 @@ window.T4SThemeSP.PhotoSwipe = (() => {
 
 var VideoHandler = class {
   constructor() {
-    this.loadedClass = 'postervideo-playing';
+    this.loadedClass = "postervideo-playing";
   }
 
   pauseAllVideos() {
-    (window.jQuery || window.$)('.js-youtube').each(function () {
+    (window.jQuery || window.$)(".js-youtube").each(function () {
       this.contentWindow.postMessage(
         '{"event":"command","func":"pauseVideo","args":""}',
-        '*'
+        "*",
       );
     });
-    (window.jQuery || window.$)('.js-vimeo').each(function () {
-      this.contentWindow.postMessage('{"method":"pause"}', '*');
+    (window.jQuery || window.$)(".js-vimeo").each(function () {
+      this.contentWindow.postMessage('{"method":"pause"}', "*");
     });
-    (window.jQuery || window.$)('video:not(.bg_vid_html5)').each(function () {
+    (window.jQuery || window.$)("video:not(.bg_vid_html5)").each(function () {
       this.pause();
     });
-    (window.jQuery || window.$)('.product-model').each(function () {
+    (window.jQuery || window.$)(".product-model").each(function () {
       this.modelViewerUI && this.modelViewerUI.pause();
     });
   }
@@ -6771,87 +6777,87 @@ var VideoHandler = class {
   }
 
   initPoster() {
-    (window.jQuery || window.$)('[data-video-poster-btn]').on(
-      'click',
+    (window.jQuery || window.$)("[data-video-poster-btn]").on(
+      "click",
       (event) => {
         event.preventDefault();
         const $poster = window
           .jQuery(event.currentTarget)
-          .closest('[data-video-poster]');
-        const $videoElement = $poster.find('video, iframe');
+          .closest("[data-video-poster]");
+        const $videoElement = $poster.find("video, iframe");
 
         this.pauseAllVideos();
 
         this.setupVideo(
           $poster,
-          (window.jQuery || window.$)(event.currentTarget)
+          (window.jQuery || window.$)(event.currentTarget),
         );
         setTimeout(() => {
           $poster.addClass(this.loadedClass);
           $videoElement.focus();
         }, 50);
-      }
+      },
     );
 
-    (window.jQuery || window.$)('[data-video-poster-close]').on(
-      'click',
+    (window.jQuery || window.$)("[data-video-poster-close]").on(
+      "click",
       (event) => {
         event.preventDefault();
         this.pauseAllVideos();
         const $poster = window
           .jQuery(event.currentTarget)
-          .closest('[data-video-poster]');
-        $poster.removeAttr('loaded').removeClass(this.loadedClass);
-        $poster.find('video, iframe').remove();
-      }
+          .closest("[data-video-poster]");
+        $poster.removeAttr("loaded").removeClass(this.loadedClass);
+        $poster.find("video, iframe").remove();
+      },
     );
   }
 
   setupVideo($poster, $button) {
-    if (!$poster.is('[loaded]')) {
-      const $insertTarget = $poster.find('[data-video-insert]').length
-        ? $poster.find('[data-video-insert]')
+    if (!$poster.is("[loaded]")) {
+      const $insertTarget = $poster.find("[data-video-insert]").length
+        ? $poster.find("[data-video-insert]")
         : $poster;
       let videoHtml =
         '<iframe src="src" id="id" class="class" title="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen frameborder="0"></iframe>';
-      const options = JSON.parse($button.attr('data-options') || '{}');
+      const options = JSON.parse($button.attr("data-options") || "{}");
       const { type, vid, id, srcDefault, autoplay, loop, accent_color } =
         options;
 
       const videoTypes = {
-        html5: 'html5',
-        youtube: 'youtube',
-        vimeo: 'vimeo',
+        html5: "html5",
+        youtube: "youtube",
+        vimeo: "vimeo",
       };
 
       if (type === videoTypes.youtube) {
-        videoHtml = `<div id="${id.replace('#', 'yt_')}"></div>`;
+        videoHtml = `<div id="${id.replace("#", "yt_")}"></div>`;
       } else if (type === videoTypes.vimeo) {
         videoHtml = videoHtml
           .replace(
-            'src',
-            `//player.vimeo.com/video/${vid}?&portrait=0&byline=0&color=${accent_color}&autoplay=${+autoplay}&loop=${+loop}`
+            "src",
+            `//player.vimeo.com/video/${vid}?&portrait=0&byline=0&color=${accent_color}&autoplay=${+autoplay}&loop=${+loop}`,
           )
-          .replace('class', 'js-vimeo');
+          .replace("class", "js-vimeo");
       } else if (id && (window.jQuery || window.$)(id)[0]) {
         videoHtml = (window.jQuery || window.$)(id).html();
       } else {
         videoHtml =
           `<video src="src" preload="auto" controls data-autoplay data-loop playsinline></video>`.replace(
-            'src',
-            srcDefault
+            "src",
+            srcDefault,
           );
       }
 
       if (autoplay) {
-        videoHtml = videoHtml.replace('data-autoplay', 'autoplay');
+        videoHtml = videoHtml.replace("data-autoplay", "autoplay");
       }
       if (loop) {
-        videoHtml = videoHtml.replace('data-loop', 'loop');
+        videoHtml = videoHtml.replace("data-loop", "loop");
       }
 
       $insertTarget.append(videoHtml);
-      $poster.attr('data-type-video-inline', '').attr('loaded', true);
+      $poster.attr("data-type-video-inline", "").attr("loaded", true);
 
       if (type === videoTypes.youtube) {
         this.loadYouTubeAPI(id, vid, loop);
@@ -6860,22 +6866,22 @@ var VideoHandler = class {
   }
 
   loadYouTubeAPI(id, vid, loop) {
-    if ((window.jQuery || window.$)('#YTAPI').length <= 0) {
-      const script = document.createElement('script');
-      script.src = 'https://www.youtube.com/iframe_api';
-      script.id = 'YTAPI';
-      const firstScript = document.getElementsByTagName('script')[0];
+    if ((window.jQuery || window.$)("#YTAPI").length <= 0) {
+      const script = document.createElement("script");
+      script.src = "https://www.youtube.com/iframe_api";
+      script.id = "YTAPI";
+      const firstScript = document.getElementsByTagName("script")[0];
       firstScript.parentNode.insertBefore(script, firstScript);
     }
 
     const intervalId = setInterval(() => {
       if (
-        typeof onYouTubeIframeAPIReady === 'function' &&
-        typeof YT.Player === 'function'
+        typeof onYouTubeIframeAPIReady === "function" &&
+        typeof YT.Player === "function"
       ) {
-        const player = new YT.Player(id.replace('#', 'yt_'), {
-          height: '315',
-          width: '560',
+        const player = new YT.Player(id.replace("#", "yt_"), {
+          height: "315",
+          width: "560",
           videoId: vid,
           playerVars: {
             playsinline: 1,
@@ -6897,12 +6903,12 @@ var LoadMoreContent = class {
   constructor(container) {
     this.container = container;
     this.$container = (window.jQuery || window.$)(container);
-    this.options = JSON.parse(this.$container.attr('data-ntajax-options'));
-    this.main = this.options.id || '';
-    this.typeAjax = this.options.type || 'LmDefault';
+    this.options = JSON.parse(this.$container.attr("data-ntajax-options"));
+    this.main = this.options.id || "";
+    this.typeAjax = this.options.type || "LmDefault";
     this.isProduct = this.options.isProduct || false;
     this.$section = (window.jQuery || window.$)(
-      `#shopify-section-${this.main}`
+      `#shopify-section-${this.main}`,
     );
     this.isbtnLoadMore = true;
 
@@ -6910,14 +6916,14 @@ var LoadMoreContent = class {
   }
 
   setupEventListeners() {
-    this.$container.on('click.ntlm', '[data-load-more]', (event) => {
+    this.$container.on("click.ntlm", "[data-load-more]", (event) => {
       event.preventDefault();
       const $button = (window.jQuery || window.$)(event.currentTarget);
-      $button.addClass('is--loading');
+      $button.addClass("is--loading");
       const url = `${
-        $button.attr('data-href') || $button.attr('href')
+        $button.attr("data-href") || $button.attr("href")
       }&section_id=${this.main}`;
-      this.isbtnLoadMore = !$button.is('[data-is-prev]');
+      this.isbtnLoadMore = !$button.is("[data-is-prev]");
       this.$btnCurrent = $button;
       this.renderSectionFromFetch(url);
     });
@@ -6926,28 +6932,28 @@ var LoadMoreContent = class {
   async renderSectionFromFetch(url) {
     const response = await window.T4SThemeSP.getToFetchSection(
       null,
-      'text',
-      url
+      "text",
+      url,
     );
-    if (response !== 'NVT_94') {
-      this.$btnCurrent.removeClass('is--loading');
+    if (response !== "NVT_94") {
+      this.$btnCurrent.removeClass("is--loading");
       this[this.typeAjax](response);
       if (this.isProduct) window.T4SThemeSP.reinitProductGridItem();
-      (window.jQuery || window.$)(document).trigger('ts:hideTooltip');
+      (window.jQuery || window.$)(document).trigger("ts:hideTooltip");
     } else {
-      this.$btnCurrent.removeClass('is--loading');
+      this.$btnCurrent.removeClass("is--loading");
     }
   }
 
   LmDefault(content) {
     const $content = (window.jQuery || window.$)(content);
-    const newContent = $content.find('[data-contentlm-replace]').html();
+    const newContent = $content.find("[data-contentlm-replace]").html();
     const $wrap = this.isbtnLoadMore
-      ? $content.find('[data-wrap-lm]')
-      : $content.find('[data-wrap-lm-prev]');
+      ? $content.find("[data-wrap-lm]")
+      : $content.find("[data-wrap-lm-prev]");
     const $existingContent =
-      this.$container.find('[data-contentlm-replace]') ||
-      this.$section.find('[data-contentlm-replace]');
+      this.$container.find("[data-contentlm-replace]") ||
+      this.$section.find("[data-contentlm-replace]");
 
     if (this.isbtnLoadMore) {
       $existingContent.append(newContent);
@@ -6959,27 +6965,27 @@ var LoadMoreContent = class {
 
   LmIsotope(content) {
     const $content = (window.jQuery || window.$)(content);
-    const newContent = $content.find('[data-contentlm-replace]').html();
+    const newContent = $content.find("[data-contentlm-replace]").html();
     const $wrap = this.isbtnLoadMore
-      ? $content.find('[data-wrap-lm]')
-      : $content.find('[data-wrap-lm-prev]');
+      ? $content.find("[data-wrap-lm]")
+      : $content.find("[data-wrap-lm-prev]");
     const $existingContent =
-      this.$container.find('[data-contentlm-replace]') ||
-      this.$section.find('[data-contentlm-replace]');
+      this.$container.find("[data-contentlm-replace]") ||
+      this.$section.find("[data-contentlm-replace]");
 
     const $newContent = (window.jQuery || window.$)(newContent);
     if (this.isbtnLoadMore) {
-      $existingContent.append($newContent).isotope('appended', $newContent);
+      $existingContent.append($newContent).isotope("appended", $newContent);
     } else {
-      $existingContent.prepend($newContent).isotope('prepended', $newContent);
+      $existingContent.prepend($newContent).isotope("prepended", $newContent);
     }
     this.initLoamoreUpdate($wrap);
   }
 
   initLoamoreUpdate($wrap) {
     const selector = this.isbtnLoadMore
-      ? '[data-wrap-lm]'
-      : '[data-wrap-lm-prev]';
+      ? "[data-wrap-lm]"
+      : "[data-wrap-lm-prev]";
     let $containerWrap =
       this.$container.find(selector) || this.$section.find(selector);
     if ($wrap.length > 0) {
@@ -6992,10 +6998,10 @@ var LoadMoreContent = class {
 
 window.T4SThemeSP.initLoadMore = () => {
   const options = document.querySelectorAll(
-    '[data-ntajax-options][data-not-main]:not(.is--enabled)'
+    "[data-ntajax-options][data-not-main]:not(.is--enabled)",
   );
   options.forEach((option) => {
-    option.classList.add('is--enabled');
+    option.classList.add("is--enabled");
     option.LoadMore = new LoadMoreContent(option);
   });
 };
@@ -7006,28 +7012,28 @@ window.T4SThemeSP.reinitProductGridItem = () => {
   window.T4SThemeSP.Countdown();
   window.T4SThemeSP.Compare.updateAll();
   window.T4SThemeSP.Wishlist.updateAll();
-  document.dispatchEvent(new Event('currency:update'));
+  document.dispatchEvent(new Event("currency:update"));
 };
 
 window.T4SThemeSP.instagram = () => {
   const url = `https://d3ejra0xbg20rg.cloudfront.net/instagram/media?shop=${Shopify.shop}&resource=default`;
-  const token = 'ins_19041994';
-  const accessTokenName = 'ig_ts_token';
-  const isTokenValid = CookiesT4.get(accessTokenName) === 'true';
+  const token = "ins_19041994";
+  const accessTokenName = "ig_ts_token";
+  const isTokenValid = CookiesT4.get(accessTokenName) === "true";
   const iconTemplate =
-    (window.jQuery || window.$)('.icons-ins-svg').innerHTML || '';
-  const splitIcons = iconTemplate.split('[split]');
-  const loadedClass = { loaded: 'ins-is--loaded' };
+    (window.jQuery || window.$)(".icons-ins-svg").innerHTML || "";
+  const splitIcons = iconTemplate.split("[split]");
+  const loadedClass = { loaded: "ins-is--loaded" };
 
   const fetchInstagramData = async (optionsElement) => {
-    const options = JSON.parse(optionsElement.getAttribute('data-ins-options'));
-    const { id, limit, acc = 'spnt', target } = options;
+    const options = JSON.parse(optionsElement.getAttribute("data-ins-options"));
+    const { id, limit, acc = "spnt", target } = options;
     const sessionKey = `nt_ins${atob(acc)}${id}`;
 
     let storedData = sessionStorage.getItem(sessionKey);
     let tokenData = sessionStorage.getItem(`nt_ins${atob(acc)}`);
 
-    if (acc !== 'spnt') {
+    if (acc !== "spnt") {
       if (storedData) {
         const currentTime = new Date();
         const tokenExpiration = new Date(JSON.parse(tokenData).timestamp);
@@ -7043,9 +7049,9 @@ window.T4SThemeSP.instagram = () => {
       if (storedData) {
         optionsElement.innerHTML = storedData;
         optionsElement.parentElement.classList.add(loadedClass.loaded);
-        if (optionsElement.classList.contains('flickity-later')) {
+        if (optionsElement.classList.contains("flickity-later")) {
           optionsElement.flickityt4s = new window.T4SThemeSP.Carousel(
-            optionsElement
+            optionsElement,
           );
         }
         return;
@@ -7060,17 +7066,17 @@ window.T4SThemeSP.instagram = () => {
           atob(acc),
           limit,
           id,
-          target
+          target,
         );
       } else {
         const accessTokenUrl = `https://graph.instagram.com/me/media?fields=id,media_type,media_url,permalink,thumbnail_url,caption,children&access_token=${atob(
-          acc
+          acc,
         )}`;
         try {
           const response = await fetch(accessTokenUrl);
-          if (!response.ok) throw new Error('not ok');
+          if (!response.ok) throw new Error("not ok");
           const data = await response.json();
-          const mediaItems = acc === 'a' ? data : data.data;
+          const mediaItems = acc === "a" ? data : data.data;
 
           populateInstagramFeed(
             optionsElement,
@@ -7079,19 +7085,19 @@ window.T4SThemeSP.instagram = () => {
             atob(acc),
             limit,
             id,
-            target
+            target,
           );
           if (!isTokenValid) {
-            CookiesT4.set(accessTokenName, 'true', { expires: 7 });
+            CookiesT4.set(accessTokenName, "true", { expires: 7 });
             await fetch(
               `https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${atob(
-                acc
-              )}`
+                acc,
+              )}`,
             );
           }
         } catch (error) {
-          optionsElement.innerHTML = '';
-          console.error('Instagram Feed: error fetching', error);
+          optionsElement.innerHTML = "";
+          console.error("Instagram Feed: error fetching", error);
         }
       }
     }
@@ -7104,7 +7110,7 @@ window.T4SThemeSP.instagram = () => {
     accessToken,
     limit,
     id,
-    target
+    target,
   ) => {
     const mediaTypeMap = {
       image: splitIcons[0],
@@ -7112,7 +7118,7 @@ window.T4SThemeSP.instagram = () => {
       carousel_album: splitIcons[2],
     };
 
-    let content = '';
+    let content = "";
     mediaArray.forEach((item, index) => {
       if (index >= limit) return;
 
@@ -7133,7 +7139,7 @@ window.T4SThemeSP.instagram = () => {
 
     element.innerHTML = content;
     element.parentElement.classList.add(loadedClass.loaded);
-    if (element.classList.contains('flickity-later')) {
+    if (element.classList.contains("flickity-later")) {
       element[0].flickityt4s = new window.T4SThemeSP.Carousel(element[0]);
     }
 
@@ -7141,55 +7147,55 @@ window.T4SThemeSP.instagram = () => {
       sessionStorage.setItem(`nt_ins${accessToken}${id}`, content);
       sessionStorage.setItem(
         `nt_ins${accessToken}`,
-        JSON.stringify({ timestamp: new Date(), content: mediaArray })
+        JSON.stringify({ timestamp: new Date(), content: mediaArray }),
       );
     }
   };
 
-  const optionsElements = document.querySelectorAll('[data-ins-options]');
+  const optionsElements = document.querySelectorAll("[data-ins-options]");
   optionsElements.forEach(fetchInstagramData);
 };
 
 window.T4SThemeSP.sideBarInit = () => {
   const $ = window.jQuery || window.$;
-  const sidebarElement = $('[data-sidebar-id]');
-  const isSidebarTrue = sidebarElement.attr('data-sidebar-true');
-  const sidebarContentElement = $('[data-sidebar-content]');
-  const isDrawerDisabled = sidebarElement.attr('data-is-disableDrawer');
+  const sidebarElement = $("[data-sidebar-id]");
+  const isSidebarTrue = sidebarElement.attr("data-sidebar-true");
+  const sidebarContentElement = $("[data-sidebar-content]");
+  const isDrawerDisabled = sidebarElement.attr("data-is-disableDrawer");
 
   if (sidebarElement.length > 0) {
-    const sidebarId = sidebarElement.attr('data-sidebar-id');
+    const sidebarId = sidebarElement.attr("data-sidebar-id");
     let searchParams = window.location.search.slice(1);
     let fetchUrl = `${window.location.pathname}?section_id=${sidebarId}&${searchParams}`;
 
-    window.T4SThemeSP.getToFetchSection(null, 'text', fetchUrl).then(
+    window.T4SThemeSP.getToFetchSection(null, "text", fetchUrl).then(
       (response) => {
-        if (response === 'NVT_94') {
-          sidebarContentElement.text('');
-          return console.error('Error: Invalid response from fetch');
+        if (response === "NVT_94") {
+          sidebarContentElement.text("");
+          return console.error("Error: Invalid response from fetch");
         }
         const [mainContent, additionalContent, drawerOptions] = response
-          .split('[splitlz]')
-          .map((part) => part.split('[splitlz2]'));
+          .split("[splitlz]")
+          .map((part) => part.split("[splitlz2]"));
 
         if (isSidebarTrue || ($window.width() < 1024 && !isDrawerDisabled)) {
           window.T4SThemeSP.$appendComponent.after(
-            additionalContent[0] + mainContent + additionalContent[1]
+            additionalContent[0] + mainContent + additionalContent[1],
           );
         } else {
           sidebarContentElement.text(mainContent);
           window.T4SThemeSP.$appendComponent.after(
-            additionalContent[0] + mainContent + additionalContent[1]
+            additionalContent[0] + mainContent + additionalContent[1],
           );
         }
 
         window.T4SThemeSP.initializeComponents();
 
         const drawerOptionsData = JSON.parse(
-          sidebarElement.attr('data-drawer-options')
+          sidebarElement.attr("data-drawer-options"),
         );
         window.T4SThemeSP.initializeFlickity(drawerOptionsData.id);
-      }
+      },
     );
   }
 };
@@ -7200,8 +7206,8 @@ window.T4SThemeSP.initializeComponents = () => {
   window.T4SThemeSP.Tooltip();
   window.T4SThemeSP.reinitProductGridItem();
   window.T4SThemeSP.Tabs.Accordion();
-  $body.trigger('currency:update');
-  $document.trigger('sidebar:updated');
+  $body.trigger("currency:update");
+  $document.trigger("sidebar:updated");
 };
 
 window.T4SThemeSP.initializeFlickity = (drawerOptionsId) => {
@@ -7212,7 +7218,7 @@ window.T4SThemeSP.initializeFlickity = (drawerOptionsId) => {
   });
 
   const sidebarContentFlickityElements = $(
-    '[data-sidebar-content] .flickity-later'
+    "[data-sidebar-content] .flickity-later",
   );
   sidebarContentFlickityElements.forEach((element) => {
     element.flickityt4s = new window.T4SThemeSP.Carousel(element);
@@ -7221,17 +7227,17 @@ window.T4SThemeSP.initializeFlickity = (drawerOptionsId) => {
 
 //done
 window.T4SThemeSP.BackToTop = (() => {
-  const backToTopButton = window.$('[data-BackToTop]');
-  const scrollTopThreshold = parseInt(backToTopButton.data('scrolltop') || '0');
-  const circleElement = backToTopButton.find('.circle-css')[0];
+  const backToTopButton = window.$("[data-BackToTop]");
+  const scrollTopThreshold = parseInt(backToTopButton.data("scrolltop") || "0");
+  const circleElement = backToTopButton.find(".circle-css")[0];
   let scrollTimeout, circleTimeout;
 
   const handleScroll = () => {
     if (scrollTimeout) clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
       backToTopButton.toggleClass(
-        'is--show',
-        $window.scrollTop() > scrollTopThreshold
+        "is--show",
+        $window.scrollTop() > scrollTopThreshold,
       );
     }, 40);
 
@@ -7242,8 +7248,8 @@ window.T4SThemeSP.BackToTop = (() => {
           $window.scrollTop() / ($body.outerHeight() - $window.innerHeight());
         const circleRotation = 360 * scrollPercentage;
         circleElement.style.setProperty(
-          '--cricle-degrees',
-          `${circleRotation}deg`
+          "--cricle-degrees",
+          `${circleRotation}deg`,
         );
       }, 6);
     }
@@ -7251,19 +7257,19 @@ window.T4SThemeSP.BackToTop = (() => {
 
   return () => {
     if (
-      (isMobile && backToTopButton.data('hidden-mobile')) ||
+      (isMobile && backToTopButton.data("hidden-mobile")) ||
       backToTopButton.length === 0
     )
       return;
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
-    backToTopButton.on('click', (event) => {
+    backToTopButton.on("click", (event) => {
       event.preventDefault();
-      window.$('html, body').animate(
+      window.$("html, body").animate(
         {
           scrollTop: 0,
         },
-        isBehaviorSmooth ? 0 : 800
+        isBehaviorSmooth ? 0 : 800,
       );
     });
   };
@@ -7272,40 +7278,40 @@ window.T4SThemeSP.BackToTop = (() => {
 var T4SThemeSPHeader = class {
   headerSection = null;
   unusedVariable = null;
-  headerSelector = '.section-header';
+  headerSelector = ".section-header";
   headerElement = document.querySelector(this.headerSelector);
   headerOptions = {};
   scrollPosition = 0;
   isStickyEnabled = false;
   headerHeight = 0;
-  dataHeaderOptions = 'data-header-options';
+  dataHeaderOptions = "data-header-options";
   rawHeaderOptions =
     (window.jQuery || window.$)(this.headerElement)
-      .find('[' + this.dataHeaderOptions + ']')
-      .attr(this.dataHeaderOptions) || '{}';
+      .find("[" + this.dataHeaderOptions + "]")
+      .attr(this.dataHeaderOptions) || "{}";
   parsedOptions = JSON.parse(this.rawHeaderOptions);
   isSticky = this.parsedOptions.isSticky;
   hideOnScrollDown = this.parsedOptions.hideScroldown;
   documentElement = document.documentElement;
-  hoverActionClass = 'is-action__hover';
-  menuNavigation = (window.jQuery || window.$)('[data-menu-nav]');
-  navItemsWithChildren = this.menuNavigation.find('>li.has--children');
+  hoverActionClass = "is-action__hover";
+  menuNavigation = (window.jQuery || window.$)("[data-menu-nav]");
+  navItemsWithChildren = this.menuNavigation.find(">li.has--children");
   headerWrapper = (window.jQuery || window.$)(this.headerElement);
-  positionCalculationClass = 'calc-pos-submenu';
-  isVerticalHeader = this.headerWrapper.hasClass('header-vertical');
-  categoriesMenuSelector = '.is-header-categories-menu';
-  categoriesSelector = '.is-header-categories';
+  positionCalculationClass = "calc-pos-submenu";
+  isVerticalHeader = this.headerWrapper.hasClass("header-vertical");
+  categoriesMenuSelector = ".is-header-categories-menu";
+  categoriesSelector = ".is-header-categories";
   categoriesMenuElement = (window.jQuery || window.$)(
-    this.categoriesMenuSelector
+    this.categoriesMenuSelector,
   );
   categoriesElement = (window.jQuery || window.$)(this.categoriesSelector);
-  childOpenClass = 'is--child-open';
-  noTransitionClass = 'no-transiton-nav-a';
-  headerStuckClass = 'is-header--stuck';
+  childOpenClass = "is--child-open";
+  noTransitionClass = "no-transiton-nav-a";
+  headerStuckClass = "is-header--stuck";
   scrollThreshold = 200;
   onlyClickDropIcon = window.T4Sconfigs.onlyClickDropIcon
-    ? '.menu-item.has--children>a>.-menu-toggle'
-    : '.menu-item.has--children>a';
+    ? ".menu-item.has--children>a>.-menu-toggle"
+    : ".menu-item.has--children>a";
   X = true;
 
   constructor() {}
@@ -7313,15 +7319,15 @@ var T4SThemeSPHeader = class {
   // Function to handle mega menu loading with session storage
   loadMegaMenu() {
     this.megaMenuElements = (window.jQuery || window.$)(
-      '.type__mega .lazy_menu'
+      ".type__mega .lazy_menu",
     );
     const activeCategory = (window.jQuery || window.$)(
-      '.list-categories--item.is--active'
+      ".list-categories--item.is--active",
     );
     const categoryIndex =
-      activeCategory.index() > 0 ? activeCategory.index() : '';
-    this.storageKeyTime = cacheNameFirst + 'timeMega' + categoryIndex;
-    this.storageKeyData = cacheNameFirst + 'dataMega' + categoryIndex;
+      activeCategory.index() > 0 ? activeCategory.index() : "";
+    this.storageKeyTime = cacheNameFirst + "timeMega" + categoryIndex;
+    this.storageKeyData = cacheNameFirst + "dataMega" + categoryIndex;
     const lastSessionTime = isStorageSpSession
       ? parseInt(sessionStorage.getItem(this.storageKeyTime) || 0)
       : 0;
@@ -7336,17 +7342,17 @@ var T4SThemeSPHeader = class {
       ) {
         this.populateContentAndInitializeFeatures(
           this.megaMenuElements,
-          sessionStorage.getItem(this.storageKeyData)
+          sessionStorage.getItem(this.storageKeyData),
         );
       } else {
         const megaMenuSection = (window.jQuery || window.$)(
-          '.section-mega__menu'
+          ".section-mega__menu",
         );
         const sectionId =
           megaMenuSection.length > 0
-            ? megaMenuSection.find('[data-section-id]').data('section-id')
-            : 'mega-menu,mega-menu2';
-        const categoryUrl = activeCategory.find('>a').attr('href');
+            ? megaMenuSection.find("[data-section-id]").data("section-id")
+            : "mega-menu,mega-menu2";
+        const categoryUrl = activeCategory.find(">a").attr("href");
 
         // Fetch menu section if it’s not already loaded
         if (
@@ -7354,15 +7360,15 @@ var T4SThemeSPHeader = class {
           megaMenuSection.length === 0 &&
           location.pathname !== categoryUrl
         ) {
-          window.T4SThemeSP.getToFetchSection(null, 'text', categoryUrl).then(
+          window.T4SThemeSP.getToFetchSection(null, "text", categoryUrl).then(
             (response) => {
-              if (response !== 'NVT_94') {
+              if (response !== "NVT_94") {
                 const sectionId = (window.jQuery || window.$)(response)
-                  .find('.section-mega__menu [data-section-id]')
-                  .data('section-id');
+                  .find(".section-mega__menu [data-section-id]")
+                  .data("section-id");
                 sectionId && this.fetchMenuSection(sectionId);
               }
-            }
+            },
           );
         } else {
           this.fetchMenuSection(sectionId);
@@ -7373,69 +7379,69 @@ var T4SThemeSPHeader = class {
 
   // Fetch menu content and store it in session storage
   fetchMenuSection(sectionId) {
-    window.T4SThemeSP.getToFetchSection('?sections=' + sectionId, 'json').then(
+    window.T4SThemeSP.getToFetchSection("?sections=" + sectionId, "json").then(
       (response) => {
-        if (response === 'NVT_94' || response.status) {
+        if (response === "NVT_94" || response.status) {
           response.status && console.error(response.description);
         } else {
-          let content = '';
+          let content = "";
           for (const key in response) {
-            content += response[key].split('[nt_mega_split1]')[1];
+            content += response[key].split("[nt_mega_split1]")[1];
           }
           this.populateContentAndInitializeFeatures(
             this.megaMenuElements,
-            '<div>' + content + '</div>'
+            "<div>" + content + "</div>",
           );
           if (isStorageSpSession) {
             sessionStorage.setItem(
               this.storageKeyTime,
-              Date.now() + this.cacheExpiry
+              Date.now() + this.cacheExpiry,
             );
             sessionStorage.setItem(
               this.storageKeyData,
-              '<div>' + content + '</div>'
+              "<div>" + content + "</div>",
             );
           }
         }
-      }
+      },
     );
   }
 
   loadMenuContent(container) {
     container
       .find(this.onlyClickDropIcon)
-      .off('click')
-      .on('click', function (event) {
+      .off("click")
+      .on("click", function (event) {
         event.preventDefault();
         const element = (window.jQuery || window.$)(this);
-        element.hasClass('menu-toggle') && (element = element.closest('a')),
+        element.hasClass("menu-toggle") && (element = element.closest("a")),
           element.hasClass(this.childOpenClass)
             ? element
                 .removeClass(this.childOpenClass)
-                .siblings('ul')
+                .siblings("ul")
                 .slideUp(this.scrollThreshold)
             : element
                 .addClass(this.childOpenClass)
-                .siblings('ul')
+                .siblings("ul")
                 .slideDown(this.scrollThreshold);
       });
   }
   // Function to handle dropdown menu loading with session storage
   loadDropdownMenu() {
     const dropdownMenuElements = (window.jQuery || window.$)(
-      '.type__drop .lazy_menu'
+      ".type__drop .lazy_menu",
     );
     const activeCategoryIndex = (window.jQuery || window.$)(
-      '.list-categories--item.is--active'
+      ".list-categories--item.is--active",
     ).index();
     const storageKeyTime =
       activeCategoryIndex > 0
-        ? cacheNameFirst + 'timeDrop' + activeCategoryIndex
-        : cacheNameFirst + 'timeDrop';
+        ? cacheNameFirst + "timeDrop" + activeCategoryIndex
+        : cacheNameFirst + "timeDrop";
     const storageKeyData =
       activeCategoryIndex > 0
-        ? cacheNameFirst + 'dataDrop' + activeCategoryIndex
-        : cacheNameFirst + 'dataDrop';
+        ? cacheNameFirst + "dataDrop" + activeCategoryIndex
+        : cacheNameFirst + "dataDrop";
     const lastSessionTime = isStorageSpSession
       ? parseInt(sessionStorage.getItem(storageKeyTime) || 0)
       : 0;
@@ -7444,7 +7450,7 @@ var T4SThemeSPHeader = class {
     if (IsDesignMode) {
       dropdownMenuElements.each((indx, value) => {
         this.positionSubMenu(
-          (window.jQuery || window.$)(value).closest('.has--children')
+          (window.jQuery || window.$)(value).closest(".has--children"),
         );
         this.loadMenuContent((window.jQuery || window.$)(value));
       });
@@ -7459,44 +7465,44 @@ var T4SThemeSPHeader = class {
       if (lastSessionTime > 0 && lastSessionTime >= Date.now()) {
         const cachedData = sessionStorage
           .getItem(storageKeyData)
-          .split('[nt_drop_split2]');
+          .split("[nt_drop_split2]");
         dropdownMenuElements.each((index, value) => {
           (window.jQuery || window.$)(value).html(cachedData[index]);
           this.positionSubMenu(
-            (window.jQuery || window.$)(value).closest('.has--children')
+            (window.jQuery || window.$)(value).closest(".has--children"),
           );
           this.loadMenuContent((window.jQuery || window.$)(value));
         });
       } else {
         let itemHandles = [];
         dropdownMenuElements.each((indx, value) => {
-          itemHandles.push((window.jQuery || window.$)(value).data('handle'));
+          itemHandles.push((window.jQuery || window.$)(value).data("handle"));
         });
-        itemHandles = itemHandles.join(' ');
+        itemHandles = itemHandles.join(" ");
         window.T4SThemeSP.getToFetchSection(
           null,
-          'text',
-          `${window.T4Sroutes.search_url}?type=article&q=${itemHandles}&section_id=dropdown-menu`
+          "text",
+          `${window.T4Sroutes.search_url}?type=article&q=${itemHandles}&section_id=dropdown-menu`,
         ).then((response) => {
-          if (response !== 'NVT_94') {
+          if (response !== "NVT_94") {
             const contentSections = response
-              .split('[nt_drop_split1]')[1]
-              .split('[nt_drop_split2]');
+              .split("[nt_drop_split1]")[1]
+              .split("[nt_drop_split2]");
             dropdownMenuElements.each((index, value) => {
               (window.jQuery || window.$)(value).html(contentSections[index]);
               this.positionSubMenu(
-                (window.jQuery || window.$)(value).closest('.has--children')
+                (window.jQuery || window.$)(value).closest(".has--children"),
               );
               this.loadMenuContent((window.jQuery || window.$)(value));
             });
             if (isStorageSpSession) {
               sessionStorage.setItem(
                 storageKeyTime,
-                Date.now() + this.cacheExpiry
+                Date.now() + this.cacheExpiry,
               );
               sessionStorage.setItem(
                 storageKeyData,
-                '<div>' + response + '</div>'
+                "<div>" + response + "</div>",
               );
             }
           }
@@ -7512,7 +7518,7 @@ var T4SThemeSPHeader = class {
     this.setupMenuToggle(settings);
     this.handleMenuClick(settings);
 
-    document.addEventListener('theme:hover', function () {
+    document.addEventListener("theme:hover", function () {
       this.handleMenuClick(settings);
     });
 
@@ -7521,7 +7527,7 @@ var T4SThemeSPHeader = class {
     this.applyLayoutToElements(settings, true);
     this.loadCategoryData();
     setTimeout(() => {
-      $window.on('resize.menu', () => this.adjustLayoutForDesktop());
+      $window.on("resize.menu", () => this.adjustLayoutForDesktop());
     }, 2000);
   }
 
@@ -7544,7 +7550,7 @@ var T4SThemeSPHeader = class {
     this.navItemsWithChildren.each((instance) => {
       this.positionSubMenu(
         (window.jQuery || window.$)(instance),
-        useLayoutOption
+        useLayoutOption,
       );
     });
 
@@ -7555,7 +7561,7 @@ var T4SThemeSPHeader = class {
   // Function to update category content and initialize various components
   updateCat(
     contentHTML,
-    container = this.categoriesMenuElement.find('[data-wrapper-categories]')
+    container = this.categoriesMenuElement.find("[data-wrapper-categories]"),
   ) {
     // Set HTML content of the provided container
     container.html(contentHTML);
@@ -7564,14 +7570,14 @@ var T4SThemeSPHeader = class {
     this.adjustLayoutForDesktop();
 
     // Retrieve child elements with categories navigation
-    const categoryItems = container.find('#nav-categories > .has--children');
+    const categoryItems = container.find("#nav-categories > .has--children");
 
     // Initialize menu actions and hover effects on category items
     this.setupMenuToggle(categoryItems);
     this.handleMenuClick(categoryItems);
 
     // Add hover effect listener
-    document.addEventListener('theme:hover', () => {
+    document.addEventListener("theme:hover", () => {
       this.handleMenuClick(categoryItems);
     });
 
@@ -7584,18 +7590,18 @@ var T4SThemeSPHeader = class {
     }, 1000);
 
     // Initialize lazy-loaded menus
-    container.find('.type__drop .lazy_menu').each(function () {
+    container.find(".type__drop .lazy_menu").each(function () {
       this.setupMenuToggle((window.jQuery || window.$)(this));
     });
 
     // Reinitialize product grid items if they exist
-    if (container.find('.products .product').length > 0) {
+    if (container.find(".products .product").length > 0) {
       window.T4SThemeSP.reinitProductGridItem();
     }
 
     // Initialize 'isotope' layout and carousel for specified elements
-    const isotopeElements = container.find('.isotope-later');
-    const carouselElements = container.find('.flickity-later');
+    const isotopeElements = container.find(".isotope-later");
+    const carouselElements = container.find(".flickity-later");
 
     // Initialize Isotope layout for each relevant element
     if (isotopeElements.length > 0) {
@@ -7616,21 +7622,21 @@ var T4SThemeSPHeader = class {
   loadCategoryData() {
     // Check if there are any category wrappers present
     if (
-      this.categoriesMenuElement.find('[data-wrapper-categories]').length !== 0
+      this.categoriesMenuElement.find("[data-wrapper-categories]").length !== 0
     ) {
       // If in design mode, refresh category elements and set HTML
       if (IsDesignMode) {
         this.categoriesMenuElement = (window.jQuery || window.$)(
-          this.categoriesMenuSelector
+          this.categoriesMenuSelector,
         );
         const categoryWrapper = (window.jQuery || window.$)(
-          this.categoriesSelector
+          this.categoriesSelector,
         );
         this.updateCat(categoryWrapper.html());
       } else {
         // Define keys for session storage
-        const cacheTimeKey = sessionKeyPrefix + 'timeCatCache';
-        const cacheDataKey = sessionKeyPrefix + 'dataCatCache';
+        const cacheTimeKey = sessionKeyPrefix + "timeCatCache";
+        const cacheDataKey = sessionKeyPrefix + "dataCatCache";
 
         // Retrieve cached time or set it to 0 if session storage is unavailable
         let cachedTime = isSessionStorageAvailable
@@ -7643,27 +7649,27 @@ var T4SThemeSPHeader = class {
         } else {
           // Prepare request parameters if cache is expired or unavailable
           const categoryElement = (window.jQuery || window.$)(
-            '.is-header-categories'
+            ".is-header-categories",
           );
           const sectionID =
             categoryElement.length > 0
               ? `${categoryElement
-                  .find('[data-section-id]')
-                  .data('section-id')}&q=${categoryElement
-                  .find('[data-section-id]')
-                  .data('section-id')}`
-              : 'header-categories';
+                  .find("[data-section-id]")
+                  .data("section-id")}&q=${categoryElement
+                  .find("[data-section-id]")
+                  .data("section-id")}`
+              : "header-categories";
 
           // Fetch the category section content
           window.T4SThemeSP.getToFetchSection(
             null,
-            'text',
-            `${searchUrl}/?section_id=${sectionID}`
+            "text",
+            `${searchUrl}/?section_id=${sectionID}`,
           ).then((response) => {
-            if (response !== 'NVT_94') {
+            if (response !== "NVT_94") {
               const parsedHTML = new DOMParser()
-                .parseFromString(response, 'text/html')
-                .querySelector('div').innerHTML;
+                .parseFromString(response, "text/html")
+                .querySelector("div").innerHTML;
               this.updateCat(parsedHTML);
 
               // Update session storage with fresh data
@@ -7690,9 +7696,9 @@ var T4SThemeSPHeader = class {
     }
 
     // Remove any inline styles and set CSS variables for maximum width and height
-    this.headerWrapper.removeAttr('style').css({
-      '--ts-max-width': `${$window.width() - 10}px`,
-      '--ts-max-height': `${
+    this.headerWrapper.removeAttr("style").css({
+      "--ts-max-width": `${$window.width() - 10}px`,
+      "--ts-max-height": `${
         $window.height() -
         Math.max(0, this.headerElement.getBoundingClientRect().top) -
         Math.max(0, this.headerElement.offsetHeight) -
@@ -7701,15 +7707,15 @@ var T4SThemeSPHeader = class {
     });
 
     // Trigger layout refresh for any active Isotope grid items in the header section
-    this.headerWrapper.find('.isotope-enabled').isotope('layout');
+    this.headerWrapper.find(".isotope-enabled").isotope("layout");
 
     // Repeat the layout refresh after a slight delay to ensure layout is updated
     setTimeout(() => {
-      this.headerWrapper.find('.isotope-enabled').isotope('layout');
+      this.headerWrapper.find(".isotope-enabled").isotope("layout");
     }, 500);
 
     // Adjust navigation categories layout
-    const navCategories = (window.jQuery || window.$)('#nav-categories');
+    const navCategories = (window.jQuery || window.$)("#nav-categories");
     if (navCategories.length === 0) return;
 
     // Calculate available space for navigation categories
@@ -7725,9 +7731,9 @@ var T4SThemeSPHeader = class {
     }
 
     // Apply CSS variables for navigation categories max width and height
-    navCategories.removeAttr('style').css({
-      '--ts-max-width': `${availableWidth}px`,
-      '--ts-max-height': `${
+    navCategories.removeAttr("style").css({
+      "--ts-max-width": `${availableWidth}px`,
+      "--ts-max-height": `${
         $window.height() -
         Math.max(0, navCategories[0].getBoundingClientRect().top) -
         10
@@ -7735,11 +7741,11 @@ var T4SThemeSPHeader = class {
     });
 
     // Trigger layout refresh for any active Isotope grid items in navigation categories
-    navCategories.find('.isotope-enabled').isotope('layout');
+    navCategories.find(".isotope-enabled").isotope("layout");
 
     // Repeat the layout refresh after a slight delay for smoother layout update
     setTimeout(() => {
-      navCategories.find('.isotope-enabled').isotope('layout');
+      navCategories.find(".isotope-enabled").isotope("layout");
     }, 500);
   }
 
@@ -7747,55 +7753,55 @@ var T4SThemeSPHeader = class {
     if (this.IsDesignMode) {
       if (!this.headerElement) return;
       this.headerElement.removeEventListener(
-        'preventHeaderReveal',
-        this.s.bind(this)
+        "preventHeaderReveal",
+        this.s.bind(this),
       );
-      window.removeEventListener('scroll', this.handleScroll());
+      window.removeEventListener("scroll", this.handleScroll());
     }
 
     if (this.O && this.N && !this.W) {
       this.headerElement.addEventListener(
-        'preventHeaderReveal',
-        this.s.bind(this)
+        "preventHeaderReveal",
+        this.s.bind(this),
       );
-      window.addEventListener('scroll', this.handleScroll(this), false);
+      window.addEventListener("scroll", this.handleScroll(this), false);
       new IntersectionObserver((entries, observer) => {
         this.headerOptions = entries[0].intersectionRect;
         observer.disconnect();
       }).observe(this.headerElement);
     } else {
       this.headerElement.classList.remove(
-        'shopify-section-header-hidden',
-        'animate'
+        "shopify-section-header-hidden",
+        "animate",
       );
     }
   }
 
   //
   l() {
-    this.headerElement.dispatchEvent(new Event('HeaderHide'));
+    this.headerElement.dispatchEvent(new Event("HeaderHide"));
     this.headerWrapper.one(
-      'transitionend webkitTransitionEnd oTransitionEnd',
+      "transitionend webkitTransitionEnd oTransitionEnd",
       () => {
-        if (this.headerWrapper.hasClass('shopify-section-header-hidden')) {
+        if (this.headerWrapper.hasClass("shopify-section-header-hidden")) {
           this.documentElement.classList.remove(this.headerStuckClass);
         }
-      }
+      },
     );
     this.headerElement.classList.add(
-      'shopify-section-header-hidden',
-      'shopify-section-header-sticky'
+      "shopify-section-header-hidden",
+      "shopify-section-header-sticky",
     );
   }
   //
   c() {
-    this.headerElement.dispatchEvent(new Event('HeaderReveal'));
+    this.headerElement.dispatchEvent(new Event("HeaderReveal"));
     this.documentElement.classList.add(this.headerStuckClass);
     this.headerElement.classList.add(
-      'shopify-section-header-sticky',
-      'animate'
+      "shopify-section-header-sticky",
+      "animate",
     );
-    this.headerElement.classList.remove('shopify-section-header-hidden');
+    this.headerElement.classList.remove("shopify-section-header-hidden");
   }
   //
   d() {
@@ -7809,9 +7815,9 @@ var T4SThemeSPHeader = class {
       this.X = false;
     }
     this.headerElement.classList.remove(
-      'shopify-section-header-hidden',
-      'shopify-section-header-sticky',
-      'animate'
+      "shopify-section-header-hidden",
+      "shopify-section-header-sticky",
+      "animate",
     );
     this.documentElement.classList.add(this.noTransitionClass);
     let _;
@@ -7842,38 +7848,38 @@ var T4SThemeSPHeader = class {
           if (isVisible === 0) {
             instance.documentElement.classList.add(instance.headerStuckClass);
             if (instance.X) {
-              instance.documentElement.classList.add('hsticky__ready');
+              instance.documentElement.classList.add("hsticky__ready");
               instance.X = false; // Update the flag indicating that the sticky header is ready
             }
           }
           // If the sentinel is fully visible
           else if (isVisible === 1) {
             instance.documentElement.classList.remove(
-              instance.headerStuckClass
+              instance.headerStuckClass,
             ); // Remove visibility class
             instance.documentElement.classList.add(instance.noTransitionClass); // Add class for header active state
             let _;
             clearTimeout(_); // Clear any existing timeout
             _ = setTimeout(() => {
               instance.documentElement.classList.remove(
-                instance.noTransitionClass
+                instance.noTransitionClass,
               ); // Remove active class after a delay
             }, 366);
           }
         },
         {
           threshold: [0, 1], // Observe when the intersection ratio crosses 0 or 1
-        }
+        },
       );
 
       // Observe the sentinel element if it exists
-      if ((window.jQuery || window.$)('#hsticky__sentinel').length > 0) {
-        observer.observe(document.querySelector('#hsticky__sentinel'));
+      if ((window.jQuery || window.$)("#hsticky__sentinel").length > 0) {
+        observer.observe(document.querySelector("#hsticky__sentinel"));
       }
 
       // Initial setup for the sticky header ready state
       setTimeout(() => {
-        instance.documentElement.classList.add('hsticky__ready');
+        instance.documentElement.classList.add("hsticky__ready");
         instance.X = false; // Mark the header as ready after the delay
       }, 396);
     })(this);
@@ -7882,39 +7888,39 @@ var T4SThemeSPHeader = class {
     this.updateHeaderStyles();
 
     // Update styles on window resize
-    $window.on('resize', this.updateHeaderStyles);
+    $window.on("resize", this.updateHeaderStyles);
   }
 
   // Function to manage the header's visibility and behavior based on design mode and scroll events
   initializeHeaderBehavior() {
     // Check if in design mode
     if (IsDesignMode) {
-      this.headerElement = document.querySelector('.section-header');
+      this.headerElement = document.querySelector(".section-header");
       this.headerOptions = {};
       this.scrollPosition = 0;
       this.isStickyEnabled = false;
       this.rawHeaderOptions =
         (window.jQuery || window.$)(this.headerElement)
-          .find('[' + this.dataHeaderOptions + ']')
-          .attr(this.dataHeaderOptions) || '{}';
+          .find("[" + this.dataHeaderOptions + "]")
+          .attr(this.dataHeaderOptions) || "{}";
       this.parsedOptions = JSON.parse(this.rawHeaderOptions);
       this.isSticky = parsedSettings.isSticky;
       this.hideOnScrollDown = parsedSettings.hideScroldown;
       if (!this.headerElement) return;
 
       // Remove previous event listeners if any
-      this.headerElement.removeEventListener('preventHeaderReveal', () =>
-        this.preventHeaderReveal()
+      this.headerElement.removeEventListener("preventHeaderReveal", () =>
+        this.preventHeaderReveal(),
       );
-      window.removeEventListener('scroll', () => this.handleScroll());
+      window.removeEventListener("scroll", () => this.handleScroll());
     }
 
     // If sticky and hide scroll down conditions are met, set up new event listeners
     if (this.hideOnScrollDown && this.isSticky && !this.isVerticalHeader) {
-      this.headerElement.addEventListener('preventHeaderReveal', () =>
-        this.preventHeaderReveal()
+      this.headerElement.addEventListener("preventHeaderReveal", () =>
+        this.preventHeaderReveal(),
       );
-      window.addEventListener('scroll', () => this.handleScroll(), false);
+      window.addEventListener("scroll", () => this.handleScroll(), false);
 
       // Create an Intersection Observer to monitor the header's visibility
       new IntersectionObserver((entries, observer) => {
@@ -7924,8 +7930,8 @@ var T4SThemeSPHeader = class {
     } else {
       // Remove visibility classes if conditions are not met
       this.headerElement.classList.remove(
-        'shopify-section-header-hidden',
-        'animate'
+        "shopify-section-header-hidden",
+        "animate",
       );
     }
   }
@@ -7976,14 +7982,14 @@ var T4SThemeSPHeader = class {
   // Function to update the CSS variables for header and topbar heights
   updateHeaderStyles() {
     $html.css({
-      '--topbar-height':
-        ((window.jQuery || window.$)('#top-bar-main').is(':visible')
-          ? (window.jQuery || window.$)('#top-bar-main').height()
-          : 0) + 'px',
-      '--header-height':
-        ((window.jQuery || window.$)('.section-header').is(':visible')
-          ? (window.jQuery || window.$)('.section-header').height()
-          : 0) + 'px',
+      "--topbar-height":
+        ((window.jQuery || window.$)("#top-bar-main").is(":visible")
+          ? (window.jQuery || window.$)("#top-bar-main").height()
+          : 0) + "px",
+      "--header-height":
+        ((window.jQuery || window.$)(".section-header").is(":visible")
+          ? (window.jQuery || window.$)(".section-header").height()
+          : 0) + "px",
     });
   }
 
@@ -7993,7 +7999,7 @@ var T4SThemeSPHeader = class {
     // Iterate over each target element to load and initialize content
     targetElements.each((_, element) => {
       const currentElement = window.$(element);
-      const contentSelector = '#mega-contents' + currentElement.data('id');
+      const contentSelector = "#mega-contents" + currentElement.data("id");
       const contentHtml = sourceWrapper.find(contentSelector).html();
 
       if (contentHtml) {
@@ -8001,24 +8007,24 @@ var T4SThemeSPHeader = class {
         currentElement.html(contentHtml);
 
         // Reinitialize the product grid items if any products are present
-        if (currentElement.find('.products .product').length > 0) {
+        if (currentElement.find(".products .product").length > 0) {
           window.T4SThemeSP.reinitProductGridItem();
         }
 
         // Initialize additional features after a short delay
         setTimeout(() => {
-          if (currentElement.hasClass('isotope')) {
+          if (currentElement.hasClass("isotope")) {
             window.T4SThemeSP.Isotopet4s.init(currentElement);
           }
 
           // Setup animations or display options for parent elements
-          this.positionSubMenu(currentElement.closest('.has--children'));
+          this.positionSubMenu(currentElement.closest(".has--children"));
 
           // Initialize popup functionality
           window.T4SThemeSP.PopupMFP();
 
           // Initialize any carousels if present within the content
-          const delayedCarousels = currentElement.find('.flickity-later');
+          const delayedCarousels = currentElement.find(".flickity-later");
           if (delayedCarousels.length > 0) {
             delayedCarousels.each((_, element) => {
               element.flickityt4s = new window.T4SThemeSP.Carousel(element);
@@ -8027,13 +8033,13 @@ var T4SThemeSPHeader = class {
         }, 600);
       } else {
         // If no content is found, clear the current element's content
-        currentElement.html('');
+        currentElement.html("");
       }
     });
 
     // Adjust layout of elements with the Isotope plugin after a delay
     setTimeout(() => {
-      this.headerWrapper.find('.isotope-enabled').isotope('layout');
+      this.headerWrapper.find(".isotope-enabled").isotope("layout");
     }, 800);
   }
 
@@ -8068,8 +8074,8 @@ var T4SThemeSPHeader = class {
   handleMenuClick(targetMenu) {
     // Get anchor elements in the specified menu or default to anchors in main menu items
     this.HeaderSection = targetMenu
-      ? targetMenu.find('>a')
-      : this.navItemsWithChildren.find('>a');
+      ? targetMenu.find(">a")
+      : this.navItemsWithChildren.find(">a");
 
     // Check if hover effect is disabled, screen size is less than 1024, or no anchor elements exist
     if (
@@ -8078,20 +8084,20 @@ var T4SThemeSPHeader = class {
       this.HeaderSection.length === 0
     ) {
       // Remove click event handlers if hover is disabled or in mobile view
-      this.HeaderSection.off('click.menu click.menuIntent');
+      this.HeaderSection.off("click.menu click.menuIntent");
     } else {
       // Attach click event handler to toggle submenu visibility
-      this.HeaderSection.on('click.menu', (event) => {
+      this.HeaderSection.on("click.menu", (event) => {
         event.preventDefault();
 
         const parentItem = (window.$ || window.jQuery)(
-          event.currentTarget
+          event.currentTarget,
         ).parent();
 
         // If the item has the hover-active class, remove it and turn off the menu intent listener
         if (parentItem.hasClass(this.hoverActionClass)) {
           parentItem.removeClass(this.hoverActionClass);
-          $document.off('click.menuIntent');
+          $document.off("click.menuIntent");
         } else {
           // Add hover-active class to the clicked item and remove from siblings
           parentItem
@@ -8100,7 +8106,7 @@ var T4SThemeSPHeader = class {
             .removeClass(this.hoverActionClass);
 
           // Set up a click listener to remove the hover-active class when clicking outside
-          $document.on('click.menuIntent', (event) => {
+          $document.on("click.menuIntent", (event) => {
             const clickedElement = event.target;
 
             // Check if the click is outside the active menu items
@@ -8108,13 +8114,13 @@ var T4SThemeSPHeader = class {
               !window.jQuery(clickedElement).is(`.${this.hoverActionClass}`) &&
               !window
                 .jQuery(clickedElement)
-                .parents('li')
+                .parents("li")
                 .is(`.${this.hoverActionClass}`)
             ) {
               this.menuNavigation
                 .find(`.${this.hoverActionClass}`)
                 .removeClass(this.hoverActionClass);
-              $document.off('click.menuIntent');
+              $document.off("click.menuIntent");
             }
           });
         }
@@ -8124,21 +8130,21 @@ var T4SThemeSPHeader = class {
 
   // Function to position and style submenu with optional lazy-loading of Isotope layouts
   positionSubMenu(menuItem, applyLazyLayout = false) {
-    const menuLink = menuItem.find('>a')[0];
-    const subMenu = menuItem.find('>.sub-menu')[0];
-    const placement = menuItem.data('placement') || 'bottom';
+    const menuLink = menuItem.find(">a")[0];
+    const subMenu = menuItem.find(">.sub-menu")[0];
+    const placement = menuItem.data("placement") || "bottom";
 
     // Check if submenu needs custom width settings or is full-width
     if (
-      (!menuItem.hasClass('menu-width__full') || placement === 'right-start') &&
+      (!menuItem.hasClass("menu-width__full") || placement === "right-start") &&
       subMenu
     ) {
-      (window.jQuery || window.$)(subMenu).attr('style', ''); // Clear existing styles
+      (window.jQuery || window.$)(subMenu).attr("style", ""); // Clear existing styles
 
       // If submenu placement is not at the bottom or if special conditions apply
       if (
-        placement !== 'bottom' ||
-        menuItem.hasClass('type__drop') ||
+        placement !== "bottom" ||
+        menuItem.hasClass("type__drop") ||
         !this.centerSubMenuIfPossible(subMenu)
       ) {
         // Use floating UI to calculate and set the position of submenu
@@ -8151,7 +8157,7 @@ var T4SThemeSPHeader = class {
         }).then(({ x: leftPosition, y: topPosition }) => {
           Object.assign(subMenu.style, {
             left: `${leftPosition}px`,
-            top: placement.includes('bottom') ? '100%' : `${topPosition}px`,
+            top: placement.includes("bottom") ? "100%" : `${topPosition}px`,
           });
         });
       }
@@ -8159,10 +8165,10 @@ var T4SThemeSPHeader = class {
       // Apply lazy-loading layout adjustment if specified
       if (!applyLazyLayout) {
         const isotopeMenus = (window.jQuery || window.$)(subMenu).find(
-          '.lazy_menu.isotope.isotope-enabled'
+          ".lazy_menu.isotope.isotope-enabled",
         );
         if (isotopeMenus.length > 0) {
-          isotopeMenus.isotope('layout');
+          isotopeMenus.isotope("layout");
         }
       }
     }
@@ -8171,7 +8177,7 @@ var T4SThemeSPHeader = class {
   // Helper function to center submenu if possible within the viewport
   centerSubMenuIfPossible(subMenuElement) {
     const subMenu = (window.jQuery || window.$)(subMenuElement);
-    subMenu.attr('style', '');
+    subMenu.attr("style", "");
 
     const subMenuWidth = subMenu.outerWidth();
     const subMenuOffset = subMenu.offset();
@@ -8187,7 +8193,7 @@ var T4SThemeSPHeader = class {
       leftOffset <= centerLimit + subMenuWidth &&
       viewportWidth >= centerLimit + subMenuWidth
     ) {
-      subMenu.addClass('is--center-screen');
+      subMenu.addClass("is--center-screen");
       return true;
     } else if (
       isThemeRTL &&
@@ -8195,10 +8201,10 @@ var T4SThemeSPHeader = class {
       leftOffset <= centerLimit &&
       viewportWidth >= centerLimit + subMenuWidth
     ) {
-      subMenu.addClass('is--center-screen');
+      subMenu.addClass("is--center-screen");
       return true;
     } else {
-      subMenu.removeClass('is--center-screen');
+      subMenu.removeClass("is--center-screen");
       return false;
     }
   }
@@ -8206,17 +8212,17 @@ var T4SThemeSPHeader = class {
 
 window.T4SThemeSP.MobileNav = () => {
   const cssClasses = {
-    tabNavActive: 'is--active',
-    opend: 'is--opend',
+    tabNavActive: "is--active",
+    opend: "is--opend",
   };
 
-  const resizeEventName = 'resize.navmb';
-  const drawerStateKey = 'opendDrawer';
+  const resizeEventName = "resize.navmb";
+  const drawerStateKey = "opendDrawer";
   const $ = window.jQuery || window.$;
 
   // Get index of the active category item and construct session storage keys based on it
-  let activeCategoryIndex = $('.list-categories--item.is--active').index();
-  const categoryIndex = activeCategoryIndex > 0 ? activeCategoryIndex : '';
+  let activeCategoryIndex = $(".list-categories--item.is--active").index();
+  const categoryIndex = activeCategoryIndex > 0 ? activeCategoryIndex : "";
   const timeMenuKey = `${cacheNameFirst}timeMenu${categoryIndex}`;
   const dataMenuKey = `${cacheNameFirst}dataMenu${categoryIndex}`;
 
@@ -8227,8 +8233,8 @@ window.T4SThemeSP.MobileNav = () => {
   const thirtyMinutes = 18e5;
 
   // Selecting elements for mobile navigation and categories
-  const navSections = $('.sp-section-mb-nav [data-section-id]');
-  const categorySections = $('.sp-section-mb-cat [data-section-id]');
+  const navSections = $(".sp-section-mb-nav [data-section-id]");
+  const categorySections = $(".sp-section-mb-cat [data-section-id]");
 
   // Count of sections
   const navSectionCount = navSections.length;
@@ -8237,8 +8243,8 @@ window.T4SThemeSP.MobileNav = () => {
   // Initialize section IDs if active category index exists
   let navSectionId, categorySectionId;
   if (activeCategoryIndex > 0) {
-    navSectionId = navSections.data('section-id');
-    categorySectionId = categorySections.data('section-id');
+    navSectionId = navSections.data("section-id");
+    categorySectionId = categorySections.data("section-id");
   }
 
   // Session storage retrieval
@@ -8251,51 +8257,51 @@ window.T4SThemeSP.MobileNav = () => {
 
   const toggleMenu = (element) => {
     element.hasClass(cssClasses.opend)
-      ? element.removeClass(cssClasses.opend).children('ul').slideUp(200)
-      : element.addClass(cssClasses.opend).children('ul').slideDown(200);
+      ? element.removeClass(cssClasses.opend).children("ul").slideUp(200)
+      : element.addClass(cssClasses.opend).children("ul").slideDown(200);
   };
 
   const fetchSection = (time_delay = 4) => {
     if (
       IsDesignMode ||
       isFlagActive ||
-      configData.$mobileNav.is(':visible') ||
+      configData.$mobileNav.is(":visible") ||
       viewportWidth > 1024
     ) {
       setTimeout(() => {
         if (activeCategoryIndex > 0) {
-          navSectionId = navSectionCount === 1 ? navSectionId : 'mb_nav';
+          navSectionId = navSectionCount === 1 ? navSectionId : "mb_nav";
           categorySectionId =
-            categorySectionCount === 1 ? categorySectionId : 'mb_cat';
+            categorySectionCount === 1 ? categorySectionId : "mb_cat";
           let navFetched = false;
           let catFetched = false;
 
           window.T4SThemeSP.getToFetchSection(
             `?section_id=${navSectionId}`,
-            'text'
+            "text",
           ).then((res) => {
-            if (res !== 'NVT_94') {
-              configData.$mobileNav.find('#shopify-mb_nav').html(res);
-              catFetched ? updateMobileNav('indexPage') : (navFetched = true);
+            if (res !== "NVT_94") {
+              configData.$mobileNav.find("#shopify-mb_nav").html(res);
+              catFetched ? updateMobileNav("indexPage") : (navFetched = true);
             }
           });
 
           window.T4SThemeSP.getToFetchSection(
             `?section_id=${categorySectionId}`,
-            'text'
+            "text",
           ).then((res) => {
-            if (res !== 'NVT_94') {
-              configData.$mobileNav.find('#shopify-mb_cat').html(res);
-              navFetched ? updateMobileNav('indexPage') : (catFetched = true);
+            if (res !== "NVT_94") {
+              configData.$mobileNav.find("#shopify-mb_cat").html(res);
+              navFetched ? updateMobileNav("indexPage") : (catFetched = true);
             }
           });
         } else {
           window.T4SThemeSP.getToFetchSection(
             null,
-            'text',
-            `${T4Sroutes.search_url}/?view=mn`
+            "text",
+            `${T4Sroutes.search_url}/?view=mn`,
           ).then((res) => {
-            if (res !== 'NVT_94') {
+            if (res !== "NVT_94") {
               updateMobileNav(res);
             }
           });
@@ -8306,17 +8312,17 @@ window.T4SThemeSP.MobileNav = () => {
 
   const updateMobileNav = (content) => {
     window.T4SThemeSP.Helpers.promiseStylesheet(
-      window.T4Sconfigs.stylesheet2
+      window.T4Sconfigs.stylesheet2,
     ).then(() => {
       isFlagActive = true;
-      if (activeCategoryIndex <= 0 && content !== 'indexPage') {
+      if (activeCategoryIndex <= 0 && content !== "indexPage") {
         configData.$mobileNav.html(content);
-      } else if (activeCategoryIndex > 0 && content === 'indexPage') {
+      } else if (activeCategoryIndex > 0 && content === "indexPage") {
         content = configData.$mobileNav.html();
       }
       $window.off(resizeEventName);
       configData.$mobileNav.off(drawerStateKey);
-      configData.$mobileNav.trigger('lazyincluded');
+      configData.$mobileNav.trigger("lazyincluded");
 
       if (isStorageSpSession) {
         storedTime = Date.now() + thirtyMinutes;
@@ -8328,14 +8334,14 @@ window.T4SThemeSP.MobileNav = () => {
 
   const initializeMobileNav = () => {
     configData = {
-      $mobileNav: $('#menu-drawer'),
+      $mobileNav: $("#menu-drawer"),
     };
     if (isStorageSpSession && storedTime > 0 && storedTime >= Date.now()) {
       window.T4SThemeSP.Helpers.promiseStylesheet(
-        window.T4Sconfigs.stylesheet2
+        window.T4Sconfigs.stylesheet2,
       ).then(() => {
         configData.$mobileNav.html(sessionStorage.getItem(dataMenuKey));
-        configData.$mobileNav.trigger('lazyincluded');
+        configData.$mobileNav.trigger("lazyincluded");
       });
     } else {
       $window.on(
@@ -8343,7 +8349,7 @@ window.T4SThemeSP.MobileNav = () => {
         window.T4SThemeSP.debounce(300, () => {
           viewportWidth = $window.width();
           fetchSection(0);
-        })
+        }),
       );
 
       fetchSection(500);
@@ -8355,8 +8361,8 @@ window.T4SThemeSP.MobileNav = () => {
       }
 
       configData.$mobileNav.on(
-        'click',
-        '[data-tab-mb-nav]>[data-tab-mb-item]',
+        "click",
+        "[data-tab-mb-nav]>[data-tab-mb-item]",
         (event) => {
           const tab = $(event.currentTarget);
           if (!tab.hasClass(cssClasses.tabNavActive)) {
@@ -8365,31 +8371,31 @@ window.T4SThemeSP.MobileNav = () => {
               .siblings()
               .removeClass(cssClasses.tabNavActive);
             $(`[data-tab-mb-content].${cssClasses.tabNavActive}`).removeClass(
-              cssClasses.tabNavActive
+              cssClasses.tabNavActive,
             );
-            $(tab.data('id')).addClass(cssClasses.tabNavActive);
+            $(tab.data("id")).addClass(cssClasses.tabNavActive);
           }
-        }
+        },
       );
 
       configData.$mobileNav.on(
-        'click',
-        '.menu-item-has-children.only_icon_false>a',
+        "click",
+        ".menu-item-has-children.only_icon_false>a",
         (event) => {
           event.preventDefault();
           event.stopPropagation();
           toggleMenu($(event.currentTarget).parent());
-        }
+        },
       );
 
       configData.$mobileNav.on(
-        'click',
-        '.menu-item-has-children > a > .mb-nav__icon',
+        "click",
+        ".menu-item-has-children > a > .mb-nav__icon",
         (event) => {
           event.preventDefault();
           event.stopPropagation();
           toggleMenu($(event.currentTarget).parent().parent());
-        }
+        },
       );
     }
   };
@@ -8398,67 +8404,67 @@ window.T4SThemeSP.MobileNav = () => {
 };
 window.loadingBar = () => {
   return () => {
-    console.log('loadingBar');
+    console.log("loadingBar");
   };
 };
 
 //done
 window.T4SThemeSP.loadingBar = () => {
-  console.log('loadingBar');
+  console.log("loadingBar");
 };
 
 //done
 window.T4SThemeSP.currencyForm = () => {
   const cartCurrency = window.T4Sconfigs.cartCurrency;
-  const selectedClass = 'is--select';
+  const selectedClass = "is--select";
   let $elementMap = {};
 
   const selectCurrency = (currency) => {
     if (cartCurrency !== currency) {
       if (window.isStorageSpdLocalAll) {
-        localStorage.setItem('Currency', currency);
+        localStorage.setItem("Currency", currency);
       }
       window
         .jQuery(`[data-currency-wrap] [data-iso="${currency}"]`)
         .first()
-        .trigger('click');
+        .trigger("click");
     }
   };
 
   const handleCurrencyLocaleSelection = () => {
     $body.on(
-      'click',
-      '[data-locale-wrap] [data-locale-item], [data-currency-wrap] [data-currency-item]',
+      "click",
+      "[data-locale-wrap] [data-locale-item], [data-currency-wrap] [data-currency-item]",
       (event) => {
         event.preventDefault();
         const selectedItem = window.jQuery(event.currentTarget);
         if (
           !(
-            (window.T4Sconfigs.currency_type === '2' &&
-              selectedItem.is('[data-currency-item]')) ||
+            (window.T4Sconfigs.currency_type === "2" &&
+              selectedItem.is("[data-currency-item]")) ||
             selectedItem.hasClass(selectedClass)
           )
         ) {
-          const isLocaleItem = selectedItem.is('[data-locale-item]');
+          const isLocaleItem = selectedItem.is("[data-locale-item]");
           const wrapperSelector = isLocaleItem
-            ? '[data-locale-wrap]'
-            : '[data-currency-wrap]';
+            ? "[data-locale-wrap]"
+            : "[data-currency-wrap]";
           const selectorType = isLocaleItem
-            ? '$localeSelector'
-            : '$currencySelector';
+            ? "$localeSelector"
+            : "$currencySelector";
           let isCurrencyType = !isLocaleItem;
 
-          const selectedIso = selectedItem.attr('data-iso');
+          const selectedIso = selectedItem.attr("data-iso");
           const currentIso = window
             .jQuery(`${wrapperSelector} .${selectedClass}`)
             .first()
-            .attr('data-iso');
-          const selectedLanguage = selectedItem.attr('data-language');
+            .attr("data-iso");
+          const selectedLanguage = selectedItem.attr("data-language");
           // const currentLanguage = window
           //   .jQuery(`${wrapperSelector} .${selectedClass}`)
           //   .first()
           //   .attr('data-language');
-          const selectedCountry = selectedItem.attr('data-country');
+          const selectedCountry = selectedItem.attr("data-country");
           // const currentCountry = window
           //   .jQuery(`${wrapperSelector} .${selectedClass}`)
           //   .first()
@@ -8470,16 +8476,16 @@ window.T4SThemeSP.currencyForm = () => {
             .removeClass(`flags-${currentIso}`)
             .addClass(`flags-${selectedIso}`);
           const imgCurrent = window.jQuery(
-            `${wrapperSelector} [data-img-current]`
+            `${wrapperSelector} [data-img-current]`,
           );
           if (imgCurrent.length > 0) {
-            const src = imgCurrent.attr('src');
+            const src = imgCurrent.attr("src");
             imgCurrent.attr(
-              'src',
+              "src",
               src.replace(
                 /\/\w\w.svg/g,
-                `/${selectedCountry.toLowerCase()}.svg`
-              )
+                `/${selectedCountry.toLowerCase()}.svg`,
+              ),
             );
           }
 
@@ -8490,32 +8496,32 @@ window.T4SThemeSP.currencyForm = () => {
             .removeClass(selectedClass);
 
           $elementMap[selectorType].val(selectedIso);
-          if (selectorType === '$currencySelector') {
+          if (selectorType === "$currencySelector") {
             $elementMap.$countryMirror.val(selectedCountry);
           }
           $elementMap.$formCurrencyLocale.submit();
 
           if (window.isStorageSpdLocal && isCurrencyType) {
-            localStorage.setItem('Currency', selectedIso);
+            localStorage.setItem("Currency", selectedIso);
           }
           window.T4SThemeSP.loadingBar();
         }
-      }
+      },
     );
   };
 
   const initializeCurrencyForm = () => {
     $elementMap = {
-      $formCurrencyLocale: window.jQuery('#CurrencyLangSelector'),
-      $countryMirror: window.jQuery('#countryMirror'),
-      $localeSelector: window.jQuery('#LocaleSelector'),
-      $currencySelector: window.jQuery('#CurrencySelector'),
+      $formCurrencyLocale: window.jQuery("#CurrencyLangSelector"),
+      $countryMirror: window.jQuery("#countryMirror"),
+      $localeSelector: window.jQuery("#LocaleSelector"),
+      $currencySelector: window.jQuery("#CurrencySelector"),
     };
 
     if ($elementMap.$formCurrencyLocale.length) {
       handleCurrencyLocaleSelection();
       const storedCurrency = window.isStorageSpdLocalAll
-        ? localStorage.getItem('Currency')
+        ? localStorage.getItem("Currency")
         : null;
 
       if (
@@ -8526,250 +8532,250 @@ window.T4SThemeSP.currencyForm = () => {
       ) {
         let selectedCurrency;
         const currency = window.isStorageSpdLocalAll
-          ? JSON.parse(localStorage.getItem('nt_currency') || '{}')
+          ? JSON.parse(localStorage.getItem("nt_currency") || "{}")
           : null;
         const currencyMap = {
-          AF: 'AFN',
-          AX: 'EUR',
-          AL: 'ALL',
-          DZ: 'DZD',
-          AS: 'USD',
-          AD: 'EUR',
-          AO: 'AOA',
-          AI: 'XCD',
-          AQ: '',
-          AG: 'XCD',
-          AR: 'ARS',
-          AM: 'AMD',
-          AW: 'AWG',
-          AU: 'AUD',
-          AT: 'EUR',
-          AZ: 'AZN',
-          BS: 'BSD',
-          BH: 'BHD',
-          BD: 'BDT',
-          BB: 'BBD',
-          BY: 'BYN',
-          BE: 'EUR',
-          BZ: 'BZD',
-          BJ: 'XOF',
-          BM: 'BMD',
-          BT: 'INR',
-          BO: 'BOB',
-          BQ: 'USD',
-          BA: 'BAM',
-          BW: 'BWP',
-          BR: 'BRL',
-          IO: 'USD',
-          VG: 'USD',
-          BN: 'BND',
-          BG: 'BGN',
-          BF: 'XOF',
-          BI: 'BIF',
-          KH: 'KHR',
-          CM: 'XAF',
-          CA: 'CAD',
-          CV: 'CVE',
-          KY: 'KYD',
-          CF: 'XAF',
-          TD: 'XAF',
-          CL: 'CLP',
-          CN: 'CNY',
-          CX: 'AUD',
-          CC: 'AUD',
-          CO: 'COP',
-          KM: 'KMF',
-          CG: 'XAF',
-          CD: 'CDF',
-          CK: 'NZD',
-          CR: 'CRC',
-          HR: 'HRK',
-          CU: 'CUP',
-          CW: 'ANG',
-          CY: 'EUR',
-          CZ: 'CZK',
-          DK: 'DKK',
-          DJ: 'DJF',
-          DM: 'XCD',
-          DO: 'DOP',
-          EC: 'USD',
-          EG: 'EGP',
-          SV: 'USD',
-          GQ: 'XAF',
-          ER: 'ERN',
-          EE: 'EUR',
-          ET: 'ETB',
-          FK: 'FKP',
-          FO: 'DKK',
-          FJ: 'FJD',
-          FI: 'EUR',
-          FR: 'EUR',
-          PF: 'XPF',
-          GA: 'XAF',
-          GM: 'GMD',
-          GE: 'GEL',
-          DE: 'EUR',
-          GH: 'GHS',
-          GI: 'GIP',
-          GR: 'EUR',
-          GL: 'DKK',
-          GD: 'XCD',
-          GU: 'USD',
-          GT: 'GTQ',
-          GG: 'GBP',
-          GN: 'GNF',
-          GW: 'XOF',
-          GY: 'GYD',
-          HT: 'HTG',
-          HM: 'AUD',
-          VA: 'EUR',
-          HN: 'HNL',
-          HK: 'HKD',
-          HU: 'HUF',
-          IS: 'ISK',
-          IN: 'INR',
-          ID: 'IDR',
-          IR: 'IRR',
-          IQ: 'IQD',
-          IE: 'EUR',
-          IM: 'GBP',
-          IL: 'ILS',
-          IT: 'EUR',
-          CI: 'XOF',
-          JM: 'JMD',
-          JP: 'JPY',
-          JE: 'GBP',
-          JO: 'JOD',
-          KZ: 'KZT',
-          KE: 'KES',
-          KI: 'AUD',
-          XK: 'EUR',
-          KW: 'KWD',
-          KG: 'KGS',
-          LA: 'LAK',
-          LV: 'EUR',
-          LB: 'LBP',
-          LS: 'LSL',
-          LR: 'LRD',
-          LY: 'LYD',
-          LI: 'CHF',
-          LT: 'EUR',
-          LU: 'EUR',
-          MO: 'MOP',
-          MK: 'MKD',
-          MG: 'MGA',
-          MW: 'MWK',
-          MY: 'MYR',
-          MV: 'MVR',
-          ML: 'XOF',
-          MT: 'EUR',
-          MH: 'USD',
-          MR: 'MRU',
-          MU: 'MUR',
-          YT: 'EUR',
-          MX: 'MXN',
-          FM: 'USD',
-          MD: 'MDL',
-          MC: 'EUR',
-          MN: 'MNT',
-          ME: 'EUR',
-          MS: 'XCD',
-          MA: 'MAD',
-          MZ: 'MZN',
-          MM: 'MMK',
-          NA: 'NAD',
-          NR: 'AUD',
-          NP: 'NPR',
-          NL: 'EUR',
-          NC: 'XPF',
-          NZ: 'NZD',
-          NI: 'NIO',
-          NE: 'XOF',
-          NG: 'NGN',
-          NU: 'NZD',
-          NF: 'AUD',
-          KP: 'KPW',
-          MP: 'USD',
-          NO: 'NOK',
-          OM: 'OMR',
-          PK: 'PKR',
-          PW: 'USD',
-          PS: 'ILS',
-          PA: 'PAB',
-          PG: 'PGK',
-          PY: 'PYG',
-          PE: 'PEN',
-          PH: 'PHP',
-          PN: 'NZD',
-          PL: 'PLN',
-          PT: 'EUR',
-          PR: 'USD',
-          QA: 'QAR',
-          RO: 'RON',
-          RU: 'RUB',
-          RW: 'RWF',
-          RE: 'EUR',
-          WS: 'WST',
-          SM: 'EUR',
-          ST: 'STN',
-          SA: 'SAR',
-          SN: 'XOF',
-          RS: 'RSD',
-          SC: 'SCR',
-          SL: 'SLL',
-          SG: 'SGD',
-          SX: 'ANG',
-          SK: 'EUR',
-          SI: 'EUR',
-          SB: 'SBD',
-          SO: 'SOS',
-          ZA: 'ZAR',
-          GS: 'GBP',
-          KR: 'KRW',
-          SS: 'SSP',
-          ES: 'EUR',
-          LK: 'LKR',
-          BL: 'EUR',
-          SH: 'SHP',
-          KN: 'XCD',
-          LC: 'XCD',
-          MF: 'EUR',
-          PM: 'EUR',
-          VC: 'XCD',
-          SD: 'SDG',
-          SR: 'SRD',
-          SE: 'SEK',
-          CH: 'CHF',
-          SY: 'SYP',
-          TW: 'TWD',
-          TJ: 'TJS',
-          TZ: 'TZS',
-          TH: 'THB',
-          TL: 'USD',
-          TG: 'XOF',
-          TK: 'NZD',
-          TO: 'TOP',
-          TT: 'TTD',
-          TN: 'TND',
-          TR: 'TRY',
-          TM: 'TMT',
-          TC: 'USD',
-          TV: 'AUD',
-          UG: 'UGX',
-          UA: 'UAH',
-          AE: 'AED',
-          GB: 'GBP',
-          US: 'USD',
-          UY: 'UYU',
-          UZ: 'UZS',
-          VU: 'VUV',
-          VE: 'VES',
-          VN: 'VND',
-          WF: 'XPF',
-          EH: 'MAD',
-          YE: 'YER',
-          ZM: 'ZMW',
-          ZW: 'ZWL',
+          AF: "AFN",
+          AX: "EUR",
+          AL: "ALL",
+          DZ: "DZD",
+          AS: "USD",
+          AD: "EUR",
+          AO: "AOA",
+          AI: "XCD",
+          AQ: "",
+          AG: "XCD",
+          AR: "ARS",
+          AM: "AMD",
+          AW: "AWG",
+          AU: "AUD",
+          AT: "EUR",
+          AZ: "AZN",
+          BS: "BSD",
+          BH: "BHD",
+          BD: "BDT",
+          BB: "BBD",
+          BY: "BYN",
+          BE: "EUR",
+          BZ: "BZD",
+          BJ: "XOF",
+          BM: "BMD",
+          BT: "INR",
+          BO: "BOB",
+          BQ: "USD",
+          BA: "BAM",
+          BW: "BWP",
+          BR: "BRL",
+          IO: "USD",
+          VG: "USD",
+          BN: "BND",
+          BG: "BGN",
+          BF: "XOF",
+          BI: "BIF",
+          KH: "KHR",
+          CM: "XAF",
+          CA: "CAD",
+          CV: "CVE",
+          KY: "KYD",
+          CF: "XAF",
+          TD: "XAF",
+          CL: "CLP",
+          CN: "CNY",
+          CX: "AUD",
+          CC: "AUD",
+          CO: "COP",
+          KM: "KMF",
+          CG: "XAF",
+          CD: "CDF",
+          CK: "NZD",
+          CR: "CRC",
+          HR: "HRK",
+          CU: "CUP",
+          CW: "ANG",
+          CY: "EUR",
+          CZ: "CZK",
+          DK: "DKK",
+          DJ: "DJF",
+          DM: "XCD",
+          DO: "DOP",
+          EC: "USD",
+          EG: "EGP",
+          SV: "USD",
+          GQ: "XAF",
+          ER: "ERN",
+          EE: "EUR",
+          ET: "ETB",
+          FK: "FKP",
+          FO: "DKK",
+          FJ: "FJD",
+          FI: "EUR",
+          FR: "EUR",
+          PF: "XPF",
+          GA: "XAF",
+          GM: "GMD",
+          GE: "GEL",
+          DE: "EUR",
+          GH: "GHS",
+          GI: "GIP",
+          GR: "EUR",
+          GL: "DKK",
+          GD: "XCD",
+          GU: "USD",
+          GT: "GTQ",
+          GG: "GBP",
+          GN: "GNF",
+          GW: "XOF",
+          GY: "GYD",
+          HT: "HTG",
+          HM: "AUD",
+          VA: "EUR",
+          HN: "HNL",
+          HK: "HKD",
+          HU: "HUF",
+          IS: "ISK",
+          IN: "INR",
+          ID: "IDR",
+          IR: "IRR",
+          IQ: "IQD",
+          IE: "EUR",
+          IM: "GBP",
+          IL: "ILS",
+          IT: "EUR",
+          CI: "XOF",
+          JM: "JMD",
+          JP: "JPY",
+          JE: "GBP",
+          JO: "JOD",
+          KZ: "KZT",
+          KE: "KES",
+          KI: "AUD",
+          XK: "EUR",
+          KW: "KWD",
+          KG: "KGS",
+          LA: "LAK",
+          LV: "EUR",
+          LB: "LBP",
+          LS: "LSL",
+          LR: "LRD",
+          LY: "LYD",
+          LI: "CHF",
+          LT: "EUR",
+          LU: "EUR",
+          MO: "MOP",
+          MK: "MKD",
+          MG: "MGA",
+          MW: "MWK",
+          MY: "MYR",
+          MV: "MVR",
+          ML: "XOF",
+          MT: "EUR",
+          MH: "USD",
+          MR: "MRU",
+          MU: "MUR",
+          YT: "EUR",
+          MX: "MXN",
+          FM: "USD",
+          MD: "MDL",
+          MC: "EUR",
+          MN: "MNT",
+          ME: "EUR",
+          MS: "XCD",
+          MA: "MAD",
+          MZ: "MZN",
+          MM: "MMK",
+          NA: "NAD",
+          NR: "AUD",
+          NP: "NPR",
+          NL: "EUR",
+          NC: "XPF",
+          NZ: "NZD",
+          NI: "NIO",
+          NE: "XOF",
+          NG: "NGN",
+          NU: "NZD",
+          NF: "AUD",
+          KP: "KPW",
+          MP: "USD",
+          NO: "NOK",
+          OM: "OMR",
+          PK: "PKR",
+          PW: "USD",
+          PS: "ILS",
+          PA: "PAB",
+          PG: "PGK",
+          PY: "PYG",
+          PE: "PEN",
+          PH: "PHP",
+          PN: "NZD",
+          PL: "PLN",
+          PT: "EUR",
+          PR: "USD",
+          QA: "QAR",
+          RO: "RON",
+          RU: "RUB",
+          RW: "RWF",
+          RE: "EUR",
+          WS: "WST",
+          SM: "EUR",
+          ST: "STN",
+          SA: "SAR",
+          SN: "XOF",
+          RS: "RSD",
+          SC: "SCR",
+          SL: "SLL",
+          SG: "SGD",
+          SX: "ANG",
+          SK: "EUR",
+          SI: "EUR",
+          SB: "SBD",
+          SO: "SOS",
+          ZA: "ZAR",
+          GS: "GBP",
+          KR: "KRW",
+          SS: "SSP",
+          ES: "EUR",
+          LK: "LKR",
+          BL: "EUR",
+          SH: "SHP",
+          KN: "XCD",
+          LC: "XCD",
+          MF: "EUR",
+          PM: "EUR",
+          VC: "XCD",
+          SD: "SDG",
+          SR: "SRD",
+          SE: "SEK",
+          CH: "CHF",
+          SY: "SYP",
+          TW: "TWD",
+          TJ: "TJS",
+          TZ: "TZS",
+          TH: "THB",
+          TL: "USD",
+          TG: "XOF",
+          TK: "NZD",
+          TO: "TOP",
+          TT: "TTD",
+          TN: "TND",
+          TR: "TRY",
+          TM: "TMT",
+          TC: "USD",
+          TV: "AUD",
+          UG: "UGX",
+          UA: "UAH",
+          AE: "AED",
+          GB: "GBP",
+          US: "USD",
+          UY: "UYU",
+          UZ: "UZS",
+          VU: "VUV",
+          VE: "VES",
+          VN: "VND",
+          WF: "XPF",
+          EH: "MAD",
+          YE: "YER",
+          ZM: "ZMW",
+          ZW: "ZWL",
         };
         if (Object.keys(currency).length) {
           selectedCurrency =
@@ -8781,14 +8787,14 @@ window.T4SThemeSP.currencyForm = () => {
           selectCurrency(selectedCurrency);
         } else {
           const primaryRequest = {
-            type: 'get',
-            url: 'https://extreme-ip-lookup.com/json/?key=demo2',
-            dataType: 'json',
+            type: "get",
+            url: "https://extreme-ip-lookup.com/json/?key=demo2",
+            dataType: "json",
             success: (res) => {
-              if ('success' == res.status) {
+              if ("success" == res.status) {
                 selectCurrency(currencyMap[res.countryCode]);
                 if (window.isStorageSpdLocal) {
-                  localStorage.setItem('nt_currency', JSON.stringify(res));
+                  localStorage.setItem("nt_currency", JSON.stringify(res));
                 }
               } else {
                 window.jQuery.ajax(secondaryRequest);
@@ -8799,13 +8805,13 @@ window.T4SThemeSP.currencyForm = () => {
             },
           };
           const secondaryRequest = {
-            type: 'get',
-            url: 'https://ipinfo.io/json',
-            dataType: 'json',
+            type: "get",
+            url: "https://ipinfo.io/json",
+            dataType: "json",
             success: (res) => {
               selectCurrency(currencyMap[res.country]);
               if (window.isStorageSpdLocal) {
-                localStorage.setItem('nt_currency', JSON.stringify(res));
+                localStorage.setItem("nt_currency", JSON.stringify(res));
               }
             },
             error: (error) => {
@@ -8813,28 +8819,28 @@ window.T4SThemeSP.currencyForm = () => {
             },
           };
           const ternaryRequest = {
-            type: 'get',
-            url: 'https://d1hcrjcdtouu7e.cloudfront.net/users/countryDetection',
-            dataType: 'json',
+            type: "get",
+            url: "https://d1hcrjcdtouu7e.cloudfront.net/users/countryDetection",
+            dataType: "json",
             success: (res) => {
               selectCurrency(currencyMap[res.country]);
               if (isStorageSpdLocal) {
-                localStorage.setItem('nt_currency', JSON.stringify(res));
+                localStorage.setItem("nt_currency", JSON.stringify(res));
               }
             },
           };
 
           window.jQuery.ajax({
-            type: 'get',
-            url: '/browsing_context_suggestions.json?source=geolocation_recommendation&currency[enabled]=true&language[enabled]=true',
-            dataType: 'json',
+            type: "get",
+            url: "/browsing_context_suggestions.json?source=geolocation_recommendation&currency[enabled]=true&language[enabled]=true",
+            dataType: "json",
             success: (res) => {
               try {
                 selectCurrency(res.suggestions[0].parts.currency.handle);
                 if (window.isStorageSpdLocal) {
                   localStorage.setItem(
-                    'nt_currency',
-                    JSON.stringify(res.suggestions[0].parts)
+                    "nt_currency",
+                    JSON.stringify(res.suggestions[0].parts),
                   );
                 }
               } catch (error) {
@@ -8857,34 +8863,34 @@ window.T4SThemeSP.productRecommendations = () => {
   const handleEmptyRecommendations = (element) => {
     if (element[0]) {
       element.hide();
-    } else if (i.$recommendationsWrap.hasClass('pr-single_tab-content')) {
-      i.$recommendationsWrap.find('.loading--bg').hide();
-      i.$recommendationsWrap.find('[data-empty-product]').show();
+    } else if (i.$recommendationsWrap.hasClass("pr-single_tab-content")) {
+      i.$recommendationsWrap.find(".loading--bg").hide();
+      i.$recommendationsWrap.find("[data-empty-product]").show();
     } else {
       window.T4SThemeSP.isRelatedEmpty = true;
       window.T4SThemeSP.isRecentEmpty
-        ? (window.jQuery || window.$)('.tp-recent-related').hide()
+        ? (window.jQuery || window.$)(".tp-recent-related").hide()
         : i.$recommendationsWrap.hide();
     }
   };
 
   const fetchRecommendations = (recommendationsWrap) => {
-    const dataType = recommendationsWrap.data('type');
-    const sectionId = recommendationsWrap.data('sid');
-    const baseUrl = recommendationsWrap.data('baseurl');
+    const dataType = recommendationsWrap.data("type");
+    const sectionId = recommendationsWrap.data("sid");
+    const baseUrl = recommendationsWrap.data("baseurl");
     const closestRecommendations = recommendationsWrap.closest(
-      '.id_product-recommendations'
+      ".id_product-recommendations",
     );
     let url = `${m}${baseUrl}&section_id=${sectionId}`;
 
-    if (dataType === '3') {
+    if (dataType === "3") {
       url = `${baseUrl}?section_id=${sectionId}&product_id=${recommendationsWrap.data(
-        'id'
-      )}&limit=${recommendationsWrap.data('limit')}`;
+        "id",
+      )}&limit=${recommendationsWrap.data("limit")}`;
     }
 
-    window.T4SThemeSP.getToFetchSection(null, 'text', url).then((response) => {
-      if (response !== 'NVT_94') {
+    window.T4SThemeSP.getToFetchSection(null, "text", url).then((response) => {
+      if (response !== "NVT_94") {
         let htmlContent = IsDesignMode
           ? (window.jQuery || window.$)(response[2]).html()
           : (window.jQuery || window.$)(response).html();
@@ -8895,12 +8901,12 @@ window.T4SThemeSP.productRecommendations = () => {
         }
         if (htmlContent) {
           recommendationsWrap.html(htmlContent);
-          if (recommendationsWrap.find('.product').length > 0) {
+          if (recommendationsWrap.find(".product").length > 0) {
             window.T4SThemeSP.reinitProductGridItem();
           }
           window.T4SThemeSP.Reveal();
-          if (recommendationsWrap.find('.flickity').length > 0) {
-            const carousel = recommendationsWrap.find('.flickity')[0];
+          if (recommendationsWrap.find(".flickity").length > 0) {
+            const carousel = recommendationsWrap.find(".flickity")[0];
             carousel.flickityt4s = new window.T4SThemeSP.Carousel(carousel);
             window.T4SThemeSP.ProductItem.resizeObserver();
           }
@@ -8914,7 +8920,7 @@ window.T4SThemeSP.productRecommendations = () => {
   };
 
   const recommendationsWrap = (window.jQuery || window.$)(
-    '#pr_recommendations:not(.is--not-rub-js)'
+    "#pr_recommendations:not(.is--not-rub-js)",
   );
   const i = { $recommendationsWrap: recommendationsWrap };
   if (recommendationsWrap.length) {
@@ -8926,27 +8932,27 @@ window.T4SThemeSP.recentlyViewed = () => {
   const handleEmptyRecentlyViewed = (element, hide = true) => {
     if (element[0]) {
       hide ? element.hide() : element.slideUp();
-    } else if (o.$recentlyWrap.hasClass('pr-single_tab-content')) {
-      o.$recentlyWrap.find('.loading--bg').hide();
-      o.$recentlyWrap.find('[data-empty-product]').show();
+    } else if (o.$recentlyWrap.hasClass("pr-single_tab-content")) {
+      o.$recentlyWrap.find(".loading--bg").hide();
+      o.$recentlyWrap.find("[data-empty-product]").show();
     } else {
       window.T4SThemeSP.isRecentEmpty = true;
       window.T4SThemeSP.isRelatedEmpty
-        ? (window.jQuery || window.$)('.tp-recent-related').hide()
+        ? (window.jQuery || window.$)(".tp-recent-related").hide()
         : o.$recentlyWrap.hide();
     }
   };
 
   const fetchRecentlyViewedProducts = (recentWrap) => {
-    const storedRecentProducts = localStorage.getItem('nt_recent');
-    const productId = p === 'product' ? recentWrap.data('id') : '19041994';
-    const sectionId = recentWrap.data('sid');
-    const unavailableProducts = recentWrap.data('unpr');
-    const limit = recentWrap.data('limit');
-    const closestRecentlyViewed = recentWrap.closest('.id_recently_viewed');
+    const storedRecentProducts = localStorage.getItem("nt_recent");
+    const productId = p === "product" ? recentWrap.data("id") : "19041994";
+    const sectionId = recentWrap.data("sid");
+    const unavailableProducts = recentWrap.data("unpr");
+    const limit = recentWrap.data("limit");
+    const closestRecentlyViewed = recentWrap.closest(".id_recently_viewed");
 
     if (storedRecentProducts) {
-      let recentProducts = storedRecentProducts.split(',');
+      let recentProducts = storedRecentProducts.split(",");
       const productIndex = recentProducts.indexOf(productId);
       if (productIndex > -1) {
         recentProducts = recentProducts.splice(0, limit + 1);
@@ -8959,13 +8965,13 @@ window.T4SThemeSP.recentlyViewed = () => {
         return handleEmptyRecentlyViewed(closestRecentlyViewed, false);
       }
 
-      const query = recentProducts.join(' OR ');
+      const query = recentProducts.join(" OR ");
       const encodedQuery = encodeURI(query);
       const url = `${m}/?section_id=${sectionId}&type=product&options[unavailable_products]=${unavailableProducts}&q=${encodedQuery}`;
 
-      window.T4SThemeSP.getToFetchSection(null, 'text', url).then(
+      window.T4SThemeSP.getToFetchSection(null, "text", url).then(
         (response) => {
-          if (response !== 'NVT_94') {
+          if (response !== "NVT_94") {
             let htmlContent = IsDesignMode
               ? (window.jQuery || window.$)(response[2]).html()
               : (window.jQuery || window.$)(response).html();
@@ -8976,12 +8982,12 @@ window.T4SThemeSP.recentlyViewed = () => {
             }
             if (htmlContent) {
               recentWrap.html(htmlContent);
-              if (recentWrap.find('.product').length > 0) {
+              if (recentWrap.find(".product").length > 0) {
                 window.T4SThemeSP.reinitProductGridItem();
               }
               window.T4SThemeSP.Reveal();
-              if (recentWrap.find('.flickity').length > 0) {
-                const carousel = recentWrap.find('.flickity')[0];
+              if (recentWrap.find(".flickity").length > 0) {
+                const carousel = recentWrap.find(".flickity")[0];
                 carousel.flickityt4s = new window.T4SThemeSP.Carousel(carousel);
                 window.T4SThemeSP.ProductItem.resizeObserver();
               }
@@ -8991,26 +8997,26 @@ window.T4SThemeSP.recentlyViewed = () => {
           } else {
             handleEmptyRecentlyViewed(closestRecentlyViewed);
           }
-        }
+        },
       );
     } else {
       handleEmptyRecentlyViewed(closestRecentlyViewed);
-      localStorage.setItem('nt_recent', []);
+      localStorage.setItem("nt_recent", []);
     }
 
     if (
       !storedRecentProducts?.includes(productId) &&
-      productId !== '19041994'
+      productId !== "19041994"
     ) {
       const updatedRecentProducts = storedRecentProducts
-        ? storedRecentProducts.split(',').splice(0, limit)
+        ? storedRecentProducts.split(",").splice(0, limit)
         : [];
       updatedRecentProducts.unshift(productId);
-      localStorage.setItem('nt_recent', updatedRecentProducts.toString());
+      localStorage.setItem("nt_recent", updatedRecentProducts.toString());
     }
   };
 
-  const recentWrap = (window.jQuery || window.$)('#recently_wrap');
+  const recentWrap = (window.jQuery || window.$)("#recently_wrap");
   const o = { $recentlyWrap: recentWrap };
   if (isStorageSpdLocalAll && recentWrap.length) {
     fetchRecentlyViewedProducts(recentWrap);
@@ -9020,28 +9026,28 @@ window.T4SThemeSP.recentlyViewed = () => {
 window.T4SThemeSP.Cart = (() => {
   const $ = window.jQuery || window.$;
 
-  let cartItemsSelector = '[data-cart-items]';
-  let cartPricesSelector = '[data-cart-prices]';
-  let cartShippingCalcSelector = '[data-cart-calc-shipping]';
-  let cartShippingTextSelector = '[data-cart-ship-text]';
-  let cartShippingBarSelector = '[data-cart-ship-bar]';
-  let cartDiscountsSelector = '[data-cart-discounts]';
-  let cartUpsellOptionsAttribute = 'data-cart-upsell-options';
-  let cartDiscountPercentageAttribute = 'data-ts-percent';
+  let cartItemsSelector = "[data-cart-items]";
+  let cartPricesSelector = "[data-cart-prices]";
+  let cartShippingCalcSelector = "[data-cart-calc-shipping]";
+  let cartShippingTextSelector = "[data-cart-ship-text]";
+  let cartShippingBarSelector = "[data-cart-ship-bar]";
+  let cartDiscountsSelector = "[data-cart-discounts]";
+  let cartUpsellOptionsAttribute = "data-cart-upsell-options";
+  let cartDiscountPercentageAttribute = "data-ts-percent";
   let showShippingConfetti = true;
   let showCartConfetti = true;
-  let isCartDisabled = 'disable' == window.T4Sconfigs.cartType;
+  let isCartDisabled = "disable" == window.T4Sconfigs.cartType;
   let afterAddToCartAction =
-    'cart' != pageType ? window.T4Sconfigs.afterActionATC : '4';
-  let cartDataLoadType = isCartDisabled ? 'cart_data' : 'cart_data,mini_cart';
+    "cart" != pageType ? window.T4Sconfigs.afterActionATC : "4";
+  let cartDataLoadType = isCartDisabled ? "cart_data" : "cart_data,mini_cart";
   let loadingClass = {
-    loading: 'is--loading',
-    none: '!d-none',
-    active: 'is--active',
+    loading: "is--loading",
+    none: "!d-none",
+    active: "is--active",
   };
   let cartSectionID = window.cartT4SectionID;
   let cartDataRequestType =
-    'cart' != pageType ? cartDataLoadType : `cart_data,${cartSectionID}`;
+    "cart" != pageType ? cartDataLoadType : `cart_data,${cartSectionID}`;
   let defaultProductID = 19041994;
   let isCartUpdating = false;
   let carouselConfig = {};
@@ -9049,9 +9055,9 @@ window.T4SThemeSP.Cart = (() => {
 
   // Update cart items count and trigger necessary events
   function updateCartCount() {
-    $('[data-cart-count]').html($('#mini_cart').data('ccount'));
+    $("[data-cart-count]").html($("#mini_cart").data("ccount"));
     window.T4SThemeSP.Tooltip();
-    $body.trigger('currency:update');
+    $body.trigger("currency:update");
 
     // Additional cart functionalities if not in design mode
     if (!isCartDisabled) {
@@ -9062,21 +9068,21 @@ window.T4SThemeSP.Cart = (() => {
   }
 
   function S() {
-    let t = $('#tab-wishlist');
-    let n = window.T4SThemeSP.linkWishlist || '';
-    if (0 == t.length || n.indexOf('id:') < 0) return;
+    let t = $("#tab-wishlist");
+    let n = window.T4SThemeSP.linkWishlist || "";
+    if (0 == t.length || n.indexOf("id:") < 0) return;
 
-    let i = $('.tab-wishlist-empty'),
-      o = $('.tab-wishlist-skeleton'),
-      a = n.replace('view=wishlist', 'section_id=mini_cart_wishlist');
+    let i = $(".tab-wishlist-empty"),
+      o = $(".tab-wishlist-skeleton"),
+      a = n.replace("view=wishlist", "section_id=mini_cart_wishlist");
     i.hide(),
       o.show(),
-      T4SThemeSP.getToFetchSection(null, 'text', a).then((t) => {
+      T4SThemeSP.getToFetchSection(null, "text", a).then((t) => {
         o.hide(),
-          'NVT_94' != t &&
-            (o.siblings('.widget__pr').remove(),
+          "NVT_94" != t &&
+            (o.siblings(".widget__pr").remove(),
             o.after(e(t).html()),
-            $body.trigger('currency:update'),
+            $body.trigger("currency:update"),
             window.T4SThemeSP.Wishlist.updateAll(),
             window.T4SThemeSP.Tooltip());
       });
@@ -9084,59 +9090,59 @@ window.T4SThemeSP.Cart = (() => {
 
   // Setup cart tools (actions like open, close, etc.)
   function setupCartTools() {
-    if (pageType === 'cart') return;
-    const cartWrapper = $('[data-cart-wrapper]');
-    const toolContentSelector = '.mini_cart-tool__content';
+    if (pageType === "cart") return;
+    const cartWrapper = $("[data-cart-wrapper]");
+    const toolContentSelector = ".mini_cart-tool__content";
 
-    $('[data-cart-tools]').on('click', '[data-cart-tool_action]', (event) => {
+    $("[data-cart-tools]").on("click", "[data-cart-tool_action]", (event) => {
       event.preventDefault();
       event.stopPropagation();
 
-      const toolId = $(event.currentTarget).data('id');
+      const toolId = $(event.currentTarget).data("id");
       const toolContent = $(`${toolContentSelector}.is--${toolId}`);
-      const closeBtn = toolContent.find('[data-cart-tool_close]');
+      const closeBtn = toolContent.find("[data-cart-tool_close]");
 
-      toolContent.addClass('is--opend');
-      cartWrapper.addClass('is--contentUpdate');
-      toolContent.removeAttr('style');
+      toolContent.addClass("is--opend");
+      cartWrapper.addClass("is--contentUpdate");
+      toolContent.removeAttr("style");
 
       if (!window.T4SThemeSP.isTouch) {
         toolContent.one(
-          'transitionend webkitTransitionEnd oTransitionEnd',
+          "transitionend webkitTransitionEnd oTransitionEnd",
           function () {
-            toolContent.find('[data-opend-focus]').focus();
-          }
+            toolContent.find("[data-opend-focus]").focus();
+          },
         );
       }
 
-      cartWrapper.on('click.tool', (event) => {
+      cartWrapper.on("click.tool", (event) => {
         event.preventDefault();
         if (
           !$(event.target).is(toolContentSelector) &&
           $(event.target).closest(toolContentSelector).length === 0
         ) {
-          toolContent.removeClass('is--opend');
-          cartWrapper.removeClass('is--contentUpdate');
-          cartWrapper.off('click.tool');
-          closeBtn.off('click');
+          toolContent.removeClass("is--opend");
+          cartWrapper.removeClass("is--contentUpdate");
+          cartWrapper.off("click.tool");
+          closeBtn.off("click");
         }
       });
 
-      closeBtn.on('click', function (event) {
+      closeBtn.on("click", function (event) {
         event.preventDefault();
-        toolContent.removeClass('is--opend');
-        cartWrapper.removeClass('is--contentUpdate');
-        cartWrapper.off('click.tool');
-        closeBtn.off('click');
+        toolContent.removeClass("is--opend");
+        cartWrapper.removeClass("is--contentUpdate");
+        cartWrapper.off("click.tool");
+        closeBtn.off("click");
       });
 
-      $body.off('keyup.drawer').on('keyup.toolCart', function (event) {
+      $body.off("keyup.drawer").on("keyup.toolCart", function (event) {
         if (event.keyCode === 27) {
-          toolContent.removeClass('is--opend');
-          cartWrapper.removeClass('is--contentUpdate');
-          cartWrapper.off('click.tool');
-          closeBtn.off('click');
-          $body.off('keyup.toolCart').on('keyup.drawer', function (event) {
+          toolContent.removeClass("is--opend");
+          cartWrapper.removeClass("is--contentUpdate");
+          cartWrapper.off("click.tool");
+          closeBtn.off("click");
+          $body.off("keyup.toolCart").on("keyup.drawer", function (event) {
             if (event.keyCode === 27) window.T4SThemeSP.Drawer.close(event);
           });
         }
@@ -9146,63 +9152,63 @@ window.T4SThemeSP.Cart = (() => {
     handleDiscountCodeInput();
     handleDiscountCodeStorage();
     initializeShippingEstimator();
-    let tabCartWrapper = $('[data-tab-cart-wrap]');
+    let tabCartWrapper = $("[data-tab-cart-wrap]");
     window.T4SThemeSP.cartTabActive = true;
     if (tabCartWrapper[0]) {
-      let tabCartTittle = $('[data-cart-tab-title]');
-      let tabCartContent = $('[data-cart-tab-content]');
-      tabCartWrapper.on('click', '[data-tab-cart-item]', (event) => {
+      let tabCartTittle = $("[data-cart-tab-title]");
+      let tabCartContent = $("[data-cart-tab-content]");
+      tabCartWrapper.on("click", "[data-tab-cart-item]", (event) => {
         event.preventDefault();
         let instance = $(event.currentTarget);
-        window.T4SThemeSP.cartTabActive = instance.is('[data-is-tab-cart]');
-        tabCartTittle.text(instance.data('title'));
+        window.T4SThemeSP.cartTabActive = instance.is("[data-is-tab-cart]");
+        tabCartTittle.text(instance.data("title"));
         instance
           .addClass(loadingClass.active)
-          .siblings('.' + loadingClass.active)
+          .siblings("." + loadingClass.active)
           .removeClass(loadingClass.active),
           tabCartContent
-            .attr('aria-hidden', true)
+            .attr("aria-hidden", true)
             .eq(instance.index())
-            .attr('aria-hidden', false);
+            .attr("aria-hidden", false);
       });
     }
     triggerConfettiOnCartAction();
     updateProductSection();
-    if (!(0 == $('#tab-visited').length || !isStorageSpdLocalAll)) {
-      let t = localStorage.getItem('nt_recent');
+    if (!(0 == $("#tab-visited").length || !isStorageSpdLocalAll)) {
+      let t = localStorage.getItem("nt_recent");
       if (t) {
-        let n = t.split(',').toString().replace(/,/g, ' OR ');
+        let n = t.split(",").toString().replace(/,/g, " OR ");
         let i = encodeURI(n);
-        let o = $('.tab-visited-empty');
-        let a = $('.tab-visited-skeleton');
+        let o = $(".tab-visited-empty");
+        let a = $(".tab-visited-skeleton");
         o.hide();
         a.show();
         window.T4SThemeSP.getToFetchSection(
           null,
-          'text',
+          "text",
           m +
-            '/?section_id=mini_cart_visited&type=product&options[unavailable_products]=show&q=' +
-            i
+            "/?section_id=mini_cart_visited&type=product&options[unavailable_products]=show&q=" +
+            i,
         ).then((t) => {
           a.hide(),
-            'NVT_94' != t &&
+            "NVT_94" != t &&
               (a.after($(t).html()),
-              $body.trigger('currency:update'),
+              $body.trigger("currency:update"),
               window.T4SThemeSP.Wishlist.updateAll(),
               window.T4SThemeSP.Tooltip());
         });
       }
     }
-    $document.on('update:mini_cart:wishlist', S),
-      $document.trigger('update:mini_cart:wishlist'),
+    $document.on("update:mini_cart:wishlist", S),
+      $document.trigger("update:mini_cart:wishlist"),
       document.dispatchEvent(
-        new CustomEvent('cart:updated', {
+        new CustomEvent("cart:updated", {
           detail: {
-            count: $('#mini_cart').data('ccount'),
+            count: $("#mini_cart").data("ccount"),
           },
           bubbles: true,
           cancelable: true,
-        })
+        }),
       );
   }
 
@@ -9210,9 +9216,9 @@ window.T4SThemeSP.Cart = (() => {
   function fetchCartSection(isFullUpdate = false) {
     window.T4SThemeSP.getToFetchSection(
       `?sections=${cartDataRequestType}`,
-      'json'
+      "json",
     ).then((response) => {
-      if (response !== 'NVT_94') {
+      if (response !== "NVT_94") {
         updateCartContents(response, isFullUpdate);
       }
     });
@@ -9227,20 +9233,20 @@ window.T4SThemeSP.Cart = (() => {
     const cartPricesContainer = $(cartPricesSelector);
     const shippingCalcContainer = $(cartShippingCalcSelector);
     const shippingTextElement = shippingCalcContainer.find(
-      cartShippingTextSelector
+      cartShippingTextSelector,
     );
     const shippingBarElement = shippingCalcContainer.find(
-      cartShippingBarSelector
+      cartShippingBarSelector,
     );
     const cartDiscountsContainer = $(cartDiscountsSelector);
 
     // Split cart data for further processing
-    cartItemCount = cartItemCount.split('[split1]')[1];
-    cartItemCount = cartItemCount.split('[split2]');
+    cartItemCount = cartItemCount.split("[split1]")[1];
+    cartItemCount = cartItemCount.split("[split2]");
 
     if (
       (cartItemCount[0] != 0 && !window.T4SThemeSP.isATCSuccess) ||
-      pageType !== 'cart'
+      pageType !== "cart"
     ) {
       // Handle successful Add-To-Cart
       if (!window.T4SThemeSP.isATCSuccess && isAddToCartSuccessful) {
@@ -9254,45 +9260,45 @@ window.T4SThemeSP.Cart = (() => {
         cartDiscountPercentageAttribute,
         miniCartElement
           .find(cartShippingCalcSelector)
-          .attr(cartDiscountPercentageAttribute)
+          .attr(cartDiscountPercentageAttribute),
       );
       shippingTextElement.replaceWith(
-        miniCartElement.find(cartShippingTextSelector).wrap()
+        miniCartElement.find(cartShippingTextSelector).wrap(),
       );
       shippingBarElement.attr(
-        'style',
-        miniCartElement.find(cartShippingBarSelector).attr('style')
+        "style",
+        miniCartElement.find(cartShippingBarSelector).attr("style"),
       );
       cartDiscountsContainer.html(
-        miniCartElement.find(cartDiscountsSelector).html()
+        miniCartElement.find(cartDiscountsSelector).html(),
       );
 
       const cartItemCountParsed = parseFloat(cartItemCount[0]);
 
       // Update cart counts and display text based on item count
-      $('[data-cart-count]').html(cartItemCountParsed);
-      $('[data-cart-ttcount]').html(
+      $("[data-cart-count]").html(cartItemCountParsed);
+      $("[data-cart-ttcount]").html(
         cartItemCountParsed < 2
           ? themeStrings.item_cart[cartItemCountParsed]
-          : themeStrings.item_cart[2]
+          : themeStrings.item_cart[2],
       );
-      $('[data-cart-tt-price]').html(cartItemCount[1]);
+      $("[data-cart-tt-price]").html(cartItemCount[1]);
 
       // Handle gift toggle
-      if (cartItemCount[2] === '1') {
+      if (cartItemCount[2] === "1") {
         $(
-          '.mini_cart-tool__content.is--gift.is--opend [data-cart-tool_close]'
-        ).trigger('click');
-        $('[data-toogle-gift]').hide();
+          ".mini_cart-tool__content.is--gift.is--opend [data-cart-tool_close]",
+        ).trigger("click");
+        $("[data-toogle-gift]").hide();
       } else {
-        $('[data-toogle-gift]').show();
+        $("[data-toogle-gift]").show();
       }
 
       // Update cart count badge
       if (cartItemCount[0] == 0) {
-        $('.cart-count-badge').addClass('cart-count-0');
+        $(".cart-count-badge").addClass("cart-count-0");
       } else {
-        $('.cart-count-badge').removeClass('cart-count-0');
+        $(".cart-count-badge").removeClass("cart-count-0");
         if (isCartUpdating) {
           triggerConfettiOnCartAction();
           isCartUpdating = false;
@@ -9301,28 +9307,28 @@ window.T4SThemeSP.Cart = (() => {
 
       // Dispatch events for cart updates
       document.dispatchEvent(
-        new CustomEvent('cart:update:count', {
+        new CustomEvent("cart:update:count", {
           detail: { count: cartItemCount[0] },
           bubbles: true,
           cancelable: true,
-        })
+        }),
       );
       window.T4SThemeSP.Tooltip();
-      $('.currency-selector').trigger('currency:update');
+      $(".currency-selector").trigger("currency:update");
 
       // Handle cart action after Add-To-Cart
-      if (afterAddToCartAction !== '0' && window.T4SThemeSP.isATCSuccess) {
+      if (afterAddToCartAction !== "0" && window.T4SThemeSP.isATCSuccess) {
         closeMiniCart();
       }
 
       document.dispatchEvent(
-        new CustomEvent('cart:updated', {
+        new CustomEvent("cart:updated", {
           detail: { count: cartItemCount[0] },
           bubbles: true,
           cancelable: true,
-        })
+        }),
       );
-      $('.cart-updated-trigger').trigger('cart:updated');
+      $(".cart-updated-trigger").trigger("cart:updated");
 
       updateProductSection();
     } else {
@@ -9333,16 +9339,16 @@ window.T4SThemeSP.Cart = (() => {
   // Functionality after adding item to cart
   function closeMiniCart() {
     window.T4SThemeSP.isATCSuccess = false;
-    if (afterAddToCartAction === '1' || afterAddToCartAction === '2') {
+    if (afterAddToCartAction === "1" || afterAddToCartAction === "2") {
       // Other actions if needed for specific cart options
-    } else if (afterAddToCartAction === '3') {
+    } else if (afterAddToCartAction === "3") {
       if (!window.T4SThemeSP.cartTabActive) {
-        $('[data-is-tab-cart]').trigger('click');
+        $("[data-is-tab-cart]").trigger("click");
       }
-      window.T4SThemeSP.Drawer.opend($('#mini_cart'));
+      window.T4SThemeSP.Drawer.opend($("#mini_cart"));
     } else {
       document.location.href =
-        afterAddToCartAction === '5'
+        afterAddToCartAction === "5"
           ? `${window.T4SThemeSP.root_url}checkout`
           : cartURL;
     }
@@ -9350,12 +9356,12 @@ window.T4SThemeSP.Cart = (() => {
 
   // Handle cart note update
   function updateCartNote() {
-    $('textarea[name="note"]').on('change', (event) => {
+    $('textarea[name="note"]').on("change", (event) => {
       const note = $.trim($(event.currentTarget).val());
-      const headers = new Headers({ 'Content-Type': 'application/json' });
+      const headers = new Headers({ "Content-Type": "application/json" });
 
       fetch(`${cart_url}/update.js`, {
-        method: 'POST',
+        method: "POST",
         headers,
         body: JSON.stringify({ note }),
       })
@@ -9373,13 +9379,13 @@ window.T4SThemeSP.Cart = (() => {
             $(addNoteSelector).removeClass(lodingStatus.none);
           }
         })
-        .catch((error) => console.error('Cart update error:', error));
+        .catch((error) => console.error("Cart update error:", error));
     });
   }
 
   function handleDiscountCodeInput() {
     let timer;
-    const discountInput = $('#CartDiscountcode');
+    const discountInput = $("#CartDiscountcode");
 
     // Check if the element exists
     if (discountInput.length) {
@@ -9391,9 +9397,9 @@ window.T4SThemeSP.Cart = (() => {
         timer = setTimeout(() => {
           // Add or remove the 'name' attribute based on input length
           if (discountInput.val().length) {
-            discountInput.attr('name', 'discount');
+            discountInput.attr("name", "discount");
           } else {
-            discountInput.removeAttr('name');
+            discountInput.removeAttr("name");
           }
         }, 300);
       });
@@ -9403,73 +9409,73 @@ window.T4SThemeSP.Cart = (() => {
   function handleDiscountCodeStorage() {
     // Check if local storage is available
     if (isStorageSpdLocal) {
-      const discountInput = $('#CartDiscountcode');
-      const discountFields = $('#CartDiscountcode, [data-cart-discount]');
+      const discountInput = $("#CartDiscountcode");
+      const discountFields = $("#CartDiscountcode, [data-cart-discount]");
 
       // Retrieve any saved discount code from localStorage and set it in the input fields
-      const savedDiscountCode = localStorage.getItem('CartDiscountcode');
-      discountFields.val(savedDiscountCode).trigger('keyup');
+      const savedDiscountCode = localStorage.getItem("CartDiscountcode");
+      discountFields.val(savedDiscountCode).trigger("keyup");
 
       // Set up event listener for saving the discount code when the save button is clicked
       $('[data-action="save-discountcode"]').click(() => {
         const discountCode = $.trim(discountInput.val());
 
         // Save the discount code to localStorage
-        localStorage.setItem('CartDiscountcode', discountCode);
+        localStorage.setItem("CartDiscountcode", discountCode);
 
         // Update the input fields with the saved code and trigger any relevant updates
-        discountFields.val(discountCode).trigger('keyup');
+        discountFields.val(discountCode).trigger("keyup");
 
         // Apply discount if code is not empty by calling Shopify's discount endpoint
         if (discountCode) {
-          window.fetch(window.Shopify.routes.root + 'discount/' + discountCode);
+          window.fetch(window.Shopify.routes.root + "discount/" + discountCode);
         }
       });
     }
   }
 
   function initializeShippingEstimator() {
-    const estimateWrap = $('[data-estimate-shipping-wrap]');
+    const estimateWrap = $("[data-estimate-shipping-wrap]");
 
     if (!estimateWrap[0]) return;
 
     // Parse language-specific rates for display
     estimateWrap[0].langRates = JSON.parse(
-      estimateWrap.find('template[data-lang-rates]').html() || '{}'
+      estimateWrap.find("template[data-lang-rates]").html() || "{}",
     );
 
     // Initialize country and province selector
-    const id = estimateWrap.data('id');
+    const id = estimateWrap.data("id");
     window.Shopify &&
       new window.Shopify.CountryProvinceSelector(
         `ShippingCountry_${id}`,
         `ShippingProvince_${id}`,
         {
           hideElement: `ShippingProvinceContainer_${id}`,
-        }
+        },
       );
 
     // Click event handler for shipping estimation button
     estimateWrap.on(
-      'click',
+      "click",
       '[data-action="estimate-shipping"]',
       function (event) {
         event.preventDefault();
         event.stopPropagation();
 
         const button = (window.jQuery || window.$)(event.currentTarget);
-        const responseRatesContainer = button.find('[data-response-rates]');
+        const responseRatesContainer = button.find("[data-response-rates]");
 
         // Prepare the shipping address data
         const shippingData = {
-          country: button.find('[name="country"]').val() || '',
-          province: button.find('[name="province"]').val() || '',
-          zip: button.find('[name="zip"]').val() || '',
+          country: button.find('[name="country"]').val() || "",
+          province: button.find('[name="province"]').val() || "",
+          zip: button.find('[name="zip"]').val() || "",
         };
 
         // Show loading indication
         button.addClass(loadingStatus.loading);
-        document.dispatchEvent(new CustomEvent('theme:loading:start'));
+        document.dispatchEvent(new CustomEvent("theme:loading:start"));
 
         // Fetch shipping rates based on address input
         fetch(
@@ -9477,11 +9483,11 @@ window.T4SThemeSP.Cart = (() => {
             shipping_address: shippingData,
           })}`,
           {
-            credentials: 'same-origin',
-            method: 'GET',
-          }
+            credentials: "same-origin",
+            method: "GET",
+          },
         ).then((response) => {
-          document.dispatchEvent(new CustomEvent('theme:loading:end'));
+          document.dispatchEvent(new CustomEvent("theme:loading:end"));
           button.removeClass(loadingStatus.loading);
 
           response.json().then((data) => {
@@ -9490,11 +9496,11 @@ window.T4SThemeSP.Cart = (() => {
               data,
               shippingData,
               responseRatesContainer,
-              estimateWrap[0].langRates
+              estimateWrap[0].langRates,
             );
           });
         });
-      }.bind(estimateWrap[0])
+      }.bind(estimateWrap[0]),
     );
 
     // Helper function to display shipping rates or errors
@@ -9503,14 +9509,14 @@ window.T4SThemeSP.Cart = (() => {
       data,
       shippingData,
       container,
-      langRates
+      langRates,
     ) {
       if (isSuccess) {
         displayAvailableRates(
           data.shipping_rates,
           shippingData,
           container,
-          langRates
+          langRates,
         );
       } else {
         displayErrorRates(data, container, langRates);
@@ -9521,38 +9527,38 @@ window.T4SThemeSP.Cart = (() => {
     function displayAvailableRates(rates, address, container, langRates) {
       let addressText = [address.zip, address.province, address.country]
         .filter(Boolean)
-        .join(', ');
+        .join(", ");
       let ratesInfo =
         rates.length > 1
           ? langRates.multiple_rates
-              .replace('[number_of_rates]', rates.length)
-              .replace('[address]', addressText)
+              .replace("[number_of_rates]", rates.length)
+              .replace("[address]", addressText)
           : rates.length === 1
-          ? langRates.one_rate.replace('[address]', addressText)
-          : langRates.no_rates;
+            ? langRates.one_rate.replace("[address]", addressText)
+            : langRates.no_rates;
 
       let rateList = rates
         .map(
           (rate) =>
             `<li>${langRates.rate_value
-              .replace('[rate_title]', rate.name)
+              .replace("[rate_title]", rate.name)
               .replace(
-                '[rate]',
-                window.T4SThemeSP.Currency.formatMoney(rate.price)
-              )}</li>`
+                "[rate]",
+                window.T4SThemeSP.Currency.formatMoney(rate.price),
+              )}</li>`,
         )
-        .join('');
+        .join("");
 
       container
         .html(
           `
             <div class="mess__rates is--rates-success">${ratesInfo}</div>
             <div class="results__rates"><ul>${rateList}</ul></div>
-        `
+        `,
         )
         .fadeIn();
 
-      (window.jQuery || window.$)('body').trigger('currency:update');
+      (window.jQuery || window.$)("body").trigger("currency:update");
     }
 
     // Display error if no rates are available
@@ -9560,11 +9566,11 @@ window.T4SThemeSP.Cart = (() => {
       let errorMessages = Object.entries(errors)
         .map(
           ([key, message]) =>
-            `<li><span class='key__rate'>${key}</span> ${message}</li>`
+            `<li><span class='key__rate'>${key}</span> ${message}</li>`,
         )
-        .join('');
+        .join("");
 
-      if (errorMessages === 'country is not supported.')
+      if (errorMessages === "country is not supported.")
         errorMessages = `<li>${langRates.no_rates}</li>`;
 
       container
@@ -9572,7 +9578,7 @@ window.T4SThemeSP.Cart = (() => {
           `
             <p>${langRates.errors}</p>
             <ul class="mess__rates is--rates-error">${errorMessages}</ul>
-        `
+        `,
         )
         .fadeIn();
     }
@@ -9584,7 +9590,7 @@ window.T4SThemeSP.Cart = (() => {
 
     // Check if shipping/cart action is completed
     const shipDoneCount = (window.jQuery || window.$)(
-      '[data-cart-ship-done]'
+      "[data-cart-ship-done]",
     ).length;
 
     // If shipping/cart action is done and confetti has not been triggered recently
@@ -9608,18 +9614,18 @@ window.T4SThemeSP.Cart = (() => {
   function updateProductSection() {
     // Select the target element based on attribute `I`
     const targetElement = (window.jQuery || window.$)(
-      `[${cartUpsellOptionsAttribute}]`
+      `[${cartUpsellOptionsAttribute}]`,
     );
     if (targetElement.length === 0) return; // Exit if no elements found
 
     // Extract product data and assign a fallback product ID if not present
     let productData = JSON.parse(
-      targetElement.attr(cartUpsellOptionsAttribute) || '{}'
+      targetElement.attr(cartUpsellOptionsAttribute) || "{}",
     );
     productData.product_id =
       (window.jQuery || window.$)(
-        '[data-cart-items] [data-cart-item]:first'
-      ).data('pid') ||
+        "[data-cart-items] [data-cart-item]:first",
+      ).data("pid") ||
       productData.product_id ||
       19041994;
 
@@ -9631,10 +9637,10 @@ window.T4SThemeSP.Cart = (() => {
     const fetchUrl = `${productData.baseurl}?section_id=${productData.section_id}&product_id=${productData.product_id}&limit=${productData.limit}`;
 
     // Fetch and update the section content
-    window.T4SThemeSP.getToFetchSection(null, 'text', fetchUrl).then(
+    window.T4SThemeSP.getToFetchSection(null, "text", fetchUrl).then(
       (response) => {
         // If the response indicates no valid content, hide the target element and exit
-        if (response === 'NVT_94') {
+        if (response === "NVT_94") {
           targetElement.hide();
           return;
         }
@@ -9642,33 +9648,33 @@ window.T4SThemeSP.Cart = (() => {
         // Destroy existing carousel if present, update the content, and initialize tooltips
         if (carouselConfig.flickity) carouselConfig.flickity.destroy();
         targetElement.html((window.jQuery || window.$)(response).html());
-        $body.trigger('currency:update');
+        $body.trigger("currency:update");
         window.T4SThemeSP.Tooltip();
 
         // Initialize and resize the carousel if it exists in the updated content
-        const carouselElement = targetElement.find('.flickity')[0];
+        const carouselElement = targetElement.find(".flickity")[0];
         if (carouselElement) {
           carouselConfig.flickityt4s = new window.T4SThemeSP.Carousel(
-            carouselElement
+            carouselElement,
           );
           setTimeout(
             () =>
-              (window.jQuery || window.$)(carouselElement).flickity('resize'),
-            150
+              (window.jQuery || window.$)(carouselElement).flickity("resize"),
+            150,
           );
           setTimeout(
             () =>
-              (window.jQuery || window.$)(carouselElement).flickity('resize'),
-            450
+              (window.jQuery || window.$)(carouselElement).flickity("resize"),
+            450,
           );
         }
-      }
+      },
     );
   }
 
   // Initialize all cart functionalities
   function initCart() {
-    if (pageType === 'cart') {
+    if (pageType === "cart") {
       updateCartNote();
       handleDiscountCodeInput();
       handleDiscountCodeStorage();
@@ -9680,26 +9686,26 @@ window.T4SThemeSP.Cart = (() => {
       if (IsDesignMode) {
         updateCartCount();
       } else if (!isCartDisabled) {
-        window.T4SThemeSP.getToFetchSection('?section_id=mini_cart').then(
+        window.T4SThemeSP.getToFetchSection("?section_id=mini_cart").then(
           (response) => {
-            if ('NVT_94' != response) {
+            if ("NVT_94" != response) {
               window.T4SThemeSP.Helpers.promiseStylesheet(
-                T4Sconfigs.stylesheet1
+                T4Sconfigs.stylesheet1,
               ).then(() => {
-                window.$('#mini_cart').html(window.$(response).html());
+                window.$("#mini_cart").html(window.$(response).html());
                 updateCartCount();
               });
             }
-          }
+          },
         );
       }
     }
 
-    document.addEventListener('cart:refresh', () => fetchCartSection(false));
-    document.addEventListener('cart:refresh:opend', () =>
-      fetchCartSection(true)
+    document.addEventListener("cart:refresh", () => fetchCartSection(false));
+    document.addEventListener("cart:refresh:opend", () =>
+      fetchCartSection(true),
     );
-    $document.on('add:cart:upsell', () => {
+    $document.on("add:cart:upsell", () => {
       isCartUpdating = true;
     });
   }
@@ -9719,7 +9725,7 @@ window.T4SThemeSP.Login = () => {
   };
 
   const renderLoginSidebar = () => {
-    const loginSidebar = (window.jQuery || window.$)('#login-sidebar');
+    const loginSidebar = (window.jQuery || window.$)("#login-sidebar");
     if (loginSidebar.length > 0) {
       const storedTime = isStorageSpSession
         ? sessionStorage.getItem(storageKeys.timeLogin) || 0
@@ -9728,17 +9734,17 @@ window.T4SThemeSP.Login = () => {
 
       if (parsedTime > 0 && parsedTime >= Date.now()) {
         window.T4SThemeSP.Helpers.promiseStylesheet(
-          T4Sconfigs.stylesheet3
+          T4Sconfigs.stylesheet3,
         ).then(() => {
           loginSidebar.html(sessionStorage.getItem(storageKeys.dataLogin));
           attachLoginEvents();
         });
       } else {
-        window.T4SThemeSP.getToFetchSection('?section_id=login-sidebar').then(
+        window.T4SThemeSP.getToFetchSection("?section_id=login-sidebar").then(
           (response) => {
-            if (response !== 'NVT_94') {
+            if (response !== "NVT_94") {
               window.T4SThemeSP.Helpers.promiseStylesheet(
-                T4Sconfigs.stylesheet3
+                T4Sconfigs.stylesheet3,
               ).then(() => {
                 loginSidebar.html((window.jQuery || window.$)(response).html());
                 attachLoginEvents();
@@ -9748,43 +9754,43 @@ window.T4SThemeSP.Login = () => {
                   sessionStorage.setItem(storageKeys.timeLogin, newTime);
                   sessionStorage.setItem(
                     storageKeys.dataLogin,
-                    (window.jQuery || window.$)(response).html()
+                    (window.jQuery || window.$)(response).html(),
                   );
                 }
               });
             }
-          }
+          },
         );
       }
     }
   };
 
   const attachLoginEvents = () => {
-    const loginSidebar = (window.jQuery || window.$)('#login-sidebar');
-    window.T4SThemeSP.Drawer.remove('login-sidebar');
+    const loginSidebar = (window.jQuery || window.$)("#login-sidebar");
+    window.T4SThemeSP.Drawer.remove("login-sidebar");
 
-    loginSidebar.on('click', `[${loginDataAttribute}]`, (event) => {
+    loginSidebar.on("click", `[${loginDataAttribute}]`, (event) => {
       event.preventDefault();
       const target = window
         .jQuery(event.currentTarget)
         .attr(loginDataAttribute);
       loginSidebar
         .find(`.content-login-sidebar.is--${target}`)
-        .attr('aria-hidden', 'false')
+        .attr("aria-hidden", "false")
         .siblings()
-        .attr('aria-hidden', 'true');
+        .attr("aria-hidden", "true");
 
       loginSidebar
         .find(`.drawer__header .is--${target}`)
-        .attr('aria-hidden', 'false')
+        .attr("aria-hidden", "false")
         .siblings()
-        .attr('aria-hidden', 'true');
+        .attr("aria-hidden", "true");
 
-      loginSidebar.attr('data-target', target);
+      loginSidebar.attr("data-target", target);
     });
   };
 
-  const loginDataAttribute = 'data-login-sidebar';
+  const loginDataAttribute = "data-login-sidebar";
 
   if (IsDesignMode) {
     attachLoginEvents();
@@ -9800,22 +9806,22 @@ window.T4SThemeSP.Compare = (() => {
   let comparePopupContainer;
   const MAX_COMPARE_ITEMS = 6;
   const isComparisonDisabled = !window.T4Sconfigs.enable_compare;
-  const itemCountSelector = '[data-count-compare]';
-  const tooltipCountSelector = '[data-ttcount-compare]';
-  const compareLinkSelector = '[data-link-compare]'; // Selector for comparison link element
-  const compareActionSelector = '[data-action-compare]'; // Selector for action button to add to comparison
-  const removeCompareSelector = '[data-remove-compare]'; // Selector for removing items from comparison
-  const clearCompareSelector = '[data-clear-compare]'; // Selector for clearing all compared items
-  const closeCompareSelector = '[data-close-compare]'; // Selector for closing the compare modal
-  const compareStorageKey = 'cp'; // Key used for storing compare items in local storage
-  const disabledPointerClass = 'is--pointer-events-none'; // Class to disable pointer events
-  const itemAddedClass = 'is--added'; // Class for marking an item as added to comparison
-  const activateClass = 'is--activate'; // Class for activating the comparison feature
+  const itemCountSelector = "[data-count-compare]";
+  const tooltipCountSelector = "[data-ttcount-compare]";
+  const compareLinkSelector = "[data-link-compare]"; // Selector for comparison link element
+  const compareActionSelector = "[data-action-compare]"; // Selector for action button to add to comparison
+  const removeCompareSelector = "[data-remove-compare]"; // Selector for removing items from comparison
+  const clearCompareSelector = "[data-clear-compare]"; // Selector for clearing all compared items
+  const closeCompareSelector = "[data-close-compare]"; // Selector for closing the compare modal
+  const compareStorageKey = "cp"; // Key used for storing compare items in local storage
+  const disabledPointerClass = "is--pointer-events-none"; // Class to disable pointer events
+  const itemAddedClass = "is--added"; // Class for marking an item as added to comparison
+  const activateClass = "is--activate"; // Class for activating the comparison feature
   const addedText = window.T4SProductStrings.added_text_cp; // Text displayed when an item is added to compare
   const compareText = window.T4SProductStrings.compare; // Default compare text
   let currentCompareCount = 0; // Counter for currently compared items
   const comparePageUrl = `${searchUrl}/?view=compare&type=product&options[unavailable_products]=last&q=`; // URL for the comparison page
-  let compareRedirectUrl = ''; // URL for redirecting after comparison action
+  let compareRedirectUrl = ""; // URL for redirecting after comparison action
   const defaultCompareIcon = window.T4Sconfigs.cp_icon; // Default icon for compare button
   const addedCompareIcon = window.T4Sconfigs.cp_icon_added;
   const enableComparePopup = window.T4Sconfigs.enableCompePopup; // Flag to enable compare popup
@@ -9825,9 +9831,9 @@ window.T4SThemeSP.Compare = (() => {
     const storedItems = localStorage.getItem(compareStorageKey);
 
     if (storedItems !== null) {
-      compareItemArray = storedItems.split(',');
+      compareItemArray = storedItems.split(",");
 
-      const searchQuery = storedItems.replace(/,/g, ' OR ');
+      const searchQuery = storedItems.replace(/,/g, " OR ");
       const encodedQuery = encodeURI(searchQuery);
 
       compareRedirectUrl = comparePageUrl + encodedQuery;
@@ -9837,20 +9843,20 @@ window.T4SThemeSP.Compare = (() => {
   const updateCompareItemDisplay = (itemId, tooltipElement) => {
     // Select the item element by data-id, ensuring it does not already have the 'is--added' class
     const itemElement = window.jQuery(
-      `${compareActionSelector}[data-id="${itemId}"]:not(.${itemAddedClass})`
+      `${compareActionSelector}[data-id="${itemId}"]:not(.${itemAddedClass})`,
     );
 
     // Update the element's classes and text/icon to show it's added to the comparison list
     itemElement
       .addClass(itemAddedClass)
       .removeClass(disabledPointerClass)
-      .find('.text-pr')
+      .find(".text-pr")
       .text(addedText);
-    itemElement.find('.svg-pr-icon').html(addedCompareIcon);
+    itemElement.find(".svg-pr-icon").html(addedCompareIcon);
 
     // If a tooltip element is provided, update it to reflect the change
     if (tooltipElement) {
-      tooltipElement.trigger('updateTooltip');
+      tooltipElement.trigger("updateTooltip");
     }
   };
 
@@ -9862,12 +9868,12 @@ window.T4SThemeSP.Compare = (() => {
 
       if (storedItems !== null) {
         // Remove the "id:" prefix from each item and split into an array
-        comparedItems = storedItems.replace(/id:/g, '').split(',');
-        currentCompareCount = storedItems === '' ? 0 : comparedItems.length;
+        comparedItems = storedItems.replace(/id:/g, "").split(",");
+        currentCompareCount = storedItems === "" ? 0 : comparedItems.length;
 
         // Process each item ID in the list to update the UI accordingly
         comparedItems.forEach((itemId) => {
-          updateCompareItemDisplay(itemId.replace('id:', ''));
+          updateCompareItemDisplay(itemId.replace("id:", ""));
         });
 
         // Update the displayed count of compared items on the page
@@ -9885,14 +9891,14 @@ window.T4SThemeSP.Compare = (() => {
       const popupType = window.T4Sconfigs.compePopupDes;
 
       // Fetch section if popup type is 'canvas' or undefined
-      if (popupType === undefined || popupType === 'canvas') {
+      if (popupType === undefined || popupType === "canvas") {
         window.T4SThemeSP.getToFetchSection(
           null,
-          'text',
-          url.replace('view=compare', 'section_id=compare-popup')
+          "text",
+          url.replace("view=compare", "section_id=compare-popup"),
         ).then((response) => {
           // Check for valid response before proceeding
-          if (response !== 'NVT_94') {
+          if (response !== "NVT_94") {
             // If animation is enabled and a previous popup exists, remove it
             if (shouldAnimate && comparePopupContainer) {
               comparePopupContainer.remove();
@@ -9901,7 +9907,7 @@ window.T4SThemeSP.Compare = (() => {
             // Append new compare popup component
             window.T4SThemeSP.$appendComponent.after(response);
             comparePopupContainer = (window.jQuery || window.$)(
-              '.section__compare-popup'
+              ".section__compare-popup",
             );
 
             // If animation is required, add the activation class after a delay
@@ -9915,14 +9921,14 @@ window.T4SThemeSP.Compare = (() => {
             window.T4SThemeSP.Tooltip();
           }
         });
-      } else if (shouldAnimate && popupType === 'modal') {
+      } else if (shouldAnimate && popupType === "modal") {
         // For modal popup type, fetch and display in modal window
         window.T4SThemeSP.getToFetchSection(
           null,
-          'text',
-          url.replace('view=compare', 'section_id=compare-modal')
+          "text",
+          url.replace("view=compare", "section_id=compare-modal"),
         ).then((response) => {
-          if (response !== 'NVT_94') {
+          if (response !== "NVT_94") {
             if (shouldAnimate && comparePopupContainer) {
               comparePopupContainer.remove();
             }
@@ -9930,19 +9936,19 @@ window.T4SThemeSP.Compare = (() => {
             // Display popup with modal behavior
             window.T4SThemeSP.NTpopupInline(
               response,
-              '',
+              "",
               () => {
                 window.T4SThemeSP.Wishlist.updateAll();
                 window.T4SThemeSP.Compare.updateAll();
                 window.T4SThemeSP.ProductItem.reloadReview();
                 window.T4SThemeSP.Tooltip();
-                $body.trigger('currency:update');
+                $body.trigger("currency:update");
               },
-              'opening-cp'
+              "opening-cp",
             );
 
             // Trigger event for modal open
-            eventDispatcher.trigger('modal:opened');
+            eventDispatcher.trigger("modal:opened");
 
             // Initialize tooltips for any newly added elements
             window.T4SThemeSP.Tooltip();
@@ -9958,7 +9964,7 @@ window.T4SThemeSP.Compare = (() => {
         window.history.replaceState(
           {},
           document.title,
-          `${searchUrl}/?view=compare`
+          `${searchUrl}/?view=compare`,
         );
       }
       updateCompareItems();
@@ -9977,7 +9983,7 @@ window.T4SThemeSP.Compare = (() => {
           if (
             !window.isEmtyCompare ||
             !window.isComparePerformed ||
-            comparedItems.toString() !== '' ||
+            comparedItems.toString() !== "" ||
             !IsDesignMode
           ) {
             window.location.href = compareRedirectUrl;
@@ -9986,7 +9992,7 @@ window.T4SThemeSP.Compare = (() => {
       }
 
       $body.on(
-        'click',
+        "click",
         `${compareActionSelector}.${itemAddedClass}`,
         (event) => {
           event.preventDefault();
@@ -9994,43 +10000,43 @@ window.T4SThemeSP.Compare = (() => {
           if (enableComparePopup) {
             if (
               window.T4Sconfigs.compePopupDes === undefined ||
-              window.T4Sconfigs.compePopupDes === 'canvas'
+              window.T4Sconfigs.compePopupDes === "canvas"
             ) {
               compareModalClass.addClass(activateClass);
-            } else if (window.T4Sconfigs.compePopupDes === 'modal') {
+            } else if (window.T4Sconfigs.compePopupDes === "modal") {
               showModal(compareRedirectUrl, true);
             }
           } else {
             window.location.href = compareRedirectUrl;
           }
-        }
+        },
       );
 
-      $body.on('click', compareLinkSelector, (event) => {
+      $body.on("click", compareLinkSelector, (event) => {
         event.preventDefault();
         window.location.href = compareRedirectUrl;
       });
 
-      $body.on('click', clearCompareSelector, (event) => {
+      $body.on("click", clearCompareSelector, (event) => {
         event.preventDefault();
         if (
           window.T4Sconfigs.compePopupDes === undefined ||
-          window.T4Sconfigs.compePopupDes === 'canvas'
+          window.T4Sconfigs.compePopupDes === "canvas"
         ) {
           comparePopupContainer.removeClass(activateClass);
-        } else if (window.T4Sconfigs.compePopupDes === 'modal') {
-          $body.trigger('modal:closed');
+        } else if (window.T4Sconfigs.compePopupDes === "modal") {
+          $body.trigger("modal:closed");
         }
         comparedItems.forEach((item) => {
-          let productId = item.replace('id:', '');
+          let productId = item.replace("id:", "");
           window
             .jQuery(`${compareActionSelector}[data-id="${productId}"]`)
             .removeClass(itemAddedClass)
-            .find('.text-pr')
+            .find(".text-pr")
             .text(compareText);
           window
             .jQuery(`${compareActionSelector}[data-id="${productId}"]`)
-            .find('.svg-pr-icon')
+            .find(".svg-pr-icon")
             .html(defaultCompareIcon);
         });
         localStorage.setItem(compareStorageKey, comparedItems.toString());
@@ -10041,39 +10047,39 @@ window.T4SThemeSP.Compare = (() => {
           .html(
             currentCompareCount < 2
               ? themeStrings.item_compare[currentCompareCount]
-              : themeStrings.item_compare[2]
+              : themeStrings.item_compare[2],
           );
         updateCompareItems();
       });
 
-      $body.on('click', closeCompareSelector, (event) => {
+      $body.on("click", closeCompareSelector, (event) => {
         event.preventDefault();
         comparePopupContainer.removeClass(activateClass);
       });
 
       if (
         localStorage.getItem(compareStorageKey) !== null &&
-        comparedItems.toString() !== ''
+        comparedItems.toString() !== ""
       ) {
         showModal(compareRedirectUrl);
       }
 
       $body.on(
-        'click',
+        "click",
         `${compareActionSelector}:not(.${itemAddedClass})`,
         (event) => {
           event.preventDefault();
           event.stopPropagation();
           let element = window.jQuery(event.currentTarget);
-          let productId = element.data('id') || '';
+          let productId = element.data("id") || "";
           let productIdentifier = `id:${productId}`;
           let storedCompareData = localStorage.getItem(compareStorageKey);
           let isExceedingLimit = false;
 
-          if (productId !== '') {
+          if (productId !== "") {
             element.addClass(disabledPointerClass);
             let compareList = storedCompareData
-              ? storedCompareData.split(',')
+              ? storedCompareData.split(",")
               : [];
             compareList.unshift(productIdentifier);
 
@@ -10087,13 +10093,13 @@ window.T4SThemeSP.Compare = (() => {
 
             if (isExceedingLimit) {
               let elements = window.jQuery(
-                `${compareActionSelector}${itemAddedClass}`
+                `${compareActionSelector}${itemAddedClass}`,
               );
               elements
                 .removeClass(itemAddedClass)
-                .find('.text-pr')
+                .find(".text-pr")
                 .text(compareText);
-              elements.find('.svg-pr-icon').html(defaultCompareIcon);
+              elements.find(".svg-pr-icon").html(defaultCompareIcon);
               initializeCompareList();
             } else {
               updateCompareItemDisplay(productId, element);
@@ -10105,7 +10111,7 @@ window.T4SThemeSP.Compare = (() => {
               .html(
                 currentCompareCount < 2
                   ? themeStrings.item_compare[currentCompareCount]
-                  : themeStrings.item_compare[2]
+                  : themeStrings.item_compare[2],
               );
             updateCompareItems();
             showModal(compareRedirectUrl, true);
@@ -10114,19 +10120,19 @@ window.T4SThemeSP.Compare = (() => {
               window.location.href = compareRedirectUrl;
             }
           }
-        }
+        },
       );
 
-      $body.on('click', removeCompareSelector, (event) => {
+      $body.on("click", removeCompareSelector, (event) => {
         event.preventDefault();
         event.stopPropagation();
         let element = window.$(event.currentTarget);
-        let productId = element.data('id');
+        let productId = element.data("id");
         let productIdentifier = `id:${productId}`;
         let storedCompareData = localStorage.getItem(compareStorageKey);
 
         element.addClass(disabledPointerClass);
-        d = storedCompareData.split(',');
+        d = storedCompareData.split(",");
         let index = d.indexOf(productIdentifier);
 
         if (index > -1) {
@@ -10135,14 +10141,14 @@ window.T4SThemeSP.Compare = (() => {
 
         localStorage.setItem(compareStorageKey, d.toString());
         element.removeClass(disabledPointerClass);
-        element.trigger('destroyTooltip');
+        element.trigger("destroyTooltip");
         $(`.compare_id_${productId}`).remove();
         $(`${compareActionSelector}[data-id="${productId}"]`)
           .removeClass(itemAddedClass)
-          .find('.text-pr')
+          .find(".text-pr")
           .text(compareText);
         $(`${compareActionSelector}[data-id="${productId}"]`)
-          .find('.svg-pr-icon')
+          .find(".svg-pr-icon")
           .html(defaultCompareIcon);
 
         currentCompareCount = comparedItems.length;
@@ -10150,12 +10156,12 @@ window.T4SThemeSP.Compare = (() => {
         $(tooltipCountSelector).html(
           currentCompareCount < 2
             ? themeStrings.item_compare[currentCompareCount]
-            : themeStrings.item_compare[2]
+            : themeStrings.item_compare[2],
         );
         updateCompareItems();
 
-        if (isOnComparePage && comparedItems.toString() === '') {
-          $('.compare_table').fadeTo(300, 0);
+        if (isOnComparePage && comparedItems.toString() === "") {
+          $(".compare_table").fadeTo(300, 0);
           window.location.href = compareRedirectUrl;
         }
 
@@ -10163,11 +10169,11 @@ window.T4SThemeSP.Compare = (() => {
           if (enableComparePopup) {
             if (
               window.T4Sconfigs.compePopupDes === undefined ||
-              window.T4Sconfigs.compePopupDes === 'canvas'
+              window.T4Sconfigs.compePopupDes === "canvas"
             ) {
               comparePopupContainer.removeClass(activateClass);
-            } else if (window.T4Sconfigs.compePopupDes === 'modal') {
-              $body.trigger('modal:closed');
+            } else if (window.T4Sconfigs.compePopupDes === "modal") {
+              $body.trigger("modal:closed");
             }
           } else {
             window.location.href = compareRedirectUrl;
@@ -10185,19 +10191,19 @@ window.T4SThemeSP.Compare = (() => {
 window.T4SThemeSP.Wishlist = (() => {
   const wishlistMode = window.T4Sconfigs.wishlist_mode;
   const wishlistATC = window.T4Sconfigs.wis_atc_added;
-  const f = wishlistATC === '2';
-  const supportsLocalStorage = wishlistMode === '2';
-  const isLocalWishlist = wishlistMode === '1';
+  const f = wishlistATC === "2";
+  const supportsLocalStorage = wishlistMode === "2";
+  const isLocalWishlist = wishlistMode === "1";
   const wishlistDisabled = !(isLocalWishlist || supportsLocalStorage);
   const maxItems = 50;
 
-  const wishlistLinkSelector = '[data-link-wishlist]';
-  const wishlistButton = '[data-action-wishlist]';
-  const removeWishlistButton = '[data-remove-wishlist]';
-  const countSelector = '[data-count-wishlist]';
-  const addedClass = 'is--added';
-  const pendingClass = 'is--pointer-events-none';
-  const loadingClass = 'is--loading';
+  const wishlistLinkSelector = "[data-link-wishlist]";
+  const wishlistButton = "[data-action-wishlist]";
+  const removeWishlistButton = "[data-remove-wishlist]";
+  const countSelector = "[data-count-wishlist]";
+  const addedClass = "is--added";
+  const pendingClass = "is--pointer-events-none";
+  const loadingClass = "is--loading";
 
   const browseWishlist = T4SProductStrings.browse_wishlist;
   const addToWishlistText = window.T4SProductStrings.add_to_wishlist;
@@ -10207,22 +10213,22 @@ window.T4SThemeSP.Wishlist = (() => {
   const addedIcon = window.T4Sconfigs.wis_icon_added;
   const M = wishlistATC ? removeWishlist : browseWishlist;
 
-  const storageName = 'wis';
-  const ecomriseWishlistapiEndpoint = '/apps/ecomrise/wishlist';
-  const the4WishlistapiEndpoint = '/tools/the4/wishlist';
+  const storageName = "wis";
+  const ecomriseWishlistapiEndpoint = "/apps/ecomrise/wishlist";
+  const the4WishlistapiEndpoint = "/tools/the4/wishlist";
   const baseWishlistURL =
     searchUrl +
-    '/?view=wishlist&type=product&options[unavailable_products]=last&q=';
-  let wishlistPageURL = '';
+    "/?view=wishlist&type=product&options[unavailable_products]=last&q=";
+  let wishlistPageURL = "";
   let itemCount = 0;
   let currentItems = [];
-  let W = (q = Z = O = '');
+  let W = (q = Z = O = "");
 
   if (supportsLocalStorage) {
-    const wishListDocument = window.jQuery('#wis_list').html() || '';
-    W = wishListDocument.length > 0 ? wishListDocument.split(' ') : [];
-    q = window.jQuery('#wis_list_old').html() || '';
-    Z = q.length > 0 ? q.split(' ') : [];
+    const wishListDocument = window.jQuery("#wis_list").html() || "";
+    W = wishListDocument.length > 0 ? wishListDocument.split(" ") : [];
+    q = window.jQuery("#wis_list_old").html() || "";
+    Z = q.length > 0 ? q.split(" ") : [];
   }
   // Utility function to check if item is unique in array
   function isUnique(item, index, arr) {
@@ -10231,15 +10237,15 @@ window.T4SThemeSP.Wishlist = (() => {
 
   function n() {
     $body.on(
-      'click',
-      `["${wishlistButton}"]` + ':not(.' + addedClass + ')',
+      "click",
+      `["${wishlistButton}"]` + ":not(." + addedClass + ")",
       (event) => {
         event.preventDefault();
         event.stopPropagation();
         if (isLocalWishlist) {
           ((element) => {
-            const id = element.data('id') || '';
-            const ID = 'id:' + id;
+            const id = element.data("id") || "";
+            const ID = "id:" + id;
             const data = localStorage.getItem(storageName);
             const s = false;
             if (!id) return;
@@ -10247,7 +10253,7 @@ window.T4SThemeSP.Wishlist = (() => {
             element.addClass(pendingClass);
             let datas =
               data.length > 0
-                ? a.split(',').unshift(ID).filter(isUnique)
+                ? a.split(",").unshift(ID).filter(isUnique)
                 : [ID];
             if (datas.length > maxItems) {
               datas = datas.splice(0, maxItems);
@@ -10259,9 +10265,9 @@ window.T4SThemeSP.Wishlist = (() => {
               const $elem = e(`["${wishlistButton}"]${addedClass}`);
               $elem
                 .removeClass(addedClass)
-                .find('.text-pr')
+                .find(".text-pr")
                 .text(addToWishlistText);
-              $elem.find('.svg-pr-icon').html(addIcon);
+              $elem.find(".svg-pr-icon").html(addIcon);
               updateAllWishlist();
             } else {
               updateWishlistUI(id, element);
@@ -10272,87 +10278,87 @@ window.T4SThemeSP.Wishlist = (() => {
           })(window.jQuery(event.currentTarget));
         } else {
           (function (element) {
-            const id = element.attr('data-id') || '';
-            const handle = element.attr('data-handle') || 'ntt4s' + id;
+            const id = element.attr("data-id") || "";
+            const handle = element.attr("data-handle") || "ntt4s" + id;
             if (!id) return;
-            element.addClass(loadingClass + ' ' + pendingClass);
+            element.addClass(loadingClass + " " + pendingClass);
             fetch(ecomriseWishlistapiEndpoint, {
-              method: 'POST',
+              method: "POST",
               headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
               },
               body: JSON.stringify({
                 product_id: id,
                 product_handle: handle,
-                action: 'add',
+                action: "add",
               }),
             })
               .then((e) => e.json())
               .then((res) => {
-                if ('success' == res.status) {
+                if ("success" == res.status) {
                   Z = JSON.parse(res.response.metafield.value).the4_ids;
                   W = JSON.parse(res.response.metafield.value).ecomrise_ids;
                   Z && (W = W.concat(Z));
-                  Array.isArray(W) || (W = W.split(','));
+                  Array.isArray(W) || (W = W.split(","));
                   updateWishlistUI(n);
                   itemCount = W.length;
                   window.jQuery(countSelector).html(itemCount);
                   triggerWishlistUpdate();
                   if (window.isPageWishlist) window.location.href = O;
                 } else {
-                  console.error(res.message || 'Unknow error');
+                  console.error(res.message || "Unknow error");
                 }
               })
               .catch((error) => {
-                console.log('Error: ' + error);
+                console.log("Error: " + error);
               })
               .finally(() => {
-                element.removeClass(loadingClass + ' ' + pendingClass);
+                element.removeClass(loadingClass + " " + pendingClass);
               });
           })(window.jQuery(event.currentTarget));
         }
-      }
+      },
     );
   }
 
   function o(element) {
-    var n = element.data('id'),
-      i = 'id:' + n,
+    var n = element.data("id"),
+      i = "id:" + n,
       o = localStorage.getItem(_);
     element.addClass(P);
-    var a = (N = o.split(',')).indexOf(i);
+    var a = (N = o.split(",")).indexOf(i);
     a > -1 ? (N = N.splice(0, T + 1)).splice(a, 1) : (N = N.splice(0, T)),
       localStorage.setItem(_, N.toString()),
       element.removeClass(P),
-      element.trigger('destroyTooltip');
-    var s = window.$('.products-wishlist .products');
+      element.trigger("destroyTooltip");
+    var s = window.$(".products-wishlist .products");
     if (s.length > 0) {
-      let i = element.closest('.product');
+      let i = element.closest(".product");
       (i = i[0]
         ? i
-        : e(`[data-remove-wishlist][data-id="${n}"]`).closest('.product')),
-        s.hasClass('isotope-enabled')
-          ? s.isotopet4s('remove', i[0]).isotopet4s('layout')
+        : e(`[data-remove-wishlist][data-id="${n}"]`).closest(".product")),
+        s.hasClass("isotope-enabled")
+          ? s.isotopet4s("remove", i[0]).isotopet4s("layout")
           : i.remove();
     }
     e(w + '[data-id="' + n + '"]')
       .removeClass(k)
-      .find('.text-pr')
+      .find(".text-pr")
       .text(A),
       e(w + '[data-id="' + n + '"]')
-        .find('.svg-pr-icon')
+        .find(".svg-pr-icon")
         .html($),
       (E = N.length),
       e(C).html(E),
       r(),
       j &&
-        ('' == N.toString() || z) &&
-        (e('.products-wishlist').fadeTo(300, 0), (window.location.href = O));
+        ("" == N.toString() || z) &&
+        (e(".products-wishlist").fadeTo(300, 0), (window.location.href = O));
   }
 
   // Handle adding to wishlist in local storage mode
   function handleLocalWishlistClick(element) {
-    const productId = element.data('id') || '';
+    const productId = element.data("id") || "";
     const storageKey = `id:${productId}`;
     const currentWishlist = localStorage.getItem(storageName);
     let isFull = false;
@@ -10362,7 +10368,7 @@ window.T4SThemeSP.Wishlist = (() => {
     element.addClass(pendingClass);
 
     let wishlistArray =
-      currentWishlist?.length > 0 ? currentWishlist.split(',') : [];
+      currentWishlist?.length > 0 ? currentWishlist.split(",") : [];
     wishlistArray.unshift(storageKey);
 
     wishlistArray = wishlistArray.filter(isUnique);
@@ -10390,8 +10396,8 @@ window.T4SThemeSP.Wishlist = (() => {
 
   // Handle adding to wishlist in remote server mode
   function handleRemoteWishlistClick(element) {
-    const productId = element.attr('data-id') || '';
-    const productHandle = element.attr('data-handle') || 'nt' + productId;
+    const productId = element.attr("data-id") || "";
+    const productHandle = element.attr("data-handle") || "nt" + productId;
 
     if (!productId) return;
 
@@ -10402,21 +10408,21 @@ window.T4SThemeSP.Wishlist = (() => {
         ? ecomriseWishlistapiEndpoint
         : the4WishlistapiEndpoint,
       {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           product_id: productId,
           product_handle: productHandle,
-          action: 'add',
-          _method: 'DELETE',
+          action: "add",
+          _method: "DELETE",
         }),
-      }
+      },
     )
       .then((response) => response.json())
       .then((data) => {
-        if (data.status === 'success') {
+        if (data.status === "success") {
           const id = JSON.parse(data.response.metafield.value).the4_ids;
           currentItems =
             JSON.parse(data.response.metafield.value).ecomrise_ids || [];
@@ -10425,29 +10431,29 @@ window.T4SThemeSP.Wishlist = (() => {
           }
           W = currentItems;
           if (!Array.isArray(W)) {
-            W = W.split(',');
+            W = W.split(",");
           }
-          element.trigger('destroyTooltip');
-          const $element = window.jQuery('.products-wishlist .products');
+          element.trigger("destroyTooltip");
+          const $element = window.jQuery(".products-wishlist .products");
           if ($element.length > 0) {
-            let $elm = element.closest('.product');
+            let $elm = element.closest(".product");
             ($elm = $elm[0]
               ? $elm
               : window
                   .jQuery(`[data-remove-wishlist][data-id="${productId}"]`)
-                  .closest('.product')),
-              $element.hasClass('isotope-enabled')
-                ? $element.isotope('remove', $elm[0]).isotope('layout')
+                  .closest(".product")),
+              $element.hasClass("isotope-enabled")
+                ? $element.isotope("remove", $elm[0]).isotope("layout")
                 : $elm.remove();
           }
           window
             .jQuery(`["${wishlistButton}"][data-id="${id}"]`)
             .removeClass(addedClass)
-            .find('.text-pr')
+            .find(".text-pr")
             .text(addToWishlistText);
           window
             .jQuery(`["${wishlistButton}"][data-id="${id}"]`)
-            .find('.svg-pr-icon')
+            .find(".svg-pr-icon")
             .html(addIcon);
           itemCount = W.length;
           window.jQuery(countSelector).html(itemCount);
@@ -10456,16 +10462,16 @@ window.T4SThemeSP.Wishlist = (() => {
             window.isPageWishlist &&
             (currentItems.length || window.hasPaginateWishlist)
           ) {
-            window.jQuery('.products-wishlist').fadeTo(300, 0);
+            window.jQuery(".products-wishlist").fadeTo(300, 0);
             window.location.href = baseWishlistURL;
           }
         } else {
-          console.error(data.message || 'Unknown error', data);
+          console.error(data.message || "Unknown error", data);
         }
       })
-      .catch((error) => console.error('Error: ' + error))
+      .catch((error) => console.error("Error: " + error))
       .finally(() => {
-        element.removeClass(loadingClass + ' ' + pendingClass);
+        element.removeClass(loadingClass + " " + pendingClass);
       });
   }
 
@@ -10474,34 +10480,34 @@ window.T4SThemeSP.Wishlist = (() => {
     const currentWishlist = localStorage.getItem(storageName);
 
     if (currentWishlist) {
-      let queryString = encodeURI(currentWishlist.replace(/,/g, ' OR '));
+      let queryString = encodeURI(currentWishlist.replace(/,/g, " OR "));
       wishlistPageURL = baseWishlistURL + queryString;
       window.T4SThemeSP.linkWishlist = wishlistPageURL;
-      $document.trigger('update:mini_cart:wishlist');
+      $document.trigger("update:mini_cart:wishlist");
     }
   }
 
   // Function to trigger the wishlist update for the mini cart
   function triggerWishlistUpdate() {
     if (itemCount > 0) {
-      let queryString = 'id:' + currentItems.join(' OR id:');
+      let queryString = "id:" + currentItems.join(" OR id:");
       wishlistPageURL = baseWishlistURL + encodeURI(queryString);
       window.T4SThemeSP.linkWishlist = wishlistPageURL;
-      $document.trigger('update:mini_cart:wishlist');
+      $document.trigger("update:mini_cart:wishlist");
     }
   }
 
   // Updates the UI for a specific item in the wishlist
   function updateWishlistUI(productId, element) {
     let itemElement = $(
-      `${wishlistButton}'[data-id="${productId}"]:not(.${addedClass})`
+      `${wishlistButton}'[data-id="${productId}"]:not(.${addedClass})`,
     );
     itemElement.addClass(addedClass).removeClass(pendingClass);
-    itemElement.find('.text-pr').text(removeWishlist);
-    itemElement.find('.svg-pr-icon').html(addedIcon);
+    itemElement.find(".text-pr").text(removeWishlist);
+    itemElement.find(".svg-pr-icon").html(addedIcon);
 
     if (element) {
-      itemElement.trigger('updateTooltip');
+      itemElement.trigger("updateTooltip");
     }
   }
 
@@ -10512,9 +10518,9 @@ window.T4SThemeSP.Wishlist = (() => {
       if (supportsLocalStorage) {
         const data = localStorage.getItem(storageName);
         if (!data) return;
-        const ids = data.replace(/id:/g, '');
-        (currentItems = ids.split(',')),
-          (itemCount = '' == data ? 0 : currentItems.length);
+        const ids = data.replace(/id:/g, "");
+        (currentItems = ids.split(",")),
+          (itemCount = "" == data ? 0 : currentItems.length);
       } else {
         currentItems = W;
         if (currentItems.length) {
@@ -10524,17 +10530,17 @@ window.T4SThemeSP.Wishlist = (() => {
         }
       }
       currentItems.forEach((item) => {
-        updateWishlistUI(item.replace('id:', ''));
+        updateWishlistUI(item.replace("id:", ""));
       });
       if (window.isPageWishlist) {
         const element = window.jQuery(`.products-wishlist [${wishlistButton}]`);
         element
           .removeClass(addedClass)
-          .removeAttr(wishlistButton, '')
-          .attr(removeWishlistButton, '')
-          .find('.text-pr')
+          .removeAttr(wishlistButton, "")
+          .attr(removeWishlistButton, "")
+          .find(".text-pr")
           .html(removeWishlist);
-        element.find('.svg-pr-icon').html(removeIcon);
+        element.find(".svg-pr-icon").html(removeIcon);
       }
       window.jQuery(countSelector).html(itemCount || window.countWishlistPage);
     }
@@ -10544,8 +10550,8 @@ window.T4SThemeSP.Wishlist = (() => {
   function removeOldestItem() {
     const wishlistButtonElements = $(`${wishlistButton}${addedClass}`);
     wishlistButtonElements.removeClass(addedClass);
-    wishlistButtonElements.find('.text-pr').text(addToWishlistText);
-    wishlistButtonElements.find('.svg-pr-icon').html(addIcon);
+    wishlistButtonElements.find(".text-pr").text(addToWishlistText);
+    wishlistButtonElements.find(".svg-pr-icon").html(addIcon);
   }
 
   // Main initializer function for the wishlist
@@ -10557,7 +10563,7 @@ window.T4SThemeSP.Wishlist = (() => {
       window.history.replaceState(
         {},
         document.title,
-        `${searchUrl}/?view=wishlist`
+        `${searchUrl}/?view=wishlist`,
       );
     }
     if (isLocalWishlist) {
@@ -10588,7 +10594,7 @@ window.T4SThemeSP.Wishlist = (() => {
         window.location.href = O;
       }
     }
-    $body.on('click', `${wishlistButton}.${addedClass}`, (event) => {
+    $body.on("click", `${wishlistButton}.${addedClass}`, (event) => {
       event.preventDefault();
       event.stopPropagation();
       if (f) {
@@ -10602,14 +10608,14 @@ window.T4SThemeSP.Wishlist = (() => {
       }
     });
 
-    $body.on('click', wishlistLinkSelector, (event) => {
+    $body.on("click", wishlistLinkSelector, (event) => {
       if (O.length) {
         event.preventDefault();
         window.location.href = O;
       }
     });
     n();
-    $body.on('click', `[${removeWishlistButton}]`, (event) => {
+    $body.on("click", `[${removeWishlistButton}]`, (event) => {
       event.preventDefault();
       event.stopPropagation();
       if (isLocalWishlist) {
@@ -10631,27 +10637,27 @@ window.T4SThemeSP.PopupPro = (() => {
   const $ = window.jQuery || window.$;
   const mfpClose = themeStrings.mfp_close;
   const theme = window.T4Sconfigs.theme;
-  const openingcls = 'is-opening-mfp';
-  const loadedCls = 'is--loaded';
-  const openPopupEvent = 'open.popup';
-  const closePopupEvent = 'close.popup';
+  const openingcls = "is-opening-mfp";
+  const loadedCls = "is--loaded";
+  const openPopupEvent = "open.popup";
+  const closePopupEvent = "close.popup";
   const ageVerify = {
     $popup: null,
     stts: {},
     age_limit: 0,
     date_of_birth: 0,
     day_next: null,
-    click: 'click.age',
-    popup: '#popup__age',
+    click: "click.age",
+    popup: "#popup__age",
     CookiesName: `${theme}_age_verify`,
   };
   const exitIntent = {
     $popup: null,
     stts: {},
     day_next: null,
-    mouseleave: 'mouseleave.exit',
-    click: 'click.exit',
-    popup: '#popup__exit',
+    mouseleave: "mouseleave.exit",
+    click: "click.exit",
+    popup: "#popup__exit",
     CookiesName: `${theme}_exit`,
   };
   const newsletter = {
@@ -10661,30 +10667,30 @@ window.T4SThemeSP.PopupPro = (() => {
     day_next: null,
     scroll_delay: null,
     after: null,
-    scroll: 'scroll.newsletter',
-    click: 'click.newsletter',
-    popup: '#popup__newsletter',
-    canvas: '.newsletter_canvas',
+    scroll: "scroll.newsletter",
+    click: "click.newsletter",
+    popup: "#popup__newsletter",
+    canvas: ".newsletter_canvas",
     CookiesName: `${theme}_newsletter`,
   };
   const cookiesLaw = {
     $popup: null,
-    popup: '#popup__cookies-law',
-    click: 'click.cookies',
+    popup: "#popup__cookies-law",
+    click: "click.cookies",
     stts: {},
     day_next: 0,
     pp_version: 0,
-    CookiesName: '',
+    CookiesName: "",
   };
   const salesNotification = {
-    popup: '#popup__sales-tmp',
-    closeSelector: '[data-close-sale]',
+    popup: "#popup__sales-tmp",
+    closeSelector: "[data-close-sale]",
   };
   const isPopupEnabled = true;
   const showAgeVerificationPopup = () => {
     $.magnificPopupT4s.open({
       items: { src: ageVerify.popup },
-      type: 'inline',
+      type: "inline",
       closeOnBgClick: false,
       closeBtnInside: false,
       showCloseBtn: false,
@@ -10694,53 +10700,53 @@ window.T4SThemeSP.PopupPro = (() => {
       callbacks: {
         beforeOpen() {
           $html.addClass(openingcls);
-          this.st.mainClass = 'mfp-move-horizontal age_pp_wrapper';
+          this.st.mainClass = "mfp-move-horizontal age_pp_wrapper";
         },
         open() {
           ageVerify.$popup
-            .find('.age_verify_allowed')
+            .find(".age_verify_allowed")
             .on(ageVerify.click, () => {
               if (ageVerify.date_of_birth) {
-                const ageYearValue = parseInt($('#ageyear').val());
-                const ageMonthValue = parseInt($('#agemonth').val());
-                const ageDayValue = parseInt($('#ageday').val());
+                const ageYearValue = parseInt($("#ageyear").val());
+                const ageMonthValue = parseInt($("#agemonth").val());
+                const ageDayValue = parseInt($("#ageday").val());
                 const dob = new Date(
                   ageYearValue + ageVerify.age_limit,
                   ageMonthValue,
-                  ageDayValue
+                  ageDayValue,
                 );
                 if (new Date().getTime() - dob.getTime() < 0) {
-                  ageVerify.$popup.addClass('animated shake');
+                  ageVerify.$popup.addClass("animated shake");
                   setTimeout(() => {
-                    ageVerify.$popup.removeClass('animated shake');
+                    ageVerify.$popup.removeClass("animated shake");
                   }, 1000);
                 } else {
-                  CookiesT4.set(ageVerify.CookiesName, 'confirmed', {
+                  CookiesT4.set(ageVerify.CookiesName, "confirmed", {
                     expires: parseInt(ageVerify.day_next),
-                    path: '/',
+                    path: "/",
                   });
                   $.magnificPopupT4s.close();
                 }
               } else {
-                CookiesT4.set(ageVerify.CookiesName, 'confirmed', {
+                CookiesT4.set(ageVerify.CookiesName, "confirmed", {
                   expires: parseInt(ageVerify.day_next),
-                  path: '/',
+                  path: "/",
                 });
                 $.magnificPopupT4s.close();
               }
             });
           ageVerify.$popup
-            .find('.age_verify_forbidden')
+            .find(".age_verify_forbidden")
             .on(ageVerify.click, () => {
-              ageVerify.$popup.addClass('active_forbidden');
+              ageVerify.$popup.addClass("active_forbidden");
             });
         },
         before() {
-          console.log('before close');
+          console.log("before close");
         },
         close() {
           ageVerify.$popup
-            .find('.age_verify_allowed, .age_verify_forbidden')
+            .find(".age_verify_allowed, .age_verify_forbidden")
             .off(ageVerify.click);
         },
         afterClose() {
@@ -10753,32 +10759,32 @@ window.T4SThemeSP.PopupPro = (() => {
   const openExitPopup = () => {
     $.magnificPopupT4s.open({
       items: { src: exitIntent.popup },
-      type: 'inline',
+      type: "inline",
       removalDelay: 500,
       tClose: mfpClose,
       callbacks: {
         beforeOpen() {
           $html.addClass(openingcls);
-          this.st.mainClass = 'mfp-move-horizontal exit_pp_wrapper';
+          this.st.mainClass = "mfp-move-horizontal exit_pp_wrapper";
         },
         open() {
-          if ($('.exit_pp_wrapper .product').length > 0)
+          if ($(".exit_pp_wrapper .product").length > 0)
             window.T4SThemeSP.reinitProductGridItem();
-          if ($('.exit_pp_wrapper .flickity').length > 0) {
-            const t = $('.exit_pp_wrapper .flickity')[0];
+          if ($(".exit_pp_wrapper .flickity").length > 0) {
+            const t = $(".exit_pp_wrapper .flickity")[0];
             t.flickityt4s = new window.T4SThemeSP.Carousel(t);
           }
-          $body.trigger('ts:hideTooltip');
-          $body.trigger('currency:update');
+          $body.trigger("ts:hideTooltip");
+          $body.trigger("currency:update");
         },
         beforeClose() {
-          console.log('before close');
+          console.log("before close");
         },
         close: () => {
           $document.off(exitIntent.mouseleave);
-          CookiesT4.set(exitIntent.CookiesName, 'shown', {
+          CookiesT4.set(exitIntent.CookiesName, "shown", {
             expires: exitIntent.day_next,
-            path: '/',
+            path: "/",
           });
         },
         afterClose: () => {
@@ -10792,35 +10798,35 @@ window.T4SThemeSP.PopupPro = (() => {
     if (type === 1) {
       $.magnificPopupT4s.open({
         items: { src: newsletter.popup },
-        type: 'inline',
+        type: "inline",
         removalDelay: 500,
         tClose: mfpClose,
         callbacks: {
           beforeOpen() {
             $html.addClass(openingcls);
-            this.st.mainClass = 'mfp-move-horizontal newsletter_pp_wrapper';
+            this.st.mainClass = "mfp-move-horizontal newsletter_pp_wrapper";
           },
           open() {
-            $body.on('mail.subscribe.success', () => {
-              CookiesT4.set(newsletter.CookiesName, 'shown', {
+            $body.on("mail.subscribe.success", () => {
+              CookiesT4.set(newsletter.CookiesName, "shown", {
                 expires: newsletter.day_next,
-                path: '/',
+                path: "/",
               });
             });
           },
           beforeClose() {
             if (
-              $('[data-checked-newsletter]:checked').length > 0 ||
-              !$('[data-checked-newsletter]')[0]
+              $("[data-checked-newsletter]:checked").length > 0 ||
+              !$("[data-checked-newsletter]")[0]
             ) {
-              CookiesT4.set(newsletter.CookiesName, 'shown', {
+              CookiesT4.set(newsletter.CookiesName, "shown", {
                 expires: newsletter.day_next,
-                path: '/',
+                path: "/",
               });
             }
           },
           close() {
-            console.log('close');
+            console.log("close");
           },
           afterClose: () => {
             $html.removeClass(openingcls);
@@ -10828,22 +10834,22 @@ window.T4SThemeSP.PopupPro = (() => {
         },
       });
     } else if (close) {
-      newsletter.$content.addClass('on--show').removeClass('on--shown');
-      setTimeout(() => newsletter.$content.removeClass('on--show'), 500);
+      newsletter.$content.addClass("on--show").removeClass("on--shown");
+      setTimeout(() => newsletter.$content.removeClass("on--show"), 500);
       if (
-        $('[data-checked-newsletter]:checked').length > 0 ||
-        !$('[data-checked-newsletter]')[0]
+        $("[data-checked-newsletter]:checked").length > 0 ||
+        !$("[data-checked-newsletter]")[0]
       ) {
-        CookiesT4.set(newsletter.CookiesName, 'shown', {
+        CookiesT4.set(newsletter.CookiesName, "shown", {
           expires: newsletter.day_next,
-          path: '/',
+          path: "/",
         });
       }
     } else {
-      newsletter.$content.addClass('on--show');
+      newsletter.$content.addClass("on--show");
       setTimeout(
-        () => newsletter.$content.removeClass('on--show').addClass('on--shown'),
-        100
+        () => newsletter.$content.removeClass("on--show").addClass("on--shown"),
+        100,
       );
     }
   };
@@ -10854,48 +10860,48 @@ window.T4SThemeSP.PopupPro = (() => {
   const updateSalePopupContent = (index) => {
     const imgSrc = window.T4SThemeSP.Images.getNewImageUrl(
       salesNotification.imageArray[index],
-      65
+      65,
     );
     const imgSrc2x = window.T4SThemeSP.Images.getNewImageUrl(
       salesNotification.imageArray[index],
-      130
+      130,
     );
     salesNotification.$temp
-      .find('[data-img-sale]')
-      .attr('src', imgSrc)
-      .attr('srcset', `${imgSrc} 1x, ${imgSrc2x} 2x`);
+      .find("[data-img-sale]")
+      .attr("src", imgSrc)
+      .attr("srcset", `${imgSrc} 1x, ${imgSrc2x} 2x`);
     salesNotification.$temp
-      .find('[data-title-sale]')
+      .find("[data-title-sale]")
       .text(salesNotification.titleArray[index]);
     salesNotification.$temp
-      .find('[data-href-sale]')
-      .attr('href', salesNotification.urlArray[index]);
+      .find("[data-href-sale]")
+      .attr("href", salesNotification.urlArray[index]);
     salesNotification.$temp
-      .find('[data-action-quickview]')
-      .attr('data-id', salesNotification.idArray[index]);
+      .find("[data-action-quickview]")
+      .attr("data-id", salesNotification.idArray[index]);
     salesNotification.$temp
-      .find('[data-location-sale]')
+      .find("[data-location-sale]")
       .text(
         salesNotification.locationArray[
           randomIntInRange(salesNotification.min, salesNotification.max2)
-        ]
+        ],
       );
     salesNotification.$temp
-      .find('[data-ago-sale]')
+      .find("[data-ago-sale]")
       .text(
         salesNotification.timeArray[
           randomIntInRange(salesNotification.min, salesNotification.max3)
-        ]
+        ],
       );
   };
 
   const hideTooltip = () => {
-    $body.trigger('ts:hideTooltip');
+    $body.trigger("ts:hideTooltip");
     if (salesNotification.$temp) {
       salesNotification.$temp
         .removeClass(salesNotification.classUp)
         .addClass(salesNotification.classDown)
-        .off('mouseenter mouseleave');
+        .off("mouseenter mouseleave");
     }
   };
 
@@ -10905,15 +10911,15 @@ window.T4SThemeSP.PopupPro = (() => {
       if (salesNotification.$temp) salesNotification.$temp.remove();
       window.T4SThemeSP.$appendComponent.after(salesNotification.temp);
       window.T4SThemeSP.Tooltip();
-      salesNotification.$temp = $('.popup__sales');
-      if (salesNotification.ppType === '1') {
+      salesNotification.$temp = $(".popup__sales");
+      if (salesNotification.ppType === "1") {
         updateSalePopupContent(salesNotification.index);
         salesNotification.index++;
         if (salesNotification.index > salesNotification.max)
           salesNotification.index = 0;
       } else {
         updateSalePopupContent(
-          randomIntInRange(salesNotification.min, salesNotification.max)
+          randomIntInRange(salesNotification.min, salesNotification.max),
         );
       }
       salesNotification.time.START = new Date().getTime();
@@ -10924,30 +10930,30 @@ window.T4SThemeSP.PopupPro = (() => {
         cycleSalesPopup();
       }, salesNotification.stayTime);
 
-      salesNotification.$progressbarSpan = $('.pp-slpr-progressbar>span');
+      salesNotification.$progressbarSpan = $(".pp-slpr-progressbar>span");
 
       if (salesNotification.pauseOnHover) {
         salesNotification.$temp
-          .on('mouseenter', () => {
+          .on("mouseenter", () => {
             if (salesNotification.resetOnHover) {
-              salesNotification.$progressbarSpan.css('animation-name', 'none');
+              salesNotification.$progressbarSpan.css("animation-name", "none");
             } else {
               salesNotification.time.REMAINING =
                 salesNotification.time.END - new Date().getTime();
             }
             clearTimeout(salesNotification.stayTimeout);
           })
-          .on('mouseleave', () => {
+          .on("mouseleave", () => {
             if (salesNotification.resetOnHover) {
               salesNotification.time.REMAINING = salesNotification.stayTime;
-              salesNotification.$progressbarSpan.css('animation-name', 'ani-w');
+              salesNotification.$progressbarSpan.css("animation-name", "ani-w");
             } else {
               salesNotification.time.END =
                 new Date().getTime() + salesNotification.time.REMAINING;
             }
             salesNotification.stayTimeout = setTimeout(
               () => cycleSalesPopup(),
-              salesNotification.time.REMAINING
+              salesNotification.time.REMAINING,
             );
           });
       }
@@ -10955,54 +10961,54 @@ window.T4SThemeSP.PopupPro = (() => {
   };
 
   const closeLayout = () => {
-    cookiesLaw.$popup.removeClass('on--hide').addClass('on--show');
+    cookiesLaw.$popup.removeClass("on--hide").addClass("on--show");
     cookiesLaw.$popup.on(
       cookiesLaw.click,
-      '.pp_cookies__accept-btn',
+      ".pp_cookies__accept-btn",
       (event) => {
         event.preventDefault();
         window.Shopify.customerPrivacy.setTrackingConsent(true, hidePopup);
-        document.addEventListener('trackingConsentAccepted', () => {
-          CookiesT4.set(cookiesLaw.CookiesName, 'accepted', {
+        document.addEventListener("trackingConsentAccepted", () => {
+          CookiesT4.set(cookiesLaw.CookiesName, "accepted", {
             expires: cookiesLaw.day_next,
-            path: '/',
+            path: "/",
           });
         });
         if (isPopupEnabled) {
-          CookiesT4.set(cookiesLaw.CookiesName, 'accepted', {
+          CookiesT4.set(cookiesLaw.CookiesName, "accepted", {
             expires: cookiesLaw.day_next,
-            path: '/',
+            path: "/",
           });
         }
-      }
+      },
     );
     cookiesLaw.$popup.on(
       cookiesLaw.click,
-      '.pp_cookies__decline-btn',
+      ".pp_cookies__decline-btn",
       (event) => {
         event.preventDefault();
         window.Shopify.customerPrivacy.setTrackingConsent(false, hidePopup);
-      }
+      },
     );
   };
 
   const hidePopup = () => {
-    cookiesLaw.$popup.addClass('on--hide').removeClass('on--show');
+    cookiesLaw.$popup.addClass("on--hide").removeClass("on--show");
   };
 
   const initializeCookieConsentPopup = () => {
     cookiesLaw.$popup = $(cookiesLaw.popup);
     if (cookiesLaw.$popup.length !== 0) {
-      cookiesLaw.stts = cookiesLaw.$popup.data('stt'); // Get the settings data from the popup
+      cookiesLaw.stts = cookiesLaw.$popup.data("stt"); // Get the settings data from the popup
       cookiesLaw.day_next = cookiesLaw.stts.day_next || 60; // Default to 60 days if not specified
       cookiesLaw.pp_version = cookiesLaw.stts.pp_version || 1994; // Default version is 1994
       cookiesLaw.CookiesName = `${theme}_cookies_${cookiesLaw.pp_version}`; // Cookie name using theme and version
 
-      isPopupEnabled = '1' == cookiesLaw.stts.show; // Check if popup should be shown
+      isPopupEnabled = "1" == cookiesLaw.stts.show; // Check if popup should be shown
 
       // Check if the cookie has been set or if the popup is already accepted
       if (
-        'accepted' === CookiesT4.get(cookiesLaw.CookiesName) ||
+        "accepted" === CookiesT4.get(cookiesLaw.CookiesName) ||
         cookiesLaw.$popup.hasClass(loadedCls)
       ) {
         return; // No need to show the popup if already accepted
@@ -11015,8 +11021,8 @@ window.T4SThemeSP.PopupPro = (() => {
       window.Shopify.loadFeatures(
         [
           {
-            name: 'consent-tracking-api',
-            version: '0.1',
+            name: "consent-tracking-api",
+            version: "0.1",
           },
         ],
         (error) => {
@@ -11033,7 +11039,7 @@ window.T4SThemeSP.PopupPro = (() => {
           // Show the popup only if the user cannot be tracked or the tracking consent is denied
           // Or if it's in design mode or if the popup is enabled
           if (
-            (!canTrackUser && trackingConsentStatus === 'no_interaction') ||
+            (!canTrackUser && trackingConsentStatus === "no_interaction") ||
             IsDesignMode ||
             isPopupEnabled
           ) {
@@ -11050,7 +11056,7 @@ window.T4SThemeSP.PopupPro = (() => {
               closeLayout(); // Close the popup in production mode
             }
           }
-        }
+        },
       );
     }
   };
@@ -11060,7 +11066,7 @@ window.T4SThemeSP.PopupPro = (() => {
     initializeCookieConsentPopup();
     // Determine the popup content element, prioritizing the popup if it exists; otherwise, use the canvas
     newsletter.$content = $(
-      $(newsletter.popup).length > 0 ? newsletter.popup : newsletter.canvas
+      $(newsletter.popup).length > 0 ? newsletter.popup : newsletter.canvas,
     );
 
     const pageShowCountCookie = `${theme}_shown_pages`;
@@ -11072,11 +11078,11 @@ window.T4SThemeSP.PopupPro = (() => {
       shownPageCount++;
       CookiesT4.set(pageShowCountCookie, shownPageCount, {
         expires: 194,
-        path: '/',
+        path: "/",
       });
     } else {
       // Retrieve popup settings
-      newsletter.stts = newsletter.$content.data('stt');
+      newsletter.stts = newsletter.$content.data("stt");
       newsletter.pp_version = newsletter.stts.pp_version;
       newsletter.CookiesName += newsletter.pp_version;
 
@@ -11084,15 +11090,15 @@ window.T4SThemeSP.PopupPro = (() => {
       if (
         !(
           (!IsDesignMode &&
-            CookiesT4.get(newsletter.CookiesName) === 'shown') ||
+            CookiesT4.get(newsletter.CookiesName) === "shown") ||
           (!newsletter.stts.isMobile && $window.width() < 768) ||
           newsletter.$content.hasClass(loadedCls)
         )
       ) {
-        const alternateVersion = newsletter.pp_version === '1' ? '2' : '1';
+        const alternateVersion = newsletter.pp_version === "1" ? "2" : "1";
         const alternateCookie = `${theme}_newsletter${alternateVersion}`;
 
-        if (CookiesT4.get(alternateCookie) === 'shown') {
+        if (CookiesT4.get(alternateCookie) === "shown") {
           CookiesT4.remove(alternateCookie);
         }
 
@@ -11104,18 +11110,18 @@ window.T4SThemeSP.PopupPro = (() => {
 
         if (isEmailSubscribed) {
           const hasSuccessMessage =
-            newsletter.$content.find('.newsletter-success').length > 0;
+            newsletter.$content.find(".newsletter-success").length > 0;
           const hasErrorMessage =
-            newsletter.$content.find('.newsletter-error').length > 0;
+            newsletter.$content.find(".newsletter-error").length > 0;
 
           if (hasSuccessMessage || hasErrorMessage) {
             if (hasSuccessMessage) {
-              CookiesT4.set(newsletter.CookiesName, 'shown', {
+              CookiesT4.set(newsletter.CookiesName, "shown", {
                 expires: newsletter.day_next,
-                path: '/',
+                path: "/",
               });
             }
-            newsletter.after = 'auto';
+            newsletter.after = "auto";
             newsletter.stts.time_delay = 500;
           }
         }
@@ -11149,11 +11155,11 @@ window.T4SThemeSP.PopupPro = (() => {
               });
           } else {
             newsletter.$content
-              .on('shopify:block:select', () => {
+              .on("shopify:block:select", () => {
                 handleNewsletterPopup(popupType);
               })
-              .on('shopify:block:deselect', () => {
-                handleNewsletterPopup(popupType, 'close');
+              .on("shopify:block:deselect", () => {
+                handleNewsletterPopup(popupType, "close");
               });
           }
         } else {
@@ -11163,17 +11169,17 @@ window.T4SThemeSP.PopupPro = (() => {
             shownPageCount++;
             CookiesT4.set(pageShowCountCookie, shownPageCount, {
               expires: 194,
-              path: '/',
+              path: "/",
             });
             return;
           }
 
           CookiesT4.set(pageShowCountCookie, pageViewLimit, {
             expires: 194,
-            path: '/',
+            path: "/",
           });
 
-          if (newsletter.triggerMethod === 'scroll') {
+          if (newsletter.triggerMethod === "scroll") {
             $window.on(newsletter.scroll, () => {
               if ($document.scrollTop() >= newsletter.scroll_delay) {
                 handleNewsletterPopup(popupType);
@@ -11187,20 +11193,20 @@ window.T4SThemeSP.PopupPro = (() => {
           }
 
           $document
-            .on('click', '[data-trigger-newsletter]', (event) => {
+            .on("click", "[data-trigger-newsletter]", (event) => {
               event.preventDefault();
               handleNewsletterPopup(popupType);
             })
-            .on('click', '[data-dismiss]', (event) => {
+            .on("click", "[data-dismiss]", (event) => {
               event.preventDefault();
-              handleNewsletterPopup(popupType, 'close');
+              handleNewsletterPopup(popupType, "close");
             });
 
-          $body.on('mail.subscribe.success', () => {
+          $body.on("mail.subscribe.success", () => {
             handleNewsletterPopup(popupType);
-            CookiesT4.set(newsletter.CookiesName, 'shown', {
+            CookiesT4.set(newsletter.CookiesName, "shown", {
               expires: newsletter.nextDisplayDays,
-              path: '/',
+              path: "/",
             });
           });
         }
@@ -11210,7 +11216,7 @@ window.T4SThemeSP.PopupPro = (() => {
     exitIntent.$popup = $(exitIntent.popup);
     if (exitIntent.$popup.length !== 0) {
       const isPopupAlreadyShown =
-        CookiesT4.get(exitIntent.CookiesName) === 'shown';
+        CookiesT4.get(exitIntent.CookiesName) === "shown";
 
       // If popup is not shown, and it isn't in design mode, show it
       if (
@@ -11218,25 +11224,25 @@ window.T4SThemeSP.PopupPro = (() => {
         exitIntent.$popup.hasClass(loadedCls)
       ) {
         // Retrieving popup settings from the HTML `data` attributes
-        exitIntent.stts = exitIntent.$popup.data('stt');
+        exitIntent.stts = exitIntent.$popup.data("stt");
         exitIntent.day_next = exitIntent.stts.day_next;
         exitIntent.$popup.addClass(loadedCls);
 
         // Handle coupon button behavior within the popup
-        $document.on('click', '.btn-coupon', (event) => {
-          const couponCode = $(event.currentTarget).data('coupon');
+        $document.on("click", ".btn-coupon", (event) => {
+          const couponCode = $(event.currentTarget).data("coupon");
           navigator.clipboard.writeText(couponCode);
           window
             .$(event.currentTarget)
-            .find('.tooltiptext')
+            .find(".tooltiptext")
             .text(`${window.T4Sstrings.copied_tooltipText}: ${couponCode}`);
         });
 
         // Restore tooltip text on mouse leave
-        $document.on('mouseleave', '.btn-coupon', (event) => {
+        $document.on("mouseleave", ".btn-coupon", (event) => {
           window
             .$(event.currentTarget)
-            .find('.tooltiptext')
+            .find(".tooltiptext")
             .text(window.T4Sstrings.copied_tooltipText);
         });
 
@@ -11264,7 +11270,7 @@ window.T4SThemeSP.PopupPro = (() => {
             });
         } else {
           $document.on(newsletter.mouseleave, (event) => {
-            if (event.clientY < 60 && $('.mfp-content').length === 0)
+            if (event.clientY < 60 && $(".mfp-content").length === 0)
               openExitPopup();
           });
         }
@@ -11275,13 +11281,13 @@ window.T4SThemeSP.PopupPro = (() => {
     ageVerify.$popup = $(ageVerify.popup);
     if (ageVerify.$popup.length !== 0) {
       const isAgeConfirmed =
-        CookiesT4.get(ageVerify.CookiesName) === 'confirmed';
+        CookiesT4.get(ageVerify.CookiesName) === "confirmed";
 
       if (
         !(!IsDesignMode && isAgeConfirmed) ||
         ageVerify.$popup.hasClass(loadedCls)
       ) {
-        ageVerify.stts = ageVerify.$popup.data('stt');
+        ageVerify.stts = ageVerify.$popup.data("stt");
         ageVerify.age_limit = ageVerify.stts.age_limit;
         ageVerify.date_of_birth = ageVerify.stts.date_of_birth;
         ageVerify.day_next = ageVerify.stts.day_next;
@@ -11307,7 +11313,7 @@ window.T4SThemeSP.PopupPro = (() => {
                 showAgeVerificationPopup();
               }
             })
-            .on('close.popup', () => {
+            .on("close.popup", () => {
               $.close();
             });
         } else {
@@ -11320,7 +11326,7 @@ window.T4SThemeSP.PopupPro = (() => {
     if (salesNotification.$popup.length === 0) return;
 
     // Fetch the JSON configuration for the popup settings
-    const popupConfigElement = $('#popup__sales-JSON');
+    const popupConfigElement = $("#popup__sales-JSON");
     salesNotification.stts = parseJSON(popupConfigElement.html()); // Parsing JSON from the HTML element
     popupConfigElement.remove();
 
@@ -11368,12 +11374,12 @@ window.T4SThemeSP.PopupPro = (() => {
     // Display the popup in design mode
     if (IsDesignMode) {
       T4SThemeSP.$appendComponent.after(salesNotification.temp);
-      salesNotification.$temp = $('.popup__sales');
+      salesNotification.$temp = $(".popup__sales");
       salesNotification.$temp.hide();
       T4SThemeSP.Tooltip();
 
       // Close button functionality
-      $(salesNotification.close).on('click', function (event) {
+      $(salesNotification.close).on("click", function (event) {
         event.preventDefault();
         hideTooltip();
       });
@@ -11398,21 +11404,21 @@ window.T4SThemeSP.PopupPro = (() => {
 })();
 
 var isEmailSubscribed =
-  location.search.indexOf('customer_posted=true') > -1 ||
-  location.search.indexOf('newsletter&form_type=customer') > -1;
+  location.search.indexOf("customer_posted=true") > -1 ||
+  location.search.indexOf("newsletter&form_type=customer") > -1;
 
 //done
 window.T4SThemeSP.PopupFetch = () => {
   const path = T4Srequest.path;
-  let url = `${path !== '/' ? path : ''}/?section_id=popups`;
+  let url = `${path !== "/" ? path : ""}/?section_id=popups`;
 
   if (isEmailSubscribed) {
-    const queryParams = location.href.split('/?')[1];
+    const queryParams = location.href.split("/?")[1];
     url += `&${queryParams}`;
   }
 
-  window.T4SThemeSP.getToFetchSection(null, 'text', url).then((response) => {
-    if (response !== 'NVT_94') {
+  window.T4SThemeSP.getToFetchSection(null, "text", url).then((response) => {
+    if (response !== "NVT_94") {
       window.T4SThemeSP.$appendComponent.after(response);
       window.T4SThemeSP.PopupPro();
       window.T4SThemeSP.PlatFormMail();
@@ -11424,20 +11430,20 @@ window.T4SThemeSP.PopupFetch = () => {
 //done
 window.T4SThemeSP.PlatFormMail = (() => {
   const classes = {
-    loading: 'is--loading',
-    enabled: 'is--enabled',
-    errorCheckbox: 'is--error-checkbox',
-    errorEmail: 'is--error-email',
+    loading: "is--loading",
+    enabled: "is--enabled",
+    errorCheckbox: "is--error-checkbox",
+    errorEmail: "is--error-email",
   };
 
   const selectors = {
-    klaviyo: '[data-ts-klaviyo-submit]',
-    agreeCheckbox: '[data-agreeMail-checkbox]',
+    klaviyo: "[data-ts-klaviyo-submit]",
+    agreeCheckbox: "[data-agreeMail-checkbox]",
   };
 
   const events = {
-    click: 'click.mail',
-    keyup: 'keyup.mail',
+    click: "click.mail",
+    keyup: "keyup.mail",
   };
 
   const handleFormSubmit = (
@@ -11445,30 +11451,30 @@ window.T4SThemeSP.PlatFormMail = (() => {
     button,
     responseForm,
     successMessage,
-    errorMessage
+    errorMessage,
   ) => {
     button.addClass(classes.loading);
     window.$.ajax({
-      type: 'GET',
-      url: form.attr('action'),
+      type: "GET",
+      url: form.attr("action"),
       data: form.serialize(),
       cache: false,
-      dataType: 'jsonp',
-      jsonp: 'c',
-      contentType: 'application/json; charset=utf-8',
+      dataType: "jsonp",
+      jsonp: "c",
+      contentType: "application/json; charset=utf-8",
       error(error) {
         button.removeClass(classes.loading);
-        const errorMsg = error.replace(/^\d+ - /, '');
+        const errorMsg = error.replace(/^\d+ - /, "");
         errorMessage.html(errorMsg).slideDown(100);
       },
       success(response) {
         button.removeClass(classes.loading);
-        const successMsg = response.msg.replace(/^\d+ - /, '');
-        if (response.result !== 'success') {
+        const successMsg = response.msg.replace(/^\d+ - /, "");
+        if (response.result !== "success") {
           successMessage.slideUp(100);
           errorMessage.html(successMsg).slideDown(100);
         } else {
-          $document.trigger('mail.subscribe.success');
+          $document.trigger("mail.subscribe.success");
           errorMessage.slideUp(100);
           successMessage.slideDown(100);
         }
@@ -11477,48 +11483,48 @@ window.T4SThemeSP.PlatFormMail = (() => {
   };
 
   const initializeMailchimpForms = () => {
-    if (platformEmail === '4') {
+    if (platformEmail === "4") {
       window
         .jQuery(`[data-ts-mailChimp-ajax]:not(.${classes.enabled})`)
         .addClass(classes.enabled)
         .submit((event) => {
           event.preventDefault();
           const form = window.$(event.currentTarget);
-          const responseForm = form.find('[data-new-response-form]');
-          const submitButton = form.find('[data-ts-mailChimp-submit]');
+          const responseForm = form.find("[data-new-response-form]");
+          const submitButton = form.find("[data-ts-mailChimp-submit]");
           const successMessage = responseForm.find(
-            '[data-new-response-success]'
+            "[data-new-response-success]",
           );
-          const errorMessage = responseForm.find('[data-new-response-error]');
+          const errorMessage = responseForm.find("[data-new-response-error]");
 
           handleFormSubmit(
             form,
             submitButton,
             responseForm,
             successMessage,
-            errorMessage
+            errorMessage,
           );
         });
     }
   };
 
   const initializeKlaviyoForms = () => {
-    if (platformEmail === '3') {
-      $script('//www.klaviyo.com/media/js/public/klaviyo_subscribe.js', () => {
+    if (platformEmail === "3") {
+      $script("//www.klaviyo.com/media/js/public/klaviyo_subscribe.js", () => {
         window
           .jQuery(`[data-ts-klaviyo-ajax]:not(.${classes.enabled})`)
           .each((_, element) => {
             const $form = window.$(element);
-            const brand = $form.attr('data-brand') || 'Kalles Klaviyo';
+            const brand = $form.attr("data-brand") || "Kalles Klaviyo";
 
-            KlaviyoSubscribe.attachToForms(`#${$form.attr('id')}`, {
+            KlaviyoSubscribe.attachToForms(`#${$form.attr("id")}`, {
               custom_success_message: true,
               extra_properties: {
-                $source: 'Newsletter Popup',
+                $source: "Newsletter Popup",
                 Brand: brand,
               },
               success() {
-                $(document).trigger('mail.subscribe.success');
+                $(document).trigger("mail.subscribe.success");
                 $form.find(selectors.klaviyo).removeClass(classes.loading);
               },
             });
@@ -11527,17 +11533,17 @@ window.T4SThemeSP.PlatFormMail = (() => {
               $form.find(selectors.klaviyo).addClass(classes.loading);
             });
           });
-        $document.on('klaviyo.subscribe.success', (e) => {
-          $document.trigger('mail.subscribe.success');
+        $document.on("klaviyo.subscribe.success", (e) => {
+          $document.trigger("mail.subscribe.success");
         });
         $document.on(
-          'klaviyo.subscribe.success klaviyo.subscribe.error',
+          "klaviyo.subscribe.success klaviyo.subscribe.error",
           (event) => {
             window
               .$(event.target)
               .find(selectors.klaviyo)
               .removeClass(classes.loading);
-          }
+          },
         );
       });
     }
@@ -11545,13 +11551,13 @@ window.T4SThemeSP.PlatFormMail = (() => {
 
   const handleCheckboxInteraction = () => {
     window
-      .jQuery('[data-agreeMail-btn]')
+      .jQuery("[data-agreeMail-btn]")
       .off(events.click)
       .on(events.click, (event) => {
-        const form = window.$(event.currentTarget).closest('form');
+        const form = window.$(event.currentTarget).closest("form");
         const isChecked = form
           .find(`[type="checkbox"]${selectors.agreeCheckbox}`)
-          .is(':checked');
+          .is(":checked");
 
         if (!isChecked) {
           event.preventDefault();
@@ -11567,11 +11573,11 @@ window.T4SThemeSP.PlatFormMail = (() => {
       .jQuery(selectors.agreeCheckbox)
       .off(events.click)
       .on(events.click, (event) => {
-        const isChecked = window.$(event.currentTarget).is(':checked');
+        const isChecked = window.$(event.currentTarget).is(":checked");
         if (isChecked) {
           window
             .$(event.currentTarget)
-            .closet('form')
+            .closet("form")
             .removeClass(classes.errorCheckbox);
         }
       });
@@ -11581,18 +11587,18 @@ window.T4SThemeSP.PlatFormMail = (() => {
       .off(events.keyup)
       .on(events.keyup, (event) => {
         const element = window.$(event.currentTarget);
-        const form = element.closest('form');
+        const form = element.closest("form");
         form.toggleClass(classes.errorEmail, !!element.val().length);
       });
   };
 
   const handleAutoDisplayError = () => {
-    const searchParams = '?contact%5Btags%5D=newsletter&form_type=customer';
+    const searchParams = "?contact%5Btags%5D=newsletter&form_type=customer";
     if (location.search === searchParams) {
       window
-        .$('[data-new-response-form]')
+        .$("[data-new-response-form]")
         .html(
-          `<div class="newsletter__error">${themeStrings.error_exist}</div>`
+          `<div class="newsletter__error">${themeStrings.error_exist}</div>`,
         )
         .slideDown(100);
     }
@@ -11609,7 +11615,7 @@ window.T4SThemeSP.PlatFormMail = (() => {
 var GroupedProductForm = class {
   constructor(formElement) {
     this.$form = (window.jQuery || window.$)(formElement);
-    this.$totalPrice = this.$form.find('[data-groups-total-price]');
+    this.$totalPrice = this.$form.find("[data-groups-total-price]");
     this.ArrayPrice = [];
     this.ArrayComparePrice = [];
 
@@ -11618,43 +11624,43 @@ var GroupedProductForm = class {
 
   initialize() {
     this.$form
-      .find('[data-groups-pr-item]')
+      .find("[data-groups-pr-item]")
       .each((index, item) => this.updateItemPrice(item, index));
     this.updateTotalPrice();
     this.addEventListeners();
   }
 
   addEventListeners() {
-    this.$form.on('change.groups', 'select[data-groups-pr-sl]', (event) =>
-      this.updateItem(event.currentTarget)
+    this.$form.on("change.groups", "select[data-groups-pr-sl]", (event) =>
+      this.updateItem(event.currentTarget),
     );
-    this.$form.on('change.groups', '[data-groups-pr-ck]', (event) =>
-      this.handleCheckboxChange(event)
+    this.$form.on("change.groups", "[data-groups-pr-ck]", (event) =>
+      this.handleCheckboxChange(event),
     );
-    this.$form.on('change.groups', '[data-groups-qty-value]', (event) =>
-      this.updateQuantity(event)
+    this.$form.on("change.groups", "[data-groups-qty-value]", (event) =>
+      this.updateQuantity(event),
     );
   }
 
   handleCheckboxChange(event) {
     const $item = (window.jQuery || window.$)(event.currentTarget).closest(
-      '[data-groups-pr-item]'
+      "[data-groups-pr-item]",
     );
     const index = $item.index();
     const $image = this.$form.find(`[data-groups-img="${index}"]`);
     const $input = $item.find('[name*="items[]"]');
 
     if (event.currentTarget.checked) {
-      $item.addClass('is--checked');
+      $item.addClass("is--checked");
       this.updateItemPrice($item[0], index);
       $image.fadeIn(300);
-      $input.prop('disabled', false);
+      $input.prop("disabled", false);
     } else {
-      $item.removeClass('is--checked');
+      $item.removeClass("is--checked");
       this.ArrayPrice[index] = 0;
       this.ArrayComparePrice[index] = 0;
       $image.fadeOut(300);
-      $input.prop('disabled', true);
+      $input.prop("disabled", true);
     }
 
     this.updateTotalPrice();
@@ -11662,26 +11668,26 @@ var GroupedProductForm = class {
 
   updateItem(item) {
     const $select = (window.jQuery || window.$)(item);
-    const $option = $select.find(':selected');
-    const $item = $select.closest('[data-groups-pr-item]');
-    const index = $item.data('index') || $item.index();
-    const imgSrc = $option.data('img');
-    const maxQty = $option.data('max');
-    const $qtyInput = $item.find('[data-groups-qty-value]');
+    const $option = $select.find(":selected");
+    const $item = $select.closest("[data-groups-pr-item]");
+    const index = $item.data("index") || $item.index();
+    const imgSrc = $option.data("img");
+    const maxQty = $option.data("max");
+    const $qtyInput = $item.find("[data-groups-qty-value]");
     const $image = this.$form.find(`[data-groups-img="${index}"] img`);
-    const price = $option.data('price');
-    const comparePrice = $option.data('cpprice');
-    const $priceDisplay = $item.find('[data-groups-item-price]');
+    const price = $option.data("price");
+    const comparePrice = $option.data("cpprice");
+    const $priceDisplay = $item.find("[data-groups-item-price]");
 
-    $qtyInput.attr('max', maxQty);
-    if ($image.attr('data-original') !== imgSrc) {
+    $qtyInput.attr("max", maxQty);
+    if ($image.attr("data-original") !== imgSrc) {
       $image
         .attr({
-          'data-src': imgSrc,
-          'data-original': imgSrc,
+          "data-src": imgSrc,
+          "data-original": imgSrc,
         })
-        .removeClass('lazyloaded')
-        .addClass('lazyload');
+        .removeClass("lazyloaded")
+        .addClass("lazyload");
     }
 
     const qty = $qtyInput.val();
@@ -11690,14 +11696,14 @@ var GroupedProductForm = class {
 
     const formattedPrice = window.T4SThemeSP.Currency.formatMoney(totalPrice);
     const formattedComparePrice = window.T4SThemeSP.Currency.formatMoney(
-      totalComparePrice > totalPrice ? totalComparePrice : totalPrice
+      totalComparePrice > totalPrice ? totalComparePrice : totalPrice,
     );
 
     if (totalComparePrice > totalPrice) {
       $priceDisplay.html(
         `<del>${T4SThemeSP.Currency.formatMoney(
-          totalComparePrice
-        )}</del> <ins>${formattedPrice}</ins>`
+          totalComparePrice,
+        )}</del> <ins>${formattedPrice}</ins>`,
       );
     } else {
       $priceDisplay.html(formattedPrice);
@@ -11711,10 +11717,10 @@ var GroupedProductForm = class {
   updateItemPrice(item, index) {
     const $item = (window.jQuery || window.$)(item);
     const price = parseInt(
-      $item.find('[data-groups-pr-sl]').attr('data-price'),
-      10
+      $item.find("[data-groups-pr-sl]").attr("data-price"),
+      10,
     );
-    const qty = parseInt($item.find('[data-groups-qty-value]').val(), 10);
+    const qty = parseInt($item.find("[data-groups-qty-value]").val(), 10);
     this.ArrayPrice[index] = price * qty;
   }
 
@@ -11722,7 +11728,7 @@ var GroupedProductForm = class {
     const totalPrice = this.ArrayPrice.reduce((sum, price) => sum + price, 0);
     const totalComparePrice = this.ArrayComparePrice.reduce(
       (sum, price) => sum + price,
-      0
+      0,
     );
     const formattedTotalPrice =
       window.T4SThemeSP.Currency.formatMoney(totalPrice);
@@ -11732,28 +11738,28 @@ var GroupedProductForm = class {
     this.$totalPrice.html(
       totalComparePrice > totalPrice
         ? `<del>${formattedTotalComparePrice}</del> <ins>${formattedTotalPrice}</ins>`
-        : formattedTotalPrice
+        : formattedTotalPrice,
     );
   }
 
   updateQuantity(event) {
     const $input = (window.jQuery || window.$)(event.currentTarget);
-    const $item = $input.closest('[data-groups-pr-item]');
+    const $item = $input.closest("[data-groups-pr-item]");
     const index = $item.index();
-    const $select = $item.find('[data-groups-pr-sl]');
+    const $select = $item.find("[data-groups-pr-sl]");
 
     this.updateItem($select, index);
   }
 };
 
 window.jQuery(document).ready(() => {
-  window.jQuery('[data-groups-form]').each((_, formElement) => {
+  window.jQuery("[data-groups-form]").each((_, formElement) => {
     new GroupedProductForm(formElement);
   });
 });
 
 window.T4SThemeSP.goToID = () => {
-  const goIdSelector = '[data-go-id]';
+  const goIdSelector = "[data-go-id]";
   let scrollTimeout = 0;
 
   const $goIds = (window.jQuery || window.$)(goIdSelector);
@@ -11764,23 +11770,23 @@ window.T4SThemeSP.goToID = () => {
     event.stopPropagation();
 
     const $this = (window.jQuery || window.$)(event.currentTarget);
-    const targetId = $this.data('go-id') || $this.attr('href');
+    const targetId = $this.data("go-id") || $this.attr("href");
     const $target = (window.jQuery || window.$)(targetId);
-    const offset = $this.data('offset') || 100;
+    const offset = $this.data("offset") || 100;
 
     if ($target.length === 0) return;
 
-    if ($target.is(':hidden')) {
+    if ($target.is(":hidden")) {
       window
         .jQuery(`[data-ts-tab-item][href="${targetId}"]:visible`)
-        .trigger('click');
+        .trigger("click");
       scrollTimeout = 100;
     }
 
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
       window.scrollTo({
-        behavior: 'smooth',
+        behavior: "smooth",
         top: $target.offset().top - offset,
       });
     }, scrollTimeout);
@@ -11813,18 +11819,18 @@ window.T4SThemeSP.CanvasConfetti = (function () {
 
     var particleColors = {
       colorOptions: [
-        'DodgerBlue',
-        'OliveDrab',
-        'Gold',
-        'pink',
-        'SlateBlue',
-        'lightblue',
-        'Violet',
-        'PaleGreen',
-        'SteelBlue',
-        'SandyBrown',
-        'Chocolate',
-        'Crimson',
+        "DodgerBlue",
+        "OliveDrab",
+        "Gold",
+        "pink",
+        "SlateBlue",
+        "lightblue",
+        "Violet",
+        "PaleGreen",
+        "SteelBlue",
+        "SandyBrown",
+        "Chocolate",
+        "Crimson",
       ],
       colorIndex: 0,
       colorIncrementer: 0,
@@ -11878,17 +11884,17 @@ window.T4SThemeSP.CanvasConfetti = (function () {
     // $(document).ready(init());
 
     function InitializeButton() {
-      $('#startConfetti').click(InitializeConfetti);
-      $('#stopConfetti').click(DeactivateConfetti);
-      $('#restartConfetti').click(RestartConfetti);
+      $("#startConfetti").click(InitializeConfetti);
+      $("#stopConfetti").click(DeactivateConfetti);
+      $("#restartConfetti").click(RestartConfetti);
     }
 
     function SetGlobals() {
-      $('body').append(
-        '<canvas id="confettiCanvas" style="position:absolute;top:0;left:0;display:none;z-index:99;"></canvas>'
+      $("body").append(
+        '<canvas id="confettiCanvas" style="position:absolute;top:0;left:0;display:none;z-index:99;"></canvas>',
       );
-      canvas = document.getElementById('confettiCanvas');
-      ctx = canvas.getContext('2d');
+      canvas = document.getElementById("confettiCanvas");
+      ctx = canvas.getContext("2d");
       W = window.innerWidth;
       H = window.innerHeight;
       canvas.width = W;
@@ -11896,7 +11902,7 @@ window.T4SThemeSP.CanvasConfetti = (function () {
     }
 
     function InitializeConfetti() {
-      canvas.style.display = 'block';
+      canvas.style.display = "block";
       particles = [];
       animationComplete = false;
       for (var i = 0; i < mp; i++) {
@@ -11962,7 +11968,7 @@ window.T4SThemeSP.CanvasConfetti = (function () {
             particle,
             Math.random() * W,
             -10,
-            Math.floor(Math.random() * 10) - 10
+            Math.floor(Math.random() * 10) - 10,
           );
         } else {
           if (Math.sin(angle) > 0) {
@@ -11971,7 +11977,7 @@ window.T4SThemeSP.CanvasConfetti = (function () {
               particle,
               -5,
               Math.random() * H,
-              Math.floor(Math.random() * 10) - 10
+              Math.floor(Math.random() * 10) - 10,
             );
           } else {
             //Enter from the right
@@ -11979,7 +11985,7 @@ window.T4SThemeSP.CanvasConfetti = (function () {
               particle,
               W + 5,
               Math.random() * H,
-              Math.floor(Math.random() * 10) - 10
+              Math.floor(Math.random() * 10) - 10,
             );
           }
         }
@@ -12024,7 +12030,7 @@ window.T4SThemeSP.CanvasConfetti = (function () {
       animationComplete = true;
       if (ctx == undefined) return;
       ctx.clearRect(0, 0, W, H);
-      canvas.style.display = 'none';
+      canvas.style.display = "none";
     }
 
     function RestartConfetti() {
@@ -12195,20 +12201,20 @@ window.T4SThemeSP.CanvasConfetti = (function () {
 // })();
 
 window.T4SThemeSP.ToggleClass = () => {
-  $document.on('click', '[data-toggle-class]', (event) => {
+  $document.on("click", "[data-toggle-class]", (event) => {
     const $el = window.$(event.currentTarget);
-    const toggleClassName = $el.attr('data-toggle-class');
-    const $targetSelector = window.$($el.attr('data-toggle-trigger'));
+    const toggleClassName = $el.attr("data-toggle-class");
+    const $targetSelector = window.$($el.attr("data-toggle-trigger"));
     $el.toggleClass(toggleClassName);
     $targetSelector.toggleClass(toggleClassName);
   });
 };
 
 var GroupedProductManager = class {
-  totalPriceSelector = '[data-groups-total-price]';
-  itemSelector = '[data-groups-pr-item]';
-  events = { change: 'change.groups' };
-  classes = { checked: 'is--checked' };
+  totalPriceSelector = "[data-groups-total-price]";
+  itemSelector = "[data-groups-pr-item]";
+  events = { change: "change.groups" };
+  classes = { checked: "is--checked" };
 
   constructor(formElement) {
     this.$form = window.jQuery(formElement);
@@ -12228,12 +12234,12 @@ var GroupedProductManager = class {
 
   _eventListeners() {
     // Event listener for option selection change
-    this.$form.on(events.change, 'select[data-groups-pr-sl]', function (event) {
+    this.$form.on(events.change, "select[data-groups-pr-sl]", function (event) {
       this.updateSelectedItem(event.currentTarget);
     });
 
     // Event listener for checkbox toggle
-    this.$form.on(events.change, '[data-groups-pr-ck]', function (event) {
+    this.$form.on(events.change, "[data-groups-pr-ck]", function (event) {
       let $item = e(event.currentTarget).closest(itemSelector);
       let itemIndex = $item.index();
       let $image = this.$form.find(`[data-groups-img="${itemIndex}"]`);
@@ -12243,20 +12249,20 @@ var GroupedProductManager = class {
         $item.addClass(classes.checked);
         this.updateItemPrice($item, itemIndex);
         $image.fadeIn(300);
-        $hiddenInput.prop('disabled', false);
+        $hiddenInput.prop("disabled", false);
       } else {
         $item.removeClass(classes.checked);
         this.itemPrices[itemIndex] = 0;
         this.itemComparePrices[itemIndex] = 0;
         $image.fadeOut(300);
-        $hiddenInput.prop('disabled', true);
+        $hiddenInput.prop("disabled", true);
       }
 
       this.updateTotalPrice();
     });
 
     // Event listener for quantity change
-    this.$form.on(events.change, '[data-groups-qty-value]', function (event) {
+    this.$form.on(events.change, "[data-groups-qty-value]", function (event) {
       let $item = e(event.currentTarget).closest(itemSelector);
       let itemIndex = $item.index();
       this.updateItemPrice($item[0], itemIndex);
@@ -12266,10 +12272,10 @@ var GroupedProductManager = class {
 
   updateItemPrice(element, index) {
     let $item = e(element);
-    let $selectOption = $item.find('[data-groups-pr-sl]');
-    let quantity = parseInt($item.find('[data-groups-qty-value]').val());
-    let price = parseInt($selectOption.attr('data-price')) * quantity;
-    let comparePrice = parseInt($selectOption.attr('data-cpprice')) * quantity;
+    let $selectOption = $item.find("[data-groups-pr-sl]");
+    let quantity = parseInt($item.find("[data-groups-qty-value]").val());
+    let price = parseInt($selectOption.attr("data-price")) * quantity;
+    let comparePrice = parseInt($selectOption.attr("data-cpprice")) * quantity;
 
     this.itemPrices[index] = price;
     this.itemComparePrices[index] = comparePrice > price ? comparePrice : price;
@@ -12277,24 +12283,24 @@ var GroupedProductManager = class {
 
   updateSelectedItem(selectElement) {
     let $select = e(selectElement);
-    let $option = $select.find(':selected');
+    let $option = $select.find(":selected");
     let $item = $select.closest(itemSelector);
-    let itemIndex = $item.data('index') ?? $item.index();
-    let maxQuantity = $option.data('max');
-    let $quantityInput = $item.find('[data-groups-qty-value]');
-    let imageSrc = $option.data('img');
-    let price = parseInt($option.data('price'));
-    let comparePrice = parseInt($option.data('cpprice'));
-    let $priceDisplay = $item.find('[data-groups-item-price]');
+    let itemIndex = $item.data("index") ?? $item.index();
+    let maxQuantity = $option.data("max");
+    let $quantityInput = $item.find("[data-groups-qty-value]");
+    let imageSrc = $option.data("img");
+    let price = parseInt($option.data("price"));
+    let comparePrice = parseInt($option.data("cpprice"));
+    let $priceDisplay = $item.find("[data-groups-item-price]");
 
-    $quantityInput.attr('max', maxQuantity);
+    $quantityInput.attr("max", maxQuantity);
 
     let $image = this.$form.find(`[data-groups-img="${itemIndex}"] img`);
-    if ($image.attr('data-original') !== imageSrc) {
+    if ($image.attr("data-original") !== imageSrc) {
       $image
-        .attr({ 'data-src': imageSrc, 'data-original': imageSrc })
-        .removeClass('lazyloaded')
-        .addClass('lazyload');
+        .attr({ "data-src": imageSrc, "data-original": imageSrc })
+        .removeClass("lazyloaded")
+        .addClass("lazyload");
     }
 
     let totalItemPrice = price * $quantityInput.val();
@@ -12307,14 +12313,14 @@ var GroupedProductManager = class {
       comparePrice > totalItemPrice
         ? T4SProductStrings.price_template
             .replace(
-              'INS',
-              window.T4SThemeSP.Currency.formatMoney(totalItemPrice)
+              "INS",
+              window.T4SThemeSP.Currency.formatMoney(totalItemPrice),
             )
             .replace(
-              'DEL',
-              window.T4SThemeSP.Currency.formatMoney(totalComparePrice)
+              "DEL",
+              window.T4SThemeSP.Currency.formatMoney(totalComparePrice),
             )
-        : window.T4SThemeSP.Currency.formatMoney(totalItemPrice)
+        : window.T4SThemeSP.Currency.formatMoney(totalItemPrice),
     );
 
     this.itemPrices[itemIndex] = totalItemPrice;
@@ -12326,33 +12332,33 @@ var GroupedProductManager = class {
     let totalPrice = this.itemPrices.reduce((sum, price) => sum + price, 0);
     let totalComparePrice = this.itemComparePrices.reduce(
       (sum, price) => sum + price,
-      0
+      0,
     );
 
     this.$totalPriceDisplay.html(
       totalComparePrice > totalPrice
         ? T4SProductStrings.price_template
-            .replace('INS', window.T4SThemeSP.Currency.formatMoney(totalPrice))
+            .replace("INS", window.T4SThemeSP.Currency.formatMoney(totalPrice))
             .replace(
-              'DEL',
-              window.T4SThemeSP.Currency.formatMoney(totalComparePrice)
+              "DEL",
+              window.T4SThemeSP.Currency.formatMoney(totalComparePrice),
             )
-        : window.T4SThemeSP.Currency.formatMoney(totalPrice)
+        : window.T4SThemeSP.Currency.formatMoney(totalPrice),
     );
 
-    $body.trigger('currency:update');
+    $body.trigger("currency:update");
   }
 };
 
 window.T4SThemeSP.initGroupsProduct = () => {
   // Check if there are any elements with the attribute 'data-groups-pr-form' that are not yet enabled
-  if (window.jQuery('[data-groups-pr-form]:not(.is--enabled)').length !== 0) {
+  if (window.jQuery("[data-groups-pr-form]:not(.is--enabled)").length !== 0) {
     // Iterate over each element that is not enabled
     window
-      .jQuery('[data-groups-pr-form]:not(.is--enabled)')
+      .jQuery("[data-groups-pr-form]:not(.is--enabled)")
       .each(function (index) {
         // Add the 'is--enabled' class to mark it as enabled
-        window.jQuery(this).addClass('is--enabled');
+        window.jQuery(this).addClass("is--enabled");
         // Create a new instance of the class 'x' for this element
         new GroupedProductManager(this);
       });
@@ -12391,10 +12397,10 @@ window.jQuery(document).ready(() => {
   window.T4SThemeSP.initLoadMore();
 
   const hasAjaxContainer =
-    window.jQuery('.section-main [data-ntajax-container]').length > 0 ||
+    window.jQuery(".section-main [data-ntajax-container]").length > 0 ||
     IsDesignMode;
   if (hasAjaxContainer) {
-    $script(window.T4Sconfigs.script7, 'ts:facets');
+    $script(window.T4Sconfigs.script7, "ts:facets");
   }
 
   window.T4SThemeSP.instagram();
@@ -12417,14 +12423,14 @@ window.jQuery(document).ready(() => {
 
   if (
     window.T4SThemeSP.isHover &&
-    (window.jQuery || window.$)('[data-zoom-options]').length > 0
+    (window.jQuery || window.$)("[data-zoom-options]").length > 0
   ) {
-    $script(window.T4Sconfigs.script5, 'ts:zoom');
+    $script(window.T4Sconfigs.script5, "ts:zoom");
   }
 
-  document.addEventListener('theme:hover', () => {
-    if ((window.jQuery || window.$)('[data-zoom-options]').length > 0) {
-      $script(window.T4Sconfigs.script5, 'ts:zoom');
+  document.addEventListener("theme:hover", () => {
+    if ((window.jQuery || window.$)("[data-zoom-options]").length > 0) {
+      $script(window.T4Sconfigs.script5, "ts:zoom");
     }
   });
 
@@ -12432,12 +12438,12 @@ window.jQuery(document).ready(() => {
   window.T4SThemeSP.Header.init();
   window.T4SThemeSP.currencyForm();
 
-  if (window.T4Sconfigs.currency_type === '2') {
+  if (window.T4Sconfigs.currency_type === "2") {
     $script(window.T4Sconfigs.script12a);
   }
 
-  if (window.T4Sconfigs.script11 !== 'none') {
-    $script(window.T4Sconfigs.script11, 'ts:customjs');
+  if (window.T4Sconfigs.script11 !== "none") {
+    $script(window.T4Sconfigs.script11, "ts:customjs");
   }
 });
 

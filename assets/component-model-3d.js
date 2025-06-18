@@ -1,5 +1,5 @@
 /*!
- * 
+ *
  * ------
  * Note: customizing files reduces the store's ability to auto-update the theme.
  *
@@ -18,115 +18,138 @@
  * ------
  *
  */
-/******/ (() => { // webpackBootstrap
-var __webpack_exports__ = {};
-class Model extends HTMLElement {
-  constructor() {
-    super();
+/******/ (() => {
+  // webpackBootstrap
+  var __webpack_exports__ = {};
+  class Model extends HTMLElement {
+    constructor() {
+      super();
 
-    if (!this.button) return;
-  }
-
-  connectedCallback() {
-    this.button.addEventListener('click', this.loadModel.bind(this));
-  }
-
-  async loadModel() {
-    this.setPadding();
-    this.pauseAll();
-
-    if (!this.getAttribute('loaded')) {
-      await this.moveModelIntoDOM();
-      this.setAttribute('loaded', true);
-      this.loadViewerUI();
+      if (!this.button) return;
     }
-  }
 
-  loadViewerUI() {
-    window.Shopify.loadFeatures(
-      [
-        {
-          name: 'model-viewer-ui',
-          version: '1.0',
-        },
-      ],
-      function () {
-        this.controller = new Shopify.ModelViewerUI(this.querySelector('model-viewer'));
+    connectedCallback() {
+      this.button.addEventListener("click", this.loadModel.bind(this));
+    }
 
-        // Don't interact with the rest of the page when model is active.
-        this.controller.viewer.parentElement.addEventListener('mouseup', function (e) { e.stopPropagation = function () {} }.bind(this), { capture: true });
+    async loadModel() {
+      this.setPadding();
+      this.pauseAll();
 
-        // Prevent activating the viewer right after it was paused when clicked
-        // in position of the button.
-        this.controller.elements.controlButton.addEventListener('click', function (e) { e.stopImmediatePropagation() }.bind(this), { capture: true });
+      if (!this.getAttribute("loaded")) {
+        await this.moveModelIntoDOM();
+        this.setAttribute("loaded", true);
+        this.loadViewerUI();
+      }
+    }
 
-        window.ProductModel.loadShopifyXR();
-      }.bind(this)
-    );
-  }
+    loadViewerUI() {
+      window.Shopify.loadFeatures(
+        [
+          {
+            name: "model-viewer-ui",
+            version: "1.0",
+          },
+        ],
+        function () {
+          this.controller = new Shopify.ModelViewerUI(
+            this.querySelector("model-viewer"),
+          );
 
-  async moveModelIntoDOM() {
-    const content = document.createElement('div');
-    content.appendChild(this.querySelector('template').content.firstElementChild.cloneNode(true));
-    const newContent = content.querySelector('model-viewer');
-    this.appendChild(newContent);
-    this.querySelector('model-viewer')?.focus();
-    return;
-  }
+          // Don't interact with the rest of the page when model is active.
+          this.controller.viewer.parentElement.addEventListener(
+            "mouseup",
+            function (e) {
+              e.stopPropagation = function () {};
+            }.bind(this),
+            { capture: true },
+          );
 
-  setPadding() {
-    const i = this.getBoundingClientRect();
-    const aspectRatio = i.width / i.height;
-    const padding = (1 / aspectRatio) * 100 + '%';
-    this.style.paddingTop = padding;
-  }
+          // Prevent activating the viewer right after it was paused when clicked
+          // in position of the button.
+          this.controller.elements.controlButton.addEventListener(
+            "click",
+            function (e) {
+              e.stopImmediatePropagation();
+            }.bind(this),
+            { capture: true },
+          );
 
-  pauseAll() {
-    document.querySelectorAll('model-viewer').forEach((model) => {
-      if (model.modelViewerUI) modelViewerUI.pause();
-    });
-  }
-
-  disconnectedCallback() {
-    this.button.removeEventListener('click', this.loadModel);
-  }
-
-  get button() {
-    return this.querySelector('button[data-action="play"]');
-  }
-}
-
-window.ProductModel = {
-  loadShopifyXR() {
-    Shopify.loadFeatures([
-      {
-        name: 'shopify-xr',
-        version: '1.0',
-        onLoad: this.setupShopifyXR.bind(this),
-      },
-    ]);
-  },
-
-  setupShopifyXR(errors) {
-    if (errors) return;
-
-    if (!window.ShopifyXR) {
-      document.addEventListener('shopify_xr_initialized', () =>
-        this.setupShopifyXR()
+          window.ProductModel.loadShopifyXR();
+        }.bind(this),
       );
+    }
+
+    async moveModelIntoDOM() {
+      const content = document.createElement("div");
+      content.appendChild(
+        this.querySelector("template").content.firstElementChild.cloneNode(
+          true,
+        ),
+      );
+      const newContent = content.querySelector("model-viewer");
+      this.appendChild(newContent);
+      this.querySelector("model-viewer")?.focus();
       return;
     }
 
-    document.querySelectorAll('[id^="productModelJSON-"]').forEach((modelJSON) => {
-      window.ShopifyXR.addModels(window.eight.safeJSONParse(modelJSON.textContent));
-      modelJSON.remove();
-    });
+    setPadding() {
+      const i = this.getBoundingClientRect();
+      const aspectRatio = i.width / i.height;
+      const padding = (1 / aspectRatio) * 100 + "%";
+      this.style.paddingTop = padding;
+    }
 
-    window.ShopifyXR.setupXRElements();
-  },
-};
+    pauseAll() {
+      document.querySelectorAll("model-viewer").forEach((model) => {
+        if (model.modelViewerUI) modelViewerUI.pause();
+      });
+    }
 
-window.customElements.define('model-3d', Model);
+    disconnectedCallback() {
+      this.button.removeEventListener("click", this.loadModel);
+    }
 
-/******/ })()
-;
+    get button() {
+      return this.querySelector('button[data-action="play"]');
+    }
+  }
+
+  window.ProductModel = {
+    loadShopifyXR() {
+      Shopify.loadFeatures([
+        {
+          name: "shopify-xr",
+          version: "1.0",
+          onLoad: this.setupShopifyXR.bind(this),
+        },
+      ]);
+    },
+
+    setupShopifyXR(errors) {
+      if (errors) return;
+
+      if (!window.ShopifyXR) {
+        document.addEventListener("shopify_xr_initialized", () =>
+          this.setupShopifyXR(),
+        );
+        return;
+      }
+
+      document
+        .querySelectorAll('[id^="productModelJSON-"]')
+        .forEach((modelJSON) => {
+          window.ShopifyXR.addModels(
+            window.eight.safeJSONParse(modelJSON.textContent),
+          );
+          modelJSON.remove();
+        });
+
+      window.ShopifyXR.setupXRElements();
+    },
+  };
+
+  window.customElements.define("model-3d", Model);
+
+  /******/
+})();

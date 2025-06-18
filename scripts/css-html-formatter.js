@@ -1,15 +1,15 @@
 // scripts/css-html-formatter.js
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 module.exports = function (results) {
-  const reportPath = path.resolve(__dirname, '../reports/css-lint-report.html');
+  const reportPath = path.resolve(__dirname, "../reports/css-lint-report.html");
   // Process results and handle missing properties
   const issues = results.reduce((acc, result) => {
-    const filePath = result.source || 'unknown-file.css';
+    const filePath = result.source || "unknown-file.css";
     return [
       ...acc,
-      ...result.warnings.map(warning => ({
+      ...result.warnings.map((warning) => ({
         ...warning,
         filePath,
         position: `${warning.line}:${warning.column}`,
@@ -62,18 +62,18 @@ module.exports = function (results) {
   
   <div class="summary">
     <div>Files processed: ${results.length}</div>
-    <div>Issues found: <span class="error-count">${issues.filter(i => i.severity === 'error').length} errors</span>, 
-         <span class="warning-count">${issues.filter(i => i.severity === 'warning').length} warnings</span></div>
+    <div>Issues found: <span class="error-count">${issues.filter((i) => i.severity === "error").length} errors</span>, 
+         <span class="warning-count">${issues.filter((i) => i.severity === "warning").length} warnings</span></div>
   </div>
   
   ${issues
-    .map(issue => {
+    .map((issue) => {
       const relativePath = issue.filePath.startsWith(process.cwd())
         ? path.relative(process.cwd(), issue.filePath)
         : issue.filePath;
 
       return `
-    <div class="issue ${issue.severity === 'error' ? 'error' : 'warning'}">
+    <div class="issue ${issue.severity === "error" ? "error" : "warning"}">
       <div class="file">
         <a href="vscode://file/${path.resolve(issue.filePath)}" title="Open file in VS Code">
           ${relativePath}
@@ -85,7 +85,7 @@ module.exports = function (results) {
     </div>
     `;
     })
-    .join('')}
+    .join("")}
   
   <script>
     // Add line number links

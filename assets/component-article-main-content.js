@@ -1,5 +1,5 @@
 /*!
- * 
+ *
  * ------
  * Note: customizing files reduces the store's ability to auto-update the theme.
  *
@@ -18,35 +18,61 @@
  * ------
  *
  */
-/******/ (() => { // webpackBootstrap
-var __webpack_exports__ = {};
-class ArticlePagination extends HTMLElement {
-	constructor() {
-    super();
+/******/ (() => {
+  // webpackBootstrap
+  var __webpack_exports__ = {};
+  class ArticlePagination extends HTMLElement {
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {
+      const observerCallback = (watchEntry, observer) => {
+        if (
+          !watchEntry[0].isIntersecting &&
+          watchEntry[0].intersectionRatio > 0 &&
+          watchEntry[0].boundingClientRect.top < 0
+        ) {
+          this.classList.add(
+            "fixed",
+            "top-0",
+            "left-0",
+            "px-3",
+            "md:px-6",
+            "z-50",
+            "py-4",
+            "shadow-lg",
+          );
+        } else {
+          this.classList.remove(
+            "fixed",
+            "top-0",
+            "left-0",
+            "px-3",
+            "md:px-6",
+            "z-50",
+            "py-4",
+            "shadow-lg",
+          );
+        }
+      };
+
+      const observerOptions = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 1,
+      };
+
+      const observer = new IntersectionObserver(
+        observerCallback,
+        observerOptions,
+      );
+
+      observer.observe(this.parentElement);
+    }
   }
 
-  connectedCallback() {
-    const observerCallback = (watchEntry, observer) => {
-      if (!watchEntry[0].isIntersecting && watchEntry[0].intersectionRatio > 0 && watchEntry[0].boundingClientRect.top < 0) {
-        this.classList.add('fixed', 'top-0', 'left-0', 'px-3', 'md:px-6', 'z-50', 'py-4', 'shadow-lg');
-      } else {
-        this.classList.remove('fixed', 'top-0', 'left-0', 'px-3', 'md:px-6', 'z-50', 'py-4', 'shadow-lg');
-      }
-    }
-    
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 1
-    }
-    
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-    
-    observer.observe(this.parentElement);
-  }
-}
+  window.customElements.define("article-pagination", ArticlePagination);
 
-window.customElements.define('article-pagination', ArticlePagination);
-
-/******/ })()
-;
+  /******/
+})();

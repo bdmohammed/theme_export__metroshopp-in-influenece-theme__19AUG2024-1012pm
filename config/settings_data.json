@@ -110,11 +110,7 @@
             }
           }
         },
-        "block_order": [
-          "top-bar-0",
-          "top-bar-1",
-          "top-bar-2"
-        ],
+        "block_order": ["top-bar-0", "top-bar-1", "top-bar-2"],
         "settings": {
           "show_topbar": true,
           "topbar_transparent": false,
@@ -919,11 +915,7 @@
             }
           }
         },
-        "block_order": [
-          "main-qs-0",
-          "main-qs-1",
-          "main-qs-2"
-        ],
+        "block_order": ["main-qs-0", "main-qs-1", "main-qs-2"],
         "settings": {
           "demo_pr": ""
         }
@@ -1009,9 +1001,7 @@
             }
           }
         },
-        "block_order": [
-          "inactive_tab_fzdJCR"
-        ],
+        "block_order": ["inactive_tab_fzdJCR"],
         "settings": {}
       },
       "title_config": {
@@ -1051,10 +1041,7 @@
             }
           }
         },
-        "block_order": [
-          "title_config-0",
-          "title_config-1"
-        ],
+        "block_order": ["title_config-0", "title_config-1"],
         "settings": {
           "design_heading": "1",
           "heading_align": "text-center",
@@ -1260,10 +1247,7 @@
             }
           }
         },
-        "block_order": [
-          "btn_config-0",
-          "btn_config-1"
-        ],
+        "block_order": ["btn_config-0", "btn_config-1"],
         "settings": {
           "fnt_fm_button": "--font-family-1",
           "btn_fw": 600,
@@ -1293,10 +1277,7 @@
             }
           }
         },
-        "block_order": [
-          "custom1_86G4BQ",
-          "custom2_cRf4Ck"
-        ],
+        "block_order": ["custom1_86G4BQ", "custom2_cRf4Ck"],
         "settings": {
           "btn_vi": "hover",
           "btn_owl": "default",

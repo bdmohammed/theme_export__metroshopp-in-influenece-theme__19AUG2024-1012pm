@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "wrapper": "div.flex.w-full.justify-center.flex-wrap.product-template-wrapper.flex-col",
   "sections": {
     "gallery": {

@@ -69,7 +69,9 @@
   "ignoreFiles": [
     "node_modules/**/*",
     "assets/*.min.css",
+    "assets/*.min.js",
     "reports/**/*",
-    "dist/**/*"
+    "dist/**/*",
+    "**reports/**"
   ]
 }

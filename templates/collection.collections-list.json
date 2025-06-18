@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "wrapper": "div.collection-template-wrapper",
   "sections": {
     "rich-text": {
@@ -18,9 +18,7 @@
           "settings": {}
         }
       },
-      "block_order": [
-        "164985056431148b38-1"
-      ],
+      "block_order": ["164985056431148b38-1"],
       "settings": {
         "section_width": "narrow",
         "horizontal_alignment": "text-center items-center",

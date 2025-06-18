@@ -1,5 +1,5 @@
 /*!
- * 
+ *
  * ------
  * Note: customizing files reduces the store's ability to auto-update the theme.
  *
@@ -18,76 +18,78 @@
  * ------
  *
  */
-/******/ (() => { // webpackBootstrap
-var __webpack_exports__ = {};
-class NavLink extends HTMLElement {
-  constructor() {
-    super();
+/******/ (() => {
+  // webpackBootstrap
+  var __webpack_exports__ = {};
+  class NavLink extends HTMLElement {
+    constructor() {
+      super();
 
-    // Hoverintent config.
-    this.currX = 0;
-    this.currY = 0;
-    this.prevX = 0;
-    this.prevY = 0;
-    this.interval = 100;
-    this.sensitivity = 3; // Distance must be below this to trigger hoverintent.
-  }
-
-  connectedCallback() {
-    this.attachEvents();
-  }
-
-  attachEvents() {
-    this.addEventListener('mouseenter', this.mouseEnterHandler.bind(this));
-    this.addEventListener('mouseleave', this.mouseLeaveHandler.bind(this));
-    this.addEventListener('focus', this.mouseEnterHandler.bind(this));
-    this.addEventListener('mousemove', this.mouseMoveHandler.bind(this));
-  }
-
-  closeAll() {
-    window.eight.eventsEngine.emit(`${eight.constants.events["ARMADA:NAVIGATION:DROPDOWN:CLOSE"]}`);
-  }
-
-  mouseEnterHandler(ev) {
-    // Set initial entry position
-    this.prevX = ev.pageX;
-    this.prevY = ev.pageY;
-
-    // while mouse is over this element, check distance every 100ms
-    this.pollTimer = setTimeout(() => {
-      this.mouseCompare();
-    }, this.interval);
-  }
-
-  mouseCompare() {
-    const distX = this.prevX - this.currX;
-    const distY = this.prevY - this.currY;
-		const distance = Math.sqrt(distX * distX + distY * distY);
-
-    if (distance < this.sensitivity) {
-      this.closeAll();
+      // Hoverintent config.
+      this.currX = 0;
+      this.currY = 0;
+      this.prevX = 0;
+      this.prevY = 0;
+      this.interval = 100;
+      this.sensitivity = 3; // Distance must be below this to trigger hoverintent.
     }
-    else {
-      // Start the next loop to compare again in X seconds.
-      this.prevX = this.currX;
-      this.prevY = this.currY;
+
+    connectedCallback() {
+      this.attachEvents();
+    }
+
+    attachEvents() {
+      this.addEventListener("mouseenter", this.mouseEnterHandler.bind(this));
+      this.addEventListener("mouseleave", this.mouseLeaveHandler.bind(this));
+      this.addEventListener("focus", this.mouseEnterHandler.bind(this));
+      this.addEventListener("mousemove", this.mouseMoveHandler.bind(this));
+    }
+
+    closeAll() {
+      window.eight.eventsEngine.emit(
+        `${eight.constants.events["ARMADA:NAVIGATION:DROPDOWN:CLOSE"]}`,
+      );
+    }
+
+    mouseEnterHandler(ev) {
+      // Set initial entry position
+      this.prevX = ev.pageX;
+      this.prevY = ev.pageY;
+
+      // while mouse is over this element, check distance every 100ms
       this.pollTimer = setTimeout(() => {
         this.mouseCompare();
       }, this.interval);
     }
+
+    mouseCompare() {
+      const distX = this.prevX - this.currX;
+      const distY = this.prevY - this.currY;
+      const distance = Math.sqrt(distX * distX + distY * distY);
+
+      if (distance < this.sensitivity) {
+        this.closeAll();
+      } else {
+        // Start the next loop to compare again in X seconds.
+        this.prevX = this.currX;
+        this.prevY = this.currY;
+        this.pollTimer = setTimeout(() => {
+          this.mouseCompare();
+        }, this.interval);
+      }
+    }
+
+    mouseMoveHandler(ev) {
+      this.currX = ev.pageX;
+      this.currY = ev.pageY;
+    }
+
+    mouseLeaveHandler(ev) {
+      clearTimeout(this.pollTimer);
+    }
   }
 
-  mouseMoveHandler(ev) {
-    this.currX = ev.pageX;
-		this.currY = ev.pageY;
-  }
+  customElements.define("nav-link", NavLink);
 
-  mouseLeaveHandler(ev) {
-    clearTimeout(this.pollTimer);
-  }
-}
-
-customElements.define('nav-link', NavLink);
-
-/******/ })()
-;
+  /******/
+})();

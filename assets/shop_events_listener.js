@@ -9,14 +9,14 @@
     for (const prop of props) {
       prop.enumerable = prop.enumerable || false;
       prop.configurable = true;
-      if ('value' in prop) prop.writable = true;
+      if ("value" in prop) prop.writable = true;
       Object.defineProperty(target, prop.key, prop);
     }
   };
 
   const classCallCheck = (instance, Constructor) => {
     if (!(instance instanceof Constructor)) {
-      throw new TypeError('Cannot call a class as a function');
+      throw new TypeError("Cannot call a class as a function");
     }
   };
 
@@ -25,11 +25,11 @@
   };
 
   createModule((module, exports) => {
-    'use strict';
+    "use strict";
 
     const handleBulkItemCartAddResponse = (payload, response) => {
       if (payload.length !== response.length) {
-        throw Error('Payload body and response have different number of items');
+        throw Error("Payload body and response have different number of items");
       }
       payload.forEach((item, index) => {
         let quantity = 1;
@@ -37,7 +37,7 @@
           quantity = parseInt(response[index].quantity, 10) || 1;
         } catch (error) {
           console?.warn(
-            `[shop_events_listener] Error in handleBulkItemCartAddResponse: ${error.message}`
+            `[shop_events_listener] Error in handleBulkItemCartAddResponse: ${error.message}`,
           );
         }
         addItemToCart(item, quantity);
@@ -46,17 +46,17 @@
 
     const parsePayload = (queryString, expectedLength) => {
       const parsed = Array.from({ length: expectedLength }, () => ({}));
-      const params = decodeURI(queryString).split('&');
+      const params = decodeURI(queryString).split("&");
 
       params.forEach((param) => {
-        const [key, value] = param.split('=');
+        const [key, value] = param.split("=");
         const match = key.match(/items\[(\d+)\]\[(\w+)\].*/);
         if (match) {
           const index = match[1];
           const field = match[2];
-          if (field === 'quantity') {
+          if (field === "quantity") {
             parsed[index].quantity = value;
-          } else if (field === 'id') {
+          } else if (field === "id") {
             parsed[index].id = value;
           }
         }
@@ -71,19 +71,19 @@
         return JSON.parse(input).quantity || 1;
       } catch {
         if (input instanceof FormData) {
-          return input.get('quantity') || 1;
+          return input.get("quantity") || 1;
         }
-        const params = input.split('&');
+        const params = input.split("&");
         for (const param of params) {
-          const [key, value] = param.split('=');
-          if (key === 'quantity') return value;
+          const [key, value] = param.split("=");
+          if (key === "quantity") return value;
         }
       }
       return 1;
     };
 
     const addItemToCart = (item, quantity) => {
-      const cartToken = getCookieValue('cart');
+      const cartToken = getCookieValue("cart");
       const eventData = {
         variantId: String(item.id),
         productId: item.product_id,
@@ -98,16 +98,16 @@
         ...getPageMetaData(),
       };
 
-      window.ShopifyAnalytics.lib.track('Added Product', {
+      window.ShopifyAnalytics.lib.track("Added Product", {
         cartToken,
         ...eventData,
       });
       window.ShopifyAnalytics.lib.track(
-        'monorail://trekkie_storefront_track_added_product/1.1',
+        "monorail://trekkie_storefront_track_added_product/1.1",
         {
           referer: window.location.href,
           ...eventData,
-        }
+        },
       );
     };
 
@@ -163,7 +163,7 @@
 
       static async handleXhrDone({ method, url, body, xhr }) {
         try {
-          const link = document.createElement('a');
+          const link = document.createElement("a");
           link.href = url;
           const pathname = link.pathname || url;
           if (XHRHandler.ADD_TO_CART_REGEX.test(pathname)) {
@@ -177,7 +177,7 @@
               if (parsedResponse.items && parsedResponse.items.length) {
                 handleBulkItemCartAddResponse(
                   parsedResponse.items,
-                  parsedResponse.items
+                  parsedResponse.items,
                 );
               } else {
                 addItemToCart(parsedResponse, getQuantityFromInput(body));
@@ -186,7 +186,7 @@
           }
         } catch (error) {
           console?.warn(
-            `[shop_events_listener] Error in handleXhrDone: ${error.message}`
+            `[shop_events_listener] Error in handleXhrDone: ${error.message}`,
           );
         }
       }
@@ -198,8 +198,8 @@
             const json = JSON.parse(
               String.fromCharCode.apply(
                 String,
-                toArray(new Uint8Array(fileReader.result))
-              )
+                toArray(new Uint8Array(fileReader.result)),
+              ),
             );
             resolve(json);
           };
@@ -233,30 +233,30 @@
           )
         ) {
           const action =
-            target.getAttribute('action') || target.getAttribute('href');
+            target.getAttribute("action") || target.getAttribute("href");
           if (action) {
             try {
               let selectedOption;
               const id = target.id || target.elements.id;
               selectedOption = id.options ? id.options[id.selectedIndex] : id;
-              const cartToken = getCookieValue('cart');
+              const cartToken = getCookieValue("cart");
               const cartData = parseCartItem(selectedOption.value);
               cartData.quantity = String(
-                target.quantity ? target.quantity.value : 1
+                target.quantity ? target.quantity.value : 1,
               );
               const eventData = {
                 cartToken,
                 ...cartData,
               };
 
-              window.ShopifyAnalytics.lib.track('Added Product', eventData);
+              window.ShopifyAnalytics.lib.track("Added Product", eventData);
               window.ShopifyAnalytics.lib.track(
-                'monorail://trekkie_storefront_track_added_product/1.1',
-                eventData
+                "monorail://trekkie_storefront_track_added_product/1.1",
+                eventData,
               );
             } catch (error) {
               console?.warn(
-                `[shop_events_listener] Error in handleSubmitCartAdd: ${error.message}`
+                `[shop_events_listener] Error in handleSubmitCartAdd: ${error.message}`,
               );
             }
           }
@@ -267,17 +267,17 @@
         const { target } = event;
         if (
           target &&
-          target.getAttribute('action') &&
-          target.getAttribute('data-payment-form')
+          target.getAttribute("action") &&
+          target.getAttribute("data-payment-form")
         ) {
           try {
-            window.ShopifyAnalytics.lib.track('Added Payment', {
+            window.ShopifyAnalytics.lib.track("Added Payment", {
               currency: window.ShopifyAnalytics.meta.currency,
               total: window.ShopifyAnalytics.meta.checkout.payment_due / 100,
             });
           } catch (error) {
             console?.warn(
-              `[shop_events_listener] Error in handleSubmitToPaymentAdd: ${error.message}`
+              `[shop_events_listener] Error in handleSubmitToPaymentAdd: ${error.message}`,
             );
           }
         }
@@ -293,7 +293,7 @@
               : id;
           const variantData = parseCartItem(selectedOption.value);
 
-          window.ShopifyAnalytics.lib.track('Viewed Variant', {
+          window.ShopifyAnalytics.lib.track("Viewed Variant", {
             variantId: String(variantData.id),
             productId: variantData.product_id,
             name: variantData.title,
@@ -302,7 +302,7 @@
           });
         } catch (error) {
           console?.warn(
-            `[shop_events_listener] Error in trackViewedProductVariant: ${error.message}`
+            `[shop_events_listener] Error in trackViewedProductVariant: ${error.message}`,
           );
         }
       };
@@ -310,7 +310,7 @@
       const trackProductAddedToCart = (event) => {
         const { currentTarget } = event;
         const isAddToCartButton =
-          currentTarget.classList.contains('btn-add-to-cart');
+          currentTarget.classList.contains("btn-add-to-cart");
         if (isAddToCartButton) {
           handleSubmitCartAdd(event);
         }
@@ -318,17 +318,17 @@
 
       const forms = document.querySelectorAll("form[action$='/cart/add']");
       forms.forEach((form) =>
-        attachEvent(form, 'submit', trackProductAddedToCart)
+        attachEvent(form, "submit", trackProductAddedToCart),
       );
 
-      const paymentForms = document.querySelectorAll('[data-payment-form]');
+      const paymentForms = document.querySelectorAll("[data-payment-form]");
       paymentForms.forEach((form) =>
-        attachEvent(form, 'submit', handlePaymentAdd)
+        attachEvent(form, "submit", handlePaymentAdd),
       );
 
-      const productVariants = document.querySelectorAll('.variant-selector');
+      const productVariants = document.querySelectorAll(".variant-selector");
       productVariants.forEach((variant) =>
-        attachEvent(variant, 'change', trackViewedProductVariant)
+        attachEvent(variant, "change", trackViewedProductVariant),
       );
     };
 

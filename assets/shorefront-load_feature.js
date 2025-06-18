@@ -1,4 +1,3 @@
-
 const executeModule = (moduleFunction) => {
   const module = { exports: {} };
   moduleFunction.call(module.exports, module, module.exports);
@@ -7,47 +6,47 @@ const executeModule = (moduleFunction) => {
 
 const destructure = () => {
   const extractElements = (iterable, limit) => {
-      const result = [];
-      let isDone = false;
-      let hasError = false;
-      let error;
+    const result = [];
+    let isDone = false;
+    let hasError = false;
+    let error;
 
-      try {
-          const iterator = iterable[Symbol.iterator]();
-          let next;
+    try {
+      const iterator = iterable[Symbol.iterator]();
+      let next;
 
-          while (!isDone && ((next = iterator.next()), !next.done)) {
-              result.push(next.value);
-              if (limit && result.length === limit) {
-                  break;
-              }
-              isDone = next.done;
-          }
-      } catch (err) {
-          hasError = true;
-          error = err;
-      } finally {
-          try {
-              if (!isDone && iterable.return) {
-                  iterable.return();
-              }
-          } finally {
-              if (hasError) {
-                  throw error;
-              }
-          }
+      while (!isDone && ((next = iterator.next()), !next.done)) {
+        result.push(next.value);
+        if (limit && result.length === limit) {
+          break;
+        }
+        isDone = next.done;
       }
-      return result;
+    } catch (err) {
+      hasError = true;
+      error = err;
+    } finally {
+      try {
+        if (!isDone && iterable.return) {
+          iterable.return();
+        }
+      } finally {
+        if (hasError) {
+          throw error;
+        }
+      }
+    }
+    return result;
   };
 
   return (input, limit) => {
-      if (Array.isArray(input)) {
-          return input;
-      }
-      if (Symbol.iterator in Object(input)) {
-          return extractElements(input, limit);
-      }
-      throw new TypeError('Invalid attempt to destructure non-iterable instance');
+    if (Array.isArray(input)) {
+      return input;
+    }
+    if (Symbol.iterator in Object(input)) {
+      return extractElements(input, limit);
+    }
+    throw new TypeError("Invalid attempt to destructure non-iterable instance");
   };
 };
 
@@ -61,45 +60,50 @@ const toArray = (iterable) => {
 
 const registerDOMContentLoaded = executeModule((module, exports) => {
   const ready = (callback) => {
-      if (document.readyState !== "loading") {
+    if (document.readyState !== "loading") {
+      callback();
+    } else if (document.addEventListener) {
+      document.addEventListener("DOMContentLoaded", callback);
+    } else {
+      document.attachEvent("onreadystatechange", () => {
+        if (document.readyState !== "loading") {
           callback();
-      } else if (document.addEventListener) {
-          document.addEventListener("DOMContentLoaded", callback);
-      } else {
-          document.attachEvent("onreadystatechange", () => {
-              if (document.readyState !== "loading") {
-                  callback();
-              }
-          });
-      }
+        }
+      });
+    }
   };
 
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.default = ready;
-
 });
 
 const n = executeModule((module, exports) => {
   const featureNotFound = (feature) =>
-      new Error(`The feature { name: "${feature.name}", version: "${feature.version}" } does not exist`);
+    new Error(
+      `The feature { name: "${feature.name}", version: "${feature.version}" } does not exist`,
+    );
 
   const couldNotCreateEntry = (entry) =>
-      new Error(`Could not create registry entry ${entry}`);
+    new Error(`Could not create registry entry ${entry}`);
 
   const couldNotAddToQuerySelectors = () =>
-      new Error("Cannot register a feature with the same selector twice");
+    new Error("Cannot register a feature with the same selector twice");
 
   const invalidFeaturesArray = (features) =>
-      new Error(`Features should be an Array. Received: ${JSON.stringify(features)}`);
+    new Error(
+      `Features should be an Array. Received: ${JSON.stringify(features)}`,
+    );
 
   const invalidFeature = (feature) =>
-      new Error(`Features should be defined as { name: "name", version: "version" }. Received: ${JSON.stringify(feature)}`);
+    new Error(
+      `Features should be defined as { name: "name", version: "version" }. Received: ${JSON.stringify(feature)}`,
+    );
 
   const alreadyLoaded = (featureName, version) =>
-      new Error(`${featureName} has already been loaded at version ${version}`);
+    new Error(`${featureName} has already been loaded at version ${version}`);
 
   Object.defineProperty(exports, "__esModule", {
-      value: true
+    value: true,
   });
 
   exports.featureNotFound = featureNotFound;
@@ -108,113 +112,109 @@ const n = executeModule((module, exports) => {
   exports.invalidFeaturesArray = invalidFeaturesArray;
   exports.invalidFeature = invalidFeature;
   exports.alreadyLoaded = alreadyLoaded;
-
 });
 
 const i = executeModule((module, exports) => {
   let cachedShopifyFeatures;
 
   const getShopifyFeatures = () => {
-      if (cachedShopifyFeatures) return cachedShopifyFeatures;
+    if (cachedShopifyFeatures) return cachedShopifyFeatures;
 
-      const featureElement = document.getElementById("shopify-features");
-      if (featureElement) {
-          try {
-              cachedShopifyFeatures = JSON.parse(featureElement.textContent);
-          } catch (error) {
-              // Handle JSON parse error silently
-          }
-      } else {
-          cachedShopifyFeatures = {};
+    const featureElement = document.getElementById("shopify-features");
+    if (featureElement) {
+      try {
+        cachedShopifyFeatures = JSON.parse(featureElement.textContent);
+      } catch (error) {
+        // Handle JSON parse error silently
       }
+    } else {
+      cachedShopifyFeatures = {};
+    }
 
-      return cachedShopifyFeatures;
+    return cachedShopifyFeatures;
   };
 
   const getBetas = () => {
-      const features = getShopifyFeatures();
-      if (features) {
-          try {
-              return features.betas.reduce((acc, beta) => {
-                  acc[beta] = true;
-                  return acc;
-              }, {});
-          } catch (error) {
-              // Handle reduction error silently
-          }
+    const features = getShopifyFeatures();
+    if (features) {
+      try {
+        return features.betas.reduce((acc, beta) => {
+          acc[beta] = true;
+          return acc;
+        }, {});
+      } catch (error) {
+        // Handle reduction error silently
       }
-      return {};
+    }
+    return {};
   };
 
   const getLocale = () => {
-      return getShopifyFeatures().locale || "en";
+    return getShopifyFeatures().locale || "en";
   };
 
   Object.defineProperty(exports, "__esModule", {
-      value: true
+    value: true,
   });
 
   exports.getBetas = getBetas;
   exports.getLocale = getLocale;
-
 });
 
 const s = executeModule((module, exports) => {
   "use strict";
 
   const r = () => {
-      // Empty function, can be expanded as needed
+    // Empty function, can be expanded as needed
   };
 
   Object.defineProperty(exports, "__esModule", {
-      value: true
+    value: true,
   });
 
   exports.default = r;
-
 });
 
 const u = executeModule((module, exports) => {
   const createFeatureRegistry = () => {
-      const registry = {};
+    const registry = {};
 
-      const addFeature = (selector, feature) => {
-          registry[selector] = registry[selector] || [];
+    const addFeature = (selector, feature) => {
+      registry[selector] = registry[selector] || [];
 
-          for (const existingFeature of registry[selector]) {
-              const { name, version } = existingFeature;
-              if (feature.name === name) {
-                  if (feature.version !== version) {
-                      throw n.couldNotAddToQuerySelectors(selector);
-                  }
-                  return;
-              }
+      for (const existingFeature of registry[selector]) {
+        const { name, version } = existingFeature;
+        if (feature.name === name) {
+          if (feature.version !== version) {
+            throw n.couldNotAddToQuerySelectors(selector);
           }
-          registry[selector].push(feature);
-      };
+          return;
+        }
+      }
+      registry[selector].push(feature);
+    };
 
-      const getFeatures = () => {
-          return Object.keys(registry).reduce((features, selector) => {
-              if (!document.querySelector(selector)) return features;
+    const getFeatures = () => {
+      return Object.keys(registry).reduce((features, selector) => {
+        if (!document.querySelector(selector)) return features;
 
-              const featuresToReturn = registry[selector];
-              delete registry[selector];
-              return features.concat(featuresToReturn);
-          }, []);
-      };
+        const featuresToReturn = registry[selector];
+        delete registry[selector];
+        return features.concat(featuresToReturn);
+      }, []);
+    };
 
-      return {
-          add: addFeature,
-          getFeatures
-      };
+    return {
+      add: addFeature,
+      getFeatures,
+    };
   };
 
   Object.defineProperty(exports, "__esModule", {
-      value: true
+    value: true,
   });
 
   exports.default = createFeatureRegistry;
-
 });
 
 const l = executeModule((module, exports) => {
@@ -222,128 +222,146 @@ const l = executeModule((module, exports) => {
   let loadedFeatures = {};
 
   const registerFeature = (feature) => {
-      const {
-          name,
-          baseName,
-          version,
-          betaFlag,
-          fileName,
-          fileNames,
-          legacy,
-          localized,
-          localesSupported,
-          autoLoadSelector,
-          props = {}
-      } = feature;
+    const {
+      name,
+      baseName,
+      version,
+      betaFlag,
+      fileName,
+      fileNames,
+      legacy,
+      localized,
+      localesSupported,
+      autoLoadSelector,
+      props = {},
+    } = feature;
 
-      const featureKey = `${name}@${version || "latest"}`;
-      if (registry[featureKey]) {
-          throw n.couldNotCreateEntry(featureKey);
-      }
+    const featureKey = `${name}@${version || "latest"}`;
+    if (registry[featureKey]) {
+      throw n.couldNotCreateEntry(featureKey);
+    }
 
-      // Handle autoLoadSelector
-      if (autoLoadSelector) {
-          const selectors = Array.isArray(autoLoadSelector) ? autoLoadSelector : [autoLoadSelector];
-          selectors.forEach(selector => {
-              h.lookup.add(selector, { name, version });
-          });
-      }
+    // Handle autoLoadSelector
+    if (autoLoadSelector) {
+      const selectors = Array.isArray(autoLoadSelector)
+        ? autoLoadSelector
+        : [autoLoadSelector];
+      selectors.forEach((selector) => {
+        h.lookup.add(selector, { name, version });
+      });
+    }
 
-      // Register the feature
-      registry[featureKey] = {
-          props,
-          betaFlag,
-          scriptId: featureKey,
-          name,
-          baseName,
-          version,
-          locale: i.getLocale(),
-          localized,
-          localesSupported,
-          legacy,
-          fileName,
-          fileNames
-      };
+    // Register the feature
+    registry[featureKey] = {
+      props,
+      betaFlag,
+      scriptId: featureKey,
+      name,
+      baseName,
+      version,
+      locale: i.getLocale(),
+      localized,
+      localesSupported,
+      legacy,
+      fileName,
+      fileNames,
+    };
   };
 
   const resetRegistry = () => {
-      loadedFeatures = {};
+    loadedFeatures = {};
   };
 
   const createEntry = (feature) => {
-      if (window.Shopify.modules) {
-          feature.legacy = false;
-          feature.props = { type: "module" };
-          registerFeature(feature);
-      } else if (feature.hasLegacy) {
-          feature.legacy = true;
-          feature.props = { nomodule: "" };
-          registerFeature(feature);
-      }
+    if (window.Shopify.modules) {
+      feature.legacy = false;
+      feature.props = { type: "module" };
+      registerFeature(feature);
+    } else if (feature.hasLegacy) {
+      feature.legacy = true;
+      feature.props = { nomodule: "" };
+      registerFeature(feature);
+    }
   };
 
   const getEntry = (feature) => {
-      const featureKey = `${feature.name}@${feature.version || "latest"}`;
-      const registeredFeature = registry[featureKey];
+    const featureKey = `${feature.name}@${feature.version || "latest"}`;
+    const registeredFeature = registry[featureKey];
 
-      if (!registeredFeature) {
-          throw n.featureNotFound(feature);
-      }
+    if (!registeredFeature) {
+      throw n.featureNotFound(feature);
+    }
 
-      const { name, baseName, version, localized, locale, legacy, localesSupported } = registeredFeature;
+    const {
+      name,
+      baseName,
+      version,
+      localized,
+      locale,
+      legacy,
+      localesSupported,
+    } = registeredFeature;
 
-      if (loadedFeatures[name] && loadedFeatures[name] !== version) {
-          throw n.alreadyLoaded(featureKey, loadedFeatures[name]);
-      }
+    if (loadedFeatures[name] && loadedFeatures[name] !== version) {
+      throw n.alreadyLoaded(featureKey, loadedFeatures[name]);
+    }
 
-      loadedFeatures[name] = version;
+    loadedFeatures[name] = version;
 
-      const srcs = (registeredFeature.fileNames || [registeredFeature.fileName]).map(fileName =>
-          p.urlForFeature({ name, baseName, version, legacy, locale: localized && locale, localesSupported, fileName })
-      );
+    const srcs = (
+      registeredFeature.fileNames || [registeredFeature.fileName]
+    ).map((fileName) =>
+      p.urlForFeature({
+        name,
+        baseName,
+        version,
+        legacy,
+        locale: localized && locale,
+        localesSupported,
+        fileName,
+      }),
+    );
 
-      if (srcs.length === 1) {
-          registeredFeature.src = srcs[0];
-      } else if (srcs.length > 1) {
-          registeredFeature.srcs = srcs;
-      }
+    if (srcs.length === 1) {
+      registeredFeature.src = srcs[0];
+    } else if (srcs.length > 1) {
+      registeredFeature.srcs = srcs;
+    }
 
-      return registeredFeature;
+    return registeredFeature;
   };
 
   Object.defineProperty(exports, "__esModule", {
-      value: true
+    value: true,
   });
 
   exports.reset = resetRegistry;
   exports.register = createEntry;
   exports.getEntry = getEntry;
-
 });
 
 const c = executeModule((module, exports) => {
   let cachedBetas = null;
 
   const resetBetas = () => {
-      cachedBetas = null;
+    cachedBetas = null;
   };
 
   const getBetas = (key) => {
-      if (cachedBetas) {
-          return cachedBetas[key];
-      }
+    if (cachedBetas) {
+      return cachedBetas[key];
+    }
 
-      cachedBetas = i.getBetas(); // Assuming i.getBetas() returns an object
-      return getBetas(key);
+    cachedBetas = i.getBetas(); // Assuming i.getBetas() returns an object
+    return getBetas(key);
   };
 
   Object.defineProperty(exports, "__esModule", {
-      value: true
+    value: true,
   });
 
   exports.resetBetas = resetBetas;
   exports.default = getBetas;
-
 });
 
 const d = executeModule((module, exports) => {
@@ -354,144 +372,147 @@ const d = executeModule((module, exports) => {
   const isError = (src) => errorScripts.includes(src);
 
   const loadScript = (src, attributes, callback) => {
-      const handleLoad = () => {
-          loadedScripts.push(script);
-          cleanupListeners();
-          callback(null, script);
-      };
+    const handleLoad = () => {
+      loadedScripts.push(script);
+      cleanupListeners();
+      callback(null, script);
+    };
 
-      const handleError = () => {
-          errorScripts.push(script);
-          cleanupListeners();
-          callback(new Error(`Load error: ${src}`));
-      };
+    const handleError = () => {
+      errorScripts.push(script);
+      cleanupListeners();
+      callback(new Error(`Load error: ${src}`));
+    };
 
-      const cleanupListeners = () => {
-          script.removeEventListener("load", handleLoad);
-          script.removeEventListener("error", handleError);
-      };
+    const cleanupListeners = () => {
+      script.removeEventListener("load", handleLoad);
+      script.removeEventListener("error", handleError);
+    };
 
-      let script = document.querySelector(`script[src="${src}"]`);
+    let script = document.querySelector(`script[src="${src}"]`);
 
-      if (script) {
-          if (isLoaded(script)) {
-              handleLoad();
-          } else if (isError(script)) {
-              handleError();
-          } else {
-              setupListeners();
-          }
+    if (script) {
+      if (isLoaded(script)) {
+        handleLoad();
+      } else if (isError(script)) {
+        handleError();
       } else {
-          script = document.createElement("script");
-          Object.keys(attributes).forEach((key) => {
-              script.setAttribute(key, attributes[key]);
-          });
+        setupListeners();
+      }
+    } else {
+      script = document.createElement("script");
+      Object.keys(attributes).forEach((key) => {
+        script.setAttribute(key, attributes[key]);
+      });
 
-          if (!script.getAttribute("defer")) {
-              script.setAttribute("defer", "");
-          }
-
-          script.src = src;
-          script.crossOrigin = "anonymous";
-          setupListeners();
-          document.head.appendChild(script);
+      if (!script.getAttribute("defer")) {
+        script.setAttribute("defer", "");
       }
 
-      const setupListeners = () => {
-          script.addEventListener("load", handleLoad);
-          script.addEventListener("error", handleError);
-      };
+      script.src = src;
+      script.crossOrigin = "anonymous";
+      setupListeners();
+      document.head.appendChild(script);
+    }
+
+    const setupListeners = () => {
+      script.addEventListener("load", handleLoad);
+      script.addEventListener("error", handleError);
+    };
   };
 
   Object.defineProperty(exports, "__esModule", {
-      value: true,
+    value: true,
   });
 
   exports.default = loadScript;
-
 });
 
 const f = executeModule((module, exports) => {
   const loadEntries = (entries, errors, onLoad) => {
-      return entries.reduce((accumulator, entry) => {
-          const handleError = entry.onLoad || v.default;
-          try {
-              const { betaFlag } = l.getEntry(entry);
-              const isValid = !betaFlag || p.default(betaFlag);
-              if (onLoad && !isValid) {
-                  throw n.featureNotFound(entry);
-              }
-              if (isValid) {
-                  accumulator.push([entry, entry]);
-              }
-          } catch (error) {
-              handleError(error);
-              errors.push(error);
-          }
-          return accumulator;
-      }, []);
+    return entries.reduce((accumulator, entry) => {
+      const handleError = entry.onLoad || v.default;
+      try {
+        const { betaFlag } = l.getEntry(entry);
+        const isValid = !betaFlag || p.default(betaFlag);
+        if (onLoad && !isValid) {
+          throw n.featureNotFound(entry);
+        }
+        if (isValid) {
+          accumulator.push([entry, entry]);
+        }
+      } catch (error) {
+        handleError(error);
+        errors.push(error);
+      }
+      return accumulator;
+    }, []);
   };
 
   const processEntries = (entries, errors, callback) => {
-      const totalScripts = entries.reduce((count, entry) => {
-          const { srcs } = t(entry, 1)[0];
-          return count + (srcs ? srcs.length : 1);
-      }, 0);
+    const totalScripts = entries.reduce((count, entry) => {
+      const { srcs } = t(entry, 1)[0];
+      return count + (srcs ? srcs.length : 1);
+    }, 0);
 
-      if (totalScripts !== 0) {
-          entries.forEach((entry) => {
-              const [scriptEntry, { onLoad = v.default }] = t(entry, 2);
-              const sources = scriptEntry.srcs || [scriptEntry.src];
-              let remaining = sources.length;
-              const callbacks = [];
+    if (totalScripts !== 0) {
+      entries.forEach((entry) => {
+        const [scriptEntry, { onLoad = v.default }] = t(entry, 2);
+        const sources = scriptEntry.srcs || [scriptEntry.src];
+        let remaining = sources.length;
+        const callbacks = [];
 
-              sources.forEach((source) => {
-                  y.default(source, scriptEntry.props, (result) => {
-                      if (result) {
-                          errors.push(result);
-                          callbacks.push(result);
-                      }
-                      if (--remaining === 0) {
-                          if (callbacks.length === 0) {
-                              onLoad(null);
-                          } else if (callbacks.length === 1) {
-                              onLoad(callbacks[0]);
-                          } else {
-                              onLoad(callbacks);
-                          }
-                          if (--totalScripts === 0) {
-                              callback(errors);
-                          }
-                      }
-                  });
-              });
+        sources.forEach((source) => {
+          y.default(source, scriptEntry.props, (result) => {
+            if (result) {
+              errors.push(result);
+              callbacks.push(result);
+            }
+            if (--remaining === 0) {
+              if (callbacks.length === 0) {
+                onLoad(null);
+              } else if (callbacks.length === 1) {
+                onLoad(callbacks[0]);
+              } else {
+                onLoad(callbacks);
+              }
+              if (--totalScripts === 0) {
+                callback(errors);
+              }
+            }
           });
-      } else {
-          callback(errors);
-      }
+        });
+      });
+    } else {
+      callback(errors);
+    }
   };
 
   const handleEntries = (entries, includeBeta, callback) => {
-      const errors = [];
-      processEntries(loadEntries(entries, errors, includeBeta), errors, (errorResults) => {
-          callback(errorResults.length === 0 ? null : errorResults);
-      });
+    const errors = [];
+    processEntries(
+      loadEntries(entries, errors, includeBeta),
+      errors,
+      (errorResults) => {
+        callback(errorResults.length === 0 ? null : errorResults);
+      },
+    );
   };
 
   const loadMultiple = (entries, callback) => {
-      handleEntries(entries, true, callback);
+    handleEntries(entries, true, callback);
   };
 
   const loadMultipleErrorIfNotInBeta = (entries, callback) => {
-      handleEntries(entries, true, callback);
+    handleEntries(entries, true, callback);
   };
 
   const loadMultipleSilentIfNotInBeta = (entries, callback) => {
-      handleEntries(entries, false, callback);
+    handleEntries(entries, false, callback);
   };
 
   Object.defineProperty(exports, "__esModule", {
-      value: true,
+    value: true,
   });
 
   exports.loadMultiple = loadMultiple;
@@ -504,14 +525,13 @@ const f = executeModule((module, exports) => {
 });
 
 const h = executeModule((module, exports) => {
-
   const loadFeatures = (customOnLoad) => {
-      const onLoadHandler = customOnLoad || a.default;
-      f.loadMultipleSilentIfNotInBeta(n.getFeatures(), onLoadHandler);
+    const onLoadHandler = customOnLoad || a.default;
+    f.loadMultipleSilentIfNotInBeta(n.getFeatures(), onLoadHandler);
   };
 
   Object.defineProperty(exports, "__esModule", {
-      value: true,
+    value: true,
   });
 
   exports.lookup = undefined;
@@ -523,43 +543,55 @@ const h = executeModule((module, exports) => {
 });
 
 const p = executeModule((module, exports) => {
-  const urlForFeature = ({ name, version, legacy, baseName = null, locale = null, localesSupported = [], fileName }) => {
-      let d = baseName || name;
-      let f = fileName || d;
+  const urlForFeature = ({
+    name,
+    version,
+    legacy,
+    baseName = null,
+    locale = null,
+    localesSupported = [],
+    fileName,
+  }) => {
+    let d = baseName || name;
+    let f = fileName || d;
 
-      // Remove '.js' extension if present
-      if (f.endsWith(".js")) {
-          f = f.slice(0, -3);
-      }
+    // Remove '.js' extension if present
+    if (f.endsWith(".js")) {
+      f = f.slice(0, -3);
+    }
 
-      // Append '-legacy' if legacy is true
-      if (legacy) {
-          f += "-legacy";
-      }
+    // Append '-legacy' if legacy is true
+    if (legacy) {
+      f += "-legacy";
+    }
 
-      // Handle locale and localesSupported
-      if (locale) {
-          f += "." + (localesSupported.length === 0 || localesSupported.includes(locale) ? locale : "en");
-      }
+    // Handle locale and localesSupported
+    if (locale) {
+      f +=
+        "." +
+        (localesSupported.length === 0 || localesSupported.includes(locale)
+          ? locale
+          : "en");
+    }
 
-      // Return URL based on conditions
-      if (name === "shop-js" || name.startsWith("shop-js/")) {
-          return `https://${window.Shopify.spinShopJsUrl}/${f}.js`;
-      }
+    // Return URL based on conditions
+    if (name === "shop-js" || name.startsWith("shop-js/")) {
+      return `https://${window.Shopify.spinShopJsUrl}/${f}.js`;
+    }
 
-      const host = window.Shopify?.cdnHost || "cdn.shopify.com";
-      const pathParts = ["shopifycloud", d];
+    const host = window.Shopify?.cdnHost || "cdn.shopify.com";
+    const pathParts = ["shopifycloud", d];
 
-      if (version !== undefined) {
-          pathParts.push(`v${version}`);
-      }
+    if (version !== undefined) {
+      pathParts.push(`v${version}`);
+    }
 
-      pathParts.push(`${f}.js`);
-      return `https://${host}/${pathParts.join("/")}`;
+    pathParts.push(`${f}.js`);
+    return `https://${host}/${pathParts.join("/")}`;
   };
 
   Object.defineProperty(exports, "__esModule", {
-      value: true,
+    value: true,
   });
 
   exports.urlForFeature = urlForFeature;
@@ -569,13 +601,17 @@ const v = executeModule((module, exports) => {
   "use strict";
 
   const validateFeature = (feature) => {
-      if (!feature || typeof feature.name !== "string" || typeof feature.version !== "string") {
-          throw n.invalidFeature(feature);
-      }
+    if (
+      !feature ||
+      typeof feature.name !== "string" ||
+      typeof feature.version !== "string"
+    ) {
+      throw n.invalidFeature(feature);
+    }
   };
 
   Object.defineProperty(exports, "__esModule", {
-      value: true,
+    value: true,
   });
 
   exports.default = validateFeature;
@@ -583,19 +619,19 @@ const v = executeModule((module, exports) => {
 
 const y = executeModule((module, exports) => {
   const processFeatures = (features, callback) => {
-      const onLoadCallback = callback || i.default;
+    const onLoadCallback = callback || i.default;
 
-      if (Array.isArray(features)) {
-          features.forEach(a.default);
-          f.loadMultipleErrorIfNotInBeta(features, onLoadCallback);
-          return;
-      }
+    if (Array.isArray(features)) {
+      features.forEach(a.default);
+      f.loadMultipleErrorIfNotInBeta(features, onLoadCallback);
+      return;
+    }
 
-      throw n.invalidFeaturesArray(features);
+    throw n.invalidFeaturesArray(features);
   };
 
   Object.defineProperty(exports, "__esModule", {
-      value: true,
+    value: true,
   });
 
   exports.default = processFeatures;
@@ -608,38 +644,40 @@ const m = executeModule((module, exports) => {
   "use strict";
 
   const createObserver = (callback) => {
-      let observer = null;
+    let observer = null;
 
-      return {
-          get isObserving() {
-              return Boolean(observer);
-          },
-          enable() {
-              if (!this.isObserving) {
-                  observer = new MutationObserver((mutations) => {
-                      const hasAddedNodes = mutations.some(mutation => mutation.addedNodes.length > 0);
-                      if (hasAddedNodes) {
-                          callback();
-                      }
-                  });
+    return {
+      get isObserving() {
+        return Boolean(observer);
+      },
+      enable() {
+        if (!this.isObserving) {
+          observer = new MutationObserver((mutations) => {
+            const hasAddedNodes = mutations.some(
+              (mutation) => mutation.addedNodes.length > 0,
+            );
+            if (hasAddedNodes) {
+              callback();
+            }
+          });
 
-                  observer.observe(document.body, {
-                      childList: true,
-                      subtree: true,
-                  });
-              }
-          },
-          disable() {
-              if (this.isObserving) {
-                  observer.disconnect();
-                  observer = null;
-              }
-          },
-      };
+          observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+          });
+        }
+      },
+      disable() {
+        if (this.isObserving) {
+          observer.disconnect();
+          observer = null;
+        }
+      },
+    };
   };
 
   Object.defineProperty(exports, "__esModule", {
-      value: true,
+    value: true,
   });
 
   exports.default = createObserver;
@@ -647,19 +685,19 @@ const m = executeModule((module, exports) => {
 
 const g = executeModule((module, exports) => {
   const registerShopifyQueue = (namespace, callback) => {
-      const queue = window.Shopify[namespace]?.q;
+    const queue = window.Shopify[namespace]?.q;
 
-      if (Array.isArray(queue)) {
-          queue.forEach(item => {
-              callback(...o(item)); // Assuming `o` is defined elsewhere
-          });
-      }
+    if (Array.isArray(queue)) {
+      queue.forEach((item) => {
+        callback(...o(item)); // Assuming `o` is defined elsewhere
+      });
+    }
 
-      window.Shopify[namespace] = callback;
+    window.Shopify[namespace] = callback;
   };
 
   Object.defineProperty(exports, "__esModule", {
-      value: true,
+    value: true,
   });
 
   exports.default = registerShopifyQueue;
@@ -686,112 +724,232 @@ executeModule((module, exports) => {
   // Setup Shopify global object and featureAssets
   window.Shopify = window.Shopify || {};
   window.Shopify.featureAssets = window.Shopify.featureAssets || {};
-  window.Shopify.featureAssets["shop-js"] = window.Shopify.featureAssets["shop-js"] || {};
+  window.Shopify.featureAssets["shop-js"] =
+    window.Shopify.featureAssets["shop-js"] || {};
 
   // Registering features
-  const modelViewerVersions = ["0.6", "0.7", "0.8", "1.2", "1.7", "1.9", "1.10", "1.11", "1.12"];
-  modelViewerVersions.forEach(version => {
-      l.register({
-          name: "model-viewer",
-          version: version,
-          hasLegacy: true,
-          autoLoadSelector: `model-viewer[data-shopify-feature="${version}"]`
-      });
+  const modelViewerVersions = [
+    "0.6",
+    "0.7",
+    "0.8",
+    "1.2",
+    "1.7",
+    "1.9",
+    "1.10",
+    "1.11",
+    "1.12",
+  ];
+  modelViewerVersions.forEach((version) => {
+    l.register({
+      name: "model-viewer",
+      version: version,
+      hasLegacy: true,
+      autoLoadSelector: `model-viewer[data-shopify-feature="${version}"]`,
+    });
   });
 
   // Register other shop-js features
   const shopFeatures = [
-      {
-          name: "shop-js/shopify-payment-terms",
-          baseName: "shop-js",
-          autoLoadSelector: ["shopify-payment-terms"]
-      },
-      {
-          name: "shop-js/shop-login-button",
-          baseName: "shop-js",
-          autoLoadSelector: ["shop-login-button"]
-      },
-      {
-          name: "shop-js/shop-pay-checkout-sheet",
-          baseName: "shop-js",
-          autoLoadSelector: ["shop-pay-checkout-sheet"]
-      },
-      {
-          name: "shop-js/avatar",
-          baseName: "shop-js",
-          autoLoadSelector: ["shop-user-avatar"]
-      }
+    {
+      name: "shop-js/shopify-payment-terms",
+      baseName: "shop-js",
+      autoLoadSelector: ["shopify-payment-terms"],
+    },
+    {
+      name: "shop-js/shop-login-button",
+      baseName: "shop-js",
+      autoLoadSelector: ["shop-login-button"],
+    },
+    {
+      name: "shop-js/shop-pay-checkout-sheet",
+      baseName: "shop-js",
+      autoLoadSelector: ["shop-pay-checkout-sheet"],
+    },
+    {
+      name: "shop-js/avatar",
+      baseName: "shop-js",
+      autoLoadSelector: ["shop-user-avatar"],
+    },
   ];
 
-  shopFeatures.forEach(feature => {
-      l.register({
-          ...feature,
-          hasLegacy: false,
-          localized: false,
-          fileNames: Shopify.featureAssets["shop-js"][feature.name.split('/')[1]] || ["client"]
-      });
+  shopFeatures.forEach((feature) => {
+    l.register({
+      ...feature,
+      hasLegacy: false,
+      localized: false,
+      fileNames: Shopify.featureAssets["shop-js"][
+        feature.name.split("/")[1]
+      ] || ["client"],
+    });
   });
 
   // Register model-viewer-ui feature
   l.register({
-      name: "model-viewer-ui",
-      version: "1.0",
-      hasLegacy: true,
-      localized: true,
-      localesSupported: ["bg-BG", "cs", "da", "de", "el", "es", "fi", "fr", "hi", "hr-HR", "hu", "id", "it", "ja", "ko", "lt-LT", "ms", "nb", "nl", "pl", "pt-BR", "pt-PT", "ro-RO", "ru", "sk-SK", "sl-SI", "sv", "th", "tr", "vi", "zh-CN", "zh-TW"]
+    name: "model-viewer-ui",
+    version: "1.0",
+    hasLegacy: true,
+    localized: true,
+    localesSupported: [
+      "bg-BG",
+      "cs",
+      "da",
+      "de",
+      "el",
+      "es",
+      "fi",
+      "fr",
+      "hi",
+      "hr-HR",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ko",
+      "lt-LT",
+      "ms",
+      "nb",
+      "nl",
+      "pl",
+      "pt-BR",
+      "pt-PT",
+      "ro-RO",
+      "ru",
+      "sk-SK",
+      "sl-SI",
+      "sv",
+      "th",
+      "tr",
+      "vi",
+      "zh-CN",
+      "zh-TW",
+    ],
   });
 
   // Register shopify-xr feature
   l.register({
-      name: "shopify-xr",
-      version: "1.0",
-      baseName: "shopify-xr-js",
-      fileName: "shopify-xr",
-      localized: true,
-      localesSupported: ["bg-BG", "cs", "da", "de", "el", "es", "fi", "fr", "hi", "hr-HR", "hu", "id", "it", "ja", "ko", "lt-LT", "ms", "nb", "nl", "pl", "pt-BR", "pt-PT", "ro-RO", "ru", "sk-SK", "sl-SI", "sv", "th", "tr", "vi", "zh-CN", "zh-TW"]
+    name: "shopify-xr",
+    version: "1.0",
+    baseName: "shopify-xr-js",
+    fileName: "shopify-xr",
+    localized: true,
+    localesSupported: [
+      "bg-BG",
+      "cs",
+      "da",
+      "de",
+      "el",
+      "es",
+      "fi",
+      "fr",
+      "hi",
+      "hr-HR",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ko",
+      "lt-LT",
+      "ms",
+      "nb",
+      "nl",
+      "pl",
+      "pt-BR",
+      "pt-PT",
+      "ro-RO",
+      "ru",
+      "sk-SK",
+      "sl-SI",
+      "sv",
+      "th",
+      "tr",
+      "vi",
+      "zh-CN",
+      "zh-TW",
+    ],
   });
 
   // Register video-ui features
   const videoVersions = [
-      { baseName: "shopify-plyr", version: "1.0" },
-      { baseName: "shopify-plyr", version: "1.1" },
-      { baseName: "plyr", version: "2.0", fileName: "shopify-plyr" }
+    { baseName: "shopify-plyr", version: "1.0" },
+    { baseName: "shopify-plyr", version: "1.1" },
+    { baseName: "plyr", version: "2.0", fileName: "shopify-plyr" },
   ];
 
-  videoVersions.forEach(video => {
-      l.register({
-          name: "video-ui",
-          ...video,
-          hasLegacy: true,
-          localized: true,
-          localesSupported: ["bg-BG", "cs", "da", "de", "el", "es", "fi", "fr", "hi", "hr-HR", "hu", "id", "it", "ja", "ko", "lt-LT", "ms", "nb", "nl", "pl", "pt-BR", "pt-PT", "ro-RO", "ru", "sk-SK", "sl-SI", "sv", "th", "tr", "vi", "zh-CN", "zh-TW"]
-      });
+  videoVersions.forEach((video) => {
+    l.register({
+      name: "video-ui",
+      ...video,
+      hasLegacy: true,
+      localized: true,
+      localesSupported: [
+        "bg-BG",
+        "cs",
+        "da",
+        "de",
+        "el",
+        "es",
+        "fi",
+        "fr",
+        "hi",
+        "hr-HR",
+        "hu",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "lt-LT",
+        "ms",
+        "nb",
+        "nl",
+        "pl",
+        "pt-BR",
+        "pt-PT",
+        "ro-RO",
+        "ru",
+        "sk-SK",
+        "sl-SI",
+        "sv",
+        "th",
+        "tr",
+        "vi",
+        "zh-CN",
+        "zh-TW",
+      ],
+    });
   });
 
   // Registering media-analytics feature
   l.register({
-      name: "media-analytics",
-      version: "0.1",
-      hasLegacy: true,
-      fileName: "analytics",
-      betaFlag: "rich-media-storefront-analytics",
-      autoLoadSelector: ["video", "model-viewer", 'a[rel="ar"]', 'a[href*="package=com.google.ar.core;action=android.intent.action.VIEW;"]', "[data-shopify-xr]", 'iframe[src^="https://www.youtube.com/embed/"]', 'iframe[src^="https://player.vimeo.com/video/"]']
+    name: "media-analytics",
+    version: "0.1",
+    hasLegacy: true,
+    fileName: "analytics",
+    betaFlag: "rich-media-storefront-analytics",
+    autoLoadSelector: [
+      "video",
+      "model-viewer",
+      'a[rel="ar"]',
+      'a[href*="package=com.google.ar.core;action=android.intent.action.VIEW;"]',
+      "[data-shopify-xr]",
+      'iframe[src^="https://www.youtube.com/embed/"]',
+      'iframe[src^="https://player.vimeo.com/video/"]',
+    ],
   });
 
   // Register consent-tracking-api feature
   l.register({
-      name: "consent-tracking-api",
-      version: "0.1",
-      hasLegacy: true
+    name: "consent-tracking-api",
+    version: "0.1",
+    hasLegacy: true,
   });
 
   // Load features and handle errors
   const loadFeatures = () => {
-      errorHandler.default((errors) => {
-          if (errors) {
-              throw errors[0];
-          }
-      });
+    errorHandler.default((errors) => {
+      if (errors) {
+        throw errors[0];
+      }
+    });
   };
 
   // Setting up observers and loading features

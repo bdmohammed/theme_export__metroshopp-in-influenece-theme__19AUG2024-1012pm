@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "image-with-text-overlay": {
       "type": "section-image-with-text-overlay",
@@ -26,9 +26,7 @@
           }
         }
       },
-      "block_order": [
-        "2a4a6598-ffec-4cb4-b986-da89849a6eb9"
-      ],
+      "block_order": ["2a4a6598-ffec-4cb4-b986-da89849a6eb9"],
       "settings": {
         "desktop_height": "s",
         "mobile_height": "s",

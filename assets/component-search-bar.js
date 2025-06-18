@@ -1,5 +1,5 @@
 /*!
- * 
+ *
  * ------
  * Note: customizing files reduces the store's ability to auto-update the theme.
  *
@@ -18,69 +18,94 @@
  * ------
  *
  */
-/******/ (() => { // webpackBootstrap
-var __webpack_exports__ = {};
-class HeaderSearch extends HTMLElement {
-  constructor() {
-    super();
+/******/ (() => {
+  // webpackBootstrap
+  var __webpack_exports__ = {};
+  class HeaderSearch extends HTMLElement {
+    constructor() {
+      super();
 
-    this.input = this.querySelector('input[type="search"]');
-    this.button = this.querySelector('button[data-aid="header-search-submit-button"]');
-    this.searchIcon = this.querySelector('svg.search-icon');
-    this.closeIcon = this.querySelector('.close-icon');
-  }
-
-  connectedCallback() {
-    if (!this.input || !this.button || !this.searchIcon) return;
-
-    this.input.value.length ? this.closeIcon.classList.remove('hidden') : this.closeIcon.classList.add('hidden');
-
-    if (this.input.value.length) {
-      this.switchButtonColors();
-    } else {
-      this.resetButtonColors();
+      this.input = this.querySelector('input[type="search"]');
+      this.button = this.querySelector(
+        'button[data-aid="header-search-submit-button"]',
+      );
+      this.searchIcon = this.querySelector("svg.search-icon");
+      this.closeIcon = this.querySelector(".close-icon");
     }
 
-    this.input.addEventListener('input', () => {
-      this.input.value.length ? this.closeIcon.classList.remove('hidden') : this.closeIcon.classList.add('hidden');
+    connectedCallback() {
+      if (!this.input || !this.button || !this.searchIcon) return;
+
+      this.input.value.length
+        ? this.closeIcon.classList.remove("hidden")
+        : this.closeIcon.classList.add("hidden");
 
       if (this.input.value.length) {
         this.switchButtonColors();
       } else {
         this.resetButtonColors();
       }
-    });
 
-    ['click', 'keypress'].forEach(ev => {
-      this.closeIcon.addEventListener(ev, (e) => {
-        if (e.type === 'click' || e.keyCode === 13) {
-          this.input.value = '';
-          this.input.focus();
-          this.closeIcon.classList.add('hidden');
-          this.button.classList.remove('bg-body', 'before:bg-page', 'border');
-          this.button.classList.add('before:bg-body');
-          this.searchIcon.classList.remove('text-page', 'hover:text-body', 'group-hover:text-body');
-          this.searchIcon.classList.add('hover:text-page', 'group-hover:text-page');
+      this.input.addEventListener("input", () => {
+        this.input.value.length
+          ? this.closeIcon.classList.remove("hidden")
+          : this.closeIcon.classList.add("hidden");
+
+        if (this.input.value.length) {
+          this.switchButtonColors();
+        } else {
+          this.resetButtonColors();
         }
       });
-    });
+
+      ["click", "keypress"].forEach((ev) => {
+        this.closeIcon.addEventListener(ev, (e) => {
+          if (e.type === "click" || e.keyCode === 13) {
+            this.input.value = "";
+            this.input.focus();
+            this.closeIcon.classList.add("hidden");
+            this.button.classList.remove("bg-body", "before:bg-page", "border");
+            this.button.classList.add("before:bg-body");
+            this.searchIcon.classList.remove(
+              "text-page",
+              "hover:text-body",
+              "group-hover:text-body",
+            );
+            this.searchIcon.classList.add(
+              "hover:text-page",
+              "group-hover:text-page",
+            );
+          }
+        });
+      });
+    }
+
+    switchButtonColors() {
+      this.button.classList.remove("before:bg-body");
+      this.button.classList.add("bg-body", "before:bg-page", "border");
+      this.searchIcon.classList.remove(
+        "hover:text-page",
+        "group-hover:text-page",
+      );
+      this.searchIcon.classList.add(
+        "text-page",
+        "hover:text-body",
+        "group-hover:text-body",
+      );
+    }
+
+    resetButtonColors() {
+      this.button.classList.add("before:bg-body");
+      this.button.classList.remove("bg-body", "before:bg-page", "border");
+      this.searchIcon.classList.add("hover:text-page", "group-hover:text-page");
+      this.searchIcon.classList.remove(
+        "text-page",
+        "hover:text-body",
+        "group-hover:text-body",
+      );
+    }
   }
 
-  switchButtonColors() {
-    this.button.classList.remove('before:bg-body');
-    this.button.classList.add('bg-body', 'before:bg-page', 'border');
-    this.searchIcon.classList.remove('hover:text-page', 'group-hover:text-page');
-    this.searchIcon.classList.add('text-page', 'hover:text-body', 'group-hover:text-body');
-  }
-
-  resetButtonColors() {
-    this.button.classList.add('before:bg-body');
-    this.button.classList.remove('bg-body', 'before:bg-page', 'border');
-    this.searchIcon.classList.add('hover:text-page', 'group-hover:text-page');
-    this.searchIcon.classList.remove('text-page', 'hover:text-body', 'group-hover:text-body');
-  }
-}
-
-window.customElements.define('search-bar', HeaderSearch);
-/******/ })()
-;
+  window.customElements.define("search-bar", HeaderSearch);
+  /******/
+})();

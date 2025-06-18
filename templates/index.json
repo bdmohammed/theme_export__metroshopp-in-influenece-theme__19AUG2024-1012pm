@@ -1100,10 +1100,7 @@
           }
         }
       },
-      "block_order": [
-        "1657013000fe2dad89-0",
-        "1657013000fe2dad89-1"
-      ],
+      "block_order": ["1657013000fe2dad89-0", "1657013000fe2dad89-1"],
       "disabled": true,
       "settings": {
         "design_heading": "1",
@@ -1143,10 +1140,7 @@
           }
         }
       },
-      "block_order": [
-        "166169031015805e1c-0",
-        "166169031015805e1c-1"
-      ],
+      "block_order": ["166169031015805e1c-0", "166169031015805e1c-1"],
       "disabled": true,
       "settings": {
         "design_heading": "2",
@@ -1959,10 +1953,7 @@
           }
         }
       },
-      "block_order": [
-        "166193933244dd3800-0",
-        "166193933244dd3800-1"
-      ],
+      "block_order": ["166193933244dd3800-0", "166193933244dd3800-1"],
       "settings": {
         "design_heading": "2",
         "heading_align": "text-center",

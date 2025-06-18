@@ -5,40 +5,40 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
   hFac: 0.5,
   expFactor: 2,
   ricTimeout: 150,
-  lazyClass: 'lazyload',
-  loadingClass: 'lazyloading',
-  loadedClass: 'lazyloaded',
-  preloadClass: 'lazypreload',
+  lazyClass: "lazyload",
+  loadingClass: "lazyloading",
+  loadedClass: "lazyloaded",
+  preloadClass: "lazypreload",
 };
 
 ((window, callback) => {
   const lazyUnveilReadHandler = function () {
     callback(window.lazySizesT4);
-    window.removeEventListener('lazyunveilread', lazyUnveilReadHandler, true);
+    window.removeEventListener("lazyunveilread", lazyUnveilReadHandler, true);
   };
 
   callback = callback.bind(null, window, window.document);
 
   // CommonJS module handling
-  if (typeof module === 'object' && module.exports) {
-    callback(require('lazySizesT4'));
+  if (typeof module === "object" && module.exports) {
+    callback(require("lazySizesT4"));
   } else if (window.lazySizesT4) {
     lazyUnveilReadHandler();
   } else {
-    window.addEventListener('lazyunveilread', lazyUnveilReadHandler, true);
+    window.addEventListener("lazyunveilread", lazyUnveilReadHandler, true);
   }
 })(globalThis, (lazySizesT4, document, instance) => {
-  'use strict';
+  "use strict";
 
   const loadedScripts = {};
 
   const loadResource = (url, isStylesheet) => {
     if (!loadedScripts[url]) {
-      const element = document.createElement(isStylesheet ? 'link' : 'script');
-      const firstScript = document.getElementsByTagName('script')[0];
+      const element = document.createElement(isStylesheet ? "link" : "script");
+      const firstScript = document.getElementsByTagName("script")[0];
 
       if (isStylesheet) {
-        element.rel = 'stylesheet';
+        element.rel = "stylesheet";
         element.href = url;
       } else {
         element.src = url;
@@ -52,7 +52,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
   // Load images and handle their events
   const preloadImage = (url, callback) => {
-    const img = document.createElement('img');
+    const img = document.createElement("img");
     img.onload = function () {
       img.onload = null;
       img.onerror = null;
@@ -69,26 +69,26 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
   // Lazy load handling
   document.addEventListener(
-    'lazybeforeunveil',
+    "lazybeforeunveil",
     (event) => {
       if (event.detail.instance === instance) {
         if (!event.defaultPrevented) {
           const target = event.target;
 
           // Set preload attribute if it's none
-          if (target.preload === 'none') {
-            target.preload = 'auto';
+          if (target.preload === "none") {
+            target.preload = "auto";
           }
 
           // Handle autoplay behavior
-          if (target.hasAttribute('data-autoplay')) {
-            if (target.hasAttribute('data-expand') && !target.autoplay) {
+          if (target.hasAttribute("data-autoplay")) {
+            if (target.hasAttribute("data-expand") && !target.autoplay) {
               try {
                 target.play();
               } catch (e) {}
             } else {
               requestAnimationFrame(() => {
-                target.setAttribute('data-expand', '-10');
+                target.setAttribute("data-expand", "-10");
                 instance.aC(target, instance.cfg.lazyClass);
               });
             }
@@ -97,13 +97,13 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
           // Load additional resources
           let resourceUrl;
 
-          if ((resourceUrl = target.getAttribute('data-link'))) {
+          if ((resourceUrl = target.getAttribute("data-link"))) {
             loadResource(resourceUrl, true);
           }
-          if ((resourceUrl = target.getAttribute('data-script'))) {
+          if ((resourceUrl = target.getAttribute("data-script"))) {
             loadResource(resourceUrl);
           }
-          if ((resourceUrl = target.getAttribute('data-require'))) {
+          if ((resourceUrl = target.getAttribute("data-require"))) {
             if (instance.cfg.requireJs) {
               instance.cfg.requireJs([resourceUrl]);
             } else {
@@ -112,7 +112,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
           }
 
           // Handle background images
-          const backgroundImageUrl = target.getAttribute('data-bg');
+          const backgroundImageUrl = target.getAttribute("data-bg");
           if (backgroundImageUrl) {
             event.detail.firesLoad = true;
             preloadImage(backgroundImageUrl, () => {
@@ -122,80 +122,80 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
                   : backgroundImageUrl
               })`;
               event.detail.firesLoad = false;
-              instance.fire(target, '_lazyloaded', {}, true, true);
+              instance.fire(target, "_lazyloaded", {}, true, true);
             });
           }
 
           // Handle poster images
-          const posterUrl = target.getAttribute('data-poster');
+          const posterUrl = target.getAttribute("data-poster");
           if (posterUrl) {
             event.detail.firesLoad = true;
             preloadImage(posterUrl, () => {
               target.poster = posterUrl;
               event.detail.firesLoad = false;
-              instance.fire(target, '_lazyloaded', {}, true, true);
+              instance.fire(target, "_lazyloaded", {}, true, true);
             });
           }
         }
       }
     },
-    false
+    false,
   );
 });
 
 ((window, callback) => {
   const lazyUnveilReadHandler = () => {
     callback(window.lazySizesT4);
-    window.removeEventListener('lazyunveilread', lazyUnveilReadHandler, true);
+    window.removeEventListener("lazyunveilread", lazyUnveilReadHandler, true);
   };
 
   callback = callback.bind(null, window, window.document);
 
   // Module loading support
-  if (typeof module === 'object' && module.exports) {
-    callback(require('lazySizesT4'));
-  } else if (typeof define === 'function' && define.amd) {
-    define(['lazySizesT4'], callback);
+  if (typeof module === "object" && module.exports) {
+    callback(require("lazySizesT4"));
+  } else if (typeof define === "function" && define.amd) {
+    define(["lazySizesT4"], callback);
   } else if (window.lazySizesT4) {
     lazyUnveilReadHandler();
   } else {
-    window.addEventListener('lazyunveilread', lazyUnveilReadHandler, true);
+    window.addEventListener("lazyunveilread", lazyUnveilReadHandler, true);
   }
 })(globalThis, (lazySizesT4, document, instance) => {
-  'use strict';
+  "use strict";
 
   addEventListener(
-    'lazybeforeunveil',
+    "lazybeforeunveil",
     (event) => {
       const target = event.target;
-      const bgSetAttr = target.getAttribute('data-bgset');
-      const isNotWidthOne = '1' !== new URLSearchParams(bgSetAttr).get('width');
+      const bgSetAttr = target.getAttribute("data-bgset");
+      const isNotWidthOne = "1" !== new URLSearchParams(bgSetAttr).get("width");
 
       if (
         !(
           event.defaultPrevented ||
           !bgSetAttr ||
-          bgSetAttr.indexOf('_1x1.') < 0 ||
+          bgSetAttr.indexOf("_1x1.") < 0 ||
           isNotWidthOne
         )
       ) {
-        let ratios = target.getAttribute('data-ratio') || 0;
-        const hasHash = target.hasAttribute('data-hash');
+        let ratios = target.getAttribute("data-ratio") || 0;
+        const hasHash = target.hasAttribute("data-hash");
         let url = bgSetAttr;
-        let processedBgSet = '';
+        let processedBgSet = "";
 
         // Set of default widths
-        const defaultWidths = target.hasAttribute('data-widths')
-          ? JSON.parse(target.getAttribute('data-widths'))
-          : target.hasAttribute('data-wiis')
-          ? [180, 360, 540, 720, 900, 1080]
-          : [
-              180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 1950, 2100, 2260,
-              2450, 2700, 3000, 3350, 3750, 4100,
-            ];
+        const defaultWidths = target.hasAttribute("data-widths")
+          ? JSON.parse(target.getAttribute("data-widths"))
+          : target.hasAttribute("data-wiis")
+            ? [180, 360, 540, 720, 900, 1080]
+            : [
+                180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 1950, 2100,
+                2260, 2450, 2700, 3000, 3350, 3750, 4100,
+              ];
 
         const length = defaultWidths.length;
-        const splitUrl = hasHash ? url.split('_1x1.') : url.split('width=1');
+        const splitUrl = hasHash ? url.split("_1x1.") : url.split("width=1");
         const baseUrl = hasHash ? `${splitUrl[0]}x.` : `${splitUrl[0]}width=`;
         const suffix = splitUrl[1];
 
@@ -214,31 +214,31 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
         // Remove the trailing comma and space
         processedBgSet = processedBgSet.slice(0, -2);
-        target.setAttribute('data-bgset', processedBgSet);
+        target.setAttribute("data-bgset", processedBgSet);
       }
     },
-    true
+    true,
   );
 });
 
 ((window, callback) => {
   const lazyUnveilReadHandler = function () {
     callback(window.lazySizesT4);
-    window.removeEventListener('lazyunveilread', lazyUnveilReadHandler, true);
+    window.removeEventListener("lazyunveilread", lazyUnveilReadHandler, true);
   };
 
   callback = callback.bind(null, window, window.document);
 
   // Module loading support
-  if (typeof module === 'object' && module.exports) {
-    callback(require('lazySizesT4'));
+  if (typeof module === "object" && module.exports) {
+    callback(require("lazySizesT4"));
   } else if (window.lazySizesT4) {
     lazyUnveilReadHandler();
   } else {
-    window.addEventListener('lazyunveilread', lazyUnveilReadHandler, true);
+    window.addEventListener("lazyunveilread", lazyUnveilReadHandler, true);
   }
 })(globalThis, (lazySizesT4, document, instance) => {
-  'use strict';
+  "use strict";
   const config = instance.cfg;
   const spaceRegex = /\s+/g;
   const pipeRegex = /\s*\|\s+|\s+\|\s*/g;
@@ -251,9 +251,9 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     if (type) {
       const match = type.match(typePattern);
       if (match && match[1]) {
-        element.setAttribute('type', match[1]);
+        element.setAttribute("type", match[1]);
       } else {
-        element.setAttribute('media', config.customMedia[type] || type);
+        element.setAttribute("media", config.customMedia[type] || type);
       }
     }
   };
@@ -264,7 +264,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     const currentSrc = target.currentSrc || target.src;
 
     if (lazyBgSet && currentSrc) {
-      const result = instance.fire(lazyBgSet, 'bgsetproxy', {
+      const result = instance.fire(lazyBgSet, "bgsetproxy", {
         src: currentSrc,
         useSrc: singleQuotesPattern.test(currentSrc)
           ? JSON.stringify(currentSrc)
@@ -277,53 +277,53 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     }
 
     if (target._lazybgsetLoading) {
-      instance.fire(lazyBgSet, '_lazyloaded', {}, false, true);
+      instance.fire(lazyBgSet, "_lazyloaded", {}, false, true);
       delete target._lazybgsetLoading;
     }
   };
 
-  addEventListener('lazybeforeunveil', (event) => {
+  addEventListener("lazybeforeunveil", (event) => {
     if (!event.defaultPrevented) {
-      const bgsetAttribute = event.target.getAttribute('data-bgset');
+      const bgsetAttribute = event.target.getAttribute("data-bgset");
       if (bgsetAttribute) {
         const targetElement = event.target;
-        const imgElement = document.createElement('img');
-        imgElement.alt = '';
+        const imgElement = document.createElement("img");
+        imgElement.alt = "";
         imgElement._lazybgsetLoading = true;
         event.detail.firesLoad = true;
 
         const handleLazyBgSet = (bgset, target, img) => {
-          const pictureElement = document.createElement('picture');
+          const pictureElement = document.createElement("picture");
           const sizes = target.getAttribute(config.sizesAttr);
-          const ratio = target.getAttribute('data-ratio');
-          const optimumX = target.getAttribute('data-optimumx');
-          const sizesScale = target.getAttribute('data-sizes-scale');
+          const ratio = target.getAttribute("data-ratio");
+          const optimumX = target.getAttribute("data-optimumx");
+          const sizesScale = target.getAttribute("data-sizes-scale");
 
           if (target._lazybgset && target._lazybgset.parentNode === target) {
             target.removeChild(target._lazybgset);
           }
 
-          Object.defineProperty(img, '_lazybgset', {
+          Object.defineProperty(img, "_lazybgset", {
             value: target,
             writable: true,
           });
-          Object.defineProperty(target, '_lazybgset', {
+          Object.defineProperty(target, "_lazybgset", {
             value: pictureElement,
             writable: true,
           });
 
-          const sources = bgset.replace(spaceRegex, ' ').split(pipeRegex);
-          pictureElement.style.display = 'none';
+          const sources = bgset.replace(spaceRegex, " ").split(pipeRegex);
+          pictureElement.style.display = "none";
           img.className = config.lazyClass;
 
           if (sources.length === 1 && !sizes) {
-            sizes = 'auto';
+            sizes = "auto";
           }
 
           sources.forEach((src) => {
-            const sourceElement = document.createElement('source');
-            if (sizes && sizes !== 'auto') {
-              sourceElement.setAttribute('sizes', sizes);
+            const sourceElement = document.createElement("source");
+            if (sizes && sizes !== "auto") {
+              sourceElement.setAttribute("sizes", sizes);
             }
 
             const match = src.match(bgsetPattern);
@@ -341,16 +341,16 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
           if (sizes) {
             img.setAttribute(config.sizesAttr, sizes);
             target.removeAttribute(config.sizesAttr);
-            target.removeAttribute('sizes');
+            target.removeAttribute("sizes");
           }
           if (optimumX) {
-            img.setAttribute('data-optimumx', optimumX);
+            img.setAttribute("data-optimumx", optimumX);
           }
           if (ratio) {
-            img.setAttribute('data-ratio', ratio);
+            img.setAttribute("data-ratio", ratio);
           }
           if (sizesScale) {
-            img.setAttribute('data-sizes-scale', sizesScale);
+            img.setAttribute("data-sizes-scale", sizesScale);
           }
 
           pictureElement.appendChild(img);
@@ -362,7 +362,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
         setTimeout(() => {
           instance.loader.unveil(imgElement);
           instance.rAF(() => {
-            instance.fire(imgElement, '_lazyloaded', {}, true, true);
+            instance.fire(imgElement, "_lazyloaded", {}, true, true);
             imgElement.complete && loadBackgroundImage({ target: imgElement });
           });
         });
@@ -370,11 +370,11 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     }
   });
 
-  document.addEventListener('load', loadBackgroundImage, true);
+  document.addEventListener("load", loadBackgroundImage, true);
 
   // Handle resizing logic
   addEventListener(
-    'lazybeforesizes',
+    "lazybeforesizes",
     function (event) {
       if (
         event.detail.instance === instance &&
@@ -388,7 +388,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
             const style = getComputedStyle(lazyBgSet) || {
               getPropertyValue: () => {},
             };
-            let fit = style.getPropertyValue('background-size');
+            let fit = style.getPropertyValue("background-size");
 
             if (!fitModes[fit] && fitModes[lazyBgSet.style.backgroundSize]) {
               fit = lazyBgSet.style.backgroundSize;
@@ -399,17 +399,17 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
         if (fitModes[parentFit]) {
           event.target._lazySizesT4ParentFit = parentFit;
           instance.rAF(() => {
-            event.target.setAttribute('data-parent-fit', parentFit);
+            event.target.setAttribute("data-parent-fit", parentFit);
             event.target._lazySizesT4ParentFit &&
               delete event.target._lazySizesT4ParentFit;
           });
         }
       }
     },
-    true
+    true,
   );
 
-  document.addEventListener('lazybeforesizes', function (event) {
+  document.addEventListener("lazybeforesizes", function (event) {
     if (
       !event.defaultPrevented &&
       event.target._lazybgset &&
@@ -433,24 +433,24 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
   // Self-invoking function to initialize lazy loading with either AMD, CommonJS, or regular inclusion
   const lazyLoadInit = () => {
     initModule(global.lazySizesT4);
-    global.removeEventListener('lazyunveilread', lazyLoadInit, true);
+    global.removeEventListener("lazyunveilread", lazyLoadInit, true);
   };
 
   // Bind the initialization function to the global window object
   initModule = initModule.bind(null, global, global.document);
 
   // Check for module system support, initialize accordingly
-  if (typeof module === 'object' && module.exports) {
-    initModule(require('lazySizesT4'));
-  } else if (typeof define === 'function' && define.amd) {
-    define(['lazySizesT4'], initModule);
+  if (typeof module === "object" && module.exports) {
+    initModule(require("lazySizesT4"));
+  } else if (typeof define === "function" && define.amd) {
+    define(["lazySizesT4"], initModule);
   } else if (global.lazySizesT4) {
     lazyLoadInit();
   } else {
-    global.addEventListener('lazyunveilread', lazyLoadInit, true);
+    global.addEventListener("lazyunveilread", lazyLoadInit, true);
   }
 })(globalThis, (global, document, lazySizesInstance) => {
-  'use strict';
+  "use strict";
 
   // Constants and Regex patterns used in parsing and conditions
   const CONDITION_PATTERN = /(.+)\s+(\(\s*(.+)\s*\))/;
@@ -461,7 +461,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
   let conditionTypes = lazySizesInstance && lazySizesInstance.cfg;
   conditionTypes.include = conditionTypes.include || {};
   let urlMap = conditionTypes.include;
-  urlMap.contentElement = urlMap.contentElement || 'html';
+  urlMap.contentElement = urlMap.contentElement || "html";
   urlMap.conditions = urlMap.conditions || {};
   urlMap.map = urlMap.map || {};
   const readyStateTypes = { complete: 1, loaded: 1 };
@@ -469,7 +469,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
   let mediaElement = null;
   const resourceLoaders = {};
   const lazyConditionalElements = document.getElementsByClassName(
-    'lazyconditionalinclude'
+    "lazyconditionalinclude",
   );
   const rootRoute = Shopify.routes.root;
 
@@ -502,7 +502,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
       name = conditionString;
       condition = {
         condition: null,
-        name: '',
+        name: "",
       };
     }
 
@@ -539,18 +539,18 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
       if (mediaCache) {
         content = (
-          getElementStyle(mediaElement, ':after').getPropertyValue('content') ||
-          'none'
-        ).replace(QUOTE_PATTERN, '');
+          getElementStyle(mediaElement, ":after").getPropertyValue("content") ||
+          "none"
+        ).replace(QUOTE_PATTERN, "");
         mediaCache = {};
         if (content) {
           mediaCache[content] = 1;
         }
         content = (
-          getElementStyle(mediaElement, ':before').getPropertyValue(
-            'content'
-          ) || 'none'
-        ).replace(QUOTE_PATTERN, '');
+          getElementStyle(mediaElement, ":before").getPropertyValue(
+            "content",
+          ) || "none"
+        ).replace(QUOTE_PATTERN, "");
         mediaCache[content] = 1;
       } else {
         mediaCache = {};
@@ -559,10 +559,10 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     if (mediaCache[conditionData.name]) {
       isConditionMet = true;
     } else {
-      if (global.matchMedia && 'string' == typeof conditionData.condition) {
+      if (global.matchMedia && "string" == typeof conditionData.condition) {
         isConditionMet = (matchMedia(a.condition) || {}).matches;
       } else {
-        if ('function' == typeof conditionData.condition) {
+        if ("function" == typeof conditionData.condition) {
           isConditionMet = conditionData.condition(element, conditionData);
         }
       }
@@ -594,14 +594,14 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
         }
       }
     } else {
-      let element = document.createElement(isScript ? 'script' : 'link');
-      let firstScript = document.getElementsByTagName('script')[0];
+      let element = document.createElement(isScript ? "script" : "link");
+      let firstScript = document.getElementsByTagName("script")[0];
 
       if (isScript) {
         element.src = url;
         element.async = false;
       } else {
-        element.rel = 'stylesheet';
+        element.rel = "stylesheet";
         element.href = url;
       }
 
@@ -618,15 +618,15 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     let interval;
     let onLoad = function (event) {
       if (
-        event.type !== 'readystatechange' ||
+        event.type !== "readystatechange" ||
         readyStateTypes[event.target.readyState]
       ) {
         let callbacks = resourceLoaders[url];
 
-        element.removeEventListener('load', onLoad);
-        element.removeEventListener('error', onLoad);
-        element.removeEventListener('readystatechange', onLoad);
-        element.removeEventListener('loadcssdefined', onLoad);
+        element.removeEventListener("load", onLoad);
+        element.removeEventListener("error", onLoad);
+        element.removeEventListener("readystatechange", onLoad);
+        element.removeEventListener("loadcssdefined", onLoad);
         interval && clearInterval(interval);
         resourceLoaders[url] = true;
         resourceLoaders[element.href] = true;
@@ -646,10 +646,10 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
       }, 60);
     }
 
-    element.addEventListener('load', onLoad);
-    element.addEventListener('error', onLoad);
-    element.addEventListener('readystatechange', onLoad);
-    element.addEventListener('loadcssdefined', onLoad);
+    element.addEventListener("load", onLoad);
+    element.addEventListener("error", onLoad);
+    element.addEventListener("readystatechange", onLoad);
+    element.addEventListener("loadcssdefined", onLoad);
   }
 
   function isStyleSheetLoaded(element) {
@@ -665,19 +665,19 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
   }
 
   function applyLazyTransform(element) {
-    if (element && typeof element.lazytransform === 'function') {
+    if (element && typeof element.lazytransform === "function") {
       element.lazytransform(this);
     }
   }
 
   function applyLazyUnload(element) {
-    if (element && typeof element.lazyunload === 'function') {
+    if (element && typeof element.lazyunload === "function") {
       element.lazyunload(this);
     }
   }
 
   function applyLazyLoad(element) {
-    if (element && typeof element.lazyload === 'function') {
+    if (element && typeof element.lazyload === "function") {
       element.lazyload(this);
     }
   }
@@ -692,7 +692,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
     const lazyIncludeConfig = {
       candidate: candidate,
-      openArgs: ['GET', candidate.urls.include, true],
+      openArgs: ["GET", candidate.urls.include, true],
       sendData: null,
       xhrModifier: null,
       content: candidate.content?.content || candidate.content,
@@ -701,7 +701,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
     // Check if lazy load event is prevented
     if (
-      lazySizesInstance.fire(element, 'lazyincludeload', lazyIncludeConfig)
+      lazySizesInstance.fire(element, "lazyincludeload", lazyIncludeConfig)
         .defaultPrevented
     ) {
       LazyLoadQueue.d();
@@ -727,7 +727,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
         response: xhrInstance.response,
         xml: xhrInstance.responseXML,
         isSuccess:
-          !('status' in xhrInstance) ||
+          !("status" in xhrInstance) ||
           (status >= 200 && status < 300) ||
           status === 304,
         oldCandidate: currentInclude,
@@ -743,7 +743,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
       // Process lazy unload and transform if modules exist
       candidate.modules = moduleArray;
-      if(currentInclude?.modules) {
+      if (currentInclude?.modules) {
         currentInclude.modules?.forEach(applyLazyUnload, eventDetail);
         currentInclude.modules = null;
 
@@ -756,14 +756,13 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
         }
       }
 
-
       moduleArray.forEach(applyLazyTransform, eventDetail);
 
       // Trigger lazy load event
       const lazyLoadEvent = lazySizesInstance.fire(
         element,
-        'lazyincludeloaded',
-        responseDetails
+        "lazyincludeloaded",
+        responseDetails,
       );
 
       if (
@@ -780,7 +779,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
       moduleArray.forEach(applyLazyLoad, eventDetail);
 
       setTimeout(() =>
-        lazySizesInstance.fire(element, 'lazyincluded', responseDetails)
+        lazySizesInstance.fire(element, "lazyincluded", responseDetails),
       );
 
       // Clear references to avoid memory leaks
@@ -790,7 +789,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
     // Set the current include candidate and update attribute
     element.lazyInclude.current = candidate;
-    element.setAttribute('data-currentrender', candidate.name);
+    element.setAttribute("data-currentrender", candidate.name);
 
     // Process CSS URLs
     if (candidate.urls.css) {
@@ -834,7 +833,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
   // Helper functions for specific actions
 
   function loadCss(cssUrls, callback) {
-    const urls = cssUrls.split('|,|');
+    const urls = cssUrls.split("|,|");
     const lastIndex = urls.length - 1;
     urls.forEach((url, index) => {
       loadResource(url, false, index === lastIndex ? callback : null);
@@ -844,23 +843,23 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
   function loadContentWithXHR(config, callback) {
     const xhr = new t4sXMLHttpRequest();
     xhr.addEventListener(
-      'readystatechange',
+      "readystatechange",
       function () {
         if (xhr.readyState === xhr.DONE) {
           callback(xhr);
           xhr = null;
         }
       },
-      false
+      false,
     );
     xhr.open.apply(xhr, config.openArgs);
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
     if (config.xhrModifier) config.xhrModifier(xhr, config.candidate);
     xhr.send(config.sendData);
   }
 
   function loadAmdModules(amdUrls, callback) {
-    const urls = amdUrls.split('|,|');
+    const urls = amdUrls.split("|,|");
     const lastIndex = urls.length - 1;
     if (lazySizesInstance.cfg.requireJs) {
       lazySizesInstance.cfg.requireJs(urls, callback);
@@ -899,7 +898,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     return (event) => {
       clearTimeout(debounceTimer);
       mediaCache = null;
-      const delay = event.type === 'resize' ? 31 : 0;
+      const delay = event.type === "resize" ? 31 : 0;
       debounceTimer = setTimeout(processLazyElements, delay);
     };
   })();
@@ -909,18 +908,17 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
     function prepareLazyInclude(element) {
       let candidateURL,
-        inlineURL = element.getAttribute('data-seturl') || '';
+        inlineURL = element.getAttribute("data-seturl") || "";
 
       // Construct the URL based on the element's attributes
-      if (element.hasAttribute('data-qs-inl')) {
+      if (element.hasAttribute("data-qs-inl")) {
         candidateURL =
           rootRoute +
-          'products/' +
-          (element.getAttribute('data-render') || '') +
-          '/?section_id=qs_inline';
+          "products/" +
+          (element.getAttribute("data-render") || "") +
+          "/?section_id=qs_inline";
       } else {
-        candidateURL =
-          (element.getAttribute('data-render') || '') + inlineURL;
+        candidateURL = (element.getAttribute("data-render") || "") + inlineURL;
       }
 
       let lazyIncludeData = element.lazyInclude;
@@ -952,7 +950,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
           lazyIncludeData.candidates.push({
             urls: {},
             condition: null,
-            name: 'initial',
+            name: "initial",
             content: initialContent,
           });
         } else if (
@@ -974,9 +972,9 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
         // Toggle the lazy conditional include class based on the number of candidates
         if (lazyIncludeData.candidates.length > 1) {
-          lazySizesInstance.aC(element, 'lazyconditionalinclude');
+          lazySizesInstance.aC(element, "lazyconditionalinclude");
         } else {
-          lazySizesInstance.rC(element, 'lazyconditionalinclude');
+          lazySizesInstance.rC(element, "lazyconditionalinclude");
         }
       }
 
@@ -1017,7 +1015,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     })();
 
     function enqueue(item) {
-      const isPriority = item.getAttribute('data-lazyqueue') === null;
+      const isPriority = item.getAttribute("data-lazyqueue") === null;
       if (isPriority) {
         priorityCount++;
         maxConcurrent = 3; // Increase concurrent limit for priority items
@@ -1025,7 +1023,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
       // Add to the front for priority or back for regular items
       if (activeCount > maxConcurrent) {
-        queue[isPriority ? 'unshift' : 'push'](item);
+        queue[isPriority ? "unshift" : "push"](item);
       } else if (loadLazyContent(item)) {
         activeCount++;
         debounce();
@@ -1058,49 +1056,49 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
   // Additional initialization and event listeners for lazy load events
   document.addEventListener(
-    'lazybeforeunveil',
+    "lazybeforeunveil",
     (event) => {
       if (
         event.detail.instance === lazySizesInstance &&
         !event.defaultPrevented
       ) {
         let target = event.target;
-        if (target.getAttribute('data-render')) {
+        if (target.getAttribute("data-render")) {
           LazyLoadQueue.q(target);
           event.detail.firesLoad = true;
         }
       }
     },
-    false
+    false,
   );
 
-  document.addEventListener('resize', lazyLoadHandler, false);
-  document.addEventListener('lazyrefreshincludes', lazyLoadHandler, false);
+  document.addEventListener("resize", lazyLoadHandler, false);
+  document.addEventListener("lazyrefreshincludes", lazyLoadHandler, false);
 });
 
 ((globalContext, loadLazySizes) => {
   let lazyLoadHandler = () => {
     loadLazySizes(globalContext.lazySizesT4);
-    globalContext.removeEventListener('lazyunveilread', lazyLoadHandler, true);
+    globalContext.removeEventListener("lazyunveilread", lazyLoadHandler, true);
   };
 
   loadLazySizes = loadLazySizes.bind(
     null,
     globalContext,
-    globalContext.document
+    globalContext.document,
   );
 
-  if (typeof module === 'object' && module.exports) {
-    loadLazySizes(require('lazySizesT4'));
-  } else if (typeof define === 'function' && define.amd) {
-    define(['lazySizesT4'], loadLazySizes);
+  if (typeof module === "object" && module.exports) {
+    loadLazySizes(require("lazySizesT4"));
+  } else if (typeof define === "function" && define.amd) {
+    define(["lazySizesT4"], loadLazySizes);
   } else if (globalContext.lazySizesT4) {
     lazyLoadHandler();
   } else {
-    globalContext.addEventListener('lazyunveilread', lazyLoadHandler, true);
+    globalContext.addEventListener("lazyunveilread", lazyLoadHandler, true);
   }
 })(globalThis, (globalContext, document, lazySizesInstance) => {
-  'use strict';
+  "use strict";
 
   // Lazy load functionality setup
   const initLazyLoading = function () {
@@ -1110,17 +1108,17 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     let mutationCache = [];
 
     const lazyClassRegex = new RegExp(
-      `(\\s|^)(${config.loadedClass}|${config.unloadedClass || ''}|${
+      `(\\s|^)(${config.loadedClass}|${config.unloadedClass || ""}|${
         config.loadingClass
-      })(\\s|$)`
+      })(\\s|$)`,
     );
 
     const observedAttributes = {
-      'data-bgset': true,
-      'data-include': true,
-      'data-poster': true,
-      'data-bg': true,
-      'data-script': true,
+      "data-bgset": true,
+      "data-include": true,
+      "data-poster": true,
+      "data-bg": true,
+      "data-script": true,
       [config.srcAttr]: true,
       [config.srcsetAttr]: true,
     };
@@ -1132,10 +1130,10 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
         if (
           targetElement.getAttribute(attribute.attributeName) &&
-          targetElement.localName === 'source' &&
+          targetElement.localName === "source" &&
           targetElement.parentNode
         ) {
-          targetElement = targetElement.parentNode.querySelector('img');
+          targetElement = targetElement.parentNode.querySelector("img");
         }
 
         if (targetElement && lazyClassRegex.test(targetElement.className)) {
@@ -1151,8 +1149,8 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
           lazySizesInstance.rC(element, config.unloadedClass);
         lazySizesInstance.aC(element, config.lazyClass);
         if (
-          'none' == element.style.display ||
-          (element.parentNode && 'none' == element.parentNode.style.display)
+          "none" == element.style.display ||
+          (element.parentNode && "none" == element.parentNode.style.display)
         ) {
           setTimeout(() => {
             lazySizesInstance.loader.unveil(element);
@@ -1189,7 +1187,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     } else {
       // Fallback for browsers without MutationObserver
       document.documentElement.addEventListener(
-        'DOMAttrModified',
+        "DOMAttrModified",
         function (event) {
           if (
             observerDisconnected &&
@@ -1206,7 +1204,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
             }
           }
         },
-        true
+        true,
       );
 
       enableObserver = function () {
@@ -1218,37 +1216,37 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     }
 
     // Event listeners for lazy loading and size management
-    addEventListener('lazybeforeunveil', disableObserver, true);
-    addEventListener('lazybeforeunveil', enableObserver);
-    addEventListener('lazybeforesizes', disableObserver, true);
-    addEventListener('lazybeforesizes', enableObserver);
+    addEventListener("lazybeforeunveil", disableObserver, true);
+    addEventListener("lazybeforeunveil", enableObserver);
+    addEventListener("lazybeforesizes", disableObserver, true);
+    addEventListener("lazybeforesizes", enableObserver);
     enableObserver();
-    removeEventListener('lazybeforeunveil', initLazyLoading);
+    removeEventListener("lazybeforeunveil", initLazyLoading);
   };
 
-  addEventListener('lazybeforeunveil', initLazyLoading);
+  addEventListener("lazybeforeunveil", initLazyLoading);
 });
 
 // Self-invoking function to initialize lazy sizes
 ((global, callback) => {
   const init = () => {
     callback(global.lazySizesT4);
-    global.removeEventListener('lazyunveilread', init, true);
+    global.removeEventListener("lazyunveilread", init, true);
   };
 
   callback = callback.bind(null, global, global.document);
 
-  if (typeof module === 'object' && module.exports) {
-    callback(require('lazySizesT4'));
-  } else if (typeof define === 'function' && define.amd) {
-    define(['lazySizesT4'], callback);
+  if (typeof module === "object" && module.exports) {
+    callback(require("lazySizesT4"));
+  } else if (typeof define === "function" && define.amd) {
+    define(["lazySizesT4"], callback);
   } else if (global.lazySizesT4) {
     init();
   } else {
-    global.addEventListener('lazyunveilread', init, true);
+    global.addEventListener("lazyunveilread", init, true);
   }
 })(globalThis, (window, document, lazySizesConfig) => {
-  'use strict';
+  "use strict";
 
   const parentFitRegex = /\s+(\d+)(w|h)\s+(\d+)(w|h)/;
   const PARENT_FIT_ATTR_REGEX =
@@ -1264,22 +1262,22 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
       if (
         selector &&
-        selector !== 'prev' &&
+        selector !== "prev" &&
         parentElement &&
-        PICTURE_REGEX.test(parentElement.nodeName || '')
+        PICTURE_REGEX.test(parentElement.nodeName || "")
       ) {
         parentElement = parentElement.parentNode;
       }
 
-      if (selector !== 'self') {
+      if (selector !== "self") {
         currentElement =
-          selector === 'prev'
+          selector === "prev"
             ? element.previousElementSibling
             : selector && (parentElement.closest || window.jQuery)
-            ? parentElement.closest
-              ? parentElement.closest(selector)
-              : jQuery(parentElement).closest(selector)[0]
-            : parentElement;
+              ? parentElement.closest
+                ? parentElement.closest(selector)
+                : jQuery(parentElement).closest(selector)[0]
+              : parentElement;
       }
 
       return currentElement;
@@ -1291,7 +1289,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
       const fitConfig = {
         fit:
           element._lazySizesT4ParentFit ||
-          element.getAttribute('data-parent-fit'),
+          element.getAttribute("data-parent-fit"),
       };
 
       if (!fitConfig.fit && content) {
@@ -1302,7 +1300,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
       if (fitConfig.fit) {
         let parentContainer =
           element._lazySizesT4ParentContainer ||
-          element.getAttribute('data-parent-container');
+          element.getAttribute("data-parent-container");
         if (!parentContainer && content) {
           const match = content.match(parentContainerRegex);
           if (match) parentContainer = match[1];
@@ -1318,21 +1316,21 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     getImageRatio(element) {
       const parentNode = element.parentNode;
       const sources =
-        parentNode && PICTURE_REGEX.test(parentNode.nodeName || '')
-          ? parentNode.querySelectorAll('source, img')
+        parentNode && PICTURE_REGEX.test(parentNode.nodeName || "")
+          ? parentNode.querySelectorAll("source, img")
           : [element];
 
       for (const source of sources) {
         const srcSet =
           source.getAttribute(lazySizesConfig.cfg.srcsetAttr) ||
-          source.getAttribute('srcset') ||
-          source.getAttribute('data-pfsrcset') ||
-          source.getAttribute('data-risrcset') ||
-          '';
-        const media = source._lsMedia || source.getAttribute('media');
+          source.getAttribute("srcset") ||
+          source.getAttribute("data-pfsrcset") ||
+          source.getAttribute("data-risrcset") ||
+          "";
+        const media = source._lsMedia || source.getAttribute("media");
         const resolvedMedia =
           lazySizesConfig.cfg.customMedia[
-            source.getAttribute('data-media') || media
+            source.getAttribute("data-media") || media
           ] || media;
 
         if (
@@ -1340,21 +1338,21 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
           (!resolvedMedia ||
             ((window.matchMedia && matchMedia(resolvedMedia)) || {}).matches)
         ) {
-          let aspectRatio = parseFloat(source.getAttribute('data-aspectratio'));
+          let aspectRatio = parseFloat(source.getAttribute("data-aspectratio"));
           if (!aspectRatio) {
             const match = srcSet.match(parentFitRegex);
             const width = match
-              ? match[2] === 'w'
+              ? match[2] === "w"
                 ? match[1]
                 : match[3]
-              : source.getAttribute('width') || source.getAttribute('height');
+              : source.getAttribute("width") || source.getAttribute("height");
             aspectRatio =
               width /
               (match
-                ? match[2] === 'h'
+                ? match[2] === "h"
                   ? match[1]
                   : match[3]
-                : source.getAttribute('height'));
+                : source.getAttribute("height"));
           }
           return aspectRatio;
         }
@@ -1366,14 +1364,14 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
       let { fit, parent } = this.getFit(element);
       let calculatedWidth = width;
 
-      if (fit === 'width' || fit === 'contain' || fit === 'cover') {
+      if (fit === "width" || fit === "contain" || fit === "cover") {
         const aspectRatio = this.getImageRatio(element);
         if (aspectRatio) {
           if (parent) {
             calculatedWidth = parent.clientWidth;
           } else {
             parent = element;
-            if (fit === 'width') {
+            if (fit === "width") {
               return calculatedWidth;
             }
 
@@ -1381,8 +1379,8 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
             const ratio = calculatedWidth / height;
 
             if (
-              (fit === 'cover' && ratio < aspectRatio) ||
-              (fit === 'contain' && aspectRatio < ratio)
+              (fit === "cover" && ratio < aspectRatio) ||
+              (fit === "contain" && aspectRatio < ratio)
             ) {
               return calculatedWidth * (aspectRatio / ratio);
             } else {
@@ -1399,7 +1397,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
   lazySizesConfig.parentFit = lazyLoader;
 
   // Event listener for resizing
-  document.addEventListener('lazybeforesizes', (event) => {
+  document.addEventListener("lazybeforesizes", (event) => {
     if (!event.defaultPrevented && event.detail.instance === lazySizesConfig) {
       const target = event.target;
       event.detail.width = lazyLoader.calculateSize(target, event.detail.width);
@@ -1412,20 +1410,20 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
   const onLazyUnveilRead = () => {
     callback(window.lazySizesT4);
-    window.removeEventListener('lazyunveilread', onLazyUnveilRead, true);
+    window.removeEventListener("lazyunveilread", onLazyUnveilRead, true);
   };
 
-  if (typeof module === 'object' && module.exports) {
-    callback(require('lazySizesT4'));
-  } else if (typeof define === 'function' && define.amd) {
-    define(['lazySizesT4'], callback);
+  if (typeof module === "object" && module.exports) {
+    callback(require("lazySizesT4"));
+  } else if (typeof define === "function" && define.amd) {
+    define(["lazySizesT4"], callback);
   } else if (window.lazySizesT4) {
     onLazyUnveilRead();
   } else {
-    window.addEventListener('lazyunveilread', onLazyUnveilRead, true);
+    window.addEventListener("lazyunveilread", onLazyUnveilRead, true);
   }
 })(globalThis, (window, document, lazySizes) => {
-  'use strict';
+  "use strict";
   const defaults = {
     string: 1,
     number: 1,
@@ -1437,15 +1435,15 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
   const JSON_REGEX = /^\[.*\]|\{.*\}$/;
   const PIXEL_VALUE_REGEX = /^(?:auto|\d+(px)?)$/;
   const SIGN_DECIMAL_REGEX = /^\-*\+*\d+\.*\d*$/;
-  const urlLink = window.document.createElement('a');
-  const imgElement = window.document.createElement('img');
-  const supportsSrcSet = 'srcset' in imgElement && !('sizes' in imgElement);
+  const urlLink = window.document.createElement("a");
+  const imgElement = window.document.createElement("img");
+  const supportsSrcSet = "srcset" in imgElement && !("sizes" in imgElement);
   const supportsPictureElement = !!window.HTMLPictureElement && !supportsSrcSet;
   // Set default values for configuration options
   const defaultConfig = {
-    prefix: '',
-    postfix: '',
-    srcAttr: 'data-src',
+    prefix: "",
+    postfix: "",
+    srcAttr: "data-src",
     absUrl: false,
     modifyOptions: () => {},
     widthmap: {},
@@ -1469,7 +1467,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
   config.rias = config.rias || {};
 
   // Add default width values if they don't exist in the rias config
-  if (!('widths' in config.rias)) {
+  if (!("widths" in config.rias)) {
     config.rias.widths = [];
 
     // Populate widths with a sequence of increasing values
@@ -1508,25 +1506,25 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
     // Helper function to set and parse individual attributes
     const parseAttribute = (attrName, isConditional) => {
-      let attrValue = element.getAttribute('data-' + attrName);
+      let attrValue = element.getAttribute("data-" + attrName);
 
       // Attempt to retrieve CSS custom property if data attribute is missing
       if (!attrValue) {
         const cssCustomProperty = defaultStyle.getPropertyValue(
-          '--ls-' + attrName
+          "--ls-" + attrName,
         );
         if (cssCustomProperty) attrValue = cssCustomProperty.trim();
       }
 
       // Parse attribute value if available
       if (attrValue) {
-        if (attrValue === 'true') {
+        if (attrValue === "true") {
           attrValue = true;
-        } else if (attrValue === 'false') {
+        } else if (attrValue === "false") {
           attrValue = false;
         } else if (SIGN_DECIMAL_REGEX.test(attrValue)) {
           attrValue = parseFloat(attrValue);
-        } else if (typeof defaultConfig[attrName] === 'function') {
+        } else if (typeof defaultConfig[attrName] === "function") {
           attrValue = defaultConfig[attrName](element, attrValue);
         } else if (JSON_REGEX.test(attrValue)) {
           try {
@@ -1538,17 +1536,17 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
         // Use default attribute value if available
         if (
           attrName in defaultConfig &&
-          typeof defaultConfig[attrName] !== 'function' &&
+          typeof defaultConfig[attrName] !== "function" &&
           !customAttributes[attrName]
         ) {
           customAttributes[attrName] = defaultConfig[attrName];
         } else if (
           isConditional &&
-          typeof defaultConfig[attrName] === 'function'
+          typeof defaultConfig[attrName] === "function"
         ) {
           customAttributes[attrName] = defaultConfig[attrName](
             element,
-            attrValue
+            attrValue,
           );
         }
       }
@@ -1572,7 +1570,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     let height = 0;
 
     if (src) {
-      if (options.ratio === 'container') {
+      if (options.ratio === "container") {
         do {
           width = referenceElement.scrollWidth;
           height = referenceElement.scrollHeight;
@@ -1590,12 +1588,12 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
         const array = [];
         array.srcset = [];
         if (options.absUrl) {
-          urlLink.setAttribute('href', src);
+          urlLink.setAttribute("href", src);
           src = urlLink.href;
         }
 
-        const finalSrc = `${options.prefix || ''}${src}${
-          options.postfix || ''
+        const finalSrc = `${options.prefix || ""}${src}${
+          options.postfix || ""
         }`.replace(VARIABLE_REGEX, (match, variable) => {
           return defaults[typeof options[variable]] ? options[variable] : match;
         });
@@ -1615,7 +1613,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
                   ? traditionalRatio
                     ? Math.round(widthValue * aspectRatio)
                     : Math.round(widthValue / aspectRatio)
-                  : ''
+                  : "",
               ),
             w: widthValue,
           };
@@ -1627,16 +1625,16 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
       const srcsetAttributes = calculateSrcSet(src, options);
       srcsetAttributes.isPicture = options.isPicture;
-      if (supportsSrcSet && referenceElement.nodeName.toUpperCase() === 'IMG') {
+      if (supportsSrcSet && referenceElement.nodeName.toUpperCase() === "IMG") {
         referenceElement.removeAttribute(config.srcsetAttr);
       } else {
         referenceElement.setAttribute(
           config.srcsetAttr,
-          srcsetAttributes.srcset.join(', ')
+          srcsetAttributes.srcset.join(", "),
         );
       }
 
-      Object.defineProperty(referenceElement, '_lazyrias', {
+      Object.defineProperty(referenceElement, "_lazyrias", {
         value: srcsetAttributes,
         writable: true,
       });
@@ -1646,15 +1644,15 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
   const getSource = (element) => {
     const srcAttr =
       element.getAttribute(
-        element.getAttribute('data-srcattr') || defaultConfig.srcAttr
+        element.getAttribute("data-srcattr") || defaultConfig.srcAttr,
       ) ||
       element.getAttribute(config.srcsetAttr) ||
-      element.getAttribute('src') ||
-      element.getAttribute('data-pfsrcset') ||
-      '';
+      element.getAttribute("src") ||
+      element.getAttribute("data-pfsrcset") ||
+      "";
     return srcAttr
-      .replace('_1x1.', '_{width}x.')
-      .replace('width=1', 'width={width}');
+      .replace("_1x1.", "_{width}x.")
+      .replace("width=1", "width={width}");
   };
 
   const handleLazyBeforeSizes = (event) => {
@@ -1668,7 +1666,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
         !defaultConfig.disabled
       ) {
         const sizesAttr =
-          target.getAttribute(config.sizesAttr) || target.getAttribute('sizes');
+          target.getAttribute(config.sizesAttr) || target.getAttribute("sizes");
         if (sizesAttr && PIXEL_VALUE_REGEX.test(sizesAttr)) {
           const srcset = getSource(target);
           const modifiedOptions = ((target, srcset) => {
@@ -1679,7 +1677,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
               detail: attributes,
             });
             // Emit an event for modification
-            lazySizes.fire(target, 'lazyriasmodifyoptions', attributes);
+            lazySizes.fire(target, "lazyriasmodifyoptions", attributes);
             return attributes;
           })(target, srcset);
           const isWidthPrefix =
@@ -1687,7 +1685,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
             WIDTH_REGEX.test(modifiedOptions.postfix);
           if (modifiedOptions.isPicture) {
             node = target.parentNode;
-            let sourceElement = node.getElementsByTagName('source');
+            let sourceElement = node.getElementsByTagName("source");
             const Len = sourceElement.length;
             for (let i = 0; i < Len; i++) {
               let src = getSource(sourceElement[i]);
@@ -1695,7 +1693,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
                 calculateRatio(
                   src,
                   parseAttributes(sourceElement[i], src, modifiedOptions),
-                  sourceElement[i]
+                  sourceElement[i],
                 );
               }
               E = true;
@@ -1710,7 +1708,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
               w = [];
               w.srcAttr = [];
               w.isPicture = true;
-              Object.defineProperty(target, '_lazyrias', {
+              Object.defineProperty(target, "_lazyrias", {
                 value: w,
                 writable: true,
               });
@@ -1723,7 +1721,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
             if (supportsPictureElement) {
               target.removeAttribute(config.rias.srcAttr);
             } else {
-              if ('auto' != sizesAttr) {
+              if ("auto" != sizesAttr) {
                 m.width = parseInt(sizesAttr, 10);
               }
               setupLazyRias({
@@ -1748,17 +1746,17 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
       let parsedSrcset;
       if (!element._lazyrias && lazySizes.pWS) {
         parsedSrcset = lazySizes.pWS(
-          element.getAttribute(config.rias.srcsetAttr || '')
+          element.getAttribute(config.rias.srcsetAttr || ""),
         );
         if (parsedSrcset.length) {
-          Object.defineProperty(element, '_lazyrias', {
+          Object.defineProperty(element, "_lazyrias", {
             value: parsedSrcset,
             writable: true,
           });
 
           if (isPicture && element.parentNode) {
             parsedSrcset.isPicture =
-              element.parentNode.nodeName.toUpperCase() === 'PICTURE';
+              element.parentNode.nodeName.toUpperCase() === "PICTURE";
           }
         }
       }
@@ -1773,7 +1771,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
         if (!window.respimage && !window.picturefill && !config.pf) {
           if (
-            '_lazyrias' in target ||
+            "_lazyrias" in target ||
             (event.detail.dataAttr && getParsedSrcset(target, true))
           ) {
             optimalSrc = ((element, targetWidth) => {
@@ -1788,12 +1786,12 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
               if (parsedSrcset.isPicture && window.matchMedia) {
                 // Check for the best matching source for the picture element
                 const sources =
-                  element.parentNode.getElementsByTagName('source');
+                  element.parentNode.getElementsByTagName("source");
                 for (let i = 0; i < sources.length; i++) {
                   if (
                     getParsedSrcset(sources[i]) &&
-                    !sources[i].getAttribute('type') &&
-                    (!(mediaSource = sources[i].getAttribute('media')) ||
+                    !sources[i].getAttribute("type") &&
+                    (!(mediaSource = sources[i].getAttribute("media")) ||
                       (matchMedia(mediaSource) || {}).matches)
                   ) {
                     parsedSrcset = sources[i]._lazyrias;
@@ -1812,7 +1810,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
                   return Math.min(
                     customDensity || devicePixelRatio,
                     2.4,
-                    devicePixelRatio
+                    devicePixelRatio,
                   );
                 })(element);
 
@@ -1834,7 +1832,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
                       ) {
                         const adjustmentFactor = Math.pow(
                           prevSource.d - 0.6,
-                          1.6
+                          1.6,
                         );
                         prevSource.cached &&
                           (prevSource.d += 0.15 * adjustmentFactor);
@@ -1866,12 +1864,12 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
               optimalSrc.cached = true;
               lazySizes.rAF(function () {
                 target.setAttribute(config.srcAttr, optimalSrc.u);
-                target.setAttribute('src', optimalSrc.u);
+                target.setAttribute("src", optimalSrc.u);
               });
             }
           } else {
             // Remove event listener if lazySizes is not active
-            window.removeEventListener('lazybeforesizes', onResize);
+            window.removeEventListener("lazybeforesizes", onResize);
           }
         }
       }
@@ -1879,13 +1877,13 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
     // Initialize event listener unless `b` is true
     if (!supportsPictureElement) {
-      window.addEventListener('lazybeforesizes', onResize);
+      window.addEventListener("lazybeforesizes", onResize);
     }
 
     return onResize;
   })();
 
-  window.addEventListener('lazybeforesizes', handleLazyBeforeSizes, true);
+  window.addEventListener("lazybeforesizes", handleLazyBeforeSizes, true);
 });
 
 ((global) => {
@@ -1919,18 +1917,18 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
   // _ = initializeLazyLoad
 
   const lazySizes = ((window, document, Date) => {
-    'use strict';
+    "use strict";
 
     const configDefaults = {
-      lazyClass: 'lazyload',
-      loadedClass: 'lazyloaded',
-      loadingClass: 'lazyloading',
-      preloadClass: 'lazypreload',
-      errorClass: 'lazyerror',
-      autosizesClass: 'lazyautosizes',
-      srcAttr: 'data-src',
-      srcsetAttr: 'data-srcset',
-      sizesAttr: 'data-sizes',
+      lazyClass: "lazyload",
+      loadedClass: "lazyloaded",
+      loadingClass: "lazyloading",
+      preloadClass: "lazypreload",
+      errorClass: "lazyerror",
+      autosizesClass: "lazyautosizes",
+      srcAttr: "data-src",
+      srcsetAttr: "data-srcset",
+      sizesAttr: "data-sizes",
       minSize: 40,
       customMedia: {},
       init: true,
@@ -1952,7 +1950,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     const requestIdleCallbackFn = window.requestIdleCallback;
     const classRegexCache = {};
     const PICTURE_REGEX = /^picture$/i;
-    const eventTypes = ['load', 'error', 'lazyincluded', '_lazyloaded'];
+    const eventTypes = ["load", "error", "lazyincluded", "_lazyloaded"];
 
     if (!document || !document.getElementsByClassName) {
       return {
@@ -1966,11 +1964,11 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
       // Check if the class regex exists in cache; if not, create and cache it
       if (!classRegexCache[className]) {
         classRegexCache[className] = new RegExp(
-          '(\\s|^)' + className + '(\\s|$)'
+          "(\\s|^)" + className + "(\\s|$)",
         );
       }
       // Check if the class name exists in the element's class attribute
-      const classAttribute = element.getAttribute('class') || '';
+      const classAttribute = element.getAttribute("class") || "";
       return (
         classRegexCache[className].test(classAttribute) &&
         classRegexCache[className]
@@ -1979,8 +1977,8 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     const addClass = (elem, className) => {
       if (!hasClass(elem, className)) {
         elem.setAttribute(
-          'class',
-          (elem.getAttribute('class') || '').trim() + ' ' + className
+          "class",
+          (elem.getAttribute("class") || "").trim() + " " + className,
         );
       }
     };
@@ -1988,13 +1986,13 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     const removeClass = (elem, className) => {
       const cls = hasClass(elem, className);
       elem.setAttribute(
-        'class',
-        (elem.getAttribute('class') || '').replace(cls, ' ')
+        "class",
+        (elem.getAttribute("class") || "").replace(cls, " "),
       );
     };
 
     const manageEventListeners = (element, handler, shouldAdd) => {
-      const action = shouldAdd ? 'addEventListener' : 'removeEventListener';
+      const action = shouldAdd ? "addEventListener" : "removeEventListener";
 
       // Add a recursive call if adding listeners to ensure they’re set correctly
       if (shouldAdd) {
@@ -2012,10 +2010,10 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
       eventName,
       eventData = {},
       isBubbling = false,
-      isCancelable = false
+      isCancelable = false,
     ) => {
       // Create a new event using the "Event" interface
-      const customEvent = document.createEvent('Event');
+      const customEvent = document.createEvent("Event");
 
       // Add instance data to event detail if necessary
       eventData.instance = lazyLoadSettings;
@@ -2042,9 +2040,9 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
         if (
           imageData &&
           imageData.src &&
-          !imageElement.getAttribute('srcset')
+          !imageElement.getAttribute("srcset")
         ) {
-          imageElement.setAttribute('srcset', imageData.src);
+          imageElement.setAttribute("srcset", imageData.src);
         }
 
         // Use Picturefill to reevaluate the image element
@@ -2068,7 +2066,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
     const calculateWidthWithMinSize = (
       element,
       parentElement,
-      elementWidth = element.offsetWidth
+      elementWidth = element.offsetWidth,
     ) => {
       // Loop to ensure the width meets the minimum size requirement
       while (
@@ -2114,7 +2112,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
             isScheduled = true;
             // Schedule execution based on the document visibility
             (document.hidden ? scheduleMicrotask : scheduleMacrotask)(
-              executeTasks
+              executeTasks,
             );
           }
         } else {
@@ -2188,7 +2186,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
       const IMAGE_REGEX = /^img$/i;
       const IFRAME_REGEX = /^iframe$/i;
       const isScrollEventSupported =
-        'onscroll' in window && !/(gle|ing)bot/.test(navigator.userAgent);
+        "onscroll" in window && !/(gle|ing)bot/.test(navigator.userAgent);
       let loadAttempts = 0;
       let lazyLoadIndex = 0;
       let initialVisibilityCheck = -1;
@@ -2205,13 +2203,13 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
       const checkElementVisible = (element) => {
         if (!viewportState) {
           viewportState =
-            'hidden' === getStyleProperty(document.body, 'visibility');
+            "hidden" === getStyleProperty(document.body, "visibility");
         }
         return (
           !viewportState ||
           !(
-            'hidden' === getStyleProperty(element.parentNode, 'visibility') &&
-            'hidden' === getStyleProperty(element, 'visibility')
+            "hidden" === getStyleProperty(element.parentNode, "visibility") &&
+            "hidden" === getStyleProperty(element, "visibility")
           )
         );
       };
@@ -2233,8 +2231,8 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
           currentElement != window.documentElement
         ) {
           isElementVisible =
-            (getStyleProperty(currentElement, 'opacity') || 1) > 0 &&
-            'visible' != getStyleProperty(currentElement, 'overflow');
+            (getStyleProperty(currentElement, "opacity") || 1) > 0 &&
+            "visible" != getStyleProperty(currentElement, "overflow");
 
           if (isElementVisible) {
             rect = currentElement.getBoundingClientRect();
@@ -2262,12 +2260,15 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
           calculatedExpandDistance,
           calculatedFactor,
           hFactor,
-
           elements = lazyLoadSettings.elements;
         lazyloadMode = config.loadMode;
         elementsCount = elements.length;
         if (lazyloadMode && lazyLoadIndex < 8 && elementsCount) {
-          for (index = 0, initialVisibilityCheck++; index < elementsCount; index++) {
+          for (
+            index = 0, initialVisibilityCheck++;
+            index < elementsCount;
+            index++
+          ) {
             if (elements[index] && !elements[index]._lazyRace) {
               if (
                 !isScrollEventSupported ||
@@ -2277,7 +2278,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
                 handleLazyRace(elements[index]);
                 continue;
               }
-              expandAttribute = elements[index].getAttribute('data-expand');
+              expandAttribute = elements[index].getAttribute("data-expand");
               expandDistance = expandAttribute
                 ? 1 * expandAttribute
                 : loadAttempts;
@@ -2304,7 +2305,9 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
                   initialVisibilityCheck = 0;
                 } else {
                   loadAttempts =
-                    lazyloadMode > 1 && initialVisibilityCheck > 1 && lazyLoadIndex < 6
+                    lazyloadMode > 1 &&
+                    initialVisibilityCheck > 1 &&
+                    lazyLoadIndex < 6
                       ? calculatedExpandDistance
                       : 0;
                 }
@@ -2349,7 +2352,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
                         right ||
                         left ||
                         top ||
-                        'auto' !=
+                        "auto" !=
                           elements[index].getAttribute(config.sizesAttr)))) &&
                   (lastElement = scrollingElements[0] || elements[index]);
               }
@@ -2428,7 +2431,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
           addClass(targetElement, config.loadedClass); // Mark the element as loaded
           removeClass(targetElement, config.loadingClass); // Remove the loading class
           manageEventListeners(targetElement, processLazyLoadTarget); // Emit a "lazyloaded" event
-          dispatchCustomEvent(targetElement, 'lazyloaded'); // Remove temporary event listeners
+          dispatchCustomEvent(targetElement, "lazyloaded"); // Remove temporary event listeners
         }
       };
 
@@ -2442,13 +2445,13 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
       const updateMediaAndSrcset = (element) => {
         const attr =
           config.customMedia[
-            element.getAttribute('data-media') || element.getAttribute('media')
+            element.getAttribute("data-media") || element.getAttribute("media")
           ];
         const srcset = element.getAttribute(config.srcsetAttr);
         if (attr) {
-          element.setAttribute('media', document);
+          element.setAttribute("media", document);
         }
-        srcset && element.setAttribute('srcset', srcset);
+        srcset && element.setAttribute("srcset", srcset);
       };
 
       const lazyLoadElement = createDebouncedFunction(
@@ -2457,8 +2460,8 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
           preventDefaultEvent = dispatchCustomEvent(
             element,
-            'lazybeforeunveil',
-            eventDetails
+            "lazybeforeunveil",
+            eventDetails,
           );
           if (preventDefaultEvent.defaultPrevented) {
             // Clean up lazy race flag and add lazy class
@@ -2470,7 +2473,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
               let isCached = element.complete && element.naturalWidth > 1;
               if (firesLoadEvent && !isCached) return;
 
-              if (isCached) addClass(element, 'ls-is-cached');
+              if (isCached) addClass(element, "ls-is-cached");
 
               handleLazyLoadedEvent({ target: element });
               element._lazyCache = true;
@@ -2479,7 +2482,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
                 delete element._lazyCache;
               }, 9);
 
-              if (element.loading === 'lazy') lazyLoadCounter--;
+              if (element.loading === "lazy") lazyLoadCounter--;
             }, true);
             return;
           }
@@ -2488,7 +2491,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
           if (sizeValue) {
             isAutoSize
               ? addClass(element, config.autosizesClass)
-              : element.setAttribute('sizes', sizeValue);
+              : element.setAttribute("sizes", sizeValue);
           }
 
           srcSet = element.getAttribute(config.srcsetAttr);
@@ -2496,12 +2499,12 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
           if (hasParentPicture) {
             parentIsPicture =
               element.parentNode &&
-              PICTURE_REGEX.test(element.parentNode.nodeName || '');
+              PICTURE_REGEX.test(element.parentNode.nodeName || "");
           }
 
           firesLoadEvent =
             eventDetails.firesLoad ||
-            ('src' in element && (srcSet || src || parentIsPicture));
+            ("src" in element && (srcSet || src || parentIsPicture));
 
           // Add loading class
           addClass(element, config.loadingClass);
@@ -2514,12 +2517,12 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
           if (parentIsPicture) {
             element.parentNode
-              .getElementsByTagName('source')
+              .getElementsByTagName("source")
               .forEach(updateMediaAndSrcset);
           }
 
           if (srcSet) {
-            element.setAttribute('srcset', srcSet);
+            element.setAttribute("srcset", srcSet);
           } else if (src && !parentIsPicture) {
             if (IFRAME_REGEX.test(element.nodeName)) {
               try {
@@ -2535,7 +2538,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
           if (hasParentPicture && (srcSet || parentIsPicture)) {
             setImageSource(element, { src });
           }
-        }
+        },
       );
 
       // // Check if element is within viewport based on computed boundaries
@@ -2603,7 +2606,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
             isInitialLoad = true;
             config.loadMode = 3;
             throttledCallback();
-            addEventListener('scroll', handleLoadMode, !0);
+            addEventListener("scroll", handleLoadMode, !0);
           }
         }
       }
@@ -2611,20 +2614,20 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
         // Initialize current timestamp and lazy elements
         startTime = Date.now();
         lazyLoadSettings.elements = document.getElementsByClassName(
-          config.lazyClass
+          config.lazyClass,
         );
         scrollingElements = document.getElementsByClassName(
-          config.lazyClass + ' ' + config.preloadClass
+          config.lazyClass + " " + config.preloadClass,
         );
 
         // Add event listeners for scroll, resize, and pageshow events
-        addEventListener('scroll', throttledCallback, true);
-        addEventListener('resize', throttledCallback, true);
-        addEventListener('pageshow', function (event) {
+        addEventListener("scroll", throttledCallback, true);
+        addEventListener("resize", throttledCallback, true);
+        addEventListener("pageshow", function (event) {
           // Handle pageshow event, specifically for elements in loading state
           if (event.persisted) {
             const loadingElements = document.querySelectorAll(
-              '.' + config.loadingClass
+              "." + config.loadingClass,
             );
             if (loadingElements.length) {
               requestIdleCallbackFn(() => {
@@ -2646,33 +2649,33 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
               childList: true,
               subtree: true,
               attributes: true,
-            }
+            },
           );
         } else {
           document.documentElement.addEventListener(
-            'DOMNodeInserted',
+            "DOMNodeInserted",
             throttledCallback,
-            true
+            true,
           );
           document.documentElement.addEventListener(
-            'DOMAttrModified',
+            "DOMAttrModified",
             throttledCallback,
-            true
+            true,
           );
           setInterval(throttledCallback, 999);
         }
 
         // Register event listener for hash changes
-        addEventListener('hashchange', throttledCallback, true);
+        addEventListener("hashchange", throttledCallback, true);
 
         // Add various events to trigger element processing
         [
-          'focus',
-          'mouseover',
-          'click',
-          'load',
-          'transitionend',
-          'animationend',
+          "focus",
+          "mouseover",
+          "click",
+          "load",
+          "transitionend",
+          "animationend",
         ].forEach((event) => {
           document.addEventListener(event, throttledCallback, true);
         });
@@ -2681,8 +2684,8 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
         if (/d$|^c/.test(document.readyState)) {
           ee();
         } else {
-          addEventListener('load', ee);
-          document.addEventListener('DOMContentLoaded', throttledCallback);
+          addEventListener("load", ee);
+          document.addEventListener("DOMContentLoaded", throttledCallback);
           setTimeoutFn(ee, 20000); // Timeout after 20 seconds
         }
 
@@ -2700,19 +2703,19 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
           let event;
           let isPictureNode = IMAGE_REGEX.test(elem.nodeName);
           let sizes = isPictureNode
-            ? elem.getAttribute(config.sizesAttr) || elem.getAttribute('sizes')
+            ? elem.getAttribute(config.sizesAttr) || elem.getAttribute("sizes")
             : null;
-          let isAutoSize = sizes === 'auto';
+          let isAutoSize = sizes === "auto";
 
           if (
             (!isAutoSize && isInitialLoad) ||
             !isPictureNode ||
-            (!elem.getAttribute('src') && !elem.srcset) ||
+            (!elem.getAttribute("src") && !elem.srcset) ||
             elem.complete ||
             hasClass(elem, config.errorClass) ||
             !hasClass(elem, config.lazyClass)
           ) {
-            event = dispatchCustomEvent(elem, 'lazyunveilread').detail;
+            event = dispatchCustomEvent(elem, "lazyunveilread").detail;
             isAutoSize &&
               resizeAndSizeUpdater.updateElem(elem, true, elem.offsetWidth);
           }
@@ -2747,22 +2750,22 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
         updateSizes = createDebouncedFunction(
           (element, container, event, width) => {
             // Adjust width based on scale factor
-            width *= parseFloat(element.getAttribute('data-sizes-scale') || 1);
+            width *= parseFloat(element.getAttribute("data-sizes-scale") || 1);
             element._lazySizesT4Width = width;
-            width += 'px';
-            element.setAttribute('sizes', width);
+            width += "px";
+            element.setAttribute("sizes", width);
 
-            if (PICTURE_REGEX.test(container.nodeName || '')) {
-              let sourceElements = container.getElementsByTagName('source');
+            if (PICTURE_REGEX.test(container.nodeName || "")) {
+              let sourceElements = container.getElementsByTagName("source");
               let Len = sourceElements.length;
               for (let i = 0, Len; i < Len; i++) {
-                sourceElements[i].setAttribute('sizes', width);
+                sourceElements[i].setAttribute("sizes", width);
               }
             }
             if (!event.detail.dataAttr) {
               setImageSource(element, event.detail);
             }
-          }
+          },
         ),
         resizeElements = (element, container, isDataAttr) => {
           let parent = element.parentNode;
@@ -2771,9 +2774,9 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
             let newWidth = calculateWidthWithMinSize(
               element,
               parent,
-              isDataAttr
+              isDataAttr,
             );
-            let event = dispatchCustomEvent(element, 'lazybeforesizes', {
+            let event = dispatchCustomEvent(element, "lazybeforesizes", {
               width: newWidth,
               dataAttr: !!container,
             });
@@ -2796,7 +2799,7 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
         // Initialize auto size functionality
         _: () => {
           elements = document.getElementsByClassName(config.autosizesClass);
-          addEventListener('resize', onResize);
+          addEventListener("resize", onResize);
         },
         checkElems: onResize, // Method to check the elements for resizing
         updateElem: resizeElements, // Method to update an individual element's size
@@ -2832,23 +2835,23 @@ window.lazySizesT4Config = window.lazySizesT4Config || {
 
   global.lazySizesT4 = lazySizes;
 
-  if (typeof module !== 'undefined' && module.exports) {
+  if (typeof module !== "undefined" && module.exports) {
     module.exports = lazySizes;
   }
 })(globalThis);
 
-globalThis.document.addEventListener('lazyincludeloaded', function (event) {
-  if (event.detail.content && event.detail.content.indexOf('[splitlz]') > -1) {
-    const event = event.detail.content.split('[splitlz]')[1];
+globalThis.document.addEventListener("lazyincludeloaded", function (event) {
+  if (event.detail.content && event.detail.content.indexOf("[splitlz]") > -1) {
+    const event = event.detail.content.split("[splitlz]")[1];
     event.detail.content = event;
   }
 });
 
-globalThis.document.dispatchEvent(new CustomEvent('lazysize:loaded'));
+globalThis.document.dispatchEvent(new CustomEvent("lazysize:loaded"));
 
-globalThis.document.addEventListener('lazyloaded', (event) => {
+globalThis.document.addEventListener("lazyloaded", (event) => {
   let parentNode = event.target.parentNode;
-  if (parentNode && parentNode.classList.contains('bg-11')) {
-    parentNode.classList.add('child-lazyloaded');
+  if (parentNode && parentNode.classList.contains("bg-11")) {
+    parentNode.classList.add("child-lazyloaded");
   }
 });

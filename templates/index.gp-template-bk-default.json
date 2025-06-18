@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "image-with-text-overlay": {
       "type": "section-image-with-text-overlay",
@@ -26,9 +26,7 @@
           }
         }
       },
-      "block_order": [
-        "image-with-text-overlay-1"
-      ],
+      "block_order": ["image-with-text-overlay-1"],
       "settings": {
         "desktop_image": "shopify://shop_images/metro.jpg",
         "desktop_height": "l",
@@ -274,11 +272,7 @@
           }
         }
       },
-      "block_order": [
-        "product-1",
-        "product-2",
-        "product_D69Bgz"
-      ],
+      "block_order": ["product-1", "product-2", "product_D69Bgz"],
       "settings": {
         "main_image": "shopify://shop_images/n.jpg",
         "text_alignment": "center",
@@ -311,9 +305,7 @@
           }
         }
       },
-      "block_order": [
-        "image-with-text-overlay-1"
-      ],
+      "block_order": ["image-with-text-overlay-1"],
       "settings": {
         "desktop_image": "shopify://shop_images/girl-5623231_960_720.jpg",
         "desktop_height": "l",
@@ -368,10 +360,7 @@
           }
         }
       },
-      "block_order": [
-        "overlay-content",
-        "social_cta"
-      ],
+      "block_order": ["overlay-content", "social_cta"],
       "settings": {
         "desktop_height": "xl",
         "mobile_height": "xl",

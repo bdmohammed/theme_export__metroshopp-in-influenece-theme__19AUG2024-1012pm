@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "image-with-text-overlay": {
       "type": "section-image-with-text-overlay",
@@ -26,9 +26,7 @@
           }
         }
       },
-      "block_order": [
-        "image-with-text-overlay-1"
-      ],
+      "block_order": ["image-with-text-overlay-1"],
       "settings": {
         "desktop_image": "shopify://shop_images/Dark_Brown_and_White_Simple_Nature_Magazine_Cover.png",
         "desktop_height": "l",
@@ -255,11 +253,7 @@
           }
         }
       },
-      "block_order": [
-        "product-1",
-        "product-2",
-        "product_D69Bgz"
-      ],
+      "block_order": ["product-1", "product-2", "product_D69Bgz"],
       "settings": {
         "main_image": "shopify://shop_images/62BCF4E7-C175-4122-B444-A2FBDEF30445.jpg",
         "text_alignment": "center",
@@ -293,9 +287,7 @@
           }
         }
       },
-      "block_order": [
-        "image-with-text-overlay-1"
-      ],
+      "block_order": ["image-with-text-overlay-1"],
       "settings": {
         "desktop_image": "shopify://shop_images/IMG-8037_720b5289-8346-411c-9776-da72c90b1443.jpg",
         "desktop_height": "l",
@@ -349,10 +341,7 @@
           }
         }
       },
-      "block_order": [
-        "overlay-content",
-        "social_cta"
-      ],
+      "block_order": ["overlay-content", "social_cta"],
       "settings": {
         "desktop_image": "shopify://shop_images/IMG_1525_95a28c8c-cc4a-4011-8c2e-30c136a99b50-932990.jpg",
         "desktop_height": "xl",

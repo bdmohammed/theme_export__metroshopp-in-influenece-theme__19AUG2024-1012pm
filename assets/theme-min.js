@@ -12,11 +12,11 @@ function createCommonjsModule(callback, path) {
 
 //done
 function commonjsRequire() {
-  throw new Error('Error commonjs');
+  throw new Error("Error commonjs");
 }
 
 function onYouTubeIframeAPIReady() {
-  document.dispatchEvent(new CustomEvent('youtube:ready'));
+  document.dispatchEvent(new CustomEvent("youtube:ready"));
 }
 
 /*!
@@ -25,19 +25,19 @@ function onYouTubeIframeAPIReady() {
  * Licensed under MIT (https://github.com/nk-o/jarallax/blob/master/LICENSE)
  */
 !(function (e, t) {
-  'object' == typeof exports && 'undefined' != typeof module
+  "object" == typeof exports && "undefined" != typeof module
     ? (module.exports = t())
-    : 'function' == typeof define && define.amd
-    ? define(t)
-    : ((e =
-        'undefined' != typeof globalThis ? globalThis : e || self).jarallax =
-        t());
+    : "function" == typeof define && define.amd
+      ? define(t)
+      : ((e =
+          "undefined" != typeof globalThis ? globalThis : e || self).jarallax =
+          t());
 })(window, function () {
-  'use strict';
+  "use strict";
   function e(e) {
-    'complete' === document.readyState || 'interactive' === document.readyState
+    "complete" === document.readyState || "interactive" === document.readyState
       ? e()
-      : document.addEventListener('DOMContentLoaded', e, {
+      : document.addEventListener("DOMContentLoaded", e, {
           capture: !0,
           once: !0,
           passive: !0,
@@ -45,23 +45,23 @@ function onYouTubeIframeAPIReady() {
   }
   let t;
   t =
-    'undefined' != typeof window
+    "undefined" != typeof window
       ? window
-      : 'undefined' != typeof global
-      ? global
-      : 'undefined' != typeof self
-      ? self
-      : {};
+      : "undefined" != typeof global
+        ? global
+        : "undefined" != typeof self
+          ? self
+          : {};
   var i = t,
     o = {
-      type: 'scroll',
+      type: "scroll",
       speed: 0.5,
-      containerClass: 'jarallax-container',
+      containerClass: "jarallax-container",
       imgSrc: null,
-      imgElement: '.jarallax-img',
-      imgSize: 'cover',
-      imgPosition: '50% 50%',
-      imgRepeat: 'no-repeat',
+      imgElement: ".jarallax-img",
+      imgSize: "cover",
+      imgPosition: "50% 50%",
+      imgRepeat: "no-repeat",
       keepImg: !1,
       elementInViewport: null,
       zIndex: -100,
@@ -70,7 +70,7 @@ function onYouTubeIframeAPIReady() {
       onInit: null,
       onDestroy: null,
       onCoverImage: null,
-      videoClass: 'jarallax-video',
+      videoClass: "jarallax-video",
       videoSrc: null,
       videoStartTime: 0,
       videoEndTime: 0,
@@ -84,7 +84,7 @@ function onYouTubeIframeAPIReady() {
     };
   const { navigator: n } = i,
     a = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      n.userAgent
+      n.userAgent,
     );
   let s, l, r;
   function c() {
@@ -92,9 +92,9 @@ function onYouTubeIframeAPIReady() {
       a
         ? (!r &&
             document.body &&
-            ((r = document.createElement('div')),
+            ((r = document.createElement("div")),
             (r.style.cssText =
-              'position: fixed; top: -9999px; left: 0; height: 100vh; width: 0;'),
+              "position: fixed; top: -9999px; left: 0; height: 100vh; width: 0;"),
             document.body.appendChild(r)),
           (l =
             (r ? r.clientHeight : 0) ||
@@ -106,9 +106,9 @@ function onYouTubeIframeAPIReady() {
     return { width: s, height: l };
   }
   c(),
-    i.addEventListener('resize', c),
-    i.addEventListener('orientationchange', c),
-    i.addEventListener('load', c),
+    i.addEventListener("resize", c),
+    i.addEventListener("orientationchange", c),
+    i.addEventListener("load", c),
     e(() => {
       c();
     });
@@ -145,7 +145,7 @@ function onYouTubeIframeAPIReady() {
         e.target.jarallax.isElementInViewport = e.isIntersecting;
       });
     },
-    { rootMargin: '50px' }
+    { rootMargin: "50px" },
   );
   const { navigator: u } = i;
   let f = 0;
@@ -163,52 +163,52 @@ function onYouTubeIframeAPIReady() {
         (i.options = i.extend({}, i.defaults, a, t)),
         (i.pureOptions = i.extend({}, i.options)),
         Object.keys(i.options).forEach((e) => {
-          'true' === i.options[e]
+          "true" === i.options[e]
             ? (i.options[e] = !0)
-            : 'false' === i.options[e] && (i.options[e] = !1);
+            : "false" === i.options[e] && (i.options[e] = !1);
         }),
         (i.options.speed = Math.min(
           2,
-          Math.max(-1, parseFloat(i.options.speed))
+          Math.max(-1, parseFloat(i.options.speed)),
         )),
-        'string' == typeof i.options.disableParallax &&
+        "string" == typeof i.options.disableParallax &&
           (i.options.disableParallax = new RegExp(i.options.disableParallax)),
         i.options.disableParallax instanceof RegExp)
       ) {
         const e = i.options.disableParallax;
         i.options.disableParallax = () => e.test(u.userAgent);
       }
-      if ('function' != typeof i.options.disableParallax) {
+      if ("function" != typeof i.options.disableParallax) {
         const e = i.options.disableParallax;
         i.options.disableParallax = () => !0 === e;
       }
       if (
-        ('string' == typeof i.options.disableVideo &&
+        ("string" == typeof i.options.disableVideo &&
           (i.options.disableVideo = new RegExp(i.options.disableVideo)),
         i.options.disableVideo instanceof RegExp)
       ) {
         const e = i.options.disableVideo;
         i.options.disableVideo = () => e.test(u.userAgent);
       }
-      if ('function' != typeof i.options.disableVideo) {
+      if ("function" != typeof i.options.disableVideo) {
         const e = i.options.disableVideo;
         i.options.disableVideo = () => !0 === e;
       }
       let s = i.options.elementInViewport;
-      s && 'object' == typeof s && void 0 !== s.length && ([s] = s),
+      s && "object" == typeof s && void 0 !== s.length && ([s] = s),
         s instanceof Element || (s = null),
         (i.options.elementInViewport = s),
         (i.image = {
           src: i.options.imgSrc || null,
           $container: null,
           useImgTag: !1,
-          position: 'fixed',
+          position: "fixed",
         }),
         i.initImg() && i.canInitParallax() && i.init();
     }
     css(e, t) {
       return (function (e, t) {
-        return 'string' == typeof t
+        return "string" == typeof t
           ? i.getComputedStyle(e).getPropertyValue(t)
           : (Object.keys(t).forEach((i) => {
               e.style[i] = t[i];
@@ -238,7 +238,7 @@ function onYouTubeIframeAPIReady() {
       const e = this;
       let t = e.options.imgElement;
       return (
-        t && 'string' == typeof t && (t = e.$item.querySelector(t)),
+        t && "string" == typeof t && (t = e.$item.querySelector(t)),
         t instanceof Element ||
           (e.options.imgSrc
             ? ((t = new Image()), (t.src = e.options.imgSrc))
@@ -251,9 +251,9 @@ function onYouTubeIframeAPIReady() {
         !!e.image.$item ||
           (null === e.image.src &&
             ((e.image.src =
-              'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'),
-            (e.image.bgImage = e.css(e.$item, 'background-image'))),
-          !(!e.image.bgImage || 'none' === e.image.bgImage))
+              "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"),
+            (e.image.bgImage = e.css(e.$item, "background-image"))),
+          !(!e.image.bgImage || "none" === e.image.bgImage))
       );
     }
     canInitParallax() {
@@ -262,76 +262,76 @@ function onYouTubeIframeAPIReady() {
     init() {
       const e = this,
         t = {
-          position: 'absolute',
+          position: "absolute",
           top: 0,
           left: 0,
-          width: '100%',
-          height: '100%',
-          overflow: 'hidden',
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
         };
       let o = {
-        pointerEvents: 'none',
-        transformStyle: 'preserve-3d',
-        backfaceVisibility: 'hidden',
+        pointerEvents: "none",
+        transformStyle: "preserve-3d",
+        backfaceVisibility: "hidden",
       };
       if (!e.options.keepImg) {
-        const t = e.$item.getAttribute('style');
+        const t = e.$item.getAttribute("style");
         if (
-          (t && e.$item.setAttribute('data-jarallax-original-styles', t),
+          (t && e.$item.setAttribute("data-jarallax-original-styles", t),
           e.image.useImgTag)
         ) {
-          const t = e.image.$item.getAttribute('style');
-          t && e.image.$item.setAttribute('data-jarallax-original-styles', t);
+          const t = e.image.$item.getAttribute("style");
+          t && e.image.$item.setAttribute("data-jarallax-original-styles", t);
         }
       }
       if (
-        ('static' === e.css(e.$item, 'position') &&
-          e.css(e.$item, { position: 'relative' }),
-        'auto' === e.css(e.$item, 'z-index') && e.css(e.$item, { zIndex: 0 }),
-        (e.image.$container = document.createElement('div')),
+        ("static" === e.css(e.$item, "position") &&
+          e.css(e.$item, { position: "relative" }),
+        "auto" === e.css(e.$item, "z-index") && e.css(e.$item, { zIndex: 0 }),
+        (e.image.$container = document.createElement("div")),
         e.css(e.image.$container, t),
-        e.css(e.image.$container, { 'z-index': e.options.zIndex }),
-        'fixed' === this.image.position &&
+        e.css(e.image.$container, { "z-index": e.options.zIndex }),
+        "fixed" === this.image.position &&
           e.css(e.image.$container, {
-            '-webkit-clip-path': 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-            'clip-path': 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+            "-webkit-clip-path": "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+            "clip-path": "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
           }),
         e.image.$container.setAttribute(
-          'id',
-          `jarallax-container-${e.instanceID}`
+          "id",
+          `jarallax-container-${e.instanceID}`,
         ),
         e.options.containerClass &&
-          e.image.$container.setAttribute('class', e.options.containerClass),
+          e.image.$container.setAttribute("class", e.options.containerClass),
         e.$item.appendChild(e.image.$container),
         e.image.useImgTag
           ? (o = e.extend(
               {
-                'object-fit': e.options.imgSize,
-                'object-position': e.options.imgPosition,
-                'max-width': 'none',
+                "object-fit": e.options.imgSize,
+                "object-position": e.options.imgPosition,
+                "max-width": "none",
               },
               t,
-              o
+              o,
             ))
-          : ((e.image.$item = document.createElement('div')),
+          : ((e.image.$item = document.createElement("div")),
             e.image.src &&
               (o = e.extend(
                 {
-                  'background-position': e.options.imgPosition,
-                  'background-size': e.options.imgSize,
-                  'background-repeat': e.options.imgRepeat,
-                  'background-image':
+                  "background-position": e.options.imgPosition,
+                  "background-size": e.options.imgSize,
+                  "background-repeat": e.options.imgRepeat,
+                  "background-image":
                     e.image.bgImage || `url("${e.image.src}")`,
                 },
                 t,
-                o
+                o,
               ))),
-        ('opacity' !== e.options.type &&
-          'scale' !== e.options.type &&
-          'scale-opacity' !== e.options.type &&
+        ("opacity" !== e.options.type &&
+          "scale" !== e.options.type &&
+          "scale-opacity" !== e.options.type &&
           1 !== e.options.speed) ||
-          (e.image.position = 'absolute'),
-        'fixed' === e.image.position)
+          (e.image.position = "absolute"),
+        "fixed" === e.image.position)
       ) {
         const t = (function (e) {
           const t = [];
@@ -340,13 +340,13 @@ function onYouTubeIframeAPIReady() {
           return t;
         })(e.$item).filter((e) => {
           const t = i.getComputedStyle(e),
-            o = t['-webkit-transform'] || t['-moz-transform'] || t.transform;
+            o = t["-webkit-transform"] || t["-moz-transform"] || t.transform;
           return (
-            (o && 'none' !== o) ||
-            /(auto|scroll)/.test(t.overflow + t['overflow-y'] + t['overflow-x'])
+            (o && "none" !== o) ||
+            /(auto|scroll)/.test(t.overflow + t["overflow-y"] + t["overflow-x"])
           );
         });
-        e.image.position = t.length ? 'absolute' : 'fixed';
+        e.image.position = t.length ? "absolute" : "fixed";
       }
       var n;
       (o.position = e.image.position),
@@ -355,8 +355,8 @@ function onYouTubeIframeAPIReady() {
         e.onResize(),
         e.onScroll(!0),
         e.options.onInit && e.options.onInit.call(e),
-        'none' !== e.css(e.$item, 'background-image') &&
-          e.css(e.$item, { 'background-image': 'none' }),
+        "none" !== e.css(e.$item, "background-image") &&
+          e.css(e.$item, { "background-image": "none" }),
         (n = e),
         m.push({ instance: n }),
         1 === m.length && i.requestAnimationFrame(d),
@@ -370,17 +370,17 @@ function onYouTubeIframeAPIReady() {
           e.instance.instanceID === t.instanceID && m.splice(i, 1);
         }),
         g.unobserve(t.options.elementInViewport || t.$item);
-      const i = e.$item.getAttribute('data-jarallax-original-styles');
+      const i = e.$item.getAttribute("data-jarallax-original-styles");
       if (
-        (e.$item.removeAttribute('data-jarallax-original-styles'),
-        i ? e.$item.setAttribute('style', i) : e.$item.removeAttribute('style'),
+        (e.$item.removeAttribute("data-jarallax-original-styles"),
+        i ? e.$item.setAttribute("style", i) : e.$item.removeAttribute("style"),
         e.image.useImgTag)
       ) {
-        const t = e.image.$item.getAttribute('data-jarallax-original-styles');
-        e.image.$item.removeAttribute('data-jarallax-original-styles'),
+        const t = e.image.$item.getAttribute("data-jarallax-original-styles");
+        e.image.$item.removeAttribute("data-jarallax-original-styles"),
           t
-            ? e.image.$item.setAttribute('style', i)
-            : e.image.$item.removeAttribute('style'),
+            ? e.image.$item.setAttribute("style", i)
+            : e.image.$item.removeAttribute("style"),
           e.image.$itemParent && e.image.$itemParent.appendChild(e.image.$item);
       }
       e.image.$container &&
@@ -394,7 +394,7 @@ function onYouTubeIframeAPIReady() {
         i = e.image.$container.getBoundingClientRect(),
         o = i.height,
         { speed: n } = e.options,
-        a = 'scroll' === e.options.type || 'scroll-opacity' === e.options.type;
+        a = "scroll" === e.options.type || "scroll-opacity" === e.options.type;
       let s = 0,
         l = o,
         r = 0;
@@ -406,15 +406,15 @@ function onYouTubeIframeAPIReady() {
           n > 1
             ? (l = Math.abs(s - t))
             : n < 0
-            ? (l = s / n + Math.abs(s))
-            : (l += (t - o) * (1 - n)),
+              ? (l = s / n + Math.abs(s))
+              : (l += (t - o) * (1 - n)),
           (s /= 2)),
         (e.parallaxScrollDistance = s),
         (r = a ? (t - l) / 2 : (o - l) / 2),
         e.css(e.image.$item, {
           height: `${l}px`,
           marginTop: `${r}px`,
-          left: 'fixed' === e.image.position ? `${i.left}px` : '0',
+          left: "fixed" === e.image.position ? `${i.left}px` : "0",
           width: `${i.width}px`,
         }),
         e.options.onCoverImage && e.options.onCoverImage.call(e),
@@ -444,13 +444,13 @@ function onYouTubeIframeAPIReady() {
         (a < i
           ? (f = 1 - (c || m) / a)
           : r <= i
-          ? (f = r / i)
-          : d <= i && (f = d / i),
-        ('opacity' !== t.options.type &&
-          'scale-opacity' !== t.options.type &&
-          'scroll-opacity' !== t.options.type) ||
-          ((s.transform = 'translate3d(0,0,0)'), (s.opacity = f)),
-        'scale' === t.options.type || 'scale-opacity' === t.options.type)
+            ? (f = r / i)
+            : d <= i && (f = d / i),
+        ("opacity" !== t.options.type &&
+          "scale-opacity" !== t.options.type &&
+          "scroll-opacity" !== t.options.type) ||
+          ((s.transform = "translate3d(0,0,0)"), (s.opacity = f)),
+        "scale" === t.options.type || "scale-opacity" === t.options.type)
       ) {
         let e = 1;
         t.options.speed < 0
@@ -458,9 +458,9 @@ function onYouTubeIframeAPIReady() {
           : (e += t.options.speed * (1 - f)),
           (s.transform = `scale(${e}) translate3d(0,0,0)`);
       }
-      if ('scroll' === t.options.type || 'scroll-opacity' === t.options.type) {
+      if ("scroll" === t.options.type || "scroll-opacity" === t.options.type) {
         let e = t.parallaxScrollDistance * u;
-        'absolute' === t.image.position && (e -= n),
+        "absolute" === t.image.position && (e -= n),
           (s.transform = `translate3d(0,${e}px,0)`);
       }
       t.css(t.image.$item, s),
@@ -482,19 +482,19 @@ function onYouTubeIframeAPIReady() {
     }
   }
   const b = function (e, t, ...i) {
-    ('object' == typeof HTMLElement
+    ("object" == typeof HTMLElement
       ? e instanceof HTMLElement
       : e &&
-        'object' == typeof e &&
+        "object" == typeof e &&
         null !== e &&
         1 === e.nodeType &&
-        'string' == typeof e.nodeName) && (e = [e]);
+        "string" == typeof e.nodeName) && (e = [e]);
     const o = e.length;
     let n,
       a = 0;
     for (; a < o; a += 1)
       if (
-        ('object' == typeof t || void 0 === t
+        ("object" == typeof t || void 0 === t
           ? e[a].jarallax || (e[a].jarallax = new h(e[a], t))
           : e[a].jarallax && (n = e[a].jarallax[t].apply(e[a].jarallax, i)),
         void 0 !== n)
@@ -508,7 +508,7 @@ function onYouTubeIframeAPIReady() {
     const e = function (...e) {
       Array.prototype.unshift.call(e, this);
       const t = b.apply(i, e);
-      return 'object' != typeof t ? t : this;
+      return "object" != typeof t ? t : this;
     };
     e.constructor = b.constructor;
     const t = y.fn.jarallax;
@@ -519,7 +519,7 @@ function onYouTubeIframeAPIReady() {
   }
   return (
     e(() => {
-      b(document.querySelectorAll('[data-jarallax]'));
+      b(document.querySelectorAll("[data-jarallax]"));
     }),
     b
   );
@@ -529,14 +529,14 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
 
 //done
 ((factory) => {
-  'use strict';
-  if (typeof define === 'function' && define.amd) {
-    define(['jQuery_T4NT'], factory);
+  "use strict";
+  if (typeof define === "function" && define.amd) {
+    define(["jQuery_T4NT"], factory);
   } else {
     factory(window.jQuery);
   }
 })(($) => {
-  'use strict';
+  "use strict";
   class Countdown {
     countdownInstances = [];
     static dateRegexList = [
@@ -549,22 +549,22 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
       elapse: false,
       defer: false,
     };
-    dateRegex = new RegExp(Countdown.dateRegexList.join('|'));
+    dateRegex = new RegExp(Countdown.dateRegexList.join("|"));
 
     timeUnits = {
-      Y: 'years',
-      m: 'months',
-      n: 'daysToMonth',
-      d: 'daysToWeek',
-      w: 'weeks',
-      W: 'weeksToMonth',
-      H: 'hours',
-      M: 'minutes',
-      S: 'seconds',
-      D: 'totalDays',
-      I: 'totalHours',
-      N: 'totalMinutes',
-      T: 'totalSeconds',
+      Y: "years",
+      m: "months",
+      n: "daysToMonth",
+      d: "daysToWeek",
+      w: "weeks",
+      W: "weeksToMonth",
+      H: "hours",
+      M: "minutes",
+      S: "seconds",
+      D: "totalDays",
+      I: "totalHours",
+      N: "totalMinutes",
+      T: "totalSeconds",
     };
 
     el = null;
@@ -580,13 +580,13 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
       this.interval = null;
       this.offset = {};
       this.countdownInstances.push(this);
-      this.$el.data('countdown-instance', this.instanceNumber);
+      this.$el.data("countdown-instance", this.instanceNumber);
 
       if (options) {
-        if (typeof options === 'function') {
-          this.$el.on('update.countdown', options);
-          this.$el.on('stoped.countdown', options);
-          this.$el.on('finish.countdown', options);
+        if (typeof options === "function") {
+          this.$el.on("update.countdown", options);
+          this.$el.on("stoped.countdown", options);
+          this.$el.on("finish.countdown", options);
         } else {
           this.options = $.extend({}, this.defaultOptions, options);
         }
@@ -599,7 +599,7 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
 
     escapeRegex(string) {
       const regexSpecialChars = /([.?*+^$[\]\\(){}|-])/g;
-      return new RegExp(string.toString().replace(regexSpecialChars, '\\$1'));
+      return new RegExp(string.toString().replace(regexSpecialChars, "\\$1"));
     }
 
     createFormatter(template) {
@@ -610,8 +610,8 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
           for (let match of matches) {
             const matchDetails = match.match(/%(-|!)?([a-zA-Z]{1})(:[^;]+;)?/);
             const regex = countdownInstance.escapeRegex(matchDetails[0]);
-            const flag = matchDetails[1] || '';
-            const formatSpec = matchDetails[3] || '';
+            const flag = matchDetails[1] || "";
+            const formatSpec = matchDetails[3] || "";
             let value = null;
             const key = matchDetails[2];
 
@@ -620,28 +620,28 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
               value = Number(template[value]);
             }
             if (value !== null) {
-              if (flag === '!') {
+              if (flag === "!") {
                 value = countdownInstance.formatTimeUnit(formatSpec, value);
               }
-              if (flag === '' && value < 10) {
-                value = '0' + value.toString();
+              if (flag === "" && value < 10) {
+                value = "0" + value.toString();
               }
               formattedString = formattedString.replace(
                 regex,
-                value.toString()
+                value.toString(),
               );
             }
           }
         }
-        return formattedString.replace(/%%/, '%');
+        return formattedString.replace(/%%/, "%");
       };
     }
 
     formatTimeUnit(formatSpec, value) {
-      let unit = 's';
-      let alternative = '';
+      let unit = "s";
+      let alternative = "";
       if (formatSpec) {
-        const parts = formatSpec.replace(/(:|;|\s)/gi, '').split(/\,/);
+        const parts = formatSpec.replace(/(:|;|\s)/gi, "").split(/\,/);
         unit =
           parts.length === 1 ? parts[0] : ((alternative = parts[0]), parts[1]);
       }
@@ -657,7 +657,7 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
     stop() {
       clearInterval(this.interval);
       this.interval = null;
-      this.dispatchEvent('stoped');
+      this.dispatchEvent("stoped");
     }
 
     toggle() {
@@ -688,8 +688,8 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
         if (/^[0-9]*$/.test(dateInput)) {
           dateInput = Number(dateInput);
         }
-        if (String(dateInput).includes('-')) {
-          dateInput = String(dateInput).replace(/-/g, '/');
+        if (String(dateInput).includes("-")) {
+          dateInput = String(dateInput).replace(/-/g, "/");
         }
         return new Date(dateInput);
       }
@@ -697,12 +697,12 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
       throw new Error(`Couldn't cast "${dateInput}" to a date object.`);
     }
     update() {
-      if (this.$el.closest('html').length === 0) {
+      if (this.$el.closest("html").length === 0) {
         this.remove();
         return;
       }
 
-      const eventExists = typeof $._data(this.el, 'events') !== 'undefined';
+      const eventExists = typeof $._data(this.el, "events") !== "undefined";
       const currentTime = new Date();
       let timeDifference = this.finalDate.getTime() - currentTime.getTime();
       timeDifference = Math.ceil(timeDifference / 1000);
@@ -725,7 +725,7 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
           weeksToMonth: Math.floor(this.totalSecsLeft / 604800) % 4,
           months: Math.floor(this.totalSecsLeft / 2629743),
           years: Math.abs(
-            this.finalDate.getFullYear() - currentTime.getFullYear()
+            this.finalDate.getFullYear() - currentTime.getFullYear(),
           ),
           totalDays: Math.floor(this.totalSecsLeft / 86400),
           totalHours: Math.floor(this.totalSecsLeft / 3600),
@@ -734,15 +734,15 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
         };
 
         if (this.options.elapse || this.totalSecsLeft !== 0) {
-          this.dispatchEvent('update');
+          this.dispatchEvent("update");
         } else {
           this.stop();
-          this.dispatchEvent('finish');
+          this.dispatchEvent("finish");
         }
       }
     }
     dispatchEvent(eventName) {
-      const event = $.Event(eventName + '.countdown');
+      const event = $.Event(eventName + ".countdown");
       event.finalDate = this.finalDate;
       event.elapsed = this.elapsed;
       event.offset = $.extend({}, this.offset);
@@ -754,7 +754,7 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
   $.fn.countdown = function () {
     const args = Array.prototype.slice.call(arguments, 0);
     return this.each(function () {
-      const instanceIndex = $(this).data('countdown-instance');
+      const instanceIndex = $(this).data("countdown-instance");
       if (instanceIndex !== undefined) {
         const instance = this.countdownInstances[instanceIndex];
         const method = args[0];
@@ -775,49 +775,49 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
 
 //day.min.js
 !(function (t, e) {
-  'object' == typeof exports && 'undefined' != typeof module
+  "object" == typeof exports && "undefined" != typeof module
     ? (module.exports = e())
-    : 'function' == typeof define && define.amd
-    ? define(e)
-    : ((t = 'undefined' != typeof globalThis ? globalThis : t || self).dayjs =
-        e());
+    : "function" == typeof define && define.amd
+      ? define(e)
+      : ((t = "undefined" != typeof globalThis ? globalThis : t || self).dayjs =
+          e());
 })(window, function () {
-  'use strict';
+  "use strict";
   var t = 1e3,
     e = 6e4,
     n = 36e5,
-    r = 'millisecond',
-    i = 'second',
-    s = 'minute',
-    u = 'hour',
-    a = 'day',
-    o = 'week',
-    c = 'month',
-    f = 'quarter',
-    h = 'year',
-    d = 'date',
-    l = 'Invalid Date',
+    r = "millisecond",
+    i = "second",
+    s = "minute",
+    u = "hour",
+    a = "day",
+    o = "week",
+    c = "month",
+    f = "quarter",
+    h = "year",
+    d = "date",
+    l = "Invalid Date",
     $ =
       /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/,
     y =
       /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,
     M = {
-      name: 'en',
+      name: "en",
       weekdays:
-        'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+        "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
       months:
-        'January_February_March_April_May_June_July_August_September_October_November_December'.split(
-          '_'
+        "January_February_March_April_May_June_July_August_September_October_November_December".split(
+          "_",
         ),
       ordinal: function (t) {
-        var e = ['th', 'st', 'nd', 'rd'],
+        var e = ["th", "st", "nd", "rd"],
           n = t % 100;
-        return '[' + t + (e[(n - 20) % 10] || e[n] || e[0]) + ']';
+        return "[" + t + (e[(n - 20) % 10] || e[n] || e[0]) + "]";
       },
     },
     m = function (t, e, n) {
       var r = String(t);
-      return !r || r.length >= e ? t : '' + Array(e + 1 - r.length).join(n) + t;
+      return !r || r.length >= e ? t : "" + Array(e + 1 - r.length).join(n) + t;
     },
     v = {
       s: m,
@@ -826,7 +826,7 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
           n = Math.abs(e),
           r = Math.floor(n / 60),
           i = n % 60;
-        return (e <= 0 ? '+' : '-') + m(r, 2, '0') + ':' + m(i, 2, '0');
+        return (e <= 0 ? "+" : "-") + m(r, 2, "0") + ":" + m(i, 2, "0");
       },
       m: function t(e, n) {
         if (e.date() < n.date()) return -t(n, e);
@@ -842,29 +842,29 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
       p: function (t) {
         return (
           { M: c, y: h, w: o, d: a, D: d, h: u, m: s, s: i, ms: r, Q: f }[t] ||
-          String(t || '')
+          String(t || "")
             .toLowerCase()
-            .replace(/s$/, '')
+            .replace(/s$/, "")
         );
       },
       u: function (t) {
         return void 0 === t;
       },
     },
-    g = 'en',
+    g = "en",
     D = {};
   D[g] = M;
-  var p = '$isDayjsObject',
+  var p = "$isDayjsObject",
     S = function (t) {
       return t instanceof _ || !(!t || !t[p]);
     },
     w = function t(e, n, r) {
       var i;
       if (!e) return g;
-      if ('string' == typeof e) {
+      if ("string" == typeof e) {
         var s = e.toLowerCase();
         D[s] && (i = s), n && ((D[s] = n), (i = s));
-        var u = e.split('-');
+        var u = e.split("-");
         if (!i && u.length > 1) return t(u[0]);
       } else {
         var a = e.name;
@@ -874,7 +874,7 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
     },
     O = function (t, e) {
       if (S(t)) return t.clone();
-      var n = 'object' == typeof e ? e : {};
+      var n = "object" == typeof e ? e : {};
       return (n.date = t), (n.args = arguments), new _(n);
     },
     b = v;
@@ -899,11 +899,11 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
             if (null === e) return new Date(NaN);
             if (b.u(e)) return new Date();
             if (e instanceof Date) return new Date(e);
-            if ('string' == typeof e && !/Z$/i.test(e)) {
+            if ("string" == typeof e && !/Z$/i.test(e)) {
               var r = e.match($);
               if (r) {
                 var i = r[2] - 1 || 0,
-                  s = (r[7] || '0').substring(0, 3);
+                  s = (r[7] || "0").substring(0, 3);
                 return n
                   ? new Date(
                       Date.UTC(
@@ -913,8 +913,8 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
                         r[4] || 0,
                         r[5] || 0,
                         r[6] || 0,
-                        s
-                      )
+                        s,
+                      ),
                     )
                   : new Date(
                       r[1],
@@ -923,7 +923,7 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
                       r[4] || 0,
                       r[5] || 0,
                       r[6] || 0,
-                      s
+                      s,
                     );
               }
             }
@@ -974,7 +974,7 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
             l = function (t, e) {
               var i = b.w(
                 n.$u ? Date.UTC(n.$y, e, t) : new Date(n.$y, e, t),
-                n
+                n,
               );
               return r ? i : i.endOf(a);
             },
@@ -982,17 +982,16 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
               return b.w(
                 n
                   .toDate()
-                  [t].apply(
-                    n.toDate('s'),
-                    (r ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e)
-                  ),
-                n
+                  [
+                    t
+                  ].apply(n.toDate("s"), (r ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e)),
+                n,
               );
             },
             y = this.$W,
             M = this.$M,
             m = this.$D,
-            v = 'set' + (this.$u ? 'UTC' : '');
+            v = "set" + (this.$u ? "UTC" : "");
           switch (f) {
             case h:
               return r ? l(1, 0) : l(31, 11);
@@ -1004,13 +1003,13 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
               return l(r ? m - D : m + (6 - D), M);
             case a:
             case d:
-              return window.jQuery(v + 'Hours', 0);
+              return window.jQuery(v + "Hours", 0);
             case u:
-              return window.jQuery(v + 'Minutes', 1);
+              return window.jQuery(v + "Minutes", 1);
             case s:
-              return window.jQuery(v + 'Seconds', 2);
+              return window.jQuery(v + "Seconds", 2);
             case i:
-              return window.jQuery(v + 'Milliseconds', 3);
+              return window.jQuery(v + "Milliseconds", 3);
             default:
               return this.clone();
           }
@@ -1021,16 +1020,16 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
         (m.$set = function (t, e) {
           var n,
             o = b.p(t),
-            f = 'set' + (this.$u ? 'UTC' : ''),
+            f = "set" + (this.$u ? "UTC" : ""),
             l = ((n = {}),
-            (n[a] = f + 'Date'),
-            (n[d] = f + 'Date'),
-            (n[c] = f + 'Month'),
-            (n[h] = f + 'FullYear'),
-            (n[u] = f + 'Hours'),
-            (n[s] = f + 'Minutes'),
-            (n[i] = f + 'Seconds'),
-            (n[r] = f + 'Milliseconds'),
+            (n[a] = f + "Date"),
+            (n[d] = f + "Date"),
+            (n[c] = f + "Month"),
+            (n[h] = f + "FullYear"),
+            (n[u] = f + "Hours"),
+            (n[s] = f + "Minutes"),
+            (n[i] = f + "Seconds"),
+            (n[r] = f + "Milliseconds"),
             n)[o],
             $ = o === a ? this.$D + (e - this.$W) : e;
           if (o === c || o === h) {
@@ -1071,7 +1070,7 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
           var e = this,
             n = this.$locale();
           if (!this.isValid()) return n.invalidDate || l;
-          var r = t || 'YYYY-MM-DDTHH:mm:ssZ',
+          var r = t || "YYYY-MM-DDTHH:mm:ssZ",
             i = b.z(this),
             s = this.$H,
             u = this.$m,
@@ -1083,12 +1082,12 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
               return (t && (t[n] || t(e, r))) || i[n].slice(0, s);
             },
             d = function (t) {
-              return b.s(s % 12 || 12, t, '0');
+              return b.s(s % 12 || 12, t, "0");
             },
             $ =
               f ||
               function (t, e, n) {
-                var r = t < 12 ? 'AM' : 'PM';
+                var r = t < 12 ? "AM" : "PM";
                 return n ? r.toLowerCase() : r;
               };
           return r.replace(y, function (t, r) {
@@ -1096,58 +1095,58 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
               r ||
               (function (t) {
                 switch (t) {
-                  case 'YY':
+                  case "YY":
                     return String(e.$y).slice(-2);
-                  case 'YYYY':
-                    return b.s(e.$y, 4, '0');
-                  case 'M':
+                  case "YYYY":
+                    return b.s(e.$y, 4, "0");
+                  case "M":
                     return a + 1;
-                  case 'MM':
-                    return b.s(a + 1, 2, '0');
-                  case 'MMM':
+                  case "MM":
+                    return b.s(a + 1, 2, "0");
+                  case "MMM":
                     return h(n.monthsShort, a, c, 3);
-                  case 'MMMM':
+                  case "MMMM":
                     return h(c, a);
-                  case 'D':
+                  case "D":
                     return e.$D;
-                  case 'DD':
-                    return b.s(e.$D, 2, '0');
-                  case 'd':
+                  case "DD":
+                    return b.s(e.$D, 2, "0");
+                  case "d":
                     return String(e.$W);
-                  case 'dd':
+                  case "dd":
                     return h(n.weekdaysMin, e.$W, o, 2);
-                  case 'ddd':
+                  case "ddd":
                     return h(n.weekdaysShort, e.$W, o, 3);
-                  case 'dddd':
+                  case "dddd":
                     return o[e.$W];
-                  case 'H':
+                  case "H":
                     return String(s);
-                  case 'HH':
-                    return b.s(s, 2, '0');
-                  case 'h':
+                  case "HH":
+                    return b.s(s, 2, "0");
+                  case "h":
                     return d(1);
-                  case 'hh':
+                  case "hh":
                     return d(2);
-                  case 'a':
+                  case "a":
                     return window.jQuery(s, u, !0);
-                  case 'A':
+                  case "A":
                     return window.jQuery(s, u, !1);
-                  case 'm':
+                  case "m":
                     return String(u);
-                  case 'mm':
-                    return b.s(u, 2, '0');
-                  case 's':
+                  case "mm":
+                    return b.s(u, 2, "0");
+                  case "s":
                     return String(e.$s);
-                  case 'ss':
-                    return b.s(e.$s, 2, '0');
-                  case 'SSS':
-                    return b.s(e.$ms, 3, '0');
-                  case 'Z':
+                  case "ss":
+                    return b.s(e.$s, 2, "0");
+                  case "SSS":
+                    return b.s(e.$ms, 3, "0");
+                  case "Z":
                     return i;
                 }
                 return null;
               })(t) ||
-              i.replace(':', '')
+              i.replace(":", "")
             );
           });
         }),
@@ -1228,14 +1227,14 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
   return (
     (O.prototype = k),
     [
-      ['$ms', r],
-      ['$s', i],
-      ['$m', s],
-      ['$H', u],
-      ['$W', a],
-      ['$M', c],
-      ['$y', h],
-      ['$D', d],
+      ["$ms", r],
+      ["$s", i],
+      ["$m", s],
+      ["$H", u],
+      ["$W", a],
+      ["$M", c],
+      ["$y", h],
+      ["$D", d],
     ].forEach(function (t) {
       k[t[1]] = function (e) {
         return this.$g(e, t[0], t[1]);
@@ -1258,17 +1257,17 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
 
 //dayjs_plugin_utc
 !(function (t, e) {
-  'object' == typeof exports && 'undefined' != typeof module
+  "object" == typeof exports && "undefined" != typeof module
     ? (module.exports = e())
-    : 'function' == typeof define && define.amd
-    ? define(e)
-    : ((t =
-        'undefined' != typeof globalThis
-          ? globalThis
-          : t || self).dayjs_plugin_utc = e());
+    : "function" == typeof define && define.amd
+      ? define(e)
+      : ((t =
+          "undefined" != typeof globalThis
+            ? globalThis
+            : t || self).dayjs_plugin_utc = e());
 })(window, function () {
-  'use strict';
-  var t = 'minute',
+  "use strict";
+  var t = "minute",
     e = /[+-]\d\d(?::?\d\d)?/g,
     i = /([+-]|\d\d)/g;
   return function (a, n, o) {
@@ -1319,15 +1318,15 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
       if (o(a))
         return this.$u ? 0 : o(this.$offset) ? l.call(this) : this.$offset;
       if (
-        'string' == typeof a &&
+        "string" == typeof a &&
         null ===
           (a = (function (t) {
-            void 0 === t && (t = '');
+            void 0 === t && (t = "");
             var a = t.match(e);
             if (!a) return null;
-            var n = ('' + a[0]).match(i) || ['-', 0, 0],
+            var n = ("" + a[0]).match(i) || ["-", 0, 0],
               o = 60 * +n[1] + +n[2];
-            return 0 === o ? 0 : '+' === n[0] ? o : -o;
+            return 0 === o ? 0 : "+" === n[0] ? o : -o;
           })(a))
       )
         return this;
@@ -1344,7 +1343,7 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
     };
     var c = s.format;
     (s.format = function (t) {
-      var e = t || (this.$u ? 'YYYY-MM-DDTHH:mm:ss[Z]' : '');
+      var e = t || (this.$u ? "YYYY-MM-DDTHH:mm:ss[Z]" : "");
       return c.call(this, e);
     }),
       (s.valueOf = function () {
@@ -1365,8 +1364,8 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
       });
     var u = s.toDate;
     s.toDate = function (t) {
-      return 's' === t && this.$offset
-        ? o(this.format('YYYY-MM-DD HH:mm:ss:SSS')).toDate()
+      return "s" === t && this.$offset
+        ? o(this.format("YYYY-MM-DD HH:mm:ss:SSS")).toDate()
         : u.call(this);
     };
     var f = s.diff;
@@ -1381,16 +1380,16 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
 
 //dayjs_plugin_timezone
 !(function (t, e) {
-  'object' == typeof exports && 'undefined' != typeof module
+  "object" == typeof exports && "undefined" != typeof module
     ? (module.exports = e())
-    : 'function' == typeof define && define.amd
-    ? define(e)
-    : ((t =
-        'undefined' != typeof globalThis
-          ? globalThis
-          : t || self).dayjs_plugin_timezone = e());
+    : "function" == typeof define && define.amd
+      ? define(e)
+      : ((t =
+          "undefined" != typeof globalThis
+            ? globalThis
+            : t || self).dayjs_plugin_timezone = e());
 })(window, function () {
-  'use strict';
+  "use strict";
   var t = {
       year: 0,
       month: 1,
@@ -1407,20 +1406,20 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
         var n = new Date(t);
         return (function (t, i) {
           void 0 === i && (i = {});
-          var a = i.timeZoneName || 'short',
-            n = t + '|' + a,
+          var a = i.timeZoneName || "short",
+            n = t + "|" + a,
             o = e[n];
           return (
             o ||
-              ((o = new Intl.DateTimeFormat('en-US', {
+              ((o = new Intl.DateTimeFormat("en-US", {
                 hour12: !1,
                 timeZone: t,
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
                 timeZoneName: a,
               })),
               (e[n] = o)),
@@ -1440,17 +1439,17 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
           p = 24 === f ? 0 : f,
           h =
             o[0] +
-            '-' +
+            "-" +
             o[1] +
-            '-' +
+            "-" +
             o[2] +
-            ' ' +
+            " " +
             p +
-            ':' +
+            ":" +
             o[4] +
-            ':' +
+            ":" +
             o[5] +
-            ':000',
+            ":000",
           m = +e;
         return (n.utc(h).valueOf() - (m -= m % 1e3)) / 6e4;
       },
@@ -1459,16 +1458,16 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
       void 0 === t && (t = o);
       var i = this.utcOffset(),
         a = this.toDate(),
-        s = a.toLocaleString('en-US', {
+        s = a.toLocaleString("en-US", {
           timeZone: t,
         }),
         r = Math.round((a - new Date(s)) / 1e3 / 60),
         d = n(s)
-          .$set('millisecond', this.$ms)
+          .$set("millisecond", this.$ms)
           .utcOffset(15 * -Math.round(a.getTimezoneOffset() / 15) - r, !0);
       if (e) {
         var l = d.utcOffset();
-        d = d.add(i - l, 'minute');
+        d = d.add(i - l, "minute");
       }
       return (d.$x.$timezone = t), d;
     }),
@@ -1477,21 +1476,21 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
           i = s(this.valueOf(), e, {
             timeZoneName: t,
           }).find(function (t) {
-            return 'timezonename' === t.type.toLowerCase();
+            return "timezonename" === t.type.toLowerCase();
           });
         return i && i.value;
       });
     var l = d.startOf;
     (d.startOf = function (t, e) {
       if (!this.$x || !this.$x.$timezone) return l.call(this, t, e);
-      var i = n(this.format('YYYY-MM-DD HH:mm:ss:SSS'));
+      var i = n(this.format("YYYY-MM-DD HH:mm:ss:SSS"));
       return l.call(i, t, e).tz(this.$x.$timezone, !0);
     }),
       (n.tz = function (t, e, i) {
         var a = i && e,
           s = i || e || o,
           d = r(+n(), s);
-        if ('string' != typeof t) return n(t).tz(s);
+        if ("string" != typeof t) return n(t).tz(s);
         var l = (function (t, e, i) {
             var a = t - 60 * e * 1e3,
               n = r(a, i);
@@ -1516,16 +1515,16 @@ window.jQuery.fn.Jarallax = window.jQuery.fn.jarallax.noConflict();
 });
 
 // Universal Module Definition (UMD) to support various module formats
-dayjs.locale('en');
+dayjs.locale("en");
 dayjs.extend(window.dayjs_plugin_utc);
 dayjs.extend(window.dayjs_plugin_timezone);
 
 ((define) => {
-  if (typeof define === 'function' && define.amd) {
-    define(['jQuery_T4NT'], define);
+  if (typeof define === "function" && define.amd) {
+    define(["jQuery_T4NT"], define);
   } else {
-    define(typeof exports === 'object'
-      ? require('jQuery_T4NT')
+    define(typeof exports === "object"
+      ? require("jQuery_T4NT")
       : window.jQuery);
   }
 })((jQuery) => {
@@ -1566,8 +1565,8 @@ dayjs.extend(window.dayjs_plugin_timezone);
     ev = null;
     _lastFocusedEl = null;
     wH = 0;
-    statusClass = '';
-    type = '';
+    statusClass = "";
+    type = "";
 
     constructor() {}
 
@@ -1585,16 +1584,16 @@ dayjs.extend(window.dayjs_plugin_timezone);
 
     _isProbablyMobile() {
       return /(Opera Mini|Kindle|webOS|BlackBerry|Opera Mobi|Windows Phone|IEMobile)/i.test(
-        navigator.userAgent
+        navigator.userAgent,
       );
     }
 
     checkTransitionSupport() {
-      const style = document.createElement('p').style;
-      const prefixes = ['ms', 'O', 'Moz', 'Webkit'];
+      const style = document.createElement("p").style;
+      const prefixes = ["ms", "O", "Moz", "Webkit"];
       if (style.transition !== undefined) return true;
       for (const prefix of prefixes) {
-        if (prefix + 'Transition' in style) return true;
+        if (prefix + "Transition" in style) return true;
       }
       return false;
     }
@@ -1608,7 +1607,7 @@ dayjs.extend(window.dayjs_plugin_timezone);
 
       // Otherwise, create a new close button using the markup and store it
       this.currTemplate.closeBtn = $(
-        this.st.closeMarkup.replace('%title%', this.st.tClose)
+        this.st.closeMarkup.replace("%title%", this.st.tClose),
       );
 
       // Update the current type
@@ -1640,25 +1639,23 @@ dayjs.extend(window.dayjs_plugin_timezone);
 
       if (!this.isOpen) {
         this.types = [];
-        this.classes = '';
+        this.classes = "";
         this.ev =
           options.mainEl && options.mainEl.length
             ? options.mainEl.eq(0)
             : $document;
-        if(!this.popupsCache[options.key]) {
+        if (!this.popupsCache[options.key]) {
           this.popupsCache[options.key] = {};
         }
-        this.currTemplate = options.key
-          ? this.popupsCache[options.key]
-          : {};
+        this.currTemplate = options.key ? this.popupsCache[options.key] : {};
         this.st = jQuery.extend(
           true,
           {},
           jQuery.magnificPopupT4s.defaults,
-          options
+          options,
         );
         this.fixedContentPos =
-          this.st.fixedContentPos === 'auto'
+          this.st.fixedContentPos === "auto"
             ? !this.probablyMobile
             : this.st.fixedContentPos;
 
@@ -1670,23 +1667,23 @@ dayjs.extend(window.dayjs_plugin_timezone);
         }
 
         if (!this.bgOverlay) {
-          this.bgOverlay = createPlaceholder('bg').on('click.mfp', () =>
-            this.close()
+          this.bgOverlay = createPlaceholder("bg").on("click.mfp", () =>
+            this.close(),
           );
-          this.wrap = createPlaceholder('wrap')
-            .attr('tabindex', -1)
-            .on('click.mfp', (event) => {
+          this.wrap = createPlaceholder("wrap")
+            .attr("tabindex", -1)
+            .on("click.mfp", (event) => {
               if (this._checkIfClose(event.target)) this.close();
             });
-          this.container = createPlaceholder('container', this.wrap);
+          this.container = createPlaceholder("container", this.wrap);
         }
 
-        this.contentContainer = createPlaceholder('content');
+        this.contentContainer = createPlaceholder("content");
         if (this.st.preloader) {
           this.preloader = createPlaceholder(
-            'preloader',
+            "preloader",
             this.container,
-            this.st.tLoading
+            this.st.tLoading,
           );
         }
 
@@ -1697,13 +1694,13 @@ dayjs.extend(window.dayjs_plugin_timezone);
           this[`init${capitalizedModule}`].call(this);
         }
 
-        createPlaceholder('BeforeOpen');
+        createPlaceholder("BeforeOpen");
         if (this.st.showCloseBtn) {
           if (this.st.closeBtnInside) {
-            registerEvent('MarkupParse', (event, element, item, type) => {
+            registerEvent("MarkupParse", (event, element, item, type) => {
               item.close_replaceWith = this.createCloseButton(type);
             });
-            this.classes += ' mfp-close-btn-in';
+            this.classes += " mfp-close-btn-in";
           } else {
             this.wrap.append(this.createCloseButton());
           }
@@ -1718,16 +1715,16 @@ dayjs.extend(window.dayjs_plugin_timezone);
     }
 
     registerEvent(eventType, callback) {
-      this.ev.on('mfp' + eventType + '.mfp', callback);
+      this.ev.on("mfp" + eventType + ".mfp", callback);
     }
 
     close() {
       if (!this.isOpen) return;
-      this._triggerEvent('BeforeClose');
+      this._triggerEvent("BeforeClose");
       this.isOpen = false;
 
       if (this.st.removalDelay && !this.isLowIE && this.supportsTransition) {
-        this._addClassToMFP('mfp-removing');
+        this._addClassToMFP("mfp-removing");
         setTimeout(() => this._close(), this.st.removalDelay);
       } else {
         this._close();
@@ -1735,14 +1732,14 @@ dayjs.extend(window.dayjs_plugin_timezone);
     }
 
     _close() {
-      this._triggerEvent('Close');
-      const classes = 'mfp-removing mfp-ready ';
+      this._triggerEvent("Close");
+      const classes = "mfp-removing mfp-ready ";
 
       this.bgOverlay.detach();
       this.wrap.detach();
       this.container.empty();
       if (this.st.mainClass) {
-        classes += e.st.mainClass + ' ';
+        classes += e.st.mainClass + " ";
       }
       this._removeClassFromMFP(classes);
       this._restoreBodyStyles();
@@ -1753,25 +1750,25 @@ dayjs.extend(window.dayjs_plugin_timezone);
       this.currTemplate = null;
       this.prevHeight = 0;
 
-      this._triggerEvent('AfterClose');
+      this._triggerEvent("AfterClose");
     }
 
     _restoreBodyStyles() {
       if (this.fixedContentPos) {
         const n = {
-          marginRight: '',
+          marginRight: "",
         };
-        this.isIE7 ? $('body, html').css('overflow', '') : (n.overflow = ''),
-          $('html').css(n);
+        this.isIE7 ? $("body, html").css("overflow", "") : (n.overflow = ""),
+          $("html").css(n);
       }
     }
 
     _unbindEvents() {
-      $document.off('keyup.mfp focusin.mfp');
-      this.ev.off('.mfp');
-      this.wrap.attr('class', 'mfp-wrap').removeAttr('style');
-      this.bgOverlay.attr('class', 'mfp-bg');
-      this.container.attr('class', 'mfp-container');
+      $document.off("keyup.mfp focusin.mfp");
+      this.ev.off(".mfp");
+      this.wrap.attr("class", "mfp-wrap").removeAttr("style");
+      this.bgOverlay.attr("class", "mfp-bg");
+      this.container.attr("class", "mfp-container");
       if (
         !this.st.showCloseBtn ||
         (this.st.closeBtnInside &&
@@ -1789,16 +1786,16 @@ dayjs.extend(window.dayjs_plugin_timezone);
         const scaleFactor =
           document.documentElement.clientWidth / window.innerWidth;
         this.wH = window.innerHeight * scaleFactor;
-        this.wrap.css('height', this.wH);
+        this.wrap.css("height", this.wH);
       } else {
         this.wH = height || $window.height();
       }
 
       if (!this.fixedContentPos) {
-        this.wrap.css('height', this.wH);
+        this.wrap.css("height", this.wH);
       }
 
-      this._triggerEvent('Resize');
+      this._triggerEvent("Resize");
     }
 
     updateItemHTML() {
@@ -1817,20 +1814,20 @@ dayjs.extend(window.dayjs_plugin_timezone);
       }
       this.type &&
         this.type !== itemType &&
-        this.container.removeClass('mfp-' + this.type + '-holder');
+        this.container.removeClass("mfp-" + this.type + "-holder");
       const newContent = this[
         `get${itemType.charAt(0).toUpperCase() + itemType.slice(1)}`
       ](item, this.currTemplate[itemType]);
       this.appendContent(newContent, itemType);
       item.preloaded = true;
-      this._triggerEvent('Change', item);
+      this._triggerEvent("Change", item);
       this.type = item.type;
       this.container.prepend(this.contentContainer);
-      this._triggerEvent('AfterChange');
+      this._triggerEvent("AfterChange");
     }
 
     appendContent(content, type) {
-      if (content === '' && type === 'ajax') return false;
+      if (content === "" && type === "ajax") return false;
       this.content = content;
       if (this.content) {
         if (
@@ -1838,17 +1835,17 @@ dayjs.extend(window.dayjs_plugin_timezone);
           this.st.closeBtnInside &&
           this.currTemplate[type]
         ) {
-          if (!this.content.find('.mfp-close').length) {
+          if (!this.content.find(".mfp-close").length) {
             this.content.append(this._createCloseButton());
           }
         } else {
           this.content = content;
         }
       } else {
-        this.content = '';
+        this.content = "";
       }
 
-      this._triggerEvent('BeforeAppend');
+      this._triggerEvent("BeforeAppend");
       this.container.addClass(`mfp-${type}-holder`);
       this.contentContainer.append(this.content);
     }
@@ -1861,48 +1858,48 @@ dayjs.extend(window.dayjs_plugin_timezone);
         if (this.st.callbacks[callbackKey]) {
           this.st.callbacks[callbackKey].apply(
             this,
-            Array.isArray(data) ? data : [data]
+            Array.isArray(data) ? data : [data],
           );
         }
       }
     }
 
     _applyClasses() {
-      if (this.st.alignTop) this.classes += ' mfp-align-top';
+      if (this.st.alignTop) this.classes += " mfp-align-top";
       if (this.fixedContentPos) {
         this.wrap.css({
           overflow: this.st.overflowY,
-          overflowX: 'hidden',
+          overflowX: "hidden",
           overflowY: this.st.overflowY,
         });
       } else {
         this.wrap.css({
           top: this.dom.scrollTop(),
-          position: 'absolute',
+          position: "absolute",
         });
       }
 
       if (
         this.st.fixedBgPos === false ||
-        ('auto' === this.st.fixedBgPos && !this.fixedContentPos)
+        ("auto" === this.st.fixedBgPos && !this.fixedContentPos)
       ) {
         // this._hasScrollBar($(window).height())) {
         this.bgOverlay.css({
           height: this.dom.height(),
-          position: 'absolute',
+          position: "absolute",
         });
       }
       if (this.st.enableEscapeKey) {
-        $document.on('keyup.mfp', (e) => {
+        $document.on("keyup.mfp", (e) => {
           if (e.keyCode === 27) this.close();
         });
       }
-      $window.on('resize.mfp', () => {
+      $window.on("resize.mfp", () => {
         this.updateSize();
       });
 
       if (this.st.closeOnContentClick) {
-        this.classes += ' mfp-auto-cursor';
+        this.classes += " mfp-auto-cursor";
       }
 
       if (this.classes) {
@@ -1927,17 +1924,17 @@ dayjs.extend(window.dayjs_plugin_timezone);
       if (this.fixedContentPos) {
         if (this.isIE8) {
           // For IE7, apply overflow hidden to both body and html elements
-          $('body, html').css('overflow', 'hidden');
+          $("body, html").css("overflow", "hidden");
         } else {
           // Otherwise, just set overflow to hidden
-          styleUpdates.overflow = 'hidden';
+          styleUpdates.overflow = "hidden";
         }
       }
 
       // Handle the main class for the popup
       const mainPopupClass = this.st.mainClass;
       if (this.isIE8) {
-        mainPopupClass += ' mfp-ie7'; // Add IE7 specific class
+        mainPopupClass += " mfp-ie7"; // Add IE7 specific class
       }
 
       if (mainPopupClass) {
@@ -1945,7 +1942,7 @@ dayjs.extend(window.dayjs_plugin_timezone);
       }
 
       this.updateItemHTML(); // Update popup content
-      this.eventTrigger('BuildControls'); // Trigger 'BuildControls' event
+      this.eventTrigger("BuildControls"); // Trigger 'BuildControls' event
 
       // Apply CSS updates to the 'html' element
       $html.css(styleUpdates);
@@ -1959,17 +1956,17 @@ dayjs.extend(window.dayjs_plugin_timezone);
       // Initialize popup, set focus, and handle the 'ready' state
       setTimeout(function () {
         if (this.content) {
-          this._addClassToMFP('mfp-ready'); // Mark popup as ready
+          this._addClassToMFP("mfp-ready"); // Mark popup as ready
           this._setFocus(); // Set focus on popup content
         } else {
-          this.bgOverlay.addClass('mfp-ready'); // Mark background as ready
+          this.bgOverlay.addClass("mfp-ready"); // Mark background as ready
         }
-        $document.on('focusin.mfp', this._onFocusIn); // Handle focus events inside popup
+        $document.on("focusin.mfp", this._onFocusIn); // Handle focus events inside popup
       }, 16);
 
       this.isOpen = true; // Set popup state to open
       this.updateSize(this.wH); // Update popup size based on window height
-      triggerPopupEvent('open');
+      triggerPopupEvent("open");
     }
 
     _createCloseButton() {
@@ -1992,9 +1989,9 @@ dayjs.extend(window.dayjs_plugin_timezone);
 
     _getScrollbarSize() {
       if (this.scrollbarSize === undefined) {
-        const div = document.createElement('div');
+        const div = document.createElement("div");
         div.style.cssText =
-          'width: 99px; height: 99px; overflow: scroll; position: absolute; top: -9999px;';
+          "width: 99px; height: 99px; overflow: scroll; position: absolute; top: -9999px;";
         document.body.appendChild(div);
         this.scrollbarSize = div.offsetWidth - div.clientWidth;
         document.body.removeChild(div);
@@ -2003,7 +2000,7 @@ dayjs.extend(window.dayjs_plugin_timezone);
     }
 
     _checkIfClose(target) {
-      return !$(target).closest('.mfp-content').length;
+      return !$(target).closest(".mfp-content").length;
     }
 
     parseEl(index) {
@@ -2028,15 +2025,15 @@ dayjs.extend(window.dayjs_plugin_timezone);
         }
 
         currentItem.src =
-          currentItem.el.attr('data-mfp-src') || currentItem.el.attr('href');
+          currentItem.el.attr("data-mfp-src") || currentItem.el.attr("href");
       }
 
-      currentItem.type = elementType || this.st.type || 'inline';
+      currentItem.type = elementType || this.st.type || "inline";
       currentItem.index = index;
       currentItem.parsed = true;
 
       this.items[index] = currentItem;
-      triggerPopupEvent('ElementParse', currentItem);
+      triggerPopupEvent("ElementParse", currentItem);
 
       return this.items[index];
     }
@@ -2048,7 +2045,7 @@ dayjs.extend(window.dayjs_plugin_timezone);
         instance._openClick(event, element, options);
       }
 
-      const eventNamespace = 'click.magnificPopupT4s';
+      const eventNamespace = "click.magnificPopupT4s";
       options.mainEl = element;
 
       if (options.items) {
@@ -2112,15 +2109,15 @@ dayjs.extend(window.dayjs_plugin_timezone);
           this.container.removeClass(`mfp-s-${this.statusClass}`);
         }
 
-        if (!text && status === 'loading') {
+        if (!text && status === "loading") {
           text = this.st.tLoading;
         }
 
         const update = { status, text };
-        triggerPopupEvent('UpdateStatus', update);
+        triggerPopupEvent("UpdateStatus", update);
 
         this.preloader.html(update.text);
-        this.preloader.find('a').on('click', (event) => {
+        this.preloader.find("a").on("click", (event) => {
           event.stopImmediatePropagation();
         });
 
@@ -2130,7 +2127,7 @@ dayjs.extend(window.dayjs_plugin_timezone);
     }
 
     _checkIfClose(element) {
-      if (!jQuery(element).hasClass('mfp-prevent-close')) {
+      if (!jQuery(element).hasClass("mfp-prevent-close")) {
         const { closeOnContentClick, closeOnBgClick } = this.st;
 
         if (closeOnContentClick && closeOnBgClick) {
@@ -2139,7 +2136,7 @@ dayjs.extend(window.dayjs_plugin_timezone);
 
         if (
           !this.content ||
-          jQuery(element).hasClass('mfp-close') ||
+          jQuery(element).hasClass("mfp-close") ||
           (this.preloader && element === this.preloader[0])
         ) {
           return true;
@@ -2199,14 +2196,14 @@ dayjs.extend(window.dayjs_plugin_timezone);
         markup = jQuery.extend(data.data, markup);
       }
 
-      triggerPopupEvent('MarkupParse', [element, markup, data]);
+      triggerPopupEvent("MarkupParse", [element, markup, data]);
 
       jQuery.each(markup, (key, value) => {
         if (value === undefined || value === false) {
           return true;
         }
 
-        const parts = key.split('_');
+        const parts = key.split("_");
 
         if (parts.length > 1) {
           const selector = element.find(`.mfp-${parts[0]}`);
@@ -2214,18 +2211,18 @@ dayjs.extend(window.dayjs_plugin_timezone);
           if (selector.length > 0) {
             const action = parts[1];
 
-            if (action === 'replaceWith') {
+            if (action === "replaceWith") {
               if (selector[0] !== value[0]) {
                 selector.replaceWith(value);
               }
-            } else if (action === 'img') {
-              if (selector.is('img')) {
-                selector.attr('src', value);
+            } else if (action === "img") {
+              if (selector.is("img")) {
+                selector.attr("src", value);
               } else {
                 selector.replaceWith(
-                  jQuery('<img>')
-                    .attr('src', value)
-                    .attr('class', selector.attr('class'))
+                  jQuery("<img>")
+                    .attr("src", value)
+                    .attr("class", selector.attr("class")),
                 );
               }
             } else {
@@ -2240,9 +2237,9 @@ dayjs.extend(window.dayjs_plugin_timezone);
 
     _getScrollbarSize() {
       if (this.scrollbarSize === undefined) {
-        const scrollbarDiv = document.createElement('div');
+        const scrollbarDiv = document.createElement("div");
         scrollbarDiv.style.cssText =
-          'width: 99px; height: 99px; overflow: scroll; position: absolute; top: -9999px;';
+          "width: 99px; height: 99px; overflow: scroll; position: absolute; top: -9999px;";
         document.body.appendChild(scrollbarDiv);
         this.scrollbarSize =
           scrollbarDiv.offsetWidth - scrollbarDiv.clientWidth;
@@ -2279,9 +2276,9 @@ dayjs.extend(window.dayjs_plugin_timezone);
       disableOn: 0,
       key: null,
       midClick: false,
-      mainClass: '',
+      mainClass: "",
       preloader: true,
-      focus: '',
+      focus: "",
       closeOnContentClick: false,
       closeOnBgClick: true,
       closeBtnInside: true,
@@ -2291,16 +2288,16 @@ dayjs.extend(window.dayjs_plugin_timezone);
       alignTop: false,
       removalDelay: 0,
       prependTo: null,
-      fixedContentPos: 'auto',
-      fixedBgPos: 'auto',
-      overflowY: 'auto',
+      fixedContentPos: "auto",
+      fixedBgPos: "auto",
+      overflowY: "auto",
       closeMarkup: `<button title="%title%" type="button" class="mfp-close">
                       <svg class="mfp-icon-close" role="presentation" viewBox="0 0 16 14">
                           <path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path>
                       </svg>
                    </button>`,
-      tClose: 'Close (Esc)',
-      tLoading: 'Loading...',
+      tClose: "Close (Esc)",
+      tLoading: "Loading...",
       autoFocusLast: true,
     },
   };
@@ -2308,10 +2305,10 @@ dayjs.extend(window.dayjs_plugin_timezone);
     initMagnificPopup();
     const $this = jQuery(this);
 
-    if (typeof options === 'string') {
-      if (options === 'open') {
+    if (typeof options === "string") {
+      if (options === "open") {
         let item;
-        const instance = $this.data('magnificPopup');
+        const instance = $this.data("magnificPopup");
         const index = parseInt(arguments[1], 10) || 0;
 
         if (instance.items) {
@@ -2325,13 +2322,13 @@ dayjs.extend(window.dayjs_plugin_timezone);
         magnificPopup._openClick({ mfpEl: item }, $this, instance);
       } else if (
         magnificPopup.isOpen &&
-        typeof magnificPopup[options] === 'function'
+        typeof magnificPopup[options] === "function"
       ) {
         magnificPopup[options](...Array.from(arguments).slice(1));
       }
     } else {
       const settings = { ...options };
-      $this.data('magnificPopup', settings);
+      $this.data("magnificPopup", settings);
       magnificPopup.addGroup($this, settings);
     }
 
@@ -2350,9 +2347,9 @@ dayjs.extend(window.dayjs_plugin_timezone);
   };
 
   const createPlaceholder = (className, wrapper, innerHTML, hasChild) => {
-    const element = document.createElement('div');
+    const element = document.createElement("div");
     return (
-      (element.className = 'mfp-' + className),
+      (element.className = "mfp-" + className),
       innerHTML && (element.innerHTML = innerHTML),
       hasChild
         ? wrapper && wrapper.appendChild(element)
@@ -2361,16 +2358,16 @@ dayjs.extend(window.dayjs_plugin_timezone);
     );
   };
 
-  jQuery.magnificPopupT4s.registerModule('inline', {
+  jQuery.magnificPopupT4s.registerModule("inline", {
     options: {
-      hiddenClass: 'hide',
-      markup: '',
-      tNotFound: 'Content not found',
+      hiddenClass: "hide",
+      markup: "",
+      tNotFound: "Content not found",
     },
     proto: {
       initInline() {
-        magnificPopup.types.push('inline');
-        addEventListenerToPopup('Close.inline', cleanupInlineContent);
+        magnificPopup.types.push("inline");
+        addEventListenerToPopup("Close.inline", cleanupInlineContent);
       },
       getInline(item, template) {
         cleanupInlineContent();
@@ -2390,14 +2387,14 @@ dayjs.extend(window.dayjs_plugin_timezone);
                 .detach()
                 .removeClass(hiddenClass);
             }
-            magnificPopup.updateStatus('ready');
+            magnificPopup.updateStatus("ready");
           } else {
-            magnificPopup.updateStatus('error', inline.tNotFound);
-            inlineElement = jQuery('<div>');
+            magnificPopup.updateStatus("error", inline.tNotFound);
+            inlineElement = jQuery("<div>");
           }
           return (item.inlineElement = inlineElement), inlineElement;
         }
-        magnificPopup.updateStatus('ready');
+        magnificPopup.updateStatus("ready");
         magnificPopup._parseMarkup(template, {}, item);
         return template;
       },
@@ -2429,55 +2426,55 @@ dayjs.extend(window.dayjs_plugin_timezone);
       if (magnificPopup.st.callbacks[formattedEventName]) {
         magnificPopup.st.callbacks[formattedEventName].apply(
           magnificPopup,
-          Array.isArray(callback) ? callback : [callback]
+          Array.isArray(callback) ? callback : [callback],
         );
       }
     }
   };
 
   let ajaxCache = {};
-  jQuery.magnificPopupT4s.registerModule('ajax', {
+  jQuery.magnificPopupT4s.registerModule("ajax", {
     options: {
       settings: null,
-      cursor: 'mfp-ajax-cur',
+      cursor: "mfp-ajax-cur",
       tError: '<a href="%url%">The content</a> could not be loaded.',
     },
     proto: {
       initAjax() {
-        magnificPopup.ev.types.push('ajax');
+        magnificPopup.ev.types.push("ajax");
         currentCursorClass = magnificPopup.ev.st.ajax.cursor;
-        addEventListenerToPopup('Close.ajax', abortRequest);
-        addEventListenerToPopup('BeforeChange.ajax', abortRequest);
+        addEventListenerToPopup("Close.ajax", abortRequest);
+        addEventListenerToPopup("BeforeChange.ajax", abortRequest);
       },
       getAjax(res) {
         if (currentCursorClass) {
           jQuery(document.body).addClass(currentCursorClass);
         }
-        magnificPopup.updateStatus('loading');
+        magnificPopup.updateStatus("loading");
 
-        const storageId = jQuery(res.el).attr('data-storageid') || 'nt94';
+        const storageId = jQuery(res.el).attr("data-storageid") || "nt94";
         const ajaxRequestConfig = {
           url: res.src,
           success(data, status, xhr) {
             const ajaxResponse = { data, xhr };
-            triggerPopupEvent('ParseAjax', ajaxResponse);
-            magnificPopup.appendContent(jQuery(ajaxResponse.data), 'ajax');
+            triggerPopupEvent("ParseAjax", ajaxResponse);
+            magnificPopup.appendContent(jQuery(ajaxResponse.data), "ajax");
             res.finished = true;
             removeCursorClass();
             magnificPopup._setFocus();
             setTimeout(() => {
-              magnificPopup.wrap.addClass('mfp-ready');
+              magnificPopup.wrap.addClass("mfp-ready");
             }, 16);
-            magnificPopup.updateStatus('ready');
-            triggerPopupEvent('AjaxContentAdded');
+            magnificPopup.updateStatus("ready");
+            triggerPopupEvent("AjaxContentAdded");
             ajaxCache[storageId] = data;
           },
           error() {
             removeCursorClass();
             res.finished = res.loadError = true;
             magnificPopup.updateStatus(
-              'error',
-              magnificPopup.st.ajax.tError.replace('%url%', res.src)
+              "error",
+              magnificPopup.st.ajax.tError.replace("%url%", res.src),
             );
           },
           ...magnificPopup.st.ajax.settings,
@@ -2486,26 +2483,26 @@ dayjs.extend(window.dayjs_plugin_timezone);
         const cachedResponse = ajaxCache[storageId];
         if (cachedResponse !== undefined) {
           const cachedData = { data: cachedResponse };
-          triggerPopupEvent('ParseAjax', cachedData);
-          magnificPopup.appendContent(jQuery(cachedData.data), 'ajax');
+          triggerPopupEvent("ParseAjax", cachedData);
+          magnificPopup.appendContent(jQuery(cachedData.data), "ajax");
           removeCursorClass();
           magnificPopup._setFocus();
           setTimeout(() => {
-            magnificPopup.wrap.addClass('mfp-ready');
+            magnificPopup.wrap.addClass("mfp-ready");
           }, 16);
-          magnificPopup.updateStatus('ready');
-          triggerPopupEvent('AjaxContentAdded');
+          magnificPopup.updateStatus("ready");
+          triggerPopupEvent("AjaxContentAdded");
         } else {
           magnificPopup.req = jQuery.ajax(ajaxRequestConfig);
         }
-        return '';
+        return "";
       },
     },
   });
 
   let imageCheckInterval;
 
-  jQuery.magnificPopupT4s.registerModule('image', {
+  jQuery.magnificPopupT4s.registerModule("image", {
     options: {
       markup: `
           <div class="mfp-figure">
@@ -2520,33 +2517,33 @@ dayjs.extend(window.dayjs_plugin_timezone);
               </figcaption>
             </figure>
           </div>`,
-      cursor: 'mfp-zoom-out-cur',
-      titleSrc: 'title',
+      cursor: "mfp-zoom-out-cur",
+      titleSrc: "title",
       verticalFit: true,
       tError: '<a href="%url%">The image</a> could not be loaded.',
     },
     proto: {
       initImage() {
         const imageSettings = magnificPopup.st.image;
-        const imageEventNamespace = '.image';
-        magnificPopup.types.push('image');
+        const imageEventNamespace = ".image";
+        magnificPopup.types.push("image");
         addEventListenerToPopup(`Open${imageEventNamespace}`, () => {
-          if (magnificPopup.currItem.type === 'image' && imageSettings.cursor) {
+          if (magnificPopup.currItem.type === "image" && imageSettings.cursor) {
             $body.addClass(imageSettings.cursor);
           }
         });
         addEventListenerToPopup(`Close${imageEventNamespace}`, () => {
           if (imageSettings.cursor) {
             $body.removeClass(imageSettings.cursor);
-            $window.off('resize.mfp');
+            $window.off("resize.mfp");
           }
         });
         addEventListenerToPopup(
           `Resize${imageEventNamespace}`,
-          magnificPopup.resizeImage
+          magnificPopup.resizeImage,
         );
         if (magnificPopup.isLowIE) {
-          addEventListenerToPopup('AfterChange', magnificPopup.resizeImage);
+          addEventListenerToPopup("AfterChange", magnificPopup.resizeImage);
         }
       },
       resizeImage() {
@@ -2555,10 +2552,10 @@ dayjs.extend(window.dayjs_plugin_timezone);
           let paddingY = 0;
           if (magnificPopup.isLowIE) {
             paddingY =
-              parseInt(jQuery.img.css('padding-top'), 10) +
-              parseInt(jQuery.img.css('padding-bottom'), 10);
+              parseInt(jQuery.img.css("padding-top"), 10) +
+              parseInt(jQuery.img.css("padding-bottom"), 10);
           }
-          jQuery.img.css('max-height', magnificPopup.wH - paddingY);
+          jQuery.img.css("max-height", magnificPopup.wH - paddingY);
         }
       },
       _onImageHasSize(callback) {
@@ -2566,10 +2563,10 @@ dayjs.extend(window.dayjs_plugin_timezone);
           jQuery.hasSize = true;
           if (imageCheckInterval) clearInterval(imageCheckInterval);
           jQuery.isCheckingImgSize = false;
-          triggerPopupEvent('ImageHasSize', callback);
+          triggerPopupEvent("ImageHasSize", callback);
           if (jQuery.imgHidden) {
             magnificPopup.content &&
-              magnificPopup.content.removeClass('mfp-loading');
+              magnificPopup.content.removeClass("mfp-loading");
             jQuery.imgHidden = false;
           }
         }
@@ -2595,19 +2592,19 @@ dayjs.extend(window.dayjs_plugin_timezone);
       getImage(item, template) {
         let attemptCount = 0;
         const imageSettings = magnificPopup.st.image;
-        const imageContainer = template.find('.mfp-img');
+        const imageContainer = template.find(".mfp-img");
 
         const handleLoadComplete = () => {
           if (item) {
             if (item.img[0].complete) {
-              item.img.off('.mfploader');
+              item.img.off(".mfploader");
               if (item === magnificPopup.currItem) {
                 magnificPopup._onImageHasSize(item);
-                magnificPopup.updateStatus('ready');
+                magnificPopup.updateStatus("ready");
               }
               item.hasSize = true;
               item.loaded = true;
-              triggerPopupEvent('ImageLoadComplete');
+              triggerPopupEvent("ImageLoadComplete");
             } else if (++attemptCount < 200) {
               setTimeout(handleLoadComplete, 100);
             } else {
@@ -2617,12 +2614,12 @@ dayjs.extend(window.dayjs_plugin_timezone);
         };
         const handleLoadError = () => {
           if (item) {
-            item.img.off('.mfploader');
+            item.img.off(".mfploader");
             if (item === magnificPopup.currItem) {
               magnificPopup._onImageHasSize(item);
               magnificPopup.updateStatus(
-                'error',
-                imageSettings.tError.replace('%url%', item.src)
+                "error",
+                imageSettings.tError.replace("%url%", item.src),
               );
             }
             item.hasSize = true;
@@ -2632,17 +2629,17 @@ dayjs.extend(window.dayjs_plugin_timezone);
         };
 
         if (imageContainer.length) {
-          const imgElement = document.createElement('img');
-          imgElement.className = 'mfp-img';
-          if (item.el && item.el.find('img').length) {
-            imgElement.alt = item.el.find('img').attr('alt');
+          const imgElement = document.createElement("img");
+          imgElement.className = "mfp-img";
+          if (item.el && item.el.find("img").length) {
+            imgElement.alt = item.el.find("img").attr("alt");
           }
           item.img = window
             .jQuery(imgElement)
-            .on('load.mfploader', handleLoadComplete)
-            .on('error.mfploader', handleLoadError);
+            .on("load.mfploader", handleLoadComplete)
+            .on("error.mfploader", handleLoadError);
           imgElement.src = item.src;
-          if (imageContainer.is('img')) {
+          if (imageContainer.is("img")) {
             item.img = item.img.clone();
           }
           if (imgElement.naturalWidth > 0) {
@@ -2664,35 +2661,35 @@ dayjs.extend(window.dayjs_plugin_timezone);
                   return template.call(magnificPopup, currentItem);
                 }
                 if (currentItem.el) {
-                  return currentItem.el.attr(template) || '';
+                  return currentItem.el.attr(template) || "";
                 }
               }
-              return '';
+              return "";
             },
             img_replaceWith: item.img,
           },
-          item
+          item,
         );
         magnificPopup.resizeImage();
         if (item.hasSize) {
           if (imageCheckInterval) clearInterval(imageCheckInterval);
           if (item.loadError) {
-            template.addClass('mfp-loading');
+            template.addClass("mfp-loading");
             magnificPopup.updateStatus(
-              'error',
-              imageSettings.tError.replace('%url%', item.src)
+              "error",
+              imageSettings.tError.replace("%url%", item.src),
             );
           } else {
-            template.removeClass('mfp-loading');
-            magnificPopup.updateStatus('ready');
+            template.removeClass("mfp-loading");
+            magnificPopup.updateStatus("ready");
           }
           return template;
         }
-        magnificPopup.updateStatus('loading');
+        magnificPopup.updateStatus("loading");
         item.loading = true;
         if (!item.hasSize) {
           item.imgHidden = true;
-          template.addClass('mfp-loading');
+          template.addClass("mfp-loading");
           magnificPopup.findImageSize(item);
         }
         return template;
@@ -2700,17 +2697,17 @@ dayjs.extend(window.dayjs_plugin_timezone);
     },
   });
 
-  jQuery.magnificPopupT4s.registerModule('zoom', {
+  jQuery.magnificPopupT4s.registerModule("zoom", {
     options: {
       enabled: false,
-      easing: 'ease-in-out',
+      easing: "ease-in-out",
       duration: 300,
-      opener: (target) => (target.is('img') ? target : target.find('img')),
+      opener: (target) => (target.is("img") ? target : target.find("img")),
     },
     proto: {
       initZoom() {
         const { zoom } = magnificPopup.st;
-        const transitionEvent = '.zoom';
+        const transitionEvent = ".zoom";
 
         if (zoom.enabled && magnificPopup.supportsTransition) {
           const { duration, easing } = zoom;
@@ -2719,40 +2716,40 @@ dayjs.extend(window.dayjs_plugin_timezone);
           const cloneAndStyle = (item) => {
             const clone = item
               .clone()
-              .removeAttr('style')
-              .removeAttr('class')
-              .addClass('mfp-animated-image');
+              .removeAttr("style")
+              .removeAttr("class")
+              .addClass("mfp-animated-image");
 
             const transitionStyle = `all ${duration / 1000}s ${easing}`;
             const cssStyles = {
-              position: 'fixed',
+              position: "fixed",
               zIndex: 9999,
               left: 0,
               top: 0,
-              '-webkit-backface-visibility': 'hidden',
+              "-webkit-backface-visibility": "hidden",
               transition: transitionStyle,
-              '-webkit-transition': transitionStyle,
-              '-moz-transition': transitionStyle,
-              '-o-transition': transitionStyle,
+              "-webkit-transition": transitionStyle,
+              "-moz-transition": transitionStyle,
+              "-o-transition": transitionStyle,
             };
 
             return clone.css(cssStyles);
           };
 
           const restoreVisibility = () =>
-            magnificPopup.content.css('visibility', 'visible');
+            magnificPopup.content.css("visibility", "visible");
 
-          addEventListenerToPopup('BuildControls' + transitionEvent, () => {
+          addEventListenerToPopup("BuildControls" + transitionEvent, () => {
             if (!magnificPopup._allowZoom()) return restoreVisibility();
 
             clearTimeout(timeout);
-            magnificPopup.content.css('visibility', 'hidden');
+            magnificPopup.content.css("visibility", "hidden");
 
             zoomItem = magnificPopup._getItemToZoom();
             if (!zoomItem) return restoreVisibility();
 
             clonedElement = cloneAndStyle(zoomItem).css(
-              magnificPopup._getOffset()
+              magnificPopup._getOffset(),
             );
             magnificPopup.wrap.append(clonedElement);
 
@@ -2763,13 +2760,13 @@ dayjs.extend(window.dayjs_plugin_timezone);
                 setTimeout(() => {
                   clonedElement.remove();
                   zoomItem = clonedElement = null;
-                  triggerPopupEvent('ZoomAnimationEnded');
+                  triggerPopupEvent("ZoomAnimationEnded");
                 }, 16);
               }, duration);
             }, 16);
           });
 
-          addEventListenerToPopup('BeforeClose' + transitionEvent, () => {
+          addEventListenerToPopup("BeforeClose" + transitionEvent, () => {
             if (!magnificPopup._allowZoom()) return;
 
             clearTimeout(timeout);
@@ -2781,14 +2778,14 @@ dayjs.extend(window.dayjs_plugin_timezone);
             clonedElement = cloneAndStyle(zoomItem);
             clonedElement.css(magnificPopup._getOffset(true));
             magnificPopup.wrap.append(clonedElement);
-            magnificPopup.content.css('visibility', 'hidden');
+            magnificPopup.content.css("visibility", "hidden");
 
             setTimeout(() => {
               clonedElement.css(magnificPopup._getOffset());
             }, 16);
           });
 
-          addEventListenerToPopup('Close' + transitionEvent, () => {
+          addEventListenerToPopup("Close" + transitionEvent, () => {
             if (magnificPopup._allowZoom()) {
               restoreVisibility();
               if (clonedElement) clonedElement.remove();
@@ -2799,7 +2796,7 @@ dayjs.extend(window.dayjs_plugin_timezone);
       },
 
       _allowZoom() {
-        return magnificPopup.currItem.type === 'image';
+        return magnificPopup.currItem.type === "image";
       },
 
       _getItemToZoom() {
@@ -2812,11 +2809,11 @@ dayjs.extend(window.dayjs_plugin_timezone);
         const item = applyZoom
           ? magnificPopup.currItem.img
           : magnificPopup.st.zoom.opener(
-              magnificPopup.currItem.el || magnificPopup.currItem
+              magnificPopup.currItem.el || magnificPopup.currItem,
             );
         const offset = item.offset();
-        const paddingTop = parseInt(item.css('padding-top'), 10) || 0;
-        const paddingBottom = parseInt(item.css('padding-bottom'), 10) || 0;
+        const paddingTop = parseInt(item.css("padding-top"), 10) || 0;
+        const paddingBottom = parseInt(item.css("padding-bottom"), 10) || 0;
 
         const top = offset.top - $window.scrollTop() - paddingTop;
         const width = item.width();
@@ -2839,7 +2836,7 @@ dayjs.extend(window.dayjs_plugin_timezone);
   const formatCounter = (template, current, total) =>
     template.replace(/%curr%/gi, current + 1).replace(/%total%/gi, total);
 
-  jQuery.magnificPopupT4s.registerModule('gallery', {
+  jQuery.magnificPopupT4s.registerModule("gallery", {
     options: {
       enabled: false,
       arrowMarkup:
@@ -2847,23 +2844,23 @@ dayjs.extend(window.dayjs_plugin_timezone);
       preload: [0, 2],
       navigateByImgClick: true,
       arrows: true,
-      tPrev: 'Previous (Left arrow key)',
-      tNext: 'Next (Right arrow key)',
-      tCounter: '%curr% of %total%',
+      tPrev: "Previous (Left arrow key)",
+      tNext: "Next (Right arrow key)",
+      tCounter: "%curr% of %total%",
     },
     proto: {
       initGallery() {
         const gallery = magnificPopup.st.gallery;
-        const eventNamespace = '.mfp-gallery';
+        const eventNamespace = ".mfp-gallery";
 
         if (!gallery || !gallery.enabled) return false;
 
         magnificPopup.direction = true;
-        magnificPopup.classes += ' mfp-gallery';
+        magnificPopup.classes += " mfp-gallery";
 
         addEventListenerToPopup(`Open${eventNamespace}`, () => {
           if (gallery.navigateByImgClick) {
-            magnificPopup.wrap.on(`click${eventNamespace}`, '.mfp-img', () => {
+            magnificPopup.wrap.on(`click${eventNamespace}`, ".mfp-img", () => {
               if (magnificPopup.items.length > 1) {
                 magnificPopup.next();
                 return false;
@@ -2887,10 +2884,10 @@ dayjs.extend(window.dayjs_plugin_timezone);
               status.text = formatCounter(
                 status.text,
                 magnificPopup.currItem.index,
-                magnificPopup.items.length
+                magnificPopup.items.length,
               );
             }
-          }
+          },
         );
 
         addEventListenerToPopup(
@@ -2900,8 +2897,8 @@ dayjs.extend(window.dayjs_plugin_timezone);
             values.counter =
               totalItems > 1
                 ? formatCounter(gallery.tCounter, item.index, totalItems)
-                : '';
-          }
+                : "";
+          },
         );
 
         addEventListenerToPopup(`BuildControls${eventNamespace}`, () => {
@@ -2915,13 +2912,13 @@ dayjs.extend(window.dayjs_plugin_timezone);
             const arrowLeft = (magnificPopup.arrowLeft = jQuery(
               arrowMarkup
                 .replace(/%title%/gi, gallery.tPrev)
-                .replace(/%dir%/gi, 'left')
-            ).addClass('mfp-prevent-close'));
+                .replace(/%dir%/gi, "left"),
+            ).addClass("mfp-prevent-close"));
             const arrowRight = (magnificPopup.arrowRight = jQuery(
               arrowMarkup
                 .replace(/%title%/gi, gallery.tNext)
-                .replace(/%dir%/gi, 'right')
-            ).addClass('mfp-prevent-close'));
+                .replace(/%dir%/gi, "right"),
+            ).addClass("mfp-prevent-close"));
 
             arrowLeft.click(() => magnificPopup.prev());
             arrowRight.click(() => magnificPopup.next());
@@ -2951,7 +2948,7 @@ dayjs.extend(window.dayjs_plugin_timezone);
         magnificPopup.direction = true;
         magnificPopup.index = normalizeIndex(
           magnificPopup.index + 1,
-          magnificPopup.items.length
+          magnificPopup.items.length,
         );
         magnificPopup.updateItemHTML();
       },
@@ -2960,7 +2957,7 @@ dayjs.extend(window.dayjs_plugin_timezone);
         magnificPopup.direction = false;
         magnificPopup.index = normalizeIndex(
           magnificPopup.index - 1,
-          magnificPopup.items.length
+          magnificPopup.items.length,
         );
         magnificPopup.updateItemHTML();
       },
@@ -2999,19 +2996,19 @@ dayjs.extend(window.dayjs_plugin_timezone);
           if (!item.parsed) {
             item = magnificPopup.parseEl(index);
           }
-          triggerPopupEvent('LazyLoad', item);
+          triggerPopupEvent("LazyLoad", item);
 
-          if (item.type === 'image') {
+          if (item.type === "image") {
             item.img = jQuery('<img class="mfp-img" />')
-              .on('load.mfploader', () => {
+              .on("load.mfploader", () => {
                 item.hasSize = true;
               })
-              .on('error.mfploader', () => {
+              .on("error.mfploader", () => {
                 item.hasSize = true;
                 item.loadError = true;
-                triggerPopupEvent('LazyLoadError', item);
+                triggerPopupEvent("LazyLoadError", item);
               })
-              .attr('src', item.src);
+              .attr("src", item.src);
           }
           item.preloaded = true;
         }
@@ -3019,7 +3016,7 @@ dayjs.extend(window.dayjs_plugin_timezone);
     },
   });
 
-  jQuery.magnificPopupT4s.registerModule('retina', {
+  jQuery.magnificPopupT4s.registerModule("retina", {
     options: {
       replaceSrc(src) {
         return src.replace(/\.\w+$/, (match) => `@2x${match}`);
@@ -3035,14 +3032,14 @@ dayjs.extend(window.dayjs_plugin_timezone);
           ratio = isNaN(ratio) ? ratio() : ratio;
 
           if (ratio > 1) {
-            addEventListenerToPopup('ImageHasSize.retina', (event, item) => {
+            addEventListenerToPopup("ImageHasSize.retina", (event, item) => {
               item.img.css({
-                'max-width': item.img[0].naturalWidth / ratio,
-                width: '100%',
+                "max-width": item.img[0].naturalWidth / ratio,
+                width: "100%",
               });
             });
 
-            addEventListenerToPopup('ElementParse.retina', (event, item) => {
+            addEventListenerToPopup("ElementParse.retina", (event, item) => {
               item.src = retina.replaceSrc(item, ratio);
             });
           }
@@ -3053,54 +3050,54 @@ dayjs.extend(window.dayjs_plugin_timezone);
 
   const updateIframeContent = (isVisible) => {
     if (magnificPopup.currTemplate.iframe) {
-      const iframe = magnificPopup.currTemplate.iframe.find('iframe');
+      const iframe = magnificPopup.currTemplate.iframe.find("iframe");
       if (iframe.length) {
         if (!isVisible) {
-          iframe[0].src = 'about:blank';
+          iframe[0].src = "about:blank";
         }
         if (magnificPopup.isIE8) {
-          iframe.css('display', isVisible ? 'block' : 'none');
+          iframe.css("display", isVisible ? "block" : "none");
         }
       }
     }
   };
 
   // Registering Iframe Module
-  jQuery.magnificPopupT4s.registerModule('iframe', {
+  jQuery.magnificPopupT4s.registerModule("iframe", {
     options: {
       markup:
         '<div class="mfp-iframe-scaler"><div class="mfp-close"></div><iframe class="mfp-iframe" src="//about:blank" frameborder="0" allowfullscreen></iframe></div>',
-      srcAction: 'iframe_src',
+      srcAction: "iframe_src",
       patterns: {
         youtube: {
-          index: 'youtube.com',
-          id: 'v=',
-          src: '//www.youtube.com/embed/%id%?autoplay=1',
+          index: "youtube.com",
+          id: "v=",
+          src: "//www.youtube.com/embed/%id%?autoplay=1",
         },
         vimeo: {
-          index: 'vimeo.com/',
-          id: '/',
-          src: '//player.vimeo.com/video/%id%?autoplay=1',
+          index: "vimeo.com/",
+          id: "/",
+          src: "//player.vimeo.com/video/%id%?autoplay=1",
         },
         gmaps: {
-          index: '//maps.google.',
-          src: '%id%&output=embed',
+          index: "//maps.google.",
+          src: "%id%&output=embed",
         },
       },
     },
     proto: {
       initIframe() {
-        magnificPopup.types.push('iframe');
+        magnificPopup.types.push("iframe");
 
-        addEventListenerToPopup('BeforeChange', (event, prevType, newType) => {
+        addEventListenerToPopup("BeforeChange", (event, prevType, newType) => {
           if (prevType !== newType) {
-            prevType === 'iframe'
+            prevType === "iframe"
               ? updateIframeContent()
-              : newType === 'iframe' && updateIframeContent(true);
+              : newType === "iframe" && updateIframeContent(true);
           }
         });
 
-        addEventListenerToPopup('Close.iframe', () => {
+        addEventListenerToPopup("Close.iframe", () => {
           updateIframeContent();
         });
       },
@@ -3120,7 +3117,7 @@ dayjs.extend(window.dayjs_plugin_timezone);
         if (srcAction) parsedSrc[srcAction] = src;
 
         magnificPopup._parseMarkup(template, parsedSrc, item);
-        magnificPopup.updateStatus('ready');
+        magnificPopup.updateStatus("ready");
 
         return template;
       },
@@ -3155,9 +3152,9 @@ var fastdomT4s = createCommonjsModule((exports) => {
           let error;
 
           try {
-            console.log('Flushing reads', reads, reads.length);
+            console.log("Flushing reads", reads, reads.length);
             this.flush(reads);
-            console.log('Flushing writes', writes, writes.length);
+            console.log("Flushing writes", writes, writes.length);
             this.flush(writes);
           } catch (err) {
             error = err;
@@ -3171,7 +3168,7 @@ var fastdomT4s = createCommonjsModule((exports) => {
           }
 
           if (error) {
-            console.error('Task errored', error.message);
+            console.error("Task errored", error.message);
             if (!this.catch) throw error;
             this.catch(error);
           }
@@ -3201,8 +3198,8 @@ var fastdomT4s = createCommonjsModule((exports) => {
     }
 
     extend(obj) {
-      if (typeof obj !== 'object') {
-        throw new Error('Expected an object');
+      if (typeof obj !== "object") {
+        throw new Error("Expected an object");
       }
 
       const extended = Object.create(this);
@@ -3249,7 +3246,7 @@ var smoothscroll = createCommonjsModule((module, exports) => {
     const windowRef = window;
     const documentRef = document;
     const animationDuration = 468;
-    const padding = navigator.userAgent.includes(['MSIE', 'Trident', 'Edge'])
+    const padding = navigator.userAgent.includes(["MSIE", "Trident", "Edge"])
       ? 1
       : 0;
     const getPerformanceInstance =
@@ -3259,7 +3256,7 @@ var smoothscroll = createCommonjsModule((module, exports) => {
 
     if (
       !(
-        'scrollBehavior' in documentRef.documentElement.style &&
+        "scrollBehavior" in documentRef.documentElement.style &&
         !windowRef.__forceSmoothScrollPolyfill__
       )
     ) {
@@ -3282,7 +3279,7 @@ var smoothscroll = createCommonjsModule((module, exports) => {
                 : windowRef.scrollX || window.pageXOffset,
               options.top !== undefined
                 ? ~~options.top
-                : windowRef.scrollY || window.pageYOffset
+                : windowRef.scrollY || window.pageYOffset,
             );
           } else {
             // Native behavior
@@ -3290,14 +3287,14 @@ var smoothscroll = createCommonjsModule((module, exports) => {
               windowRef,
               options.left !== undefined
                 ? options.left
-                : 'object' !== typeof arguments[0]
-                ? arguments[0]
-                : windowRef.scrollX || window.pageXOffset,
+                : "object" !== typeof arguments[0]
+                  ? arguments[0]
+                  : windowRef.scrollX || window.pageXOffset,
               options.top !== undefined
                 ? options.top
                 : arguments[1] !== undefined
-                ? arguments[1]
-                : windowRef.scrollY || window.pageYOffset
+                  ? arguments[1]
+                  : windowRef.scrollY || window.pageYOffset,
             );
           }
         }
@@ -3309,21 +3306,21 @@ var smoothscroll = createCommonjsModule((module, exports) => {
             startScroll(
               documentRef.body,
               ~~arguments[0].left + (windowRef.scrollX || window.pageXOffset),
-              ~~arguments[0].top + (windowRef.scrollY || window.pageYOffset)
+              ~~arguments[0].top + (windowRef.scrollY || window.pageYOffset),
             );
           } else {
             config.scrollBy.call(
               windowRef,
               options.left !== undefined
                 ? options[0].left
-                : 'object' !== typeof arguments[0]
-                ? arguments[0]
-                : 0,
+                : "object" !== typeof arguments[0]
+                  ? arguments[0]
+                  : 0,
               options.top !== undefined
                 ? options[0].top
                 : arguments[1] !== undefined
-                ? arguments[1]
-                : 0
+                  ? arguments[1]
+                  : 0,
             );
           }
         }
@@ -3339,27 +3336,27 @@ var smoothscroll = createCommonjsModule((module, exports) => {
               startScroll(
                 this,
                 targetX === undefined ? this.scrollLeft : ~~targetX,
-                targetY === undefined ? this.scrollTop : ~~targetY
+                targetY === undefined ? this.scrollTop : ~~targetY,
               );
             } else {
               if (
-                typeof arguments[0] === 'number' &&
+                typeof arguments[0] === "number" &&
                 arguments[1] === undefined
               ) {
-                throw new SyntaxError('Value could not be converted');
+                throw new SyntaxError("Value could not be converted");
               }
               config.elementScroll.call(
                 this,
                 options.left !== undefined
                   ? ~~options.left
-                  : 'object' !== typeof arguments[0]
-                  ? ~~arguments[0]
-                  : this.scrollLeft,
+                  : "object" !== typeof arguments[0]
+                    ? ~~arguments[0]
+                    : this.scrollLeft,
                 options.top !== undefined
                   ? ~~options.top
                   : arguments[1] !== undefined
-                  ? ~~arguments[1]
-                  : this.scrollTop
+                    ? ~~arguments[1]
+                    : this.scrollTop,
               );
             }
           }
@@ -3382,7 +3379,7 @@ var smoothscroll = createCommonjsModule((module, exports) => {
                 : ~~options[0] + this.scrollLeft,
               options.top !== undefined
                 ? ~~options.top + this.scrollTop
-                : ~~options[1] + this.scrollTop
+                : ~~options[1] + this.scrollTop,
             );
           }
         }
@@ -3405,27 +3402,27 @@ var smoothscroll = createCommonjsModule((module, exports) => {
             startScroll(
               this,
               parentElement.scrollLeft + elementRect.left - parentRect.left,
-              parentElement.scrollTop + elementRect.top - parentRect.top
+              parentElement.scrollTop + elementRect.top - parentRect.top,
             );
 
-            if (getComputedStyle(parentElement).position !== 'fixed') {
+            if (getComputedStyle(parentElement).position !== "fixed") {
               windowRef.scrollBy({
                 left: parentRect.left,
                 top: parentRect.top,
-                behavior: 'smooth',
+                behavior: "smooth",
               });
             }
           } else {
             windowRef.scrollBy({
               left: elementRect.left,
               top: elementRect.top,
-              behavior: 'smooth',
+              behavior: "smooth",
             });
           }
         } else {
           config.scrollIntoView.call(
             this,
-            options[0] === undefined || options[0]
+            options[0] === undefined || options[0],
           );
         }
       };
@@ -3435,42 +3432,42 @@ var smoothscroll = createCommonjsModule((module, exports) => {
     function validateScrollOptions(options) {
       if (
         options === null ||
-        typeof options !== 'object' ||
+        typeof options !== "object" ||
         options.behavior === undefined ||
-        options.behavior === 'auto' ||
-        options.behavior === 'instant'
+        options.behavior === "auto" ||
+        options.behavior === "instant"
       ) {
         return true;
       }
-      if (typeof options === 'object' && options.behavior === 'smooth') {
+      if (typeof options === "object" && options.behavior === "smooth") {
         return false; // Smooth behavior is not valid for polyfill
       }
       throw new TypeError(
-        'Invalid value for ScrollOptions behavior: ' + options.behavior
+        "Invalid value for ScrollOptions behavior: " + options.behavior,
       );
     }
 
     // Determine if scrolling is possible in the given direction
     function canScrollInDirection(element, direction) {
-      return direction === 'Y'
+      return direction === "Y"
         ? element.clientHeight + padding < element.scrollHeight
-        : direction === 'X'
-        ? element.clientWidth + padding < element.scrollWidth
-        : undefined;
+        : direction === "X"
+          ? element.clientWidth + padding < element.scrollWidth
+          : undefined;
     }
 
     // Check if overflow is set to scroll or auto
     function hasScrollOverflow(element, direction) {
-      const overflowStyle = getComputedStyle(element)['overflow' + direction];
-      return overflowStyle === 'auto' || overflowStyle === 'scroll';
+      const overflowStyle = getComputedStyle(element)["overflow" + direction];
+      return overflowStyle === "auto" || overflowStyle === "scroll";
     }
 
     // Check if scrolling is possible in either direction
     function canScroll(element) {
       const verticalScroll =
-        canScrollInDirection(element, 'Y') && hasScrollOverflow(element, 'Y');
+        canScrollInDirection(element, "Y") && hasScrollOverflow(element, "Y");
       const horizontalScroll =
-        canScrollInDirection(element, 'X') && hasScrollOverflow(element, 'X');
+        canScrollInDirection(element, "X") && hasScrollOverflow(element, "X");
       return verticalScroll || horizontalScroll;
     }
 
@@ -3538,48 +3535,48 @@ var smoothscroll = createCommonjsModule((module, exports) => {
 //done
 function updateMediaSizes(element) {
   const visibleMediaItems = element.find(
-    '.product__media-item:not(.is--media-hide)'
+    ".product__media-item:not(.is--media-hide)",
   );
   let mediaCount = visibleMediaItems.length;
 
-  mediaCount = mediaCount >= 4 ? 'normal' : mediaCount;
+  mediaCount = mediaCount >= 4 ? "normal" : mediaCount;
 
-  element.attr('data-media-sizes', mediaCount);
+  element.attr("data-media-sizes", mediaCount);
 
   // Mark the last visible media item
-  visibleMediaItems.last().addClass('is--media-last');
+  visibleMediaItems.last().addClass("is--media-last");
 
   // Clear the data-index attribute on all media items
-  element.find('.product__media-item').attr('data-index', '');
+  element.find(".product__media-item").attr("data-index", "");
 
   // Set the data-index attribute on visible media items
   visibleMediaItems.each((index, item) => {
-    window.jQuery(item).attr('data-index', index);
+    window.jQuery(item).attr("data-index", index);
   });
 }
 
 var $window = window.jQuery(window);
 var $document = window.jQuery(document);
 var windowWidth = $window.width();
-var $html = window.jQuery('html');
-var $body = window.jQuery('body');
+var $html = window.jQuery("html");
+var $body = window.jQuery("body");
 var isMobile = windowWidth < 768;
 var isTabletOrBelow = windowWidth <= 1024;
 var isDesignMode = window.T4Srequest.design_mode;
 var strings = window.T4Sstrings;
 var cacheNameFirst = window.T4SThemeSP.cacheNameFirst;
 var isTouchDevice = !!(
-  'ontouchstart' in window ||
+  "ontouchstart" in window ||
   (window.DocumentTouch && document instanceof DocumentTouch) ||
   window.navigator.maxTouchPoints ||
   window.navigator.msMaxTouchPoints
 );
 
-window.T4SThemeSP.isHover = $html.hasClass('p-hover');
+window.T4SThemeSP.isHover = $html.hasClass("p-hover");
 window.T4SThemeSP.isTouch =
   isTouchDevice && (!window.T4SThemeSP.isHover || isTabletOrBelow);
 
-document.addEventListener('theme:hover', () => {
+document.addEventListener("theme:hover", () => {
   window.T4SThemeSP.isHover = true;
   window.T4SThemeSP.isTouch = false;
 });
@@ -3587,27 +3584,27 @@ document.addEventListener('theme:hover', () => {
 //done
 window.T4SThemeSP.getToFetchSection = async (
   path,
-  responseType = 'text',
-  fallbackUrl = null
+  responseType = "text",
+  fallbackUrl = null,
 ) => {
   const url = path ? `${window.T4SThemeSP.root_url}${path}` : fallbackUrl;
 
   try {
     const response = await fetch(url, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Cache-Control': 'no-cache',
+        "Cache-Control": "no-cache",
       },
     });
 
     if (response.redirected) {
-      return 'NVT_94';
+      return "NVT_94";
     }
 
-    return responseType === 'text' ? response.text() : response.json();
+    return responseType === "text" ? response.text() : response.json();
   } catch (error) {
     console.warn(error);
-    return 'NVT_94';
+    return "NVT_94";
   }
 };
 
@@ -3638,18 +3635,18 @@ window.T4SThemeSP.OverflowScroller = class {
   }
 
   _updateInitialTopOffset() {
-    window.addEventListener('T4sHeaderReveal', () => {
+    window.addEventListener("T4sHeaderReveal", () => {
       this.initialTopOffset = this.initialTopOffsetCache;
     });
 
-    window.addEventListener('T4sHeaderHide', () => {
+    window.addEventListener("T4sHeaderHide", () => {
       this.initialTopOffset = 30;
     });
   }
 
   _attachListeners() {
     this._checkPositionListener = this._checkPosition.bind(this);
-    window.addEventListener('scroll', this._checkPositionListener);
+    window.addEventListener("scroll", this._checkPositionListener);
   }
 
   _checkPosition() {
@@ -3673,7 +3670,7 @@ window.T4SThemeSP.OverflowScroller = class {
       this.currentTop = Math.min(
         Math.max(this.currentTop, -maxScroll),
         rectTop,
-        this.initialTopOffset
+        this.initialTopOffset,
       );
       this.lastKnownY = window.scrollY;
     });
@@ -3684,13 +3681,13 @@ window.T4SThemeSP.OverflowScroller = class {
   }
 
   destroy() {
-    window.removeEventListener('scroll', this._checkPositionListener);
+    window.removeEventListener("scroll", this._checkPositionListener);
   }
 };
 
 var h = (() => {
-  const swatchItemSelector = '[data-swatch-item]';
-  const unavailableClass = 'is--unavailable';
+  const swatchItemSelector = "[data-swatch-item]";
+  const unavailableClass = "is--unavailable";
   const soldOutClass = `is--soldout ${unavailableClass}`;
   const determineClass = (isSoldOut) =>
     isSoldOut ? soldOutClass : unavailableClass;
@@ -3707,7 +3704,7 @@ var h = (() => {
   } = window.T4SProductStrings;
 
   const ariaAttributes = {
-    disabled: 'aria-disabled',
+    disabled: "aria-disabled",
   };
   class ProductForm {
     constructor(options) {
@@ -3732,13 +3729,13 @@ var h = (() => {
       this.$variantImg = options.$variantImg;
       this.disableVariantImage = options.disableVariantImage;
       this.swatchWidth = options.swatchWidth;
-      this.$incomingMess = this.$formSelectorId.find('[data-incoming__mess]');
+      this.$incomingMess = this.$formSelectorId.find("[data-incoming__mess]");
       this.isSticky = options.isSticky;
       this.useStickySelect = options.useStickySelect;
       this.isMainProduct = options.isMainProduct;
-      this.$quantity = this.$formSelectorId.find('[data-quantity-value]');
-      this.$mainMedia = this.$container.find('[data-main-media]');
-      this.$mainNav = this.$container.find('.carousel__nav');
+      this.$quantity = this.$formSelectorId.find("[data-quantity-value]");
+      this.$mainMedia = this.$container.find("[data-main-media]");
+      this.$mainNav = this.$container.find(".carousel__nav");
       this.clickedOptions = [];
       this.showFirstMedia = !this.isNoPickOriginal && options.showFirstMedia;
       this.oldVariant = {};
@@ -3752,85 +3749,85 @@ var h = (() => {
         preOrder: false,
         showUnitPrice: false,
       };
-      this.$productPrice = this.$container.find('[data-product-price]');
+      this.$productPrice = this.$container.find("[data-product-price]");
       this.formatPrice =
-        this.$productPrice.data('formartPrice') === 'ins-del'
-          ? '<ins>money_ins</ins> <del>money_del</del>'
-          : '<del>money_del</del> <ins>money_ins</ins>';
-      this.saleType = this.$productPrice.data('saletype');
+        this.$productPrice.data("formartPrice") === "ins-del"
+          ? "<ins>money_ins</ins> <del>money_del</del>"
+          : "<del>money_del</del> <ins>money_ins</ins>";
+      this.saleType = this.$productPrice.data("saletype");
 
       this.$unit_price = this.$container
-        .find('[data-product-unit-price]')
-        .find('[data-unit-price]');
+        .find("[data-product-unit-price]")
+        .find("[data-unit-price]");
       this.$unit_base = this.$container
-        .find('[data-product-unit-price]')
-        .find('[data-unit-base]');
+        .find("[data-product-unit-price]")
+        .find("[data-unit-base]");
       this.productSingleBadge = this.$container.find(
-        '[data-product-single-badge]'
+        "[data-product-single-badge]",
       );
       this.badgeSelector = {
-        $onSale: this.productSingleBadge.find('[data-badge-sale]'),
-        $preOrder: this.$container.find('[data-badge-preorder]'),
-        $soldOut: this.$container.find('[data-badge-soldout]'),
+        $onSale: this.productSingleBadge.find("[data-badge-sale]"),
+        $preOrder: this.$container.find("[data-badge-preorder]"),
+        $soldOut: this.$container.find("[data-badge-soldout]"),
       };
       this.saleLabel =
-        this.badgesConfigs.saleStyle === '2'
+        this.badgesConfigs.saleStyle === "2"
           ? this.badgesConfigs.texts.SavePercent
           : this.badgesConfigs.texts.sale;
 
       this.useComingMess = this.$incomingMess.length > 0;
       if (this.useComingMess) {
         this.$incomingAvailable = this.$incomingMess.find(
-          '[data-incoming-available]'
+          "[data-incoming-available]",
         );
         this.$incomingSoldout = this.$incomingMess.find(
-          '[data-incoming-soldout]'
+          "[data-incoming-soldout]",
         );
         this.$incomingAvailableDate = this.$incomingAvailable.find(
-          '[data-incoming-date]'
+          "[data-incoming-date]",
         );
         this.$incomingSoldoutDate = this.$incomingSoldout.find(
-          '[data-incoming-date]'
+          "[data-incoming-date]",
         );
       }
 
       this.$addToCartButton = this.$formSelectorId.find(
-        '[type="submit"][name="add"]'
+        '[type="submit"][name="add"]',
       );
       this.$quantityWrapper = this.$formSelectorId.find(
-        '[data-quantity-wrapper]'
+        "[data-quantity-wrapper]",
       );
       this.$paymentButton = this.$formSelectorId.find(
-        '.shopify-payment-button'
+        ".shopify-payment-button",
       );
-      this.$addToCartButtonText = this.$addToCartButton.find('.btn-atc_text');
+      this.$addToCartButtonText = this.$addToCartButton.find(".btn-atc_text");
 
       if (this.isSticky) {
-        const $stickyCart = window.jQuery('[data-sticky-addtocart]');
-        this.$stickyimg = $stickyCart.find('[data-sticky-img] img');
-        this.$stickyVtitle = $stickyCart.find('[data-sticky-v-title]');
-        this.$stickyPrice = $stickyCart.find('[data-sticky-price]');
-        this.$stickyATC = $stickyCart.find('[data-action-atc]');
-        this.$stickyATCText = this.$stickyATC.find('.btn-atc_text');
-        this.$stickySelect = $stickyCart.find('[data-sticky-select]');
-        this.stickyImgOriginal = this.$stickyimg.data('original');
+        const $stickyCart = window.jQuery("[data-sticky-addtocart]");
+        this.$stickyimg = $stickyCart.find("[data-sticky-img] img");
+        this.$stickyVtitle = $stickyCart.find("[data-sticky-v-title]");
+        this.$stickyPrice = $stickyCart.find("[data-sticky-price]");
+        this.$stickyATC = $stickyCart.find("[data-action-atc]");
+        this.$stickyATCText = this.$stickyATC.find(".btn-atc_text");
+        this.$stickySelect = $stickyCart.find("[data-sticky-select]");
+        this.stickyImgOriginal = this.$stickyimg.data("original");
         this.$stickyQuantityWrapper = $stickyCart.find(
-          '[data-quantity-wrapper]'
+          "[data-quantity-wrapper]",
         );
         this.$stickyQuantity = this.$stickyQuantityWrapper.find(
-          '[data-quantity-value]'
+          "[data-quantity-value]",
         );
         this.isStickyChanging = false;
 
-        this.$stickySelect.on('change:drop', (event, element, value) => {
+        this.$stickySelect.on("change:drop", (event, element, value) => {
           this.eventClickedSwatch = false;
           this.isStickyChanging = true;
           this.originalSelectorId.value = value;
           this.originalSelectorId.dispatchEvent(
-            new Event('change', {
+            new Event("change", {
               bubbles: true,
               cancelable: true,
-            })
+            }),
           );
         });
       }
@@ -3842,43 +3839,43 @@ var h = (() => {
 
       this.unQuickShopInline = options.unQuickShopInline;
       this.isQuickShopForm = options.isQuickShopForm;
-      this.$imgMainItem = this.$container.find('[data-main-img-change]');
+      this.$imgMainItem = this.$container.find("[data-main-img-change]");
 
       if (options.unQuickShopInline) {
         this.originalSelectorId.addEventListener(
-          'change',
-          this._onSelectChange.bind(this)
+          "change",
+          this._onSelectChange.bind(this),
         );
         this._updateSwatchFromSizeOne();
         this.isNoPick
           ? (this.currentVariant = this._getVariantFromVariantid())
           : this.originalSelectorId.dispatchEvent(
-              new Event('change', {
+              new Event("change", {
                 bubbles: true,
                 cancelable: true,
-              })
+              }),
             );
       } else {
-        this.$container.one('replace:btnAtc', () => {
-          this.$addToCartButton = this.$container.find('.pr-addtocart');
+        this.$container.one("replace:btnAtc", () => {
+          this.$addToCartButton = this.$container.find(".pr-addtocart");
           this.$quantityWrapper = this.$container.find(
-            '[data-quantity-wrapper]'
+            "[data-quantity-wrapper]",
           );
-          this.$addToCartButtonText = this.$addToCartButton.find('.text-pr');
+          this.$addToCartButtonText = this.$addToCartButton.find(".text-pr");
         });
-        this.productSingleBadge = this.$container.find('[data-product-badge]');
+        this.productSingleBadge = this.$container.find("[data-product-badge]");
         this.badgeSelector = {
-          $onSale: this.productSingleBadge.find('[data-badge-sale]'),
-          $preOrder: this.productSingleBadge.find('[data-badge-preorder]'),
-          $soldOut: this.productSingleBadge.find('[data-badge-soldout]'),
+          $onSale: this.productSingleBadge.find("[data-badge-sale]"),
+          $preOrder: this.productSingleBadge.find("[data-badge-preorder]"),
+          $soldOut: this.productSingleBadge.find("[data-badge-soldout]"),
         };
-        this.$dataHref = this.$container.find('[data-pr-href]');
-        this.productHref = this.$dataHref.attr('href');
+        this.$dataHref = this.$container.find("[data-pr-href]");
+        this.productHref = this.$dataHref.attr("href");
         this.currentVariant = this._getVariantFromVariantid();
 
         this.$originalSelectorId.on(
-          'change',
-          this._onQuickShopInlineChange.bind(this)
+          "change",
+          this._onQuickShopInlineChange.bind(this),
         );
         this._updateSwatchFromSizeOne();
       }
@@ -3897,7 +3894,7 @@ var h = (() => {
         variant,
         this.oldVariant,
         this.formSelectorId,
-        this.hasSoldoutUnavailable
+        this.hasSoldoutUnavailable,
       );
       this._updatePrice(variant, this.oldVariant, this.$container);
       this._updateAddToCartButton(
@@ -3906,7 +3903,7 @@ var h = (() => {
         this.$addToCartButton,
         this.$quantityWrapper,
         this.$paymentButton,
-        this.$addToCartButtonText
+        this.$addToCartButtonText,
       );
       this._updateAvailability(variant, this.oldVariant, this.$container);
       this._updateSKU(variant, this.oldVariant, this.$container);
@@ -3936,7 +3933,7 @@ var h = (() => {
           this._updateHistoryState(variant);
         }
         this.$container.trigger({
-          type: 'variant:changed',
+          type: "variant:changed",
           currentVariant: variant,
           oldVariant: this.oldVariant,
         });
@@ -3957,7 +3954,7 @@ var h = (() => {
         variant,
         this.oldVariant,
         this.formSelectorId,
-        this.hasSoldoutUnavailable
+        this.hasSoldoutUnavailable,
       );
       this._updatePrice(variant, this.oldVariant, this.$container);
       this._updateAtcBtnQSInline(
@@ -3965,7 +3962,7 @@ var h = (() => {
         this.oldVariant,
         this.$addToCartButton,
         this.$quantityWrapper,
-        this.$addToCartButtonText
+        this.$addToCartButtonText,
       );
       this._updateBadges();
 
@@ -3974,14 +3971,14 @@ var h = (() => {
         this._updateMedia(variant, this.oldVariant, this.$container);
         this._updateQuantity(variant);
         this.$dataHref.attr(
-          'href',
-          this._getUrlWithVariant(this.productHref, variant.id)
+          "href",
+          this._getUrlWithVariant(this.productHref, variant.id),
         );
         if (!this.disableVariantImage) {
           this._updateVariantImageSwatch(variant);
         }
         this.$container.trigger({
-          type: 'variant:changed',
+          type: "variant:changed",
           currentVariant: variant,
           oldVariant: this.oldVariant,
         });
@@ -3993,9 +3990,9 @@ var h = (() => {
       return (
         this.variants.find((variant) =>
           clickedOptions.every(
-            (option) => variant[option.index] === option.value
-          )
-        ) || 'nathan'
+            (option) => variant[option.index] === option.value,
+          ),
+        ) || "nathan"
       );
     }
 
@@ -4017,20 +4014,20 @@ var h = (() => {
             (variant) =>
               variant.option1 === option1Value &&
               variant.option2 === option2Value &&
-              variant.available
+              variant.available,
           )[0] ||
           variants.filter(
             (variant) =>
-              variant.available && variant[currentIndex] === currentValue
+              variant.available && variant[currentIndex] === currentValue,
           );
       } else if (removeSoldout) {
         matchingVariant =
           variants.filter(
-            (variant) => variant.option1 === option1Value && variant.available
+            (variant) => variant.option1 === option1Value && variant.available,
           )[0] ||
           variants.filter(
             (variant) =>
-              variant.available && variant[currentIndex] === currentValue
+              variant.available && variant[currentIndex] === currentValue,
           );
       } else if (productOptionSize === 3) {
         const option2Value = option2.value;
@@ -4038,7 +4035,7 @@ var h = (() => {
           variants.filter(
             (variant) =>
               variant.option1 === option1Value &&
-              variant.option2 === option2Value
+              variant.option2 === option2Value,
           )[0] ||
           variants.filter((variant) => variant[currentIndex] === currentValue);
       } else {
@@ -4070,7 +4067,7 @@ var h = (() => {
         case 1.2:
           return this.variants.filter(
             (variant) =>
-              variant.option1 === option1 && variant.option2 === option2
+              variant.option1 === option1 && variant.option2 === option2,
           );
         default:
           return this.variants.filter((variant) => variant.available === 0);
@@ -4083,28 +4080,28 @@ var h = (() => {
         this.clickedCurrentIndex &&
         this.canMediaGroup
       ) {
-        const optionIndex = this.clickedCurrentIndex.replace('option', '');
+        const optionIndex = this.clickedCurrentIndex.replace("option", "");
         const optionName =
-          this.productOptions[parseInt(optionIndex) - 1]?.name || 'no';
-        const optionValue = this.clickedCurrentValue || 'no';
+          this.productOptions[parseInt(optionIndex) - 1]?.name || "no";
+        const optionValue = this.clickedCurrentValue || "no";
         const mediaSelector = `[data-grname="${optionName.toLowerCase()}"][data-grpvl="${optionValue.toLowerCase()}"]`;
 
         const mediaItems = this.$mainMedia.find(mediaSelector);
         const navItems = this.$mainNav.find(mediaSelector);
 
         if (mediaItems.length !== 0) {
-          this.$mainMedia.find('[data-main-slide]').addClass('is--media-hide');
-          mediaItems.removeClass('is--media-hide');
+          this.$mainMedia.find("[data-main-slide]").addClass("is--media-hide");
+          mediaItems.removeClass("is--media-hide");
 
-          this.$mainNav.find('.carousel__nav-item').addClass('is--media-hide');
-          navItems.removeClass('is--media-hide');
+          this.$mainNav.find(".carousel__nav-item").addClass("is--media-hide");
+          navItems.removeClass("is--media-hide");
 
-          if (this.$mainMedia.hasClass('flickity-enabled')) {
-            this.$mainMedia.trigger('update.flickity');
-            if (!navItems.hasClass('is-nav-selected')) {
-              navItems.first().addClass('is-nav-selected');
+          if (this.$mainMedia.hasClass("flickity-enabled")) {
+            this.$mainMedia.trigger("update.flickity");
+            if (!navItems.hasClass("is-nav-selected")) {
+              navItems.first().addClass("is-nav-selected");
             }
-          } else if (this.$mainMedia.hasClass('isotope-enabled')) {
+          } else if (this.$mainMedia.hasClass("isotope-enabled")) {
             this.$mainMedia.isotope();
           }
         }
@@ -4140,7 +4137,7 @@ var h = (() => {
         const variantCount = this.variants.length;
 
         const swatchItems =
-          this[`$options${optionsIndex + 1}`].find('[data-swatch-item]');
+          this[`$options${optionsIndex + 1}`].find("[data-swatch-item]");
 
         optionList.forEach((optionValue, i) => {
           let isSoldout = true;
@@ -4155,7 +4152,7 @@ var h = (() => {
             }
           }
           if (isSoldout) {
-            swatchItems.eq(i).addClass('is--soldout');
+            swatchItems.eq(i).addClass("is--soldout");
           }
         });
       }
@@ -4174,7 +4171,7 @@ var h = (() => {
         const productOptionSize = this.productOptionSize;
 
         for (let i = 0; i < productOptionSize; i++) {
-          optionName = productOptions[i]?.name || 'no';
+          optionName = productOptions[i]?.name || "no";
           if (
             this.$mainMedia.find(`[data-grname="${optionName.toLowerCase()}"]`)
               .length !== 0
@@ -4190,28 +4187,28 @@ var h = (() => {
 
         if (mediaItems.length !== 0 && optionValue !== this.groupValue) {
           this.groupValue = optionValue;
-          this.$mainMedia.find('[data-main-slide]').addClass('is--media-hide');
-          mediaItems.removeClass('is--media-hide');
+          this.$mainMedia.find("[data-main-slide]").addClass("is--media-hide");
+          mediaItems.removeClass("is--media-hide");
 
-          this.$mainNav.find('.carousel__nav-item').addClass('is--media-hide');
-          navItems.removeClass('is--media-hide');
+          this.$mainNav.find(".carousel__nav-item").addClass("is--media-hide");
+          navItems.removeClass("is--media-hide");
 
-          if (this.$mainMedia.hasClass('flickity-enabled')) {
-            this.$mainMedia.trigger('update.flickity');
+          if (this.$mainMedia.hasClass("flickity-enabled")) {
+            this.$mainMedia.trigger("update.flickity");
             const featuredMediaIndex = currentVariant.featured_media
               ? this.$mainMedia
                   .find(
-                    `[data-media-id="${currentVariant.featured_media.id}"]:visible`
+                    `[data-media-id="${currentVariant.featured_media.id}"]:visible`,
                   )
                   .index()
               : 0;
             this.$mainMedia.flickity(
-              'selectCell',
+              "selectCell",
               Math.max(featuredMediaIndex, 0),
               false,
-              false
+              false,
             );
-          } else if (this.$mainMedia.hasClass('isotope-enabled')) {
+          } else if (this.$mainMedia.hasClass("isotope-enabled")) {
             this.$mainMedia.isotope();
           }
         }
@@ -4219,34 +4216,34 @@ var h = (() => {
     }
 
     _updateSwatchSelector(currentVariant, $selector, isAvailable) {
-      const swatchItems = $selector.find('.is--selected');
-      swatchItems.removeClass('is--selected');
-      $selector.find('[data-current-value]').html('');
+      const swatchItems = $selector.find(".is--selected");
+      swatchItems.removeClass("is--selected");
+      $selector.find("[data-current-value]").html("");
 
       const productOptions = this.productOptions;
       const option1 = currentVariant.option1;
       const option2 = currentVariant.option2;
       const option3 = currentVariant.option3;
 
-      this.$options1.find('[data-current-value]').html(option1);
+      this.$options1.find("[data-current-value]").html(option1);
       this.$options1
         .find(swatchItemSelector)
         .eq(productOptions[0].values.indexOf(option1))
-        .addClass('is--selected');
+        .addClass("is--selected");
       if (this.$options2[0]) {
-        this.$options2.find('[data-current-value]').html(option2);
+        this.$options2.find("[data-current-value]").html(option2);
         this.$options2
           .find(swatchItemSelector)
           .eq(productOptions[1].values.indexOf(option2))
-          .addClass('is--selected');
+          .addClass("is--selected");
       }
 
       if (this.$options3[0]) {
-        this.$options3.find('[data-current-value]').html(option3);
+        this.$options3.find("[data-current-value]").html(option3);
         this.$options3
           .find(swatchItemSelector)
           .eq(productOptions[2].values.indexOf(option3))
-          .addClass('is--selected');
+          .addClass("is--selected");
       }
 
       if (isAvailable) {
@@ -4261,22 +4258,22 @@ var h = (() => {
             if (productOptions[2].values.length === 1) {
               $option = this.$options1;
               optionVal = productOptions[0].values;
-              optionType1 = 'option3';
+              optionType1 = "option3";
               optionType = option3;
-              optionType2 = 'option1';
+              optionType2 = "option1";
               optionIndex = 3;
             } else {
               $option = this.$options3;
               optionVal = productOptions[2].values;
-              optionType1 = 'option1';
+              optionType1 = "option1";
               optionType = option1;
-              optionType2 = 'option3';
+              optionType2 = "option3";
               optionIndex = 1;
             }
 
             const variants = this._getVariantFromOptionIndex(
               optionIndex,
-              currentVariant
+              currentVariant,
             );
             const variantLen = variants.length;
             $option.find(swatchItemSelector).addClass(soldOutClass);
@@ -4326,10 +4323,10 @@ var h = (() => {
           }
           default:
             this.removeSoldout &&
-              this.$optionsOne.find('.is--selected').is(':hidden') &&
+              this.$optionsOne.find(".is--selected").is(":hidden") &&
               this.$optionsOne
-                .find('[data-swatch-item]:visible:first')
-                .trigger('click');
+                .find("[data-swatch-item]:visible:first")
+                .trigger("click");
         }
       }
     }
@@ -4337,17 +4334,17 @@ var h = (() => {
     _updateMetafield(newMetafield, currentMetafield, container) {
       if (newMetafield && newMetafield.id !== currentMetafield.id) {
         // Hide all variant toggles
-        container.find('[data-variant-toggle]').hide();
+        container.find("[data-variant-toggle]").hide();
 
         // Show the specific variant toggle for the new metafield
         container.find(`[data-variant-toggle="${newMetafield.id}"]`).show();
 
         // If this is the main product, handle variant tabs
         if (this.isMainProduct) {
-          window.jQuery('[data-variant-tab][data-variant-toggle]').hide();
+          window.jQuery("[data-variant-tab][data-variant-toggle]").hide();
           window
             .jQuery(
-              `[data-variant-tab][data-variant-toggle="${newMetafield.id}"]`
+              `[data-variant-tab][data-variant-toggle="${newMetafield.id}"]`,
             )
             .show();
         }
@@ -4365,43 +4362,43 @@ var h = (() => {
           const previewImage = newData.featured_media.preview_image;
           let shouldLoadImmediately = true;
           const lazyLoadDelay =
-            this.$imgMainItem.hasClass('lazyloaded') && shouldLoadImmediately
+            this.$imgMainItem.hasClass("lazyloaded") && shouldLoadImmediately
               ? 0
               : 100;
 
           // Set the new image source after a delay
           setTimeout(() => {
             this.$imgMainItem.attr(
-              'data-srcset',
-              window.T4SThemeSP.Images.getNewImageUrl(previewImage.src, 1)
+              "data-srcset",
+              window.T4SThemeSP.Images.getNewImageUrl(previewImage.src, 1),
             );
             shouldLoadImmediately = false;
           }, lazyLoadDelay);
 
           // Update the container if not selected
           if (this.notSelected) {
-            this.$container.addClass('colors-selected');
+            this.$container.addClass("colors-selected");
             this.notSelected = false;
           }
         }
 
         this.mediaID = newData.featured_media.id;
-        const mediaElements = container.find('[data-main-media]');
+        const mediaElements = container.find("[data-main-media]");
 
-        if (mediaElements.hasClass('flickity-enabled')) {
+        if (mediaElements.hasClass("flickity-enabled")) {
           const mediaIndex = mediaElements
             .find(`[data-media-id="${this.mediaID}"]:visible`)
             .index();
           mediaElements.flickity(
-            'select',
+            "select",
             Math.max(mediaIndex, 0),
             false,
-            true
+            true,
           );
           this.eventClickedSwatch = false;
-        } else if (!mediaElements.hasClass('of-scrollIntoView')) {
+        } else if (!mediaElements.hasClass("of-scrollIntoView")) {
           const targetMedia = mediaElements.find(
-            `[data-media-id="${this.mediaID}"]`
+            `[data-media-id="${this.mediaID}"]`,
           )[0];
 
           if (
@@ -4414,14 +4411,14 @@ var h = (() => {
 
           // Dispatch event to prevent header reveal
           if (!this.header) {
-            this.header = document.querySelector('.section-header');
+            this.header = document.querySelector(".section-header");
           }
-          this.header.dispatchEvent(new Event('preventHeaderReveal'));
+          this.header.dispatchEvent(new Event("preventHeaderReveal"));
 
           // Scroll to the target media smoothly
           window.setTimeout(() => {
             mediaElements[0].scrollLeft = 0;
-            targetMedia.scrollIntoView({ behavior: 'smooth' });
+            targetMedia.scrollIntoView({ behavior: "smooth" });
           });
         }
       } else {
@@ -4434,17 +4431,17 @@ var h = (() => {
       if (this.unQuickShopInline) return;
 
       // Find the closest swatch option
-      const swatchOption = swatchElement.closest('[data-swatch-option]');
+      const swatchOption = swatchElement.closest("[data-swatch-option]");
 
       // Exit if the swatch option is not a color style
-      if (!swatchOption.hasClass('is-style__color')) return;
+      if (!swatchOption.hasClass("is-style__color")) return;
 
       const variantOptions = this.variants;
       const variantCount = variantOptions.length;
-      const optionIndex = swatchOption.data('id');
+      const optionIndex = swatchOption.data("id");
 
       // Get the selected color or style value
-      const selectedValue = (swatchElement.data('value') + '').toLowerCase();
+      const selectedValue = (swatchElement.data("value") + "").toLowerCase();
 
       // Find the matching featured media based on the selected swatch
       const previewImage = (() => {
@@ -4452,7 +4449,7 @@ var h = (() => {
           const variant = variantOptions[i];
           if (
             variant.featured_media &&
-            (variant.options[optionIndex] + '').toLowerCase() === selectedValue
+            (variant.options[optionIndex] + "").toLowerCase() === selectedValue
           ) {
             return variant.featured_media.preview_image;
           }
@@ -4462,8 +4459,8 @@ var h = (() => {
       // Update the main image if a preview image is found
       if (previewImage) {
         this.$imgMainItem.attr(
-          'data-srcset',
-          window.T4SThemeSP.Images.getNewImageUrl(previewImage.src, 1)
+          "data-srcset",
+          window.T4SThemeSP.Images.getNewImageUrl(previewImage.src, 1),
         );
       }
     }
@@ -4492,7 +4489,7 @@ var h = (() => {
         const formattedComparePrice =
           window.T4SThemeSP.Currency.formatMoney(comparePrice);
         this.$productPrice.html(
-          `${formattedPrice} <span class="compare-price">${formattedComparePrice}</span>`
+          `${formattedPrice} <span class="compare-price">${formattedComparePrice}</span>`,
         );
       }
     }
@@ -4508,7 +4505,7 @@ var h = (() => {
         }
       } else if (
         t.inventory_management !== null &&
-        t.inventory_policy !== 'continue'
+        t.inventory_policy !== "continue"
       ) {
         let availableQuantity = t.inventory_quantity;
         if (availableQuantity < maxQuantity) maxQuantity = availableQuantity;
@@ -4517,13 +4514,13 @@ var h = (() => {
           this.$stickyQuantity.attr({ min: minQuantity, max: maxQuantity });
         }
         if (parseInt(this.$quantity.val()) > availableQuantity) {
-          this.$quantity.attr('value', 1).val(1);
+          this.$quantity.attr("value", 1).val(1);
         }
         if (
           this.isSticky &&
           parseInt(this.$stickyQuantity.val()) > availableQuantity
         ) {
-          this.$stickyQuantity.attr('value', 1).val(1);
+          this.$stickyQuantity.attr("value", 1).val(1);
         }
       } else {
         this.$quantity.attr({ min: minQuantity, max: maxQuantity });
@@ -4534,15 +4531,15 @@ var h = (() => {
     }
 
     _updateAvailability(t, e, i) {
-      const availabilitySection = i.find('[data-product-available]');
+      const availabilitySection = i.find("[data-product-available]");
       if (availabilitySection.length) {
         const availableStatus = availabilitySection.find(
-          '[data-available-status]'
+          "[data-available-status]",
         );
-        const soldOutStatus = availabilitySection.find('[data-soldout-status]');
-        const inStockStatus = availabilitySection.find('[data-instock-status]');
+        const soldOutStatus = availabilitySection.find("[data-soldout-status]");
+        const inStockStatus = availabilitySection.find("[data-instock-status]");
         const preOrderStatus = availabilitySection.find(
-          '[data-preorder-status]'
+          "[data-preorder-status]",
         );
 
         if (t) {
@@ -4568,10 +4565,10 @@ var h = (() => {
     }
 
     _updateBarcode(t, e, i) {
-      const barcodeSection = i.find('[data-product-barcode]');
+      const barcodeSection = i.find("[data-product-barcode]");
       if (barcodeSection.length) {
         const barcodeNumber = barcodeSection.find(
-          '[data-product__barcode-number]'
+          "[data-product__barcode-number]",
         );
         if (t && t.barcode) {
           if (e && e.barcode === t.barcode) return;
@@ -4584,9 +4581,9 @@ var h = (() => {
     }
 
     _updateSKU(t, e, i) {
-      const skuSection = i.find('[data-product-sku]');
+      const skuSection = i.find("[data-product-sku]");
       if (skuSection.length) {
-        const skuNumber = skuSection.find('[data-product__sku-number]');
+        const skuNumber = skuSection.find("[data-product__sku-number]");
         if (t && t.sku) {
           if (e && e.sku === t.sku) return;
           skuNumber.text(t.sku);
@@ -4603,16 +4600,16 @@ var h = (() => {
       $addToCartButton,
       $quantityWrapper,
       $paymentButton,
-      $addToCartButtonText
+      $addToCartButtonText,
     ) {
       if ($addToCartButton.length || n.length) {
         if (
           window.T4SThemeSP.isEditCartReplace &&
-          !$addToCartButton.is('[data-replace-item]')
+          !$addToCartButton.is("[data-replace-item]")
         ) {
-          $addToCartButton.attr('data-replace-item', '');
+          $addToCartButton.attr("data-replace-item", "");
         }
-        if (t && t !== 'nathan') {
+        if (t && t !== "nathan") {
           if (t.available) {
             const buttonText = this.variantState.preOrder
               ? this.txt_preOrder || p
@@ -4620,7 +4617,7 @@ var h = (() => {
             a.show();
             $addToCartButton
               .removeAttr(`disabled ${y.disabled}`)
-              .attr('data-atc-form', '');
+              .attr("data-atc-form", "");
             o.text(buttonText);
             n.show();
             if (this.isSticky) {
@@ -4631,30 +4628,30 @@ var h = (() => {
           } else {
             a.hide();
             $addToCartButton
-              .attr('disabled', 'disabled')
+              .attr("disabled", "disabled")
               .attr(y.disabled, true)
-              .removeAttr('data-atc-form', '');
+              .removeAttr("data-atc-form", "");
             o.text(f);
             n.hide();
             if (this.isSticky) {
               this.$stickyQuantityWrapper.hide();
               this.$stickyATC
-                .attr('disabled', 'disabled')
+                .attr("disabled", "disabled")
                 .attr(y.disabled, true);
               this.$stickyATCText.text(f);
             }
           }
         } else {
           $addToCartButton
-            .attr('disabled', 'disabled')
+            .attr("disabled", "disabled")
             .attr(y.disabled, true)
-            .removeAttr('data-atc-form');
+            .removeAttr("data-atc-form");
           o.text(c);
           a.hide();
           n.hide();
           if (this.isSticky) {
             this.$stickyQuantityWrapper.hide();
-            this.$stickyATC.attr('disabled', 'disabled').attr(y.disabled, true);
+            this.$stickyATC.attr("disabled", "disabled").attr(y.disabled, true);
             this.$stickyATCText.text(c);
           }
         }
@@ -4663,27 +4660,27 @@ var h = (() => {
 
     _updateAtcBtnQSInline(t, e, i, a, n) {
       if (i.length) {
-        if (t && t !== 'nathan') {
+        if (t && t !== "nathan") {
           if (t.available) {
             const buttonText = this.variantState.preOrder
               ? this.txt_preOrder || p
               : this.txt_addToCart || u;
             a.show();
             i.removeAttr(`disabled ${y.disabled}`)
-              .attr('data-action-atc', '')
-              .attr('data-variant-id', t.id);
+              .attr("data-action-atc", "")
+              .attr("data-variant-id", t.id);
             n.text(buttonText);
           } else {
             a.hide();
-            i.attr('disabled', 'disabled')
+            i.attr("disabled", "disabled")
               .attr(y.disabled, true)
-              .removeAttr('data-action-atc', '');
+              .removeAttr("data-action-atc", "");
             n.text(f);
           }
         } else {
-          i.attr('disabled', 'disabled')
+          i.attr("disabled", "disabled")
             .attr(y.disabled, true)
-            .removeAttr('data-action-atc');
+            .removeAttr("data-action-atc");
           n.text(c);
           a.hide();
         }
@@ -4691,10 +4688,10 @@ var h = (() => {
     }
 
     _updateDelivery(t, e, a) {
-      const deliverySection = a.find('[data-order-delivery]');
+      const deliverySection = a.find("[data-order-delivery]");
       if (deliverySection.length) {
         if (t && t.available) {
-          const deliveryMethod = i(deliverySection.attr('data-order-delivery'));
+          const deliveryMethod = i(deliverySection.attr("data-order-delivery"));
           if (this.variantState.preOrder && deliveryMethod.hideWithPreorder) {
             deliverySection.hide();
           } else {
@@ -4707,11 +4704,11 @@ var h = (() => {
     }
 
     _updateInventoryQuantity(t, e, i) {
-      const inventorySection = i.find('[data-inventory-qty]');
+      const inventorySection = i.find("[data-inventory-qty]");
       if (inventorySection.length) {
         if (t && t.available) {
           inventorySection.trigger({
-            type: 'variant:inventory',
+            type: "variant:inventory",
             currentVariant: t,
             oldVariant: this.oldVariant,
           });
@@ -4723,8 +4720,8 @@ var h = (() => {
 
     _updatePickupAvailabilityContent(t, e) {
       const eventType = t.available
-        ? 'pickupAvailability:update'
-        : 'pickupAvailability:clear';
+        ? "pickupAvailability:update"
+        : "pickupAvailability:clear";
       e.trigger({
         type: eventType,
         currentVariant: t,
@@ -4733,8 +4730,8 @@ var h = (() => {
 
     _updateNotifyBackinStock(t, e) {
       const eventType = this.variantState.available
-        ? 'notifyBackinStock:hide'
-        : 'notifyBackinStock:show';
+        ? "notifyBackinStock:hide"
+        : "notifyBackinStock:show";
       e.trigger({
         type: eventType,
         currentVariant: t,
@@ -4744,11 +4741,11 @@ var h = (() => {
     _updateBadges() {
       const { onSale, preOrder, soldOut } = this.variantState;
       const { $onSale, $preOrder, $soldOut } = this.badgeSelector;
-      onSale ? $onSale.removeAttr('hidden') : $onSale.attr('hidden', true);
+      onSale ? $onSale.removeAttr("hidden") : $onSale.attr("hidden", true);
       preOrder
-        ? $preOrder.removeAttr('hidden')
-        : $preOrder.attr('hidden', true);
-      soldOut ? $soldOut.removeAttr('hidden') : $soldOut.attr('hidden', true);
+        ? $preOrder.removeAttr("hidden")
+        : $preOrder.attr("hidden", true);
+      soldOut ? $soldOut.removeAttr("hidden") : $soldOut.attr("hidden", true);
     }
 
     _setVariantState(t) {
@@ -4759,7 +4756,7 @@ var h = (() => {
             onSale: t.compare_at_price > t.price,
             showUnitPrice: !!t.unit_price,
             preOrder:
-              t.inventory_management === 'shopify' &&
+              t.inventory_management === "shopify" &&
               t.inventory_quantity <= 0 &&
               t.available,
           }
@@ -4768,14 +4765,14 @@ var h = (() => {
 
     _updateVariantImageSwatch(t) {
       if (!t.featured_image) return;
-      const selectedImage = this.$variantImg.find('.is--selected');
-      const imageElement = selectedImage.find('[data-img-el]') || selectedImage;
+      const selectedImage = this.$variantImg.find(".is--selected");
+      const imageElement = selectedImage.find("[data-img-el]") || selectedImage;
       imageElement.attr(
-        'data-bg',
+        "data-bg",
         window.T4SThemeSP.Images.getNewImageUrl(
           t.featured_image.src,
-          this.swatchWidth
-        )
+          this.swatchWidth,
+        ),
       );
     }
 
@@ -4787,8 +4784,8 @@ var h = (() => {
         incoming,
         inventory_management: management,
       } = t;
-      if (t && date && quantity <= 0 && incoming && management === 'shopify') {
-        this.$incomingMess.removeAttr('hidden');
+      if (t && date && quantity <= 0 && incoming && management === "shopify") {
+        this.$incomingMess.removeAttr("hidden");
         if (this.variantState.available) {
           this.$incomingAvailableDate.html(date);
           this.$incomingSoldout.hide();
@@ -4799,7 +4796,7 @@ var h = (() => {
           this.$incomingSoldout.show();
         }
       } else {
-        this.$incomingMess.attr('hidden', '');
+        this.$incomingMess.attr("hidden", "");
       }
     }
 
@@ -4810,32 +4807,32 @@ var h = (() => {
         ? window.T4SThemeSP.Images.lazyloadImagePath(t.featured_image.src)
         : this.stickyImgOriginal;
 
-      this.$stickyimg.attr('data-src', imageSrc);
+      this.$stickyimg.attr("data-src", imageSrc);
 
       if (this.useStickySelect) {
         if (t.available) {
-          this.$stickyVtitle.find('[data-dropdown-open]>span').text(t.title);
+          this.$stickyVtitle.find("[data-dropdown-open]>span").text(t.title);
           this.$stickySelect
-            .find('[data-dropdown-item]')
-            .removeClass('is--selected');
+            .find("[data-dropdown-item]")
+            .removeClass("is--selected");
           this.$stickySelect
             .find(`[data-dropdown-item][data-value="${t.id}"]`)
-            .addClass('is--selected');
+            .addClass("is--selected");
         }
       } else {
         this.$stickyVtitle.html(t.title);
       }
 
-      this.$stickyATC.attr('data-variant-id', t.id);
+      this.$stickyATC.attr("data-variant-id", t.id);
     }
 
     _updateHistoryState(t) {
       if (!history.replaceState || !t) return;
 
       const url = new URL(document.location);
-      url.searchParams.set('variant', t.id);
+      url.searchParams.set("variant", t.id);
 
-      window.history.replaceState({ path: url.href }, '', url.href);
+      window.history.replaceState({ path: url.href }, "", url.href);
     }
 
     _getUrlWithVariant(url, variantId) {
@@ -4855,9 +4852,9 @@ var h = (() => {
 
 //done
 var SalesInteraction = (() => {
-  const ANIMATION_ATC = 'data-animation-atc';
+  const ANIMATION_ATC = "data-animation-atc";
   const TIMEZONE = window.T4Sconfigs.timezone;
-  const DEFAULT_TIMEZONE = 'nt_guess';
+  const DEFAULT_TIMEZONE = "nt_guess";
 
   let guessedTimezone;
   try {
@@ -4867,17 +4864,17 @@ var SalesInteraction = (() => {
   }
 
   const isDifferentTimezone =
-    TIMEZONE !== 'not4' && guessedTimezone !== TIMEZONE;
+    TIMEZONE !== "not4" && guessedTimezone !== TIMEZONE;
 
   const getRandomInt = (min, max) =>
     Math.floor(Math.random() * (max - min + 1)) + min;
 
   function animateATC(t) {
     if (0 != t.length) {
-      var e = JSON.parse(t.attr(n) || '{}'),
+      var e = JSON.parse(t.attr(n) || "{}"),
         a = e.ani;
-      if ('none' != a) {
-        var o = 'is--animated ' + a,
+      if ("none" != a) {
+        var o = "is--animated " + a,
           s = parseInt(e.time),
           r = parseInt(e.animTime) || 1e3;
         setInterval(function () {
@@ -4910,10 +4907,10 @@ var SalesInteraction = (() => {
       const $element = this.$container.find(`[${ANIMATION_ATC}]`);
       if ($element.length === 0) return;
 
-      const animationData = JSON.parse($element.attr(ANIMATION_ATC) || '{}');
+      const animationData = JSON.parse($element.attr(ANIMATION_ATC) || "{}");
       const { ani, time, animTime = 1000 } = animationData;
 
-      if (ani !== 'none') {
+      if (ani !== "none") {
         const animationClass = `is--animated ${ani}`;
         const animationDuration = parseInt(animTime) || 1e3;
         const intervalTime = parseInt(time);
@@ -4928,27 +4925,27 @@ var SalesInteraction = (() => {
     }
 
     liveView() {
-      const $liveViewElement = this.$container.find('[data-live-view]');
+      const $liveViewElement = this.$container.find("[data-live-view]");
       if ($liveViewElement.length === 0) return;
 
       const { min, max, interval } = JSON.parse(
-        $liveViewElement.attr('data-live-view')
+        $liveViewElement.attr("data-live-view"),
       );
       let currentCount = getRandomInt(min, max);
       const countArray = [
-        '1',
-        '2',
-        '4',
-        '3',
-        '6',
-        '10',
-        '-1',
-        '-3',
-        '-2',
-        '-4',
-        '-6',
+        "1",
+        "2",
+        "4",
+        "3",
+        "6",
+        "10",
+        "-1",
+        "-3",
+        "-2",
+        "-4",
+        "-6",
       ];
-      const extraCountArray = ['10', '20', '15'];
+      const extraCountArray = ["10", "20", "15"];
       let randomCount = 0;
       let count = 0;
       let p = 0;
@@ -4964,7 +4961,7 @@ var SalesInteraction = (() => {
         if (currentCount < min || currentCount > max) {
           currentCount = getRandomInt(min, max);
         }
-        $liveViewElement.find('[data-count]').html(parseInt(currentCount));
+        $liveViewElement.find("[data-count]").html(parseInt(currentCount));
       };
 
       updateCount();
@@ -4973,11 +4970,11 @@ var SalesInteraction = (() => {
     }
 
     flashSold() {
-      const $flashSoldElement = this.$container.find('[data-flash-sold]');
+      const $flashSoldElement = this.$container.find("[data-flash-sold]");
       if ($flashSoldElement.length === 0) return;
 
       const { mins, maxs, mint, maxt, id, time } = JSON.parse(
-        $flashSoldElement.attr('data-flash-sold')
+        $flashSoldElement.attr("data-flash-sold"),
       );
       let soldCount =
         parseInt(sessionStorage.getItem(`soldS${id}`)) ||
@@ -4992,8 +4989,8 @@ var SalesInteraction = (() => {
       };
 
       const setSoldData = () => {
-        $flashSoldElement.find('[data-sold]').html(soldCount);
-        $flashSoldElement.find('[data-hour]').html(Math.floor(timeCount));
+        $flashSoldElement.find("[data-sold]").html(soldCount);
+        $flashSoldElement.find("[data-hour]").html(Math.floor(timeCount));
         sessionStorage.setItem(`soldS${id}`, soldCount);
         sessionStorage.setItem(`soldT${id}`, timeCount);
       };
@@ -5011,21 +5008,21 @@ var SalesInteraction = (() => {
     }
 
     orderDelivery() {
-      const weekDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-      const holidayDates = ['280/12', '100/01'];
+      const weekDays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+      const holidayDates = ["280/12", "100/01"];
 
       const uniqueValues = (arr) => [...new Set(arr)];
       const getDaySuffix = (day) => {
-        if (day > 3 && day < 21) return 'th';
+        if (day > 3 && day < 21) return "th";
         switch (day % 10) {
           case 1:
-            return 'st';
+            return "st";
           case 2:
-            return 'nd';
+            return "nd";
           case 3:
-            return 'rd';
+            return "rd";
           default:
-            return 'th';
+            return "th";
         }
       };
 
@@ -5033,9 +5030,9 @@ var SalesInteraction = (() => {
       const calculateDate = (date, extraDays, excludedDays, holidayList) => {
         let count = 0;
         while (count < extraDays) {
-          date = date.add(1, 'day');
-          const dayOfWeek = date.format('d');
-          const formattedDate = date.format('DD/MM');
+          date = date.add(1, "day");
+          const dayOfWeek = date.format("d");
+          const formattedDate = date.format("DD/MM");
           if (
             excludedDays.includes(dayOfWeek) ||
             holidayList.includes(formattedDate)
@@ -5049,18 +5046,18 @@ var SalesInteraction = (() => {
 
       // Helper function: Format delivery date
       const formatDeliveryDate = (date, dayNames, monthNames, format) => {
-        const day = parseInt(date.format('D'));
+        const day = parseInt(date.format("D"));
         const dayWithSuffix = day + getDaySuffix(day);
-        const monthName = monthNames[parseInt(date.format('M')) - 1];
-        const dayName = dayNames[parseInt(date.format('d'))];
+        const monthName = monthNames[parseInt(date.format("M")) - 1];
+        const dayName = dayNames[parseInt(date.format("d"))];
         return date
           .format(format)
-          .replace('t44', dayName)
-          .replace('t45', dayWithSuffix)
-          .replace('t46', monthName);
+          .replace("t44", dayName)
+          .replace("t45", dayWithSuffix)
+          .replace("t46", monthName);
       };
 
-      const deliveryContainer = this.$container.find('[data-order-delivery]');
+      const deliveryContainer = this.$container.find("[data-order-delivery]");
       if (deliveryContainer.length === 0) return;
 
       let {
@@ -5071,27 +5068,27 @@ var SalesInteraction = (() => {
         cut_day: cutDay,
         mode,
         timezone,
-      } = JSON.parse(deliveryContainer.attr('data-order-delivery') || '{}');
+      } = JSON.parse(deliveryContainer.attr("data-order-delivery") || "{}");
 
       let startDate = dayjs();
       let endDate = dayjs();
       let currentDate = dayjs();
       let timeInZone;
 
-      let dateFormate = dayJs.formate('HHmmss');
-      let deliveryStartDate = window.dayjs().add(estimateStartDate, 'day');
-      let deliveryEndDate = window.dayjs().add(estimateEndDate, 'day');
+      let dateFormate = dayJs.formate("HHmmss");
+      let deliveryStartDate = window.dayjs().add(estimateStartDate, "day");
+      let deliveryEndDate = window.dayjs().add(estimateEndDate, "day");
 
-      time = time.replace('24:00:00', '23:59:59') || '19041994';
-      const adjustedTime = time.replace(/ /g, '').replace(/:/g, '');
+      time = time.replace("24:00:00", "23:59:59") || "19041994";
+      const adjustedTime = time.replace(/ /g, "").replace(/:/g, "");
 
       const dayNames = window.T4SProductStrings.order_dayNames
-        .replace(/ /g, '')
-        .split(',');
+        .replace(/ /g, "")
+        .split(",");
       const monthNames = window.T4SProductStrings.order_monthNames
-        .replace(/ /g, '')
-        .split(',');
-      cutDay = cutDay.replace(/ /g, '').split(',');
+        .replace(/ /g, "")
+        .split(",");
+      cutDay = cutDay.replace(/ /g, "").split(",");
 
       let g = 0;
       let y = 0;
@@ -5100,59 +5097,59 @@ var SalesInteraction = (() => {
         try {
           timeInZone = dayjs.tz(currentDate, timezone);
           currentDate = timeInZone;
-          adjustedTime = timeInZone.format('HHmmss');
+          adjustedTime = timeInZone.format("HHmmss");
         } catch (err) {
           console.log(`Timezone error: ${TIMEZONE}`, err);
         }
       }
 
       if (parseInt(dateFormate) >= parseInt(adjustedTime)) {
-        timeInZone = timeInZone.add(1, 'day');
-        startDate = startDate.add(1, 'day');
-        endDate = endDate.add(1, 'day');
+        timeInZone = timeInZone.add(1, "day");
+        startDate = startDate.add(1, "day");
+        endDate = endDate.add(1, "day");
         if (mode) {
           while (
-            cutDay.includes(weekDays[startDate.format('d')]) ||
-            holidayDates.includes(startDate.format('DD/MM'))
+            cutDay.includes(weekDays[startDate.format("d")]) ||
+            holidayDates.includes(startDate.format("DD/MM"))
           ) {
-            startDate = startDate.add(1, 'day');
+            startDate = startDate.add(1, "day");
           }
 
           while (g < estimateStartDate) {
-            startDate = startDate.add(1, 'day');
+            startDate = startDate.add(1, "day");
             if (
               !(
-                cutDay.includes(weekDays[startDate.format('d')]) ||
-                holidayDates.includes(startDate.format('DD/MM'))
+                cutDay.includes(weekDays[startDate.format("d")]) ||
+                holidayDates.includes(startDate.format("DD/MM"))
               )
             ) {
               g++;
             }
           }
 
-          while (cutDay.includes(weekDays[endDate.format('d')])) {
-            endDate = endDate.add(1, 'day');
+          while (cutDay.includes(weekDays[endDate.format("d")])) {
+            endDate = endDate.add(1, "day");
           }
 
           while (y < estimateEndDate) {
-            endDate = endDate.add(1, 'day');
-            if (!cutDay.includes(weekDays[endDate.format('d')])) {
+            endDate = endDate.add(1, "day");
+            if (!cutDay.includes(weekDays[endDate.format("d")])) {
               y++;
             }
           }
         }
       } else {
-        startDate = startDate.add(estimateStartDate, 'day');
+        startDate = startDate.add(estimateStartDate, "day");
         while (
-          cutDay.includes(c[startDate.format('d')]) ||
-          holidayDates.includes(startDate.format('DD/MM'))
+          cutDay.includes(c[startDate.format("d")]) ||
+          holidayDates.includes(startDate.format("DD/MM"))
         ) {
-          startDate = startDate.add(1, 'day');
+          startDate = startDate.add(1, "day");
         }
 
-        endDate = endDate.add(f, 'day');
-        while (cutDay.includes(cutDay[endDate.format('d')])) {
-          endDate = endDate.add(1, 'day');
+        endDate = endDate.add(f, "day");
+        while (cutDay.includes(cutDay[endDate.format("d")])) {
+          endDate = endDate.add(1, "day");
         }
       }
 
@@ -5162,30 +5159,30 @@ var SalesInteraction = (() => {
       const calculateDeliveryDate = () => {
         while (
           cutDay.includes(weekDays[deliveryStartDate.day()]) ||
-          holidayDates.includes(deliveryStartDate.format('DD/MM'))
+          holidayDates.includes(deliveryStartDate.format("DD/MM"))
         ) {
-          deliveryStartDate = deliveryStartDate.add(1, 'day');
+          deliveryStartDate = deliveryStartDate.add(1, "day");
         }
         while (cutDay.includes(weekDays[deliveryEndDate.day()])) {
-          deliveryEndDate = deliveryEndDate.add(1, 'day');
+          deliveryEndDate = deliveryEndDate.add(1, "day");
         }
       };
 
       calculateDeliveryDate();
       $orderDeliveryElement
-        .find('[data-start-delivery]')
+        .find("[data-start-delivery]")
         .html(deliveryStartDate.format(format_day));
       $orderDeliveryElement
-        .find('[data-end-delivery]')
+        .find("[data-end-delivery]")
         .html(deliveryEndDate.format(format_day));
     }
 
     inventoryQuantity() {
-      const $inventoryElement = this.$container.find('[data-inventory-qty]');
+      const $inventoryElement = this.$container.find("[data-inventory-qty]");
       if ($inventoryElement.length === 0) return;
 
       let inventoryData = JSON.parse(
-        $inventoryElement.attr('data-inventory-qty')
+        $inventoryElement.attr("data-inventory-qty"),
       );
       let { stock, qty, total, min, max, reduce, bgprocess, bgten, id } =
         inventoryData;
@@ -5195,9 +5192,9 @@ var SalesInteraction = (() => {
         const percentage = (currentQty / total) * 100;
         const color = currentQty < 10 ? bgten : bgprocess;
         $inventoryElement
-          .find('[data-progressbar] > div')
+          .find("[data-progressbar] > div")
           .css({ width: `${percentage}%`, backgroundColor: color });
-        $inventoryElement.find('[data-count]').html(currentQty);
+        $inventoryElement.find("[data-count]").html(currentQty);
       };
 
       updateInventory();
@@ -5205,30 +5202,30 @@ var SalesInteraction = (() => {
     }
 
     countdown() {
-      const $countdownElement = this.$container.find('[data-countdown-pr]');
+      const $countdownElement = this.$container.find("[data-countdown-pr]");
       if ($countdownElement.length === 0) return;
 
       const cdOptions = JSON.parse(
-        $countdownElement.find('[data-cd-options]').attr('data-cd-options')
+        $countdownElement.find("[data-cd-options]").attr("data-cd-options"),
       );
       let countdownDate = dayjs();
 
       if (!cdOptions.isCountdownMeta) {
-        const cdTimes = cdOptions.cd_date.split(',');
+        const cdTimes = cdOptions.cd_date.split(",");
         let nearestTime;
         cdTimes.forEach((time) => {
           if (
-            parseInt(time.replace(/:/g, '')) >=
-            parseInt(countdownDate.format('HHmmss'))
+            parseInt(time.replace(/:/g, "")) >=
+            parseInt(countdownDate.format("HHmmss"))
           ) {
             nearestTime = time;
           }
         });
         countdownDate = countdownDate.format(`YYYY-MM-DD ${nearestTime}`);
-        $countdownElement.attr('data-date', countdownDate);
+        $countdownElement.attr("data-date", countdownDate);
       }
 
-      $countdownElement.attr('data-countdown-ts', '');
+      $countdownElement.attr("data-countdown-ts", "");
       window.T4SThemeSP.Countdown();
     }
   }
@@ -5243,27 +5240,27 @@ var SalesInteraction = (() => {
 var g = (() => {
   const a = {};
   const hosts = {
-    shopify: 'shopify',
-    external: 'external',
+    shopify: "shopify",
+    external: "external",
   };
-  const productMediaWrapper = '[data-product-single-media-wrapper]';
+  const productMediaWrapper = "[data-product-single-media-wrapper]";
   const attributes = {
-    enableVideoLooping: 'enable-video-looping',
-    enableVideoMuting: 'enable-video-muting',
-    enableVideoAutoplaying: 'enable-video-autoplaying',
-    videoId: 'video-id',
+    enableVideoLooping: "enable-video-looping",
+    enableVideoMuting: "enable-video-muting",
+    enableVideoAutoplaying: "enable-video-autoplaying",
+    videoId: "video-id",
   };
 
   function initMedia(container, sectionId) {
     if (container) {
-      const mediaElement = container.querySelector('iframe, video');
+      const mediaElement = container.querySelector("iframe, video");
       if (mediaElement) {
-        const mediaId = container.getAttribute('data-nt-media-id');
+        const mediaId = container.getAttribute("data-nt-media-id");
         a[mediaId] = {
           mediaId,
           sectionId,
           host:
-            mediaElement.tagName === 'VIDEO' ? hosts.shopify : hosts.external,
+            mediaElement.tagName === "VIDEO" ? hosts.shopify : hosts.external,
           container: container,
           element: mediaElement,
           ready() {
@@ -5273,13 +5270,13 @@ var g = (() => {
 
         window.Shopify.loadFeatures([
           {
-            name: 'video-ui',
-            version: '2.0',
+            name: "video-ui",
+            version: "2.0",
             onLoad: enableVideoUI,
           },
         ]);
 
-        window.T4SThemeSP.LibraryLoader.load('plyrShopifyStyles');
+        window.T4SThemeSP.LibraryLoader.load("plyrShopifyStyles");
       }
     }
   }
@@ -5290,27 +5287,27 @@ var g = (() => {
     const container = mediaObj.container.closest(productMediaWrapper);
     const enableLooping =
       container.getAttribute(`data-${attributes.enableVideoLooping}`) ===
-      'true';
+      "true";
     const enableMuting =
-      container.getAttribute(`data-${attributes.enableVideoMuting}`) === 'true';
+      container.getAttribute(`data-${attributes.enableVideoMuting}`) === "true";
     const enableAutoplaying =
       container.getAttribute(`data-${attributes.enableVideoAutoplaying}`) ===
-      'true';
+      "true";
 
     mediaObj.player = new Shopify.Video(mediaObj.element, {
       loop: { active: enableLooping },
       muted: enableMuting,
     });
 
-    container.classList.add('is-media__initialized');
+    container.classList.add("is-media__initialized");
 
     const pausePlayer = () => {
       if (mediaObj.player) mediaObj.player.pause();
     };
 
-    container.addEventListener('mediaHidden', pausePlayer);
-    container.addEventListener('xrLaunch', pausePlayer);
-    container.addEventListener('mediaVisible', () => {
+    container.addEventListener("mediaHidden", pausePlayer);
+    container.addEventListener("xrLaunch", pausePlayer);
+    container.addEventListener("mediaVisible", () => {
       if (!window.T4SThemeSP.isTouch && enableAutoplaying && mediaObj.player) {
         mediaObj.player.play();
       }
@@ -5330,7 +5327,7 @@ var g = (() => {
       if (a.hasOwnProperty(mediaId)) {
         const mediaObj = a[mediaId];
         if (!mediaObj.nativeVideo && mediaObj.host === hosts.shopify) {
-          mediaObj.element.setAttribute('controls', 'controls');
+          mediaObj.element.setAttribute("controls", "controls");
           mediaObj.nativeVideo = true;
         }
       }
@@ -5374,8 +5371,8 @@ var v = (() => {
   const modelElements = {};
 
   const selectors = {
-    mediaGroup: '[data-product-single-media-group]',
-    xrButton: '[data-shopify-xr]',
+    mediaGroup: "[data-product-single-media-group]",
+    xrButton: "[data-shopify-xr]",
   };
 
   function loadModels(event) {
@@ -5390,7 +5387,7 @@ var v = (() => {
       }
       window.ShopifyXR.setupXRElements();
     } else {
-      document.addEventListener('shopify_xr_initialized', loadModels);
+      document.addEventListener("shopify_xr_initialized", loadModels);
     }
   }
 
@@ -5403,30 +5400,30 @@ var v = (() => {
     const { sectionId } = modelObj;
     const container = modelObj.container;
 
-    container.classList.add('is-media__initialized');
-    container.addEventListener('mediaVisible', () => {
+    container.classList.add("is-media__initialized");
+    container.addEventListener("mediaVisible", () => {
       const modelData = modelElements[sectionId];
       if (modelData.element) {
         modelData.element.setAttribute(
-          'data-shopify-model3d-id',
-          modelObj.modelId
+          "data-shopify-model3d-id",
+          modelObj.modelId,
         );
       }
       if (!window.T4SThemeSP.isTouch) modelObj.modelViewerUi.play();
     });
 
-    container.addEventListener('mediaHidden', () => {
+    container.addEventListener("mediaHidden", () => {
       const modelData = modelElements[sectionId];
       if (modelData.element) {
         modelData.element.setAttribute(
-          'data-shopify-model3d-id',
-          modelData.defaultId
+          "data-shopify-model3d-id",
+          modelData.defaultId,
         );
       }
       modelObj.modelViewerUi.pause();
     });
 
-    container.addEventListener('xrLaunch', () => {
+    container.addEventListener("xrLaunch", () => {
       modelObj.modelViewerUi.pause();
     });
   }
@@ -5435,9 +5432,9 @@ var v = (() => {
     init: (elements, sectionId) => {
       models[sectionId] = { loaded: false };
       elements.forEach((element, index) => {
-        const mediaId = element.getAttribute('data-nt-media-id');
-        const modelViewer = element.querySelector('model-viewer');
-        const modelId = modelViewer.getAttribute('data-model-id');
+        const mediaId = element.getAttribute("data-nt-media-id");
+        const modelViewer = element.querySelector("model-viewer");
+        const modelId = modelViewer.getAttribute("data-model-id");
 
         if (index === 0) {
           const xrButton = element
@@ -5455,11 +5452,11 @@ var v = (() => {
       });
 
       window.Shopify.loadFeatures([
-        { name: 'shopify-xr', version: '1.0', onLoad: loadModels },
-        { name: 'model-viewer-ui', version: '1.0', onLoad: setupModelViewer },
+        { name: "shopify-xr", version: "1.0", onLoad: loadModels },
+        { name: "model-viewer-ui", version: "1.0", onLoad: setupModelViewer },
       ]);
 
-      window.T4SThemeSP.LibraryLoader.load('modelViewerUiStyles');
+      window.T4SThemeSP.LibraryLoader.load("modelViewerUiStyles");
     },
 
     removeSectionModels: (sectionId) => {
@@ -5484,17 +5481,17 @@ var y = (() => {
   const initialize360 = (elements, index) => {
     const element = elements[0];
     const json360Data = JSON.parse(
-      document.querySelector(`#Json360-${index}`).innerHTML
+      document.querySelector(`#Json360-${index}`).innerHTML,
     );
     const { imgArray } = json360Data;
 
     const minDevicePixelRatio =
-      parseFloat(element.getAttribute('data-min')) || 1.194;
+      parseFloat(element.getAttribute("data-min")) || 1.194;
     const maxDevicePixelRatio =
-      parseFloat(element.getAttribute('data-max')) || 2;
+      parseFloat(element.getAttribute("data-max")) || 2;
     const devicePixelRatio = Math.min(
       window.devicePixelRatio,
-      maxDevicePixelRatio
+      maxDevicePixelRatio,
     );
     const adjustedRatio = Math.max(devicePixelRatio, minDevicePixelRatio);
     const imageWidth = Math.round(element.clientWidth * adjustedRatio);
@@ -5503,16 +5500,16 @@ var y = (() => {
 
     json360Data.onReady = () => {
       const threeSixtyInstance = window
-        .jQuery(element.querySelector('.threesixty'))
+        .jQuery(element.querySelector(".threesixty"))
         .ThreeSixty(json360Data);
       setupMediaVisibilityEvents(threeSixtyInstance, element);
     };
   };
 
   const setupMediaVisibilityEvents = (threeSixtyInstance, element) => {
-    element.classList.add('is-media__initialized');
+    element.classList.add("is-media__initialized");
 
-    element.addEventListener('mediaVisible', () => {
+    element.addEventListener("mediaVisible", () => {
       if (!window.T4SThemeSP.isTouch) {
         try {
           threeSixtyInstance.play();
@@ -5523,14 +5520,14 @@ var y = (() => {
       }
     });
 
-    if (window.jQuery(element).hasClass('is-selected')) {
+    if (window.jQuery(element).hasClass("is-selected")) {
       threeSixtyInstance.play();
       setTimeout(() => {
         togglePlayButton(element, true);
       }, 50);
     }
 
-    element.addEventListener('mediaHidden', () => {
+    element.addEventListener("mediaHidden", () => {
       threeSixtyInstance.stop();
       togglePlayButton(element, false);
     });
@@ -5538,11 +5535,11 @@ var y = (() => {
 
   const togglePlayButton = (element, isPlaying) => {
     const button = window.jQuery(
-      element.querySelector(isPlaying ? '.nav_bar_play' : '.nav_bar_stop')
+      element.querySelector(isPlaying ? ".nav_bar_play" : ".nav_bar_stop"),
     );
     button
-      .removeClass(isPlaying ? 'nav_bar_play' : 'nav_bar_stop')
-      .addClass(isPlaying ? 'nav_bar_stop' : 'nav_bar_play');
+      .removeClass(isPlaying ? "nav_bar_play" : "nav_bar_stop")
+      .addClass(isPlaying ? "nav_bar_stop" : "nav_bar_play");
   };
 
   return {
@@ -5562,8 +5559,8 @@ var y = (() => {
 //done
 var PopupHandler = class {
   static selectors = {
-    pickupAvailabilityPopupOpen: '[data-pickup-availability-popup-open]',
-    pickupAvailabilityPopupClose: '[data-pickup-availability-popup-close]',
+    pickupAvailabilityPopupOpen: "[data-pickup-availability-popup-open]",
+    pickupAvailabilityPopupClose: "[data-pickup-availability-popup-close]",
   };
 
   static popupCloseText = strings.mfp_close;
@@ -5573,51 +5570,51 @@ var PopupHandler = class {
   container = null;
   idPopup = null;
   hasOnlyDefaultVariant = false;
-  rootUrl = '';
+  rootUrl = "";
   variantId = null;
 
   constructor(eventEmitter, container) {
     this.container = container;
     this.idPopup = container.dataset.idPopup;
     this.hasOnlyDefaultVariant =
-      container.dataset.hasOnlyDefaultVariant === 'true';
+      container.dataset.hasOnlyDefaultVariant === "true";
     this.rootUrl = container.dataset.rootUrl;
     this.variantId = container.dataset.variantId;
 
-    eventEmitter.on('pickupAvailability:update', ({ currentVariant }) => {
+    eventEmitter.on("pickupAvailability:update", ({ currentVariant }) => {
       this.updateContent(currentVariant.id);
     });
 
-    eventEmitter.on('pickupAvailability:clear', () => {
+    eventEmitter.on("pickupAvailability:clear", () => {
       this.clearContent();
     });
   }
 
   updateContent(variantId = this.variantId) {
-    let url = this.rootUrl.endsWith('/') ? this.rootUrl : `${this.rootUrl}/`;
+    let url = this.rootUrl.endsWith("/") ? this.rootUrl : `${this.rootUrl}/`;
     const fetchUrl = `${url}variants/${variantId}/?section_id=pickup-availability`;
     const cacheKey = `${cacheNameFirst}pickup-availability${variantId}`;
     const openButton = this.container.querySelector(
-      PopupHandler.selectors.pickupAvailabilityPopupOpen
+      PopupHandler.selectors.pickupAvailabilityPopupOpen,
     );
 
     this.container.style.opacity = 0.5;
 
     if (openButton) {
       openButton.disabled = true;
-      openButton.setAttribute('aria-busy', true);
+      openButton.setAttribute("aria-busy", true);
     }
 
     if (PopupHandler.responsesCache[cacheKey]) {
       this.updateResponse(PopupHandler.responsesCache[cacheKey]);
     } else {
-      window.T4SThemeSP.getToFetchSection(null, 'text', fetchUrl).then(
+      window.T4SThemeSP.getToFetchSection(null, "text", fetchUrl).then(
         (response) => {
-          if (response !== 'NVT_94') {
+          if (response !== "NVT_94") {
             PopupHandler.responsesCache[cacheKey] = response;
             this.updateResponse(response);
           }
-        }
+        },
       );
     }
   }
@@ -5629,17 +5626,17 @@ var PopupHandler = class {
       this.container.style.opacity = 1;
 
       const openButton = this.container.find(
-        PopupHandler.selectors.pickupAvailabilityPopupOpen
+        PopupHandler.selectors.pickupAvailabilityPopupOpen,
       );
       if (openButton) {
-        this.container.find('#pickupAvailabilityPopup').id = this.idPopup;
-        openButton.on('click', this._onClickModalOpen);
+        this.container.find("#pickupAvailabilityPopup").id = this.idPopup;
+        openButton.on("click", this._onClickModalOpen);
       }
     }
   }
 
   clearContent() {
-    this.container.text('');
+    this.container.text("");
   }
 
   _onClickModalOpen() {
@@ -5647,35 +5644,35 @@ var PopupHandler = class {
       items: {
         src: `#${this.idPopup}`,
       },
-      type: 'inline',
+      type: "inline",
       removalDelay: 500,
       tClose: PopupHandler.popupCloseText,
       tLoading: PopupHandler.popupLoadingText,
       callbacks: {
         beforeOpen() {
           this.st.mainClass =
-            'mfp-move-horizontal pickup-availability_pp_wrapper';
+            "mfp-move-horizontal pickup-availability_pp_wrapper";
         },
         open: () => {
-          $body.trigger('NTpopupInline:offClose');
-          $body.trigger('currency:update');
+          $body.trigger("NTpopupInline:offClose");
+          $body.trigger("currency:update");
 
           const closeButton = window.jQuery(
-            `#${this.idPopup} ${PopupHandler.selectors.pickupAvailabilityPopupClose}`
+            `#${this.idPopup} ${PopupHandler.selectors.pickupAvailabilityPopupClose}`,
           );
           if (closeButton) {
-            closeButton.remove('click', this._onClickModalClose);
-            closeButton.on('click', this._onClickModalClose);
+            closeButton.remove("click", this._onClickModalClose);
+            closeButton.on("click", this._onClickModalClose);
           }
         },
         beforeClose: () => {
-          console.log('beforeClose');
+          console.log("beforeClose");
         },
         close: () => {
-          console.log('close');
+          console.log("close");
         },
         afterClose: () => {
-          $body.trigger('NTpopupInline:onClose');
+          $body.trigger("NTpopupInline:onClose");
         },
       },
     });
@@ -5689,25 +5686,25 @@ var PopupHandler = class {
 //done
 var StickyAddToCart = class {
   static selectors = {
-    actionInfoClose: '[data-action-info-close]',
-    actionAtc: '[data-action-atc]',
-    quantityWrapper: '[data-quantity-wrapper]',
-    quantityValue: '[data-quantity-value]',
-    stickyAtcProduct: '.sticky-atc__product',
-    backToTop: '#backToTop',
-    stickyAddToCart: '[data-sticky-addtocart]',
-    stickyTitle: '[data-sticky-v-title]',
-    actionDelay: 'data-action-delay',
+    actionInfoClose: "[data-action-info-close]",
+    actionAtc: "[data-action-atc]",
+    quantityWrapper: "[data-quantity-wrapper]",
+    quantityValue: "[data-quantity-value]",
+    stickyAtcProduct: ".sticky-atc__product",
+    backToTop: "#backToTop",
+    stickyAddToCart: "[data-sticky-addtocart]",
+    stickyTitle: "[data-sticky-v-title]",
+    actionDelay: "data-action-delay",
   };
 
   static classes = {
-    isShown: 'is--shown',
-    isActive: 'sticky-is--active',
-    isHiddenMobile: 'is-hidden--mobile',
-    show: 'is--show',
+    isShown: "is--shown",
+    isActive: "sticky-is--active",
+    isHiddenMobile: "is-hidden--mobile",
+    show: "is--show",
   };
 
-  static clickStickyTrigger = 'click.sticky';
+  static clickStickyTrigger = "click.sticky";
 
   container = null;
   closeButton = null;
@@ -5720,7 +5717,7 @@ var StickyAddToCart = class {
   constructor(element, container, isSecondVariant) {
     if (!element[0]) return;
 
-    this.isSecondVariant = container === '2';
+    this.isSecondVariant = container === "2";
     this.offsetBottom = element.offset().top + element.outerHeight();
     this.init(element, isSecondVariant);
   }
@@ -5730,7 +5727,7 @@ var StickyAddToCart = class {
     this._updateContent();
 
     this.closeButton = this.container.find(
-      StickyAddToCart.selectors.actionInfoClose
+      StickyAddToCart.selectors.actionInfoClose,
     );
 
     SalesInteraction.ani(StickyAddToCart.selectors.actionInfoClose);
@@ -5747,16 +5744,16 @@ var StickyAddToCart = class {
 
   setUpStickyToggle() {
     const stickyAtcProduct = this.container.find(
-      StickyAddToCart.selectors.stickyAtcProduct
+      StickyAddToCart.selectors.stickyAtcProduct,
     );
     const addToCartButton = this.container.find(
-      StickyAddToCart.selectors.actionAtc
+      StickyAddToCart.selectors.actionAtc,
     );
     let isDelayedAction = true;
 
     this.container
       .find(
-        `${StickyAddToCart.selectors.actionAtc}[${StickyAddToCart.selectors.actionDelay}]`
+        `${StickyAddToCart.selectors.actionAtc}[${StickyAddToCart.selectors.actionDelay}]`,
       )
       .on(StickyAddToCart.clickStickyTrigger, (event) => {
         if (
@@ -5772,9 +5769,9 @@ var StickyAddToCart = class {
 
         stickyAtcProduct.slideDown({
           start: (e) => {
-            window.jQuery(e.currentTarget).css({ display: 'flex' });
+            window.jQuery(e.currentTarget).css({ display: "flex" });
             addToCartButton.removeAttr(
-              `${StickyAddToCart.selectors.actionDelay}`
+              `${StickyAddToCart.selectors.actionDelay}`,
             );
             window
               .jQuery(StickyAddToCart.selectors.backToTop)
@@ -5797,7 +5794,7 @@ var StickyAddToCart = class {
 
       stickyAtcProduct.slideUp({
         start: () => {
-          addToCartButton.attr(StickyAddToCart.selectors.actionDelay, '');
+          addToCartButton.attr(StickyAddToCart.selectors.actionDelay, "");
           window
             .jQuery(StickyAddToCart.selectors.backToTop)
             .removeClass(StickyAddToCart.classes.show);
@@ -5821,17 +5818,17 @@ var StickyAddToCart = class {
     });
 
     const quantityInput = this.container.find(
-      `${StickyAddToCart.selectors.quantityWrapper} ${StickyAddToCart.selectors.quantityValue}`
+      `${StickyAddToCart.selectors.quantityWrapper} ${StickyAddToCart.selectors.quantityValue}`,
     );
     const quantityValueInput = element.find(
-      StickyAddToCart.selectors.quantityValue
+      StickyAddToCart.selectors.quantityValue,
     );
 
-    quantityInput.change('change', () => {
+    quantityInput.change("change", () => {
       quantityValueInput.val(quantityInput.value);
     });
 
-    quantityValueInput.on('change', () => {
+    quantityValueInput.on("change", () => {
       quantityInput.val(quantityValueInput.value);
     });
 
@@ -5840,7 +5837,7 @@ var StickyAddToCart = class {
         .find(StickyAddToCart.selectors.stickyTitle)
         .on(StickyAddToCart.clickStickyTrigger, (event) => {
           event.preventDefault();
-          window.jQuery('html, body').animate({
+          window.jQuery("html, body").animate({
             scrollTop: this.container.offset().top - 100,
           });
           this.closeButton.trigger(StickyAddToCart.clickStickyTrigger);
@@ -5849,7 +5846,7 @@ var StickyAddToCart = class {
   }
 
   setUpResizeListener() {
-    $window.on('resize.sticky', () => {
+    $window.on("resize.sticky", () => {
       this.updateStickyHeight();
     });
   }
@@ -5870,13 +5867,13 @@ var StickyAddToCart = class {
     ) {
       this.container.removeClass(StickyAddToCart.classes.isShown);
       $body.removeClass(StickyAddToCart.classes.isActive);
-      this.container.find('[data-dropdown-open].is--clicked').click();
+      this.container.find("[data-dropdown-open].is--clicked").click();
       this.closeButton.trigger(StickyAddToCart.clickStickyTrigger);
     }
   }
 
   _updateContent() {
-    const templateHtml = window.jQuery('#sticky-atc-temp').html();
+    const templateHtml = window.jQuery("#sticky-atc-temp").html();
     window.T4SThemeSP.$appendComponent.after(templateHtml);
     this.container = window.jQuery(StickyAddToCart.selectors.stickyAddToCart);
   }
@@ -5885,20 +5882,20 @@ var StickyAddToCart = class {
     const currentHeight = this.container.outerHeight();
     if (this.previousHeight !== currentHeight) {
       this.previousHeight = currentHeight;
-      this.container.css({ '--stickyATC-height': `${currentHeight}px` });
+      this.container.css({ "--stickyATC-height": `${currentHeight}px` });
     }
   }
 };
 
 //doubt
 window.T4SThemeSP.Product = (function () {
-  const PRODUCT_FEATURED_DATA_ATTR = 'data-product-featured';
-  const isRemoveUnavailable = !$html.hasClass('is-remove-unavai-0');
-  const isPswdDisabled = 'is-pswp-disable';
-  const VARIANT_IMAGE_SELECTOR = '.color-mode__variant_image .is--first-color';
-  const MAIN_MEDIA_SELECTOR = '[data-main-media]';
+  const PRODUCT_FEATURED_DATA_ATTR = "data-product-featured";
+  const isRemoveUnavailable = !$html.hasClass("is-remove-unavai-0");
+  const isPswdDisabled = "is-pswp-disable";
+  const VARIANT_IMAGE_SELECTOR = ".color-mode__variant_image .is--first-color";
+  const MAIN_MEDIA_SELECTOR = "[data-main-media]";
   const PICKUP_AVAILABILITY_CONTAINER_SELECTOR =
-    '[data-pickup-availability-container]';
+    "[data-pickup-availability-container]";
   const T4S_CONFIGS = window.T4Sconfigs;
   const T4S_PRODUCT_STRINGS = window.T4SProductStrings;
   const NOW_TIMESTAMP = T4S_CONFIGS.nowTimestamp;
@@ -5927,7 +5924,7 @@ window.T4SThemeSP.Product = (function () {
     constructor(container) {
       this.$container = window.jQuery(container);
 
-      if (this.$container.is('[data-product-options]')) {
+      if (this.$container.is("[data-product-options]")) {
         this._itemQuickShopInline();
         return;
       }
@@ -5943,7 +5940,7 @@ window.T4SThemeSP.Product = (function () {
       this.isStickyMB = this.productConfigs.isStickyMB;
       this.stickyShow = this.productConfigs.stickyShow;
       this.useStickySelect = this.productConfigs.useStickySelect;
-      this.$shortDes = this.$container.find('[data-des-height]');
+      this.$shortDes = this.$container.find("[data-des-height]");
       this.eventHandlers = {};
 
       this.initializeProduct();
@@ -5955,7 +5952,7 @@ window.T4SThemeSP.Product = (function () {
 
     getProductConfigs() {
       return JSON.parse(
-        this.$container.attr(PRODUCT_FEATURED_DATA_ATTR) || '{}'
+        this.$container.attr(PRODUCT_FEATURED_DATA_ATTR) || "{}",
       );
     }
 
@@ -5964,45 +5961,45 @@ window.T4SThemeSP.Product = (function () {
     }
 
     _initNotifyBackinStock() {
-      const notifyStockElement = this.$container.find('.product-notify-stock');
-      const notifyStockButton = this.$container.find('[data-notify-stock-btn]');
+      const notifyStockElement = this.$container.find(".product-notify-stock");
+      const notifyStockButton = this.$container.find("[data-notify-stock-btn]");
 
       if (notifyStockElement[0] || notifyStockButton[0]) {
         if (notifyStockElement[0]) {
-          this.$container.on('notifyBackInStock:show', (event) => {
+          this.$container.on("notifyBackInStock:show", (event) => {
             const notifyForm = window.$(
-              `#ContactFormNotifyStock${this.productID}`
+              `#ContactFormNotifyStock${this.productID}`,
             );
             notifyStockElement.show();
 
             const productInfo = `${event.currentVariant.name.replace(
-              '- ',
-              '( '
+              "- ",
+              "( ",
             )} ) ${this.productConfigs.orgUrl}?variants=${
               event.currentVariant.id
             }`;
             notifyForm.find('[name="contact[product]"]').text(productInfo);
           });
 
-          this.$container.on('notifyBackInStock:hide', () => {
+          this.$container.on("notifyBackInStock:hide", () => {
             notifyStockElement.hide();
           });
         } else {
-          const buttonElement = this.$container.find('[data-notify-stock-btn]');
-          let rootUrl = buttonElement.data('root-url');
-          let notifyUrl = '';
+          const buttonElement = this.$container.find("[data-notify-stock-btn]");
+          let rootUrl = buttonElement.data("root-url");
+          let notifyUrl = "";
 
           // Ensure root URL ends with a slash
-          rootUrl = rootUrl.endsWith('/') ? rootUrl : `${rootUrl}/`;
+          rootUrl = rootUrl.endsWith("/") ? rootUrl : `${rootUrl}/`;
 
           notifyUrl = `${rootUrl}variants/${buttonElement.data(
-            'variant-id'
+            "variant-id",
           )}/?section_id=back-in-stock`;
 
           buttonElement
-            .attr('data-mfp-src', notifyUrl)
+            .attr("data-mfp-src", notifyUrl)
             .hide()
-            .removeClass('d-none');
+            .removeClass("d-none");
 
           if (
             !this.productConfigs.available &&
@@ -6012,17 +6009,17 @@ window.T4SThemeSP.Product = (function () {
             return;
           }
 
-          this.$container.on('notifyBackInStock:show', (event) => {
+          this.$container.on("notifyBackInStock:show", (event) => {
             notifyUrl = `${rootUrl}variants/${event.currentVariant.id}/?section_id=back-in-stock`;
             buttonElement
               .attr({
-                'data-mfp-src': notifyUrl,
-                'data-storageid': `notify-stock${event.currentVariant.id}`,
+                "data-mfp-src": notifyUrl,
+                "data-storageid": `notify-stock${event.currentVariant.id}`,
               })
               .show();
           });
 
-          this.$container.on('notifyBackInStock:hide', () => {
+          this.$container.on("notifyBackInStock:hide", () => {
             buttonElement.hide();
           });
         }
@@ -6041,7 +6038,7 @@ window.T4SThemeSP.Product = (function () {
       this.$formSelectorId = this.$container.find(this.productConfigs.formID);
       this.$formSelectorIdLength = this.$formSelectorId.length;
       this.pickupAvailabilityContainer = this.$container.find(
-        PICKUP_AVAILABILITY_CONTAINER_SELECTOR
+        PICKUP_AVAILABILITY_CONTAINER_SELECTOR,
       )[0];
       if (this.pickupAvailabilityContainer && this.$formSelectorIdLength > 0) {
         this._initPickupAvailability();
@@ -6077,13 +6074,13 @@ window.T4SThemeSP.Product = (function () {
 
         // Function to find the featured image for a given color option
         const getFeaturedImage = (colorValue) => {
-          const lowerCaseColor = (colorValue + '').toLowerCase();
+          const lowerCaseColor = (colorValue + "").toLowerCase();
 
           for (let i = 0; i < variantsCount; i++) {
             const variant = variants[i];
             if (
               variant.featured_image &&
-              (variant.options[colorOptionIndex] + '').toLowerCase() ===
+              (variant.options[colorOptionIndex] + "").toLowerCase() ===
                 lowerCaseColor
             ) {
               return variant.featured_image;
@@ -6093,20 +6090,20 @@ window.T4SThemeSP.Product = (function () {
         };
 
         // Get the featured image for the swatch
-        const featuredImage = getFeaturedImage($swatch.data('value'));
+        const featuredImage = getFeaturedImage($swatch.data("value"));
 
         if (!featuredImage) return;
 
         // Update the swatch with the new image URL
-        const $imageElement = $swatch.find('[data-img-el]');
+        const $imageElement = $swatch.find("[data-img-el]");
         const $targetElement = $imageElement[0] ? $imageElement : $swatch;
 
         $targetElement.attr(
-          'data-bg',
+          "data-bg",
           window.T4SThemeSP.Images.getNewImageUrl(
             featuredImage.src,
-            swatchWidth
-          )
+            swatchWidth,
+          ),
         );
       });
     }
@@ -6116,23 +6113,23 @@ window.T4SThemeSP.Product = (function () {
         this.PrOptionsSize &&
         this.productConfigs.changeVariantByImg &&
         this.$container.find(
-          '.flickity[data-main-media] .product__media-item--variant'
+          ".flickity[data-main-media] .product__media-item--variant",
         ).length
       ) {
         this.$container
-          .find('.flickity[data-main-media]')
-          .off('select.flickity')
-          .on('select.flickity', (event, selectedIndex) => {
+          .find(".flickity[data-main-media]")
+          .off("select.flickity")
+          .on("select.flickity", (event, selectedIndex) => {
             const element = window.$(event.target.currentTarget);
-            element.trigger('select.carousel');
+            element.trigger("select.carousel");
             const selectedSlide = element
-              .find('.flickity-slider>[data-main-slide]')
+              .find(".flickity-slider>[data-main-slide]")
               .eq(selectedIndex);
             if (
-              selectedSlide.hasClass('product__media-item--variant') &&
+              selectedSlide.hasClass("product__media-item--variant") &&
               !this.Variants.eventClickedSwatch
             ) {
-              const mediaId = selectedSlide.data('media-id');
+              const mediaId = selectedSlide.data("media-id");
               const currentOption = this.$originalSelectorId.val();
               const newOption = this.$originalSelectorId
                 .find(`option[data-mdid="${mediaId}"]:not(:disabled)`)
@@ -6145,10 +6142,10 @@ window.T4SThemeSP.Product = (function () {
               ) {
                 this.$originalSelectorId.val(newOption);
                 this.$originalSelectorId[0].dispatchEvent(
-                  new Event('change', {
+                  new Event("change", {
                     bubbles: true,
                     cancelable: true,
-                  })
+                  }),
                 );
               }
             }
@@ -6169,18 +6166,18 @@ window.T4SThemeSP.Product = (function () {
     initializeSwatches() {
       this.$originalSelectorId = this.$formSelectorId.find('select[name="id"]');
       this.$options1 = this.$formSelectorId.find(
-        '[data-swatch-option][data-id="0"]'
+        '[data-swatch-option][data-id="0"]',
       );
       this.$options2 = this.$formSelectorId.find(
-        '[data-swatch-option][data-id="1"]'
+        '[data-swatch-option][data-id="1"]',
       );
       this.$options3 = this.$formSelectorId.find(
-        '[data-swatch-option][data-id="2"]'
+        '[data-swatch-option][data-id="2"]',
       );
 
       if (!this.disableVariantImage) {
-        this.$variantImgItems = this.$variantImg.find('[data-swatch-item]');
-        this.colorOptionIndex = this.$variantImg.data('id');
+        this.$variantImgItems = this.$variantImg.find("[data-swatch-item]");
+        this.colorOptionIndex = this.$variantImg.data("id");
         this.swatchWidth = 2 * this.$variantImgItems.outerWidth();
       }
     }
@@ -6196,19 +6193,19 @@ window.T4SThemeSP.Product = (function () {
           }, 100);
         }, 1000);
 
-        if (this.productConfigs.main_click != 'none' && this.mainMedia) {
+        if (this.productConfigs.main_click != "none" && this.mainMedia) {
           if (
             (window.T4SThemeSP.isTouch &&
               this.productConfigs.enable_zoom_click_mb) ||
             (window.T4SThemeSP.isHover &&
-              'pswp' == this.productConfigs.main_click)
+              "pswp" == this.productConfigs.main_click)
           ) {
-            const continer = this.$mainMedia.find('.' + isPswdDisabled);
+            const continer = this.$mainMedia.find("." + isPswdDisabled);
             continer.removeClass(isPswdDisabled);
             window.T4SThemeSP.isTouch &&
               this.productConfigs.enable_zoom_click_mb &&
               windowWidth > 1024 &&
-              document.addEventListener('theme:hover', (t) => {
+              document.addEventListener("theme:hover", (t) => {
                 continer.addClass(isPswdDisabled);
               });
           }
@@ -6221,11 +6218,11 @@ window.T4SThemeSP.Product = (function () {
       if (!isMobile && this.productConfigs.hasIsotope) {
         updateMediaSizes(this.$mainMedia);
         window.T4SThemeSP.Isotopet4s.init(this.$mainMedia);
-        $window.on('resize.prIstope', () => {
-          $window.width() < 768 && this.$mainMedia.hasClass('isotope-enabled')
-            ? this.$mainMedia.isotope('destroy').removeClass('isotope-enabled')
+        $window.on("resize.prIstope", () => {
+          $window.width() < 768 && this.$mainMedia.hasClass("isotope-enabled")
+            ? this.$mainMedia.isotope("destroy").removeClass("isotope-enabled")
             : $window.width() >= 768 &&
-              !this.$mainMedia.hasClass('isotope-enabled') &&
+              !this.$mainMedia.hasClass("isotope-enabled") &&
               setTimeout(() => {
                 window.T4SThemeSP.Isotopet4s.init(this.$mainMedia);
               }, 500);
@@ -6242,7 +6239,7 @@ window.T4SThemeSP.Product = (function () {
 
     _initModelViewerLibraries() {
       const model = this.mainMedia.querySelectorAll(
-        '[data-media-type="model"]'
+        '[data-media-type="model"]',
       );
       model.length < 1 || v.init(model, this.sectionId);
     }
@@ -6251,8 +6248,8 @@ window.T4SThemeSP.Product = (function () {
       this.eventHandlers.initShopifyXrLaunchHandler =
         this._initShopifyXrLaunchHandler.bind(this);
       document.addEventListener(
-        'shopify_xr_launch',
-        this.eventHandlers.initShopifyXrLaunchHandler
+        "shopify_xr_launch",
+        this.eventHandlers.initShopifyXrLaunchHandler,
       );
     }
 
@@ -6263,18 +6260,18 @@ window.T4SThemeSP.Product = (function () {
 
     _initShopifyXrLaunchHandler() {
       this.mainMedia
-        .querySelector('[data-product-single-media-wrapper]')
+        .querySelector("[data-product-single-media-wrapper]")
         .dispatchEvent(
-          new CustomEvent('xrLaunch', {
+          new CustomEvent("xrLaunch", {
             bubbles: true,
             cancelable: true,
-          })
+          }),
         );
     }
 
     setupOverflowScroller() {
       const stickyInfoContainer = this.container.querySelector(
-        '.product__info-container--sticky'
+        ".product__info-container--sticky",
       );
       if (stickyInfoContainer && this.productConfigs.infoOverflowScroller) {
         this.infoOverflowScroller = new window.T4SThemeSP.OverflowScroller(
@@ -6283,7 +6280,7 @@ window.T4SThemeSP.Product = (function () {
             offsetTop: 109,
             offsetBottom: 30,
             updateOffsetTop: true,
-          }
+          },
         );
       }
     }
@@ -6294,14 +6291,14 @@ window.T4SThemeSP.Product = (function () {
           window
             .jQuery(element)
             .parent()
-            .css('--full-h', window.jQuery(element).height() + 'px');
+            .css("--full-h", window.jQuery(element).height() + "px");
         });
 
-        this.$shortDes.on('click', function () {
+        this.$shortDes.on("click", function () {
           window
             .jQuery(this)
             .parent()
-            .css('--full-h', window.jQuery(this).height() + 'px');
+            .css("--full-h", window.jQuery(this).height() + "px");
         });
       }
     }
@@ -6316,27 +6313,27 @@ window.T4SThemeSP.Product = (function () {
     }
 
     _itemQuickShopInline() {
-      this.$qsInline = this.$container.find('[data-qs-inl]');
-      this.$formSelectorId = this.$qsInline.find('form');
+      this.$qsInline = this.$container.find("[data-qs-inl]");
+      this.$formSelectorId = this.$qsInline.find("form");
       this.$originalSelectorId = this.$formSelectorId.find('select[name="id"]');
       this.$options1 = this.$formSelectorId.find(
-        '[data-swatch-option][data-id="0"]'
+        '[data-swatch-option][data-id="0"]',
       );
       this.$options2 = this.$formSelectorId.find(
-        '[data-swatch-option][data-id="1"]'
+        '[data-swatch-option][data-id="1"]',
       );
       this.$options3 = this.$formSelectorId.find(
-        '[data-swatch-option][data-id="2"]'
+        '[data-swatch-option][data-id="2"]',
       );
       this.productConfigs = this._parseProductConfig(
-        this.$originalSelectorId.attr('data-product-featured')
+        this.$originalSelectorId.attr("data-product-featured"),
       );
       this.productID = this.productConfigs.id;
       this.$variantImg = this.$qsInline.find(VARIANT_IMAGE_SELECTOR);
       this.disableVariantImage = !this.$variantImg[0];
       if (!this.disableVariantImage) {
-        this.$variantImgItems = this.$variantImg.find('[data-swatch-item]');
-        this.colorOptionIndex = this.$variantImg.data('id');
+        this.$variantImgItems = this.$variantImg.find("[data-swatch-item]");
+        this.colorOptionIndex = this.$variantImg.data("id");
         this.swatchWidth = 2 * this.$variantImgItems.outerWidth();
       }
       this._initVariants();
@@ -6357,7 +6354,7 @@ window.T4SThemeSP.Product = (function () {
       // Check if the product is grouped
       if (productConfigs.isGrouped) {
         productConfigs.isGrouped =
-          this.$container.find('form[data-groups-pr-form]').length > 0;
+          this.$container.find("form[data-groups-pr-form]").length > 0;
       }
 
       if (!productConfigs.isGrouped) {
@@ -6372,36 +6369,36 @@ window.T4SThemeSP.Product = (function () {
           try {
             // Parse variants JSON
             variants = JSON.parse(
-              this.$container.find('.pr_variants_json').html()
+              this.$container.find(".pr_variants_json").html(),
             );
 
             // Map additional data to each variant
-            this.$originalSelectorId.find('> option').each((index, element) => {
+            this.$originalSelectorId.find("> option").each((index, element) => {
               const option = $(element);
               variants[index] = {
                 ...variants[index],
-                incoming: option.data('incoming'),
-                nextIncomingDate: option.data('nextincomingdate') || null,
-                inventoryPolicy: option.data('inventorypolicy') || null,
-                inventoryQuantity: option.data('inventoryquantity') || null,
+                incoming: option.data("incoming"),
+                nextIncomingDate: option.data("nextincomingdate") || null,
+                inventoryPolicy: option.data("inventorypolicy") || null,
+                inventoryQuantity: option.data("inventoryquantity") || null,
               };
             });
 
             // Cache variants and options data
             u[this.productID] = variants;
             options = JSON.parse(
-              this.$container.find('.pr_options_json').html()
+              this.$container.find(".pr_options_json").html(),
             );
             f[this.productID] = options;
             this.PrOptionsSize = options.length;
           } catch (error) {
-            console.log('Error parsing variants or options JSON:', error);
+            console.log("Error parsing variants or options JSON:", error);
             return;
           }
         }
 
         // Set default value for `unQuickShopInline`
-        if (typeof productConfigs.unQuickShopInline !== 'boolean') {
+        if (typeof productConfigs.unQuickShopInline !== "boolean") {
           productConfigs.unQuickShopInline = true;
         }
 
@@ -6454,45 +6451,45 @@ window.T4SThemeSP.Product = (function () {
       if (this.PrOptionsSize) {
         let variantId, currentVariant, optionIndex;
         let firstInteraction = true;
-        const isFormT4sPrItem = this.$formSelectorId.hasClass('is-form-pritem');
+        const isFormT4sPrItem = this.$formSelectorId.hasClass("is-form-pritem");
 
         // Add event listener for swatch item clicks
         this.$formSelectorId.on(
-          'click',
-          '[data-swatch-item]:not(.is--selected)',
+          "click",
+          "[data-swatch-item]:not(.is--selected)",
           (event) => {
             event.preventDefault();
             const swatchItem = window.$(event.target.currentTarget);
 
             // Mark the clicked swatch as selected and update the UI
             swatchItem
-              .addClass('is--selected')
+              .addClass("is--selected")
               .siblings()
-              .removeClass('is--selected');
+              .removeClass("is--selected");
             swatchItem
-              .closest('[data-swatch-option]')
-              .find('[data-current-value]')
-              .html(swatchItem.data('value'));
+              .closest("[data-swatch-option]")
+              .find("[data-current-value]")
+              .html(swatchItem.data("value"));
 
             // Show hidden options if this is the first interaction
             if (isFormT4sPrItem && firstInteraction) {
-              this.$formSelectorId.addClass('product-swatched');
+              this.$formSelectorId.addClass("product-swatched");
               this.$formSelectorId
                 .find(
-                  '[data-swatch-option][data-id="0"] [data-swatch-name], [data-swatch-option][data-id="1"], [data-swatch-option][data-id="2"]'
+                  '[data-swatch-option][data-id="0"] [data-swatch-name], [data-swatch-option][data-id="1"], [data-swatch-option][data-id="2"]',
                 )
                 .show(150);
               firstInteraction = false;
             }
 
             // Update selected swatch data in the Variants object
-            this.Variants.clickedCurrentValue = `${swatchItem.data('value')}`;
-            optionIndex = swatchItem.closest('[data-swatch-option]').data('id');
+            this.Variants.clickedCurrentValue = `${swatchItem.data("value")}`;
+            optionIndex = swatchItem.closest("[data-swatch-option]").data("id");
             this.Variants.clickedCurrentIndex = `option${++optionIndex}`;
 
             // Handle incomplete option selections
             if (
-              this.$formSelectorId.find('.is--selected').length <
+              this.$formSelectorId.find(".is--selected").length <
                 this.PrOptionsSize &&
               this.Variants.isNoPick
             ) {
@@ -6505,10 +6502,10 @@ window.T4SThemeSP.Product = (function () {
             this.Variants.eventClickedSwatch = true;
             this.Variants.clickedOptions = [];
             this.$formSelectorId
-              .find('[data-swatch-option] .is--selected')
+              .find("[data-swatch-option] .is--selected")
               .each((index, element) => {
                 this.Variants.clickedOptions.push({
-                  value: `${window.$(element).data('value')}`,
+                  value: `${window.$(element).data("value")}`,
                   index: `option${index + 1}`,
                 });
               });
@@ -6517,12 +6514,12 @@ window.T4SThemeSP.Product = (function () {
             if (!this.Variants.isNoPick) {
               this.Variants.oldVariant = this.Variants.currentVariant;
             } else {
-              $body.trigger('hide.ts.notices');
+              $body.trigger("hide.ts.notices");
               if (this.isSticky) {
-                window.$('[data-sticky-addtocart]').removeAttr('hidden');
+                window.$("[data-sticky-addtocart]").removeAttr("hidden");
               }
               this.Variants.isNoPick = false;
-              this.$container.trigger('replace:btnAtc');
+              this.$container.trigger("replace:btnAtc");
             }
 
             // Fetch the new variant based on selected options
@@ -6533,7 +6530,7 @@ window.T4SThemeSP.Product = (function () {
             // Handle size-based variant selection fallback
             if (
               isRemoveUnavailable &&
-              (variantId === null || variantId === '')
+              (variantId === null || variantId === "")
             ) {
               currentVariant = this.Variants._getVariantFromSize();
               this.$originalSelectorId.val(currentVariant.id);
@@ -6545,19 +6542,19 @@ window.T4SThemeSP.Product = (function () {
 
             // Trigger the "change" event on the original selector
             this.$originalSelectorId[0].dispatchEvent(
-              new Event('change', {
+              new Event("change", {
                 bubbles: true,
                 cancelable: true,
-              })
+              }),
             );
-          }
+          },
         );
       }
     }
 
     _handleSwatchSelection(selectedSwatch, $originalSelectorId) {
       const $selected = window.jQuery(selectedSwatch);
-      $selected.addClass('is--selected').siblings().removeClass('is--selected');
+      $selected.addClass("is--selected").siblings().removeClass("is--selected");
 
       // More logic to handle swatch selection
       // This will include updating variants based on the selected swatch
@@ -6565,38 +6562,38 @@ window.T4SThemeSP.Product = (function () {
 
     _initSubmit() {
       $document.trigger({
-        type: 'submitAtc:t4s',
+        type: "submitAtc:t4s",
         $container: this.$container,
       });
     }
 
     _initProductVideo() {
       const videos = this.$container.querySelectorAll(
-        '[data-media-type="video"], [data-media-type="external_video"]'
+        '[data-media-type="video"], [data-media-type="external_video"]',
       );
       videos.forEach((video) => g.init(video, this.productID));
     }
 
     _initLoadContent() {
       const deferredMedia = this.$container.querySelectorAll(
-        '[data-deferred-media]'
+        "[data-deferred-media]",
       );
       deferredMedia.forEach((media) => {
-        media.classList.add('is--adding');
-        this.loadContent(media.querySelector('.pr'));
+        media.classList.add("is--adding");
+        this.loadContent(media.querySelector(".pr"));
       });
     }
 
     loadContent(mediaElement) {
-      if (mediaElement.getAttribute('loaded')) return;
-      const divElement = document.createElement('div');
-      const template = mediaElement.querySelector('template');
+      if (mediaElement.getAttribute("loaded")) return;
+      const divElement = document.createElement("div");
+      const template = mediaElement.querySelector("template");
       divElement.appendChild(
-        template.content.firstElementChild.cloneNode(true)
+        template.content.firstElementChild.cloneNode(true),
       );
-      mediaElement.setAttribute('loaded', true);
+      mediaElement.setAttribute("loaded", true);
       mediaElement.appendChild(
-        divElement.querySelector('video, model-viewer, iframe')
+        divElement.querySelector("video, model-viewer, iframe"),
       );
       template.remove();
     }
@@ -6604,17 +6601,17 @@ window.T4SThemeSP.Product = (function () {
     _initPickupAvailability() {
       this.pickupAvailability = new PickupAvailability(
         this.$container,
-        this.pickupAvailabilityContainer
+        this.pickupAvailabilityContainer,
       );
     }
 
     _createBadgesProduct() {
       const badgesContainer = this.$container.find(
-        '[data-product-single-badge]'
+        "[data-product-single-badge]",
       );
-      const sortOrder = (badgesContainer.attr('data-sort') || '')
-        .replace(/ /g, '')
-        .split(',');
+      const sortOrder = (badgesContainer.attr("data-sort") || "")
+        .replace(/ /g, "")
+        .split(",");
       const badgesMarkup = this._generateBadgesMarkup(sortOrder);
 
       badgesContainer.html(badgesMarkup);
@@ -6630,11 +6627,11 @@ window.T4SThemeSP.Product = (function () {
         customBadge,
         customBadgeHandle,
       } = this.productConfigs;
-      let badges = '';
+      let badges = "";
 
       sortOrder.forEach((type) => {
         switch (type) {
-          case 'sale':
+          case "sale":
             if (!USE_SALE_BADGE) break;
 
             if (compare_at_price <= price) {
@@ -6642,13 +6639,13 @@ window.T4SThemeSP.Product = (function () {
               break;
             }
             let finalPrice;
-            if (SALE_BADGE_STYLE == '2') {
+            if (SALE_BADGE_STYLE == "2") {
               const o = (100 * (compare_at_price - price)) / compare_at_price;
               finalPrice = BADGE_TEXTS.SavePercent.replace(
-                '[sale]',
-                Math.round(o)
+                "[sale]",
+                Math.round(o),
               );
-            } else if (SALE_BADGE_STYLE == '3') {
+            } else if (SALE_BADGE_STYLE == "3") {
               const r = compare_at_price - price;
               finalPrice = window.T4SThemeSP.Currency.formatMoney(r);
             } else {
@@ -6656,14 +6653,14 @@ window.T4SThemeSP.Product = (function () {
             }
             badges += `<span data-badge-sale class="badge-item badge-sale">${finalPrice}</span>`;
             break;
-          case 'preOrder':
+          case "preOrder":
             if (USE_PREORDER_BADGE) {
               badges += `<span data-badge-preorder class="badge-item badge-preorder" ${
-                isPreorder ? '' : ' hidden'
+                isPreorder ? "" : " hidden"
               }>${BADGE_TEXTS[type]}</span>`;
             }
             break;
-          case 'new':
+          case "new":
             const date = NOW_TIMESTAMP - dateStart;
             const hr = Math.floor(Math.floor(date / 3600) / 24);
             if (hr >= NEW_DAY_INT || !USE_NEW_BADGE) break;
@@ -6671,10 +6668,10 @@ window.T4SThemeSP.Product = (function () {
                 ${BADGE_TEXTS[type]}
               </span>`;
             break;
-          case 'soldout':
+          case "soldout":
             if (USE_SOLDOUT_BADGE) {
               badges += `<span data-badge-soldout class="badge-item badge-soldout" ${
-                available ? ' hidden' : ''
+                available ? " hidden" : ""
               }>${BADGE_TEXTS[type]}</span>`;
             }
             break;
@@ -6694,7 +6691,7 @@ window.T4SThemeSP.Product = (function () {
       this.stickyAddToCart = new StickyAddToCart(
         this.$formSelectorId,
         this.stickyShow,
-        this.useStickySelect
+        this.useStickySelect,
       );
     }
   };
@@ -6702,8 +6699,8 @@ window.T4SThemeSP.Product = (function () {
 
 //done
 window.T4SThemeSP._initProducts = (function () {
-  const productAttribute = 'data-product-featured';
-  const enabledClass = 'initProducts__enabled';
+  const productAttribute = "data-product-featured";
+  const enabledClass = "initProducts__enabled";
 
   return () => {
     window
@@ -6717,31 +6714,31 @@ window.T4SThemeSP._initProducts = (function () {
 
 //done
 window.T4SThemeSP._initBundlePrs = (function () {
-  const productAttribute = 'data-product-bundles';
-  const enabledClass = 'initBundles__enabled';
-  const hoverPinClass = 'has--hover-pin';
-  const hoverClass = 'is--hover';
-  const triggerHoverClass = 'is--trigger-hover';
+  const productAttribute = "data-product-bundles";
+  const enabledClass = "initBundles__enabled";
+  const hoverPinClass = "has--hover-pin";
+  const hoverClass = "is--hover";
+  const triggerHoverClass = "is--trigger-hover";
 
   const initBundles = () => {
     const bundles = window.jQuery(
-      `[${productAttribute}]:not(.${enabledClass})`
+      `[${productAttribute}]:not(.${enabledClass})`,
     );
 
     bundles.each((_, bundle) => {
       const bundleElement = bundle;
       bundleElement.addClass(enabledClass);
 
-      SalesInteraction.ani(bundleElement.querySelector('[data-atc-form]'));
+      SalesInteraction.ani(bundleElement.querySelector("[data-atc-form]"));
 
       const handleHoverIntent = (element) => {
         if (window.T4SThemeSP.isTouch || element.length === 0) return;
 
-        const bundleForm = element.find('[data-bundles-pr-form]');
-        const bundleImage = element.find('[data-bundle-image]');
+        const bundleForm = element.find("[data-bundles-pr-form]");
+        const bundleImage = element.find("[data-bundle-image]");
 
         element.hoverIntent(element, {
-          selector: '[data-bundle-pin]',
+          selector: "[data-bundle-pin]",
           sensitivity: 6,
           interval: 40,
           timeout: 40,
@@ -6750,7 +6747,7 @@ window.T4SThemeSP._initBundlePrs = (function () {
             bundleImage.addClass(hoverPinClass);
             bundleForm.addClass(hoverPinClass);
             $element.addClass(hoverClass);
-            window.jQuery($element.data('trigger')).addClass(triggerHoverClass);
+            window.jQuery($element.data("trigger")).addClass(triggerHoverClass);
           },
           out: () => {
             bundleImage.removeClass(hoverPinClass);
@@ -6773,18 +6770,18 @@ window.T4SThemeSP._initBundlePrs = (function () {
 //done
 window.T4SThemeSP.Cookies = (() => {
   function testCookie() {
-    document.cookie = 'testcookie';
-    const isCookieSet = document.cookie.includes('testcookie');
+    document.cookie = "testcookie";
+    const isCookieSet = document.cookie.includes("testcookie");
     // Clean up the test cookie
     document.cookie =
-      'testcookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      "testcookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     return isCookieSet;
   }
   const checkCookiesEnabled = () => {
     const cookiesEnabled = navigator.cookieEnabled || testCookie();
 
     if (!cookiesEnabled) {
-      $html.classList.add('not--cookies');
+      $html.classList.add("not--cookies");
     }
   };
 
@@ -6796,8 +6793,8 @@ window.T4SThemeSP.isVisible = (
   elements,
   checkBounds,
   checkCondition,
-  visibilityType = 'both',
-  referenceElement
+  visibilityType = "both",
+  referenceElement,
 ) => {
   if (elements.length < 1) return false;
 
@@ -6832,10 +6829,10 @@ window.T4SThemeSP.isVisible = (
   const visibility = isInsideViewport(checkBounds);
   const isFullyVisible = visibility.vertical && visibility.horizontal;
 
-  if (visibilityType === 'both') return isConditionMet && isFullyVisible;
-  if (visibilityType === 'vertical')
+  if (visibilityType === "both") return isConditionMet && isFullyVisible;
+  if (visibilityType === "vertical")
     return isConditionMet && visibility.vertical;
-  if (visibilityType === 'horizontal')
+  if (visibilityType === "horizontal")
     return isConditionMet && visibility.horizontal;
 
   return false;
@@ -6843,113 +6840,113 @@ window.T4SThemeSP.isVisible = (
 
 //done
 window.T4SThemeSP.Tabs = (() => {
-  const ENABLED_CLASS = 'tabs-enabled';
-  const SIMPLE_ENABLED_CLASS = 'tabs-simple-enabled';
-  const ACCORDION_ENABLED_CLASS = 'tabs-accordion-enabled';
-  const ACTIVE_CLASS = 'active';
+  const ENABLED_CLASS = "tabs-enabled";
+  const SIMPLE_ENABLED_CLASS = "tabs-simple-enabled";
+  const ACCORDION_ENABLED_CLASS = "tabs-accordion-enabled";
+  const ACTIVE_CLASS = "active";
   const ANIMATION_DURATION = 300;
   const COLLAPSE_DURATION = 150;
 
   return {
     Default() {
-      const selector = '[data-ts-tabs]';
-      const itemSelector = '[data-ts-tab-ul] [data-ts-tab-item]';
+      const selector = "[data-ts-tabs]";
+      const itemSelector = "[data-ts-tab-ul] [data-ts-tab-item]";
       const tabs = window.jQuery(`${selector}:not(.${ENABLED_CLASS}`);
       if (tabs.length > 0) {
         tabs.addClass(ENABLED_CLASS);
-        tabs.on('click', itemSelector, (event) => {
+        tabs.on("click", itemSelector, (event) => {
           event.preventDefault();
           const currentTab = window.jQuery(event.currentTarget);
           const tabContainer = currentTab.closest(selector);
           const targetTabId =
-            currentTab.attr('href') || currentTab.data('id-tab');
+            currentTab.attr("href") || currentTab.data("id-tab");
           const targetTab = tabContainer.find(targetTabId);
-          const flickityInstance = targetTab.find('.flickity');
-          const isotopInstance = targetTab.find('.isotope');
+          const flickityInstance = targetTab.find(".flickity");
+          const isotopInstance = targetTab.find(".isotope");
 
           tabContainer.find(`.${ACTIVE_CLASS}`).removeClass(ACTIVE_CLASS);
-          tabContainer.find('[data-ts-tab-content]').hide();
+          tabContainer.find("[data-ts-tab-content]").hide();
           currentTab.addClass(ACTIVE_CLASS);
           targetTab.show().addClass(ACTIVE_CLASS);
-          targetTab.closest('[data-ts-tab-wrapper]').addClass(ACTIVE_CLASS);
+          targetTab.closest("[data-ts-tab-wrapper]").addClass(ACTIVE_CLASS);
 
           clearTimeout(this.timeout);
           this.timeout = setTimeout(() => {
-            if (flickityInstance.hasClass('flickity-enabled')) {
-              flickityInstance.flickity('resize');
-            } else if (isotopInstance.hasClass('isotope-enabled')) {
-              isotopInstance.isotope('layout');
+            if (flickityInstance.hasClass("flickity-enabled")) {
+              flickityInstance.flickity("resize");
+            } else if (isotopInstance.hasClass("isotope-enabled")) {
+              isotopInstance.isotope("layout");
             }
           }, 200);
         });
       }
     },
     Simple() {
-      const selector = '[data-ts-tabs]';
-      const itemSelector = '[data-ts-tab-ul2] [data-ts-tab-item]';
+      const selector = "[data-ts-tabs]";
+      const itemSelector = "[data-ts-tab-ul2] [data-ts-tab-item]";
       const tabs = window.jQuery(`${selector}:not(.${SIMPLE_ENABLED_CLASS}`);
       if (tabs.length > 0) {
         tabs.addClass(SIMPLE_ENABLED_CLASS);
-        tabs.on('click', itemSelector, (event) => {
+        tabs.on("click", itemSelector, (event) => {
           event.preventDefault();
           const currentTab = window.jQuery(event.currentTarget);
           const tabContainer = currentTab.closest(selector);
           const targetTabId =
-            currentTab.attr('href') || currentTab.data('id-tab');
+            currentTab.attr("href") || currentTab.data("id-tab");
           const targetTab = tabContainer.find(targetTabId);
 
           tabContainer.find(`.${ACTIVE_CLASS}`).removeClass(ACTIVE_CLASS);
           currentTab.addClass(ACTIVE_CLASS);
           targetTab.addClass(ACTIVE_CLASS);
-          targetTab.closest('[data-ts-tab-wrapper]').addClass(ACTIVE_CLASS);
+          targetTab.closest("[data-ts-tab-wrapper]").addClass(ACTIVE_CLASS);
           targetTab
-            .closest('[data-ts-tabs2]')
-            .addClass('data-tab-active', targetTabId.replace('#', ''));
-          if (currentTab.is('[data-triger-btns-tab]')) {
-            targetTab.hasClass('flickity flickity-enabled')
-              ? targetTab.trigger('updateBtnTab.flickity')
+            .closest("[data-ts-tabs2]")
+            .addClass("data-tab-active", targetTabId.replace("#", ""));
+          if (currentTab.is("[data-triger-btns-tab]")) {
+            targetTab.hasClass("flickity flickity-enabled")
+              ? targetTab.trigger("updateBtnTab.flickity")
               : targetTab
-                  .find('.flickity.flickity-enabled')
-                  .trigger('updateBtnTab.flickity');
+                  .find(".flickity.flickity-enabled")
+                  .trigger("updateBtnTab.flickity");
           }
         });
       }
     },
     Accordion() {
       const accordionTabs = window.jQuery(
-        `[data-ts-tabs]:not(.${ACCORDION_ENABLED_CLASS})`
+        `[data-ts-tabs]:not(.${ACCORDION_ENABLED_CLASS})`,
       );
       if (accordionTabs.length > 0) {
         accordionTabs.addClass(ACCORDION_ENABLED_CLASS);
         window
-          .jQuery('.type-accordion, [data-ts-accordion-pr]')
+          .jQuery(".type-accordion, [data-ts-accordion-pr]")
           .find(`.${ACTIVE_CLASS} [data-ts-tab-content]`)
-          .css('display', 'block');
+          .css("display", "block");
 
         accordionTabs.on(
-          'click',
-          '[data-ts-tab-wrapper] [data-ts-tab-item]',
+          "click",
+          "[data-ts-tab-wrapper] [data-ts-tab-item]",
           (event) => {
             event.preventDefault();
             const currentTab = window.jQuery(event.currentTarget);
-            const tabContainer = currentTab.closest('[data-ts-tabs]');
-            const tabList = tabContainer.find('[data-ts-tab-ul]');
+            const tabContainer = currentTab.closest("[data-ts-tabs]");
+            const tabList = tabContainer.find("[data-ts-tab-ul]");
             const openTab = tabContainer.find(
-              `[data-ts-tab-wrapper]:not([data-no-auto-close]).${ACTIVE_CLASS}`
+              `[data-ts-tab-wrapper]:not([data-no-auto-close]).${ACTIVE_CLASS}`,
             );
-            const openTabContent = openTab.find('[data-ts-tab-content]');
+            const openTabContent = openTab.find("[data-ts-tab-content]");
             const currentTabWrapper = currentTab.closest(
-              '[data-ts-tab-wrapper]'
+              "[data-ts-tab-wrapper]",
             );
             const currentTabContent = currentTabWrapper.find(
-              '[data-ts-tab-content]'
+              "[data-ts-tab-content]",
             );
-            const section = currentTab.closest('.section');
-            const flickityInstance = currentTabContent.find('.flickity');
-            const isotopInstance = currentTabContent.find('.isotope');
+            const section = currentTab.closest(".section");
+            const flickityInstance = currentTabContent.find(".flickity");
+            const isotopInstance = currentTabContent.find(".isotope");
 
             if (section.length === 0) {
-              section = currentTab.closest('.section, .shopify-section');
+              section = currentTab.closest(".section, .shopify-section");
             }
 
             if (currentTabWrapper.hasClass(ACTIVE_CLASS)) {
@@ -6965,8 +6962,8 @@ window.T4SThemeSP.Tabs = (() => {
               tabList
                 .find(
                   `a[href="${currentTab.attr(
-                    'href'
-                  )}"], [data-href="${currentTab.attr('href')}"]`
+                    "href",
+                  )}"], [data-href="${currentTab.attr("href")}"]`,
                 )
                 .addClass(ACTIVE_CLASS);
               openTabContent
@@ -6975,27 +6972,27 @@ window.T4SThemeSP.Tabs = (() => {
               currentTabContent
                 .stop(true, true)
                 .slideDown(ANIMATION_DURATION, () => {
-                  if (flickityInstance.hasClass('flickity-enabled')) {
-                    flickityInstance.flickity('resize');
-                  } else if (isotopInstance.hasClass('isotope-enabled')) {
-                    isotopInstance.isotope('layout');
+                  if (flickityInstance.hasClass("flickity-enabled")) {
+                    flickityInstance.flickity("resize");
+                  } else if (isotopInstance.hasClass("isotope-enabled")) {
+                    isotopInstance.isotope("layout");
                   }
                   if (!window.T4SThemeSP.isVisible(currentTab, true)) {
                     const headerHeight =
-                      window.jQuery('.section-header').height() || 0;
+                      window.jQuery(".section-header").height() || 0;
                     const offsetTop =
                       section.find(`.tab-wrapper.${ACTIVE_CLASS}`).offset()
                         .top -
                       headerHeight -
                       10;
                     window
-                      .jQuery('body,html')
+                      .jQuery("body,html")
                       .animate({ scrollTop: offsetTop });
                   }
                 })
                 .addClass(ACTIVE_CLASS);
             }
-          }
+          },
         );
       }
     },
@@ -7005,15 +7002,15 @@ window.T4SThemeSP.Tabs = (() => {
 //done
 window.T4SThemeSP.RenderRefresh = (() => {
   const updateComponents = (component) => {
-    $body.trigger('currency:update');
+    $body.trigger("currency:update");
 
-    const flickityElements = component.find('.flickity');
-    const isotopElements = component.find('.isotope');
+    const flickityElements = component.find(".flickity");
+    const isotopElements = component.find(".isotope");
 
     // Reinitialize product grid items if present
     if (
-      component.find('.products').length > 0 &&
-      typeof window.T4SThemeSP.reinitProductGridItem === 'function'
+      component.find(".products").length > 0 &&
+      typeof window.T4SThemeSP.reinitProductGridItem === "function"
     ) {
       window.T4SThemeSP.reinitProductGridItem();
     }
@@ -7024,35 +7021,35 @@ window.T4SThemeSP.RenderRefresh = (() => {
     }
     if (flickityElements.length > 0) {
       flickityElements[0].flickityt4s = new window.T4SThemeSP.Carousel(
-        flickityElements[0]
+        flickityElements[0],
       );
     }
 
     // Call resize observer and initLoadMore if defined
     window.T4SThemeSP.ProductItem.resizeObserver();
-    if (window.T4SThemeSP.initLoadMore === 'function') {
+    if (window.T4SThemeSP.initLoadMore === "function") {
       window.T4SThemeSP.initLoadMore();
     }
   };
 
   return () => {
-    const lazyComponents = window.jQuery('[data-render-lazy-component]');
+    const lazyComponents = window.jQuery("[data-render-lazy-component]");
     if (lazyComponents.length > 0) {
       // Process components that have already been lazy-loaded
       window
-        .jQuery('[data-render-lazy-component].lazyloaded')
+        .jQuery("[data-render-lazy-component].lazyloaded")
         .each((_, element) => {
           updateComponents(window.jQuery(element));
         });
 
       // Set up event for components that are about to be lazy-loaded
-      lazyComponents.not('.lazyloaded').one('lazyincluded', (event) => {
+      lazyComponents.not(".lazyloaded").one("lazyincluded", (event) => {
         const targetComponent = window.jQuery(event.target)[0];
         updateComponents(window.jQuery(targetComponent));
       });
 
       // Add class to mark components for lazy-loading
-      lazyComponents.not('.lazyload').addClass('lazyload');
+      lazyComponents.not(".lazyload").addClass("lazyload");
     }
   };
 })();
@@ -7060,24 +7057,24 @@ window.T4SThemeSP.RenderRefresh = (() => {
 //done
 window.T4SThemeSP.ParallaxInt = function () {
   const parallaxElements = window.jQuery(
-    '[data-parallax-true]:not(.parallax_enabled)'
+    "[data-parallax-true]:not(.parallax_enabled)",
   );
 
   if (parallaxElements.length > 0) {
     parallaxElements.each((_, elem) => {
       const element = window.jQuery(elem);
       const imgSelector =
-        element.attr('data-imgsl') ||
-        element.find('.parallax-img:visible').first() ||
-        '.parallax-img';
+        element.attr("data-imgsl") ||
+        element.find(".parallax-img:visible").first() ||
+        ".parallax-img";
 
       // Check if the image elements exist or if the background is already lazy-loaded
       if (
         element.find(imgSelector).length > 0 ||
-        element.is('.parallax-bg.lazyloaded')
+        element.is(".parallax-bg.lazyloaded")
       ) {
-        element.addClass('parallax_enabled').Jarallax({
-          speed: parseFloat(element.attr('data-speed')) || 0.8,
+        element.addClass("parallax_enabled").Jarallax({
+          speed: parseFloat(element.attr("data-speed")) || 0.8,
           imgElement: imgSelector,
         });
       }
@@ -7088,34 +7085,34 @@ window.T4SThemeSP.ParallaxInt = function () {
 //done
 window.T4SThemeSP.Countdown = (() => {
   const timezone = window.T4Sconfigs.timezone;
-  let a = 'nt_guess';
+  let a = "nt_guess";
 
   try {
     a = dayjs.tz.guess();
-  } catch(error) {
+  } catch (error) {
     console.error(error);
   }
   const initCountdown = () => {
     const countdownElements = window.jQuery(
-      '[data-countdown-ts]:not(.countdown-enabled)'
+      "[data-countdown-ts]:not(.countdown-enabled)",
     );
 
     if (countdownElements.length > 0) {
       countdownElements.each(function () {
         const element = window.jQuery(this);
         const keyIdContent =
-          window.jQuery(element.attr('data-keyid')).html() ||
+          window.jQuery(element.attr("data-keyid")).html() ||
           window.jQuery.trim(element.html()) ||
-          '%D days %H:%M:%S';
-        const isRefreshOwl = element.is('[data-refresh-owl]');
-        let loop = element.data('loop');
-        const date = element.data('date');
-        const dayLimit = parseInt(element.data('dayl'));
+          "%D days %H:%M:%S";
+        const isRefreshOwl = element.is("[data-refresh-owl]");
+        let loop = element.data("loop");
+        const date = element.data("date");
+        const dayLimit = parseInt(element.data("dayl"));
         let currentDate = dayjs();
-        let formattedDate = date.replace(/\//g, '').replace(/-/g, '') + '';
+        let formattedDate = date.replace(/\//g, "").replace(/-/g, "") + "";
         const dateInt = parseInt(formattedDate);
         const dateFormat =
-          formattedDate.length < 9 ? 'YYYYMMDD' : 'YYYYMMDDHHmmss';
+          formattedDate.length < 9 ? "YYYYMMDD" : "YYYYMMDDHHmmss";
 
         // Determine if countdown should loop
         if (
@@ -7126,16 +7123,16 @@ window.T4SThemeSP.Countdown = (() => {
           loop = false;
         }
 
-        if (loop || loop === 'true') {
-          const timePart = dayjs(date).format(' HH:mm:ss');
+        if (loop || loop === "true") {
+          const timePart = dayjs(date).format(" HH:mm:ss");
           const remainingDays =
             dayLimit -
-            (currentDate.diff(date.replace(/\//g, '-'), 'days') % dayLimit);
+            (currentDate.diff(date.replace(/\//g, "-"), "days") % dayLimit);
           date =
-            (currentDate = currentDate.add(remainingDays, 'day')).format(
-              'YYYY/MM/DD'
+            (currentDate = currentDate.add(remainingDays, "day")).format(
+              "YYYY/MM/DD",
             ) + timePart;
-          element.attr('data-dateloop', date);
+          element.attr("data-dateloop", date);
         }
 
         // Start the countdown
@@ -7143,14 +7140,14 @@ window.T4SThemeSP.Countdown = (() => {
           .countdown(
             ((dateToCount) => {
               if (dateToCount) {
-                let adjustedDate = dateToCount.replace('24:00:00', '23:59:59');
-                if (timezone !== 'not4' && a !== timezone) {
+                let adjustedDate = dateToCount.replace("24:00:00", "23:59:59");
+                if (timezone !== "not4" && a !== timezone) {
                   try {
                     adjustedDate = dayjs
-                      .tz(adjustedDate.replace(/\//g, '-'), timezone)
+                      .tz(adjustedDate.replace(/\//g, "-"), timezone)
                       .toDate();
                   } catch {
-                    console.log('Timezone error: ' + timezone);
+                    console.log("Timezone error: " + timezone);
                   }
                 } else {
                   adjustedDate = new Date(adjustedDate);
@@ -7160,31 +7157,33 @@ window.T4SThemeSP.Countdown = (() => {
             })(date),
             {
               elapse: true,
-            }
+            },
           )
-          .on('update.countdown', (event) => {
+          .on("update.countdown", (event) => {
             if (event.elapsed) {
               element
-                .html('')
-                .addClass('expired_cd')
-                .closest('[data-countdown-wrap]')
-                .html('')
-                .addClass('expired_cd');
+                .html("")
+                .addClass("expired_cd")
+                .closest("[data-countdown-wrap]")
+                .html("")
+                .addClass("expired_cd");
             } else {
               const totalHours =
                 24 * event.offset.totalDays + event.offset.hours;
               element.html(
-                event.strftime(keyIdContent.replace('[totalHours]', totalHours))
+                event.strftime(
+                  keyIdContent.replace("[totalHours]", totalHours),
+                ),
               );
             }
           })
-          .addClass('countdown-enabled')
-          .closest('[data-countdown-wrap]')
-          .addClass('countdown-enabled');
+          .addClass("countdown-enabled")
+          .closest("[data-countdown-wrap]")
+          .addClass("countdown-enabled");
 
         if (isRefreshOwl) {
           const m = setTimeout(() => {
-            element.closest('.flickity-enabled').flickity('resize');
+            element.closest(".flickity-enabled").flickity("resize");
           }, 600);
           clearTimeout(m);
         }
@@ -7220,15 +7219,15 @@ var Counter = class {
 
   _dataOptions() {
     const dataOptions = {
-      from: this.$element.data('from'),
-      to: this.$element.data('to'),
-      speed: this.$element.data('speed'),
-      refreshInterval: this.$element.data('refresh-interval'),
-      decimals: this.$element.data('decimals'),
+      from: this.$element.data("from"),
+      to: this.$element.data("to"),
+      speed: this.$element.data("speed"),
+      refreshInterval: this.$element.data("refresh-interval"),
+      decimals: this.$element.data("decimals"),
     };
 
     return Object.fromEntries(
-      Object.entries(dataOptions).filter(([, value]) => value !== undefined)
+      Object.entries(dataOptions).filter(([, value]) => value !== undefined),
     );
   }
 
@@ -7245,7 +7244,7 @@ var Counter = class {
     this.loopCount++;
     this._render();
 
-    if (typeof this.options.onUpdate === 'function') {
+    if (typeof this.options.onUpdate === "function") {
       this.options.onUpdate.call(this.$element, this.value);
     }
 
@@ -7253,7 +7252,7 @@ var Counter = class {
       this._stop();
       this.value = this.options.to;
 
-      if (typeof this.options.onComplete === 'function') {
+      if (typeof this.options.onComplete === "function") {
         this.options.onComplete.call(this.$element, this.value);
       }
     }
@@ -7263,7 +7262,7 @@ var Counter = class {
     const formattedValue = this.options.formatter.call(
       this.$element,
       this.value,
-      this.options
+      this.options,
     );
     this.$element.text(formattedValue);
   }
@@ -7273,7 +7272,7 @@ var Counter = class {
     this._render();
     this.interval = setInterval(
       this._update.bind(this),
-      this.options.refreshInterval
+      this.options.refreshInterval,
     );
   }
 
@@ -7292,10 +7291,10 @@ window.T4SThemeSP.AnimateOnScroll = (() => {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const target = entry.target;
-      if (entry.isIntersecting && !target.classList.contains('animated')) {
+      if (entry.isIntersecting && !target.classList.contains("animated")) {
         setTimeout(() => {
-          target.classList.add('animated');
-          if (window.jQuery(target).is('[data-count-to]')) {
+          target.classList.add("animated");
+          if (window.jQuery(target).is("[data-count-to]")) {
             entry.countTo = new window.Counter(target);
           }
         }, animationDelay);
@@ -7306,12 +7305,12 @@ window.T4SThemeSP.AnimateOnScroll = (() => {
 
   return () => {
     const elementsToAnimate = window.jQuery(
-      '[data-ts-animate]:not(.animate-init)'
+      "[data-ts-animate]:not(.animate-init)",
     );
     if (elementsToAnimate.length > 0 && window.IntersectionObserver) {
       elementsToAnimate.each((_, element) => {
         observer.observe(element);
-        window.jQuery(element).addClass('animate-init');
+        window.jQuery(element).addClass("animate-init");
       });
     }
   };
@@ -7324,27 +7323,27 @@ window.T4SThemeSP.PopupMFP = (() => {
   const loadingText = strings.mfp_loading;
 
   const inlinePopupElements = window.jQuery(
-    '[data-open-mfp-inline]:not(.mfp-enabled)'
+    "[data-open-mfp-inline]:not(.mfp-enabled)",
   );
   const iframePopupElements = window.jQuery(
-    '[data-open-mfp-iframe]:not(.mfp-enabled)'
+    "[data-open-mfp-iframe]:not(.mfp-enabled)",
   );
   const videoPopupElements = window.jQuery(
-    '[data-open-mfp-video]:not(.mfp-enabled)'
+    "[data-open-mfp-video]:not(.mfp-enabled)",
   );
   const ajaxPopupElements = window.jQuery(
-    '[data-open-mfp-ajax]:not(.mfp-enabled)'
+    "[data-open-mfp-ajax]:not(.mfp-enabled)",
   );
-  const openPopupElements = window.jQuery('[data-open-mfp]');
+  const openPopupElements = window.jQuery("[data-open-mfp]");
 
-  const popupClass = 'is-opening-mfp';
+  const popupClass = "is-opening-mfp";
 
   function initializeInlinePopup() {
     if (inlinePopupElements.length === 0) return;
 
     inlinePopupElements
       .magnificPopupT4s({
-        type: 'inline',
+        type: "inline",
         removalDelay: 500,
         tClose: closeText,
         tLoading: loadingText,
@@ -7352,20 +7351,20 @@ window.T4SThemeSP.PopupMFP = (() => {
           beforeOpen() {
             $html.addClass(popupClass);
             this.st.mainClass =
-              'mfp-move-horizontal inline-popup-wrapper rte ' +
-              (window.jQuery(this.st.el).data('id') || '');
+              "mfp-move-horizontal inline-popup-wrapper rte " +
+              (window.jQuery(this.st.el).data("id") || "");
           },
           open() {
-            $body.trigger('NTpopupInline:offClose');
-            $body.trigger('currency:update');
+            $body.trigger("NTpopupInline:offClose");
+            $body.trigger("currency:update");
           },
           afterClose() {
-            $body.trigger('NTpopupInline:onClose');
+            $body.trigger("NTpopupInline:onClose");
             $html.removeClass(popupClass);
           },
         },
       })
-      .addClass('mfp-enabled');
+      .addClass("mfp-enabled");
   }
 
   function initializeIframePopup() {
@@ -7373,7 +7372,7 @@ window.T4SThemeSP.PopupMFP = (() => {
 
     iframePopupElements
       .magnificPopupT4s({
-        type: 'iframe',
+        type: "iframe",
         tClose: closeText,
         tLoading: loadingText,
         iframe: {
@@ -7381,69 +7380,69 @@ window.T4SThemeSP.PopupMFP = (() => {
             '<div class="mfp-iframe-scaler pr mfp-iframe"><div class="mfp-close"></div><iframe class="mfp-iframe" allow="autoplay; encrypted-media" frameborder="0" allowfullscreen></iframe></div>',
           patterns: {
             youtube: {
-              index: 'youtube.com/',
-              id: 'v=',
-              src: '//www.youtube.com/embed/%id%?enablejsapi=1&autoplay=0&rel=0&playlist=%id%&loop=1',
+              index: "youtube.com/",
+              id: "v=",
+              src: "//www.youtube.com/embed/%id%?enablejsapi=1&autoplay=0&rel=0&playlist=%id%&loop=1",
             },
             vimeo: {
-              index: 'vimeo.com/',
-              id: '/',
-              src: '//player.vimeo.com/video/%id%?autoplay=0&loop=1',
+              index: "vimeo.com/",
+              id: "/",
+              src: "//player.vimeo.com/video/%id%?autoplay=0&loop=1",
             },
             gmaps: {
-              index: '//maps.google.',
-              src: '%id%&output=embed',
+              index: "//maps.google.",
+              src: "%id%&output=embed",
             },
           },
-          srcAction: 'iframe_src',
+          srcAction: "iframe_src",
         },
         callbacks: {
           beforeOpen() {
             $html.addClass(popupClass);
             this.st.mainClass =
-              'iframe-popup-wrapper ' +
-              (window.jQuery(this.st.el).data('id') || '');
+              "iframe-popup-wrapper " +
+              (window.jQuery(this.st.el).data("id") || "");
           },
           change() {
-            console.log('change');
+            console.log("change");
           },
           open() {
             const element = window.jQuery(this.st.el);
-            const iframe = window.jQuery('.mfp-iframe').find('.mfp-iframe');
-            let src = iframe.attr('src');
+            const iframe = window.jQuery(".mfp-iframe").find(".mfp-iframe");
+            let src = iframe.attr("src");
 
-            if (element.is('[data-autoplay-true]')) {
-              src = src.replace('autoplay=0', 'autoplay=1');
+            if (element.is("[data-autoplay-true]")) {
+              src = src.replace("autoplay=0", "autoplay=1");
             }
-            if (element.is('[data-loop-false]')) {
-              src = src.split('&playlist=')[0].replace('loop=1', 'loop=0');
+            if (element.is("[data-loop-false]")) {
+              src = src.split("&playlist=")[0].replace("loop=1", "loop=0");
             }
 
-            iframe.attr('src', src);
+            iframe.attr("src", src);
           },
           afterClose() {
             $html.removeClass(popupClass);
           },
         },
       })
-      .addClass('mfp-enabled');
+      .addClass("mfp-enabled");
   }
 
   function initializeVideoPopup() {
     if (videoPopupElements.length === 0) return;
 
-    videoPopupElements.on('click', (event) => {
+    videoPopupElements.on("click", (event) => {
       event.preventDefault();
       const element = window.jQuery(event.currentTarget);
-      const options = JSON.parse(element.attr('data-options') || '{}');
+      const options = JSON.parse(element.attr("data-options") || "{}");
       const { type, vid, autoplay, loop, accent_color } = options;
 
       let content;
       const iframeTemplate = `<iframe src="src" class="class" title="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
       const videoTypes = {
-        html5: 'html5',
-        youtube: 'youtube',
-        vimeo: 'vimeo',
+        html5: "html5",
+        youtube: "youtube",
+        vimeo: "vimeo",
       };
 
       switch (type) {
@@ -7454,32 +7453,32 @@ window.T4SThemeSP.PopupMFP = (() => {
               ? window.jQuery(videoId).html()
               : `<video class="mfp-video" src="${
                   options.srcDefault
-                }" preload="auto" controls ${autoplay ? 'autoplay' : ''} ${
-                  loop ? 'loop' : ''
+                }" preload="auto" controls ${autoplay ? "autoplay" : ""} ${
+                  loop ? "loop" : ""
                 } playsinline></video>`;
           content = `<div class="mfp-video-scaler relative mfp-video">${videoContent.replace(
-            '<video',
-            '<video class="mfp-video"'
+            "<video",
+            '<video class="mfp-video"',
           )}</div>`;
           break;
         case videoTypes.youtube:
           content = iframeTemplate
             .replace(
-              'src',
+              "src",
               `//www.youtube.com/embed/${vid}?enablejsapi=1&showinfo=0&controls=1&modestbranding=1&autoplay=${+autoplay}&rel=0${
-                loop ? `&playlist=${vid}&loop=1` : ''
-              }`
+                loop ? `&playlist=${vid}&loop=1` : ""
+              }`,
             )
-            .replace('class', 'js-youtube');
+            .replace("class", "js-youtube");
           content = `<div class="mfp-iframe-scaler relative mfp-iframe">${content}</div>`;
           break;
         case videoTypes.vimeo:
           content = iframeTemplate
             .replace(
-              'src',
-              `//player.vimeo.com/video/${vid}?&portrait=0&byline=0&color=${accent_color}&autoplay=${+autoplay}&loop=${+loop}`
+              "src",
+              `//player.vimeo.com/video/${vid}?&portrait=0&byline=0&color=${accent_color}&autoplay=${+autoplay}&loop=${+loop}`,
             )
-            .replace('class', 'js-vimeo');
+            .replace("class", "js-vimeo");
           content = `<div class="mfp-iframe-scaler relative mfp-iframe">${content}</div>`;
           break;
       }
@@ -7487,7 +7486,7 @@ window.T4SThemeSP.PopupMFP = (() => {
       window.jQuery.magnificPopupT4s.open({
         items: {
           src: content,
-          type: 'inline',
+          type: "inline",
         },
         tClose: closeText,
         tLoading: loadingText,
@@ -7495,14 +7494,14 @@ window.T4SThemeSP.PopupMFP = (() => {
           beforeOpen() {
             $html.addClass(popupClass);
             this.st.mainClass = `video-popup-wrapper mfp-video-holder ${
-              element.data('id') || ''
+              element.data("id") || ""
             }`;
           },
           open() {
-            element.addClass('mfp-enabled');
+            element.addClass("mfp-enabled");
           },
           afterClose() {
-            element.removeClass('mfp-enabled');
+            element.removeClass("mfp-enabled");
             $html.removeClass(popupClass);
           },
         },
@@ -7515,7 +7514,7 @@ window.T4SThemeSP.PopupMFP = (() => {
 
     ajaxPopupElements
       .magnificPopupT4s({
-        type: 'ajax',
+        type: "ajax",
         removalDelay: 500,
         tClose: closeText,
         tLoading:
@@ -7523,65 +7522,65 @@ window.T4SThemeSP.PopupMFP = (() => {
         callbacks: {
           parseAjax(data) {
             const element = window.jQuery(this.st.el);
-            const id = element.data('id') || '';
-            const className = element.data('class') || '';
-            const style = element.data('style') || '';
+            const id = element.data("id") || "";
+            const className = element.data("class") || "";
+            const style = element.data("style") || "";
             const content = data.data;
             data.data = `<div class="mfp-with-anim mfp-popup rte ${className}" id="${id}" style="${style}">${
-              content.split('[splitlz]')[1] || content
+              content.split("[splitlz]")[1] || content
             }</div>`;
           },
           ajaxContentAdded() {
-            console.log('ajaxContentAdded');
+            console.log("ajaxContentAdded");
           },
           beforeOpen() {
             $html.addClass(popupClass);
-            this.st.mainClass = 'mfp-move-horizontal ajax-popup-wrapper';
+            this.st.mainClass = "mfp-move-horizontal ajax-popup-wrapper";
           },
           open() {
-            const customData = window.jQuery(this.st.el).data('custom');
-            const phoneData = window.jQuery(this.st.el).data('phone');
+            const customData = window.jQuery(this.st.el).data("custom");
+            const phoneData = window.jQuery(this.st.el).data("phone");
             const ajaxContent = window.jQuery(
-              '.ajax-popup-wrapper:not(.mfp-bg) .mfp-content'
+              ".ajax-popup-wrapper:not(.mfp-bg) .mfp-content",
             );
 
-            $body.trigger('NTpopupInline:offClose');
-            $body.trigger('currency:update');
+            $body.trigger("NTpopupInline:offClose");
+            $body.trigger("currency:update");
 
             if (phoneData === 0) {
-              ajaxContent.find('#ContactFormAsk__phone').remove();
+              ajaxContent.find("#ContactFormAsk__phone").remove();
               setTimeout(() => {
-                ajaxContent.find('#ContactFormAsk__phone').remove();
+                ajaxContent.find("#ContactFormAsk__phone").remove();
               }, 400);
             }
 
             if (customData) {
-              const customItems = customData.split('||');
+              const customItems = customData.split("||");
               customItems.forEach((item) => {
-                const [selector, html] = item.split('=>');
+                const [selector, html] = item.split("=>");
                 ajaxContent.find(selector).html(html);
               });
               setTimeout(() => {
                 customItems.forEach((item) => {
-                  const [selector, html] = item.split('=>');
+                  const [selector, html] = item.split("=>");
                   ajaxContent.find(selector).html(html);
                 });
               }, 400);
             }
           },
           afterClose() {
-            $body.trigger('NTpopupInline:onClose');
+            $body.trigger("NTpopupInline:onClose");
             $html.removeClass(popupClass);
           },
         },
       })
-      .addClass('mfp-enabled');
+      .addClass("mfp-enabled");
   }
 
   function initializeOpenPopup() {
     if (openPopupElements.length === 0) return;
 
-    $body.on('click', '[data-open-mfp]', (event) => {
+    $body.on("click", "[data-open-mfp]", (event) => {
       event.preventDefault();
       const element = window.jQuery(event.currentTarget);
       const data = element.data();
@@ -7592,17 +7591,17 @@ window.T4SThemeSP.PopupMFP = (() => {
         pos,
         remove,
         className,
-        ani = 'has_ntcanvas',
+        ani = "has_ntcanvas",
         close = false,
         focuslast = false,
       } = data;
-      const dataFocus = element.attr('data-focus');
-      element.addClass('current_clicked');
+      const dataFocus = element.attr("data-focus");
+      element.addClass("current_clicked");
 
       window.jQuery.magnificPopupT4s.open({
         items: {
           src: opennt,
-          type: 'inline',
+          type: "inline",
           tLoading: '<div class="loading-spin dark"></div>',
         },
         tClose: nt_settings.close,
@@ -7618,22 +7617,22 @@ window.T4SThemeSP.PopupMFP = (() => {
           open() {
             $html.addClass(ani);
             $html.addClass(`${ani}_${pos}`);
-            className && window.jQuery('.mfp-content').addClass(className);
-            bg && window.jQuery('.mfp-bg').addClass(bg);
-            $body.on('click', '.close_pp', (event) => {
+            className && window.jQuery(".mfp-content").addClass(className);
+            bg && window.jQuery(".mfp-bg").addClass(bg);
+            $body.on("click", ".close_pp", (event) => {
               event.preventDefault();
               window.jQuery.magnificPopup.close();
             });
             if (!window.pageYOffset) return;
-            window.jQuery('html, body').scrollTop(window.pageYOffset);
+            window.jQuery("html, body").scrollTop(window.pageYOffset);
           },
           beforeClose() {
             $html.removeClass(ani);
           },
           afterClose() {
             $html.removeClass(`${ani}_${pos}`);
-            window.jQuery('.current_clicked').removeClass('current_clicked');
-            remove && window.jQuery(opennt).removeClass('mfp-hide');
+            window.jQuery(".current_clicked").removeClass("current_clicked");
+            remove && window.jQuery(opennt).removeClass("mfp-hide");
             $html.removeClass(popupClass);
           },
         },
@@ -7656,26 +7655,26 @@ window.T4SThemeSP.PopupMFP = (() => {
 
 //done
 window.T4SThemeSP.NTpopupInline = (() => {
-  let modalClass = 'modal--is-active';
-  let openedClass = 'modal-opened';
-  let modalContent = window.jQuery('#temp_modal').html();
+  let modalClass = "modal--is-active";
+  let openedClass = "modal-opened";
+  let modalContent = window.jQuery("#temp_modal").html();
 
   const events = {
-    trigger: 'modal:trigger',
-    opened: 'modal:opened',
-    closed: 'modal:closed',
-    destroy: 'modal:destroy',
-    click: 'click.qv',
-    keyup: 'keyup.qv',
-    transition: 'transitionend webkitTransitionEnd oTransitionEnd',
+    trigger: "modal:trigger",
+    opened: "modal:opened",
+    closed: "modal:closed",
+    destroy: "modal:destroy",
+    click: "click.qv",
+    keyup: "keyup.qv",
+    transition: "transitionend webkitTransitionEnd oTransitionEnd",
   };
   const n = (event) => {
     const $element = window.jQuery(event.target);
     if (
-      $element.parents().is('.modal__inner') ||
-      $element.parents().is('.mfp-ready') ||
-      $element.is('#notices__wrapper') ||
-      $element.parents().is('#notices__wrapper')
+      $element.parents().is(".modal__inner") ||
+      $element.parents().is(".mfp-ready") ||
+      $element.is("#notices__wrapper") ||
+      $element.parents().is("#notices__wrapper")
     )
       return;
     event.preventDefault();
@@ -7685,7 +7684,7 @@ window.T4SThemeSP.NTpopupInline = (() => {
     htmlContent,
     _,
     onOpenCallback,
-    onCloseCallback = null
+    onCloseCallback = null,
   ) => {
     const closeModal = () => {
       if (isModalOpened()) {
@@ -7708,15 +7707,15 @@ window.T4SThemeSP.NTpopupInline = (() => {
     $body.off(events.closed).on(events.closed, closeModal);
     $body.off(events.destroy).on(events.destroy, cleanUp);
 
-    $body.on(events.click, '[data-ts-modal-close]', (event) => {
+    $body.on(events.click, "[data-ts-modal-close]", (event) => {
       event.preventDefault();
       $body.trigger(events.closed);
     });
 
     $body.on(events.click, n);
     $body.on(events.keyup, handleEscapeKey);
-    $body.on('NTpopupInline:offClose', offCloseHandlers);
-    $body.on('NTpopupInline:onClose', onCloseHandlers);
+    $body.on("NTpopupInline:offClose", offCloseHandlers);
+    $body.on("NTpopupInline:onClose", onCloseHandlers);
   };
 
   const isModalOpened = () => {
@@ -7748,13 +7747,13 @@ window.T4SThemeSP.NTpopupInline = (() => {
       $html.addClass(onCloseCallback);
     }
 
-    window.jQuery('.modal__content').html(htmlContent);
+    window.jQuery(".modal__content").html(htmlContent);
 
     $html.addClass(openedClass);
     $html.css({
-      'margin-right': window.T4SThemeSP.scrollbarWidth,
+      "margin-right": window.T4SThemeSP.scrollbarWidth,
     });
-    const $model = window.jQuery('.modal');
+    const $model = window.jQuery(".modal");
     $model.addClass(modalClass);
     $model.on(events.transition, (event) => {
       window.jQuery(event.currentTarget).focus().off(events.transition);
@@ -7768,13 +7767,13 @@ window.T4SThemeSP.NTpopupInline = (() => {
   };
 
   const closeAndCleanUp = (onCloseCallback) => {
-    window.jQuery('.modal .flickity-enabled').trigger('destroy.ts');
+    window.jQuery(".modal .flickity-enabled").trigger("destroy.ts");
     $html.css({
-      'margin-right': '',
+      "margin-right": "",
     });
-    $html.removeClass(openedClass).addClass('modal-closing');
-    const $model = window.jQuery('.modal');
-    $model.removeClass(modalClass).addClass('modal--is-closing');
+    $html.removeClass(openedClass).addClass("modal-closing");
+    const $model = window.jQuery(".modal");
+    $model.removeClass(modalClass).addClass("modal--is-closing");
 
     setTimeout(() => {
       $model.remove();
@@ -7783,7 +7782,7 @@ window.T4SThemeSP.NTpopupInline = (() => {
     }, 500);
 
     $body.trigger(events.destroy);
-    $body.trigger('ts:hideTooltip');
+    $body.trigger("ts:hideTooltip");
   };
 
   const cleanUp = () => {
@@ -7801,7 +7800,7 @@ window.T4SThemeSP.NTpopupInline = (() => {
 
 //done
 window.T4SThemeSP.Currency = (() => {
-  const defaultFormat = '${{amount}}';
+  const defaultFormat = "${{amount}}";
   const isSuperScriptEnabled =
     window.T4SThemeSP.settings && window.T4SThemeSP.settings.superScriptPrice;
   const moneyFormat = window.T4Sconfigs.moneyFormat;
@@ -7810,19 +7809,19 @@ window.T4SThemeSP.Currency = (() => {
     const formatAmount = (
       amount,
       decimals = 2,
-      thousandsSep = ',',
-      decimalSep = '.'
+      thousandsSep = ",",
+      decimalSep = ".",
     ) => {
       if (isNaN(amount) || amount == null) return 0;
 
-      const formattedAmount = (amount / 100).toFixed(decimals).split('.');
+      const formattedAmount = (amount / 100).toFixed(decimals).split(".");
       const integerPart = formattedAmount[0].replace(
         /(\d)(?=(\d{3})+(?!\d))/g,
-        `$1${thousandsSep}`
+        `$1${thousandsSep}`,
       );
       const decimalPart = formattedAmount[1]
         ? decimalSep + formattedAmount[1]
-        : '';
+        : "";
 
       return integerPart + decimalPart;
     };
@@ -7830,29 +7829,29 @@ window.T4SThemeSP.Currency = (() => {
     const formatMap = {
       amount: () => {
         let result = formatAmount(amount, 2);
-        if (isSuperScriptEnabled && result?.includes('.')) {
-          result = result.replace('.', '<sup>') + '</sup>';
+        if (isSuperScriptEnabled && result?.includes(".")) {
+          result = result.replace(".", "<sup>") + "</sup>";
         }
         return result;
       },
       amount_no_decimals: () => formatAmount(amount, 0),
       amount_with_comma_separator: () => {
-        let result = formatAmount(amount, 2, '.', ',');
-        if (isSuperScriptEnabled && result?.includes(',')) {
-          result = result.replace(',', '<sup>') + '</sup>';
+        let result = formatAmount(amount, 2, ".", ",");
+        if (isSuperScriptEnabled && result?.includes(",")) {
+          result = result.replace(",", "<sup>") + "</sup>";
         }
         return result;
       },
       amount_no_decimals_with_comma_separator: () =>
-        formatAmount(amount, 0, '.', ','),
+        formatAmount(amount, 0, ".", ","),
       amount_no_decimals_with_space_separator: () =>
-        formatAmount(amount, 0, ' '),
+        formatAmount(amount, 0, " "),
       amount_with_apostrophe_separator: () => formatAmount(amount, 2, "'"),
     };
 
     format = format || moneyFormat;
-    if (typeof amount === 'string') {
-      amount = amount.replace('.', '');
+    if (typeof amount === "string") {
+      amount = amount.replace(".", "");
     }
 
     const formatKey = format.match(/\{\{\s*(\w+)\s*\}\}/)[1];
@@ -7885,35 +7884,35 @@ window.T4SThemeSP.Currency = (() => {
 window.T4SThemeSP.slate = {
   utils: {
     getParameterByName: (name, url = window.location.href) => {
-      name = name.replace(/[[\]]/g, '\\$&');
+      name = name.replace(/[[\]]/g, "\\$&");
       const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`).exec(url);
       return regex
         ? regex[2]
-          ? decodeURIComponent(regex[2].replace(/\+/g, ' '))
-          : ''
+          ? decodeURIComponent(regex[2].replace(/\+/g, " "))
+          : ""
         : null;
     },
     removeParameterByName: (name, url = window.location.href) => {
-      name = name.replace(/[[\]]/g, '\\$&');
-      const baseUrl = url.split('?')[0];
-      const queryString = url.split('?')?.[1] || '';
+      name = name.replace(/[[\]]/g, "\\$&");
+      const baseUrl = url.split("?")[0];
+      const queryString = url.split("?")?.[1] || "";
 
       if (queryString) {
         const params = queryString
-          .split('&')
-          .filter((param) => param.split('=')[0] !== name);
-        return params.length ? `${baseUrl}?${params.join('&')}` : baseUrl;
+          .split("&")
+          .filter((param) => param.split("=")[0] !== name);
+        return params.length ? `${baseUrl}?${params.join("&")}` : baseUrl;
       }
       return baseUrl;
     },
     resizeSelects: (selectElements) => {
       selectElements.each((_, element) => {
         const select = window.jQuery(element);
-        const selectedText = select.find('option:selected').text();
+        const selectedText = select.find("option:selected").text();
         const tempSpan = window
-          .jQuery('<span>')
+          .jQuery("<span>")
           .html(selectedText)
-          .appendTo('body');
+          .appendTo("body");
         const width = tempSpan.width();
         tempSpan.remove();
         select.width(width + 10);
@@ -7930,7 +7929,7 @@ window.T4SThemeSP.slate = {
   rte: {
     wrapTable: (tableData) => {
       tableData.$tables.wrap(
-        `<div class="${tableData.tableWrapperClass}"></div>`
+        `<div class="${tableData.tableWrapperClass}"></div>`,
       );
     },
     wrapIframe: (iframeData) => {
@@ -7944,14 +7943,14 @@ window.T4SThemeSP.slate = {
   },
   a11y: {
     pageLinkFocus: (elements) => {
-      const hiddenClass = 'js-focus-hidden';
+      const hiddenClass = "js-focus-hidden";
       elements
         .first()
-        .attr('tabIndex', '-1')
+        .attr("tabIndex", "-1")
         .focus()
         .addClass(hiddenClass)
-        .one('blur', () => {
-          elements.first().removeClass(hiddenClass).removeAttr('tabindex');
+        .one("blur", () => {
+          elements.first().removeClass(hiddenClass).removeAttr("tabindex");
         });
     },
     focusHash: () => {
@@ -7961,38 +7960,38 @@ window.T4SThemeSP.slate = {
       }
     },
     bindInPageLinks: () => {
-      window.jQuery('a[href*=#]').on('click', (event) => {
+      window.jQuery("a[href*=#]").on("click", (event) => {
         this.pageLinkFocus(
-          window.jQuery(event.currentTarget.hash).bind(event.currentTarget)
+          window.jQuery(event.currentTarget.hash).bind(event.currentTarget),
         );
       });
     },
     trapFocus: (options) => {
       const events = {
-        focusin: options.namespace ? `focusin.${options.namespace}` : 'focusin',
+        focusin: options.namespace ? `focusin.${options.namespace}` : "focusin",
         focusout: options.namespace
           ? `focusout.${options.namespace}`
-          : 'focusout',
+          : "focusout",
         keydown: options.namespace
           ? `keydown.${options.namespace}`
-          : 'keydown.handleFocus',
+          : "keydown.handleFocus",
       };
 
       const focusableElements = options.$container.find(
         window
           .jQuery(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex^="-"])'
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex^="-"])',
           )
-          .filter(':visible')
+          .filter(":visible"),
       );
       const firstElement = focusableElements[0];
       const lastElement = focusableElements[focusableElements.length - 1];
 
       options.$elementToFocus = options.$elementToFocus || options.$container;
-      options.$container.attr('tabindex', '-1');
+      options.$container.attr("tabindex", "-1");
       options.$elementToFocus.focus();
 
-      $document.off('focusin');
+      $document.off("focusin");
       $document.on(events.focusout, () => {
         $document.off(events.keydown);
       });
@@ -8019,57 +8018,57 @@ window.T4SThemeSP.slate = {
     removeTrapFocus: (options) => {
       const eventNamespace = options.namespace
         ? `focusin.${options.namespace}`
-        : 'focusin';
+        : "focusin";
       if (options.$container && options.$container.length) {
-        options.$container.removeAttr('tabindex');
+        options.$container.removeAttr("tabindex");
       }
       $document.off(eventNamespace);
     },
     accessibleLinks: (options) => {
       const ariaLabels = {
-        newWindow: 'a11y-new-window-message',
-        external: 'a11y-external-message',
-        newWindowExternal: 'a11y-new-window-external-message',
+        newWindow: "a11y-new-window-message",
+        external: "a11y-external-message",
+        newWindowExternal: "a11y-new-window-external-message",
       };
 
       if (!options.$links.jquery) {
-        options.$links = window.jQuery('a[href]:not([aria-describedby])');
+        options.$links = window.jQuery("a[href]:not([aria-describedby])");
       }
 
       options.$links.each((_, $link) => {
         const link = window.jQuery($link);
-        const target = link.attr('target');
-        const rel = link.attr('rel');
+        const target = link.attr("target");
+        const rel = link.attr("rel");
         const isExternal = link[0].hostname !== window.location.hostname;
-        const isNewWindow = target === '_blank';
+        const isNewWindow = target === "_blank";
 
         if (isExternal) {
-          link.attr('aria-describedby', ariaLabels.external);
+          link.attr("aria-describedby", ariaLabels.external);
         }
         if (isNewWindow) {
-          if (!rel || !rel.includes('noopener')) {
-            link.attr('rel', (rel ? `${rel} ` : '') + 'noopener');
+          if (!rel || !rel.includes("noopener")) {
+            link.attr("rel", (rel ? `${rel} ` : "") + "noopener");
           }
-          link.attr('aria-describedby', ariaLabels.newWindow);
+          link.attr("aria-describedby", ariaLabels.newWindow);
         }
         if (isExternal && isNewWindow) {
-          link.attr('aria-describedby', ariaLabels.newWindowExternal);
+          link.attr("aria-describedby", ariaLabels.newWindowExternal);
         }
       });
 
       const messages = {
-        newWindow: 'Opens in a new window.',
-        external: 'Opens external website.',
-        newWindowExternal: 'Opens external website in a new window.',
+        newWindow: "Opens in a new window.",
+        external: "Opens external website.",
+        newWindowExternal: "Opens external website in a new window.",
         ...options.messages,
       };
 
-      const messageList = document.createElement('ul');
-      let messageItems = '';
+      const messageList = document.createElement("ul");
+      let messageItems = "";
       for (const key in messages) {
         messageItems += `<li id="${ariaLabels[key]}">${messages[key]}</li>`;
       }
-      messageList.setAttribute('hidden', true);
+      messageList.setAttribute("hidden", true);
       messageList.innerHTML = messageItems;
       $body[0].appendChild(messageList);
     },
@@ -8081,29 +8080,29 @@ window.T4SThemeSP.LinkMyltiLang = (function () {
   const rootUrl = window.T4SThemeSP.root_url;
   const hostname = window.location.hostname;
   const routesRootUrl = window.T4Sroutes.root_url;
-  const checkedLinkClass = 'is--checked-link';
+  const checkedLinkClass = "is--checked-link";
   const fullUrl = `${hostname}${routesRootUrl}`;
 
   return function () {
-    if (rootUrl !== '/') {
+    if (rootUrl !== "/") {
       window
         .jQuery(
-          `a[href*="${hostname}"]:not(.${checkedLinkClass}):not([href*="@"])`
+          `a[href*="${hostname}"]:not(.${checkedLinkClass}):not([href*="@"])`,
         )
         .each((_, element) => {
           const link = window.jQuery(element);
-          const href = link.attr('href');
+          const href = link.attr("href");
 
           link.addClass(checkedLinkClass);
 
           if (
             href.indexOf(`${hostname}${rootUrl}`) >= 0 &&
-            href !== '/' &&
-            !href.includes('preview_theme_id=')
+            href !== "/" &&
+            !href.includes("preview_theme_id=")
           ) {
             link.attr(
-              'href',
-              href !== '/' ? href.replace(hostname, fullUrl) : routesRootUrl
+              "href",
+              href !== "/" ? href.replace(hostname, fullUrl) : routesRootUrl,
             );
           }
         });
@@ -8115,33 +8114,33 @@ window.T4SThemeSP.LinkMyltiLang = (function () {
 var Slider = class {
   constructor(element) {
     this.$slider = window.jQuery(element);
-    this.slideWrap = this.$slider.closest('[data-slide-wrap]')[0] || element;
+    this.slideWrap = this.$slider.closest("[data-slide-wrap]")[0] || element;
 
     if (!this.slideWrap) return;
 
-    this.sliderOptions = JSON.parse(this.$slider.attr('data-options') || '{}');
+    this.sliderOptions = JSON.parse(this.$slider.attr("data-options") || "{}");
     this.slider = element;
-    this.sliderItems = element.querySelectorAll('.slider__slide');
-    this.pageCount = this.slideWrap.querySelector('.slider-counter--current');
-    this.pageTotal = this.slideWrap.querySelector('.slider-counter--total');
-    this.prevButton = this.slideWrap.querySelector('.slider__slide-prev');
-    this.nextButton = this.slideWrap.querySelector('.slider__slide-next');
+    this.sliderItems = element.querySelectorAll(".slider__slide");
+    this.pageCount = this.slideWrap.querySelector(".slider-counter--current");
+    this.pageTotal = this.slideWrap.querySelector(".slider-counter--total");
+    this.prevButton = this.slideWrap.querySelector(".slider__slide-prev");
+    this.nextButton = this.slideWrap.querySelector(".slider__slide-next");
 
     if (!this.slider || !this.nextButton) return;
 
     new ResizeObserver(() => this._initPages()).observe(this.slider);
-    this.slider.addEventListener('scroll', this._update);
-    this.prevButton.addEventListener('click', this._onButtonClick);
-    this.nextButton.addEventListener('click', this._onButtonClick);
+    this.slider.addEventListener("scroll", this._update);
+    this.prevButton.addEventListener("click", this._onButtonClick);
+    this.nextButton.addEventListener("click", this._onButtonClick);
   }
 
   _initPages() {
-    this.slider.classList.remove('is--active');
+    this.slider.classList.remove("is--active");
 
     if (this.sliderItems.length > 0) {
-      this.slider.classList.add('is--active');
+      this.slider.classList.add("is--active");
       this.slidesPerPage = Math.floor(
-        this.slider.clientWidth / this.sliderItems[0].clientWidth
+        this.slider.clientWidth / this.sliderItems[0].clientWidth,
       );
       this.totalPages = this.sliderItems.length - this.slidesPerPage + 1;
       this._update();
@@ -8154,15 +8153,15 @@ var Slider = class {
         Math.round(this.slider.scrollLeft / this.sliderItems[0].clientWidth) +
         1;
       if (1 === this.currentPage) {
-        this.prevButton.setAttribute('disabled', true);
+        this.prevButton.setAttribute("disabled", true);
       } else {
-        this.prevButton.removeAttribute('disabled');
+        this.prevButton.removeAttribute("disabled");
       }
 
       if (this.currentPage === this.totalPages) {
-        this.nextButton.setAttribute('disabled', true);
+        this.nextButton.setAttribute("disabled", true);
       } else {
-        this.nextButton.removeAttribute('disabled');
+        this.nextButton.removeAttribute("disabled");
       }
 
       this.pageCount.textContent = this.currentPage;
@@ -8174,7 +8173,7 @@ var Slider = class {
     event.preventDefault();
     const scrollAmount = this.sliderItems[0].clientWidth;
     const newScrollLeft =
-      event.currentTarget.name === 'next'
+      event.currentTarget.name === "next"
         ? this.slider.scrollLeft + scrollAmount
         : this.slider.scrollLeft - scrollAmount;
 
@@ -8184,11 +8183,11 @@ var Slider = class {
 
 //done
 window.T4SThemeSP.SliderComponentInit = (() => {
-  const sliders = window.jQuery('.slider:not(.enabled)');
+  const sliders = window.jQuery(".slider:not(.enabled)");
 
   if (sliders.length > 0) {
     sliders.each((_, element) => {
-      element.classList.add('enabled');
+      element.classList.add("enabled");
       element.sliderComponent = new Slider(element);
     });
   }
@@ -8197,35 +8196,35 @@ window.T4SThemeSP.SliderComponentInit = (() => {
 //done
 window.T4SThemeSP.LibraryLoader = (() => {
   const elementTypes = {
-    link: 'link',
-    script: 'script',
+    link: "link",
+    script: "script",
   };
 
   const statuses = {
-    requested: 'requested',
-    loaded: 'loaded',
+    requested: "requested",
+    loaded: "loaded",
   };
 
-  const cdnBase = 'https://cdn.shopify.com/shopifycloud/';
+  const cdnBase = "https://cdn.shopify.com/shopifycloud/";
 
   const libraries = {
     youtubeSdk: {
-      tagId: 'youtube-sdk',
-      src: 'https://www.youtube.com/iframe_api',
+      tagId: "youtube-sdk",
+      src: "https://www.youtube.com/iframe_api",
       type: elementTypes.script,
     },
     vimeoSdk: {
-      tagId: 'vimeo-sdk',
-      src: 'https://player.vimeo.com/api/player.js',
+      tagId: "vimeo-sdk",
+      src: "https://player.vimeo.com/api/player.js",
       type: elementTypes.script,
     },
     plyrShopifyStyles: {
-      tagId: 'plyr-shopify-styles',
+      tagId: "plyr-shopify-styles",
       src: `${cdnBase}plyr/v2.0/shopify-plyr.css`,
       type: elementTypes.link,
     },
     modelViewerUiStyles: {
-      tagId: 'shopify-model-viewer-ui-styles',
+      tagId: "shopify-model-viewer-ui-styles",
       src: `${cdnBase}model-viewer-ui/assets/v1.0/model-viewer-ui.css`,
       type: elementTypes.link,
     },
@@ -8235,9 +8234,9 @@ window.T4SThemeSP.LibraryLoader = (() => {
 
     if (library) {
       // Handle YouTube SDK case
-      if (isDesignMode && libraryName === 'youtubeSdk' && window.YT) {
+      if (isDesignMode && libraryName === "youtubeSdk" && window.YT) {
         callback();
-        return $document.trigger('youtube:ready');
+        return $document.trigger("youtube:ready");
       }
 
       // Check library status
@@ -8270,9 +8269,9 @@ window.T4SThemeSP.LibraryLoader = (() => {
   }
 
   function createScriptElement(library, callback) {
-    const script = document.createElement('script');
+    const script = document.createElement("script");
     script.src = library.src;
-    script.addEventListener('load', () => {
+    script.addEventListener("load", () => {
       library.status = statuses.loaded;
       callback();
     });
@@ -8280,11 +8279,11 @@ window.T4SThemeSP.LibraryLoader = (() => {
   }
 
   function createLinkElement(library, callback) {
-    const link = document.createElement('link');
+    const link = document.createElement("link");
     link.href = library.src;
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.addEventListener('load', function () {
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.addEventListener("load", function () {
       library.status = statuses.loaded;
       callback();
     });
@@ -8299,24 +8298,24 @@ window.T4SThemeSP.LibraryLoader = (() => {
 //done
 var VideoBackground = class {
   static videoTypes = {
-    html5: 'html5',
-    youtube: 'youtube',
-    vimeo: 'vimeo',
+    html5: "html5",
+    youtube: "youtube",
+    vimeo: "vimeo",
   };
 
   isYouTubeLoaded = false;
   isVimeoLoaded = false;
   constructor(element) {
     this.$video = window.jQuery(element);
-    this.video_options = JSON.parse(this.$video.attr('data-options') || '{}');
+    this.video_options = JSON.parse(this.$video.attr("data-options") || "{}");
     this.video_type = this.video_options.type;
     this.video_mute = this.video_options.mute;
-    this.$videoInsert = this.$video.find('[data-bgvideo-insert]');
+    this.$videoInsert = this.$video.find("[data-bgvideo-insert]");
     this.$elementToInsert = this.$videoInsert.length
       ? this.$videoInsert
       : this.$video;
     this.elementToInsert = this.$elementToInsert[0];
-    this.$video.attr('loaded', true);
+    this.$video.attr("loaded", true);
 
     this.initializeVideo();
   }
@@ -8332,7 +8331,7 @@ var VideoBackground = class {
         } else {
           this._triggerBgYouTubeVideo();
           if (!this.isYouTubeLoaded) {
-            window.T4SThemeSP.LibraryLoader.load('youtubeSdk');
+            window.T4SThemeSP.LibraryLoader.load("youtubeSdk");
             this.isYouTubeLoaded = true;
           }
         }
@@ -8344,8 +8343,8 @@ var VideoBackground = class {
           this._triggerBgVimeoVideo();
           if (!this.isVimeoLoaded) {
             window.T4SThemeSP.LibraryLoader.load(
-              'vimeoSdk',
-              this._loadedVimeoSDK.bind(this)
+              "vimeoSdk",
+              this._loadedVimeoSDK.bind(this),
             );
             this.isVimeoLoaded = true;
           }
@@ -8355,17 +8354,17 @@ var VideoBackground = class {
   }
 
   _triggerBgYouTubeVideo() {
-    $document.on('youtube:ready', () => {
+    $document.on("youtube:ready", () => {
       this._setupBgYouTubeVideo();
     });
   }
 
   _loadedVimeoSDK() {
-    $document.trigger('vimeo:ready');
+    $document.trigger("vimeo:ready");
   }
 
   _triggerBgVimeoVideo() {
-    $document.on('vimeo:ready', () => {
+    $document.on("vimeo:ready", () => {
       this._setupBgVimeoVideo();
     });
   }
@@ -8378,12 +8377,12 @@ var VideoBackground = class {
         : `<video class="bg_vid_html5" src="${
             this.video_options.srcDefault
           }" preload="auto" playsinline autoplay ${
-            this.video_mute ? 'muted' : ''
+            this.video_mute ? "muted" : ""
           } loop></video>`;
 
     this.$elementToInsert.replaceWith(videoHtml);
-    this.$video.find('.bg_vid_html5').on('playing', () => {
-      this.$video.addClass('bgvideo-playing');
+    this.$video.find(".bg_vid_html5").on("playing", () => {
+      this.$video.addClass("bgvideo-playing");
     });
   }
 
@@ -8405,10 +8404,10 @@ var VideoBackground = class {
           branding: 0,
           cc_load_policy: 0,
           fs: 0,
-          quality: 'hd1080',
-          wmode: 'transparent',
-          height: '100%',
-          width: '100%',
+          quality: "hd1080",
+          wmode: "transparent",
+          height: "100%",
+          width: "100%",
           origin: this.video_options.requestHost,
         },
         events: {
@@ -8419,10 +8418,10 @@ var VideoBackground = class {
 
       this.resizeVideoBackground();
       $window.on(
-        'resize',
+        "resize",
         window.T4SThemeSP.debounce(300, () => {
           this.resizeVideoBackground();
-        })
+        }),
       );
     }
   }
@@ -8436,7 +8435,7 @@ var VideoBackground = class {
 
   onPlayerStateChange(event) {
     if (event.data === window.YT.PlayerState.PLAYING) {
-      this.$video.addClass('bgvideo-playing');
+      this.$video.addClass("bgvideo-playing");
     } else if (event.data === window.YT.PlayerState.ENDED) {
       this.player.playVideo();
     }
@@ -8457,18 +8456,18 @@ var VideoBackground = class {
       this.resizeVideoBackground();
 
       $window.on(
-        'resize',
+        "resize",
         window.T4SThemeSP.debounce(300, (event) => {
           this.resizeVideoBackground();
-        })
+        }),
       );
 
-      this.player.on('play', () => {
-        this.$video.addClass('bgvideo-playing');
+      this.player.on("play", () => {
+        this.$video.addClass("bgvideo-playing");
       });
 
-      this.player.on('ended', () => {
-        console.log('ended');
+      this.player.on("ended", () => {
+        console.log("ended");
       });
     }
   }
@@ -8482,21 +8481,21 @@ var VideoBackground = class {
     if (containerWidth / containerHeight < 16 / 9) {
       videoHeight = containerHeight;
       videoWidth = videoHeight * (16 / 9);
-      marginLeft = -Math.round((videoWidth - containerWidth) / 2) + 'px';
-      marginTop = -Math.round((videoHeight - containerHeight) / 2) + 'px';
+      marginLeft = -Math.round((videoWidth - containerWidth) / 2) + "px";
+      marginTop = -Math.round((videoHeight - containerHeight) / 2) + "px";
     } else {
       videoWidth = containerWidth;
       videoHeight = videoWidth * (9 / 16);
-      marginTop = -Math.round((videoHeight - containerHeight) / 2) + 'px';
-      marginLeft = -Math.round((videoWidth - containerWidth) / 2) + 'px';
+      marginTop = -Math.round((videoHeight - containerHeight) / 2) + "px";
+      marginLeft = -Math.round((videoWidth - containerWidth) / 2) + "px";
     }
 
-    videoContainer.find('iframe').css({
-      maxWidth: '1000%',
+    videoContainer.find("iframe").css({
+      maxWidth: "1000%",
       marginLeft: marginLeft,
       marginTop: marginTop,
-      width: videoWidth + 'px',
-      height: videoHeight + 'px',
+      width: videoWidth + "px",
+      height: videoHeight + "px",
     });
   }
 };
@@ -8504,7 +8503,7 @@ var VideoBackground = class {
 //done
 window.T4SThemeSP.BgVideo = () => {
   const elements = window.jQuery(
-    '[data-video-background]:not([loaded="true"])'
+    '[data-video-background]:not([loaded="true"])',
   );
 
   if (elements.length !== 0) {
@@ -8516,16 +8515,16 @@ window.T4SThemeSP.BgVideo = () => {
 
 //done
 window.T4SThemeSP.Footer = () => {
-  const footerOpenedClass = 'is--footer_opened';
+  const footerOpenedClass = "is--footer_opened";
   const animationDuration = 200;
   function onFooterResize() {
     // Unbind any previous click events and set a new click handler on elements with data-footer-open attribute
     window
-      .jQuery('[data-footer-open]')
-      .off('click')
-      .on('click', (event) => {
+      .jQuery("[data-footer-open]")
+      .off("click")
+      .on("click", (event) => {
         const parentElement = window.jQuery(event.currentTarget).parent(); // Get the parent element of the clicked element
-        const footerContent = parentElement.find('> [data-footer-content]'); // Find the content inside the footer
+        const footerContent = parentElement.find("> [data-footer-content]"); // Find the content inside the footer
 
         // Toggle the "opened" state of the footer
         if (parentElement.hasClass(footerOpenedClass)) {
@@ -8540,17 +8539,17 @@ window.T4SThemeSP.Footer = () => {
       });
 
     // Remove the resize event listener to avoid duplicate bindings
-    $window.off('resize.FooterCollapse');
+    $window.off("resize.FooterCollapse");
   }
 
   function initialize() {
     // Attach a resize event listener to the window
-    $window.on('resize.FooterCollapse', onFooterResize);
+    $window.on("resize.FooterCollapse", onFooterResize);
 
     // If the window width is less than 768px and there is a collapsible footer, run the function to toggle the footer
     if (
       windowWidth < 768 &&
-      window.jQuery('.is--footer-collapse-true').length > 0
+      window.jQuery(".is--footer-collapse-true").length > 0
     ) {
       onFooterResize();
     }
@@ -8561,15 +8560,15 @@ window.T4SThemeSP.Footer = () => {
 
 //done
 window.T4SThemeSP.Notices = () => {
-  const noticesWrapper = window.jQuery('#notices__wrapper');
-  const noticesTemplate = window.jQuery('#notices__tmp');
+  const noticesWrapper = window.jQuery("#notices__wrapper");
+  const noticesTemplate = window.jQuery("#notices__tmp");
   let noticesMess, noticesProgressbar, noticesProgressbarSpan;
   const animationDuration = window.T4Sconfigs.timeOutNotices;
   const autoHide = window.T4Sconfigs.autoHideNotices;
-  const isShowClass = 'is--show';
-  const isActiveNoticesClass = 'is--active-notices';
-  const noticesClickClass = 'click.notices';
-  const hideNoticesClass = 'hide.ts.notices';
+  const isShowClass = "is--show";
+  const isActiveNoticesClass = "is--active-notices";
+  const noticesClickClass = "click.notices";
+  const hideNoticesClass = "hide.ts.notices";
   let isInitialized = false;
   let timeoutId = null;
 
@@ -8577,17 +8576,17 @@ window.T4SThemeSP.Notices = () => {
   noticesTemplate.remove();
 
   // Show notice function
-  const showNotice = (message, status = 'warning') => {
+  const showNotice = (message, status = "warning") => {
     if (!isInitialized) {
       initializeNotices();
     }
 
     // Set notice status
-    noticesWrapper.attr('data-notices-status', status);
+    noticesWrapper.attr("data-notices-status", status);
 
     // Handle message type
-    if (typeof message === 'object') {
-      noticesMess.html('');
+    if (typeof message === "object") {
+      noticesMess.html("");
       Object.values(message).forEach(([text]) => {
         noticesMess.append(`<span class="d-block">${text}</span>`);
       });
@@ -8616,11 +8615,11 @@ window.T4SThemeSP.Notices = () => {
 
   const initializeNotices = () => {
     window.T4SThemeSP.$appendComponent.after(noticesTemplate.html());
-    noticesMess = noticesWrapper.find('.notices__mess');
-    noticesProgressbar = noticesWrapper.find('.notices__progressbar');
-    noticesProgressbarSpan = noticesWrapper.show().find('>span');
+    noticesMess = noticesWrapper.find(".notices__mess");
+    noticesProgressbar = noticesWrapper.find(".notices__progressbar");
+    noticesProgressbarSpan = noticesWrapper.show().find(">span");
     isInitialized = true;
-    noticesProgressbarSpan.css('animation-duration', `${animationDuration}ms`);
+    noticesProgressbarSpan.css("animation-duration", `${animationDuration}ms`);
   };
 
   // Hide notice function
@@ -8638,36 +8637,36 @@ window.T4SThemeSP.Notices = () => {
 //done
 window.T4SThemeSP.FormShopifyMessSuccess = () => {
   // Store form submission ID in localStorage on form submit
-  $document.on('submit', 'form[action^="/contact"]', (event) => {
+  $document.on("submit", 'form[action^="/contact"]', (event) => {
     localStorage.setItem(
-      'recentform',
-      window.jQuery(event.currentTarget).attr('id')
+      "recentform",
+      window.jQuery(event.currentTarget).attr("id"),
     );
   });
 
   // Retrieve current page URL and form ID from localStorage
   const currentUrl = window.location.href;
-  const recentFormId = localStorage.getItem('recentform') || '';
+  const recentFormId = localStorage.getItem("recentform") || "";
 
   // Check if the URL contains "contact_posted=true" and handle form success messages
-  if (currentUrl.includes('contact_posted=true') && recentFormId !== '') {
+  if (currentUrl.includes("contact_posted=true") && recentFormId !== "") {
     if (
-      currentUrl.includes('contact_posted=true#ContactFormNotifyStock') ||
-      recentFormId.includes('ContactFormNotifyStock')
+      currentUrl.includes("contact_posted=true#ContactFormNotifyStock") ||
+      recentFormId.includes("ContactFormNotifyStock")
     ) {
-      window.T4SThemeSP.Notices(strings.frm_notify_stock_success, 'success');
+      window.T4SThemeSP.Notices(strings.frm_notify_stock_success, "success");
     } else if (
-      currentUrl.includes('contact_posted=true#ContactFormAsk') ||
-      recentFormId.includes('ContactFormAsk')
+      currentUrl.includes("contact_posted=true#ContactFormAsk") ||
+      recentFormId.includes("ContactFormAsk")
     ) {
-      window.T4SThemeSP.Notices(strings.frm_contact_ask_success, 'success');
+      window.T4SThemeSP.Notices(strings.frm_contact_ask_success, "success");
     } else if (
-      currentUrl.includes('contact_posted=true#NewsletterFormPopup') ||
-      recentFormId.includes('NewsletterFormPopup')
+      currentUrl.includes("contact_posted=true#NewsletterFormPopup") ||
+      recentFormId.includes("NewsletterFormPopup")
     ) {
       window.T4SThemeSP.Notices(
         strings.frm_newsletter_popup_success,
-        'success'
+        "success",
       );
     }
   }
@@ -8675,34 +8674,34 @@ window.T4SThemeSP.FormShopifyMessSuccess = () => {
 
 //done
 window.T4SThemeSP.PreloadStylePopup = () => {
-  const stylePopup = window.jQuery('#style-popup');
+  const stylePopup = window.jQuery("#style-popup");
 
   if (stylePopup) {
-    window.jQuery('#assets-pre').html(stylePopup.html());
+    window.jQuery("#assets-pre").html(stylePopup.html());
   }
 };
 
 //done
 window.T4SThemeSP.BtnMore = class {
   static BtnMoreClassNames = {
-    enabled: 'is--enabled',
-    btn: '[data-btn-toggle]',
-    open: 'is--open',
+    enabled: "is--enabled",
+    btn: "[data-btn-toggle]",
+    open: "is--open",
   };
   constructor(element) {
     this.el = element;
     this.$el = window.jQuery(element);
     this.clickHandler();
     this.$el.addClass(window.T4SThemeSP.BtnMore.BtnMoreClassNames.enabled);
-    this.selector = this.$el.data('selector');
-    this.tMore = this.$el.data('tmore');
-    this.tLess = this.$el.data('tless');
-    this.hasIsotope = this.$el.hasClass('isotope');
+    this.selector = this.$el.data("selector");
+    this.tMore = this.$el.data("tmore");
+    this.tLess = this.$el.data("tless");
+    this.hasIsotope = this.$el.hasClass("isotope");
   }
 
   clickHandler() {
     this.$el.on(
-      'click.more',
+      "click.more",
       window.T4SThemeSP.BtnMore.BtnMoreClassNames.btn,
       (event) => {
         event.preventDefault();
@@ -8715,19 +8714,19 @@ window.T4SThemeSP.BtnMore = class {
           : $button.html(this.tMore);
 
         if (this.hasIsotope) {
-          this.$el.isotope('layout');
+          this.$el.isotope("layout");
           setTimeout(() => {
-            this.$el.isotope('layout');
+            this.$el.isotope("layout");
           }, 219);
         }
-      }
+      },
     );
   }
 };
 
 //done
 window.T4SThemeSP.initBtnMore = () => {
-  const elements = window.jQuery('[data-wrap-toggle]:not(.is--enabled)');
+  const elements = window.jQuery("[data-wrap-toggle]:not(.is--enabled)");
 
   if (elements.length > 0) {
     elements.each((_, element) => {
@@ -8738,7 +8737,7 @@ window.T4SThemeSP.initBtnMore = () => {
 
 //done
 window.T4SThemeSP.fixHand = () => {
-  const isWindowsPhone = navigator.userAgent.includes('Windows Phone');
+  const isWindowsPhone = navigator.userAgent.includes("Windows Phone");
   const isiOSDevice =
     /iP(ad|hone|od)/.test(navigator.userAgent) && !isWindowsPhone;
 
@@ -8747,13 +8746,13 @@ window.T4SThemeSP.fixHand = () => {
       window.T4SThemeSP.FastClick.attach(document.body);
 
       if (!window.T4Sconfigs.disFlashyApp) {
-        const bodyElement = document.querySelector('body');
+        const bodyElement = document.querySelector("body");
 
         new MutationObserver(() => {
-          const flashyPopup = document.querySelector('flashy-popup');
+          const flashyPopup = document.querySelector("flashy-popup");
 
-          if (flashyPopup && !flashyPopup.classList.contains('needsclick')) {
-            flashyPopup.classList.add('needsclick');
+          if (flashyPopup && !flashyPopup.classList.contains("needsclick")) {
+            flashyPopup.classList.add("needsclick");
           }
         }).observe(bodyElement, {
           attributes: true,
@@ -8771,14 +8770,14 @@ window.jQuery(document).ready(($) => {
   window.T4SThemeSP.FormShopifyMessSuccess();
   window.T4SThemeSP.BgVideo();
   window.T4SThemeSP.ParallaxInt();
-  window.jQuery('.parallax-bg:not(.lazyloaded)').on('lazyloaded', () => {
+  window.jQuery(".parallax-bg:not(.lazyloaded)").on("lazyloaded", () => {
     window.T4SThemeSP.ParallaxInt();
   });
   window.T4SThemeSP.Countdown();
   window.T4SThemeSP.AnimateOnScroll();
   window.T4SThemeSP._initProducts();
   window.T4SThemeSP.slate.a11y.accessibleLinks({
-    $links: window.jQuery('a[href]:not([aria-describedby])'),
+    $links: window.jQuery("a[href]:not([aria-describedby])"),
   });
   window.T4SThemeSP.Tabs.Default();
   window.T4SThemeSP.Tabs.Simple();

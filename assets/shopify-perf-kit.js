@@ -13,15 +13,15 @@ let performanceObserver;
 
 // Initialize performance observer if necessary
 const initializePerformanceObserver = () => {
-  if (!('interactionCount' in performance) && !performanceObserver) {
+  if (!("interactionCount" in performance) && !performanceObserver) {
     performanceObserver = createPerformanceObserver(
-      'event',
+      "event",
       handleEventInteraction,
       {
-        type: 'event',
+        type: "event",
         buffered: true,
         durationThreshold: 0,
-      }
+      },
     );
   }
 };
@@ -41,12 +41,12 @@ const handleEventInteraction = (entries) => {
 
 // Measure Time to First Byte (TTFB)
 const measureTTFB = (event, options = {}) => {
-  const ttfbMetric = createPerformanceMetrics('TTFB');
+  const ttfbMetric = createPerformanceMetrics("TTFB");
   const handleChange = handlePerformanceChange(
     event,
     ttfbMetric,
     THRESHOLDS_F,
-    options.reportAllChanges
+    options.reportAllChanges,
   );
 
   waitForPageLoad(() => {
@@ -71,8 +71,8 @@ const measureTTFB = (event, options = {}) => {
 const waitForPageLoad = (callback) => {
   if (document.prerendering) {
     requestAnimationFrame(() => waitForPageLoad(callback));
-  } else if (document.readyState !== 'complete') {
-    addEventListener('load', () => callback(), { once: true });
+  } else if (document.readyState !== "complete") {
+    addEventListener("load", () => callback(), { once: true });
   } else {
     setTimeout(callback, 0);
   }
@@ -92,7 +92,7 @@ const recordInteractionEvent = (event) => {
       existingInteraction.entries.push(event);
       existingInteraction.latency = Math.max(
         existingInteraction.latency,
-        event.duration
+        event.duration,
       );
     } else {
       const newInteraction = {
@@ -126,42 +126,42 @@ const getInteractionDifference = () => {
 // initializePerformanceObserver();
 
 const performanceNavigation = () => {
-  return window.performance?.getEntriesByType('navigation')[0] || null;
+  return window.performance?.getEntriesByType("navigation")[0] || null;
 };
 
 const getDocumentState = (timestamp) => {
   const state = document.readyState;
-  if (state === 'loading') return 'loading';
+  if (state === "loading") return "loading";
 
   const navEntry = performanceNavigation();
   if (navEntry) {
-    if (timestamp < navEntry.domInteractive) return 'loading';
+    if (timestamp < navEntry.domInteractive) return "loading";
     if (
       navEntry.domContentLoadedEventStart === 0 ||
       timestamp < navEntry.domContentLoadedEventStart
     )
-      return 'dom-interactive';
+      return "dom-interactive";
     if (navEntry.domComplete === 0 || timestamp < navEntry.domComplete)
-      return 'dom-content-loaded';
+      return "dom-content-loaded";
   }
-  return 'complete';
+  return "complete";
 };
 
 const getNodeName = (node) => {
   return node.nodeType === 1
     ? node.nodeName.toLowerCase()
-    : node.nodeName.toUpperCase().replace(/^#/, '');
+    : node.nodeName.toUpperCase().replace(/^#/, "");
 };
 
 const getSelectorPath = (element, maxLength = 100) => {
-  let selector = '';
+  let selector = "";
   try {
     while (element && element.nodeType !== 9) {
       const nodeName = getNodeName(element);
-      const id = element.id ? `#${element.id}` : '';
-      const classes = element.classList?.value.trim().replace(/\s+/g, '.')
+      const id = element.id ? `#${element.id}` : "";
+      const classes = element.classList?.value.trim().replace(/\s+/g, ".")
         ? `.${element.classList.value.trim()}`
-        : '';
+        : "";
       const combinedSelector =
         id || (classes ? `${nodeName}${classes}` : nodeName);
 
@@ -187,14 +187,14 @@ const getInteractionId = () => interactionId;
 
 const addPageshowListener = (callback) => {
   window.addEventListener(
-    'pageshow',
+    "pageshow",
     (event) => {
       if (event.persisted) {
         interactionId = event.timeStamp;
         callback(event);
       }
     },
-    { once: true }
+    { once: true },
   );
 };
 
@@ -205,11 +205,11 @@ const getActivationStart = () => {
 
 const createPerformanceMetrics = (name, value) => {
   const navType =
-    getInteractionId() >= 0 ? 'back-forward-cache' : getDocumentState();
+    getInteractionId() >= 0 ? "back-forward-cache" : getDocumentState();
   return {
     name,
     value: value === undefined ? -1 : value,
-    rating: 'good',
+    rating: "good",
     delta: 0,
     entries: [],
     id: `v3-${Date.now()}-${Math.floor(Math.random() * 8999999999999) + 1e12}`,
@@ -233,7 +233,7 @@ const handlePerformanceChange = (
   callback,
   metric,
   thresholds,
-  reportAllChanges
+  reportAllChanges,
 ) => {
   let previousValue;
   return (isForced) => {
@@ -244,10 +244,10 @@ const handlePerformanceChange = (
         metric.delta = delta;
         metric.rating =
           metric.value > thresholds[1]
-            ? 'poor'
+            ? "poor"
             : metric.value > thresholds[0]
-            ? 'needs-improvement'
-            : 'good';
+              ? "needs-improvement"
+              : "good";
         callback(metric);
       }
     }
@@ -264,12 +264,12 @@ const requestAnimationFrameTwoTimes = (callback) => {
 
 const visibilityChangeHandler = (callback) => {
   const handler = (event) => {
-    if (event.type !== 'pagehide' && document.visibilityState !== 'hidden') {
+    if (event.type !== "pagehide" && document.visibilityState !== "hidden") {
       callback(event);
     }
   };
-  window.addEventListener('visibilitychange', handler, { capture: true });
-  window.addEventListener('pagehide', handler, { capture: true });
+  window.addEventListener("visibilitychange", handler, { capture: true });
+  window.addEventListener("pagehide", handler, { capture: true });
 };
 const p = function (e) {
   var t = !1; // This variable tracks whether the function has been called
@@ -284,8 +284,8 @@ const p = function (e) {
 let visibilityState = -1;
 const handleVisibilityChange = (callback) => {
   return () => {
-    if (document.visibilityState === 'hidden' && visibilityState > -1) {
-      visibilityState = 'visibilitychange' === event.type ? event.timeStamp : 0;
+    if (document.visibilityState === "hidden" && visibilityState > -1) {
+      visibilityState = "visibilitychange" === event.type ? event.timeStamp : 0;
       callback();
     }
   };
@@ -293,30 +293,30 @@ const handleVisibilityChange = (callback) => {
 const _ = (e) => {
   if (document.prerendering)
     addEventListener(
-      'prerenderingchange',
+      "prerenderingchange",
       () => {
         return e();
       },
-      true
+      true,
     );
   else e();
 };
 const registerVisibilityChangeListeners = () => {
-  window.addEventListener('visibilitychange', handleVisibilityChange, {
+  window.addEventListener("visibilitychange", handleVisibilityChange, {
     capture: true,
   });
-  window.addEventListener('prerenderingchange', handleVisibilityChange, {
+  window.addEventListener("prerenderingchange", handleVisibilityChange, {
     capture: true,
   });
 };
 
 const getFirstHiddenTime = () => {
   if (visibilityState < 0) {
-    visibilityState = document.visibilityState === 'hidden' ? 0 : Infinity;
+    visibilityState = document.visibilityState === "hidden" ? 0 : Infinity;
     registerVisibilityChangeListeners();
     addPageshowListener(() => {
       setTimeout(() => {
-        visibilityState = document.visibilityState === 'hidden' ? 0 : Infinity;
+        visibilityState = document.visibilityState === "hidden" ? 0 : Infinity;
         registerVisibilityChangeListeners();
       }, 0);
     });
@@ -332,11 +332,11 @@ const loadPerformanceMetrics = (callback, options = {}) => {
   const thresholds = [1800, 3000];
   getFirstHiddenTime();
 
-  const metrics = createPerformanceMetrics('FCP');
-  const observer = createPerformanceObserver('paint', (entries) => {
+  const metrics = createPerformanceMetrics("FCP");
+  const observer = createPerformanceObserver("paint", (entries) => {
     entries.forEach((entry) => {
       if (
-        entry.name === 'first-contentful-paint' &&
+        entry.name === "first-contentful-paint" &&
         entry.startTime < metrics.firstHiddenTime
       ) {
         metrics.value = Math.max(entry.startTime - getActivationStart(), 0);
@@ -348,12 +348,12 @@ const loadPerformanceMetrics = (callback, options = {}) => {
 
   if (observer) {
     const handleTimeout = (event) => {
-      metrics = createPerformanceMetrics('FCP');
+      metrics = createPerformanceMetrics("FCP");
       const handleMetricChange = handlePerformanceChange(
         callback,
         metrics,
         thresholds,
-        options.reportAllChanges
+        options.reportAllChanges,
       );
       requestAnimationFrameTwoTimes(() => {
         metrics.value = performance.now() - event.timeStamp;
@@ -368,9 +368,9 @@ const loadPerformanceMetrics = (callback, options = {}) => {
 
 const config = {
   shop_domain: `${window.location.origin}/.well-known/shopify/monorail/v1/produce`,
-  global: 'https://monorail-edge.shopifysvc.com/v1/produce',
-  canada: 'https://monorail-edge-ca.shopifycloud.com/v1/produce',
-  staging: 'https://monorail-edge-staging.shopifycloud.com/v1/produce',
+  global: "https://monorail-edge.shopifysvc.com/v1/produce",
+  canada: "https://monorail-edge-ca.shopifycloud.com/v1/produce",
+  staging: "https://monorail-edge-staging.shopifycloud.com/v1/produce",
 };
 
 // More code...
@@ -392,22 +392,22 @@ function sendMonorailData({ monorailRegion, schema, rawData }) {
   };
 
   try {
-    const endpoint = config[monorailRegion || ''];
+    const endpoint = config[monorailRegion || ""];
     if (!endpoint) {
-      console.debug('📡 Monorail: ', JSON.stringify(data, null, 2));
+      console.debug("📡 Monorail: ", JSON.stringify(data, null, 2));
       return;
     }
 
     if (
-      typeof window.navigator.sendBeacon === 'function' &&
-      typeof window.Blob === 'function'
+      typeof window.navigator.sendBeacon === "function" &&
+      typeof window.Blob === "function"
     ) {
-      const blob = new Blob([JSON.stringify(data)], { type: 'text/plain' });
+      const blob = new Blob([JSON.stringify(data)], { type: "text/plain" });
       window.navigator.sendBeacon(endpoint, blob);
     } else {
       const xhr = new XMLHttpRequest();
-      xhr.open('POST', endpoint);
-      xhr.setRequestHeader('Content-type', 'text/plain');
+      xhr.open("POST", endpoint);
+      xhr.setRequestHeader("Content-type", "text/plain");
       xhr.send(JSON.stringify(data));
     }
   } catch (error) {
@@ -416,14 +416,14 @@ function sendMonorailData({ monorailRegion, schema, rawData }) {
 }
 
 !(function (e) {
-  e.OnInteraction = 'perf_kit_on_interaction/3.0';
-  e.OnUnload = 'perf_kit_on_unload/3.1';
+  e.OnInteraction = "perf_kit_on_interaction/3.0";
+  e.OnUnload = "perf_kit_on_unload/3.1";
 })(J || (J = {}));
 
 const V =
-  'https://cdn.shopify.com/shopifycloud/privacy-banner/storefront-banner.js';
+  "https://cdn.shopify.com/shopifycloud/privacy-banner/storefront-banner.js";
 const X =
-  'https://cdn.shopify.com/shopifycloud/consent-tracking-api/v0.1/consent-tracking-api.js';
+  "https://cdn.shopify.com/shopifycloud/consent-tracking-api/v0.1/consent-tracking-api.js";
 
 const loadConsentScript = async () => {
   try {
@@ -433,11 +433,11 @@ const loadConsentScript = async () => {
     }
 
     return await new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
+      const script = document.createElement("script");
+      script.type = "text/javascript";
       script.src = X;
       script.onload = () => resolve(true);
-      script.onerror = () => reject(new Error('Could not load consent script'));
+      script.onerror = () => reject(new Error("Could not load consent script"));
       document.head.appendChild(script);
     });
   } catch (error) {
@@ -446,10 +446,10 @@ const loadConsentScript = async () => {
   return false;
 };
 
-const G = 'xxxx-4xxx-xxxx-xxxxxxxxxxxx';
+const G = "xxxx-4xxx-xxxx-xxxxxxxxxxxx";
 
 const generateUniqueId = () => {
-  let uniqueId = '';
+  let uniqueId = "";
   try {
     const crypto = window.crypto;
     const randomValues = new Uint16Array(31);
@@ -459,12 +459,12 @@ const generateUniqueId = () => {
     uniqueId = G.replace(/[x]/g, (match) => {
       const t = randomValues[r] % 16;
       r++;
-      return (match === 'x' ? t : (3 & t) | 8).toString(16);
+      return (match === "x" ? t : (3 & t) | 8).toString(16);
     }).toUpperCase();
   } catch (error) {
     uniqueId = G.replace(/[x]/g, () => {
       const t = Math.floor(Math.random() * 16);
-      return (t === 'x' ? t : (3 & t) | 8).toString(16);
+      return (t === "x" ? t : (3 & t) | 8).toString(16);
     }).toUpperCase();
   }
 
@@ -481,7 +481,7 @@ const generateUniqueId = () => {
     return Math.abs(currentTime + performanceTime)
       .toString(16)
       .toLowerCase()
-      .padStart(8, '0');
+      .padStart(8, "0");
   };
 
   return `${getCurrentTime()}-${uniqueId}`;
@@ -494,13 +494,13 @@ let te = false;
 
 class PerformanceKit {
   constructor(config) {
-    const shopifySessionId = this.getCookieValue('_shopify_s');
-    const shopifyUserId = this.getCookieValue('_shopify_y');
+    const shopifySessionId = this.getCookieValue("_shopify_s");
+    const shopifyUserId = this.getCookieValue("_shopify_y");
 
     this.config = config;
     this.info = {
       perfKitInit: Date.now(),
-      perfKitVersion: '1.0.0',
+      perfKitVersion: "1.0.0",
       url: window.location.href,
       referrer: document.referrer || undefined,
       microSessionId: generateUniqueId(),
@@ -522,7 +522,7 @@ class PerformanceKit {
   }
 
   getPerformanceMetrics(initTime) {
-    const navigationEntries = performance.getEntriesByType('navigation');
+    const navigationEntries = performance.getEntriesByType("navigation");
     if (navigationEntries.length === 0) return {};
 
     const navigation = navigationEntries[0];
@@ -551,7 +551,7 @@ class PerformanceKit {
       domInteractive: Math.round(navigation.domInteractive),
       domComplete: Math.round(navigation.domComplete),
       domContentLoadedEventStart: Math.round(
-        navigation.domContentLoadedEventStart
+        navigation.domContentLoadedEventStart,
       ),
       domContentLoadedEventEnd: Math.round(navigation.domContentLoadedEventEnd),
       redirectCount: navigation.redirectCount,
@@ -601,7 +601,7 @@ function oe() {
       ee.info.microSessionCount += 1;
 
       const resourceTimingData = getResourceTimingData(
-        ee.config.resourceTimingSamplingRate
+        ee.config.resourceTimingSamplingRate,
       );
       K({
         monorailRegion: ee.config.monorailRegion,
@@ -617,7 +617,7 @@ function oe() {
       });
     }
   } else {
-    console.debug('⛔️ Shopify/perf-kit is not initialized');
+    console.debug("⛔️ Shopify/perf-kit is not initialized");
   }
 }
 
@@ -639,7 +639,7 @@ function monitorLayoutShift(element, options) {
   loadPerformanceMetrics(
     p(() => {
       let n,
-        r = createPerformanceMetrics('CLS', 0),
+        r = createPerformanceMetrics("CLS", 0),
         cumulativeShift = 0,
         entries = [];
 
@@ -671,8 +671,8 @@ function monitorLayoutShift(element, options) {
       };
 
       const layoutShiftObserver = createPerformanceObserver(
-        'layout-shift',
-        recordShift
+        "layout-shift",
+        recordShift,
       );
       if (layoutShiftObserver) {
         n = handlePerformanceChange(element, r, C, options.reportAllChanges);
@@ -682,21 +682,21 @@ function monitorLayoutShift(element, options) {
         });
         addPageshowListener(() => {
           cumulativeShift = 0;
-          r = createPerformanceMetrics('CLS', 0);
+          r = createPerformanceMetrics("CLS", 0);
           n = handlePerformanceChange(element, r, C, options.reportAllChanges);
           l(() => n());
         });
 
         setTimeout(n, 0);
       }
-    })
+    }),
   );
 }
 
 function processEntry(entry) {
   if (entry.entries.length) {
     const highestValueEntry = entry.entries.reduce((prev, curr) =>
-      prev && prev.value > curr.value ? prev : curr
+      prev && prev.value > curr.value ? prev : curr,
     );
 
     if (
@@ -706,7 +706,7 @@ function processEntry(entry) {
     ) {
       const validSource =
         highestValueEntry.sources.find(
-          (source) => source.node && source.node.nodeType === 1
+          (source) => source.node && source.node.nodeType === 1,
         ) || highestValueEntry.sources[0];
 
       if (validSource) {
@@ -745,7 +745,7 @@ function initializeMonitoring(e) {
     _(() => {
       let n,
         r = getFirstHiddenTime(),
-        o = createPerformanceMetrics('LCP');
+        o = createPerformanceMetrics("LCP");
 
       const handleLargestContentfulPaint = (entries) => {
         const lastEntry = entries[entries.length - 1];
@@ -757,15 +757,15 @@ function initializeMonitoring(e) {
       };
 
       const observer = createPerformanceObserver(
-        'largest-contentful-paint',
-        handleLargestContentfulPaint
+        "largest-contentful-paint",
+        handleLargestContentfulPaint,
       );
       if (observer) {
         n = handlePerformanceChange(
           e,
           o,
           THRESHOLDS_A,
-          options.reportAllChanges
+          options.reportAllChanges,
         );
 
         const triggerUpdate = p(() => {
@@ -777,13 +777,13 @@ function initializeMonitoring(e) {
           }
         });
 
-        ['keydown', 'click'].forEach((eventType) => {
+        ["keydown", "click"].forEach((eventType) => {
           addEventListener(eventType, () => setTimeout(triggerUpdate, 0), true);
         });
 
         visibilityChangeHandler(triggerUpdate);
         addPageshowListener((r) => {
-          o = createPerformanceMetrics('LCP');
+          o = createPerformanceMetrics("LCP");
           n = handlePerformanceChange(e, o, A, options.reportAllChanges);
           l(() => {
             o.value = performance.now() - r.timeStamp;
@@ -803,27 +803,27 @@ function initializeMonitoring(e) {
           const resourceEntry =
             lastEntry.url &&
             performance
-              .getEntriesByType('resource')
+              .getEntriesByType("resource")
               .find((e) => e.name === lastEntry.url);
 
           const timeToFirstByte = Math.max(
             0,
-            navigationEntry.responseStart - activationStart
+            navigationEntry.responseStart - activationStart,
           );
           const resourceLoadDelay = Math.max(
             timeToFirstByte,
             resourceEntry
               ? (resourceEntry.requestStart || resourceEntry.startTime) -
                   activationStart
-              : 0
+              : 0,
           );
           const resourceLoadTime = Math.max(
             resourceLoadDelay,
-            resourceEntry ? resourceEntry.responseEnd - activationStart : 0
+            resourceEntry ? resourceEntry.responseEnd - activationStart : 0,
           );
           const elementRenderDelay = Math.max(
             resourceLoadTime,
-            lastEntry ? lastEntry.startTime - activationStart : 0
+            lastEntry ? lastEntry.startTime - activationStart : 0,
           );
 
           const attributionData = {
@@ -870,7 +870,7 @@ function initializeMonitoring(e) {
           const activationStart = navigationEntry.activationStart || 0;
           const timeToFirstByte = Math.max(
             0,
-            navigationEntry.responseStart - activationStart
+            navigationEntry.responseStart - activationStart,
           );
           entry.attribution = {
             timeToFirstByte,
@@ -904,7 +904,7 @@ function initializeMonitoring(e) {
       let interactionId;
       initializePerformanceObserver();
       let report,
-        input = createPerformanceMetrics('INP');
+        input = createPerformanceMetrics("INP");
 
       const handleInputEntries = (entries) => {
         entries.forEach((entry) => {
@@ -912,13 +912,13 @@ function initializeMonitoring(e) {
             recordInteractionEvent(entry);
           }
           if (
-            entry.entryType === 'first-input' &&
+            entry.entryType === "first-input" &&
             !interactionEntries.some((t) =>
               t.entries.some(
                 (t) =>
                   entry.duration === t.duration &&
-                  entry.startTime === t.startTime
-              )
+                  entry.startTime === t.startTime,
+              ),
             )
           ) {
             recordInteractionEvent(entry);
@@ -927,7 +927,7 @@ function initializeMonitoring(e) {
 
         const index = Math.min(
           interactionEntries.length - 1,
-          Math.floor(getInteractionDifference() / 50)
+          Math.floor(getInteractionDifference() / 50),
         );
         const currentEntry = interactionEntries[index];
         if (currentEntry && currentEntry.latency !== input.value) {
@@ -938,27 +938,27 @@ function initializeMonitoring(e) {
       };
 
       const eventObserver = createPerformanceObserver(
-        'event',
+        "event",
         handleInputEntries,
         {
           durationThreshold: options.durationThreshold ?? 40,
-        }
+        },
       );
 
       report = handlePerformanceChange(
         callback,
         input,
         THRESHOLDS_P,
-        options.reportAllChanges
+        options.reportAllChanges,
       );
 
       if (eventObserver) {
         if (
-          'PerformanceEventTiming' in window &&
-          'interactionId' in PerformanceEventTiming.prototype
+          "PerformanceEventTiming" in window &&
+          "interactionId" in PerformanceEventTiming.prototype
         ) {
           eventObserver.observe({
-            type: 'first-input',
+            type: "first-input",
             buffered: true,
           });
         }
@@ -975,12 +975,12 @@ function initializeMonitoring(e) {
         addPageshowListener(() => {
           N = [];
           B = getInteractionCount();
-          input = createPerformanceMetrics('INP');
+          input = createPerformanceMetrics("INP");
           report = handlePerformanceChange(
             callback,
             input,
             P,
-            options.reportAllChanges
+            options.reportAllChanges,
           );
         });
       }
@@ -1031,10 +1031,10 @@ function initializeMonitoring(e) {
         });
       }
     } else {
-      console.debug('⛔️ Shopify/perf-kit is not initialized');
+      console.debug("⛔️ Shopify/perf-kit is not initialized");
     }
   },
-  { reportAllChanges: true }
+  { reportAllChanges: true },
 );
 
 (function (callback, options) {
@@ -1046,7 +1046,7 @@ function initializeMonitoring(e) {
 
         const waitingTime = Math.max(
           firstEntry.domainLookupStart - activationStart,
-          0
+          0,
         );
         const dnsTime =
           Math.max(firstEntry.connectStart - activationStart, 0) - waitingTime;
@@ -1082,12 +1082,12 @@ function initializeMonitoring(e) {
   });
 });
 
-addEventListener('DOMContentLoaded', () => {
-  te = document.visibilityState === 'hidden';
+addEventListener("DOMContentLoaded", () => {
+  te = document.visibilityState === "hidden";
 });
 
-addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'hidden') {
+addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") {
     oe();
   }
 });
@@ -1118,46 +1118,46 @@ addEventListener('visibilitychange', () => {
       };
     }
   } catch (error) {
-    console.error('🚫 Error initializing PerfKit:', error.message);
+    console.error("🚫 Error initializing PerfKit:", error.message);
   }
 
   let t;
 
   function validateConfig(config) {
     if (!config.application) {
-      throw new Error('Application is missing');
+      throw new Error("Application is missing");
     }
 
     const applicationType = config.application.toLowerCase();
-    if (!['storefront-renderer', 'hydrogen'].includes(applicationType)) {
-      throw new Error('Invalid application type');
+    if (!["storefront-renderer", "hydrogen"].includes(applicationType)) {
+      throw new Error("Invalid application type");
     }
 
     if (!config.shopId) {
-      throw new Error('shopId is missing');
+      throw new Error("shopId is missing");
     }
 
     if (!config.themeInstanceId && !config.storefrontId) {
       throw new Error(
-        'Either `themeInstanceId` or `storefrontId` must be defined'
+        "Either `themeInstanceId` or `storefrontId` must be defined",
       );
     }
 
-    ['shopId', 'humannessScore', 'themeInstanceId', 'storefrontId'].forEach(
+    ["shopId", "humannessScore", "themeInstanceId", "storefrontId"].forEach(
       (key) => {
         if (config[key] && isNaN(Number(config[key]))) {
           throw new Error(`Invalid ${key}`);
         }
-      }
+      },
     );
 
     if (
       config.monorailRegion &&
-      !['shop_domain', 'global', 'staging', 'canada'].includes(
-        config.monorailRegion.toLowerCase()
+      !["shop_domain", "global", "staging", "canada"].includes(
+        config.monorailRegion.toLowerCase(),
       )
     ) {
-      throw new Error('Invalid monorail region');
+      throw new Error("Invalid monorail region");
     }
 
     if (
@@ -1166,7 +1166,7 @@ addEventListener('visibilitychange', () => {
         Number(config.resourceTimingSamplingRate) < H ||
         Number(config.resourceTimingSamplingRate) > 100)
     ) {
-      throw new Error('Invalid resource timing sampling rate');
+      throw new Error("Invalid resource timing sampling rate");
     }
 
     return {
@@ -1175,7 +1175,7 @@ addEventListener('visibilitychange', () => {
         shopId: Number(config.shopId),
         renderRegion: config.renderRegion,
         pageType: config.pageType,
-        seoBot: config.seoBot === 'true',
+        seoBot: config.seoBot === "true",
         humannessScore: Number(config.humannessScore) || undefined,
         ja3Fingerprint: config.ja3Fingerprint,
         themeInstanceId: Number(config.themeInstanceId) || undefined,
@@ -1184,11 +1184,10 @@ addEventListener('visibilitychange', () => {
       monorailRegion: config.monorailRegion,
       resourceTimingSamplingRate:
         Number(config.resourceTimingSamplingRate) || undefined,
-      spaMode: config.spaMode === 'true',
+      spaMode: config.spaMode === "true",
     };
   }
 })();
-
 
 // !function() {
 //   "use strict";

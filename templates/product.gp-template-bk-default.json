@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "wrapper": "div.product-template-wrapper",
   "sections": {
     "gallery": {
@@ -106,19 +106,12 @@
           "settings": {}
         }
       },
-      "block_order": [
-        "judge_me_reviews_review_widget_4wckLd"
-      ],
+      "block_order": ["judge_me_reviews_review_widget_4wckLd"],
       "settings": {
         "include_desktop_margins": true,
         "include_mobile_margins": false
       }
     }
   },
-  "order": [
-    "gallery",
-    "main",
-    "product-recommendations",
-    "1715974313d3be1d0d"
-  ]
+  "order": ["gallery", "main", "product-recommendations", "1715974313d3be1d0d"]
 }

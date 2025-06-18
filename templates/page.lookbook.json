@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "rich-text-0": {
       "type": "ship-rich-text",
@@ -17,9 +17,7 @@
           "settings": {}
         }
       },
-      "block_order": [
-        "rich-text-1"
-      ],
+      "block_order": ["rich-text-1"],
       "settings": {
         "section_width": "narrow",
         "horizontal_alignment": "text-center items-center",

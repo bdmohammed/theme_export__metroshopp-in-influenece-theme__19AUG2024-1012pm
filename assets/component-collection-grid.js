@@ -1,5 +1,5 @@
 /*!
- * 
+ *
  * ------
  * Note: customizing files reduces the store's ability to auto-update the theme.
  *
@@ -18,20 +18,17 @@
  * ------
  *
  */
-/******/ (() => { // webpackBootstrap
-var __webpack_exports__ = {};
-class CollectionGrid extends HTMLElement {
-  constructor() {
-    super()
-    
+/******/ (() => {
+  // webpackBootstrap
+  var __webpack_exports__ = {};
+  class CollectionGrid extends HTMLElement {
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {}
   }
 
-  connectedCallback() {
-    
-
-  }
-}
-
-customElements.define('collection-grid', CollectionGrid);
-/******/ })()
-;
+  customElements.define("collection-grid", CollectionGrid);
+  /******/
+})();
