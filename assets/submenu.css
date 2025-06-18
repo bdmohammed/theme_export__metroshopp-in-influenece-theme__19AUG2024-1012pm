@@ -3,36 +3,33 @@
   margin-bottom: 0;
 }
 
-.type__drop>.sub-menu {
+.type__drop > .sub-menu {
   min-width: 260px;
-  padding: 10px 0
+  padding: 10px 0;
 }
 
-.type__drop>.sub-menu a {
+.type__drop > .sub-menu a {
   display: inline-block;
   line-height: 1.5;
   padding: 9px 15px;
   justify-content: space-between;
   align-items: center;
   position: relative;
-  width: 100%
+  width: 100%;
 }
 
-.type__drop>.sub-menu a>.lb_nav {
-  right: auto
+.type__drop > .sub-menu a > .lb_nav {
+  right: auto;
 }
 
-.type__drop>.sub-menu a:not(:hover) {
-  color: var(--text-color)
+.type__drop > .sub-menu a:not(:hover) {
+  color: var(--text-color);
 }
 
-.navigation>ul>li.has--children>a:before {
+.navigation > ul > li.has--children > a:before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: -19px;
-  right: 0
+  inset: 0 0 -19px 0;
 }
 
 .type__drop .sub-menu .sub-menu {
@@ -43,50 +40,52 @@
   display: none;
   left: 100%;
   opacity: 0;
-  box-shadow: inset 0 0 0 1px #eaeaea, 0 5px 20px #00000026;
+  box-shadow:
+    inset 0 0 0 1px #eaeaea,
+    0 5px 20px #00000026;
   background: #fff;
   visibility: visible;
-  pointer-events: none
+  pointer-events: none;
 }
 
-.type__drop .sub-menu .menu-item:hover>.sub-menu {
+.type__drop .sub-menu .menu-item:hover > .sub-menu {
   opacity: 1;
   visibility: visible;
   position: absolute;
-  display: block
+  display: block;
 }
 
 .type__drop .menu-item.has--children {
-  position: relative
+  position: relative;
 }
 
 .type__drop .menu-item.has--children svg {
   width: 6px;
   float: right;
   position: relative;
-  top: 5px
+  top: 5px;
 }
 
 .menu-pos__left.type__drop .menu-item.has--children svg {
-  transform: rotate(180deg)
+  transform: rotate(180deg);
 }
 
-.menu-item a>i {
+.menu-item a > i {
   font-size: 22px;
-  margin-right: 4px
+  margin-right: 4px;
 }
 
 .type__drop.menu-pos__left .sub-menu .sub-menu {
   left: auto;
-  right: 100%
+  right: 100%;
 }
 
-.type__drop .menu-item.has--children a>span {
+.type__drop .menu-item.has--children a > span {
   display: inline-block;
-  position: relative
+  position: relative;
 }
 
-.type__drop .menu-item.has--children a>span .lb_menu_hot {
+.type__drop .menu-item.has--children a > span .lb_menu_hot {
   left: 100%;
-  right: auto
+  right: auto;
 }

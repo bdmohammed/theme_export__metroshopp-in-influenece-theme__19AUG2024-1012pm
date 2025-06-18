@@ -1,293 +1,293 @@
 .countdown {
-	margin-bottom: var(--mgb);
+  margin-bottom: var(--mgb);
 }
 
 .countdown .time {
-	display: flex;
-	opacity: 0;
+  display: flex;
+  opacity: 0;
 }
 
 .countdown .time.countdown-enabled,
 .countdown-enabled .time {
-	opacity: 1;
+  opacity: 1;
 }
 
 .text-start .countdown .time,
 .countdown.text-start .time {
-	justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 .text-center .countdown .time,
 .countdown.text-center .time {
-	justify-content: center;
+  justify-content: center;
 }
 
 .text-end .countdown .time,
 .countdown.text-end .time {
-	justify-content: flex-end;
+  justify-content: flex-end;
 }
 
-.countdown .time>span {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	margin: 0 calc(var(--space-item)/2);
-	min-width: 46px;
-	min-height: 46px;
-	font-weight: 600;
-	text-align: center;
+.countdown .time > span {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 calc(var(--space-item) / 2);
+  min-width: 46px;
+  min-height: 46px;
+  font-weight: 600;
+  text-align: center;
 }
 
-.countdown .time>span:first-child {
-	margin-left: 0 !important;
+.countdown .time > span:first-child {
+  margin-left: 0 !important;
 }
 
-.countdown .time>span:last-child {
-	margin-right: 0 !important;
+.countdown .time > span:last-child {
+  margin-right: 0 !important;
 }
 
-.countdown .time>span .cd-number {
-	border: solid var(--border-cl);
-	border-width: var(--bd-width);
-	display: flex;
-	min-height: 46px;
-	justify-content: center;
-	align-items: center;
-	background-color: var(--bg-cl);
-	color: var(--number-cl);
-	font-size: 14px;
-	border-radius: var(--bdr);
-	padding: 0;
+.countdown .time > span .cd-number {
+  border: solid var(--border-cl);
+  border-width: var(--bd-width);
+  display: flex;
+  min-height: 46px;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-cl);
+  color: var(--number-cl);
+  font-size: 14px;
+  border-radius: var(--bdr);
+  padding: 0;
 }
 
-.countdown.countdown-des-1 .time>span .cd-number {
-	box-shadow: 0 0 3px rgb(0 0 0 / 10%);
+.countdown.countdown-des-1 .time > span .cd-number {
+  box-shadow: 0 0 3px rgb(0 0 0 / 0.1);
 }
 
-.countdown .time>span .cd-text {
-	border: none;
-	display: block;
-	color: var(--text-cl);
-	margin-top: 5px;
-	text-transform: uppercase;
-	font-size: 12px;
-	line-height: 16px;
+.countdown .time > span .cd-text {
+  border: none;
+  display: block;
+  color: var(--text-cl);
+  margin-top: 5px;
+  text-transform: uppercase;
+  font-size: 12px;
+  line-height: 16px;
 }
 
-.countdown-des-2 .time>span {
-	background-color: var(--bg-cl);
-	border-radius: var(--bdr);
-	border-color: var(--border-cl);
-	border-width: var(--bd-width);
-	border-style: solid;
-	padding: 0;
+.countdown-des-2 .time > span {
+  background-color: var(--bg-cl);
+  border-radius: var(--bdr);
+  border-color: var(--border-cl);
+  border-width: var(--bd-width);
+  border-style: solid;
+  padding: 0;
 }
 
-.countdown-des-2 .time>span .cd-number {
-	font-size: 14px;
-	line-height: 16px;
-	font-weight: 500;
-	background-color: transparent;
-	border: none;
-	min-width: 1px;
-	min-height: 1px;
-	padding: 0;
-	display: block;
-	border-radius: 0;
+.countdown-des-2 .time > span .cd-number {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+  background-color: transparent;
+  border: none;
+  min-width: 1px;
+  min-height: 1px;
+  padding: 0;
+  display: block;
+  border-radius: 0;
 }
 
-.countdown-des-2 .time>span .cd-text {
-	font-weight: 400;
-	font-size: 12px;
-	line-height: 16px;
-	padding: 0;
-	margin: 0;
-	text-transform: none;
+.countdown-des-2 .time > span .cd-text {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 0;
+  margin: 0;
+  text-transform: none;
 }
 
-.countdown.countdown-des-3 .time>span {
-	min-width: 50px;
+.countdown.countdown-des-3 .time > span {
+  min-width: 50px;
 }
 
-.countdown.countdown-des-3 .time>span .cd-number {
-	background-color: transparent;
-	min-height: 1px;
-	margin: 5px 0;
+.countdown.countdown-des-3 .time > span .cd-number {
+  background-color: transparent;
+  min-height: 1px;
+  margin: 5px 0;
 }
 
-.countdown-des-3 .time>span .cd-text {
-	font-size: 11px;
-	text-transform: unset;
-	font-weight: normal;
+.countdown-des-3 .time > span .cd-text {
+  font-size: 11px;
+  text-transform: unset;
+  font-weight: normal;
 }
 
-@media(min-width: 1025px) {
-	.text-md-start .countdown .time {
-		justify-content: flex-start;
-	}
+@media (min-width: 1025px) {
+  .text-md-start .countdown .time {
+    justify-content: flex-start;
+  }
 
-	.text-md-center .countdown .time {
-		justify-content: center;
-	}
+  .text-md-center .countdown .time {
+    justify-content: center;
+  }
 
-	.text-md-end .countdown .time {
-		justify-content: flex-end;
-	}
+  .text-md-end .countdown .time {
+    justify-content: flex-end;
+  }
 }
 
-.countdown.countdown-size-medium .time>span,
-.countdown-des-2.countdown-size-medium .time>span {
-	min-width: 50px;
-	min-height: 50px;
+.countdown.countdown-size-medium .time > span,
+.countdown-des-2.countdown-size-medium .time > span {
+  min-width: 50px;
+  min-height: 50px;
 }
 
-.countdown-des-1.countdown-size-medium .time>span .cd-number {
-	min-height: 50px;
-	font-size: 14px;
+.countdown-des-1.countdown-size-medium .time > span .cd-number {
+  min-height: 50px;
+  font-size: 14px;
 }
 
-.countdown.countdown-size-large .time>span,
-.countdown-des-2.countdown-size-large .time>span {
-	min-width: 60px;
-	min-height: 60px;
+.countdown.countdown-size-large .time > span,
+.countdown-des-2.countdown-size-large .time > span {
+  min-width: 60px;
+  min-height: 60px;
 }
 
-.countdown-des-1.countdown-size-large .time>span .cd-number {
-	min-height: 60px;
-	font-size: 16px;
+.countdown-des-1.countdown-size-large .time > span .cd-number {
+  min-height: 60px;
+  font-size: 16px;
 }
 
-.countdown-des-2.countdown-size-large .time>span .cd-number {
-	font-size: 16px;
+.countdown-des-2.countdown-size-large .time > span .cd-number {
+  font-size: 16px;
 }
 
-.countdown.countdown-size-large .time>span .cd-text {
-	font-size: 14px;
+.countdown.countdown-size-large .time > span .cd-text {
+  font-size: 14px;
 }
 
-.countdown.countdown-size-extra_large .time>span,
-.countdown-des-2.countdown-size-extra_large .time>span {
-	min-width: 70px;
-	min-height: 70px;
+.countdown.countdown-size-extra_large .time > span,
+.countdown-des-2.countdown-size-extra_large .time > span {
+  min-width: 70px;
+  min-height: 70px;
 }
 
-.countdown-des-1.countdown-size-extra_large .time>span .cd-number {
-	min-height: 70px;
-	font-size: 18px;
-	line-height: 18px;
+.countdown-des-1.countdown-size-extra_large .time > span .cd-number {
+  min-height: 70px;
+  font-size: 18px;
+  line-height: 18px;
 }
 
-.countdown-des-2.countdown-size-extra_large .time>span .cd-number {
-	font-size: 18px;
-	line-height: 18px;
+.countdown-des-2.countdown-size-extra_large .time > span .cd-number {
+  font-size: 18px;
+  line-height: 18px;
 }
 
-.countdown.countdown-size-extra_large .time>span .cd-text {
-	font-size: 16px;
-	line-height: 18px;
+.countdown.countdown-size-extra_large .time > span .cd-text {
+  font-size: 16px;
+  line-height: 18px;
 }
 
-.countdown-des-3.countdown-size-small .time>span .cd-number {
-	font-size: 16px;
+.countdown-des-3.countdown-size-small .time > span .cd-number {
+  font-size: 16px;
 }
 
-.countdown-des-3.countdown-size-medium .time>span .cd-number {
-	font-size: 20px;
+.countdown-des-3.countdown-size-medium .time > span .cd-number {
+  font-size: 20px;
 }
 
-.countdown-des-3.countdown-size-large .time>span .cd-number {
-	font-size: 30px;
+.countdown-des-3.countdown-size-large .time > span .cd-number {
+  font-size: 30px;
 }
 
-.countdown-des-3.countdown-size-extra_large .time>span .cd-number {
-	font-size: 40px;
+.countdown-des-3.countdown-size-extra_large .time > span .cd-number {
+  font-size: 40px;
 }
 
-@media(max-width: 767px) {
-	.countdown {
-		margin-bottom: var(--mgb-mb);
-	}
+@media (max-width: 767px) {
+  .countdown {
+    margin-bottom: var(--mgb-mb);
+  }
 
-	.countdown .time>span {
-		margin: 0 calc(var(--space-item-mb)/2);
-		min-width: 36px;
-		min-height: 36px;
-	}
+  .countdown .time > span {
+    margin: 0 calc(var(--space-item-mb) / 2);
+    min-width: 36px;
+    min-height: 36px;
+  }
 
-	.countdown.countdown-size-medium .time>span,
-	.countdown-des-2.countdown-size-medium .time>span {
-		margin: 0 5px;
-	}
+  .countdown.countdown-size-medium .time > span,
+  .countdown-des-2.countdown-size-medium .time > span {
+    margin: 0 5px;
+  }
 
-	div.countdown-des-1.countdown-size-medium .time>span span.cd-number {
-		min-height: 36px;
-		font-size: 14px;
-	}
+  div.countdown-des-1.countdown-size-medium .time > span span.cd-number {
+    min-height: 36px;
+    font-size: 14px;
+  }
 
-	.countdown.countdown-des-1 .time>span .cd-number {
-		min-height: 36px;
-		font-size: 12px;
-	}
+  .countdown.countdown-des-1 .time > span .cd-number {
+    min-height: 36px;
+    font-size: 12px;
+  }
 
-	.countdown-des-1.countdown-size-medium .time>span .cd-number {
-		min-height: 40px;
-		font-size: 12px;
-	}
+  .countdown-des-1.countdown-size-medium .time > span .cd-number {
+    min-height: 40px;
+    font-size: 12px;
+  }
 
-	.countdown.countdown-size-large .time>span,
-	.countdown-des-2.countdown-size-large .time>span {
-		min-width: 50px;
-		min-height: 50px;
-	}
+  .countdown.countdown-size-large .time > span,
+  .countdown-des-2.countdown-size-large .time > span {
+    min-width: 50px;
+    min-height: 50px;
+  }
 
-	.countdown-des-1.countdown-size-large .time>span .cd-number {
-		min-height: 50px;
-		font-size: 14px;
-	}
+  .countdown-des-1.countdown-size-large .time > span .cd-number {
+    min-height: 50px;
+    font-size: 14px;
+  }
 
-	.countdown-des-2.countdown-size-large .time>span .cd-number {
-		font-size: 14px;
-	}
+  .countdown-des-2.countdown-size-large .time > span .cd-number {
+    font-size: 14px;
+  }
 
-	.countdown.countdown-size-large .time>span .cd-text {
-		font-size: 12px;
-	}
+  .countdown.countdown-size-large .time > span .cd-text {
+    font-size: 12px;
+  }
 
-	.countdown.countdown-size-extra_large .time>span,
-	.countdown-des-2.countdown-size-extra_large .time>span {
-		min-width: 60px;
-		min-height: 60px;
-	}
+  .countdown.countdown-size-extra_large .time > span,
+  .countdown-des-2.countdown-size-extra_large .time > span {
+    min-width: 60px;
+    min-height: 60px;
+  }
 
-	.countdown-des-1.countdown-size-extra_large .time>span .cd-number {
-		min-height: 60px;
-		font-size: 16px;
-		line-height: 16px;
-	}
+  .countdown-des-1.countdown-size-extra_large .time > span .cd-number {
+    min-height: 60px;
+    font-size: 16px;
+    line-height: 16px;
+  }
 
-	.countdown-des-2.countdown-size-extra_large .time>span .cd-number {
-		font-size: 16px;
-		line-height: 16px;
-	}
+  .countdown-des-2.countdown-size-extra_large .time > span .cd-number {
+    font-size: 16px;
+    line-height: 16px;
+  }
 
-	.countdown.countdown-size-extra_large .time>span .cd-text {
-		font-size: 14px;
-		line-height: 16px;
-	}
+  .countdown.countdown-size-extra_large .time > span .cd-text {
+    font-size: 14px;
+    line-height: 16px;
+  }
 
-	.countdown-des-3.countdown-size-small .time>span .cd-number {
-		font-size: 14px;
-	}
+  .countdown-des-3.countdown-size-small .time > span .cd-number {
+    font-size: 14px;
+  }
 
-	.countdown-des-3.countdown-size-medium .time>span .cd-number {
-		font-size: 18px;
-	}
+  .countdown-des-3.countdown-size-medium .time > span .cd-number {
+    font-size: 18px;
+  }
 
-	.countdown-des-3.countdown-size-large .time>span .cd-number {
-		font-size: 26px;
-	}
+  .countdown-des-3.countdown-size-large .time > span .cd-number {
+    font-size: 26px;
+  }
 
-	.countdown-des-3.countdown-size-extra_large .time>span .cd-number {
-		font-size: 36px;
-	}
+  .countdown-des-3.countdown-size-extra_large .time > span .cd-number {
+    font-size: 36px;
+  }
 }

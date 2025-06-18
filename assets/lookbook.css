@@ -15,21 +15,28 @@
   width: 50px;
   height: 39px;
   margin-right: -20px;
-  border-left: 1px solid rgba(129, 129, 129, .2);
+  border-left: 1px solid rgb(129 129 129 / 0.2);
 }
 
 .nav-link-icon:before,
 .nav-link-icon:after {
   position: absolute;
-  content: '';
+  content: "";
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%) rotate(-90deg);
   transform: translate(-50%, -50%) rotate(-90deg);
   background-color: currentColor;
-  transition: opacity 0.35s ease-in-out, -webkit-transform 0.35s ease-in-out;
-  transition: transform 0.35s ease-in-out, opacity 0.35s ease-in-out;
-  transition: transform 0.35s ease-in-out, opacity 0.35s ease-in-out, -webkit-transform 0.35s ease-in-out;
+  transition:
+    opacity 0.35s ease-in-out,
+    -webkit-transform 0.35s ease-in-out;
+  transition:
+    transform 0.35s ease-in-out,
+    opacity 0.35s ease-in-out;
+  transition:
+    transform 0.35s ease-in-out,
+    opacity 0.35s ease-in-out,
+    -webkit-transform 0.35s ease-in-out;
 }
 
 .nav-link-icon:after {
@@ -45,12 +52,12 @@
 
 .pin_ic_2 .nav-link-icon {
   background-color: var(--cl-pin);
-  border-radius: 50%
+  border-radius: 50%;
 }
 
 .pin_ic_2 .nav-link-icon:before,
 .pin_ic_2 .nav-link-icon:after {
-  display: none
+  display: none;
 }
 
 .lookbook-pin {
@@ -59,7 +66,7 @@
   border-radius: 50px;
   position: absolute;
   top: var(--ps-top);
-  transform: translate(calc(-1*var(--ps-left)), calc(-1*var(--ps-top)));
+  transform: translate(calc(-1 * var(--ps-left)), calc(-1 * var(--ps-top)));
   left: var(--ps-left);
   opacity: 1;
   pointer-events: auto;
@@ -74,10 +81,7 @@
   height: 100%;
   cursor: pointer;
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0 0 0 0;
   z-index: 1;
   border-radius: 50%;
   display: flex;
@@ -96,25 +100,25 @@
 .pin__size--small {
   width: 24px;
   height: 24px;
-  font-size: 10px
+  font-size: 10px;
 }
 
 .pin__size--medium {
   width: 32px;
   height: 32px;
-  font-size: 12px
+  font-size: 12px;
 }
 
 .pin__size--exmedium {
   width: 40px;
   height: 40px;
-  font-size: 13px
+  font-size: 13px;
 }
 
 .pin__size--large {
   width: 48px;
   height: 48px;
-  font-size: 15px
+  font-size: 15px;
 }
 
 .pin__size--large .nav_link_icon:before {
@@ -127,19 +131,14 @@
 
 .lookbook-pin .zoompin {
   position: absolute;
-  top: -8px;
-  right: -8px;
-  bottom: -8px;
-  left: -8px;
+  inset: -8px -8px -8px -8px;
   display: block;
   -webkit-animation: zoompin 2s ease infinite;
   animation: zoompin 2s ease infinite;
   border-radius: 50%;
-  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-perspective: 800px;
   perspective: 800px;
-  background-color: rgba(255, 255, 255, .5);
+  background-color: rgb(255 255 255 / 0.5);
   pointer-events: none;
 }
 
@@ -147,39 +146,39 @@
   margin-bottom: 0;
 }
 
-@-webkit-keyframes zoompin {
+@keyframes zoompin {
   0% {
     opacity: 0;
-    -webkit-transform: scale(.2);
-    transform: scale(.2)
+    -webkit-transform: scale(0.2);
+    transform: scale(0.2);
   }
 
   50% {
-    opacity: .8
+    opacity: 0.8;
   }
 
   100% {
     opacity: 0;
     -webkit-transform: scale(1);
-    transform: scale(1)
+    transform: scale(1);
   }
 }
 
 @keyframes zoompin {
   0% {
     opacity: 0;
-    -webkit-transform: scale(.2);
-    transform: scale(.2)
+    -webkit-transform: scale(0.2);
+    transform: scale(0.2);
   }
 
   50% {
-    opacity: .8
+    opacity: 0.8;
   }
 
   100% {
     opacity: 0;
     -webkit-transform: scale(1);
-    transform: scale(1)
+    transform: scale(1);
   }
 }
 
@@ -220,13 +219,13 @@
   margin-left: -9px;
   position: absolute;
   opacity: 0;
-  -webkit-transition: opacity .2s;
-  transition: opacity .2s;
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
   content: "";
   display: inline-block;
   width: 18px;
   height: 18px;
-  border: 1px solid rgba(255, 255, 255, .3);
+  border: 1px solid rgb(255 255 255 / 0.3);
   border-left-color: #fff;
   border-radius: 50%;
   vertical-align: middle;
@@ -238,6 +237,6 @@
   animation: 450ms linear infinite spin;
 }
 
-.lookbook-pin.is--loading .pin-tt>* {
+.lookbook-pin.is--loading .pin-tt > * {
   opacity: 0;
 }

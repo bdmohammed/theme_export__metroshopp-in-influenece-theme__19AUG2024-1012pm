@@ -101,7 +101,7 @@
   width: 100%;
   height: 1px;
   background-color: var(--border-cl);
-  content: '';
+  content: "";
   position: absolute;
   z-index: 1;
   top: 0;
@@ -119,7 +119,7 @@
 
 .footer .newsletter__inner .col_btn,
 .footer-extend .newsletter__inner .col_btn {
-  max-width: 30%
+  max-width: 30%;
 }
 
 .footer-extend .cp {
@@ -178,8 +178,7 @@
   }
 }
 
-@media(max-width: 767px) {
-
+@media (max-width: 767px) {
   .socials-block,
   .payment-footer-svg,
   .coppy-right {
@@ -199,7 +198,7 @@
   }
 
   .is--footer-collapse-true .col-heading {
-    margin-bottom: 0px !important;
+    margin-bottom: 0 !important;
   }
 
   .footer-collapse-icon {
@@ -224,13 +223,16 @@
   .footer-collapse-icon:after,
   .footer-collapse-icon:before {
     position: absolute;
-    content: '';
+    content: "";
     top: 50%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%) rotate(-90deg);
     transform: translate(-50%, -50%) rotate(-90deg);
     background-color: currentColor;
-    transition: transform .35s ease-in-out, opacity .35s ease-in-out, -webkit-transform .35s ease-in-out;
+    transition:
+      transform 0.35s ease-in-out,
+      opacity 0.35s ease-in-out,
+      -webkit-transform 0.35s ease-in-out;
   }
 
   .is--footer_opened .footer-collapse-icon:before {

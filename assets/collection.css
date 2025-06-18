@@ -6,7 +6,10 @@
   --bg-color-hover: var(--title-cl-pri-hover);
 }
 
-.collection-item:not(.coll-style-5):not(.coll-style-7):not(.coll-style-11):not(.coll-style-12):not(.coll-style-14) .cat-content {
+.collection-item:not(.coll-style-5):not(.coll-style-7):not(.coll-style-11):not(
+    .coll-style-12
+  ):not(.coll-style-14)
+  .cat-content {
   border-radius: var(--item-rd);
 }
 
@@ -18,8 +21,8 @@
 
 .collection-item .eff-border-run::before,
 .collection-item .eff-border-run::after,
-.collection-item .ratio>svg,
-.collection-item .ratio>img {
+.collection-item .ratio > svg,
+.collection-item .ratio > img {
   border-radius: var(--item-rd);
 }
 
@@ -68,7 +71,7 @@
 }
 
 .coll-style-1 .cate-wrapper {
-  box-shadow: 1px 1px 0 0 rgb(0 0 0 / 10%);
+  box-shadow: 1px 1px 0 0 rgb(0 0 0 / 0.1);
 }
 
 .collection-item .cat-title,
@@ -115,10 +118,10 @@
   right: 15px;
   bottom: auto !important;
   transform: translateY(-50%);
-  text-shadow: 0 0 4px rgb(0, 0, 0, 0.4);
+  text-shadow: 0 0 4px rgb(0 0 0 / 0.4);
   hyphens: auto;
   z-index: 10;
-  transition: .3s;
+  transition: 0.3s;
   box-shadow: none;
   min-height: 1px;
   height: auto;
@@ -167,10 +170,7 @@
   transform: translateY(0);
   position: absolute;
   z-index: 3;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  inset: 0 0 0 0;
   height: 100%;
   margin: auto;
   color: var(--subtitle-cl2);
@@ -241,8 +241,8 @@
 
 .coll-style-10 .cate-wrapper {
   width: 100%;
-  left: 0px;
-  right: 0px;
+  left: 0;
+  right: 0;
   transform: none;
   flex-direction: column;
   font-weight: 400;
@@ -396,10 +396,7 @@ a.loadpreview {
   content: "";
   position: absolute;
   z-index: 3;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0 0 0 0;
   border: solid 1px var(--border-cl);
   border-radius: var(--item-rd);
   pointer-events: none;
@@ -443,8 +440,7 @@ a.loadpreview {
   margin: 20px auto 10px;
 }
 
-@media(max-width: 1199px) and (min-width: 1025px) {
-
+@media (max-width: 1199px) and (min-width: 1025px) {
   .coll-layout-2.has-3-item .coll-item-1 .ratio,
   .coll-layout-3.has-3-item .coll-item-3 .ratio {
     --aspect-ratioapt: 570/635 !important;
@@ -508,7 +504,7 @@ a.loadpreview {
   }
 }
 
-@media(max-width: 1024px) and (min-width: 768px) {
+@media (max-width: 1024px) and (min-width: 768px) {
   .collection-manual .collection-manual .collection-item .ratio {
     --aspect-ratioapt: var(--aspect-ratioapttb) !important;
   }
@@ -522,8 +518,7 @@ a.loadpreview {
   }
 }
 
-@media(max-width: 991px) {
-
+@media (max-width: 991px) {
   .coll-layout-2.has-3-item .coll-item-1 .ratio,
   .coll-layout-3.has-3-item .coll-item-3 .ratio,
   .coll-layout-5.has-3-item .coll-item-2 .ratio,
@@ -582,7 +577,7 @@ a.loadpreview {
   }
 }
 
-@media(max-width: 767px) {
+@media (max-width: 767px) {
   .collection-item {
     margin-bottom: var(--mgb-mb);
   }
@@ -625,7 +620,7 @@ a.loadpreview {
   }
 }
 
-@media(max-width: 480px) {
+@media (max-width: 480px) {
   .collection-item .cate-wrapper {
     max-width: 90%;
     margin: auto;
@@ -748,14 +743,16 @@ a.loadpreview {
   margin-top: 40px;
 }
 
-@media(max-width: 767px) {
+@media (max-width: 767px) {
   .collection-border-true.gx-0.gy-0 {
     border-top: solid 1px var(--border-cl);
     border-left: solid 1px var(--border-cl);
   }
 
   .collection-border-true.gx-0.gy-0 .collection-item .img-wrap::before {
-    box-shadow: inset -1px -1px var(--border-cl), -1px -1px var(--border-cl);
+    box-shadow:
+      inset -1px -1px var(--border-cl),
+      -1px -1px var(--border-cl);
     border: none;
   }
 
@@ -764,8 +761,7 @@ a.loadpreview {
   }
 }
 
-@media (-moz-touch-enabled: 0),
-(hover: hover) {
+@media (-moz-touch-enabled: 0), (hover: hover) {
   .collection-item .cat-title:hover {
     color: var(--color-hover);
     background-color: var(--bg-color-hover);
@@ -778,7 +774,7 @@ a.loadpreview {
     transform: translateY(0);
   }
 
-  .coll-style-3:hover .cate-wrapper>a {
+  .coll-style-3:hover .cate-wrapper > a {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -796,7 +792,6 @@ a.loadpreview {
 }
 
 @media (max-width: 320px) {
-
   .collection-item .cat-title,
   .collection-item .cat-subtitle {
     font-size: 12px;

@@ -1,32 +1,32 @@
 .flickity:not(.flickity-enabled) {
   flex-wrap: nowrap;
   overflow: hidden;
-  width: auto
+  width: auto;
 }
 
 .flickity-enabled {
   display: block;
   position: relative;
-  -webkit-tap-highlight-color: transparent
+  -webkit-tap-highlight-color: transparent;
 }
 
 .flickity-enabled:focus {
   outline: 0;
-  box-shadow: none
+  box-shadow: none;
 }
 
 .flickity-viewport {
   overflow: hidden;
   position: relative;
   width: 100%;
-  height: 100%
+  height: 100%;
 }
 
 .flickity-slider {
   position: absolute;
   width: 100%;
   height: 100%;
-  will-change: transform
+  will-change: transform;
 }
 
 .flickity-enabled.is-draggable {
@@ -34,67 +34,69 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none
+  user-select: none;
 }
 
 .flickity-enabled.is-draggable .flickity-viewport {
   cursor: move;
   cursor: -webkit-grab;
-  cursor: grab
+  cursor: grab;
 }
 
 .flickity-enabled.is-draggable .flickity-viewport.is-pointer-down {
   cursor: -webkit-grabbing;
-  cursor: grabbing
+  cursor: grabbing;
 }
 
 .flickity-button,
 .flickity-page-dots {
-  display: none
+  display: none;
 }
 
-.flickity-enabled.is-fade .flickity-slider>* {
+.flickity-enabled.is-fade .flickity-slider > * {
   pointer-events: none;
   z-index: 0;
   opacity: 0;
-  transition: opacity .3s ease-in-out, visibility .3s ease-in-out
+  transition:
+    opacity 0.3s ease-in-out,
+    visibility 0.3s ease-in-out;
 }
 
-.flickity-enabled.is-fade .flickity-slider>.is-selected {
+.flickity-enabled.is-fade .flickity-slider > .is-selected {
   pointer-events: auto;
   z-index: 1;
-  opacity: 1
+  opacity: 1;
 }
 
 .enabled .flickity-viewport {
-  transition: height .3s
+  transition: height 0.3s;
 }
 
 .flickity-button {
   position: absolute;
-  border: none
+  border: none;
 }
 
 .flickity-button:hover {
-  cursor: pointer
+  cursor: pointer;
 }
 
 .flickity-button:active {
-  opacity: .6
+  opacity: 0.6;
 }
 
 .flickity-button:disabled {
-  opacity: .3 !important;
-  cursor: auto
+  opacity: 0.3 !important;
+  cursor: auto;
 }
 
 .flickity_prev_disable.flickity_next_disable .flickity-button:disabled,
 .flickity_prev_disable.flickity_next_disable .flickity-page-dots {
-  display: none !important
+  display: none !important;
 }
 
 .flickity-button-icon {
-  fill: currentColor
+  fill: currentColor;
 }
 
 .flickity-prev-next-button {
@@ -104,32 +106,32 @@
   min-width: 40px;
   min-height: 40px;
   padding: 0;
-  transform: translateY(-50%)
+  transform: translateY(-50%);
 }
 
 .flickity-prev-next-button.previous {
-  left: 15px
+  left: 15px;
 }
 
 .flickity-prev-next-button.next {
-  right: 15px
+  right: 15px;
 }
 
 .flickity-rtl .flickity-prev-next-button.previous {
   left: auto;
-  right: 15px
+  right: 15px;
 }
 
 .flickity-rtl .flickity-prev-next-button.next {
   right: auto;
-  left: 15px
+  left: 15px;
 }
 
 .flickity-prev-next-button .flickity-button-icon {
   width: auto;
   height: 18px;
   stroke: currentColor;
-  fill: currentcolor
+  fill: currentcolor;
 }
 
 .flickity-page-dots {
@@ -141,56 +143,52 @@
   margin: 15px 0 0;
   list-style: none;
   text-align: center;
-  line-height: 1
+  line-height: 1;
 }
 
 .flickity-rtl .flickity-page-dots {
-  direction: rtl
+  direction: rtl;
 }
 
 .flickity:after {
-  content: 'flickity';
-  display: none
+  content: "flickity";
+  display: none;
 }
 
-@media (min-width:768px) {
+@media (min-width: 768px) {
   .carousel-disable-md:after {
-    content: ''
+    content: "";
   }
 
   .carousel-disable-md.flickity:not(.flickity-enabled) {
-    flex-wrap: wrap
+    flex-wrap: wrap;
   }
 }
 
-@media (min-width:1025px) {
+@media (min-width: 1025px) {
   .carousel-disable-lg:after {
-    content: ''
+    content: "";
   }
 
   .carousel-disable-lg.flickity:not(.flickity-enabled) {
-    flex-wrap: wrap
+    flex-wrap: wrap;
   }
 
   .carousel__nav-scroller:not(.is__position-bottom) {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow-x: visible;
-    overflow-y: scroll;
+    inset: 0 0 0 0;
+    overflow: visible scroll;
     overscroll-behavior-y: contain;
   }
 
   .carousel__nav {
-    flex-wrap: wrap
+    flex-wrap: wrap;
   }
 }
 
 .flickity-enabled,
-.flickity-slider>.col-item {
-  margin-top: 0 !important
+.flickity-slider > .col-item {
+  margin-top: 0 !important;
 }
 
 .carousel__nav-scroller {
@@ -205,23 +203,23 @@
   user-select: none;
   scrollbar-width: none;
   scroll-behavior: smooth;
-  -ms-overflow-style: -ms-autohiding-scrollbar
+  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
 .carousel__nav-scroller img {
   opacity: 0;
-  transition: .3s ease-in-out
+  transition: 0.3s ease-in-out;
 }
 
 .carousel__nav-scroller img.lazyloaded {
-  opacity: 1
+  opacity: 1;
 }
 
 .carousel__nav {
-  flex-wrap: nowrap
+  flex-wrap: nowrap;
 }
 
 .carousel__nav-scroller::-webkit-scrollbar {
   height: 0;
-  width: 0
+  width: 0;
 }

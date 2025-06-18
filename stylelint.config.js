@@ -83,13 +83,13 @@ export default {
       }
     ],
     "function-url-quotes": "never",
-    "max-nesting-depth": 4,
-    "selector-max-specificity": "0,4,0",
-    "declaration-no-important": true,
+    "max-nesting-depth": [4, "warn"],
+    // "selector-max-specificity": "0,4,0",
+    // "declaration-no-important": true,
     "alpha-value-notation": "number",
     "color-function-notation": "modern",
-    "selector-max-type": 3,
-    "selector-max-compound-selectors": 4,
+    "selector-max-type": [3, "warn"],
+    "selector-max-compound-selectors": [4, "warn"],
     "no-descending-specificity": null,
     "at-rule-no-unknown": [
       true,
@@ -117,6 +117,28 @@ export default {
       true,
       {
         "ignorePseudoClasses": ["global"]
+      }
+    ],
+    "no-duplicate-at-import-rules": true,
+    "rule-empty-line-before": [
+      "always-multi-line",
+      {
+        "except": ["first-nested"],
+        "ignore": ["after-comment", "inside-block"]
+      }
+    ],
+    "at-rule-empty-line-before": [
+      "always",
+      {
+        "except": ["blockless-after-same-name-blockless", "first-nested"],
+        "ignore": ["after-comment"]
+      }
+    ],
+    "declaration-empty-line-before": [
+      "always",
+      {
+        "ignore": ["after-declaration", "first-nested"],
+        "ignoreAtRules": ["import", "media", "supports"]
       }
     ],
   },

@@ -8,14 +8,14 @@ input.frm_input {
   width: 100%;
   line-height: normal;
   resize: none;
-  transition: border-color .1s ease-in-out;
-  background: 0 0
+  transition: border-color 0.1s ease-in-out;
+  background: 0 0;
 }
 
 .customer select:focus,
 input.frm_input:focus {
-  border-color: rgba(var(--text-color-rgb), .8);
-  outline: 0
+  border-color: rgba(var(--text-color-rgb), 0.8);
+  outline: 0;
 }
 
 .field label {
@@ -24,52 +24,52 @@ input.frm_input:focus {
   left: 14px;
   transform: scale(1);
   transform-origin: left top;
-  transition: transform .2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
   pointer-events: none;
   display: flex;
   align-items: center;
-  height: 100%
+  height: 100%;
 }
 
 .customer .field input:-webkit-autofill,
 .customer .field input:focus,
 .customer .field input:not(:placeholder-shown) {
-  padding: 18px 14px 6px
+  padding: 18px 14px 6px;
 }
 
-.customer .field input:-webkit-autofill~label,
-.customer .field input:focus~label,
-.customer .field input:not(:placeholder-shown)~label {
-  transform: translateY(-6px) scale(.8)
+.customer .field input:-webkit-autofill ~ label,
+.customer .field input:focus ~ label,
+.customer .field input:not(:placeholder-shown) ~ label {
+  transform: translateY(-6px) scale(0.8);
 }
 
 .customer .fieldinput::-webkit-search-cancel-button,
 .field__input::-webkit-search-cancel-button {
-  display: none
+  display: none;
 }
 
 .customer .field input::-webkit-autofill,
 .customer .field input:autofill {
-  color: inherit
+  color: inherit;
 }
 
 .customer .field input:-webkit-autofill {
-  border-color: rgba(var(--text-color-rgb), .8);
-  -webkit-box-shadow: 0 0 0 1000px #fff inset;
-  -webkit-text-fill-color: inherit
+  border-color: rgba(var(--text-color-rgb), 0.8);
+  box-shadow: 0 0 0 1000px #fff inset;
+  -webkit-text-fill-color: inherit;
 }
 
 .customer .field input::placeholder,
 .field__input::placeholder {
-  opacity: 0
+  opacity: 0;
 }
 
 .customer {
-  text-align: center
+  text-align: center;
 }
 
 .field {
-  text-align: left
+  text-align: left;
 }
 
 .customer .btn_submmit {
@@ -77,17 +77,22 @@ input.frm_input:focus {
   padding: 14px;
   text-transform: uppercase;
   font-weight: 500;
-  transition: color .25s, background-color .25s, border-color .25s, box-shadow .25s, opacity .25s
+  transition:
+    color 0.25s,
+    background-color 0.25s,
+    border-color 0.25s,
+    box-shadow 0.25s,
+    opacity 0.25s;
 }
 
 .customer .btn_black {
   min-width: 90px;
   background-color: var(--ts-dark-color);
   color: var(--ts-light-color);
-  transition: .3s;
+  transition: 0.3s;
   position: relative;
   overflow: hidden;
-  background-position: 150% 45%
+  background-position: 150% 45%;
 }
 
 .customer .btn_black:after {
@@ -99,47 +104,52 @@ input.frm_input:focus {
   width: 200%;
   height: 100%;
   transform: skew(-20deg);
-  background-image: linear-gradient(90deg, transparent, hsla(0, 0%, 100%, .25), transparent)
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    hsl(0 0% 100% / 0.25),
+    transparent
+  );
 }
 
 @keyframes ani_shine {
   to {
-    left: -200%
+    left: -200%;
   }
 }
 
 .customer .btn_black:hover {
   background-color: var(--ts-dark-color);
-  color: var(--ts-light-color)
+  color: var(--ts-light-color);
 }
 
 .customer .btn_black:hover:after {
-  animation: .75s cubic-bezier(.01, .56, 1, 1) ani_shine
+  animation: 0.75s cubic-bezier(0.01, 0.56, 1, 1) ani_shine;
 }
 
 .customer .btn_white {
-  transition: border .3s;
+  transition: border 0.3s;
   min-width: 90px;
   background-color: var(--ts-light-color);
   color: var(--ts-dark-color);
-  border: 1px solid var(--border-color)
+  border: 1px solid var(--border-color);
 }
 
 .customer .btn_white:hover {
   background-color: var(--ts-light-color);
   color: var(--ts-dark-color);
-  border-color: var(--ts-dark-color)
+  border-color: var(--ts-dark-color);
 }
 
 .customer a {
   text-decoration: underline;
   text-underline-offset: 0.3rem;
-  text-decoration-thickness: 0.1rem
+  text-decoration-thickness: 0.1rem;
 }
 
 .customer h2 {
   font-size: 20px;
-  text-transform: uppercase
+  text-transform: uppercase;
 }
 
 .customer .form__message {
@@ -148,25 +158,25 @@ input.frm_input:focus {
   font-size: 16px;
   line-height: 1;
   margin-top: 1rem;
-  font-weight: 400
+  font-weight: 400;
 }
 
 .customer .form__message svg {
   height: 1.5rem;
   width: 1.5rem;
-  margin-right: 1rem
+  margin-right: 1rem;
 }
 
 .customer .form__message svg.svg-account-hello {
-  margin-bottom: 7px
+  margin-bottom: 7px;
 }
 
-.field+.form__message {
+.field + .form__message {
   margin-top: -20px;
   font-size: 13px;
   margin-bottom: 30px;
   text-align: left;
-  line-height: 1.1
+  line-height: 1.1;
 }
 
 .customer ul {
@@ -174,13 +184,13 @@ input.frm_input:focus {
   text-align: left;
   margin-bottom: 40px;
   list-style: disc;
-  margin-top: 15px
+  margin-top: 15px;
 }
 
 .customer-account {
   text-align: left;
   margin-top: 60px;
-  margin-bottom: 60px
+  margin-bottom: 60px;
 }
 
 .account-nav ul {
@@ -188,7 +198,7 @@ input.frm_input:focus {
   list-style: none;
   margin-top: 0;
   line-height: 1.4;
-  border: 1px solid var(--border-color)
+  border: 1px solid var(--border-color);
 }
 
 .account-nav a {
@@ -197,40 +207,40 @@ input.frm_input:focus {
   font-size: 14px;
   border-bottom: 1px solid var(--border-color);
   display: flex;
-  align-items: center
+  align-items: center;
 }
 
 .account-nav svg {
   width: 16px;
   height: 16px;
-  margin-right: 5px
+  margin-right: 5px;
 }
 
 .account-nav li:last-child a {
-  border-bottom: 0
+  border-bottom: 0;
 }
 
 .account-nav .is--active a,
 .account-nav a:hover {
-  background-color: rgba(var(--border-color-rgb), .35);
-  color: initial
+  background-color: rgba(var(--border-color-rgb), 0.35);
+  color: initial;
 }
 
 .account-hello strong {
-  color: var(--link-color)
+  color: var(--link-color);
 }
 
 .account-content h2 {
   font-size: 15px;
   text-transform: none;
-  margin-bottom: 15px
+  margin-bottom: 15px;
 }
 
 .select,
 .text-area {
   display: flex;
   position: relative;
-  width: 100%
+  width: 100%;
 }
 
 .customer select {
@@ -243,16 +253,16 @@ input.frm_input:focus {
   border-radius: 0;
 }
 
-.customer select+svg {
-  height: .6rem;
+.customer select + svg {
+  height: 0.6rem;
   pointer-events: none;
   position: absolute;
-  top: calc(50% - .2rem);
-  right: 12px
+  top: calc(50% - 0.2rem);
+  right: 12px;
 }
 
 .mb_10 {
-  margin-bottom: 10px
+  margin-bottom: 10px;
 }
 
 .mb_20 {
@@ -260,31 +270,31 @@ input.frm_input:focus {
 }
 
 .mb_30 {
-  margin-bottom: 30px
+  margin-bottom: 30px;
 }
 
 .mb_60 {
-  margin-bottom: 60px
+  margin-bottom: 60px;
 }
 
 .mr_10 {
-  margin-right: 10px
+  margin-right: 10px;
 }
 
-@media screen and (min-width:768px) {
+@media screen and (min-width: 768px) {
   .account-nav {
     position: sticky;
-    top: 20px
+    top: 20px;
   }
 }
 
 #recover,
-#recover:target~#login {
-  display: none
+#recover:target ~ #login {
+  display: none;
 }
 
 #recover:target {
-  display: block
+  display: block;
 }
 
 #guest_login,
@@ -292,7 +302,7 @@ input.frm_input:focus {
 #recover {
   width: 100%;
   -webkit-animation: 1.25s ani-fadeIn;
-  animation: 1.25s ani-fadeIn
+  animation: 1.25s ani-fadeIn;
 }
 
 .customer.is--activate,
@@ -307,121 +317,120 @@ input.frm_input:focus {
   min-height: 55vh;
   padding: 0;
   flex-direction: column;
-  justify-content: center
+  justify-content: center;
 }
 
 #guest_login hr {
   width: 100%;
   max-width: 100%;
-  margin: 30px 0
+  margin: 30px 0;
 }
 
 .order-history td {
-  color: var(--heading-color)
+  color: var(--heading-color);
 }
 
-@media (min-width:641px) {
-
+@media (min-width: 641px) {
   .customer.is--activate,
   .customer.is--login,
   .customer.is--register,
   .customer.is--reset-password {
-    margin: 80px auto
+    margin: 80px auto;
   }
 
   #guest_login hr {
-    margin: 60px 0 50px
+    margin: 60px 0 50px;
   }
 }
 
-.is--addresses [aria-expanded]~div[id] {
+.is--addresses [aria-expanded] ~ div[id] {
   margin-top: 20px;
   padding: 0 20px 5px;
-  border: 2px solid var(--border-color)
+  border: 2px solid var(--border-color);
 }
 
-.is--addresses [aria-expanded=false]~div[id] {
-  display: none
+.is--addresses [aria-expanded="false"] ~ div[id] {
+  display: none;
 }
 
-.is--addresses [aria-expanded=true]~div[id] {
+.is--addresses [aria-expanded="true"] ~ div[id] {
   display: block;
   -webkit-animation: 1.25s ani-fadeIn;
-  animation: 1.25s ani-fadeIn
+  animation: 1.25s ani-fadeIn;
 }
 
 .is--addresses form {
   display: flex;
-  flex-flow: row wrap
+  flex-flow: row wrap;
 }
 
-.is--addresses form>div {
+.is--addresses form > div {
   width: 100%;
-  text-align: left
+  text-align: left;
 }
 
 .is--addresses h2.title_addresses {
   margin: 30px 0 20px;
-  font-size: 18px
+  font-size: 18px;
 }
 
 .is--addresses ul {
   list-style: none;
   padding-left: 0;
-  text-align: center
+  text-align: center;
 }
 
 .is--addresses .field {
-  margin: 2rem 0 0
+  margin: 2rem 0 0;
 }
 
-.is--addresses form>div:nth-of-type(7),
-.is--addresses form>div:nth-of-type(7)+div[id] {
-  margin-top: 1.5rem
+.is--addresses form > div:nth-of-type(7),
+.is--addresses form > div:nth-of-type(7) + div[id] {
+  margin-top: 1.5rem;
 }
 
-.is--addresses input[type=checkbox] {
+.is--addresses input[type="checkbox"] {
   margin-top: 2rem;
-  margin-left: 0
+  margin-left: 0;
 }
 
 .is--addresses button {
-  margin: 4rem 0 1.5rem
+  margin: 4rem 0 1.5rem;
 }
 
 .is--addresses form button:first-of-type {
-  margin-right: 1rem
+  margin-right: 1rem;
 }
 
 .is--addresses ul p {
-  margin-bottom: 0
+  margin-bottom: 0;
 }
 
 li[data-address] {
-  margin-top: 5rem
+  margin-top: 5rem;
 }
 
-li[data-address]>h2 {
+li[data-address] > h2 {
   font-size: 16px;
-  margin-top: 30px
+  margin-top: 30px;
 }
 
-.is--addresses form button+button,
-.is--addresses li>button+button {
-  margin-top: 0
+.is--addresses form button + button,
+.is--addresses li > button + button {
+  margin-top: 0;
 }
 
-.is--addresses li>button {
-  margin-left: .5rem;
-  margin-right: .5rem
+.is--addresses li > button {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .is--order .account-content h2 {
-  font-size: 20px
+  font-size: 20px;
 }
 
 .is--order .account-content h2.is--first {
-  margin-bottom: 0
+  margin-bottom: 0;
 }
 
 .is--order tfoot tr:last-of-type td,
@@ -430,12 +439,12 @@ li[data-address]>h2 {
   padding-top: 1.5rem;
   padding-bottom: 4rem;
   color: var(--link-color);
-  font-weight: 500
+  font-weight: 500;
 }
 
 .is--order .lis__discount,
 .is--order tfoot tr:last-of-type td::before {
-  color: var(--link-color)
+  color: var(--link-color);
 }
 
 .is--order tbody ul {
@@ -444,33 +453,33 @@ li[data-address]>h2 {
   text-align: right;
   padding-left: 0;
   margin-top: 1rem;
-  margin-bottom: 0
+  margin-bottom: 0;
 }
 
 .is--order .account-content svg {
   width: 1.1rem;
   color: var(--sale-badge-background);
-  margin-right: .5rem
+  margin-right: 0.5rem;
 }
 
 .is--order .cart-discount {
   display: block;
   margin-top: 1rem;
-  margin-bottom: .5rem;
-  font-size: 1.2rem
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
 }
 
 .is--order td:first-of-type {
-  align-items: initial
+  align-items: initial;
 }
 
-@media screen and (min-width:750px) {
+@media screen and (min-width: 750px) {
   .is--order td .cart-discount {
-    display: none
+    display: none;
   }
 
-  .is--addresses [aria-expanded]~div[id] {
-    padding: 10px 40px 20px
+  .is--addresses [aria-expanded] ~ div[id] {
+    padding: 10px 40px 20px;
   }
 }
 
@@ -480,71 +489,71 @@ li[data-address]>h2 {
 
 .rtl_true .field label {
   left: auto;
-  right: 14px
+  right: 14px;
 }
 
-.rtl_true .is--addresses form>div,
+.rtl_true .is--addresses form > div,
 .rtl_true .customer ul,
 .rtl_true .customer-account,
 .rtl_true .field,
-.rtl_true .field+.form__message {
-  text-align: right
+.rtl_true .field + .form__message {
+  text-align: right;
 }
 
 .rtl_true .account-nav svg {
   margin-right: 0;
-  margin-left: 5px
+  margin-left: 5px;
 }
 
 .rtl_true .mr_10 {
   margin-right: 0;
-  margin-left: 10px
+  margin-left: 10px;
 }
 
-.rtl_true .is--addresses input[type=checkbox] {
+.rtl_true .is--addresses input[type="checkbox"] {
   margin-left: auto;
-  margin-right: 0
+  margin-right: 0;
 }
 
 .rtl_true .is--addresses form button:first-of-type {
   margin-right: 0;
-  margin-left: 1rem
+  margin-left: 1rem;
 }
 
 .rtl_true .is--order tbody ul {
-  text-align: left
+  text-align: left;
 }
 
 .rtl_true .is--order svg {
   margin-right: 0;
-  margin-left: .5rem
+  margin-left: 0.5rem;
 }
 
-@media only screen and (min-width:750px) {
-  .is--addresses form>div:nth-of-type(1) {
-    margin-right: 2rem
+@media only screen and (min-width: 750px) {
+  .is--addresses form > div:nth-of-type(1) {
+    margin-right: 2rem;
   }
 
-  .is--addresses form>div:nth-of-type(1),
-  .is--addresses form>div:nth-of-type(2) {
+  .is--addresses form > div:nth-of-type(1),
+  .is--addresses form > div:nth-of-type(2) {
     box-sizing: border-box;
-    flex-basis: calc(50% - 1rem)
+    flex-basis: calc(50% - 1rem);
   }
 
-  .is--addresses li>button:first-of-type {
-    margin-top: 3rem
+  .is--addresses li > button:first-of-type {
+    margin-top: 3rem;
   }
 
   .is--order tfoot tr:last-of-type td,
   .is--order tfoot tr:last-of-type th {
-    padding-bottom: 2.4rem
+    padding-bottom: 2.4rem;
   }
 
   .is--order tbody ul {
-    text-align: left
+    text-align: left;
   }
 
   .rtl_true .is--order tbody ul {
-    text-align: right
+    text-align: right;
   }
 }

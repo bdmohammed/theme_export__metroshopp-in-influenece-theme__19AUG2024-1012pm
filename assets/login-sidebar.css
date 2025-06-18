@@ -1,59 +1,58 @@
-#login-sidebar .drawer__header>span,
+#login-sidebar .drawer__header > span,
 .content-login-sidebar {
   display: none;
   font-weight: 500;
   line-height: 1.428;
-  font-size: 16px
+  font-size: 16px;
 }
 
-#login-sidebar .drawer__header>span[aria-hidden=false],
-.content-login-sidebar[aria-hidden=false] {
+#login-sidebar .drawer__header > span[aria-hidden="false"],
+.content-login-sidebar[aria-hidden="false"] {
   display: block;
   -webkit-animation: 1.25s ani-fadeIn;
-  animation: 1.25s ani-fadeIn
+  animation: 1.25s ani-fadeIn;
 }
 
 #login-sidebar .drawer__header {
   padding: 5px 0 5px 20px;
-  border-bottom: solid 1px var(--border-color)
+  border-bottom: solid 1px var(--border-color);
 }
 
 #login-sidebar .drawer__close:hover {
-  background-color: transparent
+  background-color: transparent;
 }
 
 #login-sidebar .drawer__close svg {
-  transition: .5s ease 0s
+  transition: 0.5s ease 0s;
 }
 
-#login-sidebar .drawer__close:not(:hover)>svg {
-  transform: rotate(-180deg)
+#login-sidebar .drawer__close:not(:hover) > svg {
+  transform: rotate(-180deg);
 }
 
 #login-sidebar .content-login-sidebar {
   padding: 20px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden auto;
   font-size: 14px;
   font-weight: 400;
-  color: var(--text-color)
+  color: var(--text-color);
 }
 
 #login-sidebar a {
   color: var(--link-color);
-  text-decoration: underline
+  text-decoration: underline;
 }
 
 #login-sidebar a:hover {
-  color: var(--link-color-hover)
+  color: var(--link-color-hover);
 }
 
 .btn-full-width {
-  width: 100%
+  width: 100%;
 }
 
 #login-sidebar .field {
-  text-align: inherit
+  text-align: inherit;
 }
 
 #login-sidebar .field label {
@@ -62,42 +61,42 @@
   left: 14px;
   transform: scale(1);
   transform-origin: left top;
-  transition: transform .2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
   pointer-events: none;
   display: flex;
   align-items: center;
-  height: 100%
+  height: 100%;
 }
 
 #login-sidebar .field input:-webkit-autofill,
 #login-sidebar .field input:focus,
 #login-sidebar .field input:not(:placeholder-shown) {
-  padding: 18px 14px 6px
+  padding: 18px 14px 6px;
 }
 
-#login-sidebar .field input:-webkit-autofill~label,
-#login-sidebar .field input:focus~label,
-#login-sidebar .field input:not(:placeholder-shown)~label {
-  transform: translateY(-6px) scale(.8)
+#login-sidebar .field input:-webkit-autofill ~ label,
+#login-sidebar .field input:focus ~ label,
+#login-sidebar .field input:not(:placeholder-shown) ~ label {
+  transform: translateY(-6px) scale(0.8);
 }
 
 #login-sidebar .fieldinput::-webkit-search-cancel-button,
 .field__input::-webkit-search-cancel-button {
-  display: none
+  display: none;
 }
 
 #login-sidebar .field input::-webkit-autofill,
 #login-sidebar .field input:autofill {
-  color: inherit
+  color: inherit;
 }
 
 #login-sidebar .field input:-webkit-autofill {
-  border-color: rgba(var(--text-color-rgb), .8);
-  -webkit-box-shadow: 0 0 0 1000px #fff inset;
-  -webkit-text-fill-color: inherit
+  border-color: rgba(var(--text-color-rgb), 0.8);
+  box-shadow: 0 0 0 1000px #fff inset;
+  -webkit-text-fill-color: inherit;
 }
 
 #login-sidebar .field input::placeholder,
 .field__input::placeholder {
-  opacity: 0
+  opacity: 0;
 }

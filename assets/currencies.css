@@ -8,1291 +8,1291 @@
   vertical-align: middle;
   margin-right: 5px;
   display: inline-block;
-  overflow: hidden
+  overflow: hidden;
 }
 
 .languages .flags.lazyloaded:before {
-  display: none
+  display: none;
 }
 
 .flags-ZMW:before {
-  background-position: -45px -5px
+  background-position: -45px -5px;
 }
 
 .flags-YER:before {
-  background-position: -85px -5px
+  background-position: -85px -5px;
 }
 
 .flags-VEF:before {
-  background-position: -165px -5px
+  background-position: -165px -5px;
 }
 
 .flags-VUV:before {
-  background-position: -245px -5px
+  background-position: -245px -5px;
 }
 
 .flags-UZS:before {
-  background-position: -285px -5px
+  background-position: -285px -5px;
 }
 
 .flags-UYU:before {
-  background-position: -325px -5px
+  background-position: -325px -5px;
 }
 
 .flags-AED:before {
-  background-position: -445px -5px
+  background-position: -445px -5px;
 }
 
 .flags-UAH:before {
-  background-position: -5px -35px
+  background-position: -5px -35px;
 }
 
 .flags-UGX:before {
-  background-position: -45px -35px
+  background-position: -45px -35px;
 }
 
 .flags-TMT:before {
-  background-position: -125px -35px
+  background-position: -125px -35px;
 }
 
 .flags-TRY:before {
-  background-position: -165px -35px
+  background-position: -165px -35px;
 }
 
 .flags-TND:before {
-  background-position: -205px -35px
+  background-position: -205px -35px;
 }
 
 .flags-TTD:before {
-  background-position: -245px -35px
+  background-position: -245px -35px;
 }
 
 .flags-TOP:before {
-  background-position: -285px -35px
+  background-position: -285px -35px;
 }
 
 .flags-THB:before {
-  background-position: -365px -35px
+  background-position: -365px -35px;
 }
 
 .flags-TZS:before {
-  background-position: -405px -35px
+  background-position: -405px -35px;
 }
 
 .flags-TJS:before {
-  background-position: -445px -35px
+  background-position: -445px -35px;
 }
 
 .flags-TWD:before {
-  background-position: -5px -65px
+  background-position: -5px -65px;
 }
 
 .flags-SYP:before {
-  background-position: -45px -65px
+  background-position: -45px -65px;
 }
 
 .flags-CHF:before {
-  background-position: -85px -65px
+  background-position: -85px -65px;
 }
 
 .flags-SEK:before {
-  background-position: -125px -65px
+  background-position: -125px -65px;
 }
 
 .flags-SZL:before {
-  background-position: -165px -65px
+  background-position: -165px -65px;
 }
 
 .flags-SRD:before {
-  background-position: -205px -65px
+  background-position: -205px -65px;
 }
 
 .flags-SDG:before {
-  background-position: -245px -65px
+  background-position: -245px -65px;
 }
 
 .flags-LKR:before {
-  background-position: -285px -65px
+  background-position: -285px -65px;
 }
 
 .flags-ZAR:before {
-  background-position: -405px -65px
+  background-position: -405px -65px;
 }
 
 .flags-SOS:before {
-  background-position: -445px -65px
+  background-position: -445px -65px;
 }
 
 .flags-SBD:before {
-  background-position: -5px -95px
+  background-position: -5px -95px;
 }
 
 .flags-SLL:before {
-  background-position: -165px -95px
+  background-position: -165px -95px;
 }
 
 .flags-SCR:before {
-  background-position: -205px -95px
+  background-position: -205px -95px;
 }
 
 .flags-RSD:before {
-  background-position: -245px -95px
+  background-position: -245px -95px;
 }
 
 .flags-SAR:before {
-  background-position: -325px -95px
+  background-position: -325px -95px;
 }
 
 .flags-STD:before {
-  background-position: -365px -95px
+  background-position: -365px -95px;
 }
 
 .flags-WST:before {
-  background-position: -445px -95px
+  background-position: -445px -95px;
 }
 
 .flags-XCD:before {
-  background-position: -5px -125px
+  background-position: -5px -125px;
 }
 
 .flags-RWF:before {
-  background-position: -125px -125px
+  background-position: -125px -125px;
 }
 
 .flags-RUB:before {
-  background-position: -165px -125px
+  background-position: -165px -125px;
 }
 
 .flags-RON:before {
-  background-position: -205px -125px
+  background-position: -205px -125px;
 }
 
 .flags-QAR:before {
-  background-position: -245px -125px
+  background-position: -245px -125px;
 }
 
 .flags-PLN:before {
-  background-position: -325px -125px
+  background-position: -325px -125px;
 }
 
 .flags-PHP:before {
-  background-position: -365px -125px
+  background-position: -365px -125px;
 }
 
 .flags-PEN:before {
-  background-position: -405px -125px
+  background-position: -405px -125px;
 }
 
 .flags-PYG:before {
-  background-position: -445px -125px
+  background-position: -445px -125px;
 }
 
 .flags-PGK:before {
-  background-position: -5px -155px
+  background-position: -5px -155px;
 }
 
 .flags-PAB:before {
-  background-position: -45px -155px
+  background-position: -45px -155px;
 }
 
 .flags-PKR:before {
-  background-position: -125px -155px
+  background-position: -125px -155px;
 }
 
 .flags-OMR:before {
-  background-position: -165px -155px
+  background-position: -165px -155px;
 }
 
 .flags-NOK:before {
-  background-position: -205px -155px
+  background-position: -205px -155px;
 }
 
 .flags-NGN:before {
-  background-position: -245px -155px
+  background-position: -245px -155px;
 }
 
 .flags-NIO:before {
-  background-position: -325px -155px
+  background-position: -325px -155px;
 }
 
 .flags-NPR:before {
-  background-position: -445px -155px
+  background-position: -445px -155px;
 }
 
 .flags-NAD:before {
-  background-position: -45px -185px
+  background-position: -45px -185px;
 }
 
 .flags-MMK:before {
-  background-position: -85px -185px
+  background-position: -85px -185px;
 }
 
 .flags-MZN:before {
-  background-position: -125px -185px
+  background-position: -125px -185px;
 }
 
 .flags-MAD:before {
-  background-position: -165px -185px
+  background-position: -165px -185px;
 }
 
 .flags-MNT:before {
-  background-position: -245px -185px
+  background-position: -245px -185px;
 }
 
 .flags-MDL:before {
-  background-position: -325px -185px
+  background-position: -325px -185px;
 }
 
 .flags-MXN:before {
-  background-position: -405px -185px
+  background-position: -405px -185px;
 }
 
 .flags-MUR:before {
-  background-position: -445px -185px
+  background-position: -445px -185px;
 }
 
 .flags-MRO:before {
-  background-position: -5px -215px
+  background-position: -5px -215px;
 }
 
 .flags-MVR:before {
-  background-position: -165px -215px
+  background-position: -165px -215px;
 }
 
 .flags-MYR:before {
-  background-position: -205px -215px
+  background-position: -205px -215px;
 }
 
 .flags-MWK:before {
-  background-position: -245px -215px
+  background-position: -245px -215px;
 }
 
 .flags-MGA:before {
-  background-position: -285px -215px
+  background-position: -285px -215px;
 }
 
 .flags-MKD:before {
-  background-position: -325px -215px
+  background-position: -325px -215px;
 }
 
 .flags-LTL:before {
-  background-position: -405px -215px
+  background-position: -405px -215px;
 }
 
 .flags-LYD:before {
-  background-position: -5px -245px
+  background-position: -5px -245px;
 }
 
 .flags-LRD:before {
-  background-position: -45px -245px
+  background-position: -45px -245px;
 }
 
 .flags-LSL:before {
-  background-position: -85px -245px
+  background-position: -85px -245px;
 }
 
 .flags-LBP:before {
-  background-position: -125px -245px
+  background-position: -125px -245px;
 }
 
 .flags-LVL:before {
-  background-position: -165px -245px
+  background-position: -165px -245px;
 }
 
 .flags-LAK:before {
-  background-position: -205px -245px
+  background-position: -205px -245px;
 }
 
 .flags-KGS:before {
-  background-position: -245px -245px
+  background-position: -245px -245px;
 }
 
 .flags-KWD:before {
-  background-position: -285px -245px
+  background-position: -285px -245px;
 }
 
 .flags-KRW:before {
-  background-position: -365px -245px
+  background-position: -365px -245px;
 }
 
 .flags-KPW:before {
-  background-position: -405px -245px
+  background-position: -405px -245px;
 }
 
 .flags-KES:before {
-  background-position: -5px -275px
+  background-position: -5px -275px;
 }
 
 .flags-KZT:before {
-  background-position: -45px -275px
+  background-position: -45px -275px;
 }
 
 .flags-JOD:before {
-  background-position: -85px -275px
+  background-position: -85px -275px;
 }
 
 .flags-JMD:before {
-  background-position: -165px -275px
+  background-position: -165px -275px;
 }
 
 .flags-ILS:before {
-  background-position: -245px -275px
+  background-position: -245px -275px;
 }
 
 .flags-IQD:before {
-  background-position: -325px -275px
+  background-position: -325px -275px;
 }
 
 .flags-IRR:before {
-  background-position: -365px -275px
+  background-position: -365px -275px;
 }
 
 .flags-IDR:before {
-  background-position: -405px -275px
+  background-position: -405px -275px;
 }
 
 .flags-INR:before {
-  background-position: -445px -275px
+  background-position: -445px -275px;
 }
 
 .flags-ISK:before {
-  background-position: -5px -305px
+  background-position: -5px -305px;
 }
 
 .flags-HUF:before {
-  background-position: -45px -305px
+  background-position: -45px -305px;
 }
 
 .flags-HNL:before {
-  background-position: -85px -305px
+  background-position: -85px -305px;
 }
 
 .flags-HTG:before {
-  background-position: -125px -305px
+  background-position: -125px -305px;
 }
 
 .flags-GYD:before {
-  background-position: -165px -305px
+  background-position: -165px -305px;
 }
 
 .flags-GNF:before {
-  background-position: -205px -305px
+  background-position: -205px -305px;
 }
 
 .flags-GTQ:before {
-  background-position: -285px -305px
+  background-position: -285px -305px;
 }
 
 .flags-GHS:before {
-  background-position: -405px -305px
+  background-position: -405px -305px;
 }
 
 .flags-GEL:before {
-  background-position: -5px -335px
+  background-position: -5px -335px;
 }
 
 .flags-GMD:before {
-  background-position: -45px -335px
+  background-position: -45px -335px;
 }
 
 .flags-XAF:before {
-  background-position: -85px -335px
+  background-position: -85px -335px;
 }
 
 .flags-FJD:before {
-  background-position: -205px -335px
+  background-position: -205px -335px;
 }
 
 .flags-ETB:before {
-  background-position: -245px -335px
+  background-position: -245px -335px;
 }
 
 .flags-ERN:before {
-  background-position: -325px -335px
+  background-position: -325px -335px;
 }
 
 .flags-SVC:before {
-  background-position: -405px -335px
+  background-position: -405px -335px;
 }
 
 .flags-EGP:before {
-  background-position: -445px -335px
+  background-position: -445px -335px;
 }
 
 .flags-DOP:before {
-  background-position: -85px -365px
+  background-position: -85px -365px;
 }
 
 .flags-DJF:before {
-  background-position: -165px -365px
+  background-position: -165px -365px;
 }
 
 .flags-CZK:before {
-  background-position: -245px -365px
+  background-position: -245px -365px;
 }
 
 .flags-CUC:before,
 .flags-CUP:before {
-  background-position: -325px -365px
+  background-position: -325px -365px;
 }
 
 .flags-HRK:before {
-  background-position: -365px -365px
+  background-position: -365px -365px;
 }
 
 .flags-CRC:before {
-  background-position: -445px -365px
+  background-position: -445px -365px;
 }
 
 .flags-CDF:before {
-  background-position: -45px -395px
+  background-position: -45px -395px;
 }
 
 .flags-KMF:before {
-  background-position: -85px -395px
+  background-position: -85px -395px;
 }
 
 .flags-COP:before {
-  background-position: -125px -395px
+  background-position: -125px -395px;
 }
 
 .flags-CNY:before {
-  background-position: -165px -395px
+  background-position: -165px -395px;
 }
 
 .flags-CLP:before {
-  background-position: -205px -395px
+  background-position: -205px -395px;
 }
 
 .flags-CVE:before {
-  background-position: -325px -395px
+  background-position: -325px -395px;
 }
 
 .flags-KHR:before {
-  background-position: -445px -395px
+  background-position: -445px -395px;
 }
 
 .flags-BIF:before {
-  background-position: -5px -425px
+  background-position: -5px -425px;
 }
 
 .flags-XOF:before {
-  background-position: -45px -425px
+  background-position: -45px -425px;
 }
 
 .flags-BGN:before {
-  background-position: -85px -425px
+  background-position: -85px -425px;
 }
 
 .flags-BND:before {
-  background-position: -125px -425px
+  background-position: -125px -425px;
 }
 
 .flags-BRL:before {
-  background-position: -165px -425px
+  background-position: -165px -425px;
 }
 
 .flags-BWP:before {
-  background-position: -205px -425px
+  background-position: -205px -425px;
 }
 
 .flags-BAM:before {
-  background-position: -245px -425px
+  background-position: -245px -425px;
 }
 
 .flags-BOB:before {
-  background-position: -285px -425px
+  background-position: -285px -425px;
 }
 
 .flags-BTN:before {
-  background-position: -325px -425px
+  background-position: -325px -425px;
 }
 
 .flags-BZD:before {
-  background-position: -405px -425px
+  background-position: -405px -425px;
 }
 
 .flags-BYN:before {
-  background-position: -5px -455px
+  background-position: -5px -455px;
 }
 
 .flags-BBD:before {
-  background-position: -45px -455px
+  background-position: -45px -455px;
 }
 
 .flags-BDT:before {
-  background-position: -85px -455px
+  background-position: -85px -455px;
 }
 
 .flags-BHD:before {
-  background-position: -125px -455px
+  background-position: -125px -455px;
 }
 
 .flags-BSD:before {
-  background-position: -165px -455px
+  background-position: -165px -455px;
 }
 
 .flags-AZN:before {
-  background-position: -205px -455px
+  background-position: -205px -455px;
 }
 
 .flags-AMD:before {
-  background-position: -325px -455px
+  background-position: -325px -455px;
 }
 
 .flags-ARS:before {
-  background-position: -365px -455px
+  background-position: -365px -455px;
 }
 
 .flags-DZD:before {
-  background-position: -5px -485px
+  background-position: -5px -485px;
 }
 
 .flags-ALL:before {
-  background-position: -45px -485px
+  background-position: -45px -485px;
 }
 
 .flags-AFN:before {
-  background-position: -85px -485px
+  background-position: -85px -485px;
 }
 
 .flags-BMD:before {
-  background-position: -125px -485px
+  background-position: -125px -485px;
 }
 
 .flags-XPT:before {
-  background-position: -205px -485px
+  background-position: -205px -485px;
 }
 
 .flags-XAU:before {
-  background-position: -245px -485px
+  background-position: -245px -485px;
 }
 
 .flags-XAG:before {
-  background-position: -285px -485px
+  background-position: -285px -485px;
 }
 
 .flags-XPF:before {
-  background-position: -325px -485px
+  background-position: -325px -485px;
 }
 
 .flags-AWG:before {
-  background-position: -405px -485px
+  background-position: -405px -485px;
 }
 
 .flags-AOA:before {
-  background-position: -445px -485px
+  background-position: -445px -485px;
 }
 
 .flags-SHP:before {
-  background-position: -485px -5px
+  background-position: -485px -5px;
 }
 
 .flags-MOP:before {
-  background-position: -485px -35px
+  background-position: -485px -35px;
 }
 
 .flags-JEP:before {
-  background-position: -485px -65px
+  background-position: -485px -65px;
 }
 
 .flags-IMP:before {
-  background-position: -485px -95px
+  background-position: -485px -95px;
 }
 
 .flags-IMF:before {
-  background-position: -485px -125px
+  background-position: -485px -125px;
 }
 
 .flags-GGP:before {
-  background-position: -485px -185px
+  background-position: -485px -185px;
 }
 
 .flags-GIP:before {
-  background-position: -485px -215px
+  background-position: -485px -215px;
 }
 
 .flags-FKP:before {
-  background-position: -485px -245px
+  background-position: -485px -245px;
 }
 
 .flags-ANG:before {
-  background-position: -485px -275px
+  background-position: -485px -275px;
 }
 
 .flags-KYD:before {
-  background-position: -485px -305px
+  background-position: -485px -305px;
 }
 
 .flags-BTC:before {
-  background-position: -485px -335px
+  background-position: -485px -335px;
 }
 
-[data-flags=sm].lazyloaded:before {
+[data-flags="sm"].lazyloaded:before {
   background-image: url(currency_flags_sm.png?19041994);
   width: 15px;
-  height: 10px
+  height: 10px;
 }
 
-[data-flags=sm].flags-ZMW:before {
-  background-position: -15px 0
+[data-flags="sm"].flags-ZMW:before {
+  background-position: -15px 0;
 }
 
-[data-flags=sm].flags-YER:before {
-  background-position: -30px 0
+[data-flags="sm"].flags-YER:before {
+  background-position: -30px 0;
 }
 
-[data-flags=sm].flags-VND:before {
-  background-position: -45px 0
+[data-flags="sm"].flags-VND:before {
+  background-position: -45px 0;
 }
 
-[data-flags=sm].flags-VEF:before {
-  background-position: -60px 0
+[data-flags="sm"].flags-VEF:before {
+  background-position: -60px 0;
 }
 
-[data-flags=sm].flags-VUV:before {
-  background-position: -90px 0
+[data-flags="sm"].flags-VUV:before {
+  background-position: -90px 0;
 }
 
-[data-flags=sm].flags-UZS:before {
-  background-position: -105px 0
+[data-flags="sm"].flags-UZS:before {
+  background-position: -105px 0;
 }
 
-[data-flags=sm].flags-UYU:before {
-  background-position: -120px 0
+[data-flags="sm"].flags-UYU:before {
+  background-position: -120px 0;
 }
 
-[data-flags=sm].flags-GBP:before {
-  background-position: -150px 0
+[data-flags="sm"].flags-GBP:before {
+  background-position: -150px 0;
 }
 
-[data-flags=sm].flags-AED:before {
-  background-position: -165px 0
+[data-flags="sm"].flags-AED:before {
+  background-position: -165px 0;
 }
 
-[data-flags=sm].flags-UAH:before {
-  background-position: 0 -10px
+[data-flags="sm"].flags-UAH:before {
+  background-position: 0 -10px;
 }
 
-[data-flags=sm].flags-UGX:before {
-  background-position: -15px -10px
+[data-flags="sm"].flags-UGX:before {
+  background-position: -15px -10px;
 }
 
-[data-flags=sm].flags-TMT:before {
-  background-position: -45px -10px
+[data-flags="sm"].flags-TMT:before {
+  background-position: -45px -10px;
 }
 
-[data-flags=sm].flags-TRY:before {
-  background-position: -60px -10px
+[data-flags="sm"].flags-TRY:before {
+  background-position: -60px -10px;
 }
 
-[data-flags=sm].flags-TND:before {
-  background-position: -75px -10px
+[data-flags="sm"].flags-TND:before {
+  background-position: -75px -10px;
 }
 
-[data-flags=sm].flags-TTD:before {
-  background-position: -90px -10px
+[data-flags="sm"].flags-TTD:before {
+  background-position: -90px -10px;
 }
 
-[data-flags=sm].flags-TOP:before {
-  background-position: -105px -10px
+[data-flags="sm"].flags-TOP:before {
+  background-position: -105px -10px;
 }
 
-[data-flags=sm].flags-Togo:before {
-  background-position: -120px -10px
+[data-flags="sm"].flags-Togo:before {
+  background-position: -120px -10px;
 }
 
-[data-flags=sm].flags-THB:before {
-  background-position: -135px -10px
+[data-flags="sm"].flags-THB:before {
+  background-position: -135px -10px;
 }
 
-[data-flags=sm].flags-TZS:before {
-  background-position: -150px -10px
+[data-flags="sm"].flags-TZS:before {
+  background-position: -150px -10px;
 }
 
-[data-flags=sm].flags-TJS:before {
-  background-position: -165px -10px
+[data-flags="sm"].flags-TJS:before {
+  background-position: -165px -10px;
 }
 
-[data-flags=sm].flags-TWD:before {
-  background-position: 0 -20px
+[data-flags="sm"].flags-TWD:before {
+  background-position: 0 -20px;
 }
 
-[data-flags=sm].flags-SYP:before {
-  background-position: -15px -20px
+[data-flags="sm"].flags-SYP:before {
+  background-position: -15px -20px;
 }
 
-[data-flags=sm].flags-CHF:before {
-  background-position: -30px -20px
+[data-flags="sm"].flags-CHF:before {
+  background-position: -30px -20px;
 }
 
-[data-flags=sm].flags-SEK:before {
-  background-position: -45px -20px
+[data-flags="sm"].flags-SEK:before {
+  background-position: -45px -20px;
 }
 
-[data-flags=sm].flags-SZL:before {
-  background-position: -60px -20px
+[data-flags="sm"].flags-SZL:before {
+  background-position: -60px -20px;
 }
 
-[data-flags=sm].flags-SRD:before {
-  background-position: -75px -20px
+[data-flags="sm"].flags-SRD:before {
+  background-position: -75px -20px;
 }
 
-[data-flags=sm].flags-SDG:before {
-  background-position: -90px -20px
+[data-flags="sm"].flags-SDG:before {
+  background-position: -90px -20px;
 }
 
-[data-flags=sm].flags-LKR:before {
-  background-position: -105px -20px
+[data-flags="sm"].flags-LKR:before {
+  background-position: -105px -20px;
 }
 
-[data-flags=sm].flags-ZAR:before {
-  background-position: -150px -20px
+[data-flags="sm"].flags-ZAR:before {
+  background-position: -150px -20px;
 }
 
-[data-flags=sm].flags-SOS:before {
-  background-position: -165px -20px
+[data-flags="sm"].flags-SOS:before {
+  background-position: -165px -20px;
 }
 
-[data-flags=sm].flags-SBD:before {
-  background-position: 0 -30px
+[data-flags="sm"].flags-SBD:before {
+  background-position: 0 -30px;
 }
 
-[data-flags=sm].flags-SGD:before {
-  background-position: -45px -30px
+[data-flags="sm"].flags-SGD:before {
+  background-position: -45px -30px;
 }
 
-[data-flags=sm].flags-SLL:before {
-  background-position: -60px -30px
+[data-flags="sm"].flags-SLL:before {
+  background-position: -60px -30px;
 }
 
-[data-flags=sm].flags-SCR:before {
-  background-position: -75px -30px
+[data-flags="sm"].flags-SCR:before {
+  background-position: -75px -30px;
 }
 
-[data-flags=sm].flags-RSD:before {
-  background-position: -90px -30px
+[data-flags="sm"].flags-RSD:before {
+  background-position: -90px -30px;
 }
 
-[data-flags=sm].flags-SAR:before {
-  background-position: -120px -30px
+[data-flags="sm"].flags-SAR:before {
+  background-position: -120px -30px;
 }
 
-[data-flags=sm].flags-STD:before {
-  background-position: -135px -30px
+[data-flags="sm"].flags-STD:before {
+  background-position: -135px -30px;
 }
 
-[data-flags=sm].flags-WST:before {
-  background-position: -165px -30px
+[data-flags="sm"].flags-WST:before {
+  background-position: -165px -30px;
 }
 
-[data-flags=sm].flags-XCD:before {
-  background-position: 0 -40px
+[data-flags="sm"].flags-XCD:before {
+  background-position: 0 -40px;
 }
 
-[data-flags=sm].flags-RWF:before {
-  background-position: -45px -40px
+[data-flags="sm"].flags-RWF:before {
+  background-position: -45px -40px;
 }
 
-[data-flags=sm].flags-RUB:before {
-  background-position: -60px -40px
+[data-flags="sm"].flags-RUB:before {
+  background-position: -60px -40px;
 }
 
-[data-flags=sm].flags-RON:before {
-  background-position: -75px -40px
+[data-flags="sm"].flags-RON:before {
+  background-position: -75px -40px;
 }
 
-[data-flags=sm].flags-QAR:before {
-  background-position: -90px -40px
+[data-flags="sm"].flags-QAR:before {
+  background-position: -90px -40px;
 }
 
-[data-flags=sm].flags-PLN:before {
-  background-position: -120px -40px
+[data-flags="sm"].flags-PLN:before {
+  background-position: -120px -40px;
 }
 
-[data-flags=sm].flags-PHP:before {
-  background-position: -135px -40px
+[data-flags="sm"].flags-PHP:before {
+  background-position: -135px -40px;
 }
 
-[data-flags=sm].flags-PEN:before {
-  background-position: -150px -40px
+[data-flags="sm"].flags-PEN:before {
+  background-position: -150px -40px;
 }
 
-[data-flags=sm].flags-PYG:before {
-  background-position: -165px -40px
+[data-flags="sm"].flags-PYG:before {
+  background-position: -165px -40px;
 }
 
-[data-flags=sm].flags-PGK:before {
-  background-position: 0 -50px
+[data-flags="sm"].flags-PGK:before {
+  background-position: 0 -50px;
 }
 
-[data-flags=sm].flags-PAB:before {
-  background-position: -15px -50px
+[data-flags="sm"].flags-PAB:before {
+  background-position: -15px -50px;
 }
 
-[data-flags=sm].flags-PKR:before {
-  background-position: -45px -50px
+[data-flags="sm"].flags-PKR:before {
+  background-position: -45px -50px;
 }
 
-[data-flags=sm].flags-OMR:before {
-  background-position: -60px -50px
+[data-flags="sm"].flags-OMR:before {
+  background-position: -60px -50px;
 }
 
-[data-flags=sm].flags-NOK:before {
-  background-position: -75px -50px
+[data-flags="sm"].flags-NOK:before {
+  background-position: -75px -50px;
 }
 
-[data-flags=sm].flags-NGN:before {
-  background-position: -90px -50px
+[data-flags="sm"].flags-NGN:before {
+  background-position: -90px -50px;
 }
 
-[data-flags=sm].flags-NIO:before {
-  background-position: -120px -50px
+[data-flags="sm"].flags-NIO:before {
+  background-position: -120px -50px;
 }
 
-[data-flags=sm].flags-NZD:before {
-  background-position: -135px -50px
+[data-flags="sm"].flags-NZD:before {
+  background-position: -135px -50px;
 }
 
-[data-flags=sm].flags-NPR:before {
-  background-position: -165px -50px
+[data-flags="sm"].flags-NPR:before {
+  background-position: -165px -50px;
 }
 
-[data-flags=sm].flags-NAD:before {
-  background-position: -15px -60px
+[data-flags="sm"].flags-NAD:before {
+  background-position: -15px -60px;
 }
 
-[data-flags=sm].flags-MMK:before {
-  background-position: -30px -60px
+[data-flags="sm"].flags-MMK:before {
+  background-position: -30px -60px;
 }
 
-[data-flags=sm].flags-MZN:before {
-  background-position: -45px -60px
+[data-flags="sm"].flags-MZN:before {
+  background-position: -45px -60px;
 }
 
-[data-flags=sm].flags-MAD:before {
-  background-position: -60px -60px
+[data-flags="sm"].flags-MAD:before {
+  background-position: -60px -60px;
 }
 
-[data-flags=sm].flags-MNT:before {
-  background-position: -90px -60px
+[data-flags="sm"].flags-MNT:before {
+  background-position: -90px -60px;
 }
 
-[data-flags=sm].flags-MDL:before {
-  background-position: -120px -60px
+[data-flags="sm"].flags-MDL:before {
+  background-position: -120px -60px;
 }
 
-[data-flags=sm].flags-MXN:before {
-  background-position: -150px -60px
+[data-flags="sm"].flags-MXN:before {
+  background-position: -150px -60px;
 }
 
-[data-flags=sm].flags-MUR:before {
-  background-position: -165px -60px
+[data-flags="sm"].flags-MUR:before {
+  background-position: -165px -60px;
 }
 
-[data-flags=sm].flags-MRO:before {
-  background-position: 0 -70px
+[data-flags="sm"].flags-MRO:before {
+  background-position: 0 -70px;
 }
 
-[data-flags=sm].flags-MVR:before {
-  background-position: -60px -70px
+[data-flags="sm"].flags-MVR:before {
+  background-position: -60px -70px;
 }
 
-[data-flags=sm].flags-MYR:before {
-  background-position: -75px -70px
+[data-flags="sm"].flags-MYR:before {
+  background-position: -75px -70px;
 }
 
-[data-flags=sm].flags-MWK:before {
-  background-position: -90px -70px
+[data-flags="sm"].flags-MWK:before {
+  background-position: -90px -70px;
 }
 
-[data-flags=sm].flags-MGA:before {
-  background-position: -105px -70px
+[data-flags="sm"].flags-MGA:before {
+  background-position: -105px -70px;
 }
 
-[data-flags=sm].flags-MKD:before {
-  background-position: -120px -70px
+[data-flags="sm"].flags-MKD:before {
+  background-position: -120px -70px;
 }
 
-[data-flags=sm].flags-LTL:before {
-  background-position: -150px -70px
+[data-flags="sm"].flags-LTL:before {
+  background-position: -150px -70px;
 }
 
-[data-flags=sm].flags-LYD:before {
-  background-position: 0 -80px
+[data-flags="sm"].flags-LYD:before {
+  background-position: 0 -80px;
 }
 
-[data-flags=sm].flags-LRD:before {
-  background-position: -15px -80px
+[data-flags="sm"].flags-LRD:before {
+  background-position: -15px -80px;
 }
 
-[data-flags=sm].flags-LSL:before {
-  background-position: -30px -80px
+[data-flags="sm"].flags-LSL:before {
+  background-position: -30px -80px;
 }
 
-[data-flags=sm].flags-LBP:before {
-  background-position: -45px -80px
+[data-flags="sm"].flags-LBP:before {
+  background-position: -45px -80px;
 }
 
-[data-flags=sm].flags-LVL:before {
-  background-position: -60px -80px
+[data-flags="sm"].flags-LVL:before {
+  background-position: -60px -80px;
 }
 
-[data-flags=sm].flags-LAK:before {
-  background-position: -75px -80px
+[data-flags="sm"].flags-LAK:before {
+  background-position: -75px -80px;
 }
 
-[data-flags=sm].flags-KGS:before {
-  background-position: -90px -80px
+[data-flags="sm"].flags-KGS:before {
+  background-position: -90px -80px;
 }
 
-[data-flags=sm].flags-KWD:before {
-  background-position: -105px -80px
+[data-flags="sm"].flags-KWD:before {
+  background-position: -105px -80px;
 }
 
-[data-flags=sm].flags-KRW:before {
-  background-position: -135px -80px
+[data-flags="sm"].flags-KRW:before {
+  background-position: -135px -80px;
 }
 
-[data-flags=sm].flags-KPW:before {
-  background-position: -150px -80px
+[data-flags="sm"].flags-KPW:before {
+  background-position: -150px -80px;
 }
 
-[data-flags=sm].flags-KES:before {
-  background-position: 0 -90px
+[data-flags="sm"].flags-KES:before {
+  background-position: 0 -90px;
 }
 
-[data-flags=sm].flags-KZT:before {
-  background-position: -15px -90px
+[data-flags="sm"].flags-KZT:before {
+  background-position: -15px -90px;
 }
 
-[data-flags=sm].flags-JOD:before {
-  background-position: -30px -90px
+[data-flags="sm"].flags-JOD:before {
+  background-position: -30px -90px;
 }
 
-[data-flags=sm].flags-JPY:before {
-  background-position: -45px -90px
+[data-flags="sm"].flags-JPY:before {
+  background-position: -45px -90px;
 }
 
-[data-flags=sm].flags-JMD:before {
-  background-position: -60px -90px
+[data-flags="sm"].flags-JMD:before {
+  background-position: -60px -90px;
 }
 
-[data-flags=sm].flags-ILS:before {
-  background-position: -90px -90px
+[data-flags="sm"].flags-ILS:before {
+  background-position: -90px -90px;
 }
 
-[data-flags=sm].flags-IQD:before {
-  background-position: -120px -90px
+[data-flags="sm"].flags-IQD:before {
+  background-position: -120px -90px;
 }
 
-[data-flags=sm].flags-IRR:before {
-  background-position: -135px -90px
+[data-flags="sm"].flags-IRR:before {
+  background-position: -135px -90px;
 }
 
-[data-flags=sm].flags-IDR:before {
-  background-position: -150px -90px
+[data-flags="sm"].flags-IDR:before {
+  background-position: -150px -90px;
 }
 
-[data-flags=sm].flags-INR:before {
-  background-position: -165px -90px
+[data-flags="sm"].flags-INR:before {
+  background-position: -165px -90px;
 }
 
-[data-flags=sm].flags-ISK:before {
-  background-position: 0 -100px
+[data-flags="sm"].flags-ISK:before {
+  background-position: 0 -100px;
 }
 
-[data-flags=sm].flags-HUF:before {
-  background-position: -15px -100px
+[data-flags="sm"].flags-HUF:before {
+  background-position: -15px -100px;
 }
 
-[data-flags=sm].flags-HNL:before {
-  background-position: -30px -100px
+[data-flags="sm"].flags-HNL:before {
+  background-position: -30px -100px;
 }
 
-[data-flags=sm].flags-HTG:before {
-  background-position: -45px -100px
+[data-flags="sm"].flags-HTG:before {
+  background-position: -45px -100px;
 }
 
-[data-flags=sm].flags-GYD:before {
-  background-position: -60px -100px
+[data-flags="sm"].flags-GYD:before {
+  background-position: -60px -100px;
 }
 
-[data-flags=sm].flags-GNF:before {
-  background-position: -75px -100px
+[data-flags="sm"].flags-GNF:before {
+  background-position: -75px -100px;
 }
 
-[data-flags=sm].flags-GTQ:before {
-  background-position: -105px -100px
+[data-flags="sm"].flags-GTQ:before {
+  background-position: -105px -100px;
 }
 
-[data-flags=sm].flags-GHS:before {
-  background-position: -150px -100px
+[data-flags="sm"].flags-GHS:before {
+  background-position: -150px -100px;
 }
 
-[data-flags=sm].flags-GEL:before {
-  background-position: 0 -110px
+[data-flags="sm"].flags-GEL:before {
+  background-position: 0 -110px;
 }
 
-[data-flags=sm].flags-GMD:before {
-  background-position: -15px -110px
+[data-flags="sm"].flags-GMD:before {
+  background-position: -15px -110px;
 }
 
-[data-flags=sm].flags-XAF:before {
-  background-position: -30px -110px
+[data-flags="sm"].flags-XAF:before {
+  background-position: -30px -110px;
 }
 
-[data-flags=sm].flags-FJD:before {
-  background-position: -75px -110px
+[data-flags="sm"].flags-FJD:before {
+  background-position: -75px -110px;
 }
 
-[data-flags=sm].flags-ETB:before {
-  background-position: -90px -110px
+[data-flags="sm"].flags-ETB:before {
+  background-position: -90px -110px;
 }
 
-[data-flags=sm].flags-ERN:before {
-  background-position: -120px -110px
+[data-flags="sm"].flags-ERN:before {
+  background-position: -120px -110px;
 }
 
-[data-flags=sm].flags-SVC:before {
-  background-position: -150px -110px
+[data-flags="sm"].flags-SVC:before {
+  background-position: -150px -110px;
 }
 
-[data-flags=sm].flags-EGP:before {
-  background-position: -165px -110px
+[data-flags="sm"].flags-EGP:before {
+  background-position: -165px -110px;
 }
 
-[data-flags=sm].flags-DOP:before {
-  background-position: -30px -120px
+[data-flags="sm"].flags-DOP:before {
+  background-position: -30px -120px;
 }
 
-[data-flags=sm].flags-DJF:before {
-  background-position: -60px -120px
+[data-flags="sm"].flags-DJF:before {
+  background-position: -60px -120px;
 }
 
-[data-flags=sm].flags-DKK:before {
-  background-position: -75px -120px
+[data-flags="sm"].flags-DKK:before {
+  background-position: -75px -120px;
 }
 
-[data-flags=sm].flags-CZK:before {
-  background-position: -90px -120px
+[data-flags="sm"].flags-CZK:before {
+  background-position: -90px -120px;
 }
 
-[data-flags=sm].flags-CUC:before,
-[data-flags=sm].flags-CUP:before {
-  background-position: -120px -120px
+[data-flags="sm"].flags-CUC:before,
+[data-flags="sm"].flags-CUP:before {
+  background-position: -120px -120px;
 }
 
-[data-flags=sm].flags-HRK:before {
-  background-position: -135px -120px
+[data-flags="sm"].flags-HRK:before {
+  background-position: -135px -120px;
 }
 
-[data-flags=sm].flags-CRC:before {
-  background-position: -165px -120px
+[data-flags="sm"].flags-CRC:before {
+  background-position: -165px -120px;
 }
 
-[data-flags=sm].flags-CDF:before {
-  background-position: -15px -130px
+[data-flags="sm"].flags-CDF:before {
+  background-position: -15px -130px;
 }
 
-[data-flags=sm].flags-KMF:before {
-  background-position: -30px -130px
+[data-flags="sm"].flags-KMF:before {
+  background-position: -30px -130px;
 }
 
-[data-flags=sm].flags-COP:before {
-  background-position: -45px -130px
+[data-flags="sm"].flags-COP:before {
+  background-position: -45px -130px;
 }
 
-[data-flags=sm].flags-CNY:before {
-  background-position: -60px -130px
+[data-flags="sm"].flags-CNY:before {
+  background-position: -60px -130px;
 }
 
-[data-flags=sm].flags-CLP:before {
-  background-position: -75px -130px
+[data-flags="sm"].flags-CLP:before {
+  background-position: -75px -130px;
 }
 
-[data-flags=sm].flags-CVE:before {
-  background-position: -120px -130px
+[data-flags="sm"].flags-CVE:before {
+  background-position: -120px -130px;
 }
 
-[data-flags=sm].flags-CAD:before {
-  background-position: -135px -130px
+[data-flags="sm"].flags-CAD:before {
+  background-position: -135px -130px;
 }
 
-[data-flags=sm].flags-KHR:before {
-  background-position: -165px -130px
+[data-flags="sm"].flags-KHR:before {
+  background-position: -165px -130px;
 }
 
-[data-flags=sm].flags-BIF:before {
-  background-position: 0 -140px
+[data-flags="sm"].flags-BIF:before {
+  background-position: 0 -140px;
 }
 
-[data-flags=sm].flags-XOF:before {
-  background-position: -15px -140px
+[data-flags="sm"].flags-XOF:before {
+  background-position: -15px -140px;
 }
 
-[data-flags=sm].flags-BGN:before {
-  background-position: -30px -140px
+[data-flags="sm"].flags-BGN:before {
+  background-position: -30px -140px;
 }
 
-[data-flags=sm].flags-BND:before {
-  background-position: -45px -140px
+[data-flags="sm"].flags-BND:before {
+  background-position: -45px -140px;
 }
 
-[data-flags=sm].flags-BRL:before {
-  background-position: -60px -140px
+[data-flags="sm"].flags-BRL:before {
+  background-position: -60px -140px;
 }
 
-[data-flags=sm].flags-BWP:before {
-  background-position: -75px -140px
+[data-flags="sm"].flags-BWP:before {
+  background-position: -75px -140px;
 }
 
-[data-flags=sm].flags-BAM:before {
-  background-position: -90px -140px
+[data-flags="sm"].flags-BAM:before {
+  background-position: -90px -140px;
 }
 
-[data-flags=sm].flags-BOB:before {
-  background-position: -105px -140px
+[data-flags="sm"].flags-BOB:before {
+  background-position: -105px -140px;
 }
 
-[data-flags=sm].flags-BTN:before {
-  background-position: -120px -140px
+[data-flags="sm"].flags-BTN:before {
+  background-position: -120px -140px;
 }
 
-[data-flags=sm].flags-BZD:before {
-  background-position: -150px -140px
+[data-flags="sm"].flags-BZD:before {
+  background-position: -150px -140px;
 }
 
-[data-flags=sm].flags-BYN:before {
-  background-position: 0 -150px
+[data-flags="sm"].flags-BYN:before {
+  background-position: 0 -150px;
 }
 
-[data-flags=sm].flags-BBD:before {
-  background-position: -15px -150px
+[data-flags="sm"].flags-BBD:before {
+  background-position: -15px -150px;
 }
 
-[data-flags=sm].flags-BDT:before {
-  background-position: -30px -150px
+[data-flags="sm"].flags-BDT:before {
+  background-position: -30px -150px;
 }
 
-[data-flags=sm].flags-BHD:before {
-  background-position: -45px -150px
+[data-flags="sm"].flags-BHD:before {
+  background-position: -45px -150px;
 }
 
-[data-flags=sm].flags-BSD:before {
-  background-position: -60px -150px
+[data-flags="sm"].flags-BSD:before {
+  background-position: -60px -150px;
 }
 
-[data-flags=sm].flags-AZN:before {
-  background-position: -75px -150px
+[data-flags="sm"].flags-AZN:before {
+  background-position: -75px -150px;
 }
 
-[data-flags=sm].flags-AUD:before {
-  background-position: -105px -150px
+[data-flags="sm"].flags-AUD:before {
+  background-position: -105px -150px;
 }
 
-[data-flags=sm].flags-AMD:before {
-  background-position: -120px -150px
+[data-flags="sm"].flags-AMD:before {
+  background-position: -120px -150px;
 }
 
-[data-flags=sm].flags-ARS:before {
-  background-position: -135px -150px
+[data-flags="sm"].flags-ARS:before {
+  background-position: -135px -150px;
 }
 
-[data-flags=sm].flags-DZD:before {
-  background-position: 0 -160px
+[data-flags="sm"].flags-DZD:before {
+  background-position: 0 -160px;
 }
 
-[data-flags=sm].flags-ALL:before {
-  background-position: -15px -160px
+[data-flags="sm"].flags-ALL:before {
+  background-position: -15px -160px;
 }
 
-[data-flags=sm].flags-AFN:before {
-  background-position: -30px -160px
+[data-flags="sm"].flags-AFN:before {
+  background-position: -30px -160px;
 }
 
-[data-flags=sm].flags-BMD:before {
-  background-position: -45px -160px
+[data-flags="sm"].flags-BMD:before {
+  background-position: -45px -160px;
 }
 
-[data-flags=sm].flags-EUR:before {
-  background-position: -60px -160px
+[data-flags="sm"].flags-EUR:before {
+  background-position: -60px -160px;
 }
 
-[data-flags=sm].flags-USD:before {
-  background-position: -75px -160px
+[data-flags="sm"].flags-USD:before {
+  background-position: -75px -160px;
 }
 
-[data-flags=sm].flags-XPT:before {
-  background-position: -90px -160px
+[data-flags="sm"].flags-XPT:before {
+  background-position: -90px -160px;
 }
 
-[data-flags=sm].flags-XAU:before {
-  background-position: -105px -160px
+[data-flags="sm"].flags-XAU:before {
+  background-position: -105px -160px;
 }
 
-[data-flags=sm].flags-XAG:before {
-  background-position: -120px -160px
+[data-flags="sm"].flags-XAG:before {
+  background-position: -120px -160px;
 }
 
-[data-flags=sm].flags-XPF:before {
-  background-position: -135px -160px
+[data-flags="sm"].flags-XPF:before {
+  background-position: -135px -160px;
 }
 
-[data-flags=sm].flags-AWG:before {
-  background-position: -165px -160px
+[data-flags="sm"].flags-AWG:before {
+  background-position: -165px -160px;
 }
 
-[data-flags=sm].flags-AOA:before {
-  background-position: 0 -170px
+[data-flags="sm"].flags-AOA:before {
+  background-position: 0 -170px;
 }
 
-[data-flags=sm].flags-SHP:before {
-  background-position: -15px -170px
+[data-flags="sm"].flags-SHP:before {
+  background-position: -15px -170px;
 }
 
-[data-flags=sm].flags-MOP:before {
-  background-position: -30px -170px
+[data-flags="sm"].flags-MOP:before {
+  background-position: -30px -170px;
 }
 
-[data-flags=sm].flags-JEP:before {
-  background-position: -45px -170px
+[data-flags="sm"].flags-JEP:before {
+  background-position: -45px -170px;
 }
 
-[data-flags=sm].flags-IMP:before {
-  background-position: -60px -170px
+[data-flags="sm"].flags-IMP:before {
+  background-position: -60px -170px;
 }
 
-[data-flags=sm].flags-IMF:before {
-  background-position: -75px -170px
+[data-flags="sm"].flags-IMF:before {
+  background-position: -75px -170px;
 }
 
-[data-flags=sm].flags-HKD:before {
-  background-position: -90px -170px
+[data-flags="sm"].flags-HKD:before {
+  background-position: -90px -170px;
 }
 
-[data-flags=sm].flags-GGP:before {
-  background-position: -105px -170px
+[data-flags="sm"].flags-GGP:before {
+  background-position: -105px -170px;
 }
 
-[data-flags=sm].flags-GIP:before {
-  background-position: -120px -170px
+[data-flags="sm"].flags-GIP:before {
+  background-position: -120px -170px;
 }
 
-[data-flags=sm].flags-FKP:before {
-  background-position: -135px -170px
+[data-flags="sm"].flags-FKP:before {
+  background-position: -135px -170px;
 }
 
-[data-flags=sm].flags-ANG:before {
-  background-position: -150px -170px
+[data-flags="sm"].flags-ANG:before {
+  background-position: -150px -170px;
 }
 
-[data-flags=sm].flags-KYD:before {
-  background-position: -165px -170px
+[data-flags="sm"].flags-KYD:before {
+  background-position: -165px -170px;
 }
 
-[data-flags=sm].flags-BTC:before {
-  background-position: -180px 0
+[data-flags="sm"].flags-BTC:before {
+  background-position: -180px 0;
 }
 
 .flags-AUD:before,
@@ -1308,64 +1308,64 @@
 .flags-VND:before {
   background-position: center !important;
   width: 30px !important;
-  height: 22.5px !important
+  height: 22.5px !important;
 }
 
-[data-flags=sm].flags-AUD:before,
-[data-flags=sm].flags-CAD:before,
-[data-flags=sm].flags-DKK:before,
-[data-flags=sm].flags-EUR:before,
-[data-flags=sm].flags-GBP:before,
-[data-flags=sm].flags-HKD:before,
-[data-flags=sm].flags-JPY:before,
-[data-flags=sm].flags-NZD:before,
-[data-flags=sm].flags-SGD:before,
-[data-flags=sm].flags-USD:before,
-[data-flags=sm].flags-VND:before {
+[data-flags="sm"].flags-AUD:before,
+[data-flags="sm"].flags-CAD:before,
+[data-flags="sm"].flags-DKK:before,
+[data-flags="sm"].flags-EUR:before,
+[data-flags="sm"].flags-GBP:before,
+[data-flags="sm"].flags-HKD:before,
+[data-flags="sm"].flags-JPY:before,
+[data-flags="sm"].flags-NZD:before,
+[data-flags="sm"].flags-SGD:before,
+[data-flags="sm"].flags-USD:before,
+[data-flags="sm"].flags-VND:before {
   width: 16px !important;
-  height: 12px !important
+  height: 12px !important;
 }
 
 .flags-VND.lazyloaded:before {
-  background-image: url(vnd.svg?19041994)
+  background-image: url(vnd.svg?19041994);
 }
 
 .flags-USD.lazyloaded:before {
-  background-image: url(usd.svg?19041994)
+  background-image: url(usd.svg?19041994);
 }
 
 .flags-AUD.lazyloaded:before {
-  background-image: url(aud.svg?19041994)
+  background-image: url(aud.svg?19041994);
 }
 
 .flags-GBP.lazyloaded:before {
-  background-image: url(gbp.svg?19041994)
+  background-image: url(gbp.svg?19041994);
 }
 
 .flags-CAD.lazyloaded:before {
-  background-image: url(cad.svg?19041994)
+  background-image: url(cad.svg?19041994);
 }
 
 .flags-DKK.lazyloaded:before {
-  background-image: url(dkk.svg?19041994)
+  background-image: url(dkk.svg?19041994);
 }
 
 .flags-EUR.lazyloaded:before {
-  background-image: url(eur.svg?19041994)
+  background-image: url(eur.svg?19041994);
 }
 
 .flags-HKD.lazyloaded:before {
-  background-image: url(hkd.svg?19041994)
+  background-image: url(hkd.svg?19041994);
 }
 
 .flags-JPY.lazyloaded:before {
-  background-image: url(jpy.svg?19041994)
+  background-image: url(jpy.svg?19041994);
 }
 
 .flags-NZD.lazyloaded:before {
-  background-image: url(nzd.svg?19041994)
+  background-image: url(nzd.svg?19041994);
 }
 
 .flags-SGD.lazyloaded:before {
-  background-image: url(sgd.svg?19041994)
+  background-image: url(sgd.svg?19041994);
 }

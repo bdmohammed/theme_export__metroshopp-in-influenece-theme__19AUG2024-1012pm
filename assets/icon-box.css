@@ -1,110 +1,110 @@
 .iconbox-inner {
-    padding: var(--pd-content);
-    border-radius: 10px;
-    transition: .3s all linear;
-    background-color: var(--cl-box);
+  padding: var(--pd-content);
+  border-radius: 10px;
+  transition: 0.3s all linear;
+  background-color: var(--cl-box);
 }
 
 .iconbox-shadow__true .iconbox-inner {
-    box-shadow: 7px 7px 12.22px 0.78px rgb(85 123 208 / 7%);
+  box-shadow: 7px 7px 12.22px 0.78px rgb(85 123 208 / 0.07);
 }
 
 .iconbox-border__true .iconbox-inner {
-    border: 1px solid var(--cl-border);
+  border: 1px solid var(--cl-border);
 }
 
 .iconbox-head {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .iconbox-icon {
-    margin-right: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--cl-icon);
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cl-icon);
 }
 
 .iconbox-icon__right {
-    flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
 .iconbox-icon__right .iconbox-icon {
-    margin-right: 0;
+  margin-right: 0;
 }
 
 .iconbox-icon__right .iconbox-heading {
-    margin-right: 30px;
+  margin-right: 30px;
 }
 
 .iconbox-icon__awesome i {
-    font-size: var(--icon-awesome-fs);
+  font-size: var(--icon-awesome-fs);
 }
 
 .iconbox-icon__svg svg {
-    fill: currentColor;
-    width: var(--w-image-svg);
-    height: auto;
+  fill: currentColor;
+  width: var(--w-image-svg);
+  height: auto;
 }
 
 .iconbox-icon__image img {
-    width: 100%;
-    max-width: var(--width);
-    display: inline-block;
-    vertical-align: top;
+  width: 100%;
+  max-width: var(--width);
+  display: inline-block;
+  vertical-align: top;
 }
 
 .iconbox-icon__image[style*="--width:0px"] img {
-    max-width: var(--max-width);
+  max-width: var(--max-width);
 }
 
 .iconbox-heading {
-    font-size: 36px;
-    font-weight: 600;
-    line-height: 36px;
-    color: var(--cl-head);
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 36px;
+  color: var(--cl-head);
 }
 
 .iconbox-des p {
-    font-size: 20px;
-    color: var(--cl-des);
-    line-height: 24px;
-    font-weight: 400;
-    margin-bottom: 0px;
+  font-size: 20px;
+  color: var(--cl-des);
+  line-height: 24px;
+  font-weight: 400;
+  margin-bottom: 0;
 }
 
 .iconbox-inner:hover {
-    background-color: var(--cl-box-hover);
+  background-color: var(--cl-box-hover);
 }
 
 .iconbox-inner.iconbox-border__true:hover {
-    border-color: var(--cl-box-hover);
+  border-color: var(--cl-box-hover);
 }
 
 .iconbox-inner:hover .iconbox-icon__awesome i,
 .iconbox-inner:hover .iconbox-icon__svg svg,
 .iconbox-inner:hover .iconbox-heading,
 .iconbox-inner:hover .iconbox-des p {
-    color: var(--cl-content-hover);
+  color: var(--cl-content-hover);
 }
 
 .iconbox-item:hover .iconbox-icon {
-    -webkit-animation: bounceIn .5s ease;
-    -o-animation: bounceIn .5s ease;
-    animation: bounceIn .5s ease;
+  -webkit-animation: bounceIn 0.5s ease;
+  -o-animation: bounceIn 0.5s ease;
+  animation: bounceIn 0.5s ease;
 }
 
 .flickity-enabled .iconbox-item__wrapper {
-    padding-top: 10px;
-    padding-bottom: 30px;
+  padding-top: 10px;
+  padding-bottom: 30px;
 }
 
-@media (max-width:767px) {
-    .iconbox-icon__svg svg {
-        width: var(--w-image-svg-mb);
-    }
+@media (max-width: 767px) {
+  .iconbox-icon__svg svg {
+    width: var(--w-image-svg-mb);
+  }
 
-    .iconbox-des p {
-        font-size: 14px;
-    }
+  .iconbox-des p {
+    font-size: 14px;
+  }
 }

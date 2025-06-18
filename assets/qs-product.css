@@ -1,30 +1,30 @@
 .opening-qs .modal__inner {
-  max-width: 400px
+  max-width: 400px;
 }
 
 .product-quick-shop .product-form__buttons a {
-  display: none
+  display: none;
 }
 
 .product-quick-shop {
-  padding: 30px
+  padding: 30px;
 }
 
 .product-quick-shop .d-flex.flex-wrap {
-  flex-wrap: wrap !important
+  flex-wrap: wrap !important;
 }
 
 .product-quick-shop .product-form__submit {
-  width: 100%
+  width: 100%;
 }
 
 .is-no-pick__true .product-price {
-  display: none
+  display: none;
 }
 
 .price__unit {
   margin-top: 5px;
-  font-size: calc(var(--price-size) * .75)
+  font-size: calc(var(--price-size) * 0.75);
 }
 
 .product-qs__title {
@@ -35,39 +35,39 @@
   font-family: var(--title-family);
   text-transform: var(--title-style);
   letter-spacing: var(--title-spacing);
-  line-height: var(--title-line-height)
+  line-height: var(--title-line-height);
 }
 
-.product-qs__title>a {
-  color: inherit
+.product-qs__title > a {
+  color: inherit;
 }
 
-.product-qs__title>a:hover {
-  color: var(--title-color-hover)
+.product-qs__title > a:hover {
+  color: var(--title-color-hover);
 }
 
 .product-qs__price {
-  margin-bottom: 20px
+  margin-bottom: 20px;
 }
 
 .product-quick-shop .product-price {
   font-size: var(--price-size);
   line-height: var(--price-size);
   font-weight: var(--price-weight);
-  color: var(--price-color)
+  color: var(--price-color);
 }
 
 .product-quick-shop .product-price ins {
   color: var(--price-sale-color);
   margin-left: 6px;
-  display: inline-block
+  display: inline-block;
 }
 
 .product-quick-shop .product-price .labrl-sale span {
   font-size: 14px;
   color: var(--ts-highlight-color);
   text-transform: uppercase;
-  display: inline-block
+  display: inline-block;
 }
 
 .product-quick-shop .product-price span.txt-sale:not(.dn) {
@@ -79,33 +79,43 @@
   background-color: var(--sale-badge-background);
   font-size: 12px;
   position: relative;
-  top: -3px
+  top: -3px;
 }
 
 .product-quick-shop .product-form__buttons {
   display: inline-flex;
   flex-direction: column;
-  width: 100%
+  width: 100%;
 }
 
 .product-quick-shop .product-form__buttons .quantity-wrapper,
 .product-quick-shop .product-form__buttons .pr-wishlist,
 .product-quick-shop .product-form__buttons .pr-compare,
 .product-quick-shop .product-form__buttons .product-form__submit,
-.product-quick-shop .product-form__buttons .shopify-payment-button__button--unbranded,
-.product-quick-shop .product-form__buttons .shopify-payment-button__button--branded,
-.product-quick-shop .product-form__buttons .shopify-payment-button__more-options,
+.product-quick-shop
+  .product-form__buttons
+  .shopify-payment-button__button--unbranded,
+.product-quick-shop
+  .product-form__buttons
+  .shopify-payment-button__button--branded,
+.product-quick-shop
+  .product-form__buttons
+  .shopify-payment-button__more-options,
 .product-quick-shop .product-form__buttons .pr__notify-stock {
-  border-radius: var(--pr-btn-round) !important
+  border-radius: var(--pr-btn-round) !important;
 }
 
-.product-quick-shop .product-form__buttons .shopify-payment-button__more-options {
-  color: var(--secondary-color) !important
-}
-
-.product-quick-shop .product-form__buttons .shopify-payment-button__more-options:hover {
+.product-quick-shop
+  .product-form__buttons
+  .shopify-payment-button__more-options {
   color: var(--secondary-color) !important;
-  background-color: #f5f5f5
+}
+
+.product-quick-shop
+  .product-form__buttons
+  .shopify-payment-button__more-options:hover {
+  color: var(--secondary-color) !important;
+  background-color: #f5f5f5;
 }
 
 .product-quick-shop .product-form__buttons .quantity-wrapper {
@@ -117,24 +127,27 @@
   display: inline-block;
   position: relative;
   margin-right: 10px;
-  order: 1
+  order: 1;
 }
 
 .product-quick-shop .product-form__buttons .pr__notify-stock,
 .product-quick-shop .product-form__buttons .shopify-payment-button {
-  margin-top: 15px
+  margin-top: 15px;
 }
 
-.product-quick-shop .product-form__buttons .quantity-wrapper input.quantity-input[type=number] {
+.product-quick-shop
+  .product-form__buttons
+  .quantity-wrapper
+  input.quantity-input[type="number"] {
   width: 35px;
-  border: 0px;
+  border: 0;
   height: 38px;
-  background: 0px 0px;
+  background: 0 0;
   padding: 0;
   font-weight: 600;
   font-size: 16px;
   color: var(--secondary-color);
-  text-align: center
+  text-align: center;
 }
 
 .product-quick-shop .product-form__buttons .quantity-wrapper button {
@@ -147,31 +160,31 @@
   line-height: 40px;
   border: 0;
   background: 0 0;
-  color: var(--secondary-color)
+  color: var(--secondary-color);
 }
 
 .product-quick-shop .product-form__buttons .quantity-wrapper button:hover {
   color: var(--accent-color);
   border: 0;
-  background: 0 0
+  background: 0 0;
 }
 
 .product-quick-shop .product-form__buttons .quantity-wrapper button svg {
   width: 12px;
   height: 12px;
-  stroke-width: 2
+  stroke-width: 2;
 }
 
 .product-quick-shop .product-form__buttons .quantity-wrapper .is--minus {
   left: 0;
   text-align: left;
-  padding-left: 15px
+  padding-left: 15px;
 }
 
 .product-quick-shop .product-form__buttons .quantity-wrapper .is--plus {
   right: 0;
   text-align: right;
-  padding-right: 15px
+  padding-right: 15px;
 }
 
 .product-quick-shop .product-form__buttons .pr-wishlist,
@@ -185,66 +198,66 @@
   color: var(--wishlist-color);
   border: 1px solid var(--wishlist-color);
   text-align: center;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
   display: flex;
   align-items: center;
   justify-content: center;
-  order: 3
+  order: 3;
 }
 
 .product-quick-shop .product-form__buttons .pr-wishlist:hover {
   color: var(--wishlist-hover-color);
-  border-color: var(--wishlist-hover-color)
+  border-color: var(--wishlist-hover-color);
 }
 
 .product-quick-shop .product-form__buttons .pr-wishlist.is--added {
   color: var(--wishlist-active-color);
-  border-color: var(--wishlist-active-color)
+  border-color: var(--wishlist-active-color);
 }
 
 .product-quick-shop .product-form__buttons .pr-compare {
   color: var(--compare-color);
-  border: 1px solid var(--compare-color)
+  border: 1px solid var(--compare-color);
 }
 
 .product-quick-shop .product-form__buttons .pr-compare:hover {
   color: var(--compare-hover-color);
-  border-color: var(--compare-hover-color)
+  border-color: var(--compare-hover-color);
 }
 
 .product-quick-shop .product-form__buttons .pr-compare.is--added {
   color: var(--compare-active-color);
-  border-color: var(--compare-active-color)
+  border-color: var(--compare-active-color);
 }
 
 .product-quick-shop .product-form__buttons .pr-wishlist .svg-pr-icon,
 .product-quick-shop .product-form__buttons .pr-compare .svg-pr-icon {
   display: flex;
   align-items: center;
-  justify-content: center
+  justify-content: center;
 }
 
 .product-quick-shop .product-form__buttons .pr-wishlist .svg-pr-icon svg,
 .product-quick-shop .product-form__buttons .pr-compare .svg-pr-icon svg {
   width: 18px;
   height: 18px;
-  fill: currentColor
+  fill: currentColor;
 }
 
 .product-quick-shop .product-form__buttons .pr-wishlist .text-pr,
 .product-quick-shop .product-form__buttons .pr-compare .text-pr {
   display: none;
-  color: var(--secondary-color)
+  color: var(--secondary-color);
 }
 
 .product-quick-shop .product_meta .collections-wrapper a,
 .product-quick-shop .product_meta .product__policies a {
-  color: var(--secondary-color)
+  color: var(--secondary-color);
 }
 
 .product-quick-shop .product_meta .collections-wrapper a:hover,
 .product-quick-shop .product_meta .product__policies a:hover {
-  color: var(--accent-color)
+  color: var(--accent-color);
 }
 
 .product-quick-shop .product-form__buttons .product-form__submit {
@@ -254,47 +267,53 @@
   padding: 5px 25px;
   cursor: pointer;
   margin-top: 20px;
-  order: 4
+  order: 4;
 }
 
 .product-quick-shop .product-form__buttons .product-form__submit svg.btn-icon {
   width: 16px;
   height: 16px;
   margin-left: 0;
-  margin-right: 8px
+  margin-right: 8px;
 }
 
-.product-quick-shop .product-form__buttons .product-form__submit.btn-style-bordered {
+.product-quick-shop
+  .product-form__buttons
+  .product-form__submit.btn-style-bordered {
   border-top: 0;
   border-left: 0;
   border-right: 0;
-  border-radius: 0 !important
+  border-radius: 0 !important;
 }
 
 .product-quick-shop .is-btn-atc-txt-1 .product-form__submit,
 .product-quick-shop .is-btn-ck-txt-1 .shopify-payment-button__button--unbranded,
 .product-quick-shop .is-btn-ck-txt-1 .pr__notify-stock {
-  text-transform: lowercase
+  text-transform: lowercase;
 }
 
 .product-quick-shop .is-btn-atc-txt-2 .product-form__submit,
 .product-quick-shop .is-btn-ck-txt-2 .shopify-payment-button__button--unbranded,
 .product-quick-shop .is-btn-ck-txt-2 .pr__notify-stock {
-  text-transform: capitalize
+  text-transform: capitalize;
 }
 
 .product-quick-shop .is-btn-atc-txt-3 .product-form__submit,
 .product-quick-shop .is-btn-ck-txt-3 .shopify-payment-button__button--unbranded,
 .product-quick-shop .is-btn-ck-txt-3 .pr__notify-stock {
-  text-transform: uppercase
+  text-transform: uppercase;
 }
 
-.product-quick-shop .product-form__buttons .shopify-payment-button__button--hidden {
-  display: none
+.product-quick-shop
+  .product-form__buttons
+  .shopify-payment-button__button--hidden {
+  display: none;
 }
 
 .product-quick-shop .product-form__buttons .pr__notify-stock,
-.product-quick-shop .product-form__buttons .shopify-payment-button__button--unbranded {
+.product-quick-shop
+  .product-form__buttons
+  .shopify-payment-button__button--unbranded {
   font-size: 14px;
   font-weight: 600;
   min-height: 40px;
@@ -302,49 +321,78 @@
   cursor: pointer;
   color: var(--ts-light-color);
   background-color: var(--secondary-color);
-  transition: .3s
+  transition: 0.3s;
 }
 
 .product-quick-shop .pr__notify-stock.btn-color-light,
-.product-quick-shop .payment-button.btn-color-light .shopify-payment-button__button--unbranded {
+.product-quick-shop
+  .payment-button.btn-color-light
+  .shopify-payment-button__button--unbranded {
   color: var(--ts-dark-color);
-  background-color: var(--ts-light-color)
+  background-color: var(--ts-light-color);
 }
 
 .product-quick-shop .pr__notify-stock.btn-color-dark,
-.product-quick-shop .payment-button.btn-color-dark .shopify-payment-button__button--unbranded {
+.product-quick-shop
+  .payment-button.btn-color-dark
+  .shopify-payment-button__button--unbranded {
   color: var(--ts-light-color);
-  background-color: var(--ts-dark-color)
+  background-color: var(--ts-dark-color);
 }
 
 .product-quick-shop .pr__notify-stock.btn-color-primary,
-.product-quick-shop .payment-button.btn-color-primary .shopify-payment-button__button--unbranded {
+.product-quick-shop
+  .payment-button.btn-color-primary
+  .shopify-payment-button__button--unbranded {
   color: var(--ts-light-color);
-  background-color: var(--accent-color)
+  background-color: var(--accent-color);
 }
 
 .product-quick-shop .pr__notify-stock.btn-color-custom1,
 .product-quick-shop .pr__notify-stock.btn-color-custom2,
-.product-quick-shop .payment-button.btn-color-custom1 .shopify-payment-button__button--unbranded,
-.product-quick-shop .payment-button.btn-color-custom2 .shopify-payment-button__button--unbranded {
+.product-quick-shop
+  .payment-button.btn-color-custom1
+  .shopify-payment-button__button--unbranded,
+.product-quick-shop
+  .payment-button.btn-color-custom2
+  .shopify-payment-button__button--unbranded {
   color: var(--btn-color);
-  background-color: var(--btn-background)
+  background-color: var(--btn-background);
 }
 
-.product-quick-shop .product-form__buttons .pr__notify-stock:hover:not([disabled]),
+.product-quick-shop
+  .product-form__buttons
+  .pr__notify-stock:hover:not([disabled]),
 .product-quick-shop .product-form__buttons .pr__notify-stock:hover,
-.product-quick-shop .product-form__buttons.shopify-payment-button__button--unbranded:hover:not([disabled]),
-.product-quick-shop .product-form__buttons .shopify-payment-button__button--unbranded:hover {
+.product-quick-shop
+  .product-form__buttons.shopify-payment-button__button--unbranded:hover:not(
+    [disabled]
+  ),
+.product-quick-shop
+  .product-form__buttons
+  .shopify-payment-button__button--unbranded:hover {
   color: var(--ts-light-color);
-  background-color: var(--accent-color-hover)
+  background-color: var(--accent-color-hover);
 }
 
-.product-quick-shop .product-form__buttons .pr__notify-stock.btn-color-custom1:hover,
-.product-quick-shop .product-form__buttons .pr__notify-stock.btn-color-custom2:hover,
-.product-quick-shop .payment-button.btn-color-custom1 .shopify-payment-button__button--unbranded:hover,
-.product-quick-shop .payment-button.btn-color-custom1 .shopify-payment-button__button--unbranded:hover:not([disabled]),
-.product-quick-shop .payment-button.btn-color-custom2 .shopify-payment-button__button--unbranded:hover,
-.product-quick-shop .payment-button.btn-color-custom2 .shopify-payment-button__button--unbranded:hover:not([disabled]) {
+.product-quick-shop
+  .product-form__buttons
+  .pr__notify-stock.btn-color-custom1:hover,
+.product-quick-shop
+  .product-form__buttons
+  .pr__notify-stock.btn-color-custom2:hover,
+.product-quick-shop
+  .payment-button.btn-color-custom1
+  .shopify-payment-button__button--unbranded:hover,
+.product-quick-shop
+  .payment-button.btn-color-custom1
+  .shopify-payment-button__button--unbranded:hover:not([disabled]),
+.product-quick-shop
+  .payment-button.btn-color-custom2
+  .shopify-payment-button__button--unbranded:hover,
+.product-quick-shop
+  .payment-button.btn-color-custom2
+  .shopify-payment-button__button--unbranded:hover:not([disabled]) {
   color: var(--btn-color-hover);
-  background-color: var(--btn-background-hover)
+  background-color: var(--btn-background-hover);
 }

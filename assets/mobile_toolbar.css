@@ -35,7 +35,7 @@
   }
 }
 
-.toolbar-label-true .toolbar-item>a {
+.toolbar-label-true .toolbar-item > a {
   position: relative;
   padding-bottom: 15px;
 }
@@ -52,12 +52,11 @@
 .toolbar {
   background-color: var(--bg-color);
   z-index: 190;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: auto hidden;
   -webkit-overflow-scrolling: touch;
   padding: 5px;
   height: 55px;
-  box-shadow: 0 0 9px rgb(0 0 0 / 12%);
+  box-shadow: 0 0 9px rgb(0 0 0 / 0.12);
   transform: translate3d(0, 104%, 0);
   -webkit-transform: translate3d(0, 104%, 0);
   transition: transform 0.25s;
@@ -69,12 +68,11 @@
 }
 
 .toolbar .toolbar-item {
-  -ms-flex: 1 0 20%;
   flex: 1 0 20%;
   position: relative;
 }
 
-.toolbar-item>a {
+.toolbar-item > a {
   padding-right: 10px;
   padding-left: 10px;
   display: flex;
@@ -111,7 +109,7 @@
   background-color: var(--count-bg-color);
 }
 
-.toolbar-item>a:hover {
+.toolbar-item > a:hover {
   color: var(--accent-color);
 }
 

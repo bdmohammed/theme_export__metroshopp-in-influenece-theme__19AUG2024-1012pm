@@ -1,72 +1,72 @@
 .empty_page {
-	padding: 140px 0;
+  padding: 140px 0;
 }
 
-.empty_page>svg {
-	color: var(--text-cl);
-	opacity: 0.2;
-	fill: currentColor;
-	margin-bottom: 25px;
-	width: 100px;
-	height: 100px;
+.empty_page > svg {
+  color: var(--text-cl);
+  opacity: 0.2;
+  fill: currentColor;
+  margin-bottom: 25px;
+  width: 100px;
+  height: 100px;
 }
 
 .empty_page .empty_title {
-	font-size: 30px;
-	margin-bottom: 22px;
-	line-height: 40px;
-	color: var(--heading-color);
+  font-size: 30px;
+  margin-bottom: 22px;
+  line-height: 40px;
+  color: var(--heading-color);
 }
 
 .empty_page .empty_des {
-	font-size: 14px;
-	color: var(--text-color);
-	line-height: 24px;
-	margin-bottom: 32px;
+  font-size: 14px;
+  color: var(--text-color);
+  line-height: 24px;
+  margin-bottom: 32px;
 }
 
-.collection-header>.layout-switch-wrapper {
-	justify-content: center;
+.collection-header > .layout-switch-wrapper {
+  justify-content: center;
 }
 
-@media(min-width: 767px) {
-	.empty_page {
-		padding: 200px 0;
-	}
+@media (min-width: 767px) {
+  .empty_page {
+    padding: 200px 0;
+  }
 
-	.empty_page>svg {
-		width: 150px;
-		height: 150px;
-	}
+  .empty_page > svg {
+    width: 150px;
+    height: 150px;
+  }
 }
 
 .products-wishlist .product .pr-wishlist,
 .css_for_wis_app_true .products-wishlist .product .pr-wishlist {
-	opacity: 1;
-	visibility: visible;
-	transform: none;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
 }
 
 .products-wishlist .pr-style1 .pr-wishlist,
 .css_for_wis_app_true .products-wishlist .pr-style1 .pr-wishlist {
-	width: 30px;
-	height: 30px;
-	display: -ms-flexbox;
-	display: flex;
-	-ms-flex-align: center;
-	align-items: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	border-radius: 30px;
-	color: var(--pr-wishlist-color2);
-	background-color: var(--pr-wishlist-color);
-	opacity: 1;
-	visibility: visible;
-	box-shadow: 1px 1px 1px rgb(var(--border-color), 0.02);
+  width: 30px;
+  height: 30px;
+  display: flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 30px;
+  color: var(--pr-wishlist-color2);
+  background-color: var(--pr-wishlist-color);
+  opacity: 1;
+  visibility: visible;
+  box-shadow: 1px 1px 1px rgb(var(--border-color), 0.02);
 }
 
 .products-wishlist .pr-style1 .pr-wishlist:hover,
 .css_for_wis_app_true .products-wishlist .pr-style1 .pr-wishlist:hover {
-	color: var(--pr-wishlist-color2-hover);
-	background-color: var(--pr-wishlist-color-hover);
+  color: var(--pr-wishlist-color2-hover);
+  background-color: var(--pr-wishlist-color-hover);
 }

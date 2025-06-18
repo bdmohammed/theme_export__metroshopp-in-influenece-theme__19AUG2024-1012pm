@@ -147,7 +147,7 @@ button.pickup-availability-information__button,
   margin-bottom: 0;
 }
 
-.pickup-availability-list__item+.pickup-availability-list__item {
+.pickup-availability-list__item + .pickup-availability-list__item {
   margin-top: 15px;
   padding-top: 15px;
   border-top: 1px solid var(--border-color);

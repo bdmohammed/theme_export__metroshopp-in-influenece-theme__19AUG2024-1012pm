@@ -1,16 +1,14 @@
 .section-inner {
   margin-top: var(--mg-top);
-  margin-inline-end: var(--mg-right);
+  margin-inline: var(--mg-left) var(--mg-right);
   margin-bottom: var(--mg-bottom);
-  margin-inline-start: var(--mg-left);
   padding-top: var(--pd-top);
-  padding-inline-end: var(--pd-right);
+  padding-inline: var(--pd-left) var(--pd-right);
   padding-bottom: var(--pd-bottom);
-  padding-inline-start: var(--pd-left);
 }
 
 .section-inner:not(.se-container),
-.container>.container-inner {
+.container > .container-inner {
   background: var(--bg-gradient);
   background-color: var(--bg-color);
 }
@@ -24,16 +22,14 @@
 
 .section-inner .se-container {
   padding-top: 0;
-  padding-inline-end: 0;
+  padding-inline: 0 0;
   padding-bottom: 0;
-  padding-inline-start: 0;
 }
 
 .section-inner .se-container .container-inner {
   padding-top: var(--pd-top);
-  padding-inline-end: var(--pd-right);
+  padding-inline: var(--pd-left) var(--pd-right);
   padding-bottom: var(--pd-bottom);
-  padding-inline-start: var(--pd-left);
 }
 
 .custom-line {
@@ -48,32 +44,26 @@
   vertical-align: top;
 }
 
-@media(max-width: 1024px) {
-
+@media (max-width: 1024px) {
   .section-inner .se-container .container-inner,
   .section-inner {
     margin-top: var(--mgtb-top);
-    margin-inline-end: var(--mgtb-right);
+    margin-inline: var(--mgtb-left) var(--mgtb-right);
     margin-bottom: var(--mgtb-bottom);
-    margin-inline-start: var(--mgtb-left);
     padding-top: var(--pdtb-top);
-    padding-inline-end: var(--pdtb-right);
+    padding-inline: var(--pdtb-left) var(--pdtb-right);
     padding-bottom: var(--pdtb-bottom);
-    padding-inline-start: var(--pdtb-left);
   }
 }
 
-@media(max-width: 767px) {
-
+@media (max-width: 767px) {
   .section-inner .se-container .container-inner,
   .section-inner {
     margin-top: var(--mgmb-top);
-    margin-inline-end: var(--mgmb-right);
+    margin-inline: var(--mgmb-left) var(--mgmb-right);
     margin-bottom: var(--mgmb-bottom);
-    margin-inline-start: var(--mgmb-left);
     padding-top: var(--pdmb-top);
-    padding-inline-end: var(--pdmb-right);
+    padding-inline: var(--pdmb-left) var(--pdmb-right);
     padding-bottom: var(--pdmb-bottom);
-    padding-inline-start: var(--pdmb-left);
   }
 }

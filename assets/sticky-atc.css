@@ -1,195 +1,196 @@
 .sticky-atc {
-    padding: 10px;
-    background-color: var(--ts-light-color);
-    z-index: 190;
-    box-shadow: 0 0 9px rgb(0 0 0 / 12%);
-    transition: -webkit-transform .25s ease;
-    transition: transform .25s ease;
-    transition: transform .25s ease, -webkit-transform .25s ease;
-    -webkit-transform: translate3d(0, 105%, 0);
-    transform: translate3d(0, 105%, 0);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  padding: 10px;
+  background-color: var(--ts-light-color);
+  z-index: 190;
+  box-shadow: 0 0 9px rgb(0 0 0 / 0.12);
+  transition: -webkit-transform 0.25s ease;
+  transition: transform 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    -webkit-transform 0.25s ease;
+  -webkit-transform: translate3d(0, 105%, 0);
+  transform: translate3d(0, 105%, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .sticky-atc.is--shown {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    display: none;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  display: none;
 }
 
 .sticky-atc__product,
 .sticky-atc__btns {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .sticky-atc__img {
-    width: 65px;
-    height: 65px;
-    min-width: 65px;
-    border-radius: 50%;
-    overflow: hidden;
+  width: 65px;
+  height: 65px;
+  min-width: 65px;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .sticky-atc__img img {
-    position: absolute;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .sticky-atc__title {
-    color: var(--secondary-color);
-    font-weight: 500;
+  color: var(--secondary-color);
+  font-weight: 500;
 }
 
 .sticky-atc__price {
-    color: var(--secondary-price-color);
+  color: var(--secondary-price-color);
 }
 
 .sticky-atc__price ins {
-    color: var(--primary-price-color);
+  color: var(--primary-price-color);
 }
 
 .sticky-atc__infos {
-    margin: 0 15px;
+  margin: 0 15px;
 }
 
 .sticky-atc__qty {
-    min-width: 120px;
-    width: 120px;
-    height: 40px;
-    border: 1px solid var(--border-color);
-    text-align: center;
-    display: inline-block;
-    position: relative;
-    margin-right: 15px;
-    border-radius: 40px;
+  min-width: 120px;
+  width: 120px;
+  height: 40px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  margin-right: 15px;
+  border-radius: 40px;
 }
 
 .sticky-atc__qty button {
-    position: absolute;
-    display: block;
-    padding: 0;
-    top: 0;
-    width: 30px;
-    height: 40px;
-    line-height: 40px;
-    border: 0;
-    background: 0 0;
-    color: var(--secondary-color);
+  position: absolute;
+  display: block;
+  padding: 0;
+  top: 0;
+  width: 30px;
+  height: 40px;
+  line-height: 40px;
+  border: 0;
+  background: 0 0;
+  color: var(--secondary-color);
 }
 
 .sticky-atc__qty .is--minus {
-    left: 0;
-    text-align: left;
-    padding-left: 15px;
+  left: 0;
+  text-align: left;
+  padding-left: 15px;
 }
 
 .sticky-atc__qty .is--plus {
-    right: 0;
-    text-align: right;
-    padding-right: 15px;
+  right: 0;
+  text-align: right;
+  padding-right: 15px;
 }
 
-.sticky-atc__qty input.quantity-input[type=number] {
-    width: 35px;
-    border: 0px;
-    height: 38px;
-    background: 0px 0px;
-    padding: 0;
-    font-weight: 600;
-    font-size: 16px;
-    color: var(--secondary-color);
-    text-align: center;
+.sticky-atc__qty input.quantity-input[type="number"] {
+  width: 35px;
+  border: 0;
+  height: 38px;
+  background: 0 0;
+  padding: 0;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--secondary-color);
+  text-align: center;
 }
 
 .sticky-atc__qty button svg {
-    width: 12px;
-    height: 12px;
-    stroke-width: 2;
+  width: 12px;
+  height: 12px;
+  stroke-width: 2;
 }
 
 .sticky-atc__atc {
-    font-size: 14px;
-    font-weight: 600;
-    min-height: 40px;
-    padding: 5px 25px;
-    min-width: 160px;
-    text-transform: uppercase;
-    border-radius: 40px;
-    background-color: var(--accent-color);
-    color: var(--ts-light-color);
+  font-size: 14px;
+  font-weight: 600;
+  min-height: 40px;
+  padding: 5px 25px;
+  min-width: 160px;
+  text-transform: uppercase;
+  border-radius: 40px;
+  background-color: var(--accent-color);
+  color: var(--ts-light-color);
 }
 
 .sticky-atc__atc:hover {
-    background-color: var(--accent-color-darken);
+  background-color: var(--accent-color-darken);
 }
 
 .sticky-atc__v-title {
-    margin: 0 30px;
-    color: var(--secondary-color);
-    text-decoration: underline;
+  margin: 0 30px;
+  color: var(--secondary-color);
+  text-decoration: underline;
 }
 
 [data-sticky-v-title] {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .sticky-atc__v-title:empty {
-    margin: 0 44px;
+  margin: 0 44px;
 }
 
 button.sticky-atc__atc[disabled="disabled"],
 button.sticky-atc__atc[aria-disabled="true"] {
-    opacity: .5;
-    animation: none !important;
-    pointer-events: none;
+  opacity: 0.5;
+  animation: none !important;
+  pointer-events: none;
 }
 
 .sticky-atc[hidden] {
-    display: none;
+  display: none;
 }
 
 button.sticky-atc__atc[disabled="disabled"] {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 @media (max-width: 767px) {
-    .sticky-atc {
-        flex-wrap: wrap;
-    }
+  .sticky-atc {
+    flex-wrap: wrap;
+  }
 
-    .sticky-atc__img,
-    .sticky-atc__title {
-        display: none
-    }
+  .sticky-atc__img,
+  .sticky-atc__title {
+    display: none;
+  }
 
-    .sticky-atc__product {
-        flex-direction: column;
-        margin-bottom: 15px;
-    }
+  .sticky-atc__product {
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
 }
 
 @media (max-width: 575px) {
+  .sticky-atc__product,
+  .sticky-atc__btns {
+    width: 100%;
+  }
 
-    .sticky-atc__product,
-    .sticky-atc__btns {
-        width: 100%;
-    }
+  .sticky-atc__qty {
+    margin-right: 10px;
+  }
 
-    .sticky-atc__qty {
-        margin-right: 10px;
-    }
-
-    .sticky-atc__atc {
-        flex-basis: 0;
-        flex-grow: 1;
-        max-width: 100%;
-    }
+  .sticky-atc__atc {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+  }
 }

@@ -1,54 +1,56 @@
 .promo-text p {
-    color: var(--text-cl);
-    font-size: var(--text-fs);
-    font-weight: var(--text-fw);
-    letter-spacing: var(--text-ls);
-    line-height: var(--text-lh);
-    margin-bottom: 0px;
+  color: var(--text-cl);
+  font-size: var(--text-fs);
+  font-weight: var(--text-fw);
+  letter-spacing: var(--text-ls);
+  line-height: var(--text-lh);
+  margin-bottom: 0;
 }
 
 .promo-text p a {
-    color: var(--color-link);
+  color: var(--color-link);
 }
 
 .promo-text p a:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 .promo-text .slide-eff-translate .prt-text p {
-    -webkit-transform: translateY(50px);
-    transform: translateY(50px);
-    opacity: 0;
-    transition: opacity .8s, transform .8s, -webkit-transform .8s;
-    will-change: transform, opacity;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
+  -webkit-transform: translateY(50px);
+  transform: translateY(50px);
+  opacity: 0;
+  transition:
+    opacity 0.8s,
+    transform 0.8s,
+    -webkit-transform 0.8s;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 .promo-text .slide-eff-translate .prt-text.is-selected p {
-    -webkit-transform: none;
-    transform: none;
-    opacity: 1;
+  -webkit-transform: none;
+  transform: none;
+  opacity: 1;
 }
 
 .promo-text .countdown-enabled {
-    display: inline-block;
+  display: inline-block;
 }
 
-@media screen and (min-width:768px) {
-    .promo-text .prt-text[style*="--text-lh:0px"] p {
-        line-height: inherit;
-    }
+@media screen and (min-width: 768px) {
+  .promo-text .prt-text[style*="--text-lh:0px"] p {
+    line-height: inherit;
+  }
 }
 
-@media screen and (max-width:767px) {
-    .promo-text p {
-        font-size: var(--text-fs-mb);
-        letter-spacing: var(--text-ls-mb);
-        line-height: var(--text-lh-mb);
-    }
+@media screen and (max-width: 767px) {
+  .promo-text p {
+    font-size: var(--text-fs-mb);
+    letter-spacing: var(--text-ls-mb);
+    line-height: var(--text-lh-mb);
+  }
 
-    .promo-text .prt-text[style*="--text-lh-mb:0px"] p {
-        line-height: inherit;
-    }
+  .promo-text .prt-text[style*="--text-lh-mb:0px"] p {
+    line-height: inherit;
+  }
 }

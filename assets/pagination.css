@@ -1,37 +1,44 @@
 .pagination-wrapper {
-    border-top: 1px solid var(--border-color);
-    margin-bottom: 60px;
-    text-align: inherit !important;
+  border-top: 1px solid var(--border-color);
+  margin-bottom: 60px;
+  text-align: inherit !important;
 }
+
 .has-btn-load-more .pagination-wrapper,
 .has-btn-infinite .pagination-wrapper {
-    padding-top: 40px; 
+  padding-top: 40px;
 }
 
 .pagination-wrapper .pagination__list {
-    display: inline-block;
-    list-style: none;
-    margin: 10px 0;
-    padding: 5px 10px;
+  display: inline-block;
+  list-style: none;
+  margin: 10px 0;
+  padding: 5px 10px;
 }
+
 .pagination-wrapper .pagination__list li {
-    float: left;
-    margin: 0 10px;
-    color: var(--ts-dark-color);
+  float: left;
+  margin: 0 10px;
+  color: var(--ts-dark-color);
 }
+
 .pagination__item {
-    display: inline-block;
-    list-style: none;
-    margin: 10px 0;
-    padding: 5px 10px;
+  display: inline-block;
+  list-style: none;
+  margin: 10px 0;
+  padding: 5px 10px;
 }
-.pagination__list li a:hover, .pagination__list .pagination__item--current {
-    color: #ec0101;
+
+.pagination__list li a:hover,
+.pagination__list .pagination__item--current {
+  color: #ec0101;
 }
+
 .prs-footer .btn.loadmore-btn svg.btn-icon {
-	width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
+
 .pagination-wrapper > a {
-    margin-top: 40px;
+  margin-top: 40px;
 }

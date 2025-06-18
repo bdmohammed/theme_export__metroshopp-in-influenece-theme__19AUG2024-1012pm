@@ -82,9 +82,10 @@
 
 /* Custom CSS */
 @media (min-width: 1025px) {
-
-  .product-form__variants.grouped-product.is-btn-full-width__false .product-form__buttons,
-  .product-form__variants.grouped-product.is-btn-full-width__false .product-form__submit {
+  .product-form__variants.grouped-product.is-btn-full-width__false
+    .product-form__buttons,
+  .product-form__variants.grouped-product.is-btn-full-width__false
+    .product-form__submit {
     min-width: 230px;
   }
 }

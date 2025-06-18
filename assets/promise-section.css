@@ -5,7 +5,7 @@
   height: 4rem; */
   height: 248px;
   background-color: #fff;
-  box-shadow: 0 1px 8px 0 rgb(161 161 161 / 50%);
+  box-shadow: 0 1px 8px 0 rgb(161 161 161 / 0.5);
   font-family: Muli, Arial, sans-serif;
   float: left;
   text-align: center;
@@ -31,16 +31,16 @@
   left: 0;
   bottom: 0;
   z-index: 2;
-  transition: .40s all ease-out;
+  transition: 0.4s all ease-out;
   transform: translateY(100%);
   -webkit-transform: translateY(100%);
 }
 
 .promise-section .hover-content.active {
   transform: translateY(0);
-  transition: .40s all ease-out;
+  transition: 0.4s all ease-out;
   -webkit-transform: translateY(0);
-  -webkit-transition: .40s all ease-out;
+  -webkit-transition: 0.4s all ease-out;
 }
 
 .promise-section .hover-content .hover-inner {
@@ -59,7 +59,7 @@
 }
 
 .promise-section .hover-content .hover-inner .hover-title:after {
-  content: '';
+  content: "";
   display: block;
   width: 279px;
   height: 2px;
@@ -70,7 +70,6 @@
 
 .promise-section .hover-content .hover-inner .hover-para {
   font-size: 13px;
-  line-height: 19px;
   line-height: 18px;
   color: #4a4a4a;
 }
@@ -118,7 +117,8 @@
 /* Icons delcarations starts */
 
 .cards .icon {
-  background: url(//kinnpimg1.bluestone.com/resources/themes/bluestone/images/new/new-icons-sprite.png) no-repeat 0 0;
+  background: url(//kinnpimg1.bluestone.com/resources/themes/bluestone/images/new/new-icons-sprite.png)
+    no-repeat 0 0;
   display: inline-block;
   width: 101px;
   height: 100px;
@@ -153,7 +153,6 @@
   width: 115px;
   background-position: -211px -94px;
 }
-
 
 /* Icons delcarations ends */
 

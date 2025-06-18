@@ -8,7 +8,7 @@
 
 ul.banner-nav__links {
   margin: 0;
-  padding: 0
+  padding: 0;
 }
 
 ul.banner-nav__links li a {
@@ -38,7 +38,7 @@ ul.banner-nav__links li a:hover {
 }
 
 .banner-nav .banner-nav__img {
-  padding: var(--banner-pd)
+  padding: var(--banner-pd);
 }
 
 .banner-nav__link i {
@@ -64,23 +64,23 @@ a.banner-nav__heading i {
   border-radius: 50px;
   line-height: 16px;
   background: var(--accent-color);
-  -webkit-transition: opacity .3s ease-in-out;
-  -moz-transition: opacity .3s ease-in-out;
-  -o-transition: opacity .3s ease-in-out;
-  transition: opacity .3s ease-in-out;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.3s ease-in-out;
+  -o-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
   opacity: 1;
   box-shadow: 1px 1px 3px #0000004d;
   margin-left: 5px;
 }
 
-@media (max-width:767px) {
+@media (max-width: 767px) {
   .banner-nav .banner-nav__img {
-    padding: var(--banner_pd_mb)
+    padding: var(--banner_pd_mb);
   }
 }
 
-@media (min-width:1025px) {
+@media (min-width: 1025px) {
   .banner-nav .banner-nav__wrap {
-    align-items: center
+    align-items: center;
   }
 }

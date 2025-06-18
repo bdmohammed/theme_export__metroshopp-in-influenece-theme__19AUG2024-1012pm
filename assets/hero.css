@@ -1,104 +1,99 @@
-.hero-inner>a:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    background-color: var(--bg-overlay);
+.hero-inner > a:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-color: var(--bg-overlay);
 }
 
 .bg-cl-wrap {
-    background-color: var(--bg-overlay);
+  background-color: var(--bg-overlay);
 }
 
 .content-wrap.container {
-    margin: 0px auto;
+  margin: 0 auto;
 }
 
 /* hero background video */
 @media screen and (min-width: 1140px) {
-    .bg-video iframe {
-        width: 100%;
-        height: 300% !important;
-        left: auto !important;
-        top: -100% !important;
-    }
+  .bg-video iframe {
+    width: 100%;
+    height: 300% !important;
+    left: auto !important;
+    top: -100% !important;
+  }
 }
 
 .bg-video iframe {
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 300% !important;
-    left: -100% !important;
-    max-width: none;
-    pointer-events: none;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300% !important;
+  left: -100% !important;
+  max-width: none;
+  pointer-events: none;
 }
-
-
 
 .bgvideo-playing video.bg_vid_html5,
 .video {
-    padding: 0;
-    object-fit: cover;
-    object-position: 50% 50%;
+  padding: 0;
+  object-fit: cover;
+  object-position: 50% 50%;
 }
 
 .bgvideo-playing .placeholder-svg,
 .bgvideo-playing .img-video {
-    opacity: 0;
-    visibility: hidden;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .bgvideo-playing video.bg_vid_html5,
 .bgvideo-playing iframe {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 .img-video {
-    background-repeat: no-repeat;
-    background-size: cover;
-    z-index: 3;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 3;
 }
 
 .video[loaded="true"] iframe {
-    z-index: 101;
-    object-fit: cover;
+  z-index: 101;
+  object-fit: cover;
 }
 
 .video video {
-    z-index: 101;
-    object-fit: cover;
+  z-index: 101;
+  object-fit: cover;
 }
-
-
 
 /* video popup video */
 
 .video-popup-inline button.btn-cl-vi {
-    pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 102;
-    right: 0px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 102;
+  right: 0;
 }
 
 .postervideo-playing button.btn-cl-vi {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
-
 /* video featured */
-.ratio_po .ratio:not(.bg)>* {
-    position: static;
-    top: unset;
-    left: unset;
-    height: auto;
+.ratio_po .ratio:not(.bg) > * {
+  position: static;
+  top: unset;
+  left: unset;
+  height: auto;
 }

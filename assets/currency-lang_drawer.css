@@ -15,30 +15,30 @@
   padding: 10px;
   border-radius: 4px;
   display: flex;
-  align-items: center
+  align-items: center;
 }
 
 .btn-currencies-sidebar {
-  margin-top: 30px
+  margin-top: 30px;
 }
 
 .btn-languages-sidebar span,
 .btn-currencies-sidebar span {
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap
+  white-space: nowrap;
 }
 
 .btn-languages-sidebar svg,
 .btn-currencies-sidebar svg {
   width: 9px;
   min-width: 9px;
-  margin-inline-start: 5px
+  margin-inline-start: 5px;
 }
 
 .btn-languages-sidebar svg {
   position: relative;
-  top: 1px
+  top: 1px;
 }
 
 #drawer-currency-fixed [data-flags],
@@ -48,38 +48,32 @@
   text-align: start;
   color: var(--text-color);
   background-color: var(--ts-body-background);
-  border-bottom: 1px solid rgba(var(--text-color-rgb), .2)
+  border-bottom: 1px solid rgba(var(--text-color-rgb), 0.2);
 }
 
 #drawer-currency-fixed [data-flags].is--selected,
 #drawer-languages-fixed [data-flags].is--selected {
   color: var(--accent-color);
-  background-color: rgba(var(--text-color-rgb), .1)
+  background-color: rgba(var(--text-color-rgb), 0.1);
 }
 
 @media (max-width: 1024px) {
-
   [data-currency-pos="2"],
   [data-lang-pos="2"] {
-    display: none
+    display: none;
   }
 }
 
 @media (max-width: 767px) {
-
   #drawer-currency-fixed .drawer__header span,
   #drawer-languages-fixed .drawer__header span {
-    font-size: 14px
+    font-size: 14px;
   }
 }
 
-@media (-moz-touch-enabled: 0),
-(hover: hover) and (min-width: 1025px) {
-
+@media (-moz-touch-enabled: 0), (hover: hover) and (min-width: 1025px) {
   #drawer-currency-fixed [data-flags]:hover,
   #drawer-languages-fixed [data-flags]:hover {
-    background-color: rgba(var(--text-color-rgb), .1)
+    background-color: rgba(var(--text-color-rgb), 0.1);
   }
 }
-
-/*# sourceMappingURL=/s/files/1/0661/7423/t/254/assets/t4s-currency-lang_drawer.css.map?v=1682157426 */
