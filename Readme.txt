@@ -7,14 +7,14 @@ This project is a Shopify theme named `theme_metroshopp_housequip`. It includes 
 ```
 theme_metroshopp_housequip
 ├── assets
-│      ├── styles.css        # CSS styles for the theme
-│      └── scripts.js        # JavaScript code for the theme
-├── config                   # Configuration files for different environments
-├── layout                   # Layout files defining the structure of pages
-├── locales               # Localization files for multi-language support
-├── sections              # Reusable components within the theme
-├── snippets              # Reusable pieces of code
-├── templates             # Template files for different pages
+│      ├── styles.css         # CSS styles for the theme
+│      └── scripts.js         # JavaScript code for the theme
+├── config                    # Configuration files for different environments
+├── layout                    # Layout files defining the structure of pages
+├── locales                   # Localization files for multi-language support
+├── sections                  # Reusable components within the theme
+├── snippets                  # Reusable pieces of code
+├── templates                 # Template files for different pages
 ├── .eslintrc.json            # ESLint configuration for JavaScript linting
 ├── .prettierrc               # Prettier configuration for code formatting
 ├── .stylelintrc.json         # Stylelint configuration for CSS linting

@@ -1,10 +1,32 @@
 {
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": "explicit"
+  },
   "cSpell.words": [
     "endfor",
     "endstyle",
     "forloop",
     "stylesheet"
   ],
+  "stylelint.validate": [
+    "css",
+    "scss",
+    "sass",
+    "less",
+    "postcss",
+    "html",
+    "liquid"
+  ],
+  "files.associations": {
+    "*.liquid": "html"
+  },
+  "emmet.includeLanguages": {
+    "liquid": "html"
+  },
+  "prettier.requireConfig": true,
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
   "[liquid]": {
     "editor.defaultFormatter": "Shopify.theme-check-vscode",
     "editor.formatOnSave": true
