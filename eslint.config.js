@@ -1,25 +1,24 @@
-import js from "@eslint/js";
-import sonarjs from "eslint-plugin-sonarjs";
-import security from "eslint-plugin-security";
-import prettier from "eslint-plugin-prettier";
-import prettierConfig from "eslint-config-prettier";
+const js = require("@eslint/js");
+const sonarjs = require("eslint-plugin-sonarjs");
+const security = require("eslint-plugin-security");
+const prettier = require("eslint-plugin-prettier");
+const prettierConfig = require("eslint-config-prettier");
+const globals = require("globals");
 
-export default [
+module.exports = [
   js.configs.recommended,
   {
     files: ["assets/**/*.js", "!assets/**/*.min.js", "scripts/**/*.js"],
-    env: {
-      browser: true,
-      es2021: true,
-      node: false,
-      commonjs: false,
-      jquery: true,
-      es6: true,
-    },
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "script",
       globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.commonjs,
+        ...globals.jquery,
+        ...globals.es6,
+
         // Browser globals
         window: "readonly",
         document: "readonly",
