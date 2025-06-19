@@ -1,8 +1,11 @@
 // scripts/css-html-formatter.js
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path, { dirname } from "path";
+import { fileURLToPath } from 'url';
 
-module.exports = function (results) {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+export default function (results) {
   const reportPath = path.resolve(__dirname, "../reports/css-lint-report.html");
   // Process results and handle missing properties
   const issues = results.reduce((acc, result) => {

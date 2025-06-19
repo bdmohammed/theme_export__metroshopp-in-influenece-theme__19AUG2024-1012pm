@@ -1,14 +1,14 @@
-const js = require("@eslint/js");
-const sonarjs = require("eslint-plugin-sonarjs");
-const security = require("eslint-plugin-security");
-const prettier = require("eslint-plugin-prettier");
-const prettierConfig = require("eslint-config-prettier");
-const globals = require("globals");
+import js from "@eslint/js";
+import sonarjs from "eslint-plugin-sonarjs";
+import security from "eslint-plugin-security";
+import prettier from "eslint-plugin-prettier";
+import prettierConfig from "eslint-config-prettier";
+import globals from "globals";
 
-module.exports = [
+export default [
   js.configs.recommended,
   {
-    files: ["assets/**/*.js", "!assets/**/*.min.js", "scripts/**/*.js"],
+    files: ["assets/**/*.js", "!assets/**/*.min.js", "!scripts/**/*.js", "!gulpfile.js", "!**/*.config.js", "!**/*.liquid", "!**/*.html", "!**/*.css", "!**/*.scss"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "script",

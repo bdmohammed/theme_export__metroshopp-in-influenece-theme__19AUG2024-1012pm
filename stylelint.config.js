@@ -1,5 +1,5 @@
 /** @type {require('stylelint').Config} */
-module.exports = {
+export default {
   extends: ["stylelint-config-recommended", "stylelint-prettier/recommended"],
   overrides: [
     {

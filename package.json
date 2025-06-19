@@ -2,7 +2,7 @@
   "name": "theme_metroshopp_housequip",
   "version": "1.0.0",
   "description": "Professional Shopify theme development for Metroshopp Housequip",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "dev": "gulp dev",
     "build": "gulp build",
@@ -12,19 +12,13 @@
     "lint": "npm run lint:js && npm run lint:css && npm run lint:liquid",
     "lint:js": "eslint assets/**/*.js scripts/**/*.js  --fix --format html --output-file reports/js-lint-report.html",
     "lint:css": "stylelint assets/**/*.css --fix --custom-formatter ./scripts/css-html-formatter.js",
-    "lint:liquid": "theme check . --output=reports/liquid-lint-report.json",
+    "lint:liquid": "shopify theme check",
     "format:check": "prettier --check \"**/*.{js,css,json,md,liquid}\"",
     "format:fix": "prettier --write \"**/*.{js,css,json,md,liquid}\"",
     "postlint:css": "node scripts/format-css-report.js",
     "quality": "npm run lint && npm run format",
     "optimize": "gulp optimize",
-    "package": "gulp package",
-    "size-check": "bundlesize",
-    "install:shopify": "npm install -g @shopify/cli @shopify/theme",
-    "theme:dev": "shopify theme dev",
-    "theme:check": "shopify theme check",
-    "theme:push": "shopify theme push",
-    "theme:pull": "shopify theme pull"
+    "package": "gulp package"
   },
   "repository": {
     "type": "git",
@@ -40,7 +34,6 @@
     "@eslint/js": "^9.29.0",
     "@shopify/cli": "^3.81.2",
     "autoprefixer": "^10.4.21",
-    "bundlesize": "^0.18.2",
     "cssnano": "^7.0.7",
     "del": "^8.0.0",
     "eslint": "^9.29.0",
@@ -53,6 +46,7 @@
     "gulp": "^5.0.1",
     "gulp-clean-css": "^4.3.0",
     "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^9.1.0",
     "gulp-notify": "^5.0.0",
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^10.0.0",
@@ -62,6 +56,7 @@
     "gulp-stylelint": "^13.0.0",
     "gulp-terser": "^2.1.0",
     "gulp-zip": "^6.1.0",
+    "imagemin-pngquant": "^10.0.0",
     "postcss": "^8.5.6",
     "postcss-html": "^1.8.0",
     "prettier": "^3.5.3",
@@ -71,18 +66,5 @@
     "stylelint-config-standard": "^38.0.0",
     "stylelint-prettier": "^5.0.3",
     "through2": "^4.0.2"
-  },
-  "bundlesize": [
-    {
-      "path": "./assets/*.min.js",
-      "maxSize": "100kb"
-    },
-    {
-      "path": "./assets/*.min.css",
-      "maxSize": "50kb"
-    }
-  ],
-  "overrides": {
-    "iltorb": "npm:brotli@latest"
   }
 }
