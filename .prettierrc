@@ -1,6 +1,16 @@
 {
   "extends": ["stylelint-config-recommended", "stylelint-prettier/recommended"],
   "rules": {
+    "quoteProps": "as-needed",
+    "endOfLine": "lf",
+    "arrowParens": "avoid",
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "printWidth": 100,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "semi": true,
     "selector-class-pattern": null,
     "selector-id-pattern": null,
     "color-no-invalid-hex": true,
@@ -73,5 +83,36 @@
     "reports/**/*",
     "dist/**/*",
     "**reports/**"
+  ],
+  "overrides": [
+    {
+      "files": "*.liquid",
+      "options": {
+        "parser": "html",
+        "printWidth": 120,
+        "htmlWhitespaceSensitivity": "ignore"
+      }
+    },
+    {
+      "files": "*.json",
+      "options": {
+        "printWidth": 80,
+        "tabWidth": 2
+      }
+    },
+    {
+      "files": "*.css",
+      "options": {
+        "printWidth": 120,
+        "singleQuote": false
+      }
+    },
+    {
+      "files": "*.md",
+      "options": {
+        "printWidth": 80,
+        "proseWrap": "always"
+      }
+    }
   ]
 }

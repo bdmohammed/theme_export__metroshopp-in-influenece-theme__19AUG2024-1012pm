@@ -12,4 +12,4 @@ export default function (results) {
 
   fs.writeFileSync(reportPath, htmlReport);
   console.log(`CSS lint report generated: ${reportPath}`);
-};
+}
